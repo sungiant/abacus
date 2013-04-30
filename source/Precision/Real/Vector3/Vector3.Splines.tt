@@ -1,0 +1,102 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="../../../Generate.t4"#>
+// ┌────────────────────────────────────────────────────────────────────────┐ \\
+// │ Abacus - Fast, efficient, cross precision, maths library               │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Brought to you by:                                                     │ \\
+// │          _________                    .__               __             │ \\
+// │         /   _____/__ __  ____    ____ |__|____    _____/  |_           │ \\
+// │         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          │ \\
+// │         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            │ \\
+// │        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            │ \\
+// │                \/           \//_____/         \/     \/                │ \\
+// │                                                                        │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Copyright © 2013 A.J.Pook (http://sungiant.github.com)                 │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
+// │ a copy of this software and associated documentation files (the        │ \\
+// │ "Software"), to deal in the Software without restriction, including    │ \\
+// │ without limitation the rights to use, copy, modify, merge, publish,    │ \\
+// │ distribute, sublicense, and/or sellcopies of the Software, and to      │ \\
+// │ permit persons to whom the Software is furnished to do so, subject to  │ \\
+// │ the following conditions:                                              │ \\
+// │                                                                        │ \\
+// │ The above copyright notice and this permission notice shall be         │ \\
+// │ included in all copies or substantial portions of the Software.        │ \\
+// │                                                                        │ \\
+// │ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        │ \\
+// │ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     │ \\
+// │ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. │ \\
+// │ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   │ \\
+// │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
+// │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
+// │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
+// └────────────────────────────────────────────────────────────────────────┘ \\
+
+using System;
+using Sungiant.Abacus;
+
+<# foreach(var type in GetRealTypes() ) { #>
+namespace Sungiant.Abacus.<#= type #>Precision
+{
+	public partial struct Vector3
+	{	
+		public static void Barycentric (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, <#= type #> amount1, <#= type #> amount2, out Vector3 result)
+		{
+			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
+			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
+			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
+		}
+	
+		public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, <#= type #> amount, out Vector3 result)
+		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+			<#= type #> two = 2;
+			<#= type #> three = 3;
+
+			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			amount = (amount * amount) * (three - (two * amount));
+			result.X = value1.X + ((value2.X - value1.X) * amount);
+			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+		}
+
+		public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, <#= type #> amount, out Vector3 result)
+		{
+			<#= type #> half; RealMaths.Half(out half);
+			<#= type #> two = 2;
+			<#= type #> three = 3;
+			<#= type #> four = 4;
+			<#= type #> five = 5;
+
+			<#= type #> num = amount * amount;
+			<#= type #> num2 = amount * num;
+			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
+			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+			result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
+		}
+
+		public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, <#= type #> amount, out Vector3 result)
+		{
+			<#= type #> one = 1;
+			<#= type #> two = 2;
+			<#= type #> three = 3;
+
+			<#= type #> num = amount * amount;
+			<#= type #> num2 = amount * num;
+			<#= type #> num6 = ((two * num2) - (three * num)) + one;
+			<#= type #> num5 = (-two * num2) + (three * num);
+			<#= type #> num4 = (num2 - (two * num)) + amount;
+			<#= type #> num3 = num2 - num;
+			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
+			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
+			result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
+		}
+		
+
+	}
+}
+<# } #>

@@ -1,0 +1,143 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="../../../Generate.t4"#>
+// ┌────────────────────────────────────────────────────────────────────────┐ \\
+// │ Abacus - Fast, efficient, cross precision, maths library               │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Brought to you by:                                                     │ \\
+// │          _________                    .__               __             │ \\
+// │         /   _____/__ __  ____    ____ |__|____    _____/  |_           │ \\
+// │         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          │ \\
+// │         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            │ \\
+// │        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            │ \\
+// │                \/           \//_____/         \/     \/                │ \\
+// │                                                                        │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Copyright © 2013 A.J.Pook (http://sungiant.github.com)                 │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
+// │ a copy of this software and associated documentation files (the        │ \\
+// │ "Software"), to deal in the Software without restriction, including    │ \\
+// │ without limitation the rights to use, copy, modify, merge, publish,    │ \\
+// │ distribute, sublicense, and/or sellcopies of the Software, and to      │ \\
+// │ permit persons to whom the Software is furnished to do so, subject to  │ \\
+// │ the following conditions:                                              │ \\
+// │                                                                        │ \\
+// │ The above copyright notice and this permission notice shall be         │ \\
+// │ included in all copies or substantial portions of the Software.        │ \\
+// │                                                                        │ \\
+// │ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        │ \\
+// │ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     │ \\
+// │ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. │ \\
+// │ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   │ \\
+// │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
+// │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
+// │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
+// └────────────────────────────────────────────────────────────────────────┘ \\
+
+using System;
+using Sungiant.Abacus;
+
+<# foreach(var type in GetRealTypes() ) { #>
+namespace Sungiant.Abacus.<#= type #>Precision
+{
+	public partial struct Vector3
+	{
+		public static void Distance (ref Vector3 value1, ref Vector3 value2, out <#= type #> result)
+		{
+			<#= type #> num3 = value1.X - value2.X;
+			<#= type #> num2 = value1.Y - value2.Y;
+			<#= type #> num = value1.Z - value2.Z;
+			<#= type #> num4 = ((num3 * num3) + (num2 * num2)) + (num * num);
+			result = RealMaths.Sqrt (num4);
+		}
+		
+		public static void DistanceSquared (ref Vector3 value1, ref Vector3 value2, out <#= type #> result)
+		{
+			<#= type #> num3 = value1.X - value2.X;
+			<#= type #> num2 = value1.Y - value2.Y;
+			<#= type #> num = value1.Z - value2.Z;
+			result = ((num3 * num3) + (num2 * num2)) + (num * num);
+		}
+
+		public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out <#= type #> result)
+		{
+			result = ((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z);
+		}
+
+		public static void Normalise (ref Vector3 value, out Vector3 result)
+		{
+			<#= type #> one = 1;
+
+			<#= type #> num2 = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
+			<#= type #> num = one / RealMaths.Sqrt (num2);
+			result.X = value.X * num;
+			result.Y = value.Y * num;
+			result.Z = value.Z * num;
+		}
+
+		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
+		{
+			<#= type #> num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
+			<#= type #> num2 = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
+			<#= type #> num = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
+			result.X = num3;
+			result.Y = num2;
+			result.Z = num;
+		}
+
+		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
+		{
+			<#= type #> two = 2;
+
+			<#= type #> num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
+			result.X = vector.X - ((two * num) * normal.X);
+			result.Y = vector.Y - ((two * num) * normal.Y);
+			result.Z = vector.Z - ((two * num) * normal.Z);
+		}
+
+		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector3 result)
+		{
+			<#= type #> num3 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
+			<#= type #> num2 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
+			<#= type #> num = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
+			result.X = num3;
+			result.Y = num2;
+			result.Z = num;
+		}
+		
+		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
+		{
+			<#= type #> num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+			<#= type #> num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+			<#= type #> num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+			result.X = num3;
+			result.Y = num2;
+			result.Z = num;
+		}
+		
+		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector3 result)
+		{
+			<#= type #> one = 1;
+			<#= type #> num12 = rotation.X + rotation.X;
+			<#= type #> num2 = rotation.Y + rotation.Y;
+			<#= type #> num = rotation.Z + rotation.Z;
+			<#= type #> num11 = rotation.W * num12;
+			<#= type #> num10 = rotation.W * num2;
+			<#= type #> num9 = rotation.W * num;
+			<#= type #> num8 = rotation.X * num12;
+			<#= type #> num7 = rotation.X * num2;
+			<#= type #> num6 = rotation.X * num;
+			<#= type #> num5 = rotation.Y * num2;
+			<#= type #> num4 = rotation.Y * num;
+			<#= type #> num3 = rotation.Z * num;
+			<#= type #> num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
+			<#= type #> num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
+			<#= type #> num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
+			result.X = num15;
+			result.Y = num14;
+			result.Z = num13;
+		}
+	}
+}
+<# } #>

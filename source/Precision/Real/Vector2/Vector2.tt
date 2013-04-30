@@ -1,0 +1,133 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="../../../Generate.t4"#>
+// ┌────────────────────────────────────────────────────────────────────────┐ \\
+// │ Abacus - Fast, efficient, cross precision, maths library               │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Brought to you by:                                                     │ \\
+// │          _________                    .__               __             │ \\
+// │         /   _____/__ __  ____    ____ |__|____    _____/  |_           │ \\
+// │         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          │ \\
+// │         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            │ \\
+// │        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            │ \\
+// │                \/           \//_____/         \/     \/                │ \\
+// │                                                                        │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Copyright © 2013 A.J.Pook (http://sungiant.github.com)                 │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
+// │ a copy of this software and associated documentation files (the        │ \\
+// │ "Software"), to deal in the Software without restriction, including    │ \\
+// │ without limitation the rights to use, copy, modify, merge, publish,    │ \\
+// │ distribute, sublicense, and/or sellcopies of the Software, and to      │ \\
+// │ permit persons to whom the Software is furnished to do so, subject to  │ \\
+// │ the following conditions:                                              │ \\
+// │                                                                        │ \\
+// │ The above copyright notice and this permission notice shall be         │ \\
+// │ included in all copies or substantial portions of the Software.        │ \\
+// │                                                                        │ \\
+// │ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        │ \\
+// │ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     │ \\
+// │ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. │ \\
+// │ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   │ \\
+// │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
+// │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
+// │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
+// └────────────────────────────────────────────────────────────────────────┘ \\
+
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
+using Sungiant.Abacus;
+
+<# foreach(var type in GetRealTypes() ) { #>
+namespace Sungiant.Abacus.<#= type #>Precision
+{
+
+	[StructLayout (LayoutKind.Sequential)]
+	public partial struct Vector2
+		: IEquatable<Vector2>
+	{
+		public <#= type #> X;
+		public <#= type #> Y;
+		
+		public Vector2 (Int32 x, Int32 y)
+		{
+			this.X = (<#= type #>) x;
+			this.Y = (<#= type #>) y;
+		}
+
+		public Vector2 (<#= type #> x, <#= type #> y)
+		{
+			this.X = x;
+			this.Y = y;
+		}
+
+		public void Set (<#= type #> x, <#= type #> y)
+		{
+			this.X = x;
+			this.Y = y;
+		}
+
+		public Vector2 (<#= type #> value)
+		{
+			this.X = this.Y = value;
+		}
+
+		public <#= type #> Length ()
+		{
+			<#= type #> num = (this.X * this.X) + (this.Y * this.Y);
+			return RealMaths.Sqrt (num);
+		}
+
+		public <#= type #> LengthSquared ()
+		{
+			return ((this.X * this.X) + (this.Y * this.Y));
+		}
+
+		public void Normalise ()
+		{
+			<#= type #> num2 = (this.X * this.X) + (this.Y * this.Y);
+
+			<#= type #> one = 1;
+			<#= type #> num = one / (RealMaths.Sqrt (num2));
+			this.X *= num;
+			this.Y *= num;
+		}
+
+		public override String ToString ()
+		{
+			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
+		}
+
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector2) {
+				flag = this.Equals ((Vector2)obj);
+			}
+			return flag;
+		}
+		
+		public override Int32 GetHashCode ()
+		{
+			return (this.X.GetHashCode () + this.Y.GetHashCode ());
+		}
+
+		public Boolean IsUnit()
+		{
+			<#= type #> one = 1;
+
+			return RealMaths.IsZero(one - X*X - Y*Y);
+		}
+
+		#region IEquatable<Vector2>
+		public Boolean Equals (Vector2 other)
+		{
+			return ((this.X == other.X) && (this.Y == other.Y));
+		}
+		#endregion
+	}
+}
+
+<# } #>
