@@ -33,7 +33,6 @@
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace Sungiant.Abacus.Tests
 {
@@ -164,7 +163,7 @@ namespace Sungiant.Abacus.Tests
 		public void TestPosNegMultiply ()
 		{
 
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
 			Fixed32 negOne = -one;
 
 			Assert.That (one * one, Is.EqualTo (one));
@@ -200,8 +199,8 @@ namespace Sungiant.Abacus.Tests
 		[Test]
 		public void TestConstructFromString ()
 		{
-			Fixed32 zero; RealMaths.Zero(out zero);
-			Fixed32 one; RealMaths.One(out one);
+            Fixed32 zero; global::Sungiant.Abacus.RealMaths.Zero(out zero);
+            Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
 			Assert.That (Fixed32.Parse("0"), Is.EqualTo (zero));
 			Assert.That (Fixed32.Parse("-0"), Is.EqualTo (zero));
 			Assert.That (Fixed32.Parse("0."), Is.EqualTo (zero));
@@ -236,8 +235,8 @@ namespace Sungiant.Abacus.Tests
 			Fixed32 one = 1;
 			Fixed32 two = 2;
 			Fixed32 three = 3;
-			Fixed32 pi; RealMaths.Pi(out pi);
-			Fixed32 tau; RealMaths.Tau(out tau);
+            Fixed32 pi; global::Sungiant.Abacus.RealMaths.Pi(out pi);
+            Fixed32 tau; global::Sungiant.Abacus.RealMaths.Tau(out tau);
 
 			double p1 = Fixed32.Sin(zero).ToDouble();
 			double e1 = zero.ToDouble();
@@ -272,8 +271,8 @@ namespace Sungiant.Abacus.Tests
 			Fixed32 one = 1;
 			Fixed32 two = 2;
 			Fixed32 three = 3;
-			Fixed32 pi; RealMaths.Pi(out pi);
-			Fixed32 tau; RealMaths.Tau(out tau);
+            Fixed32 pi; global::Sungiant.Abacus.RealMaths.Pi(out pi);
+            Fixed32 tau; global::Sungiant.Abacus.RealMaths.Tau(out tau);
 
 			Assert.That (Fixed32.Cos (zero), Is.EqualTo (one));
 			Assert.That (Fixed32.Cos (pi / two), Is.EqualTo (zero));

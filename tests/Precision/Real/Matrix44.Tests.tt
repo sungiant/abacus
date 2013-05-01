@@ -1,6 +1,6 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#"#>
 <#@ output extension=".cs"#>
-<#@ include file="..\\..\\..\\..\\Sungiant.Abacus\\Source\\Generate.t4"#>
+<#@ include file="../../../source/Generate.t4"#>
 // ┌────────────────────────────────────────────────────────────────────────┐ \\
 // │ Abacus - Fast, efficient, cross precision, maths library               │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\

@@ -35,7 +35,6 @@
 
 using System;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace Sungiant.Abacus.Tests
 {
