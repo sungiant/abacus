@@ -1,4 +1,4 @@
-﻿<#@ include file="..\\Generate.t4"#>
+﻿<#@ include file="../Generate.t4"#>
 <#+ 
 	void GeneratePackedCommon(string type, string packedType, string packedVariableName, string realVariableName, int numPackedElements)
 	{ 
