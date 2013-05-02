@@ -52,7 +52,7 @@ x64/
 /source/Precision/Real/Vector3/Vector3.Utilities.cs
 /source/Precision/Real/Vector3/Vector3.cs
 /source/Precision/Real/Vector4/Vector4.Constants.cs
-/source/Precision/Real/Vector4/Vector4.Math.cs
+/source/Precision/Real/Vector4/Vector4.Maths.cs
 /source/Precision/Real/Vector4/Vector4.Operators.cs
 /source/Precision/Real/Vector4/Vector4.Splines.cs
 /source/Precision/Real/Vector4/Vector4.Utilities.cs
@@ -64,7 +64,7 @@ x64/
 /source/Precision/Real/BoundingSphere/BoundingSphere.cs
 /source/Precision/Real/GaussianElimination.cs
 /source/Precision/Real/GjkDistance.cs
-/source/Precision/Real/Matrix44/Constants.cs
+/source/Precision/Real/Matrix44/Matrix44.Constants.cs
 /source/Precision/Real/Matrix44/Matrix44.Create.cs
 /source/Precision/Real/Matrix44/Matrix44.Maths.cs
 /source/Precision/Real/Matrix44/Matrix44.Operators.cs
@@ -74,7 +74,7 @@ x64/
 /source/Precision/Real/Quad/Quad.cs
 /source/Precision/Real/Quaternion/Quaternion.Constants.cs
 /source/Precision/Real/Quaternion/Quaternion.Create.cs
-/source/Precision/Real/Quaternion/Quaternion.Math.cs
+/source/Precision/Real/Quaternion/Quaternion.Maths.cs
 /source/Precision/Real/Quaternion/Quaternion.Operators.cs
 /source/Precision/Real/Quaternion/Quaternion.Utilities.cs
 /source/Precision/Real/Quaternion/Quaternion.cs
@@ -82,7 +82,6 @@ x64/
 /source/Precision/Real/Triangle/Triangle.cs
 /tests/Precision/Real/Matrix44.Tests.cs
 /source/IPackedReal.cs
-
 /source/Packed/Alpha8.cs
 /source/Packed/Bgr_5_6_5.cs
 /source/Packed/Bgra16.cs
