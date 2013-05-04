@@ -1,0 +1,22 @@
+﻿    [TestFixture]
+    public class Bgra16Tests
+    {
+        [Test]
+        public static void TestAllPossibleValues()
+        {
+            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            {
+                var packedObj = new Bgra16();
+                
+                packedObj.PackedValue = packed;
+                
+                SinglePrecision.Vector4 unpacked;
+                
+                packedObj.UnpackTo(out unpacked);
+                
+                var newPackedObj = new Bgra16(ref unpacked);
+                
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+            }
+        }
+    }

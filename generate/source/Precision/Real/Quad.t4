@@ -1,0 +1,121 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public struct Quad
+		: IEquatable<Quad>
+	{
+		public Vector3 A
+		{
+			get
+			{
+				return tri1.A;
+			}
+			set
+			{
+				tri1.A = value;
+			}
+		}
+
+		public Vector3 B
+		{
+			get
+			{
+				return tri1.B;
+			}
+			set
+			{
+				tri1.B = value;
+				tri2.B = value;
+			}
+		}
+
+		public Vector3 C
+		{
+			get
+			{
+				return tri2.C;
+			}
+			set
+			{
+				tri1.C = value;
+				tri2.C = value;
+			}
+		}
+
+		public Vector3 D
+		{
+			get
+			{
+				return tri2.A;
+			}
+			set
+			{
+				tri1.A = value;
+				tri2.A = value;
+			}
+		}
+
+		Triangle tri1;
+		Triangle tri2;
+
+		public Quad (Vector3 a, Vector3 b, Vector3 c, Vector3 d)
+		{
+			this.tri1 = new Triangle(a, b, c);
+			this.tri2 = new Triangle(d, b, c);
+		}
+
+		// Determines whether or not this Quad is equal in value to another Quad
+		public Boolean Equals (Quad other)
+		{
+			if (this.A.X != other.A.X) return false;
+			if (this.A.Y != other.A.Y) return false;
+			if (this.A.Z != other.A.Z) return false;
+
+			if (this.B.X != other.B.X) return false;
+			if (this.B.Y != other.B.Y) return false;
+			if (this.B.Z != other.B.Z) return false;
+
+			if (this.C.X != other.C.X) return false;
+			if (this.C.Y != other.C.Y) return false;
+			if (this.C.Z != other.C.Z) return false;
+			
+			if (this.D.X != other.D.X) return false;
+			if (this.D.Y != other.D.Y) return false;
+			if (this.D.Z != other.D.Z) return false;
+
+			// They match!
+			return true;
+		}
+
+		// Determines whether or not this Quad is equal in value to another System.Object
+		public override Boolean Equals (Object obj)
+		{
+			if (obj == null) return false;
+
+			if (obj is Quad)
+			{
+				// Ok, it is a Quad, so just use the method above to compare.
+				return this.Equals ((Quad) obj);
+			}
+
+			return false;
+		}
+
+		public override Int32 GetHashCode ()
+		{
+			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode () + this.D.GetHashCode ());
+		}
+
+		public override String ToString ()
+		{
+			return string.Format ("{{A:{0} B:{1} C:{2} D:{3}}}", this.A, this.B, this.C, this.D);
+		}
+
+		public static Boolean operator == (Quad a, Quad b)
+		{
+			return a.Equals(b);
+		}
+
+		public static Boolean operator != (Quad a, Quad b)
+		{
+			return !a.Equals(b);
+		}
+	}

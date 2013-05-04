@@ -1,0 +1,23 @@
+﻿    [TestFixture]
+    public static class Alpha_8Tests
+    {
+        [Test]
+        public static void TestAllPossibleValues()
+        {
+            for (Byte packed = Byte.MinValue; packed < Byte.MaxValue; ++packed)
+            {
+                var packedObj = new Alpha_8();
+
+                packedObj.PackedValue = packed;
+
+                Single unpacked;
+
+                packedObj.UnpackTo(out unpacked);
+
+                var newPackedObj = new Alpha_8(unpacked);
+
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+            }
+        }
+    }
+

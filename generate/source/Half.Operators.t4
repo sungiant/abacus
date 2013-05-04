@@ -1,0 +1,204 @@
+        #region Operators
+
+        public static implicit operator Int32 (Half src)
+        {
+            return src.ToInt32 ();
+        }
+
+        public static implicit operator Single(Half src)
+        {
+            return src.ToSingle ();
+        }
+        
+        public static implicit operator Half (Int32 src)
+        {
+            return new Half(src);
+        }
+        
+        public static implicit operator Half(Single src)
+        {
+            return new Half(src);
+        }
+        
+        public static Half operator * (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator * (Half one, Int32 multi)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator *(Int32 multi, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator / (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator /(Half one, Int32 divisor)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator /(Int32 divisor, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator % (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator %(Half one, Int32 divisor)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator %(Int32 divisor, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator + (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator +(Half one, Int32 other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator +(Int32 other, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator - (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator -(Half one, Int32 other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator -(Int32 other, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator - (Half f)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator != (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator !=(Half one, Int32 other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator !=(Int32 other, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator >= (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator >=(Half one, Int32 other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator >=(Int32 other, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator <= (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator <=(Half one, Int32 other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator <=(Int32 other, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator > (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator >(Half one, Int32 other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator >(Int32 other, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator < (Half one, Half other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator <(Half one, Int32 other)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator <(Int32 other, Half one)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator <<(Half one, Int32 amount)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Half operator >>(Half one, Int32 amount)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public static Boolean operator == (Half one, Half other)
+        {
+            return one.rawData == other.rawData;
+        }
+        
+        public static Boolean operator ==(Half one, Int32 other)
+        {
+            return one == new Half (other);
+        }
+        
+        public static Boolean operator == (Int32 other, Half one)
+        {
+            return new Half (other) == one;
+        }
+
+        #endregion
+

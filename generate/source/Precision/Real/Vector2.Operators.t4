@@ -1,0 +1,126 @@
+﻿		#region Operators
+
+		public static Vector2 operator - (Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			return vector;
+		}
+		
+		public static Boolean operator == (Vector2 value1, Vector2 value2)
+		{
+			return ((value1.X == value2.X) && (value1.Y == value2.Y));
+		}
+		
+		public static Boolean operator != (Vector2 value1, Vector2 value2)
+		{
+			if (value1.X == value2.X) {
+				return !(value1.Y == value2.Y);
+			}
+			return true;
+		}
+
+		public static Vector2 operator + (Vector2 value1, Vector2 value2)
+		{
+			Vector2 vector;
+			vector.X = value1.X + value2.X;
+			vector.Y = value1.Y + value2.Y;
+			return vector;
+		}
+
+		public static Vector2 operator - (Vector2 value1, Vector2 value2)
+		{
+			Vector2 vector;
+			vector.X = value1.X - value2.X;
+			vector.Y = value1.Y - value2.Y;
+			return vector;
+		}
+
+		public static Vector2 operator * (Vector2 value1, Vector2 value2)
+		{
+			Vector2 vector;
+			vector.X = value1.X * value2.X;
+			vector.Y = value1.Y * value2.Y;
+			return vector;
+		}
+		
+		public static Vector2 operator * (Vector2 value, <#= type #> scaleFactor)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+		
+		public static Vector2 operator * (<#= type #> scaleFactor, Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		public static Vector2 operator / (Vector2 value1, Vector2 value2)
+		{
+			Vector2 vector;
+			vector.X = value1.X / value2.X;
+			vector.Y = value1.Y / value2.Y;
+			return vector;
+		}
+		
+		public static Vector2 operator / (Vector2 value1, <#= type #> divider)
+		{
+			Vector2 vector;
+			<#= type #> one = 1;
+			<#= type #> num = one / divider;
+			vector.X = value1.X * num;
+			vector.Y = value1.Y * num;
+			return vector;
+		}
+		
+		public static void Negate (ref Vector2 value, out Vector2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		public static void Add (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		public static void Subtract (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		public static void Multiply (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+		
+		public static void Multiply (ref Vector2 value1, <#= type #> scaleFactor, out Vector2 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+		}
+
+		public static void Divide (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		public static void Divide (ref Vector2 value1, <#= type #> divider, out Vector2 result)
+		{
+			<#= type #> one = 1;
+			<#= type #> num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+		
+		#endregion

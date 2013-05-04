@@ -1,0 +1,102 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public partial struct Vector3 
+		: IEquatable<Vector3>
+	{
+		public <#= type #> X;
+		public <#= type #> Y;
+		public <#= type #> Z;
+
+		public Vector2 XY
+		{
+			get
+			{
+				return new Vector2(X, Y);
+			}
+			set
+			{
+				this.X = value.X;
+				this.Y = value.Y;
+			}
+		}
+
+
+
+		public Vector3 (<#= type #> x, <#= type #> y, <#= type #> z)
+		{
+			this.X = x;
+			this.Y = y;
+			this.Z = z;
+		}
+
+		public Vector3 (<#= type #> value)
+		{
+			this.X = this.Y = this.Z = value;
+		}
+		
+		public Vector3 (Vector2 value, <#= type #> z)
+		{
+			this.X = value.X;
+			this.Y = value.Y;
+			this.Z = z;
+		}
+
+		public override String ToString ()
+		{
+			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
+		}
+
+		public Boolean Equals (Vector3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector3) {
+				flag = this.Equals ((Vector3)obj);
+			}
+			return flag;
+		}
+
+		public override Int32 GetHashCode ()
+		{
+			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
+		}
+
+		public <#= type #> Length ()
+		{
+			<#= type #> num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			return RealMaths.Sqrt (num);
+		}
+
+		public <#= type #> LengthSquared ()
+		{
+			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+		}
+
+
+		public void Normalise ()
+		{
+			<#= type #> one = 1;
+			<#= type #> num2 = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			<#= type #> num = one / RealMaths.Sqrt (num2);
+			this.X *= num;
+			this.Y *= num;
+			this.Z *= num;
+		}
+
+		public Boolean IsUnit()
+		{
+			<#= type #> one = 1;
+
+			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
+		}
+
+<#@ include file="Vector3.Constants.t4"#>
+<#@ include file="Vector3.Maths.t4"#>
+<#@ include file="Vector3.Operators.t4"#>
+<#@ include file="Vector3.Splines.t4"#>
+<#@ include file="Vector3.Utilities.t4"#>
+
+	}

@@ -1,0 +1,30 @@
+﻿    [TestFixture]
+    public class Short4Tests
+    {
+        [Test]
+        public static void TestRandomValues()
+        {
+            var rand = new System.Random();
+            var buff = new Byte[8];
+            
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                BitConverter.ToUInt64(buff, 0);
+
+                UInt64 packed = BitConverter.ToUInt64(buff, 0);
+                
+                var packedObj = new Short4();
+                
+                packedObj.PackedValue = packed;
+                
+                SinglePrecision.Vector4 unpacked;
+                
+                packedObj.UnpackTo(out unpacked);
+                
+                var newPackedObj = new Short4(ref unpacked);
+                
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+            }
+        }
+    }

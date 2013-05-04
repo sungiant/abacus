@@ -1,0 +1,27 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public struct Rg32 
+		: IPackedValue<UInt32>
+		, IEquatable<Rg32>
+		, IPackedReal2
+	{
+		public override String ToString ()
+		{
+			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
+		}
+
+		static void Pack(ref SinglePrecision.Vector2 realRg, out UInt32 packedRg)
+		{
+			UInt32 x = PackUtils.PackUnsignedNormalisedValue(0xffff, realRg.X);
+			UInt32 y = PackUtils.PackUnsignedNormalisedValue(0xffff, realRg.Y) << 16;
+			packedRg = (x | y);
+		}
+
+		static void Unpack(UInt32 packedRg, out SinglePrecision.Vector2 realRg)
+		{
+			realRg.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, packedRg);
+			realRg.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRg >> 16));
+		}
+
+		<#  GeneratePackedCommon("Rg32", "UInt32", "packedRg", "realRg", 2); #>
+		
+	}

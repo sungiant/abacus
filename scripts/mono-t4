@@ -1,0 +1,2 @@
+#!/bin/bash
+mono /Applications/Xamarin\ Studio.app/Contents/MacOS/lib/monodevelop/AddIns/MonoDevelop.TextTemplating/TextTransform.exe $@

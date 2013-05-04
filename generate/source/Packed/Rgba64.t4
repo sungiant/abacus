@@ -1,0 +1,30 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public struct Rgba64 
+		: IPackedValue<UInt64>
+		, IEquatable<Rgba64>
+		, IPackedReal4
+	{
+		public override String ToString ()
+		{
+			return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
+		}
+
+		static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt64 packedRgba)
+		{
+			UInt64 r = PackUtils.PackSignedNormalised(0xffff, realRgba.X);
+			UInt64 g = PackUtils.PackSignedNormalised(0xffff, realRgba.Y) << 16;
+			UInt64 b = PackUtils.PackSignedNormalised(0xffff, realRgba.Z) << 32;
+			UInt64 a = PackUtils.PackSignedNormalised(0xffff, realRgba.W) << 48;
+			packedRgba = (((r | g) | b) | a);
+		}
+
+		static void Unpack(UInt64 packedRgba, out SinglePrecision.Vector4 realRgba)
+		{
+			realRgba.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedRgba);
+			realRgba.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 16));
+			realRgba.Z = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 32));
+			realRgba.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 48));
+		}
+
+		<#  GeneratePackedCommon("Rgba64", "UInt64", "packedRgba", "realRgba", 4); #>
+	}

@@ -1,0 +1,52 @@
+﻿		#region Splines
+
+		public static void Barycentric (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, <#= type #> amount1, <#= type #> amount2, out Vector2 result)
+		{
+			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
+			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
+		}
+
+		public static void SmoothStep (ref Vector2 value1, ref Vector2 value2, <#= type #> amount, out Vector2 result)
+		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+			<#= type #> two = 2;
+			<#= type #> three = 3;
+
+			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			amount = (amount * amount) * (three - (two * amount));
+			result.X = value1.X + ((value2.X - value1.X) * amount);
+			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+		}
+		
+		public static void CatmullRom (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, <#= type #> amount, out Vector2 result)
+		{
+			<#= type #> half; RealMaths.Half(out half);
+			<#= type #> two = 2;
+			<#= type #> three = 3;
+			<#= type #> four = 4;
+			<#= type #> five = 5;
+
+			<#= type #> num = amount * amount;
+			<#= type #> num2 = amount * num;
+			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
+			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+		}
+
+		public static void Hermite (ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2, <#= type #> amount, out Vector2 result)
+		{
+			<#= type #> one = 1;
+			<#= type #> two = 2;
+			<#= type #> three = 3;
+
+			<#= type #> num = amount * amount;
+			<#= type #> num2 = amount * num;
+			<#= type #> num6 = ((two * num2) - (three * num)) + one;
+			<#= type #> num5 = (-two * num2) + (three * num);
+			<#= type #> num4 = (num2 - (two * num)) + amount;
+			<#= type #> num3 = num2 - num;
+			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
+			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
+		}
+		
+		#endregion

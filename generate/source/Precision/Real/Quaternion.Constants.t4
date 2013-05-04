@@ -1,0 +1,20 @@
+﻿		#region Constants
+
+		static Quaternion identity;
+		
+		public static Quaternion Identity
+		{
+			get
+			{
+				return identity;
+			}
+		}
+
+		static Quaternion ()
+		{
+			<#= type #> temp_one; RealMaths.One(out temp_one);
+			<#= type #> temp_zero; RealMaths.Zero(out temp_zero);
+			identity = new Quaternion (temp_zero, temp_zero, temp_zero, temp_one);
+		}
+		
+		#endregion

@@ -1,0 +1,30 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public struct NormalisedShort4 
+		: IPackedValue<UInt64>
+		, IEquatable<NormalisedShort4>
+		, IPackedReal4
+	{
+		public override String ToString ()
+		{
+			return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
+		}
+
+		static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
+		{
+			UInt64 x = PackUtils.PackSignedNormalised(0xffff, realXyzw.X);
+			UInt64 y = PackUtils.PackSignedNormalised(0xffff, realXyzw.Y) << 16;
+			UInt64 z = PackUtils.PackSignedNormalised(0xffff, realXyzw.Z) << 32;
+			UInt64 w = PackUtils.PackSignedNormalised(0xffff, realXyzw.W) << 48;
+			packedXyzw = (((x | y) | z) | w);
+		}
+
+		static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
+		{
+			realXyzw.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedXyzw);
+			realXyzw.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 16));
+			realXyzw.Z = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 32));
+			realXyzw.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 48));
+		}
+
+		<#  GeneratePackedCommon("NormalisedShort4", "UInt64", "packedXyzw", "realXyzw", 4); #>
+	}

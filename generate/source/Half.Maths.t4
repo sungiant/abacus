@@ -1,0 +1,54 @@
+﻿        #region Maths
+
+        static Half Sqrt(Half f, Int32 numberOfIterations)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Half Sqrt(Half f)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Half Square(Half f)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Half Sin(Half f)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Half Cos(Half f)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Half Tan(Half f)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static void Add(ref Half one, ref Half other, out Half ouput)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static void Subtract(ref Half one, ref Half other, out Half ouput)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static void Multiply(ref Half one, ref Half other, out Half output)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static void Divide(ref Half one, ref Half other, out Half output)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+

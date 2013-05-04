@@ -1,0 +1,6 @@
+﻿	// T is the type that the value is packed into
+	public interface IPackedValue<T>
+	{
+		T PackedValue { get; set; }
+	}
+

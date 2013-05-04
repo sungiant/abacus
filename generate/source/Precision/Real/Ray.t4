@@ -1,0 +1,160 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public struct Ray 
+		: IEquatable<Ray>
+	{
+		// The starting position of this ray
+		public Vector3 Position;
+		
+		// Normalised vector that defines the direction of this ray
+		public Vector3 Direction;
+
+		public Ray (Vector3 position, Vector3 direction)
+		{
+			this.Position = position;
+			this.Direction = direction;
+		}
+
+		// Determines whether or not this ray is equal in value to another ray
+		public Boolean Equals (Ray other)
+		{
+			// Check position
+			if (this.Position.X != other.Position.X) return false;
+			if (this.Position.Y != other.Position.Y) return false;
+			if (this.Position.Z != other.Position.Z) return false;
+
+			// Check direction
+			if (this.Direction.X != other.Direction.X) return false;
+			if (this.Direction.Y != other.Direction.Y) return false;
+			if (this.Direction.Z != other.Direction.Z) return false;
+
+			// They match!
+			return true;
+		}
+
+		// Determines whether or not this ray is equal in value to another System.Object
+		public override Boolean Equals (Object obj)
+		{
+			if (obj == null) return false;
+
+			if (obj is Ray)
+			{
+				// Ok, it is a Ray, so just use the method above to compare.
+				return this.Equals ((Ray) obj);
+			}
+
+			return false;
+		}
+
+		public override Int32 GetHashCode ()
+		{
+			return (this.Position.GetHashCode () + this.Direction.GetHashCode ());
+		}
+
+		public override String ToString ()
+		{
+			return string.Format ("{{Position:{0} Direction:{1}}}", this.Position, this.Direction);
+		}
+
+		// At what distance from it's starting position does this ray
+		// intersect the given box.  Returns null if there is no
+		// intersection.
+		public <#= type #>? Intersects (ref BoundingBox box)
+		{
+			return box.Intersects (ref this);
+		}
+
+		// At what distance from it's starting position does this ray
+		// intersect the given frustum.  Returns null if there is no
+		// intersection.
+		public <#= type #>? Intersects (ref BoundingFrustum frustum)
+		{
+			if (frustum == null)
+			{
+				throw new ArgumentNullException ();
+			}
+
+			return frustum.Intersects (ref this);
+		}
+
+		// At what distance from it's starting position does this ray
+		// intersect the given plane.  Returns null if there is no
+		// intersection.
+		public <#= type #>? Intersects (ref Plane plane)
+		{
+			<#= type #> zero = 0;
+
+			<#= type #> nearZero; RealMaths.FromString("0.00001", out nearZero);
+
+			<#= type #> num2 = ((plane.Normal.X * this.Direction.X) + (plane.Normal.Y * this.Direction.Y)) + (plane.Normal.Z * this.Direction.Z);
+			
+			if (RealMaths.Abs (num2) < nearZero)
+			{
+				return null;
+			}
+			
+			<#= type #> num3 = ((plane.Normal.X * this.Position.X) + (plane.Normal.Y * this.Position.Y)) + (plane.Normal.Z * this.Position.Z);
+
+			<#= type #> num = (-plane.D - num3) / num2;
+			
+			if (num < zero)
+			{
+				if (num < -nearZero)
+				{
+					return null;
+				}
+
+				num = zero;
+			}
+
+			return new <#= type #>? (num);
+		}
+
+		// At what distance from it's starting position does this ray
+		// intersect the given sphere.  Returns null if there is no
+		// intersection.
+		public <#= type #>? Intersects (ref BoundingSphere sphere)
+		{
+			<#= type #> zero = 0;
+
+			<#= type #> initialXOffset = sphere.Center.X - this.Position.X;
+
+			<#= type #> initialYOffset = sphere.Center.Y - this.Position.Y;
+			
+			<#= type #> initialZOffset = sphere.Center.Z - this.Position.Z;
+			
+			<#= type #> num7 = ((initialXOffset * initialXOffset) + (initialYOffset * initialYOffset)) + (initialZOffset * initialZOffset);
+
+			<#= type #> num2 = sphere.Radius * sphere.Radius;
+
+			if (num7 <= num2)
+			{
+				return zero;
+			}
+
+			<#= type #> num = ((initialXOffset * this.Direction.X) + (initialYOffset * this.Direction.Y)) + (initialZOffset * this.Direction.Z);
+			if (num < zero)
+			{
+				return null;
+			}
+			
+			<#= type #> num6 = num7 - (num * num);
+			if (num6 > num2)
+			{
+				return null;
+			}
+			
+			<#= type #> num8 = RealMaths.Sqrt ((num2 - num6));
+
+			return new <#= type #>? (num - num8);
+		}
+
+		public static Boolean operator == (Ray a, Ray b)
+		{
+			return a.Equals(b);
+		}
+
+		public static Boolean operator != (Ray a, Ray b)
+		{
+			return !a.Equals(b);
+		}
+	}

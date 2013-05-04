@@ -1,0 +1,113 @@
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Half
+        : IFormattable
+            , IComparable<Half>
+            , IComparable
+            , IConvertible
+            , IEquatable<Half>
+    {
+        UInt16 rawData;
+
+        static Half()
+        {
+        }
+        
+        public Half(Int32 value)
+        {
+            rawData = HalfUtils.Pack((Single) value);
+        }
+        
+        public Half (Single value)
+        {
+            rawData = HalfUtils.Pack(value);
+        }
+        
+        public static bool TryParse(string s, NumberStyles style, IFormatProvider provider, out Half result)
+        {
+            Single d;
+            Boolean ok = Single.TryParse(s, style, provider, out d);
+            if( ok )
+            {
+                result = new Half(d);
+            }
+            else
+            {
+                result = 0;
+            }
+            
+            return ok;
+        }
+        
+        public static bool TryParse(string s, out Half result)
+        {
+            return TryParse(s, NumberStyles.Any, null, out result);
+        }
+        
+        public static Half Parse(string s)
+        {
+            return Parse(s, (NumberStyles.Float | NumberStyles.AllowThousands), null);
+        }
+        
+        public static Half Parse (string s, IFormatProvider provider)
+        {
+            return Parse(s, (NumberStyles.Float | NumberStyles.AllowThousands), provider);
+        }
+        
+        public static Half Parse (string s, NumberStyles style)
+        {
+            return Parse(s, style, null);
+        }
+        
+        public static Half Parse (string s, NumberStyles style, IFormatProvider provider) 
+        {
+            Single d = Single.Parse(s, style, provider);
+            return new Half(d);
+        }
+        
+        
+        public static Half CreateFromRaw (UInt16 rawValue)
+        {
+            Half h;
+            h.rawData = rawValue;
+            return h;
+        }
+        
+        public Int32 ToInt32 ()
+        {
+            return (Int32) ToSingle();
+        }
+
+        public Single ToSingle ()
+        {
+            return HalfUtils.Unpack(rawData);
+        }
+        
+        public override Boolean Equals(object obj)
+        {
+            if (obj is Half)
+            {
+                return ((Half)obj).rawData == rawData;
+            }
+            
+            return false;
+        }
+        
+        public override Int32 GetHashCode()
+        {
+            return (Int32) rawData;
+        }
+        
+        public override String ToString()
+        {
+            return ToSingle().ToString();
+        }
+
+<#@ include file="Half.Constants.t4"#>
+<#@ include file="Half.Maths.t4"#>
+<#@ include file="Half.Operators.t4"#>
+<#@ include file="Half.IComparable.t4"#>
+<#@ include file="Half.IConvertible.t4"#>
+<#@ include file="Half.IEquatable.t4"#>
+<#@ include file="Half.IFormattable.t4"#>
+
+    }

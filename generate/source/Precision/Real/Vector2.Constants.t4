@@ -1,0 +1,39 @@
+﻿		#region Constants
+
+		static Vector2 zero;
+		static Vector2 one;
+		static Vector2 unitX;
+		static Vector2 unitY;
+
+		static Vector2 ()
+		{
+			<#= type #> temp_one; RealMaths.One(out temp_one);
+			<#= type #> temp_zero; RealMaths.Zero(out temp_zero);
+
+			zero = new Vector2 ();
+			one = new Vector2 (temp_one, temp_one);
+			unitX = new Vector2 (temp_one, temp_zero);
+			unitY = new Vector2 (temp_zero, temp_one);
+		}
+
+		public static Vector2 Zero
+		{
+			get { return zero; }
+		}
+		
+		public static Vector2 One
+		{
+			get { return one; }
+		}
+		
+		public static Vector2 UnitX
+		{
+			get { return unitX; }
+		}
+		
+		public static Vector2 UnitY
+		{
+			get { return unitY; }
+		}
+		
+		#endregion

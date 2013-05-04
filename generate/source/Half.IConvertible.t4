@@ -1,0 +1,96 @@
+        #region IConvertible
+
+        public TypeCode GetTypeCode()
+        {
+            return TypeCode.Object;
+        }
+        
+        public bool ToBoolean(IFormatProvider provider)
+        {
+            if (rawData != 0)
+                return false;
+            
+            return true;
+        }
+        
+        byte IConvertible.ToByte(IFormatProvider provider)
+        {
+            return Convert.ToByte(ToSingle());
+        }
+        
+        char IConvertible.ToChar(IFormatProvider provider)
+        {
+            return Convert.ToChar(ToSingle());
+        }
+        
+        DateTime IConvertible.ToDateTime(IFormatProvider provider)
+        {
+            return Convert.ToDateTime(ToSingle());
+        }
+        
+        decimal IConvertible.ToDecimal(IFormatProvider provider)
+        {
+            return Convert.ToDecimal(ToSingle());
+        }
+        
+        double IConvertible.ToDouble(IFormatProvider provider)
+        {
+            return ToSingle();
+        }
+        
+        short IConvertible.ToInt16(IFormatProvider provider)
+        {
+            return Convert.ToInt16(ToSingle());
+        }
+        
+        int IConvertible.ToInt32(IFormatProvider provider)
+        {
+            return Convert.ToInt32(ToSingle());
+        }
+        
+        long IConvertible.ToInt64(IFormatProvider provider)
+        {
+            return Convert.ToInt64(ToSingle());
+        }
+        
+        sbyte IConvertible.ToSByte(IFormatProvider provider)
+        {
+            return Convert.ToSByte(ToSingle());
+        }
+        
+        float IConvertible.ToSingle(IFormatProvider provider)
+        {
+            return Convert.ToSingle(ToSingle());
+        }
+        
+        string IConvertible.ToString(IFormatProvider provider)
+        {
+            return this.ToString();
+        }
+        
+        object IConvertible.ToType(Type conversionType, IFormatProvider provider)
+        {
+#if NETFW_XBOX360 || NETFW_WP75
+            return Convert.ChangeType(ToSingle(), conversionType, null);
+#else
+            return Convert.ChangeType(ToSingle(), conversionType);
+#endif
+        }
+        
+        ushort IConvertible.ToUInt16(IFormatProvider provider)
+        {
+            return Convert.ToUInt16(ToSingle());
+        }
+        
+        uint IConvertible.ToUInt32(IFormatProvider provider)
+        {
+            return Convert.ToUInt32(ToSingle());
+        }
+        
+        ulong IConvertible.ToUInt64(IFormatProvider provider)
+        {
+            return Convert.ToUInt64(ToSingle());
+        }
+
+        #endregion
+

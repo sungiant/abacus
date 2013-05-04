@@ -1,0 +1,30 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public struct NormalisedByte4 
+		: IPackedValue<UInt32>
+		, IEquatable<NormalisedByte4>
+		, IPackedReal4
+	{
+		public override String ToString ()
+		{
+			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
+		}
+
+		static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt32 packedXyzw)
+		{
+			UInt32 x = PackUtils.PackSignedNormalised(0xff, realXyzw.X);
+			UInt32 y = PackUtils.PackSignedNormalised(0xff, realXyzw.Y) << 8;
+			UInt32 z = PackUtils.PackSignedNormalised(0xff, realXyzw.Z) << 16;
+			UInt32 w = PackUtils.PackSignedNormalised(0xff, realXyzw.W) << 24;
+			packedXyzw = (((x | y) | z) | w);
+		}
+
+		static void Unpack(UInt32 packedXyzw, out SinglePrecision.Vector4 realXyzw)
+		{
+			realXyzw.X = PackUtils.UnpackSignedNormalised (0xff, packedXyzw);
+			realXyzw.Y = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXyzw >> 8));
+			realXyzw.Z = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXyzw >> 16));
+			realXyzw.W = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXyzw >> 24));
+		}
+
+		<#  GeneratePackedCommon("NormalisedByte4", "UInt32", "packedXyzw", "realXyzw", 4); #>
+	}

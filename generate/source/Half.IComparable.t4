@@ -1,0 +1,28 @@
+		#region IComparable
+
+		public int CompareTo(Half other)
+		{
+			return rawData.CompareTo(other.rawData);
+		}
+
+        public int CompareTo(object value)
+		{
+			if (value == null)
+				return 1;
+
+            if (!(value is Sungiant.Abacus.Half))
+                throw new ArgumentException("Value is not a Sungiant.Abacus.Half.");
+
+            Half hv = (Half)value;
+
+			if (this == hv)
+				return 0;
+			else if (this > hv)
+				return 1;
+			else
+				return -1;
+
+		}
+
+		#endregion
+

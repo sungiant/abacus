@@ -1,0 +1,36 @@
+﻿	public interface IPackedReal
+	{
+<# foreach( var type in GetRealTypes() ) { #>
+		void PackFrom(<#= type #> input);
+		void UnpackTo(out <#= type #> output);
+
+<# } #>
+	}
+
+	public interface IPackedReal2
+	{
+<# foreach( var type in GetRealTypes() ) { #>
+		void PackFrom(ref <#= type #>Precision.Vector2 input);
+		void UnpackTo(out <#= type #>Precision.Vector2 output);
+
+<# } #>
+	}
+
+	public interface IPackedReal3
+	{
+<# foreach( var type in GetRealTypes() ) { #>
+		void PackFrom(ref <#= type #>Precision.Vector3 input);
+		void UnpackTo(out <#= type #>Precision.Vector3 output);
+
+<# } #>
+	}
+
+	public interface IPackedReal4
+	{
+<# foreach( var type in GetRealTypes() ) { #>
+		void PackFrom(ref <#= type #>Precision.Vector4 input);
+		void UnpackTo(out <#= type #>Precision.Vector4 output);
+
+<# } #>
+	}
+

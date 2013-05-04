@@ -1,0 +1,108 @@
+﻿		#region Constants
+
+		static Vector3 _zero;
+		static Vector3 _one;
+		static Vector3 _half;
+		static Vector3 _unitX;
+		static Vector3 _unitY;
+		static Vector3 _unitZ;
+		static Vector3 _up;
+		static Vector3 _down;
+		static Vector3 _right;
+		static Vector3 _left;
+		static Vector3 _forward;
+		static Vector3 _backward;
+
+		static Vector3 ()
+		{
+			<#= type #> temp_one; RealMaths.One(out temp_one);
+			<#= type #> temp_half; RealMaths.Half(out temp_half);
+			<#= type #> temp_zero; RealMaths.Zero(out temp_zero);
+
+			_zero = new Vector3 ();
+			_one = new Vector3 (temp_one, temp_one, temp_one);
+			_half = new Vector3(temp_half, temp_half, temp_half);
+			_unitX = new Vector3 (temp_one, temp_zero, temp_zero);
+			_unitY = new Vector3 (temp_zero, temp_one, temp_zero);
+			_unitZ = new Vector3 (temp_zero, temp_zero, temp_one);
+			_up = new Vector3 (temp_zero, temp_one, temp_zero);
+			_down = new Vector3 (temp_zero, -temp_one, temp_zero);
+			_right = new Vector3 (temp_one, temp_zero, temp_zero);
+			_left = new Vector3 (-temp_one, temp_zero, temp_zero);
+			_forward = new Vector3 (temp_zero, temp_zero, -temp_one);
+			_backward = new Vector3 (temp_zero, temp_zero, temp_one);
+		}
+		
+		public static Vector3 Zero {
+			get {
+				return _zero;
+			}
+		}
+		
+		public static Vector3 One {
+			get {
+				return _one;
+			}
+		}
+		
+		public static Vector3 Half {
+			get {
+				return _half;
+			}
+		}
+		
+		public static Vector3 UnitX {
+			get {
+				return _unitX;
+			}
+		}
+		
+		public static Vector3 UnitY {
+			get {
+				return _unitY;
+			}
+		}
+		
+		public static Vector3 UnitZ {
+			get {
+				return _unitZ;
+			}
+		}
+		
+		public static Vector3 Up {
+			get {
+				return _up;
+			}
+		}
+		
+		public static Vector3 Down {
+			get {
+				return _down;
+			}
+		}
+		
+		public static Vector3 Right {
+			get {
+				return _right;
+			}
+		}
+		
+		public static Vector3 Left {
+			get {
+				return _left;
+			}
+		}
+		
+		public static Vector3 Forward {
+			get {
+				return _forward;
+			}
+		}
+		
+		public static Vector3 Backward {
+			get {
+				return _backward;
+			}
+		}
+		
+		#endregion

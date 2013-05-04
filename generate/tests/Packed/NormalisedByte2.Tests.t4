@@ -1,0 +1,22 @@
+﻿    [TestFixture]
+    public class NormalisedByte2Tests
+    {
+        [Test]
+        public static void TestAllPossibleValues()
+        {
+            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            {
+                var packedObj = new NormalisedByte2();
+                
+                packedObj.PackedValue = packed;
+                
+                SinglePrecision.Vector2 unpacked;
+                
+                packedObj.UnpackTo(out unpacked);
+                
+                var newPackedObj = new NormalisedByte2(ref unpacked);
+                
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+            }
+        }
+    }

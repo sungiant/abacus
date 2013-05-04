@@ -1,0 +1,142 @@
+﻿		#region Operators
+
+		public static Vector3 operator - (Vector3 value)
+		{
+			Vector3 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			vector.Z = -value.Z;
+			return vector;
+		}
+		
+		public static Boolean operator == (Vector3 value1, Vector3 value2)
+		{
+			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
+		}
+		
+		public static Boolean operator != (Vector3 value1, Vector3 value2)
+		{
+			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
+				return !(value1.Z == value2.Z);
+			}
+			return true;
+		}
+		
+		public static Vector3 operator + (Vector3 value1, Vector3 value2)
+		{
+			Vector3 vector;
+			vector.X = value1.X + value2.X;
+			vector.Y = value1.Y + value2.Y;
+			vector.Z = value1.Z + value2.Z;
+			return vector;
+		}
+		
+		public static Vector3 operator - (Vector3 value1, Vector3 value2)
+		{
+			Vector3 vector;
+			vector.X = value1.X - value2.X;
+			vector.Y = value1.Y - value2.Y;
+			vector.Z = value1.Z - value2.Z;
+			return vector;
+		}
+		
+		public static Vector3 operator * (Vector3 value1, Vector3 value2)
+		{
+			Vector3 vector;
+			vector.X = value1.X * value2.X;
+			vector.Y = value1.Y * value2.Y;
+			vector.Z = value1.Z * value2.Z;
+			return vector;
+		}
+		
+		public static Vector3 operator * (Vector3 value, <#= type #> scaleFactor)
+		{
+			Vector3 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			vector.Z = value.Z * scaleFactor;
+			return vector;
+		}
+		
+		public static Vector3 operator * (<#= type #> scaleFactor, Vector3 value)
+		{
+			Vector3 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			vector.Z = value.Z * scaleFactor;
+			return vector;
+		}
+		
+		public static Vector3 operator / (Vector3 value1, Vector3 value2)
+		{
+			Vector3 vector;
+			vector.X = value1.X / value2.X;
+			vector.Y = value1.Y / value2.Y;
+			vector.Z = value1.Z / value2.Z;
+			return vector;
+		}
+		
+		public static Vector3 operator / (Vector3 value, <#= type #> divider)
+		{
+			Vector3 vector;
+			<#= type #> one = 1;
+
+			<#= type #> num = one / divider;
+			vector.X = value.X * num;
+			vector.Y = value.Y * num;
+			vector.Z = value.Z * num;
+			return vector;
+		}
+
+		public static void Negate (ref Vector3 value, out Vector3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		public static void Multiply (ref Vector3 value1, <#= type #> scaleFactor, out Vector3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		public static void Divide (ref Vector3 value1, <#= type #> value2, out Vector3 result)
+		{
+			<#= type #> one = 1;
+			<#= type #> num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+		
+		#endregion

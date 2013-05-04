@@ -1,0 +1,34 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public partial struct Rgba32 
+		: IPackedValue<UInt32>
+		, IEquatable<Rgba32>
+		, IPackedReal4
+	{
+		public override String ToString ()
+		{
+			return string.Format ("{{R:{0} G:{1} B:{2} A:{3}}}", new Object[] { this.R, this.G, this.B, this.A });
+		}
+
+		static void Pack(ref SinglePrecision.Vector4 realRgba32, out UInt32 packedRgba32)
+		{
+			UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.X);
+			UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.Y) << 8;
+			UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.Z) << 16;
+			UInt32 a = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.W) << 24;
+			packedRgba32 = ((r | g) | b) | a;
+		}
+
+		static void Unpack(UInt32 packedRgba32, out SinglePrecision.Vector4 realRgba32)
+		{
+			realRgba32.X = PackUtils.UnpackUnsignedNormalisedValue (0xff, packedRgba32);
+			realRgba32.Y = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 8));
+			realRgba32.Z = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 16));
+			realRgba32.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 24));
+		}
+
+<#@ include file="Rgba32.Constants.t4"#>
+<#@ include file="Rgba32.Misc.t4"#>
+<#@ include file="Rgba32.Operators.t4"#>
+
+		<#  GeneratePackedCommon("Rgba32", "UInt32", "packedRgba32", "realRgba32", 4); #>
+	}

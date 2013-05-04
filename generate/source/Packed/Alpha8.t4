@@ -1,0 +1,23 @@
+﻿	[StructLayout(LayoutKind.Sequential)]
+	public struct Alpha_8
+		: IPackedValue<Byte>
+		, IEquatable<Alpha_8>
+		, IPackedReal
+	{
+		public override String ToString()
+		{
+			return this.packedValue.ToString("X2", CultureInfo.InvariantCulture);
+		}
+
+		static void Pack(Single realAlpha, out Byte packedAlpha)
+		{
+			packedAlpha = (Byte)PackUtils.PackUnsignedNormalisedValue(255f, realAlpha);
+		}
+
+		static void Unpack(Byte packedAlpha, out Single realAlpha)
+		{
+			realAlpha = PackUtils.UnpackUnsignedNormalisedValue(0xff, packedAlpha);
+		}
+
+		<#  GeneratePackedCommon("Alpha_8", "Byte", "packedAlpha", "realAlpha", 1); #>
+	}

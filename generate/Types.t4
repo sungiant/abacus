@@ -1,0 +1,19 @@
+﻿<#+
+	string[] GetRealTypes()
+	{
+		// todo: Fixed328, Fixed3216, Fixed3232, Fixed3264 and Fixed32128
+		//     : Minifloat (8), Half (16), Single, Double, Quadruple (binary128)
+		return new string[]
+		{ 
+			"Half", "Single", "Double", 
+			"Fixed32"
+		};
+	}
+	
+	string[] GetIntegerTypes()
+	{
+		// todo: Int8, Int16, Int128
+		return new string[]{ "Int32", "Int64" };
+
+	}
+#>

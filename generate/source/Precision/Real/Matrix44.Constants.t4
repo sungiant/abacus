@@ -1,0 +1,18 @@
+﻿		#region Constants
+
+		static Matrix44 identity;
+
+		static Matrix44 ()
+		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+			identity = new Matrix44 (one, zero, zero, zero, zero, one, zero, zero, zero, zero, one, zero, zero, zero, zero, one);
+		}
+
+		public static Matrix44 Identity {
+			get {
+				return identity;
+			}
+		}
+		
+		#endregion

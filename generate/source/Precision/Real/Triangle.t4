@@ -1,0 +1,553 @@
+﻿	[StructLayout (LayoutKind.Sequential)]
+	public struct Triangle
+		: IEquatable<Triangle>
+	{
+		public Vector3 A;
+		public Vector3 B;
+		public Vector3 C;
+
+		public Triangle (Vector3 a, Vector3 b, Vector3 c)
+		{
+			this.A = a;
+			this.B = b;
+			this.C = c;
+		}
+
+		// Determines whether or not this Triangle is equal in value to another Triangle
+		public Boolean Equals (Triangle other)
+		{
+			if (this.A.X != other.A.X) return false;
+			if (this.A.Y != other.A.Y) return false;
+			if (this.A.Z != other.A.Z) return false;
+
+			if (this.B.X != other.B.X) return false;
+			if (this.B.Y != other.B.Y) return false;
+			if (this.B.Z != other.B.Z) return false;
+
+			if (this.C.X != other.C.X) return false;
+			if (this.C.Y != other.C.Y) return false;
+			if (this.C.Z != other.C.Z) return false;
+
+			// They match!
+			return true;
+		}
+
+		// Determines whether or not this Triangle is equal in value to another System.Object
+		public override Boolean Equals (Object obj)
+		{
+			if (obj == null) return false;
+
+			if (obj is Triangle)
+			{
+				// Ok, it is a Triangle, so just use the method above to compare.
+				return this.Equals ((Triangle) obj);
+			}
+
+			return false;
+		}
+
+		public override Int32 GetHashCode ()
+		{
+			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode ());
+		}
+
+		public override String ToString ()
+		{
+			return string.Format ("{{A:{0} B:{1} C:{2}}}", this.A, this.B, this.C);
+		}
+
+		public static Boolean operator == (Triangle a, Triangle b)
+		{
+			return a.Equals(b);
+		}
+
+		public static Boolean operator != (Triangle a, Triangle b)
+		{
+			return !a.Equals(b);
+		}
+
+		public static Boolean IsPointInTriangleangle( ref Vector3 point, ref Triangle triangle )
+		{
+			Vector3 aToB = triangle.B - triangle.A;
+			Vector3 bToC = triangle.C - triangle.B;
+
+			Vector3 n; Vector3.Cross(ref aToB, ref bToC, out n);
+
+			Vector3 aToPoint = point - triangle.A;
+
+			Vector3 wTest; Vector3.Cross(ref aToB, ref aToPoint, out wTest);
+
+			<#= type #> zero = 0;
+
+			<#= type #> dot; Vector3.Dot(ref wTest, ref n, out dot);
+
+			if ( dot < zero )
+			{
+				return false;
+			}
+
+			Vector3 bToPoint = point - triangle.B;
+
+			Vector3.Cross(ref bToC, ref bToPoint, out wTest);
+
+			Vector3.Dot(ref wTest, ref n, out dot);
+
+			if ( dot < zero )
+			{
+				return false;
+			}
+
+			Vector3 cToA = triangle.A - triangle.C;
+
+			Vector3 cToPoint = point - triangle.C;
+
+			Vector3.Cross(ref cToA, ref cToPoint, out wTest);
+
+			Vector3.Dot(ref wTest, ref n, out dot);
+
+			if ( dot < zero )
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		// Determines whether or not a triangle is degenerate ( all points lay on the same line in space ).
+		public Boolean IsDegenerate()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		// Get's the Barycentric coordinates of a point inside a Triangle.
+		public static void BarycentricCoordinates( ref Vector3 point, ref Triangle triangle, out Vector3 barycentricCoordinates )
+		{
+			if( triangle.IsDegenerate() )
+			{
+				throw new System.ArgumentException("Input Triangle is degenerate, this is not supported.");
+			}
+
+			Vector3 aToB = triangle.B - triangle.A;
+			Vector3 aToC = triangle.C - triangle.A;
+			Vector3 aToPoint = point - triangle.A;
+
+			// compute cross product to get area of parallelograms
+			Vector3 cross1; Vector3.Cross(ref aToB, ref aToPoint, out cross1);
+			Vector3 cross2; Vector3.Cross(ref aToC, ref aToPoint, out cross2);
+			Vector3 cross3; Vector3.Cross(ref aToB, ref aToC, out cross3);
+	
+			// compute barycentric coordinates as ratios of areas
+
+			<#= type #> one = 1;
+
+			<#= type #> denom = one / cross3.Length();
+			barycentricCoordinates.X = cross2.Length() * denom;
+			barycentricCoordinates.Y = cross1.Length() * denom;
+			barycentricCoordinates.Z = one - barycentricCoordinates.X - barycentricCoordinates.Y;
+		}
+		/*
+
+		// Triangleangle Intersect
+		// ------------------
+		// Returns true if triangles P0P1P2 and Q0Q1Q2 intersect
+		// Assumes triangle is not degenerate
+		//
+		// This is not the algorithm presented in the text.  Instead, it is based on a 
+		// recent article by Guigue and Devillers in the July 2003 issue Journal of 
+		// Graphics Tools.  As it is faster than the ERIT algorithm, under ordinary 
+		// circumstances it would have been discussed in the text, but it arrived too late.  
+		//
+		// More information and the original source code can be found at
+		// http://www.acm.org/jgt/papers/GuigueDevillers03/
+		//
+		// A nearly identical algorithm was in the same issue of JGT, by Shen Heng and 
+		// Tang.  See http://www.acm.org/jgt/papers/ShenHengTang03/ for source code.
+		//
+		// Yes, this is complicated.  Did you think testing triangles would be easy?
+		//
+		static Boolean TriangleangleIntersect( 
+			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
+			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
+		{
+			// test P against Q's plane
+			Vector3 normalQ = Vector3.Cross( Q1 - Q0, Q2 - Q0 );
+
+			Single testP0 = Vector3.Dot( normalQ, P0 - Q0 );
+			Single testP1 = Vector3.Dot( normalQ, P1 - Q0 );
+			Single testP2 = Vector3.Dot( normalQ, P2 - Q0 );
+  
+			// P doesn't intersect Q's plane
+			if ( testP0 * testP1 > AbacusHelper.Epsilon && testP0*testP2 > AbacusHelper.Epsilon )
+				return false;
+
+			// test Q against P's plane
+			Vector3 normalP = Vector3.Cross( P1 - P0, P2 - P0 );
+
+			Single testQ0 = Vector3.Dot( normalP, Q0 - P0 );
+			Single testQ1 = Vector3.Dot( normalP, Q1 - P0 );
+			Single testQ2 = Vector3.Dot( normalP, Q2 - P0 );
+  
+			// Q doesn't intersect P's plane
+			if (testQ0*testQ1 > AbacusHelper.Epsilon && testQ0*testQ2 > AbacusHelper.Epsilon )
+				return false;
+	
+			// now we rearrange P's vertices such that the lone vertex (the one that lies
+			// in its own half-space of Q) is first.  We also permute the other
+			// triangle's vertices so that P0 will "see" them in counterclockwise order
+
+			// Once reordered, we pass the vertices down to a helper function which will
+			// reorder Q's vertices, and then test
+
+			// P0 in Q's positive half-space
+			if (testP0 > AbacusHelper.Epsilon) 
+			{
+				// P1 in Q's positive half-space (so P2 is lone vertex)
+				if (testP1 > AbacusHelper.Epsilon) 
+					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
+				// P2 in Q's positive half-space (so P1 is lone vertex)
+				else if (testP2 > AbacusHelper.Epsilon) 
+					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);	
+				// P0 is lone vertex
+				else 
+					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
+			} 
+			// P0 in Q's negative half-space
+			else if (testP0 < -AbacusHelper.Epsilon) 
+			{
+				// P1 in Q's negative half-space (so P2 is lone vertex)
+				if (testP1 < -AbacusHelper.Epsilon) 
+					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
+				// P2 in Q's negative half-space (so P1 is lone vertex)
+				else if (testP2 < -AbacusHelper.Epsilon) 
+					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
+				// P0 is lone vertex
+				else 
+					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
+			} 
+			// P0 on Q's plane
+			else 
+			{
+				// P1 in Q's negative half-space 
+				if (testP1 < -AbacusHelper.Epsilon) 
+				{
+					// P2 in Q's negative half-space (P0 is lone vertex)
+					if (testP2 < -AbacusHelper.Epsilon) 
+						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
+					// P2 in positive half-space or on plane (P1 is lone vertex)
+					else 
+						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
+				}
+				// P1 in Q's positive half-space 
+				else if (testP1 > AbacusHelper.Epsilon) 
+				{
+					// P2 in Q's positive half-space (P0 is lone vertex)
+					if (testP2 > AbacusHelper.Epsilon) 
+						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
+					// P2 in negative half-space or on plane (P1 is lone vertex)
+					else 
+						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
+				}
+				// P1 lies on Q's plane too
+				else  
+				{
+					// P2 in Q's positive half-space (P2 is lone vertex)
+					if (testP2 > AbacusHelper.Epsilon) 
+						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
+					// P2 in Q's negative half-space (P2 is lone vertex)
+					// note different ordering for Q vertices
+					else if (testP2 < -AbacusHelper.Epsilon) 
+						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
+					// all three points lie on Q's plane, default to 2D test
+					else 
+						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
+				}
+			}
+		}
+
+
+
+		// Adjust Q
+		// --------
+		// Helper for TriangleangleIntersect()
+		//
+		// Now we rearrange Q's vertices such that the lone vertex (the one that lies
+		// in its own half-space of P) is first.  We also permute the other
+		// triangle's vertices so that Q0 will "see" them in counterclockwise order
+		//
+		// Once reordered, we pass the vertices down to a helper function which will
+		// actually test for intersection on the common line between the two planes
+		//
+		static Boolean AdjustQ( 
+			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
+			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2,
+			Single testQ0, Single testQ1, Single testQ2,
+			ref Vector3 normalP )
+		{
+
+			// Q0 in P's positive half-space
+			if (testQ0 > AbacusHelper.Epsilon) 
+			{ 
+				// Q1 in P's positive half-space (so Q2 is lone vertex)
+				if (testQ1 > AbacusHelper.Epsilon) 
+					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
+				// Q2 in P's positive half-space (so Q1 is lone vertex)
+				else if (testQ2 > AbacusHelper.Epsilon) 
+					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
+				// Q0 is lone vertex
+				else 
+					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
+			}
+			// Q0 in P's negative half-space
+			else if (testQ0 < -AbacusHelper.Epsilon) 
+			{ 
+				// Q1 in P's negative half-space (so Q2 is lone vertex)
+				if (testQ1 < -AbacusHelper.Epsilon) 
+					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
+				// Q2 in P's negative half-space (so Q1 is lone vertex)
+				else if (testQ2 < -AbacusHelper.Epsilon) 
+					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
+				// Q0 is lone vertex
+				else 
+					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
+			}
+			// Q0 on P's plane
+			else 
+			{ 
+				// Q1 in P's negative half-space 
+				if (testQ1 < -AbacusHelper.Epsilon) 
+				{ 
+					// Q2 in P's negative half-space (Q0 is lone vertex)
+					if (testQ2 < -AbacusHelper.Epsilon)  
+						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
+					// Q2 in positive half-space or on plane (P1 is lone vertex)
+					else 
+						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
+				}
+				// Q1 in P's positive half-space 
+				else if (testQ1 > AbacusHelper.Epsilon) 
+				{ 
+					// Q2 in P's positive half-space (Q0 is lone vertex)
+					if (testQ2 > AbacusHelper.Epsilon) 
+						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
+					// Q2 in negative half-space or on plane (P1 is lone vertex)
+					else  
+						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
+				}
+				// Q1 lies on P's plane too
+				else 
+				{
+					// Q2 in P's positive half-space (Q2 is lone vertex)
+					if (testQ2 > AbacusHelper.Epsilon) 
+						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
+					// Q2 in P's negative half-space (Q2 is lone vertex)
+					// note different ordering for Q vertices
+					else if (testQ2 < -AbacusHelper.Epsilon) 
+						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
+					// all three points lie on P's plane, default to 2D test
+					else 
+						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
+				}
+			}
+		}
+
+
+
+		// Test Line Overlap
+		// -----------------
+		// Helper for TriangleangleIntersect()
+		//
+		// This tests whether the rearranged triangles overlap, by checking the intervals
+		// where their edges cross the common line between the two planes.  If the 
+		// interval for P is [i,j] and Q is [k,l], then there is intersection if the
+		// intervals overlap.  Previous algorithms computed these intervals directly, 
+		// this tests implictly by using two "plane tests."
+		//
+		static Boolean TestLineOverlap( 
+			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
+			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
+		{
+			// get "plane normal"
+			Vector3 normal = Vector3.Cross( P1 - P0, Q0 - P0);
+
+			// fails test, no intersection
+			if ( Vector3.Dot(normal, Q1 - P0 ) > AbacusHelper.Epsilon )
+				return false;
+  
+			// get "plane normal"
+			normal = Vector3.Cross( P2 - P0, Q2 - P0 );
+
+			// fails test, no intersection
+			if ( Vector3.Dot( normal, Q0 - P0 ) > AbacusHelper.Epsilon )
+				return false;
+
+			// intersection!
+			return true;
+		}
+
+
+
+		// Coplanar Triangleangle Intersect
+		// ---------------------------
+		// Helper for TriangleangleIntersect()
+		//
+		// This projects the two triangles down to 2D, maintaining the largest area by
+		// dropping the dimension where the normal points the farthest.
+		//
+		static Boolean CoplanarTriangleangleIntersect( 
+			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
+			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2, 
+			ref Vector3 planeNormal )
+		{
+			Vector3 absNormal = new Vector3( 
+				System.Math.Abs(planeNormal.X), 
+				System.Math.Abs(planeNormal.Y), 
+				System.Math.Abs(planeNormal.Z) );
+
+			Vector2 projP0, projP1, projP2;
+			Vector2 projQ0, projQ1, projQ2;
+
+			// if x is direction of largest magnitude
+			if ( absNormal.X > absNormal.Y && absNormal.X >= absNormal.Z )
+			{
+				projP0 = new Vector2( P0.Y, P0.Z );
+				projP1 = new Vector2( P1.Y, P1.Z );
+				projP2 = new Vector2( P2.Y, P2.Z );
+				projQ0 = new Vector2( Q0.Y, Q0.Z );
+				projQ1 = new Vector2( Q1.Y, Q1.Z );
+				projQ2 = new Vector2( Q2.Y, Q2.Z );
+			}
+			// if y is direction of largest magnitude
+			else if ( absNormal.Y > absNormal.X && absNormal.Y >= absNormal.Z )
+			{
+				projP0 = new Vector2( P0.X, P0.Z );
+				projP1 = new Vector2( P1.X, P1.Z );
+				projP2 = new Vector2( P2.X, P2.Z );
+				projQ0 = new Vector2( Q0.X, Q0.Z );
+				projQ1 = new Vector2( Q1.X, Q1.Z );
+				projQ2 = new Vector2( Q2.X, Q2.Z );
+			}
+			// z is the direction of largest magnitude
+			else
+			{
+				projP0 = new Vector2( P0.X, P0.Y );
+				projP1 = new Vector2( P1.X, P1.Y );
+				projP2 = new Vector2( P2.X, P2.Y );
+				projQ0 = new Vector2( Q0.X, Q0.Y );
+				projQ1 = new Vector2( Q1.X, Q1.Y );
+				projQ2 = new Vector2( Q2.X, Q2.Y );
+			}
+
+			return TriangleangleIntersect( ref projP0, ref projP1, ref projP2, ref projQ0, ref projQ1, ref projQ2 );
+		}
+
+
+
+		// Triangleangle Intersect
+		// ------------------
+		// Returns true if ray intersects triangle.
+		//
+		static Boolean TriangleangleIntersect( 
+			ref Single t, //perhaps this should be out 
+			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
+			ref Ray ray )
+		{
+			// test ray direction against triangle
+			Vector3 e1 = P1 - P0;
+			Vector3 e2 = P2 - P0;
+			Vector3 p = Vector3.Cross( ray.Direction, e2 );
+			Single a = Vector3.Dot( e1, p );
+
+			// if result zero, no intersection or infinite intersections
+			// (ray parallel to triangle plane)
+			if ( AbacusHelper.IsZero(a) )
+				return false;
+
+			// compute denominator
+			Single f = 1.0f/a;
+
+			// compute barycentric coordinates
+			Vector3 s = ray.Position - P0;
+			Single u = f * Vector3.Dot( s, p );
+
+			// ray falls outside triangle
+			if (u < 0.0f || u > 1.0f) 
+				return false;
+
+			Vector3 q = Vector3.Cross( s, e1 );
+			Single v = f * Vector3.Dot( ray.Direction, q );
+
+			// ray falls outside triangle
+			if (v < 0.0f || u+v > 1.0f) 
+				return false;
+
+			// compute line parameter
+			t = f * Vector3.Dot( e2, q );
+
+			return (t >= 0.0f);
+		}
+
+		
+		//
+		// @ TriangleangleClassify()
+		// Returns signed distance between plane and triangle
+		//
+		static Single TriangleangleClassify( 
+			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
+			ref Plane plane )
+		{
+			Single test0 = plane.Test( P0 );
+			Single test1 = plane.Test( P1 );
+
+			// if two points lie on opposite sides of plane, intersect
+			if (test0*test1 < 0.0f)
+				return 0.0f;
+
+			Single test2 = plane.Test( P2 );
+
+			// if two points lie on opposite sides of plane, intersect
+			if (test0*test2 < 0.0f)
+				return 0.0f;
+			if (test1*test2 < 0.0f)
+				return 0.0f;
+
+			// no intersection, return signed distance
+			if ( test0 < 0.0f )
+			{
+				if ( test0 < test1 )
+				{
+					if ( test1 < test2 )
+						return test2;
+					else
+						return test1;
+				}
+				else if (test0 < test2)
+				{
+					return test2;
+				}
+				else
+				{   
+					return test0;
+				}
+			}
+			else
+			{
+				if ( test0 > test1 )
+				{
+					if ( test1 > test2 )
+						return test2;
+					else
+						return test1;
+				}
+				else if (test0 > test2)
+				{
+					return test2;
+				}
+				else
+				{   
+					return test0;
+				}
+			}
+		}
+
+		*/
+	}

@@ -1,0 +1,9 @@
+﻿		#region Constants
+
+		// todo
+        public static readonly Half Epsilon = 0;
+        public static readonly Half MaxValue = 0;
+        public static readonly Half MinValue = 0;
+
+		#endregion
+
