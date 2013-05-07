@@ -2064,7 +2064,7 @@ namespace Sungiant.Abacus
 	}
 }
 
-namespace Sungiant.Abacus
+namespace Sungiant.Abacus.Packed
 {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Alpha_8

@@ -56,7 +56,7 @@ namespace Sungiant.Abacus
 <#@ include file="RealMaths.t4"#>
 }
 
-namespace Sungiant.Abacus
+namespace Sungiant.Abacus.Packed
 {
 <#@ include file="Packed/Alpha8.t4"#>
 <#@ include file="Packed/Bgr_5_6_5.t4"#>
