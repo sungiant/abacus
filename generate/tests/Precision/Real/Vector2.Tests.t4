@@ -1,0 +1,8 @@
+	[TestFixture]
+	public class Vector2Tests
+	{
+		[Test]
+		public void TestCase1 ()
+		{
+		}
+	}
