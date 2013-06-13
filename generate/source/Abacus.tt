@@ -50,6 +50,7 @@ namespace Sungiant.Abacus
 <#@ include file="IPackedReal.t4"#>
 <#@ include file="IPackedValue.t4"#>
 <#@ include file="PackUtils.t4"#>
+<#@ include file="Fixed.t4"#>
 <#@ include file="RealMaths.t4"#>
 }
 

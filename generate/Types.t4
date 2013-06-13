@@ -3,7 +3,7 @@
 	{
 		return new string[]
 		{ 
-			"Single", "Double"
+			"Single", "Double", "Fixed32"
 		};
 	}
 	

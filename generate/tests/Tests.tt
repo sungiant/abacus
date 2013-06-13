@@ -48,6 +48,7 @@ namespace Sungiant.Abacus.Tests
 
 <#@ include file="RealMaths.Tests.t4"#>
 <#@ include file="PackUtils.Tests.t4"#>
+<#@ include file="Fixed.Tests.t4"#>
 
 }
 
