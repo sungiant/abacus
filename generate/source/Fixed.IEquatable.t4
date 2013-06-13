@@ -1,9 +1,0 @@
-﻿		#region IEquatable
-
-		public bool Equals(Fixed32 other)
-		{
-            return (this.RawValue == other.RawValue);
-		}
-
-		#endregion
-

@@ -1,9 +1,0 @@
-		#region IEquatable
-
-		public bool Equals(Half other)
-        {
-            return (this.rawData == other.rawData);
-        }
-
-		#endregion
-
