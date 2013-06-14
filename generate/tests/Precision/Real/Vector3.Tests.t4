@@ -1,5 +1,5 @@
 	[TestFixture]
-	public class Vector2Tests
+	public class Vector3Tests
 	{
 		[Test]
 		public void Constructors ()
@@ -55,10 +55,10 @@
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-<#@ include file="Vector2.Constants.Tests.t4"#>
-<#@ include file="Vector2.Maths.Tests.t4"#>
-<#@ include file="Vector2.Operators.Tests.t4"#>
-<#@ include file="Vector2.Splines.Tests.t4"#>
-<#@ include file="Vector2.Utilities.Tests.t4"#>
+<#@ include file="Vector3.Constants.Tests.t4"#>
+<#@ include file="Vector3.Maths.Tests.t4"#>
+<#@ include file="Vector3.Operators.Tests.t4"#>
+<#@ include file="Vector3.Splines.Tests.t4"#>
+<#@ include file="Vector3.Utilities.Tests.t4"#>
 
 	}

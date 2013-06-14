@@ -1,0 +1,96 @@
+		#region Utilities
+
+		[Test]
+		public void Zero ()
+		{
+			<#= type #> zero = 0;
+			var v_zero = Vector4.Zero;
+
+			Assert.That(v_zero.W, Is.EqualTo(zero));
+			Assert.That(v_zero.X, Is.EqualTo(zero));
+			Assert.That(v_zero.Y, Is.EqualTo(zero));
+			Assert.That(v_zero.Z, Is.EqualTo(zero));
+
+			Assert.That(v_zero, Is.EqualTo(new Vector4(zero, zero, zero, zero)));
+		}
+
+		[Test]
+		public void One ()
+		{
+			<#= type #> one = 1;
+			var v_one = Vector4.One;
+
+			Assert.That(v_one.W, Is.EqualTo(one));
+			Assert.That(v_one.X, Is.EqualTo(one));
+			Assert.That(v_one.Y, Is.EqualTo(one));
+			Assert.That(v_one.Z, Is.EqualTo(one));
+
+			Assert.That(v_one, Is.EqualTo(new Vector4(one, one, one, one)));
+		}
+
+		[Test]
+		public void UnitX ()
+		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+
+			var v_unit_x = Vector4.UnitX;
+
+			Assert.That(v_unit_x.X, Is.EqualTo(one));
+			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_x.W, Is.EqualTo(zero));
+
+			Assert.That(v_unit_x, Is.EqualTo(new Vector4(one, zero, zero, zero)));
+		}
+
+		[Test]
+		public void UnitY ()
+		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+
+			var v_unit_y = Vector4.UnitY;
+
+			Assert.That(v_unit_y.X, Is.EqualTo(zero));
+			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_y.W, Is.EqualTo(zero));
+
+			Assert.That(v_unit_y, Is.EqualTo(new Vector4(zero, one, zero, zero)));
+		}
+
+		[Test]
+		public void UnitZ ()
+		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+
+			var v_unit_z = Vector4.UnitZ;
+
+			Assert.That(v_unit_z.X, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Z, Is.EqualTo(one));
+			Assert.That(v_unit_z.W, Is.EqualTo(zero));
+			
+			Assert.That(v_unit_z, Is.EqualTo(new Vector4(zero, zero, one, zero)));
+		}
+
+		[Test]
+		public void UnitW ()
+		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+
+			var v_unit_w = Vector4.UnitW;
+
+			Assert.That(v_unit_w.X, Is.EqualTo(zero));
+			Assert.That(v_unit_w.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_w.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_w.W, Is.EqualTo(one));
+
+
+			Assert.That(v_unit_w, Is.EqualTo(new Vector4(zero, zero, zero, one)));
+		}
+
+		#endregion

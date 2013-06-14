@@ -586,6 +586,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Assert.That(v_zero.X, Is.EqualTo(zero));
 			Assert.That(v_zero.Y, Is.EqualTo(zero));
+
 			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
 		}
 
@@ -597,6 +598,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Assert.That(v_one.X, Is.EqualTo(one));
 			Assert.That(v_one.Y, Is.EqualTo(one));
+
 			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
 		}
 
@@ -610,6 +612,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Assert.That(v_unit_x.X, Is.EqualTo(one));
 			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+
 			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
 		}
 
@@ -623,6 +626,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Assert.That(v_unit_y.X, Is.EqualTo(zero));
 			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			
 			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
 		}
 
@@ -943,21 +947,592 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 		#endregion
 
-		#region Validate
+	}	[TestFixture]
+	public class Vector3Tests
+	{
+		[Test]
+		public void Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
 		[Test]
-		public void Validate ()
+		public void Set ()
 		{
-			string[] memberFunctions = new string[]
-			{
-				""
+			Assert.That(true, Is.EqualTo(false));
+		}
 
-			};
+		[Test]
+		public void Length ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
+		[Test]
+		public void LengthSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void NormaliseMemberFunction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Equals ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void IsUnit ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#region Utilities
+
+		[Test]
+		public void Zero ()
+		{
+			Single zero = 0;
+			var v_zero = Vector3.Zero;
+
+			Assert.That(v_zero.X, Is.EqualTo(zero));
+			Assert.That(v_zero.Y, Is.EqualTo(zero));
+			Assert.That(v_zero.Z, Is.EqualTo(zero));
+			
+			Assert.That(v_zero, Is.EqualTo(new Vector3(zero, zero, zero)));
+		}
+
+		[Test]
+		public void One ()
+		{
+			Single one = 1;
+			var v_one = Vector3.One;
+
+			Assert.That(v_one.X, Is.EqualTo(one));
+			Assert.That(v_one.Y, Is.EqualTo(one));
+			Assert.That(v_one.Z, Is.EqualTo(one));
+
+			Assert.That(v_one, Is.EqualTo(new Vector3(one, one, one)));
+		}
+
+		[Test]
+		public void UnitX ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_x = Vector3.UnitX;
+
+			Assert.That(v_unit_x.X, Is.EqualTo(one));
+			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
+
+			Assert.That(v_unit_x, Is.EqualTo(new Vector3(one, zero, zero)));
+		}
+
+		[Test]
+		public void UnitY ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_y = Vector3.UnitY;
+
+			Assert.That(v_unit_y.X, Is.EqualTo(zero));
+			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
+
+			Assert.That(v_unit_y, Is.EqualTo(new Vector3(zero, one, zero)));
+		}
+
+		[Test]
+		public void UnitZ ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_z = Vector3.UnitZ;
+
+			Assert.That(v_unit_z.X, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Z, Is.EqualTo(one));
+
+			Assert.That(v_unit_z, Is.EqualTo(new Vector3(zero, zero, one)));
+		}
+
+		#endregion
+		#region Utilities
+
+		[Test]
+		public void Distance ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void DistanceSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Dot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void PerpDot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Perpendicular ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Normalise ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Reflect ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformMatix44 ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformNormal ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformQuaternion ()
+		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		#endregion
+		#region Utilities
+
+		[Test]
+		public void Addition ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Subtraction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Negation ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Multiplication ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Division ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+		#region Splines
+
+		[Test]
+		public void Barycentric ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void SmoothStep ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void CatmullRom ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Hermite ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+				#region Utilities
+
+		[Test]
+		public void Min ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Max ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Clamp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Lerp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+
+	}	[TestFixture]
+	public class Vector4Tests
+	{
+		[Test]
+		public void Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Set ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Length ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void LengthSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void NormaliseMemberFunction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Equals ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void IsUnit ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#region Utilities
+
+		[Test]
+		public void Zero ()
+		{
+			Single zero = 0;
+			var v_zero = Vector4.Zero;
+
+			Assert.That(v_zero.W, Is.EqualTo(zero));
+			Assert.That(v_zero.X, Is.EqualTo(zero));
+			Assert.That(v_zero.Y, Is.EqualTo(zero));
+			Assert.That(v_zero.Z, Is.EqualTo(zero));
+
+			Assert.That(v_zero, Is.EqualTo(new Vector4(zero, zero, zero, zero)));
+		}
+
+		[Test]
+		public void One ()
+		{
+			Single one = 1;
+			var v_one = Vector4.One;
+
+			Assert.That(v_one.W, Is.EqualTo(one));
+			Assert.That(v_one.X, Is.EqualTo(one));
+			Assert.That(v_one.Y, Is.EqualTo(one));
+			Assert.That(v_one.Z, Is.EqualTo(one));
+
+			Assert.That(v_one, Is.EqualTo(new Vector4(one, one, one, one)));
+		}
+
+		[Test]
+		public void UnitX ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_x = Vector4.UnitX;
+
+			Assert.That(v_unit_x.X, Is.EqualTo(one));
+			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_x.W, Is.EqualTo(zero));
+
+			Assert.That(v_unit_x, Is.EqualTo(new Vector4(one, zero, zero, zero)));
+		}
+
+		[Test]
+		public void UnitY ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_y = Vector4.UnitY;
+
+			Assert.That(v_unit_y.X, Is.EqualTo(zero));
+			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_y.W, Is.EqualTo(zero));
+
+			Assert.That(v_unit_y, Is.EqualTo(new Vector4(zero, one, zero, zero)));
+		}
+
+		[Test]
+		public void UnitZ ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_z = Vector4.UnitZ;
+
+			Assert.That(v_unit_z.X, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Z, Is.EqualTo(one));
+			Assert.That(v_unit_z.W, Is.EqualTo(zero));
+			
+			Assert.That(v_unit_z, Is.EqualTo(new Vector4(zero, zero, one, zero)));
+		}
+
+		[Test]
+		public void UnitW ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_w = Vector4.UnitW;
+
+			Assert.That(v_unit_w.X, Is.EqualTo(zero));
+			Assert.That(v_unit_w.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_w.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_w.W, Is.EqualTo(one));
+
+
+			Assert.That(v_unit_w, Is.EqualTo(new Vector4(zero, zero, zero, one)));
+		}
+
+		#endregion
+		#region Utilities
+
+		[Test]
+		public void Distance ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void DistanceSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Dot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void PerpDot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Perpendicular ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Normalise ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Reflect ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformMatix44 ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformNormal ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformQuaternion ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+		#region Utilities
+
+		[Test]
+		public void Addition ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Subtraction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Negation ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Multiplication ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Division ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+		#region Splines
+
+		[Test]
+		public void Barycentric ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void SmoothStep ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void CatmullRom ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Hermite ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+				#region Utilities
+
+		[Test]
+		public void Min ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Max ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Clamp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Lerp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+
 	}}
 
 namespace Sungiant.Abacus.DoublePrecision.Tests
@@ -1113,6 +1688,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Assert.That(v_zero.X, Is.EqualTo(zero));
 			Assert.That(v_zero.Y, Is.EqualTo(zero));
+
 			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
 		}
 
@@ -1124,6 +1700,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Assert.That(v_one.X, Is.EqualTo(one));
 			Assert.That(v_one.Y, Is.EqualTo(one));
+
 			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
 		}
 
@@ -1137,6 +1714,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Assert.That(v_unit_x.X, Is.EqualTo(one));
 			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+
 			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
 		}
 
@@ -1150,6 +1728,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Assert.That(v_unit_y.X, Is.EqualTo(zero));
 			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			
 			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
 		}
 
@@ -1470,20 +2049,591 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 		#endregion
 
-		#region Validate
+	}	[TestFixture]
+	public class Vector3Tests
+	{
+		[Test]
+		public void Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
 		[Test]
-		public void Validate ()
+		public void Set ()
 		{
-			string[] memberFunctions = new string[]
-			{
-				""
+			Assert.That(true, Is.EqualTo(false));
+		}
 
-			};
+		[Test]
+		public void Length ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
+		[Test]
+		public void LengthSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void NormaliseMemberFunction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Equals ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void IsUnit ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#region Utilities
+
+		[Test]
+		public void Zero ()
+		{
+			Double zero = 0;
+			var v_zero = Vector3.Zero;
+
+			Assert.That(v_zero.X, Is.EqualTo(zero));
+			Assert.That(v_zero.Y, Is.EqualTo(zero));
+			Assert.That(v_zero.Z, Is.EqualTo(zero));
+			
+			Assert.That(v_zero, Is.EqualTo(new Vector3(zero, zero, zero)));
+		}
+
+		[Test]
+		public void One ()
+		{
+			Double one = 1;
+			var v_one = Vector3.One;
+
+			Assert.That(v_one.X, Is.EqualTo(one));
+			Assert.That(v_one.Y, Is.EqualTo(one));
+			Assert.That(v_one.Z, Is.EqualTo(one));
+
+			Assert.That(v_one, Is.EqualTo(new Vector3(one, one, one)));
+		}
+
+		[Test]
+		public void UnitX ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_x = Vector3.UnitX;
+
+			Assert.That(v_unit_x.X, Is.EqualTo(one));
+			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
+
+			Assert.That(v_unit_x, Is.EqualTo(new Vector3(one, zero, zero)));
+		}
+
+		[Test]
+		public void UnitY ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_y = Vector3.UnitY;
+
+			Assert.That(v_unit_y.X, Is.EqualTo(zero));
+			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
+
+			Assert.That(v_unit_y, Is.EqualTo(new Vector3(zero, one, zero)));
+		}
+
+		[Test]
+		public void UnitZ ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_z = Vector3.UnitZ;
+
+			Assert.That(v_unit_z.X, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Z, Is.EqualTo(one));
+
+			Assert.That(v_unit_z, Is.EqualTo(new Vector3(zero, zero, one)));
+		}
+
+		#endregion
+		#region Utilities
+
+		[Test]
+		public void Distance ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void DistanceSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Dot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void PerpDot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Perpendicular ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Normalise ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Reflect ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformMatix44 ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformNormal ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformQuaternion ()
+		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		#endregion
+		#region Utilities
+
+		[Test]
+		public void Addition ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Subtraction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Negation ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Multiplication ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Division ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+		#region Splines
+
+		[Test]
+		public void Barycentric ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void SmoothStep ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void CatmullRom ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Hermite ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+				#region Utilities
+
+		[Test]
+		public void Min ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Max ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Clamp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Lerp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+
+	}	[TestFixture]
+	public class Vector4Tests
+	{
+		[Test]
+		public void Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Set ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Length ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void LengthSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void NormaliseMemberFunction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Equals ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void IsUnit ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#region Utilities
+
+		[Test]
+		public void Zero ()
+		{
+			Double zero = 0;
+			var v_zero = Vector4.Zero;
+
+			Assert.That(v_zero.W, Is.EqualTo(zero));
+			Assert.That(v_zero.X, Is.EqualTo(zero));
+			Assert.That(v_zero.Y, Is.EqualTo(zero));
+			Assert.That(v_zero.Z, Is.EqualTo(zero));
+
+			Assert.That(v_zero, Is.EqualTo(new Vector4(zero, zero, zero, zero)));
+		}
+
+		[Test]
+		public void One ()
+		{
+			Double one = 1;
+			var v_one = Vector4.One;
+
+			Assert.That(v_one.W, Is.EqualTo(one));
+			Assert.That(v_one.X, Is.EqualTo(one));
+			Assert.That(v_one.Y, Is.EqualTo(one));
+			Assert.That(v_one.Z, Is.EqualTo(one));
+
+			Assert.That(v_one, Is.EqualTo(new Vector4(one, one, one, one)));
+		}
+
+		[Test]
+		public void UnitX ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_x = Vector4.UnitX;
+
+			Assert.That(v_unit_x.X, Is.EqualTo(one));
+			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_x.W, Is.EqualTo(zero));
+
+			Assert.That(v_unit_x, Is.EqualTo(new Vector4(one, zero, zero, zero)));
+		}
+
+		[Test]
+		public void UnitY ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_y = Vector4.UnitY;
+
+			Assert.That(v_unit_y.X, Is.EqualTo(zero));
+			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_y.W, Is.EqualTo(zero));
+
+			Assert.That(v_unit_y, Is.EqualTo(new Vector4(zero, one, zero, zero)));
+		}
+
+		[Test]
+		public void UnitZ ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_z = Vector4.UnitZ;
+
+			Assert.That(v_unit_z.X, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_z.Z, Is.EqualTo(one));
+			Assert.That(v_unit_z.W, Is.EqualTo(zero));
+			
+			Assert.That(v_unit_z, Is.EqualTo(new Vector4(zero, zero, one, zero)));
+		}
+
+		[Test]
+		public void UnitW ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_w = Vector4.UnitW;
+
+			Assert.That(v_unit_w.X, Is.EqualTo(zero));
+			Assert.That(v_unit_w.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_w.Z, Is.EqualTo(zero));
+			Assert.That(v_unit_w.W, Is.EqualTo(one));
+
+
+			Assert.That(v_unit_w, Is.EqualTo(new Vector4(zero, zero, zero, one)));
+		}
+
+		#endregion
+		#region Utilities
+
+		[Test]
+		public void Distance ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void DistanceSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Dot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void PerpDot ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Perpendicular ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Normalise ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Reflect ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformMatix44 ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformNormal ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TransformQuaternion ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+		#region Utilities
+
+		[Test]
+		public void Addition ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Subtraction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Negation ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Multiplication ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Division ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+		#region Splines
+
+		[Test]
+		public void Barycentric ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void SmoothStep ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void CatmullRom ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Hermite ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+				#region Utilities
+
+		[Test]
+		public void Min ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Max ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Clamp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Lerp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+
 	}}
 

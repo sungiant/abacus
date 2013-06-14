@@ -82,6 +82,8 @@ namespace Sungiant.Abacus.<#= type #>Precision.Tests
 <#@ include file="Precision/Real/Matrix44.Tests.t4"#>
 
 <#@ include file="Precision/Real/Vector2.Tests.t4"#>
+<#@ include file="Precision/Real/Vector3.Tests.t4"#>
+<#@ include file="Precision/Real/Vector4.Tests.t4"#>
 }
 
 <# } #>

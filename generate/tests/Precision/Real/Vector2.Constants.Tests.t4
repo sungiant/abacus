@@ -8,6 +8,7 @@
 
 			Assert.That(v_zero.X, Is.EqualTo(zero));
 			Assert.That(v_zero.Y, Is.EqualTo(zero));
+
 			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
 		}
 
@@ -19,6 +20,7 @@
 
 			Assert.That(v_one.X, Is.EqualTo(one));
 			Assert.That(v_one.Y, Is.EqualTo(one));
+
 			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
 		}
 
@@ -32,6 +34,7 @@
 
 			Assert.That(v_unit_x.X, Is.EqualTo(one));
 			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+
 			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
 		}
 
@@ -45,6 +48,7 @@
 
 			Assert.That(v_unit_y.X, Is.EqualTo(zero));
 			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			
 			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
 		}
 

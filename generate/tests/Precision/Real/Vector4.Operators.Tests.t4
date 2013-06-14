@@ -1,0 +1,33 @@
+		#region Utilities
+
+		[Test]
+		public void Addition ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Subtraction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Negation ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Multiplication ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Division ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion

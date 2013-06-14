@@ -1,0 +1,27 @@
+		#region Utilities
+
+		[Test]
+		public void Min ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Max ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Clamp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Lerp ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion

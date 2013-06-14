@@ -1,64 +1,63 @@
-	[TestFixture]
-	public class Vector2Tests
-	{
+		#region Utilities
+
 		[Test]
-		public void Constructors ()
+		public void Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-<#@ include file="Vector2.Constants.Tests.t4"#>
-<#@ include file="Vector2.Maths.Tests.t4"#>
-<#@ include file="Vector2.Operators.Tests.t4"#>
-<#@ include file="Vector2.Splines.Tests.t4"#>
-<#@ include file="Vector2.Utilities.Tests.t4"#>
+		[Test]
+		public void TransformQuaternion ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
-	}
+		#endregion
