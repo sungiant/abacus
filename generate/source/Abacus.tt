@@ -85,7 +85,6 @@ namespace Sungiant.Abacus.<#= type #>Precision
 <# foreach( var type in GetRealTypes() ) { #>
 namespace Sungiant.Abacus.<#= type #>Precision
 {
-<#@ include file="Precision/Real/GaussianElimination.t4"#>
 <#@ include file="Precision/Real/GjkDistance.t4"#>
 
 <#@ include file="Precision/Real/BoundingBox.t4"#>
