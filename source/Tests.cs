@@ -259,6 +259,34 @@ namespace Sungiant.Abacus.Packed.Tests
         }
     }
     [TestFixture]
+    public class NormalisedShort4Tests
+    {
+        [Test]
+        public static void TestRandomValues()
+        {
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                BitConverter.ToUInt32(buff, 0);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new NormalisedShort4();
+                
+                packedObj.PackedValue = packed;
+                
+                SinglePrecision.Vector4 unpacked;
+                
+                packedObj.UnpackTo(out unpacked);
+                
+                var newPackedObj = new NormalisedShort4(ref unpacked);
+                
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+            }
+        }
+    }
+    [TestFixture]
     public class Rg32Tests
     {
         [Test]

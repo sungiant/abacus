@@ -66,6 +66,7 @@ namespace Sungiant.Abacus.Packed.Tests
 <#@ include file="Packed/NormalisedByte2.Tests.t4"#>
 <#@ include file="Packed/NormalisedByte4.Tests.t4"#>
 <#@ include file="Packed/NormalisedShort2.Tests.t4"#>
+<#@ include file="Packed/NormalisedShort4.Tests.t4"#>
 <#@ include file="Packed/Rg32.Tests.t4"#>
 <#@ include file="Packed/Rgba32.Tests.t4"#>
 <#@ include file="Packed/Rgba64.Tests.t4"#>
