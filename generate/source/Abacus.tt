@@ -86,7 +86,6 @@ namespace Sungiant.Abacus.<#= type #>Precision
 namespace Sungiant.Abacus.<#= type #>Precision
 {
 <#@ include file="Precision/Real/GjkDistance.t4"#>
-
 <#@ include file="Precision/Real/BoundingBox.t4"#>
 <#@ include file="Precision/Real/BoundingFrustum.t4"#>
 <#@ include file="Precision/Real/BoundingSphere.t4"#>

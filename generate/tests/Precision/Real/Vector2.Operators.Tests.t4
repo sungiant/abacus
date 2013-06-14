@@ -1,7 +1,7 @@
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			var zero = Vector2.Zero;
 			<#= type #> w = -3;
@@ -49,7 +49,7 @@
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			var zero = Vector2.Zero;
 			<#= type #> r = 34;
@@ -105,7 +105,7 @@
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			<#= type #> r = 3432;
 			<#= type #> s = -6218;
@@ -133,7 +133,7 @@
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			<#= type #> r = 18;
 			<#= type #> s = -54;
@@ -163,7 +163,7 @@
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			<#= type #> r = 10;
 			<#= type #> s = -40;

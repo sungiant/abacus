@@ -1,25 +1,25 @@
 		#region Splines
 
 		[Test]
-		public void Barycentric ()
+		public void TestStaticFn_Barycentric ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void SmoothStep ()
+		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void CatmullRom ()
+		public void TestStaticFn_CatmullRom ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Hermite ()
+		public void TestStaticFn_Hermite ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}

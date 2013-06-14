@@ -1,27 +1,28 @@
-		#region Utilities
-
+	[TestFixture]
+	public class TriangleTests
+	{
 		[Test]
-		public void TestStaticFn_Min ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TestStaticFn_Max ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TestStaticFn_Clamp ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TestStaticFn_Lerp ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
-
-		#endregion
+	}
+	

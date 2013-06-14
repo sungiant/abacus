@@ -1,31 +1,31 @@
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}

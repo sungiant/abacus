@@ -2,6 +2,30 @@
 	public class Matrix44Tests
 	{
 		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+		
+		[Test]
 		public void TestTranspose_MemberFn ()
 		{
 			Matrix44 startMatrix = new Matrix44(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);

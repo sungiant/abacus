@@ -1,7 +1,7 @@
 		#region Utilities
 
 		[Test]
-		public void Zero ()
+		public void TestConstant_Zero ()
 		{
 			<#= type #> zero = 0;
 			var v_zero = Vector4.Zero;
@@ -15,7 +15,7 @@
 		}
 
 		[Test]
-		public void One ()
+		public void TestConstant_One ()
 		{
 			<#= type #> one = 1;
 			var v_one = Vector4.One;
@@ -29,7 +29,7 @@
 		}
 
 		[Test]
-		public void UnitX ()
+		public void TestConstant_UnitX ()
 		{
 			<#= type #> zero = 0;
 			<#= type #> one = 1;
@@ -45,7 +45,7 @@
 		}
 
 		[Test]
-		public void UnitY ()
+		public void TestConstant_UnitY ()
 		{
 			<#= type #> zero = 0;
 			<#= type #> one = 1;
@@ -61,7 +61,7 @@
 		}
 
 		[Test]
-		public void UnitZ ()
+		public void TestConstant_UnitZ ()
 		{
 			<#= type #> zero = 0;
 			<#= type #> one = 1;
@@ -77,7 +77,7 @@
 		}
 
 		[Test]
-		public void UnitW ()
+		public void TestConstant_UnitW ()
 		{
 			<#= type #> zero = 0;
 			<#= type #> one = 1;

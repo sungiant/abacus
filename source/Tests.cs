@@ -460,12 +460,234 @@ namespace Sungiant.Abacus.Packed.Tests
 
 }
 
+namespace Sungiant.Abacus.Int32Precision.Tests
+{
+	[TestFixture]
+	public class Point2Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class Point3Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+	}
+
+namespace Sungiant.Abacus.Int64Precision.Tests
+{
+	[TestFixture]
+	public class Point2Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class Point3Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+	}
+
 
 namespace Sungiant.Abacus.SinglePrecision.Tests
 {
+
 	[TestFixture]
+	public class BoundingBoxTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class BoundingFrustumTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class BoundingSphereTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
 	public class Matrix44Tests
 	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+		
 		[Test]
 		public void TestTranspose_MemberFn ()
 		{
@@ -546,60 +768,194 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
 
 		}
+	}	[TestFixture]
+	public class PlaneTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 	}
-	[TestFixture]
+		[TestFixture]
+	public class QuadTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class QuaternionTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class RayTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class TriangleTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
 	public class Vector2Tests
 	{
 		[Test]
-		public void Constructors ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void TestMemberFn_Set ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void TestMemberFn_Length ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void TestMemberFn_LengthSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TestMemberFn_NormaliseMemberFunction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TestMemberFn_IsUnit ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -607,7 +963,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Zero ()
+		public void TestConstant_Zero ()
 		{
 			Single zero = 0;
 			var v_zero = Vector2.Zero;
@@ -619,7 +975,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void One ()
+		public void TestConstant_One ()
 		{
 			Single one = 1;
 			var v_one = Vector2.One;
@@ -631,7 +987,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitX ()
+		public void TestConstant_UnitX ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -645,7 +1001,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitY ()
+		public void TestConstant_UnitY ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -659,64 +1015,64 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Maths
 
 		[Test]
-		public void Distance ()
+		public void TestStaticFn_Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void DistanceSquared ()
+		public void TestStaticFn_DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Dot ()
+		public void TestStaticFn_Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void PerpDot ()
+		public void TestStaticFn_PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Perpendicular ()
+		public void TestStaticFn_Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Normalise ()
+		public void TestStaticFn_Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Reflect ()
+		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformNormal ()
+		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -725,7 +1081,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			var zero = Vector2.Zero;
 			Single w = -3;
@@ -773,7 +1129,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			var zero = Vector2.Zero;
 			Single r = 34;
@@ -829,7 +1185,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			Single r = 3432;
 			Single s = -6218;
@@ -857,7 +1213,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			Single r = 18;
 			Single s = -54;
@@ -887,7 +1243,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			Single r = 10;
 			Single s = -40;
@@ -923,25 +1279,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Splines
 
 		[Test]
-		public void Barycentric ()
+		public void TestStaticFn_Barycentric ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void SmoothStep ()
+		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void CatmullRom ()
+		public void TestStaticFn_CatmullRom ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Hermite ()
+		public void TestStaticFn_Hermite ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -950,25 +1306,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				#region Utilities
 
 		[Test]
-		public void Min ()
+		public void TestStaticFn_Min ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Max ()
+		public void TestStaticFn_Max ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Clamp ()
+		public void TestStaticFn_Clamp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Lerp ()
+		public void TestStaticFn_Lerp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -979,55 +1335,55 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 	public class Vector3Tests
 	{
 		[Test]
-		public void Constructors ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void TestMemberFn_Set ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void TestMemberFn_Length ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void TestMemberFn_LengthSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TestMemberFn_NormaliseMemberFunction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TestMemberFn_IsUnit ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1035,7 +1391,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Zero ()
+		public void TestConstant_Zero ()
 		{
 			Single zero = 0;
 			var v_zero = Vector3.Zero;
@@ -1048,7 +1404,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void One ()
+		public void TestConstant_One ()
 		{
 			Single one = 1;
 			var v_one = Vector3.One;
@@ -1061,7 +1417,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitX ()
+		public void TestConstant_UnitX ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -1076,7 +1432,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitY ()
+		public void TestConstant_UnitY ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -1091,7 +1447,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitZ ()
+		public void TestConstant_UnitZ ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -1106,64 +1462,64 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Maths
 
 		[Test]
-		public void Distance ()
+		public void TestStaticFn_Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void DistanceSquared ()
+		public void TestStaticFn_DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Dot ()
+		public void TestStaticFn_Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void PerpDot ()
+		public void TestStaticFn_PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Perpendicular ()
+		public void TestStaticFn_Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Normalise ()
+		public void TestStaticFn_Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Reflect ()
+		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformNormal ()
+		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1172,31 +1528,31 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1205,25 +1561,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Splines
 
 		[Test]
-		public void Barycentric ()
+		public void TestStaticFn_Barycentric ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void SmoothStep ()
+		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void CatmullRom ()
+		public void TestStaticFn_CatmullRom ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Hermite ()
+		public void TestStaticFn_Hermite ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1232,25 +1588,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				#region Utilities
 
 		[Test]
-		public void Min ()
+		public void TestStaticFn_Min ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Max ()
+		public void TestStaticFn_Max ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Clamp ()
+		public void TestStaticFn_Clamp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Lerp ()
+		public void TestStaticFn_Lerp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1261,55 +1617,55 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 	public class Vector4Tests
 	{
 		[Test]
-		public void Constructors ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void TestMemberFn_Set ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void TestMemberFn_Length ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void TestMemberFn_LengthSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TestMemberFn_NormaliseMemberFunction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TestMemberFn_IsUnit ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1317,7 +1673,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Zero ()
+		public void TestConstant_Zero ()
 		{
 			Single zero = 0;
 			var v_zero = Vector4.Zero;
@@ -1331,7 +1687,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void One ()
+		public void TestConstant_One ()
 		{
 			Single one = 1;
 			var v_one = Vector4.One;
@@ -1345,7 +1701,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitX ()
+		public void TestConstant_UnitX ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -1361,7 +1717,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitY ()
+		public void TestConstant_UnitY ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -1377,7 +1733,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitZ ()
+		public void TestConstant_UnitZ ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -1393,7 +1749,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void UnitW ()
+		public void TestConstant_UnitW ()
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -1410,64 +1766,64 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Maths
 
 		[Test]
-		public void Distance ()
+		public void TestStaticFn_Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void DistanceSquared ()
+		public void TestStaticFn_DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Dot ()
+		public void TestStaticFn_Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void PerpDot ()
+		public void TestStaticFn_PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Perpendicular ()
+		public void TestStaticFn_Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Normalise ()
+		public void TestStaticFn_Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Reflect ()
+		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformNormal ()
+		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1476,31 +1832,31 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1509,25 +1865,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Splines
 
 		[Test]
-		public void Barycentric ()
+		public void TestStaticFn_Barycentric ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void SmoothStep ()
+		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void CatmullRom ()
+		public void TestStaticFn_CatmullRom ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Hermite ()
+		public void TestStaticFn_Hermite ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1536,25 +1892,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				#region Utilities
 
 		[Test]
-		public void Min ()
+		public void TestStaticFn_Min ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Max ()
+		public void TestStaticFn_Max ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Clamp ()
+		public void TestStaticFn_Clamp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Lerp ()
+		public void TestStaticFn_Lerp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1565,9 +1921,115 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 namespace Sungiant.Abacus.DoublePrecision.Tests
 {
+
 	[TestFixture]
+	public class BoundingBoxTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class BoundingFrustumTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class BoundingSphereTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
 	public class Matrix44Tests
 	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+		
 		[Test]
 		public void TestTranspose_MemberFn ()
 		{
@@ -1648,60 +2110,194 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
 
 		}
+	}	[TestFixture]
+	public class PlaneTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 	}
-	[TestFixture]
+		[TestFixture]
+	public class QuadTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class QuaternionTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class RayTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class TriangleTests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
 	public class Vector2Tests
 	{
 		[Test]
-		public void Constructors ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void TestMemberFn_Set ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void TestMemberFn_Length ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void TestMemberFn_LengthSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TestMemberFn_NormaliseMemberFunction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TestMemberFn_IsUnit ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1709,7 +2305,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Zero ()
+		public void TestConstant_Zero ()
 		{
 			Double zero = 0;
 			var v_zero = Vector2.Zero;
@@ -1721,7 +2317,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void One ()
+		public void TestConstant_One ()
 		{
 			Double one = 1;
 			var v_one = Vector2.One;
@@ -1733,7 +2329,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitX ()
+		public void TestConstant_UnitX ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -1747,7 +2343,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitY ()
+		public void TestConstant_UnitY ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -1761,64 +2357,64 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Maths
 
 		[Test]
-		public void Distance ()
+		public void TestStaticFn_Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void DistanceSquared ()
+		public void TestStaticFn_DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Dot ()
+		public void TestStaticFn_Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void PerpDot ()
+		public void TestStaticFn_PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Perpendicular ()
+		public void TestStaticFn_Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Normalise ()
+		public void TestStaticFn_Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Reflect ()
+		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformNormal ()
+		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1827,7 +2423,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			var zero = Vector2.Zero;
 			Double w = -3;
@@ -1875,7 +2471,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			var zero = Vector2.Zero;
 			Double r = 34;
@@ -1931,7 +2527,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			Double r = 3432;
 			Double s = -6218;
@@ -1959,7 +2555,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			Double r = 18;
 			Double s = -54;
@@ -1989,7 +2585,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			Double r = 10;
 			Double s = -40;
@@ -2025,25 +2621,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Splines
 
 		[Test]
-		public void Barycentric ()
+		public void TestStaticFn_Barycentric ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void SmoothStep ()
+		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void CatmullRom ()
+		public void TestStaticFn_CatmullRom ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Hermite ()
+		public void TestStaticFn_Hermite ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2052,25 +2648,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				#region Utilities
 
 		[Test]
-		public void Min ()
+		public void TestStaticFn_Min ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Max ()
+		public void TestStaticFn_Max ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Clamp ()
+		public void TestStaticFn_Clamp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Lerp ()
+		public void TestStaticFn_Lerp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2081,55 +2677,55 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 	public class Vector3Tests
 	{
 		[Test]
-		public void Constructors ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void TestMemberFn_Set ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void TestMemberFn_Length ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void TestMemberFn_LengthSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TestMemberFn_NormaliseMemberFunction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TestMemberFn_IsUnit ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2137,7 +2733,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Zero ()
+		public void TestConstant_Zero ()
 		{
 			Double zero = 0;
 			var v_zero = Vector3.Zero;
@@ -2150,7 +2746,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void One ()
+		public void TestConstant_One ()
 		{
 			Double one = 1;
 			var v_one = Vector3.One;
@@ -2163,7 +2759,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitX ()
+		public void TestConstant_UnitX ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -2178,7 +2774,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitY ()
+		public void TestConstant_UnitY ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -2193,7 +2789,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitZ ()
+		public void TestConstant_UnitZ ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -2208,64 +2804,64 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Maths
 
 		[Test]
-		public void Distance ()
+		public void TestStaticFn_Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void DistanceSquared ()
+		public void TestStaticFn_DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Dot ()
+		public void TestStaticFn_Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void PerpDot ()
+		public void TestStaticFn_PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Perpendicular ()
+		public void TestStaticFn_Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Normalise ()
+		public void TestStaticFn_Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Reflect ()
+		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformNormal ()
+		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2274,31 +2870,31 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2307,25 +2903,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Splines
 
 		[Test]
-		public void Barycentric ()
+		public void TestStaticFn_Barycentric ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void SmoothStep ()
+		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void CatmullRom ()
+		public void TestStaticFn_CatmullRom ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Hermite ()
+		public void TestStaticFn_Hermite ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2334,25 +2930,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				#region Utilities
 
 		[Test]
-		public void Min ()
+		public void TestStaticFn_Min ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Max ()
+		public void TestStaticFn_Max ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Clamp ()
+		public void TestStaticFn_Clamp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Lerp ()
+		public void TestStaticFn_Lerp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2363,55 +2959,55 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 	public class Vector4Tests
 	{
 		[Test]
-		public void Constructors ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void TestMemberFn_Set ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void TestMemberFn_Length ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void TestMemberFn_LengthSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TestMemberFn_NormaliseMemberFunction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TestMemberFn_IsUnit ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2419,7 +3015,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Zero ()
+		public void TestConstant_Zero ()
 		{
 			Double zero = 0;
 			var v_zero = Vector4.Zero;
@@ -2433,7 +3029,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void One ()
+		public void TestConstant_One ()
 		{
 			Double one = 1;
 			var v_one = Vector4.One;
@@ -2447,7 +3043,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitX ()
+		public void TestConstant_UnitX ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -2463,7 +3059,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitY ()
+		public void TestConstant_UnitY ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -2479,7 +3075,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitZ ()
+		public void TestConstant_UnitZ ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -2495,7 +3091,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void UnitW ()
+		public void TestConstant_UnitW ()
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -2512,64 +3108,64 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Maths
 
 		[Test]
-		public void Distance ()
+		public void TestStaticFn_Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void DistanceSquared ()
+		public void TestStaticFn_DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Dot ()
+		public void TestStaticFn_Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void PerpDot ()
+		public void TestStaticFn_PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Perpendicular ()
+		public void TestStaticFn_Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Normalise ()
+		public void TestStaticFn_Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Reflect ()
+		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformNormal ()
+		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2578,31 +3174,31 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Utilities
 
 		[Test]
-		public void Addition ()
+		public void TestOperator_Addition ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Subtraction ()
+		public void TestOperator_Subtraction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Negation ()
+		public void TestOperator_Negation ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Multiplication ()
+		public void TestOperator_Multiplication ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Division ()
+		public void TestOperator_Division ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2611,25 +3207,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Splines
 
 		[Test]
-		public void Barycentric ()
+		public void TestStaticFn_Barycentric ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void SmoothStep ()
+		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void CatmullRom ()
+		public void TestStaticFn_CatmullRom ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Hermite ()
+		public void TestStaticFn_Hermite ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2638,25 +3234,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				#region Utilities
 
 		[Test]
-		public void Min ()
+		public void TestStaticFn_Min ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Max ()
+		public void TestStaticFn_Max ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Clamp ()
+		public void TestStaticFn_Clamp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Lerp ()
+		public void TestStaticFn_Lerp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}

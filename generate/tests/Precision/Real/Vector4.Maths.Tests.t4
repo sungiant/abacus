@@ -1,61 +1,61 @@
-		#region Utilities
+		#region Maths
 
 		[Test]
-		public void Distance ()
+		public void TestStaticFn_Distance ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void DistanceSquared ()
+		public void TestStaticFn_DistanceSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Dot ()
+		public void TestStaticFn_Dot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void PerpDot ()
+		public void TestStaticFn_PerpDot ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Perpendicular ()
+		public void TestStaticFn_Perpendicular ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Normalise ()
+		public void TestStaticFn_Normalise ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Reflect ()
+		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformNormal ()
+		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}

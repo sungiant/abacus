@@ -101,7 +101,7 @@ namespace Sungiant.Abacus
 		T PackedValue { get; set; }
 	}
 
-	static class PackUtils
+	internal static class PackUtils
 	{
 		static Double ClampAndRound (Single value, Single min, Single max)
 		{
@@ -3953,10 +3953,6 @@ namespace Sungiant.Abacus.Int64Precision
 
 namespace Sungiant.Abacus.SinglePrecision
 {
-	public static class GaussianElimination
-	{
-
-	}
 	public class GjkDistance
 	{
 		public GjkDistance ()
@@ -4201,7 +4197,6 @@ namespace Sungiant.Abacus.SinglePrecision
 			return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
 		}
 	}
-
 	[StructLayout (LayoutKind.Sequential)]
 	public struct BoundingBox 
 		: IEquatable<BoundingBox>
@@ -10131,10 +10126,6 @@ namespace Sungiant.Abacus.SinglePrecision
 
 namespace Sungiant.Abacus.DoublePrecision
 {
-	public static class GaussianElimination
-	{
-
-	}
 	public class GjkDistance
 	{
 		public GjkDistance ()
@@ -10379,7 +10370,6 @@ namespace Sungiant.Abacus.DoublePrecision
 			return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
 		}
 	}
-
 	[StructLayout (LayoutKind.Sequential)]
 	public struct BoundingBox 
 		: IEquatable<BoundingBox>

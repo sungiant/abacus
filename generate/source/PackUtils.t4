@@ -1,4 +1,4 @@
-﻿	static class PackUtils
+﻿	internal static class PackUtils
 	{
 		static Double ClampAndRound (Single value, Single min, Single max)
 		{

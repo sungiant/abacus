@@ -1,25 +1,25 @@
 		#region Utilities
 
 		[Test]
-		public void Min ()
+		public void TestStaticFn_Min ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Max ()
+		public void TestStaticFn_Max ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Clamp ()
+		public void TestStaticFn_Clamp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Lerp ()
+		public void TestStaticFn_Lerp ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}

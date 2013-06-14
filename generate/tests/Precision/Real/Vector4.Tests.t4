@@ -2,55 +2,55 @@
 	public class Vector4Tests
 	{
 		[Test]
-		public void Constructors ()
+		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Set ()
+		public void Test_Equality ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Length ()
+		public void TestMemberFn_ToString ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void LengthSquared ()
+		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void NormaliseMemberFunction ()
+		public void TestMemberFn_Set ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void ToString ()
+		public void TestMemberFn_Length ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void Equals ()
+		public void TestMemberFn_LengthSquared ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void IsUnit ()
+		public void TestMemberFn_NormaliseMemberFunction ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
 		[Test]
-		public void GetHashCode ()
+		public void TestMemberFn_IsUnit ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
