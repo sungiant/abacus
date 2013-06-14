@@ -1,8 +1,11 @@
 	[TestFixture]
 	public class Vector2Tests
 	{
-		[Test]
-		public void TestCase1 ()
-		{
-		}
+
+<#@ include file="Vector2.Operators.Tests.t4"#>
+<#@ include file="Vector2.Constants.Tests.t4"#>
+
+
+
+
 	}

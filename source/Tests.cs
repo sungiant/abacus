@@ -518,6 +518,255 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
 
 		}
+	}	[TestFixture]
+	public class Vector2Tests
+	{
+
+		[Test]
+		public void Addition ()
+		{
+			var zero = Vector2.Zero;
+			Single w = -3;
+			Single x = 3;
+			Single y = -6;
+			Single z = 9;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+			var c = new Vector2(w, x);
+
+			// test addition with the (+) operator
+			var test1_op = a + b;
+			var test2_op = b + a;
+			var test3_op = c + a;
+			var test4_op = c + b;
+			var test5_op = b + zero;
+			var test6_op = zero + c;
+			var test7_op = zero + zero;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(c));
+			Assert.That(test3_op, Is.Not.EqualTo(c));
+			Assert.That(test4_op, Is.Not.EqualTo(c));
+			Assert.That(test5_op, Is.EqualTo(b));
+			Assert.That(test6_op, Is.EqualTo(c));
+			Assert.That(test7_op, Is.EqualTo(zero));
+
+			// Test addition with the static Add function
+			Vector2 test1_st; Vector2.Add(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Add(ref b, ref a, out test2_st);
+			Vector2 test3_st; Vector2.Add(ref c, ref a, out test3_st);
+			Vector2 test4_st; Vector2.Add(ref c, ref b, out test4_st);
+			Vector2 test5_st; Vector2.Add(ref b, ref zero, out test5_st);
+			Vector2 test6_st; Vector2.Add(ref zero, ref c, out test6_st);
+			Vector2 test7_st; Vector2.Add(ref zero, ref zero, out test7_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(c));
+			Assert.That(test3_st, Is.Not.EqualTo(c));
+			Assert.That(test4_st, Is.Not.EqualTo(c));
+			Assert.That(test5_st, Is.EqualTo(b));
+			Assert.That(test6_st, Is.EqualTo(c));
+			Assert.That(test7_st, Is.EqualTo(zero));
+		}
+
+		[Test]
+		public void Subtraction ()
+		{
+			var zero = Vector2.Zero;
+			Single r = 34;
+			Single s = -91;
+			Single t = -34;
+			Single u = 91;
+
+			Single x = 33;
+			Single y = -1;
+			Single z = 90;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+			var c = new Vector2(x, z);
+
+
+			var d = new Vector2(r, s);
+			var e = new Vector2(t, u);
+
+			// Test subtraction with the (-) operator
+			var test1_op = a - b;
+			var test2_op = b - a;
+			var test3_op = c - a;
+			var test4_op = c - b;
+			var test5_op = a - zero;
+			var test6_op = zero - d;
+			var test7_op = zero - zero;
+
+			Assert.That(test1_op, Is.EqualTo(d));
+			Assert.That(test2_op, Is.EqualTo(e));
+			Assert.That(test3_op, Is.Not.EqualTo(c));
+			Assert.That(test4_op, Is.Not.EqualTo(c));
+			Assert.That(test5_op, Is.EqualTo(a));
+			Assert.That(test6_op, Is.EqualTo(e));
+			Assert.That(test7_op, Is.EqualTo(zero));
+
+			// Test subtraction with the static Subtract function
+			Vector2 test1_st; Vector2.Subtract(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Subtract(ref b, ref a, out test2_st);
+			Vector2 test3_st; Vector2.Subtract(ref c, ref a, out test3_st);
+			Vector2 test4_st; Vector2.Subtract(ref c, ref b, out test4_st);
+			Vector2 test5_st; Vector2.Subtract(ref a, ref zero, out test5_st);
+			Vector2 test6_st; Vector2.Subtract(ref zero, ref d, out test6_st);
+			Vector2 test7_st; Vector2.Subtract(ref zero, ref zero, out test7_st);
+
+			Assert.That(test1_st, Is.EqualTo(d));
+			Assert.That(test2_st, Is.EqualTo(e));
+			Assert.That(test3_st, Is.Not.EqualTo(c));
+			Assert.That(test4_st, Is.Not.EqualTo(c));
+			Assert.That(test5_st, Is.EqualTo(a));
+			Assert.That(test6_st, Is.EqualTo(e));
+			Assert.That(test7_st, Is.EqualTo(zero));
+		}
+
+		[Test]
+		public void Negation ()
+		{
+			Single r = 3432;
+			Single s = -6218;
+			Single t = -3432;
+			Single u = 6218;
+
+			var zero = Vector2.Zero;
+			var a = new Vector2(r, s);
+			var b = new Vector2(u, t);
+			var c = new Vector2(t, u);
+			var d = new Vector2(s, r);
+
+			// Test negation with the Negate member function
+			Vector2 test1_st; Vector2.Negate(ref a, out test1_st);
+			Vector2 test2_st; Vector2.Negate(ref b, out test2_st);
+			Vector2 test3_st; Vector2.Negate(ref c, out test3_st);
+			Vector2 test4_st; Vector2.Negate(ref d, out test4_st);
+			Vector2 test5_st; Vector2.Negate(ref zero, out test5_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(d));
+			Assert.That(test3_st, Is.EqualTo(zero - c));
+			Assert.That(test4_st, Is.EqualTo(zero - d));
+			Assert.That(test5_st, Is.EqualTo(zero));
+		}
+
+		[Test]
+		public void Multiplication ()
+		{
+			Single r = 18;
+			Single s = -54;
+
+			Single x = 3;
+			Single y = 6;
+			Single z = -9;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+
+			// Test multiplication with the (*) operator
+			var test1_op = a * b;
+			var test2_op = b * a;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(c));
+
+			// Test multiplication with static Multiply function
+			Vector2 test1_st; Vector2.Multiply(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Multiply(ref b, ref a, out test2_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(c));
+		}
+
+		[Test]
+		public void Division ()
+		{
+			Single r = 10;
+			Single s = -40;
+			Single t = 1.0f / 10.0f;
+			Single u = -1.0f / 40.0f;
+
+			Single x = 2000;
+			Single y = 200;
+			Single z = -5;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+			var d = new Vector2(t, u);
+
+			// Test multiplication with the (*) operator
+			var test1_op = a / b;
+			var test2_op = b / a;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(d));
+
+			// Test multiplication with static Multiply function
+			Vector2 test1_st; Vector2.Divide(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Divide(ref b, ref a, out test2_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(d));
+		}
+		[Test]
+		public void Zero ()
+		{
+			Single zero = 0;
+			var v_zero = Vector2.Zero;
+
+			Assert.That(v_zero.X, Is.EqualTo(zero));
+			Assert.That(v_zero.Y, Is.EqualTo(zero));
+			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
+		}
+
+		[Test]
+		public void One ()
+		{
+			Single one = 1;
+			var v_one = Vector2.One;
+
+			Assert.That(v_one.X, Is.EqualTo(one));
+			Assert.That(v_one.Y, Is.EqualTo(one));
+			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
+		}
+
+		[Test]
+		public void UnitX ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_x = Vector2.UnitX;
+
+			Assert.That(v_unit_x.X, Is.EqualTo(one));
+			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
+		}
+
+		[Test]
+		public void UnitY ()
+		{
+			Single zero = 0;
+			Single one = 1;
+
+			var v_unit_y = Vector2.UnitY;
+
+			Assert.That(v_unit_y.X, Is.EqualTo(zero));
+			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
+		}
+
+
+
+
 	}}
 
 namespace Sungiant.Abacus.DoublePrecision.Tests
@@ -605,5 +854,254 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
 
 		}
+	}	[TestFixture]
+	public class Vector2Tests
+	{
+
+		[Test]
+		public void Addition ()
+		{
+			var zero = Vector2.Zero;
+			Double w = -3;
+			Double x = 3;
+			Double y = -6;
+			Double z = 9;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+			var c = new Vector2(w, x);
+
+			// test addition with the (+) operator
+			var test1_op = a + b;
+			var test2_op = b + a;
+			var test3_op = c + a;
+			var test4_op = c + b;
+			var test5_op = b + zero;
+			var test6_op = zero + c;
+			var test7_op = zero + zero;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(c));
+			Assert.That(test3_op, Is.Not.EqualTo(c));
+			Assert.That(test4_op, Is.Not.EqualTo(c));
+			Assert.That(test5_op, Is.EqualTo(b));
+			Assert.That(test6_op, Is.EqualTo(c));
+			Assert.That(test7_op, Is.EqualTo(zero));
+
+			// Test addition with the static Add function
+			Vector2 test1_st; Vector2.Add(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Add(ref b, ref a, out test2_st);
+			Vector2 test3_st; Vector2.Add(ref c, ref a, out test3_st);
+			Vector2 test4_st; Vector2.Add(ref c, ref b, out test4_st);
+			Vector2 test5_st; Vector2.Add(ref b, ref zero, out test5_st);
+			Vector2 test6_st; Vector2.Add(ref zero, ref c, out test6_st);
+			Vector2 test7_st; Vector2.Add(ref zero, ref zero, out test7_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(c));
+			Assert.That(test3_st, Is.Not.EqualTo(c));
+			Assert.That(test4_st, Is.Not.EqualTo(c));
+			Assert.That(test5_st, Is.EqualTo(b));
+			Assert.That(test6_st, Is.EqualTo(c));
+			Assert.That(test7_st, Is.EqualTo(zero));
+		}
+
+		[Test]
+		public void Subtraction ()
+		{
+			var zero = Vector2.Zero;
+			Double r = 34;
+			Double s = -91;
+			Double t = -34;
+			Double u = 91;
+
+			Double x = 33;
+			Double y = -1;
+			Double z = 90;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+			var c = new Vector2(x, z);
+
+
+			var d = new Vector2(r, s);
+			var e = new Vector2(t, u);
+
+			// Test subtraction with the (-) operator
+			var test1_op = a - b;
+			var test2_op = b - a;
+			var test3_op = c - a;
+			var test4_op = c - b;
+			var test5_op = a - zero;
+			var test6_op = zero - d;
+			var test7_op = zero - zero;
+
+			Assert.That(test1_op, Is.EqualTo(d));
+			Assert.That(test2_op, Is.EqualTo(e));
+			Assert.That(test3_op, Is.Not.EqualTo(c));
+			Assert.That(test4_op, Is.Not.EqualTo(c));
+			Assert.That(test5_op, Is.EqualTo(a));
+			Assert.That(test6_op, Is.EqualTo(e));
+			Assert.That(test7_op, Is.EqualTo(zero));
+
+			// Test subtraction with the static Subtract function
+			Vector2 test1_st; Vector2.Subtract(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Subtract(ref b, ref a, out test2_st);
+			Vector2 test3_st; Vector2.Subtract(ref c, ref a, out test3_st);
+			Vector2 test4_st; Vector2.Subtract(ref c, ref b, out test4_st);
+			Vector2 test5_st; Vector2.Subtract(ref a, ref zero, out test5_st);
+			Vector2 test6_st; Vector2.Subtract(ref zero, ref d, out test6_st);
+			Vector2 test7_st; Vector2.Subtract(ref zero, ref zero, out test7_st);
+
+			Assert.That(test1_st, Is.EqualTo(d));
+			Assert.That(test2_st, Is.EqualTo(e));
+			Assert.That(test3_st, Is.Not.EqualTo(c));
+			Assert.That(test4_st, Is.Not.EqualTo(c));
+			Assert.That(test5_st, Is.EqualTo(a));
+			Assert.That(test6_st, Is.EqualTo(e));
+			Assert.That(test7_st, Is.EqualTo(zero));
+		}
+
+		[Test]
+		public void Negation ()
+		{
+			Double r = 3432;
+			Double s = -6218;
+			Double t = -3432;
+			Double u = 6218;
+
+			var zero = Vector2.Zero;
+			var a = new Vector2(r, s);
+			var b = new Vector2(u, t);
+			var c = new Vector2(t, u);
+			var d = new Vector2(s, r);
+
+			// Test negation with the Negate member function
+			Vector2 test1_st; Vector2.Negate(ref a, out test1_st);
+			Vector2 test2_st; Vector2.Negate(ref b, out test2_st);
+			Vector2 test3_st; Vector2.Negate(ref c, out test3_st);
+			Vector2 test4_st; Vector2.Negate(ref d, out test4_st);
+			Vector2 test5_st; Vector2.Negate(ref zero, out test5_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(d));
+			Assert.That(test3_st, Is.EqualTo(zero - c));
+			Assert.That(test4_st, Is.EqualTo(zero - d));
+			Assert.That(test5_st, Is.EqualTo(zero));
+		}
+
+		[Test]
+		public void Multiplication ()
+		{
+			Double r = 18;
+			Double s = -54;
+
+			Double x = 3;
+			Double y = 6;
+			Double z = -9;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+
+			// Test multiplication with the (*) operator
+			var test1_op = a * b;
+			var test2_op = b * a;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(c));
+
+			// Test multiplication with static Multiply function
+			Vector2 test1_st; Vector2.Multiply(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Multiply(ref b, ref a, out test2_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(c));
+		}
+
+		[Test]
+		public void Division ()
+		{
+			Double r = 10;
+			Double s = -40;
+			Double t = 1.0f / 10.0f;
+			Double u = -1.0f / 40.0f;
+
+			Double x = 2000;
+			Double y = 200;
+			Double z = -5;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+			var d = new Vector2(t, u);
+
+			// Test multiplication with the (*) operator
+			var test1_op = a / b;
+			var test2_op = b / a;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(d));
+
+			// Test multiplication with static Multiply function
+			Vector2 test1_st; Vector2.Divide(ref a, ref b, out test1_st);
+			Vector2 test2_st; Vector2.Divide(ref b, ref a, out test2_st);
+
+			Assert.That(test1_st, Is.EqualTo(c));
+			Assert.That(test2_st, Is.EqualTo(d));
+		}
+		[Test]
+		public void Zero ()
+		{
+			Double zero = 0;
+			var v_zero = Vector2.Zero;
+
+			Assert.That(v_zero.X, Is.EqualTo(zero));
+			Assert.That(v_zero.Y, Is.EqualTo(zero));
+			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
+		}
+
+		[Test]
+		public void One ()
+		{
+			Double one = 1;
+			var v_one = Vector2.One;
+
+			Assert.That(v_one.X, Is.EqualTo(one));
+			Assert.That(v_one.Y, Is.EqualTo(one));
+			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
+		}
+
+		[Test]
+		public void UnitX ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_x = Vector2.UnitX;
+
+			Assert.That(v_unit_x.X, Is.EqualTo(one));
+			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
+			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
+		}
+
+		[Test]
+		public void UnitY ()
+		{
+			Double zero = 0;
+			Double one = 1;
+
+			var v_unit_y = Vector2.UnitY;
+
+			Assert.That(v_unit_y.X, Is.EqualTo(zero));
+			Assert.That(v_unit_y.Y, Is.EqualTo(one));
+			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
+		}
+
+
+
+
 	}}
 
