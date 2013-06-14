@@ -1,0 +1,28 @@
+		#region Splines
+
+		[Test]
+		public void Barycentric ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void SmoothStep ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void CatmullRom ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Hermite ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		#endregion
+		

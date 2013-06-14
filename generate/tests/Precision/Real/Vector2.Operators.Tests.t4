@@ -1,3 +1,5 @@
+		#region Utilities
+
 		[Test]
 		public void Addition ()
 		{
@@ -165,8 +167,8 @@
 		{
 			<#= type #> r = 10;
 			<#= type #> s = -40;
-			<#= type #> t = 1.0f / 10.0f;
-			<#= type #> u = -1.0f / 40.0f;
+			<#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
+			<#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
 
 			<#= type #> x = 2000;
 			<#= type #> y = 200;
@@ -192,3 +194,5 @@
 			Assert.That(test1_st, Is.EqualTo(c));
 			Assert.That(test2_st, Is.EqualTo(d));
 		}
+
+		#endregion

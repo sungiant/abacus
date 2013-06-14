@@ -1,11 +1,66 @@
 	[TestFixture]
 	public class Vector2Tests
 	{
+		[Test]
+		public void Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
-<#@ include file="Vector2.Operators.Tests.t4"#>
+		[Test]
+		public void Set ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Length ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void LengthSquared ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void NormaliseMemberFunction ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Equals ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void IsUnit ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
 <#@ include file="Vector2.Constants.Tests.t4"#>
+<#@ include file="Vector2.Maths.Tests.t4"#>
+<#@ include file="Vector2.Operators.Tests.t4"#>
+<#@ include file="Vector2.Splines.Tests.t4"#>
+<#@ include file="Vector2.Utilities.Tests.t4"#>
 
-
-
+<#@ include file="Vector2.Validate.Tests.t4"#>
 
 	}

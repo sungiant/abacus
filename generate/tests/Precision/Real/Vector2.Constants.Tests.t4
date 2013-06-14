@@ -1,3 +1,5 @@
+		#region Utilities
+
 		[Test]
 		public void Zero ()
 		{
@@ -45,3 +47,5 @@
 			Assert.That(v_unit_y.Y, Is.EqualTo(one));
 			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
 		}
+
+		#endregion
