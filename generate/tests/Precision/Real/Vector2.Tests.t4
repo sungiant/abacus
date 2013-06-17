@@ -4,13 +4,33 @@
 		[Test]
 		public void Test_Constructors ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			// Test default values
+			Vector2 a = new Vector2();
+			Assert.That(a, Is.EqualTo(Vector2.Zero));
 
-		[Test]
-		public void Test_Equality ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			// Test Vector2( n ) where n is <#= type #>
+			<#= type #> u = -189;
+			<#= type #> v = 429;
+			Vector2 b1 = new Vector2(u);
+			Assert.That(b1.X, Is.EqualTo(u));
+			Assert.That(b1.Y, Is.EqualTo(u));
+			Vector2 b2 = new Vector2(v);
+			Assert.That(b2.X, Is.EqualTo(v));
+			Assert.That(b2.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are <#= type #>
+			Vector2 c = new Vector2(u, v);
+			Assert.That(c.X, Is.EqualTo(u));
+			Assert.That(c.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are Int32
+			Int32 q = 12334;
+			Int32 r = -2145;
+			<#= type #> s = q;
+			<#= type #> t = r;
+			Vector2 d = new Vector2(q, r);
+			Assert.That(d.X, Is.EqualTo(s));
+			Assert.That(d.Y, Is.EqualTo(t));
 		}
 
 		[Test]

@@ -909,13 +909,33 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void Test_Constructors ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			// Test default values
+			Vector2 a = new Vector2();
+			Assert.That(a, Is.EqualTo(Vector2.Zero));
 
-		[Test]
-		public void Test_Equality ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			// Test Vector2( n ) where n is Single
+			Single u = -189;
+			Single v = 429;
+			Vector2 b1 = new Vector2(u);
+			Assert.That(b1.X, Is.EqualTo(u));
+			Assert.That(b1.Y, Is.EqualTo(u));
+			Vector2 b2 = new Vector2(v);
+			Assert.That(b2.X, Is.EqualTo(v));
+			Assert.That(b2.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are Single
+			Vector2 c = new Vector2(u, v);
+			Assert.That(c.X, Is.EqualTo(u));
+			Assert.That(c.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are Int32
+			Int32 q = 12334;
+			Int32 r = -2145;
+			Single s = q;
+			Single t = r;
+			Vector2 d = new Vector2(q, r);
+			Assert.That(d.X, Is.EqualTo(s));
+			Assert.That(d.Y, Is.EqualTo(t));
 		}
 
 		[Test]
@@ -1018,15 +1038,51 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Maths
 
 		[Test]
-		public void TestStaticFn_Distance ()
+		public void TestStaticFn_Distance_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(0, 4);
+			Vector2 b = new Vector2(3, 0);
+
+			Single expected = 5;
+			Single result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_ii ()
+		{
+			Vector2 a = new Vector2(0, -4);
+			Vector2 b = new Vector2(3, 0);
+
+			Single expected = 5;
+			Single result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_iii ()
+		{
+			Vector2 a = new Vector2(0, -4);
+			Vector2 b = new Vector2(-3, 0);
+
+			Single expected = 5;
+			Single result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestStaticFn_DistanceSquared ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(0, 4);
+			Vector2 b = new Vector2(3, 0);
+
+			Single expected = 25;
+			Single result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
@@ -1078,111 +1134,170 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Operators
 
-		[Test]
-		public void TestOperator_Addition ()
+		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
-			var zero = Vector2.Zero;
-			Single w = -3;
-			Single x = 3;
-			Single y = -6;
-			Single z = 9;
+			// This test asserts the following:
+			//   (a == b) == expected
+			//   (b == a) == expected
+			//   (a != b) == !expected
+			//   (b != a) == !expected
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-			var c = new Vector2(w, x);
+			Boolean result_1a = (a == b);
+			Boolean result_1b = (a.Equals(b));
+			Boolean result_1c = (a.Equals((Object)b));
+			
+			Boolean result_2a = (b == a);
+			Boolean result_2b = (b.Equals(a));
+			Boolean result_2c = (b.Equals((Object)a));
 
-			// test addition with the (+) operator
-			var test1_op = a + b;
-			var test2_op = b + a;
-			var test3_op = c + a;
-			var test4_op = c + b;
-			var test5_op = b + zero;
-			var test6_op = zero + c;
-			var test7_op = zero + zero;
-
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(c));
-			Assert.That(test3_op, Is.Not.EqualTo(c));
-			Assert.That(test4_op, Is.Not.EqualTo(c));
-			Assert.That(test5_op, Is.EqualTo(b));
-			Assert.That(test6_op, Is.EqualTo(c));
-			Assert.That(test7_op, Is.EqualTo(zero));
-
-			// Test addition with the static Add function
-			Vector2 test1_st; Vector2.Add(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Add(ref b, ref a, out test2_st);
-			Vector2 test3_st; Vector2.Add(ref c, ref a, out test3_st);
-			Vector2 test4_st; Vector2.Add(ref c, ref b, out test4_st);
-			Vector2 test5_st; Vector2.Add(ref b, ref zero, out test5_st);
-			Vector2 test6_st; Vector2.Add(ref zero, ref c, out test6_st);
-			Vector2 test7_st; Vector2.Add(ref zero, ref zero, out test7_st);
-
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(c));
-			Assert.That(test3_st, Is.Not.EqualTo(c));
-			Assert.That(test4_st, Is.Not.EqualTo(c));
-			Assert.That(test5_st, Is.EqualTo(b));
-			Assert.That(test6_st, Is.EqualTo(c));
-			Assert.That(test7_st, Is.EqualTo(zero));
+			Boolean result_3a = (a != b);
+			Boolean result_4a = (b != a);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_1c, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+			Assert.That(result_2c, Is.EqualTo(expected));
+			Assert.That(result_3a, Is.EqualTo(!expected));
+			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
 		[Test]
-		public void TestOperator_Subtraction ()
+		public void TestOperator_Equality_i ()
 		{
-			var zero = Vector2.Zero;
-			Single r = 34;
-			Single s = -91;
-			Single t = -34;
-			Single u = 91;
+			var a = new Vector2(44, -54);
+			var b = new Vector2(44, -54);
 
-			Single x = 33;
-			Single y = -1;
-			Single z = 90;
+			Boolean expected = true;
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-			var c = new Vector2(x, z);
-
-
-			var d = new Vector2(r, s);
-			var e = new Vector2(t, u);
-
-			// Test subtraction with the (-) operator
-			var test1_op = a - b;
-			var test2_op = b - a;
-			var test3_op = c - a;
-			var test4_op = c - b;
-			var test5_op = a - zero;
-			var test6_op = zero - d;
-			var test7_op = zero - zero;
-
-			Assert.That(test1_op, Is.EqualTo(d));
-			Assert.That(test2_op, Is.EqualTo(e));
-			Assert.That(test3_op, Is.Not.EqualTo(c));
-			Assert.That(test4_op, Is.Not.EqualTo(c));
-			Assert.That(test5_op, Is.EqualTo(a));
-			Assert.That(test6_op, Is.EqualTo(e));
-			Assert.That(test7_op, Is.EqualTo(zero));
-
-			// Test subtraction with the static Subtract function
-			Vector2 test1_st; Vector2.Subtract(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Subtract(ref b, ref a, out test2_st);
-			Vector2 test3_st; Vector2.Subtract(ref c, ref a, out test3_st);
-			Vector2 test4_st; Vector2.Subtract(ref c, ref b, out test4_st);
-			Vector2 test5_st; Vector2.Subtract(ref a, ref zero, out test5_st);
-			Vector2 test6_st; Vector2.Subtract(ref zero, ref d, out test6_st);
-			Vector2 test7_st; Vector2.Subtract(ref zero, ref zero, out test7_st);
-
-			Assert.That(test1_st, Is.EqualTo(d));
-			Assert.That(test2_st, Is.EqualTo(e));
-			Assert.That(test3_st, Is.Not.EqualTo(c));
-			Assert.That(test4_st, Is.Not.EqualTo(c));
-			Assert.That(test5_st, Is.EqualTo(a));
-			Assert.That(test6_st, Is.EqualTo(e));
-			Assert.That(test7_st, Is.EqualTo(zero));
+			this.TestEquality(a, b, expected);
 		}
+
+
+		[Test]
+		public void TestOperator_Equality_ii ()
+		{
+			var a = new Vector2(44, 54);
+			var b = new Vector2(44, -54);
+
+			Boolean expected = false;
+
+			this.TestEquality(a, b, expected);
+		}
+
+
+		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a + b == expected
+			//   b + a == expected
+
+			var result_1a = a + b;
+			var result_2a = b + a;
+
+			Vector2 result_1b; Vector2.Add(ref a, ref b, out result_1b);
+			Vector2 result_2b; Vector2.Add(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		[Test] // Assert that, for a known example, simple vector addition yields the correct result.
+		public void TestOperator_Addition_i ()
+		{
+			var a = new Vector2(3, -6);
+			var b = new Vector2(-6, 12);
+
+			var expected = new Vector2(-3, 6);
+
+			this.TestAddition(a, b, expected);
+		}
+
+		[Test] // Assert that, for a known example, vector addition work correctly when one zero vector is involved.
+		public void TestOperator_Addition_ii ()
+		{
+			var a = new Vector2(-2313, 88);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector2.Zero, expected);
+		}
+
+		[Test] // Assert that two zero vectors correctly add to yield zero.
+		public void TestOperator_Addition_iii ()
+		{
+			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+		}
+
+		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a - b == expected
+			//   b - a == -expected
+
+			var result_1a = a - b;
+			var result_2a = b - a;
+
+			Vector2 result_1b; Vector2.Subtract(ref a, ref b, out result_1b);
+			Vector2 result_2b; Vector2.Subtract(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(-expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(-expected));
+		}
+
+		[Test] // Assert that, for a known example, simple vector subtraction yields the correct result.
+		public void TestOperator_Subtraction_i ()
+		{
+			var a = new Vector2(12, -4);
+			var b = new Vector2(15, 11);
+
+			var expected = new Vector2(-3, -15);
+
+			this.TestSubtraction(a, b, expected);
+		}
+
+		[Test] // Assert that, for a known example, vector subtraction work correctly when one zero vector is involved.
+		public void TestOperator_Subtraction_ii ()
+		{
+			var a = new Vector2(-423, 342);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector2.Zero, expected);
+		}
+
+		[Test] // Assert that two zero vectors correctly subtract to yield zero.
+		public void TestOperator_Subtraction_iii ()
+		{
+			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		[Test]
 		public void TestOperator_Negation ()
@@ -1197,6 +1312,19 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			var b = new Vector2(u, t);
 			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
+
+			// Test negation with the  -X operator
+			Vector2 test1_op = -a;
+			Vector2 test2_op = -b;
+			Vector2 test3_op = -c;
+			Vector2 test4_op = -d;
+			Vector2 test5_op = -zero;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(d));
+			Assert.That(test3_op, Is.EqualTo(zero - c));
+			Assert.That(test4_op, Is.EqualTo(zero - d));
+			Assert.That(test5_op, Is.EqualTo(zero));
 
 			// Test negation with the Negate member function
 			Vector2 test1_st; Vector2.Negate(ref a, out test1_st);
@@ -2251,13 +2379,33 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void Test_Constructors ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			// Test default values
+			Vector2 a = new Vector2();
+			Assert.That(a, Is.EqualTo(Vector2.Zero));
 
-		[Test]
-		public void Test_Equality ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			// Test Vector2( n ) where n is Double
+			Double u = -189;
+			Double v = 429;
+			Vector2 b1 = new Vector2(u);
+			Assert.That(b1.X, Is.EqualTo(u));
+			Assert.That(b1.Y, Is.EqualTo(u));
+			Vector2 b2 = new Vector2(v);
+			Assert.That(b2.X, Is.EqualTo(v));
+			Assert.That(b2.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are Double
+			Vector2 c = new Vector2(u, v);
+			Assert.That(c.X, Is.EqualTo(u));
+			Assert.That(c.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are Int32
+			Int32 q = 12334;
+			Int32 r = -2145;
+			Double s = q;
+			Double t = r;
+			Vector2 d = new Vector2(q, r);
+			Assert.That(d.X, Is.EqualTo(s));
+			Assert.That(d.Y, Is.EqualTo(t));
 		}
 
 		[Test]
@@ -2360,15 +2508,51 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#region Maths
 
 		[Test]
-		public void TestStaticFn_Distance ()
+		public void TestStaticFn_Distance_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(0, 4);
+			Vector2 b = new Vector2(3, 0);
+
+			Double expected = 5;
+			Double result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_ii ()
+		{
+			Vector2 a = new Vector2(0, -4);
+			Vector2 b = new Vector2(3, 0);
+
+			Double expected = 5;
+			Double result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_iii ()
+		{
+			Vector2 a = new Vector2(0, -4);
+			Vector2 b = new Vector2(-3, 0);
+
+			Double expected = 5;
+			Double result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestStaticFn_DistanceSquared ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(0, 4);
+			Vector2 b = new Vector2(3, 0);
+
+			Double expected = 25;
+			Double result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
@@ -2420,111 +2604,170 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		#endregion
-		#region Utilities
+		#region Operators
 
-		[Test]
-		public void TestOperator_Addition ()
+		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
-			var zero = Vector2.Zero;
-			Double w = -3;
-			Double x = 3;
-			Double y = -6;
-			Double z = 9;
+			// This test asserts the following:
+			//   (a == b) == expected
+			//   (b == a) == expected
+			//   (a != b) == !expected
+			//   (b != a) == !expected
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-			var c = new Vector2(w, x);
+			Boolean result_1a = (a == b);
+			Boolean result_1b = (a.Equals(b));
+			Boolean result_1c = (a.Equals((Object)b));
+			
+			Boolean result_2a = (b == a);
+			Boolean result_2b = (b.Equals(a));
+			Boolean result_2c = (b.Equals((Object)a));
 
-			// test addition with the (+) operator
-			var test1_op = a + b;
-			var test2_op = b + a;
-			var test3_op = c + a;
-			var test4_op = c + b;
-			var test5_op = b + zero;
-			var test6_op = zero + c;
-			var test7_op = zero + zero;
-
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(c));
-			Assert.That(test3_op, Is.Not.EqualTo(c));
-			Assert.That(test4_op, Is.Not.EqualTo(c));
-			Assert.That(test5_op, Is.EqualTo(b));
-			Assert.That(test6_op, Is.EqualTo(c));
-			Assert.That(test7_op, Is.EqualTo(zero));
-
-			// Test addition with the static Add function
-			Vector2 test1_st; Vector2.Add(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Add(ref b, ref a, out test2_st);
-			Vector2 test3_st; Vector2.Add(ref c, ref a, out test3_st);
-			Vector2 test4_st; Vector2.Add(ref c, ref b, out test4_st);
-			Vector2 test5_st; Vector2.Add(ref b, ref zero, out test5_st);
-			Vector2 test6_st; Vector2.Add(ref zero, ref c, out test6_st);
-			Vector2 test7_st; Vector2.Add(ref zero, ref zero, out test7_st);
-
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(c));
-			Assert.That(test3_st, Is.Not.EqualTo(c));
-			Assert.That(test4_st, Is.Not.EqualTo(c));
-			Assert.That(test5_st, Is.EqualTo(b));
-			Assert.That(test6_st, Is.EqualTo(c));
-			Assert.That(test7_st, Is.EqualTo(zero));
+			Boolean result_3a = (a != b);
+			Boolean result_4a = (b != a);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_1c, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+			Assert.That(result_2c, Is.EqualTo(expected));
+			Assert.That(result_3a, Is.EqualTo(!expected));
+			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
 		[Test]
-		public void TestOperator_Subtraction ()
+		public void TestOperator_Equality_i ()
 		{
-			var zero = Vector2.Zero;
-			Double r = 34;
-			Double s = -91;
-			Double t = -34;
-			Double u = 91;
+			var a = new Vector2(44, -54);
+			var b = new Vector2(44, -54);
 
-			Double x = 33;
-			Double y = -1;
-			Double z = 90;
+			Boolean expected = true;
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-			var c = new Vector2(x, z);
-
-
-			var d = new Vector2(r, s);
-			var e = new Vector2(t, u);
-
-			// Test subtraction with the (-) operator
-			var test1_op = a - b;
-			var test2_op = b - a;
-			var test3_op = c - a;
-			var test4_op = c - b;
-			var test5_op = a - zero;
-			var test6_op = zero - d;
-			var test7_op = zero - zero;
-
-			Assert.That(test1_op, Is.EqualTo(d));
-			Assert.That(test2_op, Is.EqualTo(e));
-			Assert.That(test3_op, Is.Not.EqualTo(c));
-			Assert.That(test4_op, Is.Not.EqualTo(c));
-			Assert.That(test5_op, Is.EqualTo(a));
-			Assert.That(test6_op, Is.EqualTo(e));
-			Assert.That(test7_op, Is.EqualTo(zero));
-
-			// Test subtraction with the static Subtract function
-			Vector2 test1_st; Vector2.Subtract(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Subtract(ref b, ref a, out test2_st);
-			Vector2 test3_st; Vector2.Subtract(ref c, ref a, out test3_st);
-			Vector2 test4_st; Vector2.Subtract(ref c, ref b, out test4_st);
-			Vector2 test5_st; Vector2.Subtract(ref a, ref zero, out test5_st);
-			Vector2 test6_st; Vector2.Subtract(ref zero, ref d, out test6_st);
-			Vector2 test7_st; Vector2.Subtract(ref zero, ref zero, out test7_st);
-
-			Assert.That(test1_st, Is.EqualTo(d));
-			Assert.That(test2_st, Is.EqualTo(e));
-			Assert.That(test3_st, Is.Not.EqualTo(c));
-			Assert.That(test4_st, Is.Not.EqualTo(c));
-			Assert.That(test5_st, Is.EqualTo(a));
-			Assert.That(test6_st, Is.EqualTo(e));
-			Assert.That(test7_st, Is.EqualTo(zero));
+			this.TestEquality(a, b, expected);
 		}
+
+
+		[Test]
+		public void TestOperator_Equality_ii ()
+		{
+			var a = new Vector2(44, 54);
+			var b = new Vector2(44, -54);
+
+			Boolean expected = false;
+
+			this.TestEquality(a, b, expected);
+		}
+
+
+		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a + b == expected
+			//   b + a == expected
+
+			var result_1a = a + b;
+			var result_2a = b + a;
+
+			Vector2 result_1b; Vector2.Add(ref a, ref b, out result_1b);
+			Vector2 result_2b; Vector2.Add(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		[Test] // Assert that, for a known example, simple vector addition yields the correct result.
+		public void TestOperator_Addition_i ()
+		{
+			var a = new Vector2(3, -6);
+			var b = new Vector2(-6, 12);
+
+			var expected = new Vector2(-3, 6);
+
+			this.TestAddition(a, b, expected);
+		}
+
+		[Test] // Assert that, for a known example, vector addition work correctly when one zero vector is involved.
+		public void TestOperator_Addition_ii ()
+		{
+			var a = new Vector2(-2313, 88);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector2.Zero, expected);
+		}
+
+		[Test] // Assert that two zero vectors correctly add to yield zero.
+		public void TestOperator_Addition_iii ()
+		{
+			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+		}
+
+		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a - b == expected
+			//   b - a == -expected
+
+			var result_1a = a - b;
+			var result_2a = b - a;
+
+			Vector2 result_1b; Vector2.Subtract(ref a, ref b, out result_1b);
+			Vector2 result_2b; Vector2.Subtract(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(-expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(-expected));
+		}
+
+		[Test] // Assert that, for a known example, simple vector subtraction yields the correct result.
+		public void TestOperator_Subtraction_i ()
+		{
+			var a = new Vector2(12, -4);
+			var b = new Vector2(15, 11);
+
+			var expected = new Vector2(-3, -15);
+
+			this.TestSubtraction(a, b, expected);
+		}
+
+		[Test] // Assert that, for a known example, vector subtraction work correctly when one zero vector is involved.
+		public void TestOperator_Subtraction_ii ()
+		{
+			var a = new Vector2(-423, 342);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector2.Zero, expected);
+		}
+
+		[Test] // Assert that two zero vectors correctly subtract to yield zero.
+		public void TestOperator_Subtraction_iii ()
+		{
+			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		[Test]
 		public void TestOperator_Negation ()
@@ -2539,6 +2782,19 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			var b = new Vector2(u, t);
 			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
+
+			// Test negation with the  -X operator
+			Vector2 test1_op = -a;
+			Vector2 test2_op = -b;
+			Vector2 test3_op = -c;
+			Vector2 test4_op = -d;
+			Vector2 test5_op = -zero;
+
+			Assert.That(test1_op, Is.EqualTo(c));
+			Assert.That(test2_op, Is.EqualTo(d));
+			Assert.That(test3_op, Is.EqualTo(zero - c));
+			Assert.That(test4_op, Is.EqualTo(zero - d));
+			Assert.That(test5_op, Is.EqualTo(zero));
 
 			// Test negation with the Negate member function
 			Vector2 test1_st; Vector2.Negate(ref a, out test1_st);

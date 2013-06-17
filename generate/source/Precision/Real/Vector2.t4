@@ -11,6 +11,11 @@
 			this.Y = (<#= type #>) y;
 		}
 
+		public Vector2 (<#= type #> value)
+		{
+			this.X = this.Y = value;
+		}
+
 		public Vector2 (<#= type #> x, <#= type #> y)
 		{
 			this.X = x;
@@ -21,11 +26,6 @@
 		{
 			this.X = x;
 			this.Y = y;
-		}
-
-		public Vector2 (<#= type #> value)
-		{
-			this.X = this.Y = value;
 		}
 
 		public <#= type #> Length ()

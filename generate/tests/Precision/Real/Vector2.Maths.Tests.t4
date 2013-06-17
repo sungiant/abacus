@@ -1,15 +1,51 @@
 		#region Maths
 
 		[Test]
-		public void TestStaticFn_Distance ()
+		public void TestStaticFn_Distance_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(0, 4);
+			Vector2 b = new Vector2(3, 0);
+
+			<#= type #> expected = 5;
+			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_ii ()
+		{
+			Vector2 a = new Vector2(0, -4);
+			Vector2 b = new Vector2(3, 0);
+
+			<#= type #> expected = 5;
+			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_iii ()
+		{
+			Vector2 a = new Vector2(0, -4);
+			Vector2 b = new Vector2(-3, 0);
+
+			<#= type #> expected = 5;
+			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestStaticFn_DistanceSquared ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(0, 4);
+			Vector2 b = new Vector2(3, 0);
+
+			<#= type #> expected = 25;
+			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]

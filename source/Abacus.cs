@@ -8586,6 +8586,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.Y = (Single) y;
 		}
 
+		public Vector2 (Single value)
+		{
+			this.X = this.Y = value;
+		}
+
 		public Vector2 (Single x, Single y)
 		{
 			this.X = x;
@@ -8596,11 +8601,6 @@ namespace Sungiant.Abacus.SinglePrecision
 		{
 			this.X = x;
 			this.Y = y;
-		}
-
-		public Vector2 (Single value)
-		{
-			this.X = this.Y = value;
 		}
 
 		public Single Length ()
@@ -14759,6 +14759,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.Y = (Double) y;
 		}
 
+		public Vector2 (Double value)
+		{
+			this.X = this.Y = value;
+		}
+
 		public Vector2 (Double x, Double y)
 		{
 			this.X = x;
@@ -14769,11 +14774,6 @@ namespace Sungiant.Abacus.DoublePrecision
 		{
 			this.X = x;
 			this.Y = y;
-		}
-
-		public Vector2 (Double value)
-		{
-			this.X = this.Y = value;
 		}
 
 		public Double Length ()
