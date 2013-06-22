@@ -32,12 +32,20 @@
 
 		public static void Normalise (ref Vector2 value, out Vector2 result)
 		{
-			<#= type #> one = 1;
+			<#= type #> lengthSquared = (value.X * value.X) + (value.Y * value.Y);
 
-			<#= type #> num2 = (value.X * value.X) + (value.Y * value.Y);
-			<#= type #> num = one / (RealMaths.Sqrt (num2));
-			result.X = value.X * num;
-			result.Y = value.Y * num;
+			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
+			if( lengthSquared <= epsilon || <#= type #>.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			<#= type #> one = 1;
+			<#= type #> multiplier = one / (RealMaths.Sqrt (lengthSquared));
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+
 		}
 
 		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)

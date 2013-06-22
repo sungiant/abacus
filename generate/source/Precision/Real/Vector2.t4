@@ -39,30 +39,11 @@
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
-		public void Normalise ()
-		{
-			<#= type #> num2 = (this.X * this.X) + (this.Y * this.Y);
-
-			<#= type #> one = 1;
-			<#= type #> num = one / (RealMaths.Sqrt (num2));
-			this.X *= num;
-			this.Y *= num;
-		}
-
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
 		}
 
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector2) {
-				flag = this.Equals ((Vector2)obj);
-			}
-			return flag;
-		}
-		
 		public override Int32 GetHashCode ()
 		{
 			return (this.X.GetHashCode () + this.Y.GetHashCode ());
@@ -74,13 +55,6 @@
 
 			return RealMaths.IsZero(one - X*X - Y*Y);
 		}
-
-		#region IEquatable<Vector2>
-		public Boolean Equals (Vector2 other)
-		{
-			return ((this.X == other.X) && (this.Y == other.Y));
-		}
-		#endregion
 
 <#@ include file="Vector2.Constants.t4"#>
 <#@ include file="Vector2.Maths.t4"#>

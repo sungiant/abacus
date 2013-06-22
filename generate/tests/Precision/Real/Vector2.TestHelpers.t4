@@ -1,0 +1,32 @@
+		static System.Random rand;
+
+		static Vector2Tests()
+		{
+			rand = new System.Random(0);
+		}
+
+		public static <#= type #> GetNextRandom<#= type #>()
+		{
+			<#= type #> randomValue = rand.Next<#= type #>();
+
+			<#= type #> zero = 0;
+			<#= type #> multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(1) == 1) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+
+		public static Vector2 GetNextRandomVector2()
+		{
+			<#= type #> a = GetNextRandom<#= type #>();
+			<#= type #> b = GetNextRandom<#= type #>();
+
+			return new Vector2(a, b);
+		}

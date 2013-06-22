@@ -440,7 +440,31 @@ namespace Sungiant.Abacus
 		{
 			return a > b ? a : b;
 		}
+
+		//--------------------------------------------------------------
+		// WithinEpsilon(a, b)
+		//
+		public static Boolean WithinEpsilon(Single a, Single b)
+		{
+			Single num = a - b;
+			return ((-Single.Epsilon <= num) && (num <= Single.Epsilon));
+		}
+		public static Boolean WithinEpsilon(Double a, Double b)
+		{
+			Double num = a - b;
+			return ((-Double.Epsilon <= num) && (num <= Double.Epsilon));
+		}
 	}
+
+	public static class RandomExtensions
+	{
+		// Returns a random Single between 0.0 & 1.0
+		public static Single NextSingle(this System.Random r)
+		{
+			return (Single) r.NextDouble();
+		}
+	}
+
 }
 
 namespace Sungiant.Abacus.Packed
@@ -8614,30 +8638,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
-		public void Normalise ()
-		{
-			Single num2 = (this.X * this.X) + (this.Y * this.Y);
-
-			Single one = 1;
-			Single num = one / (RealMaths.Sqrt (num2));
-			this.X *= num;
-			this.Y *= num;
-		}
-
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
 		}
 
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector2) {
-				flag = this.Equals ((Vector2)obj);
-			}
-			return flag;
-		}
-		
 		public override Int32 GetHashCode ()
 		{
 			return (this.X.GetHashCode () + this.Y.GetHashCode ());
@@ -8649,13 +8654,6 @@ namespace Sungiant.Abacus.SinglePrecision
 
 			return RealMaths.IsZero(one - X*X - Y*Y);
 		}
-
-		#region IEquatable<Vector2>
-		public Boolean Equals (Vector2 other)
-		{
-			return ((this.X == other.X) && (this.Y == other.Y));
-		}
-		#endregion
 
 		#region Constants
 
@@ -8730,12 +8728,20 @@ namespace Sungiant.Abacus.SinglePrecision
 
 		public static void Normalise (ref Vector2 value, out Vector2 result)
 		{
-			Single one = 1;
+			Single lengthSquared = (value.X * value.X) + (value.Y * value.Y);
 
-			Single num2 = (value.X * value.X) + (value.Y * value.Y);
-			Single num = one / (RealMaths.Sqrt (num2));
-			result.X = value.X * num;
-			result.Y = value.Y * num;
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+			if( lengthSquared <= epsilon || Single.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Single one = 1;
+			Single multiplier = one / (RealMaths.Sqrt (lengthSquared));
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+
 		}
 
 		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
@@ -8784,13 +8790,23 @@ namespace Sungiant.Abacus.SinglePrecision
 		#endregion
 		#region Operators
 
-		public static Vector2 operator - (Vector2 value)
+		// Equality //--------------------------------------------------------//
+
+		public override Boolean Equals (Object obj)
 		{
-			Vector2 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			return vector;
+			Boolean flag = false;
+			if (obj is Vector2) {
+				flag = this.Equals ((Vector2)obj);
+			}
+			return flag;
 		}
+
+		#region IEquatable<Vector2>
+		public Boolean Equals (Vector2 other)
+		{
+			return ((this.X == other.X) && (this.Y == other.Y));
+		}
+		#endregion
 		
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
@@ -8805,12 +8821,32 @@ namespace Sungiant.Abacus.SinglePrecision
 			return true;
 		}
 
+
+		// Addition //--------------------------------------------------------//
+
+		public static void Add (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
 			vector.X = value1.X + value2.X;
 			vector.Y = value1.Y + value2.Y;
 			return vector;
+		}
+
+
+		// Subtraction //-----------------------------------------------------//
+		
+		public static void Subtract (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
 		}
 
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
@@ -8821,7 +8857,51 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 
-		public static Vector2 operator * (Vector2 value1, Vector2 value2)
+
+		// Negation //--------------------------------------------------------//
+		
+		public static void Negate (ref Vector2 value, out Vector2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		public static Vector2 operator - (Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			return vector;
+		}
+
+
+		// Multiplication //--------------------------------------------------//
+
+		public static void Multiply (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+		
+		public static void Multiply (
+			ref Vector2 value1, Single scaleFactor, out Vector2 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+		}
+
+		public static Vector2 operator * (
+			Single scaleFactor, Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		public static Vector2 operator * (
+			Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
 			vector.X = value1.X * value2.X;
@@ -8829,20 +8909,32 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 		
-		public static Vector2 operator * (Vector2 value, Single scaleFactor)
+		public static Vector2 operator * (
+			Vector2 value, Single scaleFactor)
 		{
 			Vector2 vector;
 			vector.X = value.X * scaleFactor;
 			vector.Y = value.Y * scaleFactor;
 			return vector;
 		}
-		
-		public static Vector2 operator * (Single scaleFactor, Vector2 value)
+
+
+		// Division //--------------------------------------------------------//
+
+		public static void Divide (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		public static void Divide (
+			ref Vector2 value1, Single divider, out Vector2 result)
+		{
+			Single one = 1;
+			Single num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
 		}
 
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
@@ -8861,50 +8953,6 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.X = value1.X * num;
 			vector.Y = value1.Y * num;
 			return vector;
-		}
-		
-		public static void Negate (ref Vector2 value, out Vector2 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-		}
-
-		public static void Add (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-		}
-
-		public static void Subtract (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-		}
-
-		public static void Multiply (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-		}
-		
-		public static void Multiply (ref Vector2 value1, Single scaleFactor, out Vector2 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-		}
-
-		public static void Divide (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-		}
-
-		public static void Divide (ref Vector2 value1, Single divider, out Vector2 result)
-		{
-			Single one = 1;
-			Single num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
 		}
 		
 		#endregion
@@ -14787,30 +14835,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
-		public void Normalise ()
-		{
-			Double num2 = (this.X * this.X) + (this.Y * this.Y);
-
-			Double one = 1;
-			Double num = one / (RealMaths.Sqrt (num2));
-			this.X *= num;
-			this.Y *= num;
-		}
-
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
 		}
 
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector2) {
-				flag = this.Equals ((Vector2)obj);
-			}
-			return flag;
-		}
-		
 		public override Int32 GetHashCode ()
 		{
 			return (this.X.GetHashCode () + this.Y.GetHashCode ());
@@ -14822,13 +14851,6 @@ namespace Sungiant.Abacus.DoublePrecision
 
 			return RealMaths.IsZero(one - X*X - Y*Y);
 		}
-
-		#region IEquatable<Vector2>
-		public Boolean Equals (Vector2 other)
-		{
-			return ((this.X == other.X) && (this.Y == other.Y));
-		}
-		#endregion
 
 		#region Constants
 
@@ -14903,12 +14925,20 @@ namespace Sungiant.Abacus.DoublePrecision
 
 		public static void Normalise (ref Vector2 value, out Vector2 result)
 		{
-			Double one = 1;
+			Double lengthSquared = (value.X * value.X) + (value.Y * value.Y);
 
-			Double num2 = (value.X * value.X) + (value.Y * value.Y);
-			Double num = one / (RealMaths.Sqrt (num2));
-			result.X = value.X * num;
-			result.Y = value.Y * num;
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+			if( lengthSquared <= epsilon || Double.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Double one = 1;
+			Double multiplier = one / (RealMaths.Sqrt (lengthSquared));
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+
 		}
 
 		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
@@ -14957,13 +14987,23 @@ namespace Sungiant.Abacus.DoublePrecision
 		#endregion
 		#region Operators
 
-		public static Vector2 operator - (Vector2 value)
+		// Equality //--------------------------------------------------------//
+
+		public override Boolean Equals (Object obj)
 		{
-			Vector2 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			return vector;
+			Boolean flag = false;
+			if (obj is Vector2) {
+				flag = this.Equals ((Vector2)obj);
+			}
+			return flag;
 		}
+
+		#region IEquatable<Vector2>
+		public Boolean Equals (Vector2 other)
+		{
+			return ((this.X == other.X) && (this.Y == other.Y));
+		}
+		#endregion
 		
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
@@ -14978,12 +15018,32 @@ namespace Sungiant.Abacus.DoublePrecision
 			return true;
 		}
 
+
+		// Addition //--------------------------------------------------------//
+
+		public static void Add (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
 			vector.X = value1.X + value2.X;
 			vector.Y = value1.Y + value2.Y;
 			return vector;
+		}
+
+
+		// Subtraction //-----------------------------------------------------//
+		
+		public static void Subtract (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
 		}
 
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
@@ -14994,7 +15054,51 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 
-		public static Vector2 operator * (Vector2 value1, Vector2 value2)
+
+		// Negation //--------------------------------------------------------//
+		
+		public static void Negate (ref Vector2 value, out Vector2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		public static Vector2 operator - (Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			return vector;
+		}
+
+
+		// Multiplication //--------------------------------------------------//
+
+		public static void Multiply (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+		
+		public static void Multiply (
+			ref Vector2 value1, Double scaleFactor, out Vector2 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+		}
+
+		public static Vector2 operator * (
+			Double scaleFactor, Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		public static Vector2 operator * (
+			Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
 			vector.X = value1.X * value2.X;
@@ -15002,20 +15106,32 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 		
-		public static Vector2 operator * (Vector2 value, Double scaleFactor)
+		public static Vector2 operator * (
+			Vector2 value, Double scaleFactor)
 		{
 			Vector2 vector;
 			vector.X = value.X * scaleFactor;
 			vector.Y = value.Y * scaleFactor;
 			return vector;
 		}
-		
-		public static Vector2 operator * (Double scaleFactor, Vector2 value)
+
+
+		// Division //--------------------------------------------------------//
+
+		public static void Divide (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		public static void Divide (
+			ref Vector2 value1, Double divider, out Vector2 result)
+		{
+			Double one = 1;
+			Double num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
 		}
 
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
@@ -15034,50 +15150,6 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.X = value1.X * num;
 			vector.Y = value1.Y * num;
 			return vector;
-		}
-		
-		public static void Negate (ref Vector2 value, out Vector2 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-		}
-
-		public static void Add (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-		}
-
-		public static void Subtract (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-		}
-
-		public static void Multiply (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-		}
-		
-		public static void Multiply (ref Vector2 value1, Double scaleFactor, out Vector2 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-		}
-
-		public static void Divide (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-		}
-
-		public static void Divide (ref Vector2 value1, Double divider, out Vector2 result)
-		{
-			Double one = 1;
-			Double num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
 		}
 		
 		#endregion

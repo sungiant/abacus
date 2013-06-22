@@ -941,45 +941,143 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestMemberFn_ToString ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(42, -17);
+
+			String result = a.ToString();
+
+			String expected = "{X:42 Y:-17}";
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_GetHashCode ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
+			var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+			for(Int32 i = 0; i < 100000; ++i)
+			{
+				var a = GetNextRandomVector2();
+
+				hs1.Add(a);
+				hs2.Add(a.GetHashCode());
+			}
+
+			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
 		}
 
 		[Test]
 		public void TestMemberFn_Set ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = Vector2.Zero;
+
+			a.Set(14, -19);
+
+			Vector2 expected = new Vector2(14, -19);
+
+			Assert.That(a, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_Length ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(30, -40);
+
+			Single expected = 50;
+
+			Single result = a.Length();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_LengthSquared ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(30, -40);
+
+			Single expected = 2500;
+
+			Single result = a.LengthSquared();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
-		public void TestMemberFn_NormaliseMemberFunction ()
+		public void TestMemberFn_IsUnit_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That(new Vector2(1, 0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(-1, 0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(1, 1).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2(0, 0).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2(0, -1).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(0, 1).IsUnit(), Is.EqualTo(true));
 		}
 
 		[Test]
-		public void TestMemberFn_IsUnit ()
+		public void TestMemberFn_IsUnit_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+
+				Assert.That(b.IsUnit(), Is.EqualTo(true));
+			}
 		}
 
+		[Test]
+		public void TestMemberFn_IsUnit_iii ()
+		{
+			Single piOver2; RealMaths.PiOver2(out piOver2);
+
+			for( Int32 i = 0; i <= 90; ++ i)
+			{
+				Single theta = piOver2 / 90 * i;
+
+				Single opposite = RealMaths.Sin(theta);
+				Single adjacent = RealMaths.Cos(theta);				
+
+				Assert.That(new Vector2( opposite,  adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2( opposite, -adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2(-opposite,  adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2(-opposite, -adjacent).IsUnit(), Is.EqualTo(true));
+			}
+		}
+
+		static System.Random rand;
+
+		static Vector2Tests()
+		{
+			rand = new System.Random(0);
+		}
+
+		public static Single GetNextRandomSingle()
+		{
+			Single randomValue = rand.NextSingle();
+
+			Single zero = 0;
+			Single multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(1) == 1) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+
+		public static Vector2 GetNextRandomVector2()
+		{
+			Single a = GetNextRandomSingle();
+			Single b = GetNextRandomSingle();
+
+			return new Vector2(a, b);
+		}
 		#region Utilities
 
 		[Test]
@@ -1074,22 +1172,95 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void TestStaticFn_DistanceSquared ()
+		public void TestStaticFn_Distance_iv ()
+		{
+			Vector2 a = Vector2.Zero;
+
+			Single expected = 0;
+
+			Assert.That(a.Length(), Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_v ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				
+				Single expected = RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
+
+				Assert.That(a.Length(), Is.EqualTo(expected));
+			}
+		}
+
+		[Test]
+		public void TestStaticFn_DistanceSquared_i ()
 		{
 			Vector2 a = new Vector2(0, 4);
 			Vector2 b = new Vector2(3, 0);
 
 			Single expected = 25;
-			Single result; Vector2.Distance(ref a, ref b, out result);
+			Single result; Vector2.DistanceSquared(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
-		public void TestStaticFn_Dot ()
+		public void TestStaticFn_DistanceSquared_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+				Vector2 c = b - a;
+				Single expected = (c.X * c.X) + (c.Y * c.Y);
+				Single result; Vector2.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
+
+		[Test]
+		public void TestStaticFn_Dot_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+				Single expected = (a.X * b.X) + (a.Y * b.Y);
+				Single result; Vector2.Dot(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		[Test]
+		public void TestStaticFn_Dot_ii ()
+		{
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(-1, 0);
+
+			Single expected = -1;
+			Single result; Vector2.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Dot_iii ()
+		{
+			Vector2 a = new Vector2(100, 0);
+			Vector2 b = new Vector2(10, 0);
+
+			Single expected = 1;
+			Single result; Vector2.Dot(ref a, ref b, out result);
+
+			result = result / (10 * 100);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
 
 		[Test]
 		public void TestStaticFn_PerpDot ()
@@ -1103,10 +1274,41 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		[Test]
-		public void TestStaticFn_Normalise ()
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Normalise_i()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = Vector2.Zero;
+
+			Vector2 b; Vector2.Normalise(ref a, out b);
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Normalise_ii()
+		{
+			Vector2 a = new Vector2(Single.MaxValue, Single.MaxValue);
+
+			Vector2 b; Vector2.Normalise(ref a, out b);
+		}
+
+
+		[Test]
+		public void TestStaticFn_Normalise_iii ()
+		{
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+				
+				Single expected = 1;
+
+				Single result = b.Length();
+
+				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			}
+
 		}
 
 		[Test]
@@ -1136,6 +1338,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#endregion
 		#region Operators
 
+		// Equality //--------------------------------------------------------//
+		
 		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
@@ -1188,6 +1392,16 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestEquality(a, b, expected);
 		}
 
+		[Test]
+		public void TestOperator_Equality_iii ()
+		{
+			var a = GetNextRandomVector2();
+
+			this.TestEquality(a, a, true);
+		}
+
+
+		// Addition //--------------------------------------------------------//
 
 		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -1207,7 +1421,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
-		[Test] // Assert that, for a known example, simple vector addition yields the correct result.
+		/// <summary>
+		/// Assert that, for a known example, simple vector addition yields the 
+		/// correct result.
+		/// </summary>
+		[Test]
 		public void TestOperator_Addition_i ()
 		{
 			var a = new Vector2(3, -6);
@@ -1218,7 +1436,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestAddition(a, b, expected);
 		}
 
-		[Test] // Assert that, for a known example, vector addition work correctly when one zero vector is involved.
+		/// <summary>
+		/// Assert that, for a known example, vector addition work correctly 
+		/// when one zero vector is involved.
+		/// </summary>
+		[Test]
 		public void TestOperator_Addition_ii ()
 		{
 			var a = new Vector2(-2313, 88);
@@ -1228,12 +1450,29 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestAddition(a, Vector2.Zero, expected);
 		}
 
-		[Test] // Assert that two zero vectors correctly add to yield zero.
+		/// <summary>
+		/// Assert that two zero vectors correctly add to yield zero.
+		/// </summary>
+		[Test]
 		public void TestOperator_Addition_iii ()
 		{
 			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		[Test]
+		public void TestOperator_Addition_iv ()
+		{var a = GetNextRandomVector2();
+			
+			var b = GetNextRandomVector2();
+
+			var expected = new Vector2(a.X + b.X, a.Y + b.Y);
+
+			this.TestAddition(a, b, expected);
+		}
+
+
+		// Subtraction //-----------------------------------------------------//
+		
 		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -1252,7 +1491,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result_2b, Is.EqualTo(-expected));
 		}
 
-		[Test] // Assert that, for a known example, simple vector subtraction yields the correct result.
+		/// <summary>
+		/// Assert that, for a known example, simple vector subtraction yields 
+		/// the correct result.
+		/// <summary>
+		[Test]
 		public void TestOperator_Subtraction_i ()
 		{
 			var a = new Vector2(12, -4);
@@ -1263,85 +1506,160 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestSubtraction(a, b, expected);
 		}
 
-		[Test] // Assert that, for a known example, vector subtraction work correctly when one zero vector is involved.
+		/// <summary>
+		/// Assert that, for a known example, vector subtraction work correctly 
+		/// when one zero vector is involved.
+		/// <summary>
+		[Test]
 		public void TestOperator_Subtraction_ii ()
 		{
 			var a = new Vector2(-423, 342);
 
 			var expected = a;
 
-			this.TestAddition(a, Vector2.Zero, expected);
+			this.TestSubtraction(a, Vector2.Zero, expected);
 		}
 
-		[Test] // Assert that two zero vectors correctly subtract to yield zero.
+		/// <summary>
+		/// Assert that two zero vectors correctly subtract to yield zero.
+		/// <summary>
+		[Test]
 		public void TestOperator_Subtraction_iii ()
 		{
-			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+		}
+
+		[Test]
+		public void TestOperator_Subtraction_iv ()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			var expected = new Vector2(a.X - b.X, a.Y - b.Y);
+
+			this.TestSubtraction(a, b, expected);
 		}
 
 
+		// Negation //--------------------------------------------------------//
+		
+		void TestNegation(Vector2 a, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   -a == expected
 
+			var result_1a = -a;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			Vector2 result_1b; Vector2.Negate(ref a, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
 
 		[Test]
-		public void TestOperator_Negation ()
+		public void TestOperator_Negation_i ()
 		{
 			Single r = 3432;
 			Single s = -6218;
 			Single t = -3432;
 			Single u = 6218;
 
-			var zero = Vector2.Zero;
 			var a = new Vector2(r, s);
-			var b = new Vector2(u, t);
 			var c = new Vector2(t, u);
-			var d = new Vector2(s, r);
 
-			// Test negation with the  -X operator
-			Vector2 test1_op = -a;
-			Vector2 test2_op = -b;
-			Vector2 test3_op = -c;
-			Vector2 test4_op = -d;
-			Vector2 test5_op = -zero;
-
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(d));
-			Assert.That(test3_op, Is.EqualTo(zero - c));
-			Assert.That(test4_op, Is.EqualTo(zero - d));
-			Assert.That(test5_op, Is.EqualTo(zero));
-
-			// Test negation with the Negate member function
-			Vector2 test1_st; Vector2.Negate(ref a, out test1_st);
-			Vector2 test2_st; Vector2.Negate(ref b, out test2_st);
-			Vector2 test3_st; Vector2.Negate(ref c, out test3_st);
-			Vector2 test4_st; Vector2.Negate(ref d, out test4_st);
-			Vector2 test5_st; Vector2.Negate(ref zero, out test5_st);
-
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(d));
-			Assert.That(test3_st, Is.EqualTo(zero - c));
-			Assert.That(test4_st, Is.EqualTo(zero - d));
-			Assert.That(test5_st, Is.EqualTo(zero));
+			this.TestNegation(a, c);
 		}
 
 		[Test]
-		public void TestOperator_Multiplication ()
+		public void TestOperator_Negation_ii ()
+		{
+			Single r = 3432;
+			Single s = -6218;
+			Single t = -3432;
+			Single u = 6218;
+
+			var b = new Vector2(u, t);
+			var d = new Vector2(s, r);
+
+			this.TestNegation(b, d);
+		}
+
+		[Test]
+		public void TestOperator_Negation_iii ()
+		{
+			Single t = -3432;
+			Single u = 6218;
+
+			var c = new Vector2(t, u);
+
+			this.TestNegation(c, Vector2.Zero - c);
+		}
+
+		[Test]
+		public void TestOperator_Negation_iv ()
+		{
+			Single r = 3432;
+			Single s = -6218;
+
+			var d = new Vector2(s, r);
+
+			this.TestNegation(d, Vector2.Zero - d);
+		}
+
+		[Test]
+		public void TestOperator_Negation_v ()
+		{
+			this.TestNegation(Vector2.Zero, Vector2.Zero);
+		}
+
+		[Test]
+		public void TestOperator_Negation_vi ()
+		{
+			var a = GetNextRandomVector2();
+			this.TestNegation(a, Vector2.Zero - a);
+		}
+
+
+		// Multiplication //--------------------------------------------------//
+		
+		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a * b == expected
+			//   b * a == expected
+
+			var result_1a = a * b;
+			var result_2a = b * a;
+
+			Vector2 result_1b; Vector2.Multiply(ref a, ref b, out result_1b);
+			Vector2 result_2b; Vector2.Multiply(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestOperator_Multiplication_i ()
+		{
+			Single r = 18;
+			Single s = -54;
+
+			Single x = 3;
+			Single y = 6;
+			Single z = -9;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+		[Test]
+		public void TestOperator_Multiplication_ii ()
 		{
 			Single r = 18;
 			Single s = -54;
@@ -1371,10 +1689,53 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void TestOperator_Division ()
+		public void TestOperator_Multiplication_iii ()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			var c = new Vector2(a.X * b.X, a.Y * b.Y);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+
+		// Division //--------------------------------------------------------//
+		
+		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a / b == expected
+
+			var result_1a = a / b;
+
+			Vector2 result_1b; Vector2.Divide(ref a, ref b, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestOperator_Division_i ()
 		{
 			Single r = 10;
 			Single s = -40;
+
+			Single x = 2000;
+			Single y = 200;
+			Single z = -5;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+
+			this.TestDivision(a, b, c);
+		}
+
+		[Test]
+		public void TestOperator_Division_ii ()
+		{
 			Single t = ((Single) 1 ) / ((Single) 10);
 			Single u = ((Single) (-1) ) / ((Single) 40 );
 
@@ -1385,22 +1746,20 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
 
-			var c = new Vector2(r, s);
 			var d = new Vector2(t, u);
 
-			// Test multiplication with the (*) operator
-			var test1_op = a / b;
-			var test2_op = b / a;
+			this.TestDivision(b, a, d);
+		}
 
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(d));
+		[Test]
+		public void TestOperator_Division_iii ()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
 
-			// Test multiplication with static Multiply function
-			Vector2 test1_st; Vector2.Divide(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Divide(ref b, ref a, out test2_st);
+			var c = new Vector2(a.X / b.X, a.Y / b.Y);
 
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(d));
+			this.TestDivision(a, b, c);
 		}
 
 		#endregion
@@ -2411,45 +2770,143 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestMemberFn_ToString ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(42, -17);
+
+			String result = a.ToString();
+
+			String expected = "{X:42 Y:-17}";
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_GetHashCode ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
+			var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+			for(Int32 i = 0; i < 100000; ++i)
+			{
+				var a = GetNextRandomVector2();
+
+				hs1.Add(a);
+				hs2.Add(a.GetHashCode());
+			}
+
+			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
 		}
 
 		[Test]
 		public void TestMemberFn_Set ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = Vector2.Zero;
+
+			a.Set(14, -19);
+
+			Vector2 expected = new Vector2(14, -19);
+
+			Assert.That(a, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_Length ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(30, -40);
+
+			Double expected = 50;
+
+			Double result = a.Length();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_LengthSquared ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(30, -40);
+
+			Double expected = 2500;
+
+			Double result = a.LengthSquared();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
-		public void TestMemberFn_NormaliseMemberFunction ()
+		public void TestMemberFn_IsUnit_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That(new Vector2(1, 0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(-1, 0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(1, 1).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2(0, 0).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2(0, -1).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(0, 1).IsUnit(), Is.EqualTo(true));
 		}
 
 		[Test]
-		public void TestMemberFn_IsUnit ()
+		public void TestMemberFn_IsUnit_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+
+				Assert.That(b.IsUnit(), Is.EqualTo(true));
+			}
 		}
 
+		[Test]
+		public void TestMemberFn_IsUnit_iii ()
+		{
+			Double piOver2; RealMaths.PiOver2(out piOver2);
+
+			for( Int32 i = 0; i <= 90; ++ i)
+			{
+				Double theta = piOver2 / 90 * i;
+
+				Double opposite = RealMaths.Sin(theta);
+				Double adjacent = RealMaths.Cos(theta);				
+
+				Assert.That(new Vector2( opposite,  adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2( opposite, -adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2(-opposite,  adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2(-opposite, -adjacent).IsUnit(), Is.EqualTo(true));
+			}
+		}
+
+		static System.Random rand;
+
+		static Vector2Tests()
+		{
+			rand = new System.Random(0);
+		}
+
+		public static Double GetNextRandomDouble()
+		{
+			Double randomValue = rand.NextDouble();
+
+			Double zero = 0;
+			Double multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(1) == 1) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+
+		public static Vector2 GetNextRandomVector2()
+		{
+			Double a = GetNextRandomDouble();
+			Double b = GetNextRandomDouble();
+
+			return new Vector2(a, b);
+		}
 		#region Utilities
 
 		[Test]
@@ -2544,22 +3001,95 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void TestStaticFn_DistanceSquared ()
+		public void TestStaticFn_Distance_iv ()
+		{
+			Vector2 a = Vector2.Zero;
+
+			Double expected = 0;
+
+			Assert.That(a.Length(), Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_v ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				
+				Double expected = RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
+
+				Assert.That(a.Length(), Is.EqualTo(expected));
+			}
+		}
+
+		[Test]
+		public void TestStaticFn_DistanceSquared_i ()
 		{
 			Vector2 a = new Vector2(0, 4);
 			Vector2 b = new Vector2(3, 0);
 
 			Double expected = 25;
-			Double result; Vector2.Distance(ref a, ref b, out result);
+			Double result; Vector2.DistanceSquared(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
-		public void TestStaticFn_Dot ()
+		public void TestStaticFn_DistanceSquared_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+				Vector2 c = b - a;
+				Double expected = (c.X * c.X) + (c.Y * c.Y);
+				Double result; Vector2.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
+
+		[Test]
+		public void TestStaticFn_Dot_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+				Double expected = (a.X * b.X) + (a.Y * b.Y);
+				Double result; Vector2.Dot(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		[Test]
+		public void TestStaticFn_Dot_ii ()
+		{
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(-1, 0);
+
+			Double expected = -1;
+			Double result; Vector2.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Dot_iii ()
+		{
+			Vector2 a = new Vector2(100, 0);
+			Vector2 b = new Vector2(10, 0);
+
+			Double expected = 1;
+			Double result; Vector2.Dot(ref a, ref b, out result);
+
+			result = result / (10 * 100);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
 
 		[Test]
 		public void TestStaticFn_PerpDot ()
@@ -2573,10 +3103,41 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		[Test]
-		public void TestStaticFn_Normalise ()
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Normalise_i()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = Vector2.Zero;
+
+			Vector2 b; Vector2.Normalise(ref a, out b);
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Normalise_ii()
+		{
+			Vector2 a = new Vector2(Double.MaxValue, Double.MaxValue);
+
+			Vector2 b; Vector2.Normalise(ref a, out b);
+		}
+
+
+		[Test]
+		public void TestStaticFn_Normalise_iii ()
+		{
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+				
+				Double expected = 1;
+
+				Double result = b.Length();
+
+				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			}
+
 		}
 
 		[Test]
@@ -2606,6 +3167,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#endregion
 		#region Operators
 
+		// Equality //--------------------------------------------------------//
+		
 		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
@@ -2658,6 +3221,16 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestEquality(a, b, expected);
 		}
 
+		[Test]
+		public void TestOperator_Equality_iii ()
+		{
+			var a = GetNextRandomVector2();
+
+			this.TestEquality(a, a, true);
+		}
+
+
+		// Addition //--------------------------------------------------------//
 
 		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -2677,7 +3250,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
-		[Test] // Assert that, for a known example, simple vector addition yields the correct result.
+		/// <summary>
+		/// Assert that, for a known example, simple vector addition yields the 
+		/// correct result.
+		/// </summary>
+		[Test]
 		public void TestOperator_Addition_i ()
 		{
 			var a = new Vector2(3, -6);
@@ -2688,7 +3265,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestAddition(a, b, expected);
 		}
 
-		[Test] // Assert that, for a known example, vector addition work correctly when one zero vector is involved.
+		/// <summary>
+		/// Assert that, for a known example, vector addition work correctly 
+		/// when one zero vector is involved.
+		/// </summary>
+		[Test]
 		public void TestOperator_Addition_ii ()
 		{
 			var a = new Vector2(-2313, 88);
@@ -2698,12 +3279,29 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestAddition(a, Vector2.Zero, expected);
 		}
 
-		[Test] // Assert that two zero vectors correctly add to yield zero.
+		/// <summary>
+		/// Assert that two zero vectors correctly add to yield zero.
+		/// </summary>
+		[Test]
 		public void TestOperator_Addition_iii ()
 		{
 			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		[Test]
+		public void TestOperator_Addition_iv ()
+		{var a = GetNextRandomVector2();
+			
+			var b = GetNextRandomVector2();
+
+			var expected = new Vector2(a.X + b.X, a.Y + b.Y);
+
+			this.TestAddition(a, b, expected);
+		}
+
+
+		// Subtraction //-----------------------------------------------------//
+		
 		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -2722,7 +3320,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result_2b, Is.EqualTo(-expected));
 		}
 
-		[Test] // Assert that, for a known example, simple vector subtraction yields the correct result.
+		/// <summary>
+		/// Assert that, for a known example, simple vector subtraction yields 
+		/// the correct result.
+		/// <summary>
+		[Test]
 		public void TestOperator_Subtraction_i ()
 		{
 			var a = new Vector2(12, -4);
@@ -2733,85 +3335,160 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestSubtraction(a, b, expected);
 		}
 
-		[Test] // Assert that, for a known example, vector subtraction work correctly when one zero vector is involved.
+		/// <summary>
+		/// Assert that, for a known example, vector subtraction work correctly 
+		/// when one zero vector is involved.
+		/// <summary>
+		[Test]
 		public void TestOperator_Subtraction_ii ()
 		{
 			var a = new Vector2(-423, 342);
 
 			var expected = a;
 
-			this.TestAddition(a, Vector2.Zero, expected);
+			this.TestSubtraction(a, Vector2.Zero, expected);
 		}
 
-		[Test] // Assert that two zero vectors correctly subtract to yield zero.
+		/// <summary>
+		/// Assert that two zero vectors correctly subtract to yield zero.
+		/// <summary>
+		[Test]
 		public void TestOperator_Subtraction_iii ()
 		{
-			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+		}
+
+		[Test]
+		public void TestOperator_Subtraction_iv ()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			var expected = new Vector2(a.X - b.X, a.Y - b.Y);
+
+			this.TestSubtraction(a, b, expected);
 		}
 
 
+		// Negation //--------------------------------------------------------//
+		
+		void TestNegation(Vector2 a, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   -a == expected
 
+			var result_1a = -a;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			Vector2 result_1b; Vector2.Negate(ref a, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
 
 		[Test]
-		public void TestOperator_Negation ()
+		public void TestOperator_Negation_i ()
 		{
 			Double r = 3432;
 			Double s = -6218;
 			Double t = -3432;
 			Double u = 6218;
 
-			var zero = Vector2.Zero;
 			var a = new Vector2(r, s);
-			var b = new Vector2(u, t);
 			var c = new Vector2(t, u);
-			var d = new Vector2(s, r);
 
-			// Test negation with the  -X operator
-			Vector2 test1_op = -a;
-			Vector2 test2_op = -b;
-			Vector2 test3_op = -c;
-			Vector2 test4_op = -d;
-			Vector2 test5_op = -zero;
-
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(d));
-			Assert.That(test3_op, Is.EqualTo(zero - c));
-			Assert.That(test4_op, Is.EqualTo(zero - d));
-			Assert.That(test5_op, Is.EqualTo(zero));
-
-			// Test negation with the Negate member function
-			Vector2 test1_st; Vector2.Negate(ref a, out test1_st);
-			Vector2 test2_st; Vector2.Negate(ref b, out test2_st);
-			Vector2 test3_st; Vector2.Negate(ref c, out test3_st);
-			Vector2 test4_st; Vector2.Negate(ref d, out test4_st);
-			Vector2 test5_st; Vector2.Negate(ref zero, out test5_st);
-
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(d));
-			Assert.That(test3_st, Is.EqualTo(zero - c));
-			Assert.That(test4_st, Is.EqualTo(zero - d));
-			Assert.That(test5_st, Is.EqualTo(zero));
+			this.TestNegation(a, c);
 		}
 
 		[Test]
-		public void TestOperator_Multiplication ()
+		public void TestOperator_Negation_ii ()
+		{
+			Double r = 3432;
+			Double s = -6218;
+			Double t = -3432;
+			Double u = 6218;
+
+			var b = new Vector2(u, t);
+			var d = new Vector2(s, r);
+
+			this.TestNegation(b, d);
+		}
+
+		[Test]
+		public void TestOperator_Negation_iii ()
+		{
+			Double t = -3432;
+			Double u = 6218;
+
+			var c = new Vector2(t, u);
+
+			this.TestNegation(c, Vector2.Zero - c);
+		}
+
+		[Test]
+		public void TestOperator_Negation_iv ()
+		{
+			Double r = 3432;
+			Double s = -6218;
+
+			var d = new Vector2(s, r);
+
+			this.TestNegation(d, Vector2.Zero - d);
+		}
+
+		[Test]
+		public void TestOperator_Negation_v ()
+		{
+			this.TestNegation(Vector2.Zero, Vector2.Zero);
+		}
+
+		[Test]
+		public void TestOperator_Negation_vi ()
+		{
+			var a = GetNextRandomVector2();
+			this.TestNegation(a, Vector2.Zero - a);
+		}
+
+
+		// Multiplication //--------------------------------------------------//
+		
+		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a * b == expected
+			//   b * a == expected
+
+			var result_1a = a * b;
+			var result_2a = b * a;
+
+			Vector2 result_1b; Vector2.Multiply(ref a, ref b, out result_1b);
+			Vector2 result_2b; Vector2.Multiply(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestOperator_Multiplication_i ()
+		{
+			Double r = 18;
+			Double s = -54;
+
+			Double x = 3;
+			Double y = 6;
+			Double z = -9;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+		[Test]
+		public void TestOperator_Multiplication_ii ()
 		{
 			Double r = 18;
 			Double s = -54;
@@ -2841,10 +3518,53 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void TestOperator_Division ()
+		public void TestOperator_Multiplication_iii ()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			var c = new Vector2(a.X * b.X, a.Y * b.Y);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+
+		// Division //--------------------------------------------------------//
+		
+		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
+		{
+			// This test asserts the following:
+			//   a / b == expected
+
+			var result_1a = a / b;
+
+			Vector2 result_1b; Vector2.Divide(ref a, ref b, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestOperator_Division_i ()
 		{
 			Double r = 10;
 			Double s = -40;
+
+			Double x = 2000;
+			Double y = 200;
+			Double z = -5;
+
+			var a = new Vector2(x, y);
+			var b = new Vector2(y, z);
+
+			var c = new Vector2(r, s);
+
+			this.TestDivision(a, b, c);
+		}
+
+		[Test]
+		public void TestOperator_Division_ii ()
+		{
 			Double t = ((Double) 1 ) / ((Double) 10);
 			Double u = ((Double) (-1) ) / ((Double) 40 );
 
@@ -2855,22 +3575,20 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
 
-			var c = new Vector2(r, s);
 			var d = new Vector2(t, u);
 
-			// Test multiplication with the (*) operator
-			var test1_op = a / b;
-			var test2_op = b / a;
+			this.TestDivision(b, a, d);
+		}
 
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(d));
+		[Test]
+		public void TestOperator_Division_iii ()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
 
-			// Test multiplication with static Multiply function
-			Vector2 test1_st; Vector2.Divide(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Divide(ref b, ref a, out test2_st);
+			var c = new Vector2(a.X / b.X, a.Y / b.Y);
 
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(d));
+			this.TestDivision(a, b, c);
 		}
 
 		#endregion

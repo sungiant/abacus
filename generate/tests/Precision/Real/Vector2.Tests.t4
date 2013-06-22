@@ -36,44 +36,112 @@
 		[Test]
 		public void TestMemberFn_ToString ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(42, -17);
+
+			String result = a.ToString();
+
+			String expected = "{X:42 Y:-17}";
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_GetHashCode ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
+			var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+			for(Int32 i = 0; i < 100000; ++i)
+			{
+				var a = GetNextRandomVector2();
+
+				hs1.Add(a);
+				hs2.Add(a.GetHashCode());
+			}
+
+			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
 		}
 
 		[Test]
 		public void TestMemberFn_Set ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = Vector2.Zero;
+
+			a.Set(14, -19);
+
+			Vector2 expected = new Vector2(14, -19);
+
+			Assert.That(a, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_Length ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(30, -40);
+
+			<#= type #> expected = 50;
+
+			<#= type #> result = a.Length();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void TestMemberFn_LengthSquared ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = new Vector2(30, -40);
+
+			<#= type #> expected = 2500;
+
+			<#= type #> result = a.LengthSquared();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
-		public void TestMemberFn_NormaliseMemberFunction ()
+		public void TestMemberFn_IsUnit_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That(new Vector2(1, 0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(-1, 0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(1, 1).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2(0, 0).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2(0, -1).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(0, 1).IsUnit(), Is.EqualTo(true));
 		}
 
 		[Test]
-		public void TestMemberFn_IsUnit ()
+		public void TestMemberFn_IsUnit_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+
+				Assert.That(b.IsUnit(), Is.EqualTo(true));
+			}
 		}
+
+		[Test]
+		public void TestMemberFn_IsUnit_iii ()
+		{
+			<#= type #> piOver2; RealMaths.PiOver2(out piOver2);
+
+			for( Int32 i = 0; i <= 90; ++ i)
+			{
+				<#= type #> theta = piOver2 / 90 * i;
+
+				<#= type #> opposite = RealMaths.Sin(theta);
+				<#= type #> adjacent = RealMaths.Cos(theta);				
+
+				Assert.That(new Vector2( opposite,  adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2( opposite, -adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2(-opposite,  adjacent).IsUnit(), Is.EqualTo(true));
+				Assert.That(new Vector2(-opposite, -adjacent).IsUnit(), Is.EqualTo(true));
+			}
+		}
+
+<#@ include file="Vector2.TestHelpers.t4"#>
 
 <#@ include file="Vector2.Constants.Tests.t4"#>
 <#@ include file="Vector2.Maths.Tests.t4"#>

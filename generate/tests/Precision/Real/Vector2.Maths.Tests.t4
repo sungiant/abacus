@@ -37,22 +37,95 @@
 		}
 
 		[Test]
-		public void TestStaticFn_DistanceSquared ()
+		public void TestStaticFn_Distance_iv ()
+		{
+			Vector2 a = Vector2.Zero;
+
+			<#= type #> expected = 0;
+
+			Assert.That(a.Length(), Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Distance_v ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				
+				<#= type #> expected = RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
+
+				Assert.That(a.Length(), Is.EqualTo(expected));
+			}
+		}
+
+		[Test]
+		public void TestStaticFn_DistanceSquared_i ()
 		{
 			Vector2 a = new Vector2(0, 4);
 			Vector2 b = new Vector2(3, 0);
 
 			<#= type #> expected = 25;
-			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
+			<#= type #> result; Vector2.DistanceSquared(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
 		[Test]
-		public void TestStaticFn_Dot ()
+		public void TestStaticFn_DistanceSquared_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+				Vector2 c = b - a;
+				<#= type #> expected = (c.X * c.X) + (c.Y * c.Y);
+				<#= type #> result; Vector2.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
+
+		[Test]
+		public void TestStaticFn_Dot_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+				<#= type #> expected = (a.X * b.X) + (a.Y * b.Y);
+				<#= type #> result; Vector2.Dot(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		[Test]
+		public void TestStaticFn_Dot_ii ()
+		{
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(-1, 0);
+
+			<#= type #> expected = -1;
+			<#= type #> result; Vector2.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void TestStaticFn_Dot_iii ()
+		{
+			Vector2 a = new Vector2(100, 0);
+			Vector2 b = new Vector2(10, 0);
+
+			<#= type #> expected = 1;
+			<#= type #> result; Vector2.Dot(ref a, ref b, out result);
+
+			result = result / (10 * 100);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
 
 		[Test]
 		public void TestStaticFn_PerpDot ()
@@ -66,10 +139,41 @@
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		[Test]
-		public void TestStaticFn_Normalise ()
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Normalise_i()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 a = Vector2.Zero;
+
+			Vector2 b; Vector2.Normalise(ref a, out b);
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Normalise_ii()
+		{
+			Vector2 a = new Vector2(<#= type #>.MaxValue, <#= type #>.MaxValue);
+
+			Vector2 b; Vector2.Normalise(ref a, out b);
+		}
+
+
+		[Test]
+		public void TestStaticFn_Normalise_iii ()
+		{
+			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+				
+				<#= type #> expected = 1;
+
+				<#= type #> result = b.Length();
+
+				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			}
+
 		}
 
 		[Test]

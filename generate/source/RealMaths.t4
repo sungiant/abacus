@@ -263,4 +263,18 @@
 		{
 			return a > b ? a : b;
 		}
+
+		//--------------------------------------------------------------
+		// WithinEpsilon(a, b)
+		//
+		public static Boolean WithinEpsilon(Single a, Single b)
+		{
+			Single num = a - b;
+			return ((-Single.Epsilon <= num) && (num <= Single.Epsilon));
+		}
+		public static Boolean WithinEpsilon(Double a, Double b)
+		{
+			Double num = a - b;
+			return ((-Double.Epsilon <= num) && (num <= Double.Epsilon));
+		}
 	}
