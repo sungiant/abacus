@@ -45,8 +45,6 @@ using System.Collections.Generic;
 
 namespace Sungiant.Abacus
 {
-<#@ include file="ContainmentType.t4"#>
-<#@ include file="PlaneIntersectionType.t4"#>
 <#@ include file="IPackedReal.t4"#>
 <#@ include file="IPackedValue.t4"#>
 <#@ include file="PackUtils.t4"#>
@@ -83,28 +81,12 @@ namespace Sungiant.Abacus.Packed
 }
 
 
-<# foreach( var type in GetIntegerTypes() ) { #>
-namespace Sungiant.Abacus.<#= type #>Precision
-{
-<#@ include file="Precision/Integer/Point2.t4"#>
-<#@ include file="Precision/Integer/Point3.t4"#>
-}
-
-<# } #>
-
 <# foreach( var type in GetRealTypes() ) { #>
 namespace Sungiant.Abacus.<#= type #>Precision
 {
 <#@ include file="Precision/Real/GjkDistance.t4"#>
-<#@ include file="Precision/Real/BoundingBox.t4"#>
-<#@ include file="Precision/Real/BoundingFrustum.t4"#>
-<#@ include file="Precision/Real/BoundingSphere.t4"#>
 <#@ include file="Precision/Real/Matrix44.t4"#>
-<#@ include file="Precision/Real/Plane.t4"#>
-<#@ include file="Precision/Real/Quad.t4"#>
 <#@ include file="Precision/Real/Quaternion.t4"#>
-<#@ include file="Precision/Real/Ray.t4"#>
-<#@ include file="Precision/Real/Triangle.t4"#>
 <#@ include file="Precision/Real/Vector2.t4"#>
 <#@ include file="Precision/Real/Vector3.t4"#>
 <#@ include file="Precision/Real/Vector4.t4"#>
