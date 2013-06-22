@@ -51,7 +51,7 @@
 			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
 			var hs2 = new System.Collections.Generic.HashSet<Int32>();
 
-			for(Int32 i = 0; i < 100000; ++i)
+			for(Int32 i = 0; i < 10000; ++i)
 			{
 				var a = GetNextRandomVector2();
 

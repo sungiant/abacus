@@ -14,7 +14,7 @@
 
 			randomValue *= multiplier;
 
-			Boolean randomBoolean = (rand.Next(1) == 1) ? true : false;
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
 
 			if( randomBoolean )
 				randomValue = zero - randomValue;

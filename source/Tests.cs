@@ -956,7 +956,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
 			var hs2 = new System.Collections.Generic.HashSet<Int32>();
 
-			for(Int32 i = 0; i < 100000; ++i)
+			for(Int32 i = 0; i < 10000; ++i)
 			{
 				var a = GetNextRandomVector2();
 
@@ -1062,7 +1062,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			randomValue *= multiplier;
 
-			Boolean randomBoolean = (rand.Next(1) == 1) ? true : false;
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
 
 			if( randomBoolean )
 				randomValue = zero - randomValue;
@@ -1795,26 +1795,130 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestStaticFn_Min ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = a * 2;
+
+				Vector2 result; Vector2.Min (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+			}
 		}
 
 		[Test]
 		public void TestStaticFn_Max ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+
+				Vector2 result; Vector2.Max (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+			}
 		}
 
 		[Test]
-		public void TestStaticFn_Clamp ()
+		public void TestStaticFn_Clamp_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 min = new Vector2(-30, 1);
+			Vector2 max = new Vector2(32, 130);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			}
 		}
 
 		[Test]
-		public void TestStaticFn_Lerp ()
+		public void TestStaticFn_Clamp_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 min = new Vector2(-30, 1);
+			Vector2 max = new Vector2(32, 130);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = new Vector2(-1, 13);
+
+				Vector2 expected = a;
+
+				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+
+				Assert.That(a, Is.EqualTo(expected));
+			}
 		}
+
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for(Int32 j = 0; j < 100; ++j)
+			{
+				Single delta = j;
+
+				delta = delta / 100;
+
+				for(Int32 i = 0; i < 100; ++i)
+				{
+					Vector2 a = GetNextRandomVector2();
+					Vector2 b = GetNextRandomVector2();
+
+					Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+
+					Vector2 expected = a + ( ( b - a ) * delta );
+
+					Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+				}
+			}
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Lerp_ii()
+		{
+			Single delta = 2;
+			Vector2 a = GetNextRandomVector2();
+			Vector2 b = GetNextRandomVector2();
+			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Lerp_iii()
+		{
+			Single delta = -1;
+			Vector2 a = GetNextRandomVector2();
+			Vector2 b = GetNextRandomVector2();
+			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Lerp_iv()
+		{
+			Single delta; RealMaths.Half(out delta);
+
+			delta = -delta;
+
+			Vector2 a = GetNextRandomVector2();
+			Vector2 b = GetNextRandomVector2();
+			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+		}
+
 
 		#endregion
 
@@ -2785,7 +2889,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
 			var hs2 = new System.Collections.Generic.HashSet<Int32>();
 
-			for(Int32 i = 0; i < 100000; ++i)
+			for(Int32 i = 0; i < 10000; ++i)
 			{
 				var a = GetNextRandomVector2();
 
@@ -2891,7 +2995,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			randomValue *= multiplier;
 
-			Boolean randomBoolean = (rand.Next(1) == 1) ? true : false;
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
 
 			if( randomBoolean )
 				randomValue = zero - randomValue;
@@ -3624,26 +3728,130 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestStaticFn_Min ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = a * 2;
+
+				Vector2 result; Vector2.Min (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+			}
 		}
 
 		[Test]
 		public void TestStaticFn_Max ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+				Vector2 b = GetNextRandomVector2();
+
+				Vector2 result; Vector2.Max (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+			}
 		}
 
 		[Test]
-		public void TestStaticFn_Clamp ()
+		public void TestStaticFn_Clamp_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 min = new Vector2(-30, 1);
+			Vector2 max = new Vector2(32, 130);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			}
 		}
 
 		[Test]
-		public void TestStaticFn_Lerp ()
+		public void TestStaticFn_Clamp_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 min = new Vector2(-30, 1);
+			Vector2 max = new Vector2(32, 130);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector2 a = new Vector2(-1, 13);
+
+				Vector2 expected = a;
+
+				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+
+				Assert.That(a, Is.EqualTo(expected));
+			}
 		}
+
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for(Int32 j = 0; j < 100; ++j)
+			{
+				Double delta = j;
+
+				delta = delta / 100;
+
+				for(Int32 i = 0; i < 100; ++i)
+				{
+					Vector2 a = GetNextRandomVector2();
+					Vector2 b = GetNextRandomVector2();
+
+					Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+
+					Vector2 expected = a + ( ( b - a ) * delta );
+
+					Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+				}
+			}
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Lerp_ii()
+		{
+			Double delta = 2;
+			Vector2 a = GetNextRandomVector2();
+			Vector2 b = GetNextRandomVector2();
+			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Lerp_iii()
+		{
+			Double delta = -1;
+			Vector2 a = GetNextRandomVector2();
+			Vector2 b = GetNextRandomVector2();
+			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+		}
+
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_Lerp_iv()
+		{
+			Double delta; RealMaths.Half(out delta);
+
+			delta = -delta;
+
+			Vector2 a = GetNextRandomVector2();
+			Vector2 b = GetNextRandomVector2();
+			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+		}
+
 
 		#endregion
 

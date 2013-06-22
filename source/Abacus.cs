@@ -9036,6 +9036,13 @@ namespace Sungiant.Abacus.SinglePrecision
 		
 		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Single amount, out Vector2 result)
 		{
+			Single zero = 0;
+			Single one = 1;
+			if( amount < zero || amount > 1 )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = value1.X + ((value2.X - value1.X) * amount);
 			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
 		}
@@ -15233,6 +15240,13 @@ namespace Sungiant.Abacus.DoublePrecision
 		
 		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Double amount, out Vector2 result)
 		{
+			Double zero = 0;
+			Double one = 1;
+			if( amount < zero || amount > 1 )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = value1.X + ((value2.X - value1.X) * amount);
 			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
 		}

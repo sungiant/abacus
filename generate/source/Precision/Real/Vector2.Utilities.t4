@@ -26,6 +26,13 @@
 		
 		public static void Lerp (ref Vector2 value1, ref Vector2 value2, <#= type #> amount, out Vector2 result)
 		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+			if( amount < zero || amount > 1 )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = value1.X + ((value2.X - value1.X) * amount);
 			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
 		}
