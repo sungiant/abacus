@@ -2368,12 +2368,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#region Splines
 
 		[Test]
-		public void TestStaticFn_Barycentric ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		[Test]
 		public void TestStaticFn_SmoothStep ()
 		{
 			Assert.That(true, Is.EqualTo(false));
@@ -4618,12 +4612,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 		#endregion
 		#region Splines
-
-		[Test]
-		public void TestStaticFn_Barycentric ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
 
 		[Test]
 		public void TestStaticFn_SmoothStep ()

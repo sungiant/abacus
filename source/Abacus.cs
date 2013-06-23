@@ -6081,25 +6081,6 @@ namespace Sungiant.Abacus.SinglePrecision
 		#region Splines
 
 		/// <summary>
-		/// Returns a Vector2 containing the 3D Cartesian coordinates of a point 
-		/// specified in Barycentric coordinates relative to a 3D triangle.
-		/// </summary>
-		public static void Barycentric (
-			ref Vector2 a, 
-			ref Vector2 b, 
-			ref Vector2 c, 
-			Single amount1, 
-			Single amount2, 
-			out Vector2 result)
-		{
-			result.X = 
-				(a.X + (amount1 * (b.X - a.X))) + (amount2 * (c.X - a.X));
-
-			result.Y = 
-				(a.Y + (amount1 * (b.Y - a.Y))) + (amount2 * (c.Y - a.Y));
-		}
-
-		/// <summary>
 		/// Interpolates between two values using a cubic equation.
 		/// </summary>
 		public static void SmoothStep (
@@ -10158,25 +10139,6 @@ namespace Sungiant.Abacus.DoublePrecision
 		
 		#endregion
 		#region Splines
-
-		/// <summary>
-		/// Returns a Vector2 containing the 3D Cartesian coordinates of a point 
-		/// specified in Barycentric coordinates relative to a 3D triangle.
-		/// </summary>
-		public static void Barycentric (
-			ref Vector2 a, 
-			ref Vector2 b, 
-			ref Vector2 c, 
-			Double amount1, 
-			Double amount2, 
-			out Vector2 result)
-		{
-			result.X = 
-				(a.X + (amount1 * (b.X - a.X))) + (amount2 * (c.X - a.X));
-
-			result.Y = 
-				(a.Y + (amount1 * (b.Y - a.Y))) + (amount2 * (c.Y - a.Y));
-		}
 
 		/// <summary>
 		/// Interpolates between two values using a cubic equation.
