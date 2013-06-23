@@ -1,16 +1,3 @@
-		#region Splines
-
-		// Test Static Fn: Barycentric //-------------------------------------//
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Barycentric_i ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
 		// Test Static Fn: SmoothStep //--------------------------------------//
 
 		/// <summary>
@@ -282,5 +269,40 @@
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		#endregion
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_ii ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iii ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iv ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_v ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
 		

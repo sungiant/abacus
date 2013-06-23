@@ -1,5 +1,3 @@
-		#region Utilities
-
 		// Test Constant: Zero //---------------------------------------------//
 
 		/// <summary>
@@ -72,4 +70,3 @@
 			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
 		}
 
-		#endregion

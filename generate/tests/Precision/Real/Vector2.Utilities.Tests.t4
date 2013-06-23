@@ -1,5 +1,3 @@
-		#region Utilities
-
 		/// <summary>
 		/// 
 		/// </summary>
@@ -149,4 +147,3 @@
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
-		#endregion

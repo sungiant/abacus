@@ -54,3 +54,4 @@
 			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
 			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
 		}
+		

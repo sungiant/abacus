@@ -1,5 +1,3 @@
-		#region Operators
-
 		// Test Operator: Equality //-----------------------------------------//
 
 		/// <summary>
@@ -489,4 +487,3 @@
 			this.TestDivision(a, b, c);
 		}
 
-		#endregion

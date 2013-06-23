@@ -6227,9 +6227,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single x = value1.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
+			
 			Single y = value1.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
+
 			result.X = x;
 			result.Y = y;
 		}
@@ -10300,9 +10302,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double x = value1.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
+			
 			Double y = value1.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
+
 			result.X = x;
 			result.Y = y;
 		}

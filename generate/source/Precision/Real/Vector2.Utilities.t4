@@ -26,9 +26,11 @@
 			<#= type #> x = value1.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
+			
 			<#= type #> y = value1.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
+
 			result.X = x;
 			result.Y = y;
 		}

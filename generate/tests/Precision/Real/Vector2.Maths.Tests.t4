@@ -1,5 +1,3 @@
-		#region Maths
-
 		// Test Static Fn: Distance //----------------------------------------//
 
 		/// <summary>
@@ -219,9 +217,9 @@
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformMatrix44 //-------------------------------//
@@ -230,9 +228,9 @@
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformNormal //---------------------------------//
@@ -241,9 +239,9 @@
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestStaticFn_TransformNormal_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformQuaternion //-----------------------------//
@@ -252,9 +250,8 @@
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
-		#endregion

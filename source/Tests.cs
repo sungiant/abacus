@@ -669,6 +669,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
 			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
 		}
+		
 
 		// Test: Constructors //----------------------------------------------//
 
@@ -873,8 +874,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			}
 		}
 			
-		#region Utilities
-
 		// Test Constant: Zero //---------------------------------------------//
 
 		/// <summary>
@@ -946,9 +945,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			
 			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
 		}
-
-		#endregion
-		#region Maths
 
 		// Test Static Fn: Distance //----------------------------------------//
 
@@ -1169,9 +1165,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformMatrix44 //-------------------------------//
@@ -1180,9 +1176,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformNormal //---------------------------------//
@@ -1191,9 +1187,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestStaticFn_TransformNormal_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformQuaternion //-----------------------------//
@@ -1202,13 +1198,10 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
-
-		#endregion
-		#region Operators
 
 		// Test Operator: Equality //-----------------------------------------//
 
@@ -1699,20 +1692,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestDivision(a, b, c);
 		}
 
-		#endregion
-		#region Splines
-
-		// Test Static Fn: Barycentric //-------------------------------------//
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Barycentric_i ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
 		// Test Static Fn: SmoothStep //--------------------------------------//
 
 		/// <summary>
@@ -1984,10 +1963,43 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		#endregion
-				#region Utilities
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_ii ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iii ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iv ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_v ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+				/// <summary>
 		/// 
 		/// </summary>
 		[Test]
@@ -2136,7 +2148,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
-		#endregion
 
 	}	[TestFixture]
 	public class Vector3Tests
@@ -2915,6 +2926,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
 			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
 		}
+		
 
 		// Test: Constructors //----------------------------------------------//
 
@@ -3119,8 +3131,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			}
 		}
 			
-		#region Utilities
-
 		// Test Constant: Zero //---------------------------------------------//
 
 		/// <summary>
@@ -3192,9 +3202,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			
 			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
 		}
-
-		#endregion
-		#region Maths
 
 		// Test Static Fn: Distance //----------------------------------------//
 
@@ -3415,9 +3422,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformMatrix44 //-------------------------------//
@@ -3426,9 +3433,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		public void TestStaticFn_TransformMatix44_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformNormal //---------------------------------//
@@ -3437,9 +3444,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestStaticFn_TransformNormal_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
 		// Test Static Fn: TransformQuaternion //-----------------------------//
@@ -3448,13 +3455,10 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// 
 		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestStaticFn_TransformQuaternion_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
-
-		#endregion
-		#region Operators
 
 		// Test Operator: Equality //-----------------------------------------//
 
@@ -3945,20 +3949,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestDivision(a, b, c);
 		}
 
-		#endregion
-		#region Splines
-
-		// Test Static Fn: Barycentric //-------------------------------------//
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Barycentric_i ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
 		// Test Static Fn: SmoothStep //--------------------------------------//
 
 		/// <summary>
@@ -4230,10 +4220,43 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		#endregion
-				#region Utilities
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_ii ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iii ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iv ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_v ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+				/// <summary>
 		/// 
 		/// </summary>
 		[Test]
@@ -4382,7 +4405,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
-		#endregion
 
 	}	[TestFixture]
 	public class Vector3Tests
