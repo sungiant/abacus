@@ -85,9 +85,22 @@
 			<#= type #> amount, 
 			out Vector2 result)
 		{
+			<#= type #> zero = 0;
 			<#= type #> one = 1;
 			<#= type #> two = 2;
 			<#= type #> three = 3;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			// Make sure that the tangents have been normalised.
+			if( !tangent1.IsUnit() || tangent2.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
 			<#= type #> temp = amount * amount;
 			<#= type #> temp2 = amount * temp;

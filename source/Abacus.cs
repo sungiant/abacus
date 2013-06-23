@@ -6165,9 +6165,22 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single amount, 
 			out Vector2 result)
 		{
+			Single zero = 0;
 			Single one = 1;
 			Single two = 2;
 			Single three = 3;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			// Make sure that the tangents have been normalised.
+			if( !tangent1.IsUnit() || tangent2.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
 			Single temp = amount * amount;
 			Single temp2 = amount * temp;
@@ -10225,9 +10238,22 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double amount, 
 			out Vector2 result)
 		{
+			Double zero = 0;
 			Double one = 1;
 			Double two = 2;
 			Double three = 3;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			// Make sure that the tangents have been normalised.
+			if( !tangent1.IsUnit() || tangent2.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
 			Double temp = amount * amount;
 			Double temp2 = amount * temp;
