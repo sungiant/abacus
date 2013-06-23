@@ -4,8 +4,11 @@
         [Test]
         public static void TestAllPossibleValues()
         {
-            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
             {
+                ++packed;
+                
                 var packedObj = new Bgra16();
                 
                 packedObj.PackedValue = packed;
