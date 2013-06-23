@@ -1786,17 +1786,37 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestStaticFn_SmoothStep_iv ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			var a = new Vector2( -30, -30 );
+			var b = new Vector2( +30, +30 );
 
-		/// <summary>
-		/// This tests compares results against an example where all the control
-		/// points are in a straight line.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_SmoothStep_v ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			Single one = 1;
+
+			Single v = (Single) 165  / (Single)  8; // 20.625
+			Single x = (Single) 1755 / (Single) 64; // 27.421875
+			Single z = (Single) 705  / (Single) 64; // 11.015625
+
+			var knownResults = new List<Tuple<Single, Vector2>>
+			{
+				new Tuple<Single, Vector2>( 0, a ),
+				new Tuple<Single, Vector2>( one * 1 / 8, new Vector2( -x, -x ) ),
+				new Tuple<Single, Vector2>( one * 2 / 8, new Vector2( -v, -v ) ),
+				new Tuple<Single, Vector2>( one * 3 / 8, new Vector2( -z, -z ) ),
+				new Tuple<Single, Vector2>( one * 4 / 8, Vector2.Zero ),
+				new Tuple<Single, Vector2>( one * 5 / 8, new Vector2(  z,  z ) ),
+				new Tuple<Single, Vector2>( one * 6 / 8, new Vector2(  v,  v ) ),
+				new Tuple<Single, Vector2>( one * 7 / 8, new Vector2(  x,  x ) ),
+				new Tuple<Single, Vector2>( 1, b ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.SmoothStep (
+					ref a, ref b, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
 		}
 
 		// Test Static Fn: CatmullRom //--------------------------------------//
@@ -1848,11 +1868,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Single one = 1;
 
 			Single u = 15;
-			Single v = (Single) 165 / (Single) 8; // 20.5
-			Single w = (Single) 45 / (Single) 2; // 20.625
+			Single v = (Single) 165  / (Single)  8; // 20.5
+			Single w = (Single) 45   / (Single)  2; // 20.625
 			Single x = (Single) 1755 / (Single) 64; // 27.421875
-			Single y = (Single) 15 / (Single) 2; // 14.5
-			Single z = (Single) 705 / (Single) 64; // 11.015625
+			Single y = (Single) 15   / (Single)  2; // 14.5
+			Single z = (Single) 705  / (Single) 64; // 11.015625
 
 			var knownResults = new List<Tuple<Single, Vector2>>
 			{
@@ -1918,7 +1938,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 		/// <summary>
 		/// This tests compares results against an example where all the control
-		/// points are in a straight line.
+		/// points are in a straight line.  In this case the resulting spline
+		/// should be a straight line.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_CatmullRom_v()
@@ -4017,17 +4038,37 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestStaticFn_SmoothStep_iv ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			var a = new Vector2( -30, -30 );
+			var b = new Vector2( +30, +30 );
 
-		/// <summary>
-		/// This tests compares results against an example where all the control
-		/// points are in a straight line.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_SmoothStep_v ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			Double one = 1;
+
+			Double v = (Double) 165  / (Double)  8; // 20.625
+			Double x = (Double) 1755 / (Double) 64; // 27.421875
+			Double z = (Double) 705  / (Double) 64; // 11.015625
+
+			var knownResults = new List<Tuple<Double, Vector2>>
+			{
+				new Tuple<Double, Vector2>( 0, a ),
+				new Tuple<Double, Vector2>( one * 1 / 8, new Vector2( -x, -x ) ),
+				new Tuple<Double, Vector2>( one * 2 / 8, new Vector2( -v, -v ) ),
+				new Tuple<Double, Vector2>( one * 3 / 8, new Vector2( -z, -z ) ),
+				new Tuple<Double, Vector2>( one * 4 / 8, Vector2.Zero ),
+				new Tuple<Double, Vector2>( one * 5 / 8, new Vector2(  z,  z ) ),
+				new Tuple<Double, Vector2>( one * 6 / 8, new Vector2(  v,  v ) ),
+				new Tuple<Double, Vector2>( one * 7 / 8, new Vector2(  x,  x ) ),
+				new Tuple<Double, Vector2>( 1, b ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.SmoothStep (
+					ref a, ref b, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
 		}
 
 		// Test Static Fn: CatmullRom //--------------------------------------//
@@ -4079,11 +4120,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Double one = 1;
 
 			Double u = 15;
-			Double v = (Double) 165 / (Double) 8; // 20.5
-			Double w = (Double) 45 / (Double) 2; // 20.625
+			Double v = (Double) 165  / (Double)  8; // 20.5
+			Double w = (Double) 45   / (Double)  2; // 20.625
 			Double x = (Double) 1755 / (Double) 64; // 27.421875
-			Double y = (Double) 15 / (Double) 2; // 14.5
-			Double z = (Double) 705 / (Double) 64; // 11.015625
+			Double y = (Double) 15   / (Double)  2; // 14.5
+			Double z = (Double) 705  / (Double) 64; // 11.015625
 
 			var knownResults = new List<Tuple<Double, Vector2>>
 			{
@@ -4149,7 +4190,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 		/// <summary>
 		/// This tests compares results against an example where all the control
-		/// points are in a straight line.
+		/// points are in a straight line.  In this case the resulting spline
+		/// should be a straight line.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_CatmullRom_v()

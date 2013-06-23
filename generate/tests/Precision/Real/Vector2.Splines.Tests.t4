@@ -84,17 +84,37 @@
 		[Test]
 		public void TestStaticFn_SmoothStep_iv ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			var a = new Vector2( -30, -30 );
+			var b = new Vector2( +30, +30 );
 
-		/// <summary>
-		/// This tests compares results against an example where all the control
-		/// points are in a straight line.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_SmoothStep_v ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			<#= type #> one = 1;
+
+			<#= type #> v = (<#= type #>) 165  / (<#= type #>)  8; // 20.625
+			<#= type #> x = (<#= type #>) 1755 / (<#= type #>) 64; // 27.421875
+			<#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
+
+			var knownResults = new List<Tuple<<#= type #>, Vector2>>
+			{
+				new Tuple<<#= type #>, Vector2>( 0, a ),
+				new Tuple<<#= type #>, Vector2>( one * 1 / 8, new Vector2( -x, -x ) ),
+				new Tuple<<#= type #>, Vector2>( one * 2 / 8, new Vector2( -v, -v ) ),
+				new Tuple<<#= type #>, Vector2>( one * 3 / 8, new Vector2( -z, -z ) ),
+				new Tuple<<#= type #>, Vector2>( one * 4 / 8, Vector2.Zero ),
+				new Tuple<<#= type #>, Vector2>( one * 5 / 8, new Vector2(  z,  z ) ),
+				new Tuple<<#= type #>, Vector2>( one * 6 / 8, new Vector2(  v,  v ) ),
+				new Tuple<<#= type #>, Vector2>( one * 7 / 8, new Vector2(  x,  x ) ),
+				new Tuple<<#= type #>, Vector2>( 1, b ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.SmoothStep (
+					ref a, ref b, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
 		}
 
 		// Test Static Fn: CatmullRom //--------------------------------------//
@@ -216,7 +236,8 @@
 
 		/// <summary>
 		/// This tests compares results against an example where all the control
-		/// points are in a straight line.
+		/// points are in a straight line.  In this case the resulting spline
+		/// should be a straight line.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_CatmullRom_v()
