@@ -1,25 +1,262 @@
 		#region Splines
 
+		// Test Static Fn: Barycentric //-------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Barycentric ()
+		public void TestStaticFn_Barycentric_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: SmoothStep //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep ()
+		public void TestStaticFn_SmoothStep_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
+
+				<#= type #> amount1 = 0;
+				Vector2 result1;
+
+				Vector2.SmoothStep (
+					ref a, ref b, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				<#= type #> amount2 = 1;
+				Vector2 result2;
+
+				Vector2.SmoothStep (
+					ref a, ref b, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is less than zero.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_SmoothStep_ii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			<#= type #> amount = -1;
+			Vector2 result;
+
+			Vector2.SmoothStep (
+				ref a, ref b, amount, out result);
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is greater than one.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_SmoothStep_iii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			<#= type #> amount = 2;
+			Vector2 result;
+
+			Vector2.SmoothStep (
+				ref a, ref b, amount, out result);
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_iv ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom ()
+		public void TestStaticFn_SmoothStep_v ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: CatmullRom //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Hermite ()
+		public void TestStaticFn_CatmullRom_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
+				var c = GetNextRandomVector2();
+				var d = GetNextRandomVector2();
+
+				<#= type #> amount1 = 0;
+				Vector2 result1;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				<#= type #> amount2 = 1;
+				Vector2 result2;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_ii()
+		{
+			var a = new Vector2( -90, +30 );
+			var b = new Vector2( -30, -30 );
+			var c = new Vector2( +30, +30 );
+			var d = new Vector2( +90, -30 );
+
+			<#= type #> one = 1;
+
+			<#= type #> u = 15;
+			<#= type #> v = (<#= type #>) 165  / (<#= type #>)  8; // 20.5
+			<#= type #> w = (<#= type #>) 45   / (<#= type #>)  2; // 20.625
+			<#= type #> x = (<#= type #>) 1755 / (<#= type #>) 64; // 27.421875
+			<#= type #> y = (<#= type #>) 15   / (<#= type #>)  2; // 14.5
+			<#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
+
+			var knownResults = new List<Tuple<<#= type #>, Vector2>>
+			{
+				new Tuple<<#= type #>, Vector2>( 0, b ),
+				new Tuple<<#= type #>, Vector2>( one * 1 / 8, new Vector2( -w, -x ) ),
+				new Tuple<<#= type #>, Vector2>( one * 2 / 8, new Vector2( -u, -v ) ),
+				new Tuple<<#= type #>, Vector2>( one * 3 / 8, new Vector2( -y, -z ) ),
+				new Tuple<<#= type #>, Vector2>( one * 4 / 8, Vector2.Zero ),
+				new Tuple<<#= type #>, Vector2>( one * 5 / 8, new Vector2(  y,  z ) ),
+				new Tuple<<#= type #>, Vector2>( one * 6 / 8, new Vector2(  u,  v ) ),
+				new Tuple<<#= type #>, Vector2>( one * 7 / 8, new Vector2(  w,  x ) ),
+				new Tuple<<#= type #>, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is less than zero.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_CatmullRom_iii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			<#= type #> amount = -1;
+			Vector2 result;
+
+			Vector2.CatmullRom (
+				ref a, ref b, ref c, ref d, amount, out result);
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is greater than one.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_CatmullRom_iv()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			<#= type #> amount = 2;
+			Vector2 result;
+
+			Vector2.CatmullRom (
+				ref a, ref b, ref c, ref d, amount, out result);
+		}
+
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_v()
+		{
+			var a = new Vector2( -90, -90 );
+			var b = new Vector2( -30, -30 );
+			var c = new Vector2( +30, +30 );
+			var d = new Vector2( +90, +90 );
+
+			<#= type #> half; RealMaths.Half(out half);
+			<#= type #> quarter = half / 2;
+			<#= type #> threeQuarters = quarter * 3;
+
+			var knownResults = new List<Tuple<<#= type #>, Vector2>>
+			{
+				new Tuple<<#= type #>, Vector2>( 0, b ),
+				new Tuple<<#= type #>, Vector2>( quarter, new Vector2( -15, -15 ) ),
+				new Tuple<<#= type #>, Vector2>( half, Vector2.Zero ),
+				new Tuple<<#= type #>, Vector2>( threeQuarters, new Vector2( 15, 15 ) ),
+				new Tuple<<#= type #>, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: Hermite //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}

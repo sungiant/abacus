@@ -46,6 +46,9 @@
 		public static void Root3(out Single value) { value = 1.73205f; }
 		public static void Root3(out Double value) { value = 1.73205; }
 
+		internal static void TestTolerance(out Single value) { value = 1.0e-4f; }
+		internal static void TestTolerance(out Double value) { value = 1.0e-7; }
+
         public static Boolean IsZero(Single value)
         {
             Single ep;

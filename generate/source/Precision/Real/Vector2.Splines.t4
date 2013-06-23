@@ -1,52 +1,127 @@
 ﻿		#region Splines
 
-		public static void Barycentric (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, <#= type #> amount1, <#= type #> amount2, out Vector2 result)
+		/// <summary>
+		/// Returns a Vector2 containing the 3D Cartesian coordinates of a point 
+		/// specified in Barycentric coordinates relative to a 3D triangle.
+		/// </summary>
+		public static void Barycentric (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			<#= type #> amount1, 
+			<#= type #> amount2, 
+			out Vector2 result)
 		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
+			result.X = 
+				(a.X + (amount1 * (b.X - a.X))) + (amount2 * (c.X - a.X));
+
+			result.Y = 
+				(a.Y + (amount1 * (b.Y - a.Y))) + (amount2 * (c.Y - a.Y));
 		}
 
-		public static void SmoothStep (ref Vector2 value1, ref Vector2 value2, <#= type #> amount, out Vector2 result)
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
+		public static void SmoothStep (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			<#= type #> amount, 
+			out Vector2 result)
 		{
 			<#= type #> zero = 0;
 			<#= type #> one = 1;
 			<#= type #> two = 2;
 			<#= type #> three = 3;
 
-			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			amount = (amount * amount) * (three - (two * amount));
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 		
-		public static void CatmullRom (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, <#= type #> amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
+		public static void CatmullRom (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			ref Vector2 d, 
+			<#= type #> amount, 
+			out Vector2 result)
 		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			<#= type #> half; RealMaths.Half(out half);
 			<#= type #> two = 2;
 			<#= type #> three = 3;
 			<#= type #> four = 4;
 			<#= type #> five = 5;
 
-			<#= type #> num = amount * amount;
-			<#= type #> num2 = amount * num;
-			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+			<#= type #> temp = amount * amount;
+			<#= type #> temp2 = amount * temp;
+
+			result.X = 
+				half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
+				(((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
+				temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
+				temp2));
+			
+			result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
+				(((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
+				temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
+				temp2));
 		}
 
-		public static void Hermite (ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2, <#= type #> amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
+		public static void Hermite (
+			ref Vector2 a, 
+			ref Vector2 tangent1, 
+			ref Vector2 b, 
+			ref Vector2 tangent2, 
+			<#= type #> amount, 
+			out Vector2 result)
 		{
 			<#= type #> one = 1;
 			<#= type #> two = 2;
 			<#= type #> three = 3;
 
-			<#= type #> num = amount * amount;
-			<#= type #> num2 = amount * num;
-			<#= type #> num6 = ((two * num2) - (three * num)) + one;
-			<#= type #> num5 = (-two * num2) + (three * num);
-			<#= type #> num4 = (num2 - (two * num)) + amount;
-			<#= type #> num3 = num2 - num;
-			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
+			<#= type #> temp = amount * amount;
+			<#= type #> temp2 = amount * temp;
+			<#= type #> temp6 = ((two * temp2) - (three * temp)) + one;
+			<#= type #> temp5 = (-two * temp2) + (three * temp);
+			<#= type #> temp4 = (temp2 - (two * temp)) + amount;
+			<#= type #> temp3 = temp2 - temp;
+
+			result.X = 
+				(((a.X * temp6) + (b.X * temp5)) + 
+				(tangent1.X * temp4)) + (tangent2.X * temp3);
+
+			result.Y = 
+				(((a.Y * temp6) + (b.Y * temp5)) + 
+				(tangent1.Y * temp4)) + (tangent2.Y * temp3);
 		}
 		
 		#endregion

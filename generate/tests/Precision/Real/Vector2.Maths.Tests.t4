@@ -1,5 +1,10 @@
 		#region Maths
 
+		// Test Static Fn: Distance //----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_i ()
 		{
@@ -12,6 +17,9 @@
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_ii ()
 		{
@@ -24,6 +32,9 @@
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_iii ()
 		{
@@ -36,6 +47,9 @@
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_iv ()
 		{
@@ -46,6 +60,9 @@
 			Assert.That(a.Length(), Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_v ()
 		{
@@ -53,12 +70,18 @@
 			{
 				Vector2 a = GetNextRandomVector2();
 				
-				<#= type #> expected = RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
+				<#= type #> expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
 				Assert.That(a.Length(), Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_i ()
 		{
@@ -66,11 +89,15 @@
 			Vector2 b = new Vector2(3, 0);
 
 			<#= type #> expected = 25;
-			<#= type #> result; Vector2.DistanceSquared(ref a, ref b, out result);
+			<#= type #> result;
+			Vector2.DistanceSquared(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_ii ()
 		{
@@ -80,12 +107,18 @@
 				Vector2 b = GetNextRandomVector2();
 				Vector2 c = b - a;
 				<#= type #> expected = (c.X * c.X) + (c.Y * c.Y);
-				<#= type #> result; Vector2.DistanceSquared(ref a, ref b, out result);
+				<#= type #> result;
+				Vector2.DistanceSquared(ref a, ref b, out result);
 
 				Assert.That(result, Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_i ()
 		{
@@ -100,6 +133,9 @@
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_ii ()
 		{
@@ -112,6 +148,9 @@
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_iii ()
 		{
@@ -126,19 +165,11 @@
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Static Fn: Normalise //---------------------------------------//
 
-		[Test]
-		public void TestStaticFn_PerpDot ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		[Test]
-		public void TestStaticFn_Perpendicular ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Normalise_i()
 		{
@@ -147,15 +178,22 @@
 			Vector2 b; Vector2.Normalise(ref a, out b);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Normalise_ii()
 		{
-			Vector2 a = new Vector2(<#= type #>.MaxValue, <#= type #>.MaxValue);
+			Vector2 a = new Vector2(
+				<#= type #>.MaxValue, 
+				<#= type #>.MaxValue);
 
 			Vector2 b; Vector2.Normalise(ref a, out b);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Normalise_iii ()
 		{
@@ -173,27 +211,46 @@
 
 				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
 			}
-
 		}
 
+		// Test Static Fn: Reflect //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformQuaternion ()
 		{

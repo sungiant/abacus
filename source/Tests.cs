@@ -48,10 +48,6 @@ namespace Sungiant.Abacus.Tests
 	{
 	}
 
-    [TestFixture]
-    public class PackUtils
-    {
-    }
 
 }
 
@@ -67,9 +63,12 @@ namespace Sungiant.Abacus.Packed.Tests
     {
         [Test]
         public static void TestAllPossibleValues()
-        {
-            for (Byte packed = Byte.MinValue; packed < Byte.MaxValue; ++packed)
+        {   
+            Byte packed = Byte.MinValue;
+            while ( packed < Byte.MaxValue )
             {
+                ++packed;
+
                 var packedObj = new Alpha_8();
 
                 packedObj.PackedValue = packed;
@@ -91,8 +90,11 @@ namespace Sungiant.Abacus.Packed.Tests
         [Test]
         public static void TestAllPossibleValues()
         {
-            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
             {
+                ++packed;
+                
                 var packedObj = new Bgr_5_6_5();
                 
                 packedObj.PackedValue = packed;
@@ -113,8 +115,11 @@ namespace Sungiant.Abacus.Packed.Tests
         [Test]
         public static void TestAllPossibleValues()
         {
-            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
             {
+                ++packed;
+                
                 var packedObj = new Bgra16();
                 
                 packedObj.PackedValue = packed;
@@ -135,8 +140,11 @@ namespace Sungiant.Abacus.Packed.Tests
         [Test]
         public static void TestAllPossibleValues()
         {
-            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
             {
+                ++packed;
+                
                 var packedObj = new Bgra_5_5_5_1();
                 
                 packedObj.PackedValue = packed;
@@ -186,8 +194,11 @@ namespace Sungiant.Abacus.Packed.Tests
         [Test]
         public static void TestAllPossibleValues()
         {
-            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
             {
+                ++packed;
+
                 var packedObj = new NormalisedByte2();
                 
                 packedObj.PackedValue = packed;
@@ -195,10 +206,12 @@ namespace Sungiant.Abacus.Packed.Tests
                 SinglePrecision.Vector2 unpacked;
                 
                 packedObj.UnpackTo(out unpacked);
+
+                Console.WriteLine("p: " + packed + ", v: " + unpacked);
                 
                 var newPackedObj = new NormalisedByte2(ref unpacked);
                 
-                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed).Within(5));
             }
         }
     }
@@ -600,154 +613,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[TestFixture]
 	public class Vector2Tests
 	{
-		[Test]
-		public void Test_Constructors ()
-		{
-			// Test default values
-			Vector2 a = new Vector2();
-			Assert.That(a, Is.EqualTo(Vector2.Zero));
+				/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
 
-			// Test Vector2( n ) where n is Single
-			Single u = -189;
-			Single v = 429;
-			Vector2 b1 = new Vector2(u);
-			Assert.That(b1.X, Is.EqualTo(u));
-			Assert.That(b1.Y, Is.EqualTo(u));
-			Vector2 b2 = new Vector2(v);
-			Assert.That(b2.X, Is.EqualTo(v));
-			Assert.That(b2.Y, Is.EqualTo(v));
-
-			// Test Vector2( x, y ) where x, y are Single
-			Vector2 c = new Vector2(u, v);
-			Assert.That(c.X, Is.EqualTo(u));
-			Assert.That(c.Y, Is.EqualTo(v));
-
-			// Test Vector2( x, y ) where x, y are Int32
-			Int32 q = 12334;
-			Int32 r = -2145;
-			Single s = q;
-			Single t = r;
-			Vector2 d = new Vector2(q, r);
-			Assert.That(d.X, Is.EqualTo(s));
-			Assert.That(d.Y, Is.EqualTo(t));
-		}
-
-		[Test]
-		public void TestMemberFn_ToString ()
-		{
-			Vector2 a = new Vector2(42, -17);
-
-			String result = a.ToString();
-
-			String expected = "{X:42 Y:-17}";
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_GetHashCode ()
-		{
-			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
-			var hs2 = new System.Collections.Generic.HashSet<Int32>();
-
-			for(Int32 i = 0; i < 10000; ++i)
-			{
-				var a = GetNextRandomVector2();
-
-				hs1.Add(a);
-				hs2.Add(a.GetHashCode());
-			}
-
-			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-		}
-
-		[Test]
-		public void TestMemberFn_Set ()
-		{
-			Vector2 a = Vector2.Zero;
-
-			a.Set(14, -19);
-
-			Vector2 expected = new Vector2(14, -19);
-
-			Assert.That(a, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_Length ()
-		{
-			Vector2 a = new Vector2(30, -40);
-
-			Single expected = 50;
-
-			Single result = a.Length();
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_LengthSquared ()
-		{
-			Vector2 a = new Vector2(30, -40);
-
-			Single expected = 2500;
-
-			Single result = a.LengthSquared();
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_IsUnit_i ()
-		{
-			Assert.That(new Vector2(1, 0).IsUnit(), Is.EqualTo(true));
-			Assert.That(new Vector2(-1, 0).IsUnit(), Is.EqualTo(true));
-			Assert.That(new Vector2(1, 1).IsUnit(), Is.EqualTo(false));
-			Assert.That(new Vector2(0, 0).IsUnit(), Is.EqualTo(false));
-			Assert.That(new Vector2(0, -1).IsUnit(), Is.EqualTo(true));
-			Assert.That(new Vector2(0, 1).IsUnit(), Is.EqualTo(true));
-		}
-
-		[Test]
-		public void TestMemberFn_IsUnit_ii ()
-		{
-			for( Int32 i = 0; i < 100; ++ i)
-			{
-				Vector2 a = GetNextRandomVector2();
-
-				Vector2 b; Vector2.Normalise(ref a, out b);
-
-				Assert.That(b.IsUnit(), Is.EqualTo(true));
-			}
-		}
-
-		[Test]
-		public void TestMemberFn_IsUnit_iii ()
-		{
-			Single piOver2; RealMaths.PiOver2(out piOver2);
-
-			for( Int32 i = 0; i <= 90; ++ i)
-			{
-				Single theta = piOver2 / 90 * i;
-
-				Single opposite = RealMaths.Sin(theta);
-				Single adjacent = RealMaths.Cos(theta);				
-
-				Assert.That(new Vector2( opposite,  adjacent).IsUnit(), Is.EqualTo(true));
-				Assert.That(new Vector2( opposite, -adjacent).IsUnit(), Is.EqualTo(true));
-				Assert.That(new Vector2(-opposite,  adjacent).IsUnit(), Is.EqualTo(true));
-				Assert.That(new Vector2(-opposite, -adjacent).IsUnit(), Is.EqualTo(true));
-			}
-		}
-
-		static System.Random rand;
-
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
 		static Vector2Tests()
 		{
 			rand = new System.Random(0);
 		}
 
-		public static Single GetNextRandomSingle()
+		/// <summary>
+		/// Helper function for getting the next random Single value.
+		/// </summary>
+		static Single GetNextRandomSingle()
 		{
 			Single randomValue = rand.NextSingle();
 
@@ -764,16 +648,238 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			return randomValue;
 		}
 
-
-		public static Vector2 GetNextRandomVector2()
+		/// <summary>
+		/// Helper function for getting the next random Vector2.
+		/// </summary>
+		static Vector2 GetNextRandomVector2()
 		{
 			Single a = GetNextRandomSingle();
 			Single b = GetNextRandomSingle();
 
 			return new Vector2(a, b);
 		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two vectors are equal.
+		/// </summary>
+		static void AssertEqualWithinReason(Vector2 a, Vector2 b)
+		{
+			Single tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+		}
+
+		// Test: Constructors //----------------------------------------------//
+
+		/// <summary>
+		/// This test goes though each public constuctor and ensures that the 
+		/// data members of the structure have been properly set.
+		/// </summary>
+		[Test]
+		public void Test_Constructors_i ()
+		{
+			// Test default values
+			Vector2 a = new Vector2();
+			Assert.That(a, Is.EqualTo(Vector2.Zero));
+
+			// Test Vector2( n ) where n is Single
+			Single u = -189;
+			Single v = 429;
+
+			// Test Vector2( x, y ) where x, y are Single
+			Vector2 c = new Vector2(u, v);
+			Assert.That(c.X, Is.EqualTo(u));
+			Assert.That(c.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are Int32
+			Int32 q = 12334;
+			Int32 r = -2145;
+			Single s = q;
+			Single t = r;
+			Vector2 d = new Vector2(q, r);
+			Assert.That(d.X, Is.EqualTo(s));
+			Assert.That(d.Y, Is.EqualTo(t));
+
+			// Test no constructor
+			Vector2 e;
+			e.X = 0;
+			e.Y = 0;
+			Assert.That(e, Is.EqualTo(Vector2.Zero));
+		}
+
+		// Test Member Fn: ToString //----------------------------------------//
+
+		/// <summary>
+		/// For a given example, this test ensures that the ToString function
+		/// yields the expected string.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_ToString_i ()
+		{
+			Vector2 a = new Vector2(42, -17);
+
+			String result = a.ToString();
+
+			String expected = "{X:42 Y:-17}";
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Member Fn: GetHashCode //-------------------------------------//
+
+		/// <summary>
+		/// Makes sure that the hashing function is good by testing 10,000
+		/// random scenarios and ensuring that there are no more than 10
+		/// collisions.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_GetHashCode_i ()
+		{
+			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
+			var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+			for(Int32 i = 0; i < 10000; ++i)
+			{
+				var a = GetNextRandomVector2();
+
+				hs1.Add(a);
+				hs2.Add(a.GetHashCode());
+			}
+
+			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+		}
+
+		// Test Member Fn: Length //------------------------------------------//
+
+		/// <summary>
+		/// Tests that for a known example the Length member function yields
+		/// the correct result.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_Length_i ()
+		{
+			Vector2 a = new Vector2(30, -40);
+
+			Single expected = 50;
+
+			Single result = a.Length();
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Member Fn: LengthSquared //-----------------------------------//
+
+		/// <summary>
+		/// Tests that for a known example the LengthSquared member function 
+		/// yields the correct result.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_LengthSquared_i ()
+		{
+			Vector2 a = new Vector2(30, -40);
+
+			Single expected = 2500;
+
+			Single result = a.LengthSquared();
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Member Fn: IsUnit //------------------------------------------//
+
+		/// <summary>
+		/// Tests that for the most simple unit vectors the IsUnit member 
+		/// function returns the correct result of TRUE.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_i ()
+		{
+			Assert.That(new Vector2( 1,  0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(-1,  0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2( 1,  1).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2( 0,  0).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2( 0, -1).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2( 0,  1).IsUnit(), Is.EqualTo(true));
+		}
+
+		/// <summary>
+		/// This test makes sure that the IsUnit member function returns the 
+		/// correct result of TRUE for a number of scenarios where the test 
+		/// vector is both random and normalised.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_ii ()
+		{
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+
+				Assert.That(b.IsUnit(), Is.EqualTo(true));
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that the IsUnit member function correctly
+		/// returns TRUE for a collection of vectors, all known to be of unit 
+		/// length.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_iii ()
+		{
+			Single piOver2; RealMaths.PiOver2(out piOver2);
+
+			for( Int32 i = 0; i <= 90; ++ i)
+			{
+				Single theta = piOver2 / 90 * i;
+
+				Single opposite = RealMaths.Sin(theta);
+				Single adjacent = RealMaths.Cos(theta);				
+
+				Assert.That(
+					new Vector2( opposite,  adjacent).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector2( opposite, -adjacent).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector2(-opposite,  adjacent).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector2(-opposite, -adjacent).IsUnit(), 
+					Is.EqualTo(true));
+			}
+		}
+
+		/// <summary>
+		/// This test makes sure that the IsUnit member function returns the 
+		/// correct result of FALSE for a number of scenarios where the test 
+		/// vector is randomly generated and not normalised.  It's highly
+		/// unlikely that the random generator will create a unit vector!
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_iv ()
+		{
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Assert.That(a.IsUnit(), Is.EqualTo(false));
+			}
+		}
+			
 		#region Utilities
 
+		// Test Constant: Zero //---------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
@@ -786,6 +892,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
@@ -798,6 +909,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
@@ -812,6 +928,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{
@@ -829,6 +950,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#endregion
 		#region Maths
 
+		// Test Static Fn: Distance //----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_i ()
 		{
@@ -841,6 +967,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_ii ()
 		{
@@ -853,6 +982,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_iii ()
 		{
@@ -865,6 +997,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_iv ()
 		{
@@ -875,6 +1010,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(a.Length(), Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_v ()
 		{
@@ -882,12 +1020,18 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 				
-				Single expected = RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
+				Single expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
 				Assert.That(a.Length(), Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_i ()
 		{
@@ -895,11 +1039,15 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 b = new Vector2(3, 0);
 
 			Single expected = 25;
-			Single result; Vector2.DistanceSquared(ref a, ref b, out result);
+			Single result;
+			Vector2.DistanceSquared(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_ii ()
 		{
@@ -909,12 +1057,18 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2 b = GetNextRandomVector2();
 				Vector2 c = b - a;
 				Single expected = (c.X * c.X) + (c.Y * c.Y);
-				Single result; Vector2.DistanceSquared(ref a, ref b, out result);
+				Single result;
+				Vector2.DistanceSquared(ref a, ref b, out result);
 
 				Assert.That(result, Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_i ()
 		{
@@ -929,6 +1083,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_ii ()
 		{
@@ -941,6 +1098,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_iii ()
 		{
@@ -955,19 +1115,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Static Fn: Normalise //---------------------------------------//
 
-		[Test]
-		public void TestStaticFn_PerpDot ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		[Test]
-		public void TestStaticFn_Perpendicular ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Normalise_i()
 		{
@@ -976,15 +1128,22 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 b; Vector2.Normalise(ref a, out b);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Normalise_ii()
 		{
-			Vector2 a = new Vector2(Single.MaxValue, Single.MaxValue);
+			Vector2 a = new Vector2(
+				Single.MaxValue, 
+				Single.MaxValue);
 
 			Vector2 b; Vector2.Normalise(ref a, out b);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Normalise_iii ()
 		{
@@ -1002,27 +1161,46 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
 			}
-
 		}
 
+		// Test Static Fn: Reflect //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformQuaternion ()
 		{
@@ -1032,8 +1210,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#endregion
 		#region Operators
 
-		// Equality //--------------------------------------------------------//
-		
+		// Test Operator: Equality //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
@@ -1063,6 +1244,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_i ()
 		{
@@ -1074,7 +1258,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestEquality(a, b, expected);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_ii ()
 		{
@@ -1086,6 +1272,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_iii ()
 		{
@@ -1095,8 +1284,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 
-		// Addition //--------------------------------------------------------//
+		// Test Operator: Addition //-----------------------------------------//
 
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -1153,6 +1345,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iv ()
 		{var a = GetNextRandomVector2();
@@ -1164,9 +1359,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestAddition(a, b, expected);
 		}
 
-
-		// Subtraction //-----------------------------------------------------//
+		// Test Operator: Subtraction //--------------------------------------//
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -1223,6 +1420,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Subtraction_iv ()
 		{
@@ -1234,9 +1434,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestSubtraction(a, b, expected);
 		}
 
-
-		// Negation //--------------------------------------------------------//
+		// Test Operator: Negation //-----------------------------------------//
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestNegation(Vector2 a, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -1250,6 +1452,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_i ()
 		{
@@ -1264,6 +1469,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestNegation(a, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_ii ()
 		{
@@ -1278,6 +1486,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestNegation(b, d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_iii ()
 		{
@@ -1289,6 +1500,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestNegation(c, Vector2.Zero - c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_iv ()
 		{
@@ -1300,12 +1514,18 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestNegation(d, Vector2.Zero - d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_v ()
 		{
 			this.TestNegation(Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_vi ()
 		{
@@ -1313,9 +1533,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestNegation(a, Vector2.Zero - a);
 		}
 
+		// Test Operator: Multiplication //-----------------------------------//
 
-		// Multiplication //--------------------------------------------------//
-		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -1334,6 +1556,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
@@ -1352,6 +1577,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestMultiplication(a, b, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_ii ()
 		{
@@ -1382,6 +1610,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(test2_st, Is.EqualTo(c));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_iii ()
 		{
@@ -1394,8 +1625,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 
-		// Division //--------------------------------------------------------//
-		
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -1409,6 +1643,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_i ()
 		{
@@ -1427,6 +1664,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestDivision(a, b, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_ii ()
 		{
@@ -1445,6 +1685,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			this.TestDivision(b, a, d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_iii ()
 		{
@@ -1459,26 +1702,263 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#endregion
 		#region Splines
 
+		// Test Static Fn: Barycentric //-------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Barycentric ()
+		public void TestStaticFn_Barycentric_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: SmoothStep //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep ()
+		public void TestStaticFn_SmoothStep_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
+
+				Single amount1 = 0;
+				Vector2 result1;
+
+				Vector2.SmoothStep (
+					ref a, ref b, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Single amount2 = 1;
+				Vector2 result2;
+
+				Vector2.SmoothStep (
+					ref a, ref b, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is less than zero.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_SmoothStep_ii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			Single amount = -1;
+			Vector2 result;
+
+			Vector2.SmoothStep (
+				ref a, ref b, amount, out result);
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is greater than one.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_SmoothStep_iii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			Single amount = 2;
+			Vector2 result;
+
+			Vector2.SmoothStep (
+				ref a, ref b, amount, out result);
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_iv ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom ()
+		public void TestStaticFn_SmoothStep_v ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: CatmullRom //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Hermite ()
+		public void TestStaticFn_CatmullRom_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
+				var c = GetNextRandomVector2();
+				var d = GetNextRandomVector2();
+
+				Single amount1 = 0;
+				Vector2 result1;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				Single amount2 = 1;
+				Vector2 result2;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_ii()
+		{
+			var a = new Vector2( -90, +30 );
+			var b = new Vector2( -30, -30 );
+			var c = new Vector2( +30, +30 );
+			var d = new Vector2( +90, -30 );
+
+			Single one = 1;
+
+			Single u = 15;
+			Single v = (Single) 165 / (Single) 8; // 20.5
+			Single w = (Single) 45 / (Single) 2; // 20.625
+			Single x = (Single) 1755 / (Single) 64; // 27.421875
+			Single y = (Single) 15 / (Single) 2; // 14.5
+			Single z = (Single) 705 / (Single) 64; // 11.015625
+
+			var knownResults = new List<Tuple<Single, Vector2>>
+			{
+				new Tuple<Single, Vector2>( 0, b ),
+				new Tuple<Single, Vector2>( one * 1 / 8, new Vector2( -w, -x ) ),
+				new Tuple<Single, Vector2>( one * 2 / 8, new Vector2( -u, -v ) ),
+				new Tuple<Single, Vector2>( one * 3 / 8, new Vector2( -y, -z ) ),
+				new Tuple<Single, Vector2>( one * 4 / 8, Vector2.Zero ),
+				new Tuple<Single, Vector2>( one * 5 / 8, new Vector2(  y,  z ) ),
+				new Tuple<Single, Vector2>( one * 6 / 8, new Vector2(  u,  v ) ),
+				new Tuple<Single, Vector2>( one * 7 / 8, new Vector2(  w,  x ) ),
+				new Tuple<Single, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is less than zero.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_CatmullRom_iii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			Single amount = -1;
+			Vector2 result;
+
+			Vector2.CatmullRom (
+				ref a, ref b, ref c, ref d, amount, out result);
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is greater than one.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_CatmullRom_iv()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			Single amount = 2;
+			Vector2 result;
+
+			Vector2.CatmullRom (
+				ref a, ref b, ref c, ref d, amount, out result);
+		}
+
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_v()
+		{
+			var a = new Vector2( -90, -90 );
+			var b = new Vector2( -30, -30 );
+			var c = new Vector2( +30, +30 );
+			var d = new Vector2( +90, +90 );
+
+			Single half; RealMaths.Half(out half);
+			Single quarter = half / 2;
+			Single threeQuarters = quarter * 3;
+
+			var knownResults = new List<Tuple<Single, Vector2>>
+			{
+				new Tuple<Single, Vector2>( 0, b ),
+				new Tuple<Single, Vector2>( quarter, new Vector2( -15, -15 ) ),
+				new Tuple<Single, Vector2>( half, Vector2.Zero ),
+				new Tuple<Single, Vector2>( threeQuarters, new Vector2( 15, 15 ) ),
+				new Tuple<Single, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: Hermite //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -1486,6 +1966,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		#endregion
 				#region Utilities
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
 		{
@@ -1501,6 +1984,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
 		{
@@ -1516,6 +2002,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_i ()
 		{
@@ -1535,6 +2024,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_ii ()
 		{
@@ -1558,11 +2050,12 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Lerp_i ()
 		{
-			Single epsilon; RealMaths.Epsilon(out epsilon);
-
 			for(Int32 j = 0; j < 100; ++j)
 			{
 				Single delta = j;
@@ -1578,11 +2071,14 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 					Vector2 expected = a + ( ( b - a ) * delta );
 
-					Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+					AssertEqualWithinReason(result, expected);
 				}
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_ii()
 		{
@@ -1592,6 +2088,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_iii()
 		{
@@ -1601,6 +2100,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_iv()
 		{
@@ -1612,7 +2114,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 b = GetNextRandomVector2();
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
-
 
 		#endregion
 
@@ -2343,154 +2844,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[TestFixture]
 	public class Vector2Tests
 	{
-		[Test]
-		public void Test_Constructors ()
-		{
-			// Test default values
-			Vector2 a = new Vector2();
-			Assert.That(a, Is.EqualTo(Vector2.Zero));
+				/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
 
-			// Test Vector2( n ) where n is Double
-			Double u = -189;
-			Double v = 429;
-			Vector2 b1 = new Vector2(u);
-			Assert.That(b1.X, Is.EqualTo(u));
-			Assert.That(b1.Y, Is.EqualTo(u));
-			Vector2 b2 = new Vector2(v);
-			Assert.That(b2.X, Is.EqualTo(v));
-			Assert.That(b2.Y, Is.EqualTo(v));
-
-			// Test Vector2( x, y ) where x, y are Double
-			Vector2 c = new Vector2(u, v);
-			Assert.That(c.X, Is.EqualTo(u));
-			Assert.That(c.Y, Is.EqualTo(v));
-
-			// Test Vector2( x, y ) where x, y are Int32
-			Int32 q = 12334;
-			Int32 r = -2145;
-			Double s = q;
-			Double t = r;
-			Vector2 d = new Vector2(q, r);
-			Assert.That(d.X, Is.EqualTo(s));
-			Assert.That(d.Y, Is.EqualTo(t));
-		}
-
-		[Test]
-		public void TestMemberFn_ToString ()
-		{
-			Vector2 a = new Vector2(42, -17);
-
-			String result = a.ToString();
-
-			String expected = "{X:42 Y:-17}";
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_GetHashCode ()
-		{
-			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
-			var hs2 = new System.Collections.Generic.HashSet<Int32>();
-
-			for(Int32 i = 0; i < 10000; ++i)
-			{
-				var a = GetNextRandomVector2();
-
-				hs1.Add(a);
-				hs2.Add(a.GetHashCode());
-			}
-
-			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-		}
-
-		[Test]
-		public void TestMemberFn_Set ()
-		{
-			Vector2 a = Vector2.Zero;
-
-			a.Set(14, -19);
-
-			Vector2 expected = new Vector2(14, -19);
-
-			Assert.That(a, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_Length ()
-		{
-			Vector2 a = new Vector2(30, -40);
-
-			Double expected = 50;
-
-			Double result = a.Length();
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_LengthSquared ()
-		{
-			Vector2 a = new Vector2(30, -40);
-
-			Double expected = 2500;
-
-			Double result = a.LengthSquared();
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestMemberFn_IsUnit_i ()
-		{
-			Assert.That(new Vector2(1, 0).IsUnit(), Is.EqualTo(true));
-			Assert.That(new Vector2(-1, 0).IsUnit(), Is.EqualTo(true));
-			Assert.That(new Vector2(1, 1).IsUnit(), Is.EqualTo(false));
-			Assert.That(new Vector2(0, 0).IsUnit(), Is.EqualTo(false));
-			Assert.That(new Vector2(0, -1).IsUnit(), Is.EqualTo(true));
-			Assert.That(new Vector2(0, 1).IsUnit(), Is.EqualTo(true));
-		}
-
-		[Test]
-		public void TestMemberFn_IsUnit_ii ()
-		{
-			for( Int32 i = 0; i < 100; ++ i)
-			{
-				Vector2 a = GetNextRandomVector2();
-
-				Vector2 b; Vector2.Normalise(ref a, out b);
-
-				Assert.That(b.IsUnit(), Is.EqualTo(true));
-			}
-		}
-
-		[Test]
-		public void TestMemberFn_IsUnit_iii ()
-		{
-			Double piOver2; RealMaths.PiOver2(out piOver2);
-
-			for( Int32 i = 0; i <= 90; ++ i)
-			{
-				Double theta = piOver2 / 90 * i;
-
-				Double opposite = RealMaths.Sin(theta);
-				Double adjacent = RealMaths.Cos(theta);				
-
-				Assert.That(new Vector2( opposite,  adjacent).IsUnit(), Is.EqualTo(true));
-				Assert.That(new Vector2( opposite, -adjacent).IsUnit(), Is.EqualTo(true));
-				Assert.That(new Vector2(-opposite,  adjacent).IsUnit(), Is.EqualTo(true));
-				Assert.That(new Vector2(-opposite, -adjacent).IsUnit(), Is.EqualTo(true));
-			}
-		}
-
-		static System.Random rand;
-
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
 		static Vector2Tests()
 		{
 			rand = new System.Random(0);
 		}
 
-		public static Double GetNextRandomDouble()
+		/// <summary>
+		/// Helper function for getting the next random Double value.
+		/// </summary>
+		static Double GetNextRandomDouble()
 		{
 			Double randomValue = rand.NextDouble();
 
@@ -2507,16 +2879,238 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			return randomValue;
 		}
 
-
-		public static Vector2 GetNextRandomVector2()
+		/// <summary>
+		/// Helper function for getting the next random Vector2.
+		/// </summary>
+		static Vector2 GetNextRandomVector2()
 		{
 			Double a = GetNextRandomDouble();
 			Double b = GetNextRandomDouble();
 
 			return new Vector2(a, b);
 		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two vectors are equal.
+		/// </summary>
+		static void AssertEqualWithinReason(Vector2 a, Vector2 b)
+		{
+			Double tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+		}
+
+		// Test: Constructors //----------------------------------------------//
+
+		/// <summary>
+		/// This test goes though each public constuctor and ensures that the 
+		/// data members of the structure have been properly set.
+		/// </summary>
+		[Test]
+		public void Test_Constructors_i ()
+		{
+			// Test default values
+			Vector2 a = new Vector2();
+			Assert.That(a, Is.EqualTo(Vector2.Zero));
+
+			// Test Vector2( n ) where n is Double
+			Double u = -189;
+			Double v = 429;
+
+			// Test Vector2( x, y ) where x, y are Double
+			Vector2 c = new Vector2(u, v);
+			Assert.That(c.X, Is.EqualTo(u));
+			Assert.That(c.Y, Is.EqualTo(v));
+
+			// Test Vector2( x, y ) where x, y are Int32
+			Int32 q = 12334;
+			Int32 r = -2145;
+			Double s = q;
+			Double t = r;
+			Vector2 d = new Vector2(q, r);
+			Assert.That(d.X, Is.EqualTo(s));
+			Assert.That(d.Y, Is.EqualTo(t));
+
+			// Test no constructor
+			Vector2 e;
+			e.X = 0;
+			e.Y = 0;
+			Assert.That(e, Is.EqualTo(Vector2.Zero));
+		}
+
+		// Test Member Fn: ToString //----------------------------------------//
+
+		/// <summary>
+		/// For a given example, this test ensures that the ToString function
+		/// yields the expected string.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_ToString_i ()
+		{
+			Vector2 a = new Vector2(42, -17);
+
+			String result = a.ToString();
+
+			String expected = "{X:42 Y:-17}";
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Member Fn: GetHashCode //-------------------------------------//
+
+		/// <summary>
+		/// Makes sure that the hashing function is good by testing 10,000
+		/// random scenarios and ensuring that there are no more than 10
+		/// collisions.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_GetHashCode_i ()
+		{
+			var hs1 = new System.Collections.Generic.HashSet<Vector2>();
+			var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+			for(Int32 i = 0; i < 10000; ++i)
+			{
+				var a = GetNextRandomVector2();
+
+				hs1.Add(a);
+				hs2.Add(a.GetHashCode());
+			}
+
+			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+		}
+
+		// Test Member Fn: Length //------------------------------------------//
+
+		/// <summary>
+		/// Tests that for a known example the Length member function yields
+		/// the correct result.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_Length_i ()
+		{
+			Vector2 a = new Vector2(30, -40);
+
+			Double expected = 50;
+
+			Double result = a.Length();
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Member Fn: LengthSquared //-----------------------------------//
+
+		/// <summary>
+		/// Tests that for a known example the LengthSquared member function 
+		/// yields the correct result.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_LengthSquared_i ()
+		{
+			Vector2 a = new Vector2(30, -40);
+
+			Double expected = 2500;
+
+			Double result = a.LengthSquared();
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Member Fn: IsUnit //------------------------------------------//
+
+		/// <summary>
+		/// Tests that for the most simple unit vectors the IsUnit member 
+		/// function returns the correct result of TRUE.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_i ()
+		{
+			Assert.That(new Vector2( 1,  0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2(-1,  0).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2( 1,  1).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2( 0,  0).IsUnit(), Is.EqualTo(false));
+			Assert.That(new Vector2( 0, -1).IsUnit(), Is.EqualTo(true));
+			Assert.That(new Vector2( 0,  1).IsUnit(), Is.EqualTo(true));
+		}
+
+		/// <summary>
+		/// This test makes sure that the IsUnit member function returns the 
+		/// correct result of TRUE for a number of scenarios where the test 
+		/// vector is both random and normalised.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_ii ()
+		{
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+
+				Assert.That(b.IsUnit(), Is.EqualTo(true));
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that the IsUnit member function correctly
+		/// returns TRUE for a collection of vectors, all known to be of unit 
+		/// length.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_iii ()
+		{
+			Double piOver2; RealMaths.PiOver2(out piOver2);
+
+			for( Int32 i = 0; i <= 90; ++ i)
+			{
+				Double theta = piOver2 / 90 * i;
+
+				Double opposite = RealMaths.Sin(theta);
+				Double adjacent = RealMaths.Cos(theta);				
+
+				Assert.That(
+					new Vector2( opposite,  adjacent).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector2( opposite, -adjacent).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector2(-opposite,  adjacent).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector2(-opposite, -adjacent).IsUnit(), 
+					Is.EqualTo(true));
+			}
+		}
+
+		/// <summary>
+		/// This test makes sure that the IsUnit member function returns the 
+		/// correct result of FALSE for a number of scenarios where the test 
+		/// vector is randomly generated and not normalised.  It's highly
+		/// unlikely that the random generator will create a unit vector!
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_iv ()
+		{
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Assert.That(a.IsUnit(), Is.EqualTo(false));
+			}
+		}
+			
 		#region Utilities
 
+		// Test Constant: Zero //---------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
@@ -2529,6 +3123,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
@@ -2541,6 +3140,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
@@ -2555,6 +3159,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{
@@ -2572,6 +3181,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#endregion
 		#region Maths
 
+		// Test Static Fn: Distance //----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_i ()
 		{
@@ -2584,6 +3198,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_ii ()
 		{
@@ -2596,6 +3213,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_iii ()
 		{
@@ -2608,6 +3228,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_iv ()
 		{
@@ -2618,6 +3241,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(a.Length(), Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_v ()
 		{
@@ -2625,12 +3251,18 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 				
-				Double expected = RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
+				Double expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
 				Assert.That(a.Length(), Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_i ()
 		{
@@ -2638,11 +3270,15 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 b = new Vector2(3, 0);
 
 			Double expected = 25;
-			Double result; Vector2.DistanceSquared(ref a, ref b, out result);
+			Double result;
+			Vector2.DistanceSquared(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_ii ()
 		{
@@ -2652,12 +3288,18 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2 b = GetNextRandomVector2();
 				Vector2 c = b - a;
 				Double expected = (c.X * c.X) + (c.Y * c.Y);
-				Double result; Vector2.DistanceSquared(ref a, ref b, out result);
+				Double result;
+				Vector2.DistanceSquared(ref a, ref b, out result);
 
 				Assert.That(result, Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_i ()
 		{
@@ -2672,6 +3314,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_ii ()
 		{
@@ -2684,6 +3329,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_iii ()
 		{
@@ -2698,19 +3346,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Static Fn: Normalise //---------------------------------------//
 
-		[Test]
-		public void TestStaticFn_PerpDot ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		[Test]
-		public void TestStaticFn_Perpendicular ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Normalise_i()
 		{
@@ -2719,15 +3359,22 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 b; Vector2.Normalise(ref a, out b);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Normalise_ii()
 		{
-			Vector2 a = new Vector2(Double.MaxValue, Double.MaxValue);
+			Vector2 a = new Vector2(
+				Double.MaxValue, 
+				Double.MaxValue);
 
 			Vector2 b; Vector2.Normalise(ref a, out b);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Normalise_iii ()
 		{
@@ -2745,27 +3392,46 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
 			}
-
 		}
 
+		// Test Static Fn: Reflect //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Reflect ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformMatix44 ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformNormal ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_TransformQuaternion ()
 		{
@@ -2775,8 +3441,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#endregion
 		#region Operators
 
-		// Equality //--------------------------------------------------------//
-		
+		// Test Operator: Equality //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
@@ -2806,6 +3475,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_i ()
 		{
@@ -2817,7 +3489,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestEquality(a, b, expected);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_ii ()
 		{
@@ -2829,6 +3503,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_iii ()
 		{
@@ -2838,8 +3515,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 
-		// Addition //--------------------------------------------------------//
+		// Test Operator: Addition //-----------------------------------------//
 
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -2896,6 +3576,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iv ()
 		{var a = GetNextRandomVector2();
@@ -2907,9 +3590,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestAddition(a, b, expected);
 		}
 
-
-		// Subtraction //-----------------------------------------------------//
+		// Test Operator: Subtraction //--------------------------------------//
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -2966,6 +3651,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Subtraction_iv ()
 		{
@@ -2977,9 +3665,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestSubtraction(a, b, expected);
 		}
 
-
-		// Negation //--------------------------------------------------------//
+		// Test Operator: Negation //-----------------------------------------//
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestNegation(Vector2 a, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -2993,6 +3683,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_i ()
 		{
@@ -3007,6 +3700,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestNegation(a, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_ii ()
 		{
@@ -3021,6 +3717,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestNegation(b, d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_iii ()
 		{
@@ -3032,6 +3731,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestNegation(c, Vector2.Zero - c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_iv ()
 		{
@@ -3043,12 +3745,18 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestNegation(d, Vector2.Zero - d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_v ()
 		{
 			this.TestNegation(Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_vi ()
 		{
@@ -3056,9 +3764,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestNegation(a, Vector2.Zero - a);
 		}
 
+		// Test Operator: Multiplication //-----------------------------------//
 
-		// Multiplication //--------------------------------------------------//
-		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -3077,6 +3787,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
@@ -3095,6 +3808,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestMultiplication(a, b, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_ii ()
 		{
@@ -3125,6 +3841,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(test2_st, Is.EqualTo(c));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_iii ()
 		{
@@ -3137,8 +3856,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 
-		// Division //--------------------------------------------------------//
-		
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -3152,6 +3874,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_i ()
 		{
@@ -3170,6 +3895,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestDivision(a, b, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_ii ()
 		{
@@ -3188,6 +3916,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			this.TestDivision(b, a, d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_iii ()
 		{
@@ -3202,26 +3933,263 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#endregion
 		#region Splines
 
+		// Test Static Fn: Barycentric //-------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Barycentric ()
+		public void TestStaticFn_Barycentric_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: SmoothStep //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep ()
+		public void TestStaticFn_SmoothStep_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
+
+				Double amount1 = 0;
+				Vector2 result1;
+
+				Vector2.SmoothStep (
+					ref a, ref b, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Double amount2 = 1;
+				Vector2 result2;
+
+				Vector2.SmoothStep (
+					ref a, ref b, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is less than zero.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_SmoothStep_ii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			Double amount = -1;
+			Vector2 result;
+
+			Vector2.SmoothStep (
+				ref a, ref b, amount, out result);
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is greater than one.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_SmoothStep_iii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+
+			Double amount = 2;
+			Vector2 result;
+
+			Vector2.SmoothStep (
+				ref a, ref b, amount, out result);
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_iv ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom ()
+		public void TestStaticFn_SmoothStep_v ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: CatmullRom //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Hermite ()
+		public void TestStaticFn_CatmullRom_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
+				var c = GetNextRandomVector2();
+				var d = GetNextRandomVector2();
+
+				Double amount1 = 0;
+				Vector2 result1;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				Double amount2 = 1;
+				Vector2 result2;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_ii()
+		{
+			var a = new Vector2( -90, +30 );
+			var b = new Vector2( -30, -30 );
+			var c = new Vector2( +30, +30 );
+			var d = new Vector2( +90, -30 );
+
+			Double one = 1;
+
+			Double u = 15;
+			Double v = (Double) 165 / (Double) 8; // 20.5
+			Double w = (Double) 45 / (Double) 2; // 20.625
+			Double x = (Double) 1755 / (Double) 64; // 27.421875
+			Double y = (Double) 15 / (Double) 2; // 14.5
+			Double z = (Double) 705 / (Double) 64; // 11.015625
+
+			var knownResults = new List<Tuple<Double, Vector2>>
+			{
+				new Tuple<Double, Vector2>( 0, b ),
+				new Tuple<Double, Vector2>( one * 1 / 8, new Vector2( -w, -x ) ),
+				new Tuple<Double, Vector2>( one * 2 / 8, new Vector2( -u, -v ) ),
+				new Tuple<Double, Vector2>( one * 3 / 8, new Vector2( -y, -z ) ),
+				new Tuple<Double, Vector2>( one * 4 / 8, Vector2.Zero ),
+				new Tuple<Double, Vector2>( one * 5 / 8, new Vector2(  y,  z ) ),
+				new Tuple<Double, Vector2>( one * 6 / 8, new Vector2(  u,  v ) ),
+				new Tuple<Double, Vector2>( one * 7 / 8, new Vector2(  w,  x ) ),
+				new Tuple<Double, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is less than zero.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_CatmullRom_iii()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			Double amount = -1;
+			Vector2 result;
+
+			Vector2.CatmullRom (
+				ref a, ref b, ref c, ref d, amount, out result);
+		}
+
+		/// <summary>
+		/// This test ensures that an argument out of range exception is thrown
+		/// if the amount parameter is greater than one.
+		/// </summary>
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void TestStaticFn_CatmullRom_iv()
+		{
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			Double amount = 2;
+			Vector2 result;
+
+			Vector2.CatmullRom (
+				ref a, ref b, ref c, ref d, amount, out result);
+		}
+
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_v()
+		{
+			var a = new Vector2( -90, -90 );
+			var b = new Vector2( -30, -30 );
+			var c = new Vector2( +30, +30 );
+			var d = new Vector2( +90, +90 );
+
+			Double half; RealMaths.Half(out half);
+			Double quarter = half / 2;
+			Double threeQuarters = quarter * 3;
+
+			var knownResults = new List<Tuple<Double, Vector2>>
+			{
+				new Tuple<Double, Vector2>( 0, b ),
+				new Tuple<Double, Vector2>( quarter, new Vector2( -15, -15 ) ),
+				new Tuple<Double, Vector2>( half, Vector2.Zero ),
+				new Tuple<Double, Vector2>( threeQuarters, new Vector2( 15, 15 ) ),
+				new Tuple<Double, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: Hermite //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -3229,6 +4197,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		#endregion
 				#region Utilities
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
 		{
@@ -3244,6 +4215,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
 		{
@@ -3259,6 +4233,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_i ()
 		{
@@ -3278,6 +4255,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_ii ()
 		{
@@ -3301,11 +4281,12 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Lerp_i ()
 		{
-			Double epsilon; RealMaths.Epsilon(out epsilon);
-
 			for(Int32 j = 0; j < 100; ++j)
 			{
 				Double delta = j;
@@ -3321,11 +4302,14 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 					Vector2 expected = a + ( ( b - a ) * delta );
 
-					Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+					AssertEqualWithinReason(result, expected);
 				}
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_ii()
 		{
@@ -3335,6 +4319,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_iii()
 		{
@@ -3344,6 +4331,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_iv()
 		{
@@ -3355,7 +4345,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 b = GetNextRandomVector2();
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
-
 
 		#endregion
 

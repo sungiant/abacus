@@ -209,6 +209,9 @@ namespace Sungiant.Abacus
 		public static void Root3(out Single value) { value = 1.73205f; }
 		public static void Root3(out Double value) { value = 1.73205; }
 
+		internal static void TestTolerance(out Single value) { value = 1.0e-4f; }
+		internal static void TestTolerance(out Double value) { value = 1.0e-7; }
+
         public static Boolean IsZero(Single value)
         {
             Single ep;
@@ -5604,53 +5607,62 @@ namespace Sungiant.Abacus.SinglePrecision
 	public partial struct Vector2
 		: IEquatable<Vector2>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the vector.
+		/// </summary>
 		public Single X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the vector.
+		/// </summary>
 		public Single Y;
-		
-		public Vector2 (Int32 x, Int32 y)
-		{
-			this.X = (Single) x;
-			this.Y = (Single) y;
-		}
 
-		public Vector2 (Single value)
-		{
-			this.X = this.Y = value;
-		}
-
+		/// <summary>
+		/// Initilises a new instance ofVector2 from two Single values 
+		/// representing X and Y respectively.
+		/// </summary>
 		public Vector2 (Single x, Single y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public void Set (Single x, Single y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
-
+		/// <summary>
+		/// Calculates the length of the vector.
+		/// </summary>
 		public Single Length ()
 		{
 			Single num = (this.X * this.X) + (this.Y * this.Y);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the vector squared.
+		/// </summary>
 		public Single LengthSquared ()
 		{
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
 		}
 
+		/// <summary>
+		/// Gets the hash code of the vector object.
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (this.X.GetHashCode () + this.Y.GetHashCode ());
 		}
 
+		/// <summary>
+		/// Detemines whether the vector is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Single one = 1;
@@ -5660,11 +5672,29 @@ namespace Sungiant.Abacus.SinglePrecision
 
 		#region Constants
 
-		static Vector2 zero;
-		static Vector2 one;
-		static Vector2 unitX;
-		static Vector2 unitY;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		readonly static Vector2 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		readonly static Vector2 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		readonly static Vector2 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		readonly static Vector2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector2 ()
 		{
 			Single temp_one; RealMaths.One(out temp_one);
@@ -5676,21 +5706,33 @@ namespace Sungiant.Abacus.SinglePrecision
 			unitY = new Vector2 (temp_zero, temp_one);
 		}
 
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to zero.
+		/// </summary>
 		public static Vector2 Zero
 		{
 			get { return zero; }
 		}
 		
+		/// <summary>
+		/// Returns a Vector2 with both of its components set to one.
+		/// </summary>
 		public static Vector2 One
 		{
 			get { return one; }
 		}
 		
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
 		public static Vector2 UnitX
 		{
 			get { return unitX; }
 		}
 		
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
 		public static Vector2 UnitY
 		{
 			get { return unitY; }
@@ -5699,6 +5741,9 @@ namespace Sungiant.Abacus.SinglePrecision
 		#endregion
 		#region Maths
 
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector2 value1, ref Vector2 value2, out Single result)
 		{
 			Single num2 = value1.X - value2.X;
@@ -5707,6 +5752,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result = RealMaths.Sqrt (num3);
 		}
 
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector2 value1, ref Vector2 value2, out Single result)
 		{
 			Single num2 = value1.X - value2.X;
@@ -5714,21 +5762,24 @@ namespace Sungiant.Abacus.SinglePrecision
 			result = (num2 * num2) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector2 value1, ref Vector2 value2, out Single result)
 		{
 			result = (value1.X * value2.X) + (value1.Y * value2.Y);
 		}
 
-		public static void PerpDot (ref Vector2 value1, ref Vector2 value2, out Single result)
-		{
-			result = (value1.X * value2.Y - value1.Y * value2.X);
-		}
-
-		public static void Perpendicular (ref Vector2 value, out Vector2 result)
-		{
-			result = new Vector2 (-value.X, value.Y);
-		}
-
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector2 value, out Vector2 result)
 		{
 			Single lengthSquared = (value.X * value.X) + (value.Y * value.Y);
@@ -5747,6 +5798,9 @@ namespace Sungiant.Abacus.SinglePrecision
 
 		}
 
+		/// <summary>
+		/// Returns the reflection of a vector off a surface that has the specified normal.
+		/// </summary>
 		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
 		{
 			Single two = 2;
@@ -5756,6 +5810,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = vector.Y - ((two * num) * normal.Y);
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 or array of Vector3s by a specified Matrix.
+		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
 		{
 			Single num2 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
@@ -5764,6 +5821,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = num;
 		}
 		
+		/// <summary>
+		/// Transforms a vector normal by a matrix.
+		/// </summary>
 		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
 		{
 			Single num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
@@ -5772,6 +5832,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = num;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 or array of Vector3s by a specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
 		{
 			Single one = 1;
@@ -5795,6 +5858,9 @@ namespace Sungiant.Abacus.SinglePrecision
 
 		// Equality //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -5805,17 +5871,28 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		#region IEquatable<Vector2>
+
+		/// <summary>
+		///
+		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
 			return ((this.X == other.X) && (this.Y == other.Y));
 		}
+
 		#endregion
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
 			return ((value1.X == value2.X) && (value1.Y == value2.Y));
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
 			if (value1.X == value2.X) {
@@ -5824,9 +5901,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			return true;
 		}
 
-
 		// Addition //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Add (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -5834,6 +5913,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = value1.Y + value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -5844,7 +5926,10 @@ namespace Sungiant.Abacus.SinglePrecision
 
 
 		// Subtraction //-----------------------------------------------------//
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static void Subtract (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -5852,6 +5937,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = value1.Y - value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -5863,12 +5951,18 @@ namespace Sungiant.Abacus.SinglePrecision
 
 		// Negation //--------------------------------------------------------//
 		
+		/// <summary>
+		///
+		/// </summary>
 		public static void Negate (ref Vector2 value, out Vector2 result)
 		{
 			result.X = -value.X;
 			result.Y = -value.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator - (Vector2 value)
 		{
 			Vector2 vector;
@@ -5877,16 +5971,21 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 
-
 		// Multiplication //--------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = value1.X * value2.X;
 			result.Y = value1.Y * value2.Y;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, Single scaleFactor, out Vector2 result)
 		{
@@ -5894,6 +5993,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = value1.Y * scaleFactor;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator * (
 			Single scaleFactor, Vector2 value)
 		{
@@ -5903,6 +6005,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value1, Vector2 value2)
 		{
@@ -5911,7 +6016,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Y = value1.Y * value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>		
 		public static Vector2 operator * (
 			Vector2 value, Single scaleFactor)
 		{
@@ -5921,9 +6029,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 
-
 		// Division //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -5931,6 +6041,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = value1.Y / value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, Single divider, out Vector2 result)
 		{
@@ -5940,6 +6053,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = value1.Y * num;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -5947,7 +6063,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Y = value1.Y / value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Single divider)
 		{
 			Vector2 vector;
@@ -5961,70 +6080,154 @@ namespace Sungiant.Abacus.SinglePrecision
 		#endregion
 		#region Splines
 
-		public static void Barycentric (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, Single amount1, Single amount2, out Vector2 result)
+		/// <summary>
+		/// Returns a Vector2 containing the 3D Cartesian coordinates of a point 
+		/// specified in Barycentric coordinates relative to a 3D triangle.
+		/// </summary>
+		public static void Barycentric (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			Single amount1, 
+			Single amount2, 
+			out Vector2 result)
 		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
+			result.X = 
+				(a.X + (amount1 * (b.X - a.X))) + (amount2 * (c.X - a.X));
+
+			result.Y = 
+				(a.Y + (amount1 * (b.Y - a.Y))) + (amount2 * (c.Y - a.Y));
 		}
 
-		public static void SmoothStep (ref Vector2 value1, ref Vector2 value2, Single amount, out Vector2 result)
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
+		public static void SmoothStep (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Single amount, 
+			out Vector2 result)
 		{
 			Single zero = 0;
 			Single one = 1;
 			Single two = 2;
 			Single three = 3;
 
-			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			amount = (amount * amount) * (three - (two * amount));
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 		
-		public static void CatmullRom (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, Single amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
+		public static void CatmullRom (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			ref Vector2 d, 
+			Single amount, 
+			out Vector2 result)
 		{
+			Single zero = 0;
+			Single one = 1;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Single half; RealMaths.Half(out half);
 			Single two = 2;
 			Single three = 3;
 			Single four = 4;
 			Single five = 5;
 
-			Single num = amount * amount;
-			Single num2 = amount * num;
-			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+			Single temp = amount * amount;
+			Single temp2 = amount * temp;
+
+			result.X = 
+				half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
+				(((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
+				temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
+				temp2));
+			
+			result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
+				(((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
+				temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
+				temp2));
 		}
 
-		public static void Hermite (ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2, Single amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
+		public static void Hermite (
+			ref Vector2 a, 
+			ref Vector2 tangent1, 
+			ref Vector2 b, 
+			ref Vector2 tangent2, 
+			Single amount, 
+			out Vector2 result)
 		{
 			Single one = 1;
 			Single two = 2;
 			Single three = 3;
 
-			Single num = amount * amount;
-			Single num2 = amount * num;
-			Single num6 = ((two * num2) - (three * num)) + one;
-			Single num5 = (-two * num2) + (three * num);
-			Single num4 = (num2 - (two * num)) + amount;
-			Single num3 = num2 - num;
-			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
+			Single temp = amount * amount;
+			Single temp2 = amount * temp;
+			Single temp6 = ((two * temp2) - (three * temp)) + one;
+			Single temp5 = (-two * temp2) + (three * temp);
+			Single temp4 = (temp2 - (two * temp)) + amount;
+			Single temp3 = temp2 - temp;
+
+			result.X = 
+				(((a.X * temp6) + (b.X * temp5)) + 
+				(tangent1.X * temp4)) + (tangent2.X * temp3);
+
+			result.Y = 
+				(((a.Y * temp6) + (b.Y * temp5)) + 
+				(tangent1.Y * temp4)) + (tangent2.Y * temp3);
 		}
 		
 		#endregion
 		#region Utilities
 
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching pair of components.
+		/// </summary>
 		public static void Min (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = (value1.X < value2.X) ? value1.X : value2.X;
 			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
 		}
 
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching pair of components.
+		/// </summary>
 		public static void Max (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = (value1.X > value2.X) ? value1.X : value2.X;
 			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
 		}
 
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
 		public static void Clamp (ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
 		{
 			Single x = value1.X;
@@ -6036,12 +6239,15 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.X = x;
 			result.Y = y;
 		}
-		
+
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
 		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Single amount, out Vector2 result)
 		{
 			Single zero = 0;
 			Single one = 1;
-			if( amount < zero || amount > 1 )
+			if( amount < zero || amount > one )
 			{
 				throw new ArgumentOutOfRangeException();
 			}
@@ -9480,53 +9686,62 @@ namespace Sungiant.Abacus.DoublePrecision
 	public partial struct Vector2
 		: IEquatable<Vector2>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the vector.
+		/// </summary>
 		public Double X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the vector.
+		/// </summary>
 		public Double Y;
-		
-		public Vector2 (Int32 x, Int32 y)
-		{
-			this.X = (Double) x;
-			this.Y = (Double) y;
-		}
 
-		public Vector2 (Double value)
-		{
-			this.X = this.Y = value;
-		}
-
+		/// <summary>
+		/// Initilises a new instance ofVector2 from two Double values 
+		/// representing X and Y respectively.
+		/// </summary>
 		public Vector2 (Double x, Double y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public void Set (Double x, Double y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
-
+		/// <summary>
+		/// Calculates the length of the vector.
+		/// </summary>
 		public Double Length ()
 		{
 			Double num = (this.X * this.X) + (this.Y * this.Y);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the vector squared.
+		/// </summary>
 		public Double LengthSquared ()
 		{
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
 		}
 
+		/// <summary>
+		/// Gets the hash code of the vector object.
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (this.X.GetHashCode () + this.Y.GetHashCode ());
 		}
 
+		/// <summary>
+		/// Detemines whether the vector is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Double one = 1;
@@ -9536,11 +9751,29 @@ namespace Sungiant.Abacus.DoublePrecision
 
 		#region Constants
 
-		static Vector2 zero;
-		static Vector2 one;
-		static Vector2 unitX;
-		static Vector2 unitY;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		readonly static Vector2 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		readonly static Vector2 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		readonly static Vector2 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		readonly static Vector2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector2 ()
 		{
 			Double temp_one; RealMaths.One(out temp_one);
@@ -9552,21 +9785,33 @@ namespace Sungiant.Abacus.DoublePrecision
 			unitY = new Vector2 (temp_zero, temp_one);
 		}
 
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to zero.
+		/// </summary>
 		public static Vector2 Zero
 		{
 			get { return zero; }
 		}
 		
+		/// <summary>
+		/// Returns a Vector2 with both of its components set to one.
+		/// </summary>
 		public static Vector2 One
 		{
 			get { return one; }
 		}
 		
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
 		public static Vector2 UnitX
 		{
 			get { return unitX; }
 		}
 		
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
 		public static Vector2 UnitY
 		{
 			get { return unitY; }
@@ -9575,6 +9820,9 @@ namespace Sungiant.Abacus.DoublePrecision
 		#endregion
 		#region Maths
 
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector2 value1, ref Vector2 value2, out Double result)
 		{
 			Double num2 = value1.X - value2.X;
@@ -9583,6 +9831,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result = RealMaths.Sqrt (num3);
 		}
 
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector2 value1, ref Vector2 value2, out Double result)
 		{
 			Double num2 = value1.X - value2.X;
@@ -9590,21 +9841,24 @@ namespace Sungiant.Abacus.DoublePrecision
 			result = (num2 * num2) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector2 value1, ref Vector2 value2, out Double result)
 		{
 			result = (value1.X * value2.X) + (value1.Y * value2.Y);
 		}
 
-		public static void PerpDot (ref Vector2 value1, ref Vector2 value2, out Double result)
-		{
-			result = (value1.X * value2.Y - value1.Y * value2.X);
-		}
-
-		public static void Perpendicular (ref Vector2 value, out Vector2 result)
-		{
-			result = new Vector2 (-value.X, value.Y);
-		}
-
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector2 value, out Vector2 result)
 		{
 			Double lengthSquared = (value.X * value.X) + (value.Y * value.Y);
@@ -9623,6 +9877,9 @@ namespace Sungiant.Abacus.DoublePrecision
 
 		}
 
+		/// <summary>
+		/// Returns the reflection of a vector off a surface that has the specified normal.
+		/// </summary>
 		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
 		{
 			Double two = 2;
@@ -9632,6 +9889,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = vector.Y - ((two * num) * normal.Y);
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 or array of Vector3s by a specified Matrix.
+		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
 		{
 			Double num2 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
@@ -9640,6 +9900,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = num;
 		}
 		
+		/// <summary>
+		/// Transforms a vector normal by a matrix.
+		/// </summary>
 		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
 		{
 			Double num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
@@ -9648,6 +9911,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = num;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 or array of Vector3s by a specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
 		{
 			Double one = 1;
@@ -9671,6 +9937,9 @@ namespace Sungiant.Abacus.DoublePrecision
 
 		// Equality //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -9681,17 +9950,28 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		#region IEquatable<Vector2>
+
+		/// <summary>
+		///
+		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
 			return ((this.X == other.X) && (this.Y == other.Y));
 		}
+
 		#endregion
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
 			return ((value1.X == value2.X) && (value1.Y == value2.Y));
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
 			if (value1.X == value2.X) {
@@ -9700,9 +9980,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			return true;
 		}
 
-
 		// Addition //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Add (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -9710,6 +9992,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = value1.Y + value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -9720,7 +10005,10 @@ namespace Sungiant.Abacus.DoublePrecision
 
 
 		// Subtraction //-----------------------------------------------------//
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static void Subtract (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -9728,6 +10016,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = value1.Y - value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -9739,12 +10030,18 @@ namespace Sungiant.Abacus.DoublePrecision
 
 		// Negation //--------------------------------------------------------//
 		
+		/// <summary>
+		///
+		/// </summary>
 		public static void Negate (ref Vector2 value, out Vector2 result)
 		{
 			result.X = -value.X;
 			result.Y = -value.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator - (Vector2 value)
 		{
 			Vector2 vector;
@@ -9753,16 +10050,21 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 
-
 		// Multiplication //--------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = value1.X * value2.X;
 			result.Y = value1.Y * value2.Y;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, Double scaleFactor, out Vector2 result)
 		{
@@ -9770,6 +10072,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = value1.Y * scaleFactor;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator * (
 			Double scaleFactor, Vector2 value)
 		{
@@ -9779,6 +10084,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value1, Vector2 value2)
 		{
@@ -9787,7 +10095,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Y = value1.Y * value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>		
 		public static Vector2 operator * (
 			Vector2 value, Double scaleFactor)
 		{
@@ -9797,9 +10108,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 
-
 		// Division //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -9807,6 +10120,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = value1.Y / value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, Double divider, out Vector2 result)
 		{
@@ -9816,6 +10132,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = value1.Y * num;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -9823,7 +10142,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Y = value1.Y / value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Double divider)
 		{
 			Vector2 vector;
@@ -9837,70 +10159,154 @@ namespace Sungiant.Abacus.DoublePrecision
 		#endregion
 		#region Splines
 
-		public static void Barycentric (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, Double amount1, Double amount2, out Vector2 result)
+		/// <summary>
+		/// Returns a Vector2 containing the 3D Cartesian coordinates of a point 
+		/// specified in Barycentric coordinates relative to a 3D triangle.
+		/// </summary>
+		public static void Barycentric (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			Double amount1, 
+			Double amount2, 
+			out Vector2 result)
 		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
+			result.X = 
+				(a.X + (amount1 * (b.X - a.X))) + (amount2 * (c.X - a.X));
+
+			result.Y = 
+				(a.Y + (amount1 * (b.Y - a.Y))) + (amount2 * (c.Y - a.Y));
 		}
 
-		public static void SmoothStep (ref Vector2 value1, ref Vector2 value2, Double amount, out Vector2 result)
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
+		public static void SmoothStep (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Double amount, 
+			out Vector2 result)
 		{
 			Double zero = 0;
 			Double one = 1;
 			Double two = 2;
 			Double three = 3;
 
-			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			amount = (amount * amount) * (three - (two * amount));
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 		
-		public static void CatmullRom (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, Double amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
+		public static void CatmullRom (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			ref Vector2 d, 
+			Double amount, 
+			out Vector2 result)
 		{
+			Double zero = 0;
+			Double one = 1;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Double half; RealMaths.Half(out half);
 			Double two = 2;
 			Double three = 3;
 			Double four = 4;
 			Double five = 5;
 
-			Double num = amount * amount;
-			Double num2 = amount * num;
-			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+			Double temp = amount * amount;
+			Double temp2 = amount * temp;
+
+			result.X = 
+				half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
+				(((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
+				temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
+				temp2));
+			
+			result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
+				(((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
+				temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
+				temp2));
 		}
 
-		public static void Hermite (ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2, Double amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
+		public static void Hermite (
+			ref Vector2 a, 
+			ref Vector2 tangent1, 
+			ref Vector2 b, 
+			ref Vector2 tangent2, 
+			Double amount, 
+			out Vector2 result)
 		{
 			Double one = 1;
 			Double two = 2;
 			Double three = 3;
 
-			Double num = amount * amount;
-			Double num2 = amount * num;
-			Double num6 = ((two * num2) - (three * num)) + one;
-			Double num5 = (-two * num2) + (three * num);
-			Double num4 = (num2 - (two * num)) + amount;
-			Double num3 = num2 - num;
-			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
+			Double temp = amount * amount;
+			Double temp2 = amount * temp;
+			Double temp6 = ((two * temp2) - (three * temp)) + one;
+			Double temp5 = (-two * temp2) + (three * temp);
+			Double temp4 = (temp2 - (two * temp)) + amount;
+			Double temp3 = temp2 - temp;
+
+			result.X = 
+				(((a.X * temp6) + (b.X * temp5)) + 
+				(tangent1.X * temp4)) + (tangent2.X * temp3);
+
+			result.Y = 
+				(((a.Y * temp6) + (b.Y * temp5)) + 
+				(tangent1.Y * temp4)) + (tangent2.Y * temp3);
 		}
 		
 		#endregion
 		#region Utilities
 
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching pair of components.
+		/// </summary>
 		public static void Min (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = (value1.X < value2.X) ? value1.X : value2.X;
 			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
 		}
 
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching pair of components.
+		/// </summary>
 		public static void Max (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = (value1.X > value2.X) ? value1.X : value2.X;
 			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
 		}
 
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
 		public static void Clamp (ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
 		{
 			Double x = value1.X;
@@ -9912,12 +10318,15 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.X = x;
 			result.Y = y;
 		}
-		
+
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
 		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Double amount, out Vector2 result)
 		{
 			Double zero = 0;
 			Double one = 1;
-			if( amount < zero || amount > 1 )
+			if( amount < zero || amount > one )
 			{
 				throw new ArgumentOutOfRangeException();
 			}

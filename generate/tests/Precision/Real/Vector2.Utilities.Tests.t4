@@ -1,5 +1,8 @@
 		#region Utilities
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
 		{
@@ -15,6 +18,9 @@
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
 		{
@@ -30,6 +36,9 @@
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_i ()
 		{
@@ -49,6 +58,9 @@
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_ii ()
 		{
@@ -72,11 +84,12 @@
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Lerp_i ()
 		{
-			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
-
 			for(Int32 j = 0; j < 100; ++j)
 			{
 				<#= type #> delta = j;
@@ -92,11 +105,14 @@
 
 					Vector2 expected = a + ( ( b - a ) * delta );
 
-					Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+					AssertEqualWithinReason(result, expected);
 				}
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_ii()
 		{
@@ -106,6 +122,9 @@
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_iii()
 		{
@@ -115,6 +134,9 @@
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_iv()
 		{
@@ -126,6 +148,5 @@
 			Vector2 b = GetNextRandomVector2();
 			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
 		}
-
 
 		#endregion

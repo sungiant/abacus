@@ -1,11 +1,22 @@
-		static System.Random rand;
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
 
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
 		static Vector2Tests()
 		{
 			rand = new System.Random(0);
 		}
 
-		public static <#= type #> GetNextRandom<#= type #>()
+		/// <summary>
+		/// Helper function for getting the next random <#= type #> value.
+		/// </summary>
+		static <#= type #> GetNextRandom<#= type #>()
 		{
 			<#= type #> randomValue = rand.Next<#= type #>();
 
@@ -22,11 +33,24 @@
 			return randomValue;
 		}
 
-
-		public static Vector2 GetNextRandomVector2()
+		/// <summary>
+		/// Helper function for getting the next random Vector2.
+		/// </summary>
+		static Vector2 GetNextRandomVector2()
 		{
 			<#= type #> a = GetNextRandom<#= type #>();
 			<#= type #> b = GetNextRandom<#= type #>();
 
 			return new Vector2(a, b);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two vectors are equal.
+		/// </summary>
+		static void AssertEqualWithinReason(Vector2 a, Vector2 b)
+		{
+			<#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
 		}

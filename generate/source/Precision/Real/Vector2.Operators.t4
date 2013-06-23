@@ -2,6 +2,9 @@
 
 		// Equality //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -12,17 +15,28 @@
 		}
 
 		#region IEquatable<Vector2>
+
+		/// <summary>
+		///
+		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
 			return ((this.X == other.X) && (this.Y == other.Y));
 		}
+
 		#endregion
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
 			return ((value1.X == value2.X) && (value1.Y == value2.Y));
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
 			if (value1.X == value2.X) {
@@ -31,9 +45,11 @@
 			return true;
 		}
 
-
 		// Addition //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Add (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -41,6 +57,9 @@
 			result.Y = value1.Y + value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -51,7 +70,10 @@
 
 
 		// Subtraction //-----------------------------------------------------//
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static void Subtract (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -59,6 +81,9 @@
 			result.Y = value1.Y - value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -70,12 +95,18 @@
 
 		// Negation //--------------------------------------------------------//
 		
+		/// <summary>
+		///
+		/// </summary>
 		public static void Negate (ref Vector2 value, out Vector2 result)
 		{
 			result.X = -value.X;
 			result.Y = -value.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator - (Vector2 value)
 		{
 			Vector2 vector;
@@ -84,16 +115,21 @@
 			return vector;
 		}
 
-
 		// Multiplication //--------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = value1.X * value2.X;
 			result.Y = value1.Y * value2.Y;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, <#= type #> scaleFactor, out Vector2 result)
 		{
@@ -101,6 +137,9 @@
 			result.Y = value1.Y * scaleFactor;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator * (
 			<#= type #> scaleFactor, Vector2 value)
 		{
@@ -110,6 +149,9 @@
 			return vector;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value1, Vector2 value2)
 		{
@@ -118,7 +160,10 @@
 			vector.Y = value1.Y * value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>		
 		public static Vector2 operator * (
 			Vector2 value, <#= type #> scaleFactor)
 		{
@@ -128,9 +173,11 @@
 			return vector;
 		}
 
-
 		// Division //--------------------------------------------------------//
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -138,6 +185,9 @@
 			result.Y = value1.Y / value2.Y;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, <#= type #> divider, out Vector2 result)
 		{
@@ -147,6 +197,9 @@
 			result.Y = value1.Y * num;
 		}
 
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -154,7 +207,10 @@
 			vector.Y = value1.Y / value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		///
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, <#= type #> divider)
 		{
 			Vector2 vector;

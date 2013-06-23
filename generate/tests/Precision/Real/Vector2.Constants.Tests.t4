@@ -1,5 +1,10 @@
 		#region Utilities
 
+		// Test Constant: Zero //---------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
@@ -12,6 +17,11 @@
 			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
@@ -24,6 +34,11 @@
 			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
@@ -38,6 +53,11 @@
 			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{

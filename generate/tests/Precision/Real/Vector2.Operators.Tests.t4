@@ -1,7 +1,10 @@
 		#region Operators
 
-		// Equality //--------------------------------------------------------//
-		
+		// Test Operator: Equality //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
@@ -31,6 +34,9 @@
 			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_i ()
 		{
@@ -42,7 +48,9 @@
 			this.TestEquality(a, b, expected);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_ii ()
 		{
@@ -54,6 +62,9 @@
 			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_iii ()
 		{
@@ -63,8 +74,11 @@
 		}
 
 
-		// Addition //--------------------------------------------------------//
+		// Test Operator: Addition //-----------------------------------------//
 
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -121,6 +135,9 @@
 			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iv ()
 		{var a = GetNextRandomVector2();
@@ -132,9 +149,11 @@
 			this.TestAddition(a, b, expected);
 		}
 
-
-		// Subtraction //-----------------------------------------------------//
+		// Test Operator: Subtraction //--------------------------------------//
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -191,6 +210,9 @@
 			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Subtraction_iv ()
 		{
@@ -202,9 +224,11 @@
 			this.TestSubtraction(a, b, expected);
 		}
 
-
-		// Negation //--------------------------------------------------------//
+		// Test Operator: Negation //-----------------------------------------//
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestNegation(Vector2 a, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -218,6 +242,9 @@
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_i ()
 		{
@@ -232,6 +259,9 @@
 			this.TestNegation(a, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_ii ()
 		{
@@ -246,6 +276,9 @@
 			this.TestNegation(b, d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_iii ()
 		{
@@ -257,6 +290,9 @@
 			this.TestNegation(c, Vector2.Zero - c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_iv ()
 		{
@@ -268,12 +304,18 @@
 			this.TestNegation(d, Vector2.Zero - d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_v ()
 		{
 			this.TestNegation(Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_vi ()
 		{
@@ -281,9 +323,11 @@
 			this.TestNegation(a, Vector2.Zero - a);
 		}
 
+		// Test Operator: Multiplication //-----------------------------------//
 
-		// Multiplication //--------------------------------------------------//
-		
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -302,6 +346,9 @@
 			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
@@ -320,6 +367,9 @@
 			this.TestMultiplication(a, b, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_ii ()
 		{
@@ -350,6 +400,9 @@
 			Assert.That(test2_st, Is.EqualTo(c));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_iii ()
 		{
@@ -362,8 +415,11 @@
 		}
 
 
-		// Division //--------------------------------------------------------//
-		
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
@@ -377,6 +433,9 @@
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_i ()
 		{
@@ -395,6 +454,9 @@
 			this.TestDivision(a, b, c);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_ii ()
 		{
@@ -413,6 +475,9 @@
 			this.TestDivision(b, a, d);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_iii ()
 		{
