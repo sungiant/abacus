@@ -76,20 +76,20 @@
 
 			<#= type #> one = 1;
 
-			<#= type #> v = (<#= type #>) 165  / (<#= type #>)  8; // 20.625
-			<#= type #> x = (<#= type #>) 1755 / (<#= type #>) 64; // 27.421875
-			<#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
+			<#= type #> i; RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			<#= type #> j; RealMaths.FromFraction( 165,  8, out j); // 20.625
+			<#= type #> k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
 			var knownResults = new List<Tuple<<#= type #>, Vector2>>
 			{
 				new Tuple<<#= type #>, Vector2>( 0, a ),
-				new Tuple<<#= type #>, Vector2>( one * 1 / 8, new Vector2( -x, -x ) ),
-				new Tuple<<#= type #>, Vector2>( one * 2 / 8, new Vector2( -v, -v ) ),
-				new Tuple<<#= type #>, Vector2>( one * 3 / 8, new Vector2( -z, -z ) ),
-				new Tuple<<#= type #>, Vector2>( one * 4 / 8, Vector2.Zero ),
-				new Tuple<<#= type #>, Vector2>( one * 5 / 8, new Vector2(  z,  z ) ),
-				new Tuple<<#= type #>, Vector2>( one * 6 / 8, new Vector2(  v,  v ) ),
-				new Tuple<<#= type #>, Vector2>( one * 7 / 8, new Vector2(  x,  x ) ),
+				new Tuple<<#= type #>, Vector2>( (one * 1) / 8, new Vector2( -i, -i ) ),
+				new Tuple<<#= type #>, Vector2>( (one * 2) / 8, new Vector2( -j, -j ) ),
+				new Tuple<<#= type #>, Vector2>( (one * 3) / 8, new Vector2( -k, -k ) ),
+				new Tuple<<#= type #>, Vector2>( (one * 4) / 8, Vector2.Zero ),
+				new Tuple<<#= type #>, Vector2>( (one * 5) / 8, new Vector2(  k,  k ) ),
+				new Tuple<<#= type #>, Vector2>( (one * 6) / 8, new Vector2(  j,  j ) ),
+				new Tuple<<#= type #>, Vector2>( (one * 7) / 8, new Vector2(  i,  i ) ),
 				new Tuple<<#= type #>, Vector2>( 1, b ),
 			};
 

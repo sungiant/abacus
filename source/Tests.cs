@@ -1770,20 +1770,20 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Single one = 1;
 
-			Single v = (Single) 165  / (Single)  8; // 20.625
-			Single x = (Single) 1755 / (Single) 64; // 27.421875
-			Single z = (Single) 705  / (Single) 64; // 11.015625
+			Single i; RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			Single j; RealMaths.FromFraction( 165,  8, out j); // 20.625
+			Single k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
 			var knownResults = new List<Tuple<Single, Vector2>>
 			{
 				new Tuple<Single, Vector2>( 0, a ),
-				new Tuple<Single, Vector2>( one * 1 / 8, new Vector2( -x, -x ) ),
-				new Tuple<Single, Vector2>( one * 2 / 8, new Vector2( -v, -v ) ),
-				new Tuple<Single, Vector2>( one * 3 / 8, new Vector2( -z, -z ) ),
-				new Tuple<Single, Vector2>( one * 4 / 8, Vector2.Zero ),
-				new Tuple<Single, Vector2>( one * 5 / 8, new Vector2(  z,  z ) ),
-				new Tuple<Single, Vector2>( one * 6 / 8, new Vector2(  v,  v ) ),
-				new Tuple<Single, Vector2>( one * 7 / 8, new Vector2(  x,  x ) ),
+				new Tuple<Single, Vector2>( (one * 1) / 8, new Vector2( -i, -i ) ),
+				new Tuple<Single, Vector2>( (one * 2) / 8, new Vector2( -j, -j ) ),
+				new Tuple<Single, Vector2>( (one * 3) / 8, new Vector2( -k, -k ) ),
+				new Tuple<Single, Vector2>( (one * 4) / 8, Vector2.Zero ),
+				new Tuple<Single, Vector2>( (one * 5) / 8, new Vector2(  k,  k ) ),
+				new Tuple<Single, Vector2>( (one * 6) / 8, new Vector2(  j,  j ) ),
+				new Tuple<Single, Vector2>( (one * 7) / 8, new Vector2(  i,  i ) ),
 				new Tuple<Single, Vector2>( 1, b ),
 			};
 
@@ -4027,20 +4027,20 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Double one = 1;
 
-			Double v = (Double) 165  / (Double)  8; // 20.625
-			Double x = (Double) 1755 / (Double) 64; // 27.421875
-			Double z = (Double) 705  / (Double) 64; // 11.015625
+			Double i; RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			Double j; RealMaths.FromFraction( 165,  8, out j); // 20.625
+			Double k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
 			var knownResults = new List<Tuple<Double, Vector2>>
 			{
 				new Tuple<Double, Vector2>( 0, a ),
-				new Tuple<Double, Vector2>( one * 1 / 8, new Vector2( -x, -x ) ),
-				new Tuple<Double, Vector2>( one * 2 / 8, new Vector2( -v, -v ) ),
-				new Tuple<Double, Vector2>( one * 3 / 8, new Vector2( -z, -z ) ),
-				new Tuple<Double, Vector2>( one * 4 / 8, Vector2.Zero ),
-				new Tuple<Double, Vector2>( one * 5 / 8, new Vector2(  z,  z ) ),
-				new Tuple<Double, Vector2>( one * 6 / 8, new Vector2(  v,  v ) ),
-				new Tuple<Double, Vector2>( one * 7 / 8, new Vector2(  x,  x ) ),
+				new Tuple<Double, Vector2>( (one * 1) / 8, new Vector2( -i, -i ) ),
+				new Tuple<Double, Vector2>( (one * 2) / 8, new Vector2( -j, -j ) ),
+				new Tuple<Double, Vector2>( (one * 3) / 8, new Vector2( -k, -k ) ),
+				new Tuple<Double, Vector2>( (one * 4) / 8, Vector2.Zero ),
+				new Tuple<Double, Vector2>( (one * 5) / 8, new Vector2(  k,  k ) ),
+				new Tuple<Double, Vector2>( (one * 6) / 8, new Vector2(  j,  j ) ),
+				new Tuple<Double, Vector2>( (one * 7) / 8, new Vector2(  i,  i ) ),
 				new Tuple<Double, Vector2>( 1, b ),
 			};
 

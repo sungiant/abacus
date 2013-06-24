@@ -269,6 +269,17 @@ namespace Sungiant.Abacus
         }
 
 
+        //--------------------------------------------------------------
+        // FromFraction(numerator, denominator, &val)
+        //
+        public static void FromFraction(Int32 numerator, Int32 denominator, out Single value)
+        {
+            value = (Single) numerator / (Single) denominator;
+        }
+        public static void FromFraction(Int32 numerator, Int32 denominator, out Double value)
+        {
+            value = (Double) numerator / (Double) denominator;
+        }
 
         //--------------------------------------------------------------
         // ToRadians (x)
