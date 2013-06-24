@@ -38,6 +38,7 @@ using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace Sungiant.Abacus.Tests
@@ -670,6 +671,30 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
 		}
 		
+
+		// Test: StructLayout //----------------------------------------------//
+
+		/// <summary>
+		/// This test makes sure that the struct layout has been defined
+		/// correctly and that X and Y are in the correct order and the only
+		/// member variables using reflection.
+		/// </summary>
+		[Test]
+		public void Test_StructLayout_i ()
+		{
+			Assert.That(false, Is.EqualTo(true));
+		}
+
+		/// <summary>
+		/// This test makes sure that when examining the memory addresses of the 
+		/// X and Y member variables of a number of randomly generated Vector2
+		/// object the results are as expected. 
+		/// </summary>
+		[Test]
+		public void Test_StructLayout_i ()
+		{
+			Assert.That(false, Is.EqualTo(true));
+		}
 
 		// Test: Constructors //----------------------------------------------//
 
@@ -2955,6 +2980,30 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
 		}
 		
+
+		// Test: StructLayout //----------------------------------------------//
+
+		/// <summary>
+		/// This test makes sure that the struct layout has been defined
+		/// correctly and that X and Y are in the correct order and the only
+		/// member variables using reflection.
+		/// </summary>
+		[Test]
+		public void Test_StructLayout_i ()
+		{
+			Assert.That(false, Is.EqualTo(true));
+		}
+
+		/// <summary>
+		/// This test makes sure that when examining the memory addresses of the 
+		/// X and Y member variables of a number of randomly generated Vector2
+		/// object the results are as expected. 
+		/// </summary>
+		[Test]
+		public void Test_StructLayout_i ()
+		{
+			Assert.That(false, Is.EqualTo(true));
+		}
 
 		// Test: Constructors //----------------------------------------------//
 

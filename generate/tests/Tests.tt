@@ -41,6 +41,7 @@ using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace Sungiant.Abacus.Tests
