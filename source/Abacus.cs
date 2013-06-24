@@ -5803,15 +5803,36 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Single two = 2;
 
 			Single num = (vector.X * normal.X) + (vector.Y * normal.Y);
 			result.X = vector.X - ((two * num) * normal.X);
 			result.Y = vector.Y - ((two * num) * normal.Y);
 		}
-		
+
 		/// <summary>
-		/// Transforms a Vector3 or array of Vector3s by a specified Matrix.
+		/// Transforms a vector normal by a matrix.
+		/// </summary>
+		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Single num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+			Single num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+			result.X = num2;
+			result.Y = num;
+		}
+
+		/// <summary>
+		/// Transforms a Vector3 by a specified Matrix.
 		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
 		{
@@ -5820,20 +5841,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.X = num2;
 			result.Y = num;
 		}
-		
+
 		/// <summary>
-		/// Transforms a vector normal by a matrix.
-		/// </summary>
-		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
-		{
-			Single num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-			Single num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		/// <summary>
-		/// Transforms a Vector3 or array of Vector3s by a specified Quaternion.
+		/// Transforms a Vector3 by a specified Quaternion.
 		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
 		{
@@ -9878,15 +9888,36 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Double two = 2;
 
 			Double num = (vector.X * normal.X) + (vector.Y * normal.Y);
 			result.X = vector.X - ((two * num) * normal.X);
 			result.Y = vector.Y - ((two * num) * normal.Y);
 		}
-		
+
 		/// <summary>
-		/// Transforms a Vector3 or array of Vector3s by a specified Matrix.
+		/// Transforms a vector normal by a matrix.
+		/// </summary>
+		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Double num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+			Double num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+			result.X = num2;
+			result.Y = num;
+		}
+
+		/// <summary>
+		/// Transforms a Vector3 by a specified Matrix.
 		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
 		{
@@ -9895,20 +9926,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.X = num2;
 			result.Y = num;
 		}
-		
+
 		/// <summary>
-		/// Transforms a vector normal by a matrix.
-		/// </summary>
-		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
-		{
-			Double num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-			Double num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		/// <summary>
-		/// Transforms a Vector3 or array of Vector3s by a specified Quaternion.
+		/// Transforms a Vector3 by a specified Quaternion.
 		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
 		{
