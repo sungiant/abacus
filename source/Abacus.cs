@@ -6215,7 +6215,7 @@ namespace Sungiant.Abacus.SinglePrecision
 			}
 
 			// Make sure that the tangents have been normalised.
-			if( !tangent1.IsUnit() || tangent2.IsUnit() )
+			if( !tangent1.IsUnit() || !tangent2.IsUnit() )
 			{
 				throw new ArgumentOutOfRangeException();
 			}
@@ -10315,7 +10315,7 @@ namespace Sungiant.Abacus.DoublePrecision
 			}
 
 			// Make sure that the tangents have been normalised.
-			if( !tangent1.IsUnit() || tangent2.IsUnit() )
+			if( !tangent1.IsUnit() || !tangent2.IsUnit() )
 			{
 				throw new ArgumentOutOfRangeException();
 			}

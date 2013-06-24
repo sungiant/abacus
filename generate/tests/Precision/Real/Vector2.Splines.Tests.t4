@@ -261,12 +261,40 @@
 		// Test Static Fn: Hermite //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Hermite_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a  = GetNextRandomVector2();
+				var b  = GetNextRandomVector2();
+
+				var c = GetNextRandomVector2();
+				var d = GetNextRandomVector2();
+
+				Vector2 an; Vector2.Normalise(ref c, out an);
+				Vector2 bn; Vector2.Normalise(ref d, out bn);
+
+				<#= type #> amount1 = 0;
+				Vector2 result1;
+
+				Vector2.Hermite (
+					ref a, ref an, ref b, ref bn, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				<#= type #> amount2 = 1;
+				Vector2 result2;
+
+				Vector2.Hermite (
+					ref a, ref an, ref b, ref bn, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
 		}
 
 		/// <summary>
