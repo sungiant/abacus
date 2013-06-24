@@ -1,4 +1,4 @@
-﻿		#region Constants
+﻿		// Constants //-------------------------------------------------------//
 
 		/// <summary>
 		/// Defines a Vector2 with all of its components set to zero.
@@ -65,5 +65,4 @@
 		{
 			get { return unitY; }
 		}
-		
-		#endregion
+

@@ -1,4 +1,4 @@
-﻿		#region Splines
+﻿		// Splines //---------------------------------------------------------//
 
 		/// <summary>
 		/// Interpolates between two values using a cubic equation.
@@ -117,5 +117,4 @@
 				(((a.Y * temp6) + (b.Y * temp5)) + 
 				(tangent1.Y * temp4)) + (tangent2.Y * temp3);
 		}
-		
-		#endregion
+

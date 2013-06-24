@@ -70,5 +70,5 @@
 <#@ include file="Vector2.Operators.t4"#>
 <#@ include file="Vector2.Splines.t4"#>
 <#@ include file="Vector2.Utilities.t4"#>
-
 	}
+
