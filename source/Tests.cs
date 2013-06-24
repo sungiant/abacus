@@ -691,7 +691,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// object the results are as expected. 
 		/// </summary>
 		[Test]
-		public void Test_StructLayout_i ()
+		public void Test_StructLayout_ii ()
 		{
 			Assert.That(false, Is.EqualTo(true));
 		}
@@ -3000,7 +3000,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// object the results are as expected. 
 		/// </summary>
 		[Test]
-		public void Test_StructLayout_i ()
+		public void Test_StructLayout_ii ()
 		{
 			Assert.That(false, Is.EqualTo(true));
 		}
