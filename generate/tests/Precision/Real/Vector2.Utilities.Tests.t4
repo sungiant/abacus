@@ -1,5 +1,7 @@
 		/// <summary>
-		/// 
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector2 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
@@ -17,7 +19,9 @@
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector2 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
@@ -35,7 +39,9 @@
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector2 objects for a given min-max range, yields
+		/// results that fall within that range.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_i ()
@@ -57,7 +63,9 @@
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Clamp function on an a Vector2 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_ii ()
@@ -65,25 +73,26 @@
 			Vector2 min = new Vector2(-30, 1);
 			Vector2 max = new Vector2(32, 130);
 
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				Vector2 a = new Vector2(-1, 13);
+			Vector2 a = new Vector2(-1, 13);
 
-				Vector2 expected = a;
+			Vector2 expected = a;
 
-				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+			Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
 
-				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
-				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
-				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
-				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
 
-				Assert.That(a, Is.EqualTo(expected));
-			}
+			Assert.That(a, Is.EqualTo(expected));
+
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector2 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Lerp_i ()

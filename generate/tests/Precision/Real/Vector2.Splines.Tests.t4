@@ -32,8 +32,8 @@
 		}
 
 		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is less than zero.
+		/// Ensure that an argument out of range exception is thrown if the 
+		/// amount parameter is less than zero.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_SmoothStep_ii()

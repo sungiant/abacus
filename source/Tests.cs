@@ -934,7 +934,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Constant: Zero //---------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the Zero constant
+		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
@@ -951,7 +952,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Constant: One //----------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the One constant
+		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_One ()
@@ -968,7 +970,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Constant: UnitX //--------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
@@ -987,7 +990,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Constant: UnitY //--------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the UnitY
+		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
@@ -1756,8 +1760,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is less than zero.
+		/// Ensure that an argument out of range exception is thrown if the 
+		/// amount parameter is less than zero.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_SmoothStep_ii()
@@ -2058,7 +2062,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 				/// <summary>
-		/// 
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector2 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
@@ -2076,7 +2082,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector2 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
@@ -2094,7 +2102,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector2 objects for a given min-max range, yields
+		/// results that fall within that range.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_i ()
@@ -2116,7 +2126,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Clamp function on an a Vector2 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_ii ()
@@ -2124,25 +2136,26 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 min = new Vector2(-30, 1);
 			Vector2 max = new Vector2(32, 130);
 
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				Vector2 a = new Vector2(-1, 13);
+			Vector2 a = new Vector2(-1, 13);
 
-				Vector2 expected = a;
+			Vector2 expected = a;
 
-				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+			Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
 
-				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
-				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
-				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
-				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
 
-				Assert.That(a, Is.EqualTo(expected));
-			}
+			Assert.That(a, Is.EqualTo(expected));
+
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector2 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Lerp_i ()
@@ -3247,7 +3260,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Constant: Zero //---------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the Zero constant
+		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
@@ -3264,7 +3278,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Constant: One //----------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the One constant
+		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_One ()
@@ -3281,7 +3296,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Constant: UnitX //--------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
@@ -3300,7 +3316,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Constant: UnitY //--------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that a Vector2 initilised using the UnitY
+		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
@@ -4069,8 +4086,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is less than zero.
+		/// Ensure that an argument out of range exception is thrown if the 
+		/// amount parameter is less than zero.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_SmoothStep_ii()
@@ -4371,7 +4388,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 				/// <summary>
-		/// 
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector2 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
@@ -4389,7 +4408,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector2 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
@@ -4407,7 +4428,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector2 objects for a given min-max range, yields
+		/// results that fall within that range.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_i ()
@@ -4429,7 +4452,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Clamp function on an a Vector2 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Clamp_ii ()
@@ -4437,25 +4462,26 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 min = new Vector2(-30, 1);
 			Vector2 max = new Vector2(32, 130);
 
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				Vector2 a = new Vector2(-1, 13);
+			Vector2 a = new Vector2(-1, 13);
 
-				Vector2 expected = a;
+			Vector2 expected = a;
 
-				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+			Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
 
-				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
-				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
-				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
-				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
 
-				Assert.That(a, Is.EqualTo(expected));
-			}
+			Assert.That(a, Is.EqualTo(expected));
+
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector2 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Lerp_i ()
