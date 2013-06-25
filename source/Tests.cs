@@ -683,6 +683,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void Test_StructLayout_i ()
 		{
+			Type t = typeof(Vector2);
+			
 			Assert.That(false, Is.EqualTo(true));
 		}
 
