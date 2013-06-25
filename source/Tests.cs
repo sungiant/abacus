@@ -34,11 +34,12 @@
 
 
 using System;
-using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
 
 namespace Sungiant.Abacus.Tests
@@ -691,9 +692,38 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// object the results are as expected. 
 		/// </summary>
 		[Test]
-		public void Test_StructLayout_ii ()
+		public unsafe void Test_StructLayout_ii ()
 		{
-			Assert.That(false, Is.EqualTo(true));
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 vec = GetNextRandomVector2();
+
+				GCHandle h_vec = GCHandle.Alloc(vec, GCHandleType.Pinned);
+				GCHandle h_x = GCHandle.Alloc(vec.X, GCHandleType.Pinned);
+				GCHandle h_y = GCHandle.Alloc(vec.Y, GCHandleType.Pinned);
+
+		        IntPtr vecAddress = h_vec.AddrOfPinnedObject();
+		        IntPtr resultX = h_x.AddrOfPinnedObject();
+		        IntPtr resultY = h_y.AddrOfPinnedObject();
+
+		        String strVecAddress = "0x" + vecAddress.ToString("x");
+		        String strResultX = "0x" + resultX.ToString("x");
+		        String strResultY = "0x" + resultY.ToString("x");
+
+		        Console.WriteLine("&v: " + strVecAddress);
+		        Console.WriteLine("&x: " + strResultX);
+		        Console.WriteLine("&y: " + strResultY);
+
+		        Assert.That(resultX, Is.EqualTo(vecAddress));
+
+		        IntPtr q = IntPtr.Add(resultX, sizeof(Single));
+
+		        Assert.That(resultY, Is.EqualTo(q));
+				
+		        h_vec.Free();
+		        h_x.Free();
+		        h_y.Free();
+			}
 		}
 
 		// Test: Constructors //----------------------------------------------//
@@ -3000,9 +3030,38 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// object the results are as expected. 
 		/// </summary>
 		[Test]
-		public void Test_StructLayout_ii ()
+		public unsafe void Test_StructLayout_ii ()
 		{
-			Assert.That(false, Is.EqualTo(true));
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 vec = GetNextRandomVector2();
+
+				GCHandle h_vec = GCHandle.Alloc(vec, GCHandleType.Pinned);
+				GCHandle h_x = GCHandle.Alloc(vec.X, GCHandleType.Pinned);
+				GCHandle h_y = GCHandle.Alloc(vec.Y, GCHandleType.Pinned);
+
+		        IntPtr vecAddress = h_vec.AddrOfPinnedObject();
+		        IntPtr resultX = h_x.AddrOfPinnedObject();
+		        IntPtr resultY = h_y.AddrOfPinnedObject();
+
+		        String strVecAddress = "0x" + vecAddress.ToString("x");
+		        String strResultX = "0x" + resultX.ToString("x");
+		        String strResultY = "0x" + resultY.ToString("x");
+
+		        Console.WriteLine("&v: " + strVecAddress);
+		        Console.WriteLine("&x: " + strResultX);
+		        Console.WriteLine("&y: " + strResultY);
+
+		        Assert.That(resultX, Is.EqualTo(vecAddress));
+
+		        IntPtr q = IntPtr.Add(resultX, sizeof(Double));
+
+		        Assert.That(resultY, Is.EqualTo(q));
+				
+		        h_vec.Free();
+		        h_x.Free();
+		        h_y.Free();
+			}
 		}
 
 		// Test: Constructors //----------------------------------------------//

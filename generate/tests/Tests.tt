@@ -37,11 +37,12 @@
 <#@ include file="../Types.t4"#>
 
 using System;
-using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
 
 namespace Sungiant.Abacus.Tests
