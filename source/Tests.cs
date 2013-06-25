@@ -1368,7 +1368,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 		/// <summary>
 		/// Assert that, for a known example, all the addition opperators
-		/// and functions yields the correct result.
+		/// and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_i ()
@@ -1383,7 +1383,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 		/// <summary>
 		/// Assert that, for a known example involving the zero vector, all the 
-		/// addition opperators and functions yields the correct result.
+		/// addition opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_ii ()
@@ -1397,7 +1397,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 		/// <summary>
 		/// Assert that, for a known example involving two zero vectors, all the 
-		/// addition opperators and functions yields the correct result of zero.
+		/// addition opperators and functions yield the correct result of zero.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iii ()
@@ -1448,37 +1448,29 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for known examples, all the subtraction opperators
+		/// and functions yield the correct result.
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_i ()
 		{
 			var a = new Vector2(12, -4);
 			var b = new Vector2(15, 11);
+			var c = new Vector2(-423, 342);
 
 			var expected = new Vector2(-3, -15);
 
 			this.TestSubtraction(a, b, expected);
+			this.TestSubtraction(c, Vector2.Zero, c);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that when subtracting the zero vector fromt the zero vector, 
+		/// all the subtraction opperators and functions yield the correct 
+		/// result.
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_ii ()
-		{
-			var a = new Vector2(-423, 342);
-
-			var expected = a;
-
-			this.TestSubtraction(a, Vector2.Zero, expected);
-		}
-
-		/// <summary>
-		/// 
-		/// <summary>
-		[Test]
-		public void TestOperator_Subtraction_iii ()
 		{
 			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
@@ -1489,7 +1481,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// manual subtraction calculation.
 		/// </summary>
 		[Test]
-		public void TestOperator_Subtraction_iv ()
+		public void TestOperator_Subtraction_iii ()
 		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
@@ -1521,7 +1513,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for known examples, all the negation opperators
+		/// and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Negation_i ()
@@ -1532,61 +1525,39 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Single u = 6218;
 
 			var a = new Vector2(r, s);
-			var c = new Vector2(t, u);
-
-			this.TestNegation(a, c);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_ii ()
-		{
-			Single r = 3432;
-			Single s = -6218;
-			Single t = -3432;
-			Single u = 6218;
-
 			var b = new Vector2(u, t);
+			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
 
+			this.TestNegation(a, c);
 			this.TestNegation(b, d);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for known examples involving the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
-		public void TestOperator_Negation_iii ()
+		public void TestOperator_Negation_ii ()
 		{
 			Single t = -3432;
 			Single u = 6218;
-
-			var c = new Vector2(t, u);
-
-			this.TestNegation(c, Vector2.Zero - c);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_iv ()
-		{
 			Single r = 3432;
 			Single s = -6218;
 
+			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
 
+			this.TestNegation(c, Vector2.Zero - c);
 			this.TestNegation(d, Vector2.Zero - d);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that when negating the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
-		public void TestOperator_Negation_v ()
+		public void TestOperator_Negation_iii ()
 		{
 			this.TestNegation(Vector2.Zero, Vector2.Zero);
 		}
@@ -1597,7 +1568,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// manual negation calculation.
 		/// </summary>
 		[Test]
-		public void TestOperator_Negation_vi ()
+		public void TestOperator_Negation_iv ()
 		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
@@ -1630,7 +1601,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_i ()
@@ -1644,43 +1616,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var c = new Vector2(r, s);
 
 			this.TestMultiplication(a, b, c);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestOperator_Multiplication_ii ()
-		{
-			Single r = 18;
-			Single s = -54;
-
-			Single x = 3;
-			Single y = 6;
-			Single z = -9;
-
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-
-			var c = new Vector2(r, s);
-
-			// Test multiplication with the (*) operator
-			var test1_op = a * b;
-			var test2_op = b * a;
-
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(c));
-
-			// Test multiplication with static Multiply function
-			Vector2 test1_st; Vector2.Multiply(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Multiply(ref b, ref a, out test2_st);
-
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(c));
 		}
 
 		/// <summary>
@@ -1689,7 +1627,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// manual multiplication calculation.
 		/// </summary>
 		[Test]
-		public void TestOperator_Multiplication_iii ()
+		public void TestOperator_Multiplication_ii ()
 		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
@@ -1722,7 +1660,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known example using whole numbers, all the 
+		/// division opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Division_i ()
@@ -1736,14 +1675,14 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var c = new Vector2(r, s);
 
 			this.TestDivision(a, b, c);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known example using fractional numbers, all the 
+		/// division opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Division_ii ()
@@ -3742,7 +3681,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 		/// <summary>
 		/// Assert that, for a known example, all the addition opperators
-		/// and functions yields the correct result.
+		/// and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_i ()
@@ -3757,7 +3696,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 		/// <summary>
 		/// Assert that, for a known example involving the zero vector, all the 
-		/// addition opperators and functions yields the correct result.
+		/// addition opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_ii ()
@@ -3771,7 +3710,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 		/// <summary>
 		/// Assert that, for a known example involving two zero vectors, all the 
-		/// addition opperators and functions yields the correct result of zero.
+		/// addition opperators and functions yield the correct result of zero.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iii ()
@@ -3822,37 +3761,29 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for known examples, all the subtraction opperators
+		/// and functions yield the correct result.
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_i ()
 		{
 			var a = new Vector2(12, -4);
 			var b = new Vector2(15, 11);
+			var c = new Vector2(-423, 342);
 
 			var expected = new Vector2(-3, -15);
 
 			this.TestSubtraction(a, b, expected);
+			this.TestSubtraction(c, Vector2.Zero, c);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that when subtracting the zero vector fromt the zero vector, 
+		/// all the subtraction opperators and functions yield the correct 
+		/// result.
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_ii ()
-		{
-			var a = new Vector2(-423, 342);
-
-			var expected = a;
-
-			this.TestSubtraction(a, Vector2.Zero, expected);
-		}
-
-		/// <summary>
-		/// 
-		/// <summary>
-		[Test]
-		public void TestOperator_Subtraction_iii ()
 		{
 			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
@@ -3863,7 +3794,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// manual subtraction calculation.
 		/// </summary>
 		[Test]
-		public void TestOperator_Subtraction_iv ()
+		public void TestOperator_Subtraction_iii ()
 		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
@@ -3895,7 +3826,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for known examples, all the negation opperators
+		/// and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Negation_i ()
@@ -3906,61 +3838,39 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Double u = 6218;
 
 			var a = new Vector2(r, s);
-			var c = new Vector2(t, u);
-
-			this.TestNegation(a, c);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_ii ()
-		{
-			Double r = 3432;
-			Double s = -6218;
-			Double t = -3432;
-			Double u = 6218;
-
 			var b = new Vector2(u, t);
+			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
 
+			this.TestNegation(a, c);
 			this.TestNegation(b, d);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for known examples involving the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
-		public void TestOperator_Negation_iii ()
+		public void TestOperator_Negation_ii ()
 		{
 			Double t = -3432;
 			Double u = 6218;
-
-			var c = new Vector2(t, u);
-
-			this.TestNegation(c, Vector2.Zero - c);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_iv ()
-		{
 			Double r = 3432;
 			Double s = -6218;
 
+			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
 
+			this.TestNegation(c, Vector2.Zero - c);
 			this.TestNegation(d, Vector2.Zero - d);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that when negating the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
-		public void TestOperator_Negation_v ()
+		public void TestOperator_Negation_iii ()
 		{
 			this.TestNegation(Vector2.Zero, Vector2.Zero);
 		}
@@ -3971,7 +3881,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// manual negation calculation.
 		/// </summary>
 		[Test]
-		public void TestOperator_Negation_vi ()
+		public void TestOperator_Negation_iv ()
 		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
@@ -4004,7 +3914,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_i ()
@@ -4018,43 +3929,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var c = new Vector2(r, s);
 
 			this.TestMultiplication(a, b, c);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestOperator_Multiplication_ii ()
-		{
-			Double r = 18;
-			Double s = -54;
-
-			Double x = 3;
-			Double y = 6;
-			Double z = -9;
-
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-
-			var c = new Vector2(r, s);
-
-			// Test multiplication with the (*) operator
-			var test1_op = a * b;
-			var test2_op = b * a;
-
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(c));
-
-			// Test multiplication with static Multiply function
-			Vector2 test1_st; Vector2.Multiply(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Multiply(ref b, ref a, out test2_st);
-
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(c));
 		}
 
 		/// <summary>
@@ -4063,7 +3940,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// manual multiplication calculation.
 		/// </summary>
 		[Test]
-		public void TestOperator_Multiplication_iii ()
+		public void TestOperator_Multiplication_ii ()
 		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
@@ -4096,7 +3973,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known example using whole numbers, all the 
+		/// division opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Division_i ()
@@ -4110,14 +3988,14 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var c = new Vector2(r, s);
 
 			this.TestDivision(a, b, c);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known example using fractional numbers, all the 
+		/// division opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Division_ii ()
