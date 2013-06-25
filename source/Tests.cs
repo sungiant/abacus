@@ -1413,12 +1413,15 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestOperator_Addition_iv ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var expected = new Vector2(a.X + b.X, a.Y + b.Y);
+				var expected = new Vector2(a.X + b.X, a.Y + b.Y);
 
-			this.TestAddition(a, b, expected);
+				this.TestAddition(a, b, expected);
+			}
 		}
 
 		// Test Operator: Subtraction //--------------------------------------//
@@ -1445,8 +1448,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, simple vector subtraction yields 
-		/// the correct result.
+		/// 
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_i ()
@@ -1460,8 +1462,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, vector subtraction work correctly 
-		/// when one zero vector is involved.
+		/// 
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_ii ()
@@ -1474,7 +1475,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that two zero vectors correctly subtract to yield zero.
+		/// 
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_iii ()
@@ -1483,17 +1484,22 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// subtraction opperators and functions yield the same results as a
+		/// manual subtraction calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Subtraction_iv ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var expected = new Vector2(a.X - b.X, a.Y - b.Y);
+				var expected = new Vector2(a.X - b.X, a.Y - b.Y);
 
-			this.TestSubtraction(a, b, expected);
+				this.TestSubtraction(a, b, expected);
+			}
 		}
 
 		// Test Operator: Negation //-----------------------------------------//
@@ -1586,13 +1592,18 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// negation opperators and functions yield the same results as a
+		/// manual negation calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Negation_vi ()
 		{
-			var a = GetNextRandomVector2();
-			this.TestNegation(a, Vector2.Zero - a);
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				this.TestNegation(a, Vector2.Zero - a);
+			}
 		}
 
 		// Test Operator: Multiplication //-----------------------------------//
@@ -1673,17 +1684,22 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// multiplication opperators and functions yield the same results as a
+		/// manual multiplication calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_iii ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var c = new Vector2(a.X * b.X, a.Y * b.Y);
+				var c = new Vector2(a.X * b.X, a.Y * b.Y);
 
-			this.TestMultiplication(a, b, c);
+				this.TestMultiplication(a, b, c);
+			}
 		}
 
 
@@ -1741,24 +1757,28 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var d = new Vector2(t, u);
 
 			this.TestDivision(b, a, d);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// division opperators and functions yield the same results as a
+		/// manual addition division.
 		/// </summary>
 		[Test]
 		public void TestOperator_Division_iii ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var c = new Vector2(a.X / b.X, a.Y / b.Y);
+				var c = new Vector2(a.X / b.X, a.Y / b.Y);
 
-			this.TestDivision(a, b, c);
+				this.TestDivision(a, b, c);
+			}
 		}
 
 		// Test Static Fn: SmoothStep //--------------------------------------//
@@ -3767,12 +3787,15 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestOperator_Addition_iv ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var expected = new Vector2(a.X + b.X, a.Y + b.Y);
+				var expected = new Vector2(a.X + b.X, a.Y + b.Y);
 
-			this.TestAddition(a, b, expected);
+				this.TestAddition(a, b, expected);
+			}
 		}
 
 		// Test Operator: Subtraction //--------------------------------------//
@@ -3799,8 +3822,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, simple vector subtraction yields 
-		/// the correct result.
+		/// 
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_i ()
@@ -3814,8 +3836,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, vector subtraction work correctly 
-		/// when one zero vector is involved.
+		/// 
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_ii ()
@@ -3828,7 +3849,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that two zero vectors correctly subtract to yield zero.
+		/// 
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_iii ()
@@ -3837,17 +3858,22 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// subtraction opperators and functions yield the same results as a
+		/// manual subtraction calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Subtraction_iv ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var expected = new Vector2(a.X - b.X, a.Y - b.Y);
+				var expected = new Vector2(a.X - b.X, a.Y - b.Y);
 
-			this.TestSubtraction(a, b, expected);
+				this.TestSubtraction(a, b, expected);
+			}
 		}
 
 		// Test Operator: Negation //-----------------------------------------//
@@ -3940,13 +3966,18 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// negation opperators and functions yield the same results as a
+		/// manual negation calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Negation_vi ()
 		{
-			var a = GetNextRandomVector2();
-			this.TestNegation(a, Vector2.Zero - a);
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				this.TestNegation(a, Vector2.Zero - a);
+			}
 		}
 
 		// Test Operator: Multiplication //-----------------------------------//
@@ -4027,17 +4058,22 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// multiplication opperators and functions yield the same results as a
+		/// manual multiplication calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_iii ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var c = new Vector2(a.X * b.X, a.Y * b.Y);
+				var c = new Vector2(a.X * b.X, a.Y * b.Y);
 
-			this.TestMultiplication(a, b, c);
+				this.TestMultiplication(a, b, c);
+			}
 		}
 
 
@@ -4095,24 +4131,28 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var d = new Vector2(t, u);
 
 			this.TestDivision(b, a, d);
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// division opperators and functions yield the same results as a
+		/// manual addition division.
 		/// </summary>
 		[Test]
 		public void TestOperator_Division_iii ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var c = new Vector2(a.X / b.X, a.Y / b.Y);
+				var c = new Vector2(a.X / b.X, a.Y / b.Y);
 
-			this.TestDivision(a, b, c);
+				this.TestDivision(a, b, c);
+			}
 		}
 
 		// Test Static Fn: SmoothStep //--------------------------------------//
