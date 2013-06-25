@@ -1261,7 +1261,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Operator: Equality //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing equality.
 		/// </summary>
 		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
@@ -1293,7 +1293,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of TRUE when two equal  
+		/// Vector2 objects are compared.
 		/// </summary>
 		[Test]
 		public void TestOperator_Equality_i ()
@@ -1307,7 +1309,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of FALSE when two unequal  
+		/// Vector2 objects are compared.
 		/// </summary>
 		[Test]
 		public void TestOperator_Equality_ii ()
@@ -1321,21 +1325,28 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that all the equality opperators and functions 
+		/// yield the expected result of TRUE when used on a number of randomly 
+		/// generated pairs of equal Vector2 objects.
 		/// </summary>
 		[Test]
 		public void TestOperator_Equality_iii ()
 		{
-			var a = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
 
-			this.TestEquality(a, a, true);
+				Vector2 b = a;
+
+				this.TestEquality(a, b, true);
+			}
 		}
 
 
 		// Test Operator: Addition //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing addition.
 		/// </summary>
 		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -1356,8 +1367,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, simple vector addition yields the 
-		/// correct result.
+		/// Assert that, for a known example, all the addition opperators
+		/// and functions yields the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_i ()
@@ -1371,8 +1382,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, vector addition work correctly 
-		/// when one zero vector is involved.
+		/// Assert that, for a known example involving the zero vector, all the 
+		/// addition opperators and functions yields the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_ii ()
@@ -1385,7 +1396,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that two zero vectors correctly add to yield zero.
+		/// Assert that, for a known example involving two zero vectors, all the 
+		/// addition opperators and functions yields the correct result of zero.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iii ()
@@ -1394,12 +1406,14 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// addition opperators and functions yield the same results as a
+		/// manual addition calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iv ()
-		{var a = GetNextRandomVector2();
-			
+		{
+			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
 
 			var expected = new Vector2(a.X + b.X, a.Y + b.Y);
@@ -1410,7 +1424,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Operator: Subtraction //--------------------------------------//
 		
 		/// <summary>
-		/// 
+		/// Helper method for testing subtraction.
 		/// </summary>
 		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -1485,7 +1499,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Operator: Negation //-----------------------------------------//
 		
 		/// <summary>
-		/// 
+		/// Helper method for testing negation.
 		/// </summary>
 		void TestNegation(Vector2 a, Vector2 expected )
 		{
@@ -1584,7 +1598,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Operator: Multiplication //-----------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing multiplication.
 		/// </summary>
 		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -1676,7 +1690,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Operator: Division //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing division.
 		/// </summary>
 		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -3021,6 +3035,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void Test_StructLayout_i ()
 		{
+			Type t = typeof(Vector2);
+			
 			Assert.That(false, Is.EqualTo(true));
 		}
 
@@ -3599,7 +3615,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Operator: Equality //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing equality.
 		/// </summary>
 		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
 		{
@@ -3631,7 +3647,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of TRUE when two equal  
+		/// Vector2 objects are compared.
 		/// </summary>
 		[Test]
 		public void TestOperator_Equality_i ()
@@ -3645,7 +3663,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of FALSE when two unequal  
+		/// Vector2 objects are compared.
 		/// </summary>
 		[Test]
 		public void TestOperator_Equality_ii ()
@@ -3659,21 +3679,28 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Tests to make sure that all the equality opperators and functions 
+		/// yield the expected result of TRUE when used on a number of randomly 
+		/// generated pairs of equal Vector2 objects.
 		/// </summary>
 		[Test]
 		public void TestOperator_Equality_iii ()
 		{
-			var a = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
 
-			this.TestEquality(a, a, true);
+				Vector2 b = a;
+
+				this.TestEquality(a, b, true);
+			}
 		}
 
 
 		// Test Operator: Addition //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing addition.
 		/// </summary>
 		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -3694,8 +3721,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, simple vector addition yields the 
-		/// correct result.
+		/// Assert that, for a known example, all the addition opperators
+		/// and functions yields the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_i ()
@@ -3709,8 +3736,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, vector addition work correctly 
-		/// when one zero vector is involved.
+		/// Assert that, for a known example involving the zero vector, all the 
+		/// addition opperators and functions yields the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_ii ()
@@ -3723,7 +3750,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that two zero vectors correctly add to yield zero.
+		/// Assert that, for a known example involving two zero vectors, all the 
+		/// addition opperators and functions yields the correct result of zero.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iii ()
@@ -3732,12 +3760,14 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// addition opperators and functions yield the same results as a
+		/// manual addition calculation.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iv ()
-		{var a = GetNextRandomVector2();
-			
+		{
+			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
 
 			var expected = new Vector2(a.X + b.X, a.Y + b.Y);
@@ -3748,7 +3778,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Operator: Subtraction //--------------------------------------//
 		
 		/// <summary>
-		/// 
+		/// Helper method for testing subtraction.
 		/// </summary>
 		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -3823,7 +3853,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Operator: Negation //-----------------------------------------//
 		
 		/// <summary>
-		/// 
+		/// Helper method for testing negation.
 		/// </summary>
 		void TestNegation(Vector2 a, Vector2 expected )
 		{
@@ -3922,7 +3952,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Operator: Multiplication //-----------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing multiplication.
 		/// </summary>
 		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
 		{
@@ -4014,7 +4044,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Operator: Division //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Helper method for testing division.
 		/// </summary>
 		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
 		{
