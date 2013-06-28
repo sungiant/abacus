@@ -2103,7 +2103,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = a * 2;
 
-				Vector2 result; Vector2.Min (ref a, ref b, out result);
+				Vector2 result;
+				Vector2.Min (ref a, ref b, out result);
 
 				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
 				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
@@ -2123,7 +2124,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
 
-				Vector2 result; Vector2.Max (ref a, ref b, out result);
+				Vector2 result;
+				Vector2.Max (ref a, ref b, out result);
 
 				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
 				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
@@ -2145,7 +2147,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 
-				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+				Vector2 result;
+				Vector2.Clamp (ref a, ref min, ref max, out result);
 
 				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
 				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
@@ -2169,7 +2172,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Vector2 expected = a;
 
-			Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+			Vector2 result;
+			Vector2.Clamp (ref a, ref min, ref max, out result);
 
 			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
 			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
@@ -2200,7 +2204,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 					Vector2 a = GetNextRandomVector2();
 					Vector2 b = GetNextRandomVector2();
 
-					Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+					Vector2 result;
+					Vector2.Lerp (ref a, ref b, delta, out result);
 
 					Vector2 expected = a + ( ( b - a ) * delta );
 
@@ -4443,7 +4448,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = a * 2;
 
-				Vector2 result; Vector2.Min (ref a, ref b, out result);
+				Vector2 result;
+				Vector2.Min (ref a, ref b, out result);
 
 				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
 				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
@@ -4463,7 +4469,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
 
-				Vector2 result; Vector2.Max (ref a, ref b, out result);
+				Vector2 result;
+				Vector2.Max (ref a, ref b, out result);
 
 				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
 				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
@@ -4485,7 +4492,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 
-				Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+				Vector2 result;
+				Vector2.Clamp (ref a, ref min, ref max, out result);
 
 				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
 				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
@@ -4509,7 +4517,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Vector2 expected = a;
 
-			Vector2 result; Vector2.Clamp (ref a, ref min, ref max, out result);
+			Vector2 result;
+			Vector2.Clamp (ref a, ref min, ref max, out result);
 
 			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
 			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
@@ -4540,7 +4549,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 					Vector2 a = GetNextRandomVector2();
 					Vector2 b = GetNextRandomVector2();
 
-					Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+					Vector2 result;
+					Vector2.Lerp (ref a, ref b, delta, out result);
 
 					Vector2 expected = a + ( ( b - a ) * delta );
 
