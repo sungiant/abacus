@@ -687,7 +687,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		{
 			Type t = typeof(Vector2);
 
-			Assert.That(t.StructLayoutAttribute.Value, Is.EqualTo(LayoutKind.Sequential));
+			Assert.That(
+				t.StructLayoutAttribute.Value, 
+				Is.EqualTo(LayoutKind.Sequential));
 		}
 
 		/// <summary>
@@ -3025,7 +3027,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		{
 			Type t = typeof(Vector2);
 
-			Assert.That(t.StructLayoutAttribute.Value, Is.EqualTo(LayoutKind.Sequential));
+			Assert.That(
+				t.StructLayoutAttribute.Value, 
+				Is.EqualTo(LayoutKind.Sequential));
 		}
 
 		/// <summary>
