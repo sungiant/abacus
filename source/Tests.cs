@@ -37,10 +37,12 @@ using System;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
+using System.Runtime.CompilerServices;
 
 namespace Sungiant.Abacus.Tests
 {
@@ -684,8 +686,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		public void Test_StructLayout_i ()
 		{
 			Type t = typeof(Vector2);
-			
-			Assert.That(false, Is.EqualTo(true));
+
+			Assert.That(t.StructLayoutAttribute.Value, Is.EqualTo(LayoutKind.Sequential));
 		}
 
 		/// <summary>
@@ -701,30 +703,19 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2 vec = GetNextRandomVector2();
 
 				GCHandle h_vec = GCHandle.Alloc(vec, GCHandleType.Pinned);
-				GCHandle h_x = GCHandle.Alloc(vec.X, GCHandleType.Pinned);
-				GCHandle h_y = GCHandle.Alloc(vec.Y, GCHandleType.Pinned);
 
 		        IntPtr vecAddress = h_vec.AddrOfPinnedObject();
-		        IntPtr resultX = h_x.AddrOfPinnedObject();
-		        IntPtr resultY = h_y.AddrOfPinnedObject();
 
-		        String strVecAddress = "0x" + vecAddress.ToString("x");
-		        String strResultX = "0x" + resultX.ToString("x");
-		        String strResultY = "0x" + resultY.ToString("x");
+		        Single[] data = new Single[2];
 
-		        Console.WriteLine("&v: " + strVecAddress);
-		        Console.WriteLine("&x: " + strResultX);
-		        Console.WriteLine("&y: " + strResultY);
-
-		        Assert.That(resultX, Is.EqualTo(vecAddress));
-
-		        IntPtr q = IntPtr.Add(resultX, sizeof(Single));
-
-		        Assert.That(resultY, Is.EqualTo(q));
+		        // nb: when Fixed32 and Half are moved back into the main
+		        //     dev branch there will be need for an extension method for
+		        //     Marshal that will perform the copy for those types. 
+		        Marshal.Copy(vecAddress, data, 0, 2);
+		        Assert.That(data[0], Is.EqualTo(vec.X));
+		        Assert.That(data[1], Is.EqualTo(vec.Y));
 				
 		        h_vec.Free();
-		        h_x.Free();
-		        h_y.Free();
 			}
 		}
 
@@ -3033,8 +3024,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		public void Test_StructLayout_i ()
 		{
 			Type t = typeof(Vector2);
-			
-			Assert.That(false, Is.EqualTo(true));
+
+			Assert.That(t.StructLayoutAttribute.Value, Is.EqualTo(LayoutKind.Sequential));
 		}
 
 		/// <summary>
@@ -3050,30 +3041,19 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2 vec = GetNextRandomVector2();
 
 				GCHandle h_vec = GCHandle.Alloc(vec, GCHandleType.Pinned);
-				GCHandle h_x = GCHandle.Alloc(vec.X, GCHandleType.Pinned);
-				GCHandle h_y = GCHandle.Alloc(vec.Y, GCHandleType.Pinned);
 
 		        IntPtr vecAddress = h_vec.AddrOfPinnedObject();
-		        IntPtr resultX = h_x.AddrOfPinnedObject();
-		        IntPtr resultY = h_y.AddrOfPinnedObject();
 
-		        String strVecAddress = "0x" + vecAddress.ToString("x");
-		        String strResultX = "0x" + resultX.ToString("x");
-		        String strResultY = "0x" + resultY.ToString("x");
+		        Double[] data = new Double[2];
 
-		        Console.WriteLine("&v: " + strVecAddress);
-		        Console.WriteLine("&x: " + strResultX);
-		        Console.WriteLine("&y: " + strResultY);
-
-		        Assert.That(resultX, Is.EqualTo(vecAddress));
-
-		        IntPtr q = IntPtr.Add(resultX, sizeof(Double));
-
-		        Assert.That(resultY, Is.EqualTo(q));
+		        // nb: when Fixed32 and Half are moved back into the main
+		        //     dev branch there will be need for an extension method for
+		        //     Marshal that will perform the copy for those types. 
+		        Marshal.Copy(vecAddress, data, 0, 2);
+		        Assert.That(data[0], Is.EqualTo(vec.X));
+		        Assert.That(data[1], Is.EqualTo(vec.Y));
 				
 		        h_vec.Free();
-		        h_x.Free();
-		        h_y.Free();
 			}
 		}
 

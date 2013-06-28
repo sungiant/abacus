@@ -40,10 +40,12 @@ using System;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
+using System.Runtime.CompilerServices;
 
 namespace Sungiant.Abacus.Tests
 {
