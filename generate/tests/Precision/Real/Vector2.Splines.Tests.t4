@@ -35,7 +35,7 @@
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_SmoothStep_ii()
 		{
 			var a = GetNextRandomVector2();
@@ -49,8 +49,12 @@
 			{
 				Vector2 result;
 
-				Vector2.SmoothStep (
-					ref a, ref b, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.SmoothStep (
+							ref a, ref b, amount, out result)
+					);
 			}
 		}
 
@@ -176,7 +180,7 @@
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_CatmullRom_iii()
 		{
 			var a = GetNextRandomVector2();
@@ -192,8 +196,12 @@
 			{
 				Vector2 result;
 
-				Vector2.CatmullRom (
-					ref a, ref b, ref c, ref d, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.CatmullRom (
+							ref a, ref b, ref c, ref d, amount, out result)
+				);
 			}
 		}
 
@@ -277,12 +285,11 @@
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_Hermite_ii ()
 		{
-			var a  = GetNextRandomVector2();
-			var b  = GetNextRandomVector2();
-
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
 			var c = GetNextRandomVector2();
 			var d = GetNextRandomVector2();
 
@@ -297,27 +304,69 @@
 			{
 				Vector2 result;
 
-				Vector2.Hermite (
-					ref a, ref an, ref b, ref bn, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.Hermite (
+							ref a, ref an, ref b, ref bn, amount, out result)
+					);
+				
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Hermite_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			var a = new Vector2( -100, +50 );
+			var b = new Vector2( +100, -50 );
+			var c = new Vector2( -10, +5 );
+			var d = new Vector2( +10, -5 );
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_iv ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 an; Vector2.Normalise(ref c, out an);
+			Vector2 bn; Vector2.Normalise(ref d, out bn);
+
+			<#= type #> one = 1;
+			
+			<#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512; // 100.1953125
+			<#= type #> f = (<#= type #>) 12825 / (<#= type #>) 256; // 50.09765625
+			<#= type #> g = (<#= type #>) 365 / (<#= type #>) 4; // 91.25
+			<#= type #> h = (<#= type #>) 365 / (<#= type #>) 8; // 45.625
+			<#= type #> i = (<#= type #>) 9695 / (<#= type #>) 128; // 75.7421875
+			<#= type #> j = (<#= type #>) 9695 / (<#= type #>) 256; // 37.87109375
+			<#= type #> k = (<#= type #>) 225 / (<#= type #>) 4; // 56.25
+			<#= type #> l = (<#= type #>) 225 / (<#= type #>) 8; // 28.125
+			<#= type #> m = (<#= type #>) 4525 / (<#= type #>) 128; // 35.3515625
+			<#= type #> n = (<#= type #>) 4525 / (<#= type #>) 256; // 17.67578125
+			<#= type #> o = (<#= type #>) 125 / (<#= type #>) 8; // 15.625
+			<#= type #> p = (<#= type #>) 125 / (<#= type #>) 16; // 7.8125
+			<#= type #> q = (<#= type #>) 45 / (<#= type #>) 128; // 0.3515625
+			<#= type #> r = (<#= type #>) 45 / (<#= type #>) 256; // 0.17578125
+
+			var knownResults = new List<Tuple<<#= type #>, Vector2>>
+			{
+				new Tuple<<#= type #>, Vector2>( 0, b ),
+				new Tuple<<#= type #>, Vector2>( one * 1 / 8, new Vector2( e, -f ) ),
+				new Tuple<<#= type #>, Vector2>( one * 2 / 8, new Vector2( g, -h ) ),
+				new Tuple<<#= type #>, Vector2>( one * 3 / 8, new Vector2( i, -j ) ),
+				new Tuple<<#= type #>, Vector2>( one * 4 / 8, new Vector2( k, -l ) ),
+				new Tuple<<#= type #>, Vector2>( one * 5 / 8, new Vector2( m, -n ) ),
+				new Tuple<<#= type #>, Vector2>( one * 6 / 8, new Vector2( o, -p ) ),
+				new Tuple<<#= type #>, Vector2>( one * 7 / 8, new Vector2( -q, r ) ),
+				new Tuple<<#= type #>, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
 		}
 
 		

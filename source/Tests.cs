@@ -1763,7 +1763,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_SmoothStep_ii()
 		{
 			var a = GetNextRandomVector2();
@@ -1777,8 +1777,12 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			{
 				Vector2 result;
 
-				Vector2.SmoothStep (
-					ref a, ref b, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.SmoothStep (
+							ref a, ref b, amount, out result)
+					);
 			}
 		}
 
@@ -1904,7 +1908,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_CatmullRom_iii()
 		{
 			var a = GetNextRandomVector2();
@@ -1920,8 +1924,12 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			{
 				Vector2 result;
 
-				Vector2.CatmullRom (
-					ref a, ref b, ref c, ref d, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.CatmullRom (
+							ref a, ref b, ref c, ref d, amount, out result)
+				);
 			}
 		}
 
@@ -2005,12 +2013,11 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_Hermite_ii ()
 		{
-			var a  = GetNextRandomVector2();
-			var b  = GetNextRandomVector2();
-
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
 			var c = GetNextRandomVector2();
 			var d = GetNextRandomVector2();
 
@@ -2025,27 +2032,69 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			{
 				Vector2 result;
 
-				Vector2.Hermite (
-					ref a, ref an, ref b, ref bn, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.Hermite (
+							ref a, ref an, ref b, ref bn, amount, out result)
+					);
+				
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Hermite_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			var a = new Vector2( -100, +50 );
+			var b = new Vector2( +100, -50 );
+			var c = new Vector2( -10, +5 );
+			var d = new Vector2( +10, -5 );
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_iv ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 an; Vector2.Normalise(ref c, out an);
+			Vector2 bn; Vector2.Normalise(ref d, out bn);
+
+			Single one = 1;
+			
+			Single e = (Single) 51300 / (Single) 512; // 100.1953125
+			Single f = (Single) 12825 / (Single) 256; // 50.09765625
+			Single g = (Single) 365 / (Single) 4; // 91.25
+			Single h = (Single) 365 / (Single) 8; // 45.625
+			Single i = (Single) 9695 / (Single) 128; // 75.7421875
+			Single j = (Single) 9695 / (Single) 256; // 37.87109375
+			Single k = (Single) 225 / (Single) 4; // 56.25
+			Single l = (Single) 225 / (Single) 8; // 28.125
+			Single m = (Single) 4525 / (Single) 128; // 35.3515625
+			Single n = (Single) 4525 / (Single) 256; // 17.67578125
+			Single o = (Single) 125 / (Single) 8; // 15.625
+			Single p = (Single) 125 / (Single) 16; // 7.8125
+			Single q = (Single) 45 / (Single) 128; // 0.3515625
+			Single r = (Single) 45 / (Single) 256; // 0.17578125
+
+			var knownResults = new List<Tuple<Single, Vector2>>
+			{
+				new Tuple<Single, Vector2>( 0, b ),
+				new Tuple<Single, Vector2>( one * 1 / 8, new Vector2( e, -f ) ),
+				new Tuple<Single, Vector2>( one * 2 / 8, new Vector2( g, -h ) ),
+				new Tuple<Single, Vector2>( one * 3 / 8, new Vector2( i, -j ) ),
+				new Tuple<Single, Vector2>( one * 4 / 8, new Vector2( k, -l ) ),
+				new Tuple<Single, Vector2>( one * 5 / 8, new Vector2( m, -n ) ),
+				new Tuple<Single, Vector2>( one * 6 / 8, new Vector2( o, -p ) ),
+				new Tuple<Single, Vector2>( one * 7 / 8, new Vector2( -q, r ) ),
+				new Tuple<Single, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
 		}
 
 				/// <summary>
@@ -2171,19 +2220,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_Lerp_ii()
 		{
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();
-			
+
 			Single half; RealMaths.Half(out half);
 
-			var tests = new Single[] { 2, half, -half, -1 };
+			var tests = new Single[] { 2, half + 1, -half, -1 };
 
 			foreach( var weighting in tests )
 			{
-				Vector2 result; Vector2.Lerp (ref a, ref b, weighting, out result);
+				Vector2 result; 
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.Lerp (
+							ref a, ref b, weighting, out result)
+					);
 			}
 		}
 
@@ -4057,7 +4112,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_SmoothStep_ii()
 		{
 			var a = GetNextRandomVector2();
@@ -4071,8 +4126,12 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			{
 				Vector2 result;
 
-				Vector2.SmoothStep (
-					ref a, ref b, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.SmoothStep (
+							ref a, ref b, amount, out result)
+					);
 			}
 		}
 
@@ -4198,7 +4257,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_CatmullRom_iii()
 		{
 			var a = GetNextRandomVector2();
@@ -4214,8 +4273,12 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			{
 				Vector2 result;
 
-				Vector2.CatmullRom (
-					ref a, ref b, ref c, ref d, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.CatmullRom (
+							ref a, ref b, ref c, ref d, amount, out result)
+				);
 			}
 		}
 
@@ -4299,12 +4362,11 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_Hermite_ii ()
 		{
-			var a  = GetNextRandomVector2();
-			var b  = GetNextRandomVector2();
-
+			var a = GetNextRandomVector2();
+			var b = GetNextRandomVector2();
 			var c = GetNextRandomVector2();
 			var d = GetNextRandomVector2();
 
@@ -4319,27 +4381,69 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			{
 				Vector2 result;
 
-				Vector2.Hermite (
-					ref a, ref an, ref b, ref bn, amount, out result);
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.Hermite (
+							ref a, ref an, ref b, ref bn, amount, out result)
+					);
+				
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Hermite_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+			var a = new Vector2( -100, +50 );
+			var b = new Vector2( +100, -50 );
+			var c = new Vector2( -10, +5 );
+			var d = new Vector2( +10, -5 );
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_iv ()
-		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 an; Vector2.Normalise(ref c, out an);
+			Vector2 bn; Vector2.Normalise(ref d, out bn);
+
+			Double one = 1;
+			
+			Double e = (Double) 51300 / (Double) 512; // 100.1953125
+			Double f = (Double) 12825 / (Double) 256; // 50.09765625
+			Double g = (Double) 365 / (Double) 4; // 91.25
+			Double h = (Double) 365 / (Double) 8; // 45.625
+			Double i = (Double) 9695 / (Double) 128; // 75.7421875
+			Double j = (Double) 9695 / (Double) 256; // 37.87109375
+			Double k = (Double) 225 / (Double) 4; // 56.25
+			Double l = (Double) 225 / (Double) 8; // 28.125
+			Double m = (Double) 4525 / (Double) 128; // 35.3515625
+			Double n = (Double) 4525 / (Double) 256; // 17.67578125
+			Double o = (Double) 125 / (Double) 8; // 15.625
+			Double p = (Double) 125 / (Double) 16; // 7.8125
+			Double q = (Double) 45 / (Double) 128; // 0.3515625
+			Double r = (Double) 45 / (Double) 256; // 0.17578125
+
+			var knownResults = new List<Tuple<Double, Vector2>>
+			{
+				new Tuple<Double, Vector2>( 0, b ),
+				new Tuple<Double, Vector2>( one * 1 / 8, new Vector2( e, -f ) ),
+				new Tuple<Double, Vector2>( one * 2 / 8, new Vector2( g, -h ) ),
+				new Tuple<Double, Vector2>( one * 3 / 8, new Vector2( i, -j ) ),
+				new Tuple<Double, Vector2>( one * 4 / 8, new Vector2( k, -l ) ),
+				new Tuple<Double, Vector2>( one * 5 / 8, new Vector2( m, -n ) ),
+				new Tuple<Double, Vector2>( one * 6 / 8, new Vector2( o, -p ) ),
+				new Tuple<Double, Vector2>( one * 7 / 8, new Vector2( -q, r ) ),
+				new Tuple<Double, Vector2>( 1, c ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector2 result;
+
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
 		}
 
 				/// <summary>
@@ -4465,19 +4569,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// Assert that, for a known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TestStaticFn_Lerp_ii()
 		{
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();
-			
+
 			Double half; RealMaths.Half(out half);
 
-			var tests = new Double[] { 2, half, -half, -1 };
+			var tests = new Double[] { 2, half + 1, -half, -1 };
 
 			foreach( var weighting in tests )
 			{
-				Vector2 result; Vector2.Lerp (ref a, ref b, weighting, out result);
+				Vector2 result; 
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector2.Lerp (
+							ref a, ref b, weighting, out result)
+					);
 			}
 		}
 
