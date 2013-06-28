@@ -1760,8 +1760,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Ensure that an argument out of range exception is thrown if the 
-		/// amount parameter is less than zero.
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_SmoothStep_ii()
@@ -1769,35 +1769,24 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
 
-			Single amount = -1;
-			Vector2 result;
+			Single half; RealMaths.Half(out half);
 
-			Vector2.SmoothStep (
-				ref a, ref b, amount, out result);
-		}
+			var tests = new Single[] { 2, half + 1, -half, -1 };
 
-		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is greater than one.
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_SmoothStep_iii()
-		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			foreach( var amount in tests )
+			{
+				Vector2 result;
 
-			Single amount = 2;
-			Vector2 result;
-
-			Vector2.SmoothStep (
-				ref a, ref b, amount, out result);
+				Vector2.SmoothStep (
+					ref a, ref b, amount, out result);
+			}
 		}
 
 		/// <summary>
 		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep_iv ()
+		public void TestStaticFn_SmoothStep_iii ()
 		{
 			var a = new Vector2( -30, -30 );
 			var b = new Vector2( +30, +30 );
@@ -1912,8 +1901,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is less than zero.
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_CatmullRom_iii()
@@ -1922,31 +1911,18 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			var b = GetNextRandomVector2();
 			var c = GetNextRandomVector2();
 			var d = GetNextRandomVector2();
+			
+			Single half; RealMaths.Half(out half);
 
-			Single amount = -1;
-			Vector2 result;
+			var tests = new Single[] { 2, half + 1, -half, -1 };
 
-			Vector2.CatmullRom (
-				ref a, ref b, ref c, ref d, amount, out result);
-		}
+			foreach( var amount in tests )
+			{
+				Vector2 result;
 
-		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is greater than one.
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_CatmullRom_iv()
-		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
-			var c = GetNextRandomVector2();
-			var d = GetNextRandomVector2();
-
-			Single amount = 2;
-			Vector2 result;
-
-			Vector2.CatmullRom (
-				ref a, ref b, ref c, ref d, amount, out result);
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount, out result);
+			}
 		}
 
 		/// <summary>
@@ -1955,7 +1931,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// should be a straight line.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_v()
+		public void TestStaticFn_CatmullRom_iv()
 		{
 			var a = new Vector2( -90, -90 );
 			var b = new Vector2( -30, -30 );
@@ -2013,7 +1989,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2.Hermite (
 					ref a, ref an, ref b, ref bn, amount1, out result1);
 
-				AssertEqualWithinReason(result1, b);
+				AssertEqualWithinReason(result1, a);
 
 				Single amount2 = 1;
 				Vector2 result2;
@@ -2021,17 +1997,37 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2.Hermite (
 					ref a, ref an, ref b, ref bn, amount2, out result2);
 
-				AssertEqualWithinReason(result2, c);
+				AssertEqualWithinReason(result2, b);
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test]
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Hermite_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a  = GetNextRandomVector2();
+			var b  = GetNextRandomVector2();
+
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			Vector2 an; Vector2.Normalise(ref c, out an);
+			Vector2 bn; Vector2.Normalise(ref d, out bn);
+
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector2 result;
+
+				Vector2.Hermite (
+					ref a, ref an, ref b, ref bn, amount, out result);
+			}
 		}
 
 		/// <summary>
@@ -2048,15 +2044,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Hermite_iv ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_v ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -2181,42 +2168,23 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_ii()
 		{
-			Single delta = 2;
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
-		}
+			
+			Single half; RealMaths.Half(out half);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Lerp_iii()
-		{
-			Single delta = -1;
-			Vector2 a = GetNextRandomVector2();
-			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
-		}
+			var tests = new Single[] { 2, half, -half, -1 };
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Lerp_iv()
-		{
-			Single delta; RealMaths.Half(out delta);
-
-			delta = -delta;
-
-			Vector2 a = GetNextRandomVector2();
-			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+			foreach( var weighting in tests )
+			{
+				Vector2 result; Vector2.Lerp (ref a, ref b, weighting, out result);
+			}
 		}
 
 
@@ -4086,8 +4054,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Ensure that an argument out of range exception is thrown if the 
-		/// amount parameter is less than zero.
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_SmoothStep_ii()
@@ -4095,35 +4063,24 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
 
-			Double amount = -1;
-			Vector2 result;
+			Double half; RealMaths.Half(out half);
 
-			Vector2.SmoothStep (
-				ref a, ref b, amount, out result);
-		}
+			var tests = new Double[] { 2, half + 1, -half, -1 };
 
-		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is greater than one.
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_SmoothStep_iii()
-		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			foreach( var amount in tests )
+			{
+				Vector2 result;
 
-			Double amount = 2;
-			Vector2 result;
-
-			Vector2.SmoothStep (
-				ref a, ref b, amount, out result);
+				Vector2.SmoothStep (
+					ref a, ref b, amount, out result);
+			}
 		}
 
 		/// <summary>
 		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep_iv ()
+		public void TestStaticFn_SmoothStep_iii ()
 		{
 			var a = new Vector2( -30, -30 );
 			var b = new Vector2( +30, +30 );
@@ -4238,8 +4195,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is less than zero.
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_CatmullRom_iii()
@@ -4248,31 +4205,18 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			var b = GetNextRandomVector2();
 			var c = GetNextRandomVector2();
 			var d = GetNextRandomVector2();
+			
+			Double half; RealMaths.Half(out half);
 
-			Double amount = -1;
-			Vector2 result;
+			var tests = new Double[] { 2, half + 1, -half, -1 };
 
-			Vector2.CatmullRom (
-				ref a, ref b, ref c, ref d, amount, out result);
-		}
+			foreach( var amount in tests )
+			{
+				Vector2 result;
 
-		/// <summary>
-		/// This test ensures that an argument out of range exception is thrown
-		/// if the amount parameter is greater than one.
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_CatmullRom_iv()
-		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
-			var c = GetNextRandomVector2();
-			var d = GetNextRandomVector2();
-
-			Double amount = 2;
-			Vector2 result;
-
-			Vector2.CatmullRom (
-				ref a, ref b, ref c, ref d, amount, out result);
+				Vector2.CatmullRom (
+					ref a, ref b, ref c, ref d, amount, out result);
+			}
 		}
 
 		/// <summary>
@@ -4281,7 +4225,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// should be a straight line.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_v()
+		public void TestStaticFn_CatmullRom_iv()
 		{
 			var a = new Vector2( -90, -90 );
 			var b = new Vector2( -30, -30 );
@@ -4339,7 +4283,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2.Hermite (
 					ref a, ref an, ref b, ref bn, amount1, out result1);
 
-				AssertEqualWithinReason(result1, b);
+				AssertEqualWithinReason(result1, a);
 
 				Double amount2 = 1;
 				Vector2 result2;
@@ -4347,17 +4291,37 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2.Hermite (
 					ref a, ref an, ref b, ref bn, amount2, out result2);
 
-				AssertEqualWithinReason(result2, c);
+				AssertEqualWithinReason(result2, b);
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
-		[Test]
+		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Hermite_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a  = GetNextRandomVector2();
+			var b  = GetNextRandomVector2();
+
+			var c = GetNextRandomVector2();
+			var d = GetNextRandomVector2();
+
+			Vector2 an; Vector2.Normalise(ref c, out an);
+			Vector2 bn; Vector2.Normalise(ref d, out bn);
+
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector2 result;
+
+				Vector2.Hermite (
+					ref a, ref an, ref b, ref bn, amount, out result);
+			}
 		}
 
 		/// <summary>
@@ -4374,15 +4338,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Hermite_iv ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_v ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
@@ -4507,42 +4462,23 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_ii()
 		{
-			Double delta = 2;
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
-		}
+			
+			Double half; RealMaths.Half(out half);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Lerp_iii()
-		{
-			Double delta = -1;
-			Vector2 a = GetNextRandomVector2();
-			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
-		}
+			var tests = new Double[] { 2, half, -half, -1 };
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Lerp_iv()
-		{
-			Double delta; RealMaths.Half(out delta);
-
-			delta = -delta;
-
-			Vector2 a = GetNextRandomVector2();
-			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+			foreach( var weighting in tests )
+			{
+				Vector2 result; Vector2.Lerp (ref a, ref b, weighting, out result);
+			}
 		}
 
 

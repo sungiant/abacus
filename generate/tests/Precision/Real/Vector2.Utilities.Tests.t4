@@ -118,41 +118,22 @@
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Lerp_ii()
 		{
-			<#= type #> delta = 2;
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
-		}
+			
+			<#= type #> half; RealMaths.Half(out half);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Lerp_iii()
-		{
-			<#= type #> delta = -1;
-			Vector2 a = GetNextRandomVector2();
-			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
-		}
+			var tests = new <#= type #>[] { 2, half, -half, -1 };
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Lerp_iv()
-		{
-			<#= type #> delta; RealMaths.Half(out delta);
-
-			delta = -delta;
-
-			Vector2 a = GetNextRandomVector2();
-			Vector2 b = GetNextRandomVector2();
-			Vector2 result; Vector2.Lerp (ref a, ref b, delta, out result);
+			foreach( var weighting in tests )
+			{
+				Vector2 result; Vector2.Lerp (ref a, ref b, weighting, out result);
+			}
 		}
 
