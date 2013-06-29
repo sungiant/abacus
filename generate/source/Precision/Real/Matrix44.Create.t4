@@ -251,7 +251,7 @@
 
 			Vector3.Cross (ref up, ref backward, out right);
 
-			right.Normalise();
+			Vector3.Normalise(ref right, out right);
 
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
@@ -426,7 +426,9 @@
 				Vector3.Multiply (ref vector, (<#= type #>)(one / (RealMaths.Sqrt (num))), out vector);
 			}
 			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
-			vector3.Normalise ();
+
+			Vector3.Normalise (ref vector3, out vector3);
+
 			Vector3.Cross (ref vector, ref vector3, out vector2);
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -484,14 +486,14 @@
 					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
 				}
 				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			} else {
 				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref vector4, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			}
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;

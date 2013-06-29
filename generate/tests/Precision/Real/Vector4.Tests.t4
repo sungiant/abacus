@@ -3,60 +3,294 @@
 	{
 <#@ include file="Vector4.TestHelpers.t4"#>
 
+		// Test: StructLayout //----------------------------------------------//
+
+		/// <summary>
+		/// This test makes sure that the struct layout has been defined
+		/// correctly.
+		/// </summary>
 		[Test]
-		public void Test_Constructors ()
+		public void Test_StructLayout_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Type t = typeof(Vector4);
+
+			Assert.That(
+				t.StructLayoutAttribute.Value, 
+				Is.EqualTo(LayoutKind.Sequential));
 		}
 
+		/// <summary>
+		/// This test makes sure that when examining the memory addresses of the 
+		/// X, Y, Z and W member variables of a number of randomly generated 
+		/// Vector4 objects the results are as expected. 
+		/// </summary>
 		[Test]
-		public void Test_Equality ()
+		public unsafe void Test_StructLayout_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector4 vec = GetNextRandomVector4();
+
+				GCHandle h_vec = GCHandle.Alloc(vec, GCHandleType.Pinned);
+
+		        IntPtr vecAddress = h_vec.AddrOfPinnedObject();
+
+		        <#= type #>[] data = new <#= type #>[4];
+
+		        // nb: when Fixed32 and Half are moved back into the main
+		        //     dev branch there will be need for an extension method for
+		        //     Marshal that will perform the copy for those types. 
+		        Marshal.Copy(vecAddress, data, 0, 4);
+		        Assert.That(data[0], Is.EqualTo(vec.X));
+		        Assert.That(data[1], Is.EqualTo(vec.Y));
+		        Assert.That(data[2], Is.EqualTo(vec.Z));
+		        Assert.That(data[3], Is.EqualTo(vec.W));
+				
+		        h_vec.Free();
+			}
 		}
 
+		// Test: Constructors //----------------------------------------------//
+
+		/// <summary>
+		/// This test goes though each public constuctor and ensures that the 
+		/// data members of the structure have been properly set.
+		/// </summary>
 		[Test]
-		public void TestMemberFn_ToString ()
+		public void Test_Constructors_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				// Test default values
+				Vector4 a = new Vector4();
+				Assert.That(a, Is.EqualTo(Vector4.Zero));
+			}
+			{
+				// Test Vector4( <#= type #>, <#= type #>, <#= type #> )
+				<#= type #> a = -189;
+				<#= type #> b = 429;
+				<#= type #> c = 4298;
+				<#= type #> d = 341;
+				Vector4 e = new Vector4(a, b, c, d);
+				Assert.That(e.X, Is.EqualTo(a));
+				Assert.That(e.Y, Is.EqualTo(b));
+				Assert.That(e.Z, Is.EqualTo(c));
+				Assert.That(e.W, Is.EqualTo(d));
+			}
+			{
+				// Test Vector4( Vector2, <#= type #>, <#= type #> )
+				Vector2 a = new Vector2(-189, 429);
+				<#= type #> b = 4298;
+				<#= type #> c = 341;
+				Vector4 d = new Vector4(a, b, c);
+				Assert.That(d.X, Is.EqualTo(a.X));
+				Assert.That(d.Y, Is.EqualTo(a.Y));
+				Assert.That(d.Z, Is.EqualTo(b));
+				Assert.That(d.W, Is.EqualTo(c));
+			}
+			{
+				// Test Vector4( Vector3, <#= type #> )
+				Vector3 a = new Vector3(-189, 429, 4298);
+				<#= type #> b = 341;
+				Vector4 c = new Vector4(a, b);
+				Assert.That(c.X, Is.EqualTo(a.X));
+				Assert.That(c.Y, Is.EqualTo(a.Y));
+				Assert.That(c.Z, Is.EqualTo(a.Z));
+				Assert.That(c.W, Is.EqualTo(b));
+			}
+			{
+				// Test no constructor
+				Vector4 a;
+				a.X = 0;
+				a.Y = 0;
+				a.Z = 0;
+				a.W = 0;
+				Assert.That(a, Is.EqualTo(Vector4.Zero));
+			}
 		}
 
+		// Test Member Fn: ToString //----------------------------------------//
+
+		/// <summary>
+		/// For a given example, this test ensures that the ToString function
+		/// yields the expected string.
+		/// </summary>
 		[Test]
-		public void TestMemberFn_GetHashCode ()
+		public void TestMemberFn_ToString_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(42, -17, 13, 44);
+
+			String result = a.ToString();
+
+			String expected = "{X:42 Y:-17 Z:13 W:44}";
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Member Fn: GetHashCode //-------------------------------------//
+
+		/// <summary>
+		/// Makes sure that the hashing function is good by testing 10,000
+		/// random scenarios and ensuring that there are no more than 10
+		/// collisions.
+		/// </summary>
 		[Test]
-		public void TestMemberFn_Set ()
+		public void TestMemberFn_GetHashCode_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var hs1 = new System.Collections.Generic.HashSet<Vector4>();
+			var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+			for(Int32 i = 0; i < 10000; ++i)
+			{
+				var a = GetNextRandomVector4();
+
+				hs1.Add(a);
+				hs2.Add(a.GetHashCode());
+			}
+
+			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
 		}
 
+		// Test Member Fn: Length //------------------------------------------//
+
+		/// <summary>
+		/// Tests that for a known example the Length member function yields
+		/// the correct result.
+		/// </summary>
 		[Test]
-		public void TestMemberFn_Length ()
+		public void TestMemberFn_Length_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(3, -4, 12, 84);
+
+			<#= type #> expected = 85;
+
+			<#= type #> result = a.Length();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Member Fn: LengthSquared //-----------------------------------//
+
+		/// <summary>
+		/// Tests that for a known example the LengthSquared member function 
+		/// yields the correct result.
+		/// </summary>
 		[Test]
-		public void TestMemberFn_LengthSquared ()
+		public void TestMemberFn_LengthSquared_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(3, -4, 12, 84);
+
+			<#= type #> expected = 7225;
+
+			<#= type #> result = a.LengthSquared();
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Member Fn: IsUnit //------------------------------------------//
+
+		/// <summary>
+		/// Tests that for the simple vectors the IsUnit member function
+		/// returns the correct result of TRUE.
+		/// </summary>
 		[Test]
-		public void TestMemberFn_NormaliseMemberFunction ()
+		public void TestMemberFn_IsUnit_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4( 1,  0,  0,  0);
+			Vector4 b = new Vector4(-1,  0,  0,  0);
+			Vector4 c = new Vector4( 0,  1,  0,  0);
+			Vector4 d = new Vector4( 0, -1,  0,  0);
+			Vector4 e = new Vector4( 0,  0,  1,  0);
+			Vector4 f = new Vector4( 0,  0, -1,  0);
+			Vector4 g = new Vector4( 0,  0,  0,  1);
+			Vector4 h = new Vector4( 0,  0,  0, -1);
+			Vector4 i = new Vector4( 1,  1,  1,  1);
+			Vector4 j = new Vector4( 0,  0,  0,  0);
+
+			Assert.That(a.IsUnit(), Is.EqualTo(true));
+			Assert.That(b.IsUnit(), Is.EqualTo(true));
+			Assert.That(c.IsUnit(), Is.EqualTo(true));
+			Assert.That(d.IsUnit(), Is.EqualTo(true));
+			Assert.That(e.IsUnit(), Is.EqualTo(true));
+			Assert.That(f.IsUnit(), Is.EqualTo(true));
+			Assert.That(g.IsUnit(), Is.EqualTo(true));
+			Assert.That(h.IsUnit(), Is.EqualTo(true));
+
+			Assert.That(i.IsUnit(), Is.EqualTo(false));
+			Assert.That(j.IsUnit(), Is.EqualTo(false));
 		}
 
+		/// <summary>
+		/// This test makes sure that the IsUnit member function returns the 
+		/// correct result of TRUE for a number of scenarios where the test 
+		/// vector is both random and normalised.
+		/// </summary>
 		[Test]
-		public void TestMemberFn_IsUnit ()
+		public void TestMemberFn_IsUnit_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Vector4 b; Vector4.Normalise(ref a, out b);
+
+				Assert.That(b.IsUnit(), Is.EqualTo(true));
+			}
 		}
 
+		/// <summary>
+		/// This test ensures that the IsUnit member function correctly
+		/// returns TRUE for a collection of vectors, all known to be of unit 
+		/// length.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_iii ()
+		{
+			<#= type #> piOver2; RealMaths.PiOver2(out piOver2);
+
+			for( Int32 i = 0; i <= 90; ++ i)
+			{
+				<#= type #> theta = piOver2 / 90 * i;
+
+				<#= type #> x = RealMaths.Sin(theta);
+				<#= type #> y = RealMaths.Cos(theta);				
+				<#= type #> z = 0;
+				<#= type #> w = 0;
+
+				Assert.That(
+					new Vector4( x,  y,  z,  w).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector4( x, -y,  z,  w).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector4(-x,  y,  z,  w).IsUnit(), 
+					Is.EqualTo(true));
+				
+				Assert.That(
+					new Vector4(-x, -y,  z,  w).IsUnit(), 
+					Is.EqualTo(true));
+			}
+		}
+
+		/// <summary>
+		/// This test makes sure that the IsUnit member function returns the 
+		/// correct result of FALSE for a number of scenarios where the test 
+		/// vector is randomly generated and not normalised.  It's highly
+		/// unlikely that the random generator will create a unit vector!
+		/// </summary>
+		[Test]
+		public void TestMemberFn_IsUnit_iv ()
+		{
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Assert.That(a.IsUnit(), Is.EqualTo(false));
+			}
+		}
+			
 <#@ include file="Vector4.Constants.Tests.t4"#>
 <#@ include file="Vector4.Maths.Tests.t4"#>
 <#@ include file="Vector4.Operators.Tests.t4"#>

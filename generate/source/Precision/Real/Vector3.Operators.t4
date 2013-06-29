@@ -1,4 +1,18 @@
 ﻿		#region Operators
+		
+		public Boolean Equals (Vector3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector3) {
+				flag = this.Equals ((Vector3)obj);
+			}
+			return flag;
+		}
 
 		public static Vector3 operator - (Vector3 value)
 		{

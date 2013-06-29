@@ -13,7 +13,7 @@
 		public <#= type #> Y;
 
 		/// <summary>
-		/// Initilises a new instance ofVector2 from two <#= type #> values 
+		/// Initilises a new instance of Vector2 from two <#= type #> values 
 		/// representing X and Y respectively.
 		/// </summary>
 		public Vector2 (<#= type #> x, <#= type #> y)
@@ -56,12 +56,11 @@
 		}
 
 		/// <summary>
-		/// Detemines whether the vector is of unit length.
+		/// Detemines whether or not the vector is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
 			<#= type #> one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y);
 		}
 

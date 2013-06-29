@@ -4015,7 +4015,7 @@ namespace Sungiant.Abacus.SinglePrecision
 
 			Vector3.Cross (ref up, ref backward, out right);
 
-			right.Normalise();
+			Vector3.Normalise(ref right, out right);
 
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
@@ -4190,7 +4190,9 @@ namespace Sungiant.Abacus.SinglePrecision
 				Vector3.Multiply (ref vector, (Single)(one / (RealMaths.Sqrt (num))), out vector);
 			}
 			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
-			vector3.Normalise ();
+
+			Vector3.Normalise (ref vector3, out vector3);
+
 			Vector3.Cross (ref vector, ref vector3, out vector2);
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -4248,14 +4250,14 @@ namespace Sungiant.Abacus.SinglePrecision
 					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
 				}
 				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			} else {
 				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref vector4, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			}
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -4517,17 +4519,17 @@ namespace Sungiant.Abacus.SinglePrecision
 				return false;
 			}
 
-			a.Normalise();
-			b.Normalise();
-			c.Normalise();
+			Vector3.Normalise(ref a, out a);
+			Vector3.Normalise(ref b, out b);
+			Vector3.Normalise(ref c, out c);
 
 			Vector3 right = new Vector3(a.X, b.X, c.X);
 			Vector3 up = new Vector3(a.Y, b.Y, c.Y);
 			Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
 
-			right.Normalise();
-			up.Normalise();
-			backward.Normalise();
+			Vector3.Normalise(ref right, out right);
+			Vector3.Normalise(ref up, out up);
+			Vector3.Normalise(ref backward, out backward);
 
 			Matrix44 rotMat;
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
@@ -5629,7 +5631,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		public Single Y;
 
 		/// <summary>
-		/// Initilises a new instance ofVector2 from two Single values 
+		/// Initilises a new instance of Vector2 from two Single values 
 		/// representing X and Y respectively.
 		/// </summary>
 		public Vector2 (Single x, Single y)
@@ -5672,12 +5674,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether the vector is of unit length.
+		/// Detemines whether or not the vector is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
 			Single one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y);
 		}
 
@@ -6311,37 +6312,36 @@ namespace Sungiant.Abacus.SinglePrecision
 	public partial struct Vector3 
 		: IEquatable<Vector3>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the vector.
+		/// </summary>
 		public Single X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the vector.
+		/// </summary>
 		public Single Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the vector.
+		/// </summary>
 		public Single Z;
 
-		public Vector2 XY
-		{
-			get
-			{
-				return new Vector2(X, Y);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector3 from three Single values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Vector3 (Single x, Single y, Single z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public Vector3 (Single value)
-		{
-			this.X = this.Y = this.Z = value;
-		}
 		
+		/// <summary>
+		/// Initilises a new instance of Vector3 from one Vector2 value
+		/// representing X and Y and one Single value representing Z.
+		/// </summary>
 		public Vector3 (Vector2 value, Single z)
 		{
 			this.X = value.X;
@@ -6349,56 +6349,45 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.Z = z;
 		}
 
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
-		}
-
-		public Boolean Equals (Vector3 other)
-		{
-			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector3) {
-				flag = this.Equals ((Vector3)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the vector.
+		/// </summary>
 		public Single Length ()
 		{
 			Single num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the vector squared.
+		/// </summary>
 		public Single LengthSquared ()
 		{
 			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
 		}
 
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Single one = 1;
-			Single num2 = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			Single num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
+			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
 		}
 
+		/// <summary>
+		/// Gets the hash code of the vector object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
+		}
+
+		/// <summary>
+		/// Detemines whether or not the vector is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Single one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
@@ -6666,6 +6655,20 @@ namespace Sungiant.Abacus.SinglePrecision
 		
 		#endregion
 		#region Operators
+		
+		public Boolean Equals (Vector3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector3) {
+				flag = this.Equals ((Vector3)obj);
+			}
+			return flag;
+		}
 
 		public static Vector3 operator - (Vector3 value)
 		{
@@ -6903,33 +6906,36 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		#endregion
-
 	}
+
 	[StructLayout (LayoutKind.Sequential)]
 	public partial struct Vector4 
 		: IEquatable<Vector4>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the vector.
+		/// </summary>
 		public Single X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the vector.
+		/// </summary>
 		public Single Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the vector.
+		/// </summary>
 		public Single Z;
+
+		/// <summary>
+		/// Gets or sets the w-component of the vector.
+		/// </summary>
 		public Single W;
 
-		public Vector3 XYZ
-		{
-			get
-			{
-				return new Vector3(X, Y, Z);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-				this.Z = value.Z;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector4 from four Single values 
+		/// representing X, Y, Z and W respectively.
+		/// </summary>
 		public Vector4 (Single x, Single y, Single z, Single w)
 		{
 			this.X = x;
@@ -6938,6 +6944,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector2 value
+		/// representing X and Y and two Single values representing Z and
+		/// W respectively.
+		/// </summary>
 		public Vector4 (Vector2 value, Single z, Single w)
 		{
 			this.X = value.X;
@@ -6946,6 +6957,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector3 value
+		/// representing X, Y and Z and one Single value representing W.
+		/// </summary>
 		public Vector4 (Vector3 value, Single w)
 		{
 			this.X = value.X;
@@ -6954,65 +6969,45 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = w;
 		}
 
-		public Vector4 (Single value)
-		{
-			this.X = this.Y = this.Z = this.W = value;
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
-		}
-
-		public Boolean Equals (Vector4 other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector4) {
-				flag = this.Equals ((Vector4)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the vector.
+		/// </summary>
 		public Single Length ()
 		{
 			Single num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the vector squared.
+		/// </summary>
 		public Single LengthSquared ()
 		{
 			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
 		}
 
-
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Single one = 1;
-			Single num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-			Single num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
-			this.W *= num;
+			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
 		}
 
+		/// <summary>
+		/// Gets the hash code of the vector object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
+		}
 
-
+		/// <summary>
+		/// Detemines whether or not the vector is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Single one = 1;
-
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
@@ -7258,6 +7253,20 @@ namespace Sungiant.Abacus.SinglePrecision
 		
 		#endregion
 		#region Operators
+
+		public Boolean Equals (Vector4 other)
+		{
+			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
+		}
+
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector4) {
+				flag = this.Equals ((Vector4)obj);
+			}
+			return flag;
+		}
 
 		public static Vector4 operator - (Vector4 value)
 		{
@@ -7521,7 +7530,6 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		#endregion
-
 
 	}
 
@@ -8222,7 +8230,7 @@ namespace Sungiant.Abacus.DoublePrecision
 
 			Vector3.Cross (ref up, ref backward, out right);
 
-			right.Normalise();
+			Vector3.Normalise(ref right, out right);
 
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
@@ -8397,7 +8405,9 @@ namespace Sungiant.Abacus.DoublePrecision
 				Vector3.Multiply (ref vector, (Double)(one / (RealMaths.Sqrt (num))), out vector);
 			}
 			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
-			vector3.Normalise ();
+
+			Vector3.Normalise (ref vector3, out vector3);
+
 			Vector3.Cross (ref vector, ref vector3, out vector2);
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -8455,14 +8465,14 @@ namespace Sungiant.Abacus.DoublePrecision
 					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
 				}
 				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			} else {
 				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref vector4, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			}
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -8724,17 +8734,17 @@ namespace Sungiant.Abacus.DoublePrecision
 				return false;
 			}
 
-			a.Normalise();
-			b.Normalise();
-			c.Normalise();
+			Vector3.Normalise(ref a, out a);
+			Vector3.Normalise(ref b, out b);
+			Vector3.Normalise(ref c, out c);
 
 			Vector3 right = new Vector3(a.X, b.X, c.X);
 			Vector3 up = new Vector3(a.Y, b.Y, c.Y);
 			Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
 
-			right.Normalise();
-			up.Normalise();
-			backward.Normalise();
+			Vector3.Normalise(ref right, out right);
+			Vector3.Normalise(ref up, out up);
+			Vector3.Normalise(ref backward, out backward);
 
 			Matrix44 rotMat;
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
@@ -9836,7 +9846,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		public Double Y;
 
 		/// <summary>
-		/// Initilises a new instance ofVector2 from two Double values 
+		/// Initilises a new instance of Vector2 from two Double values 
 		/// representing X and Y respectively.
 		/// </summary>
 		public Vector2 (Double x, Double y)
@@ -9879,12 +9889,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether the vector is of unit length.
+		/// Detemines whether or not the vector is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
 			Double one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y);
 		}
 
@@ -10518,37 +10527,36 @@ namespace Sungiant.Abacus.DoublePrecision
 	public partial struct Vector3 
 		: IEquatable<Vector3>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the vector.
+		/// </summary>
 		public Double X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the vector.
+		/// </summary>
 		public Double Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the vector.
+		/// </summary>
 		public Double Z;
 
-		public Vector2 XY
-		{
-			get
-			{
-				return new Vector2(X, Y);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector3 from three Double values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Vector3 (Double x, Double y, Double z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public Vector3 (Double value)
-		{
-			this.X = this.Y = this.Z = value;
-		}
 		
+		/// <summary>
+		/// Initilises a new instance of Vector3 from one Vector2 value
+		/// representing X and Y and one Double value representing Z.
+		/// </summary>
 		public Vector3 (Vector2 value, Double z)
 		{
 			this.X = value.X;
@@ -10556,56 +10564,45 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.Z = z;
 		}
 
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
-		}
-
-		public Boolean Equals (Vector3 other)
-		{
-			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector3) {
-				flag = this.Equals ((Vector3)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the vector.
+		/// </summary>
 		public Double Length ()
 		{
 			Double num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the vector squared.
+		/// </summary>
 		public Double LengthSquared ()
 		{
 			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
 		}
 
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Double one = 1;
-			Double num2 = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			Double num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
+			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
 		}
 
+		/// <summary>
+		/// Gets the hash code of the vector object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
+		}
+
+		/// <summary>
+		/// Detemines whether or not the vector is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Double one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
@@ -10873,6 +10870,20 @@ namespace Sungiant.Abacus.DoublePrecision
 		
 		#endregion
 		#region Operators
+		
+		public Boolean Equals (Vector3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector3) {
+				flag = this.Equals ((Vector3)obj);
+			}
+			return flag;
+		}
 
 		public static Vector3 operator - (Vector3 value)
 		{
@@ -11110,33 +11121,36 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		#endregion
-
 	}
+
 	[StructLayout (LayoutKind.Sequential)]
 	public partial struct Vector4 
 		: IEquatable<Vector4>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the vector.
+		/// </summary>
 		public Double X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the vector.
+		/// </summary>
 		public Double Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the vector.
+		/// </summary>
 		public Double Z;
+
+		/// <summary>
+		/// Gets or sets the w-component of the vector.
+		/// </summary>
 		public Double W;
 
-		public Vector3 XYZ
-		{
-			get
-			{
-				return new Vector3(X, Y, Z);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-				this.Z = value.Z;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector4 from four Double values 
+		/// representing X, Y, Z and W respectively.
+		/// </summary>
 		public Vector4 (Double x, Double y, Double z, Double w)
 		{
 			this.X = x;
@@ -11145,6 +11159,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector2 value
+		/// representing X and Y and two Double values representing Z and
+		/// W respectively.
+		/// </summary>
 		public Vector4 (Vector2 value, Double z, Double w)
 		{
 			this.X = value.X;
@@ -11153,6 +11172,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector3 value
+		/// representing X, Y and Z and one Double value representing W.
+		/// </summary>
 		public Vector4 (Vector3 value, Double w)
 		{
 			this.X = value.X;
@@ -11161,65 +11184,45 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = w;
 		}
 
-		public Vector4 (Double value)
-		{
-			this.X = this.Y = this.Z = this.W = value;
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
-		}
-
-		public Boolean Equals (Vector4 other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector4) {
-				flag = this.Equals ((Vector4)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the vector.
+		/// </summary>
 		public Double Length ()
 		{
 			Double num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the vector squared.
+		/// </summary>
 		public Double LengthSquared ()
 		{
 			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
 		}
 
-
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Double one = 1;
-			Double num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-			Double num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
-			this.W *= num;
+			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
 		}
 
+		/// <summary>
+		/// Gets the hash code of the vector object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
+		}
 
-
+		/// <summary>
+		/// Detemines whether or not the vector is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Double one = 1;
-
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
@@ -11465,6 +11468,20 @@ namespace Sungiant.Abacus.DoublePrecision
 		
 		#endregion
 		#region Operators
+
+		public Boolean Equals (Vector4 other)
+		{
+			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
+		}
+
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector4) {
+				flag = this.Equals ((Vector4)obj);
+			}
+			return flag;
+		}
 
 		public static Vector4 operator - (Vector4 value)
 		{
@@ -11728,7 +11745,6 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		#endregion
-
 
 	}
 
