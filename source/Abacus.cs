@@ -6258,31 +6258,31 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// Returns a vector that contains the lowest value from each matching pair of components.
 		/// </summary>
-		public static void Min (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
 		}
 
 		/// <summary>
 		/// Returns a vector that contains the highest value from each matching pair of components.
 		/// </summary>
-		public static void Max (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
 		}
 
 		/// <summary>
 		/// Restricts a value to be within a specified range.
 		/// </summary>
-		public static void Clamp (ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
+		public static void Clamp (ref Vector2 a, ref Vector2 min, ref Vector2 max, out Vector2 result)
 		{
-			Single x = value1.X;
+			Single x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
 			
-			Single y = value1.Y;
+			Single y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
 
@@ -6293,7 +6293,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// Performs a linear interpolation between two vectors.
 		/// </summary>
-		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Single amount, out Vector2 result)
+		public static void Lerp (ref Vector2 a, ref Vector2 b, Single amount, out Vector2 result)
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -6302,8 +6302,8 @@ namespace Sungiant.Abacus.SinglePrecision
 				throw new ArgumentOutOfRangeException();
 			}
 			
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 
 	}
@@ -6866,31 +6866,52 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		#endregion
-		#region Utilities
+		// Utilities //-------------------------------------------------------//
 
-		public static void Min (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
 		}
 
-		public static void Max (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
 		}
 		
-		public static void Clamp (ref Vector3 value1, ref Vector3 min, ref Vector3 max, out Vector3 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector3 a,
+			ref Vector3 min,
+			ref Vector3 max,
+			out Vector3 result)
 		{
-			Single x = value1.X;
+			Single x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Single y = value1.Y;
+			Single y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Single z = value1.Z;
+			Single z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
 			result.X = x;
@@ -6898,14 +6919,19 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = z;
 		}
 
-		public static void Lerp (ref Vector3 value1, ref Vector3 value2, Single amount, out Vector3 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector3 a,
+			ref Vector3 b,
+			Single amount,
+			out Vector3 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
 		}
-		
-		#endregion
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
@@ -7483,36 +7509,57 @@ namespace Sungiant.Abacus.SinglePrecision
 		
 		#endregion
 
-		#region Utilities
+		// Utilities //-------------------------------------------------------//
 
-		public static void Min (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W < value2.W) ? value1.W : value2.W;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+			result.W = (a.W < b.W) ? a.W : b.W;
 		}
 
-		public static void Max (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W > value2.W) ? value1.W : value2.W;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+			result.W = (a.W > b.W) ? a.W : b.W;
 		}
 		
-		public static void Clamp (ref Vector4 value1, ref Vector4 min, ref Vector4 max, out Vector4 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector4 a,
+			ref Vector4 min,
+			ref Vector4 max,
+			out Vector4 result)
 		{
-			Single x = value1.X;
+			Single x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Single y = value1.Y;
+			Single y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Single z = value1.Z;
+			Single z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
-			Single w = value1.W;
+			Single w = a.W;
 			w = (w > max.W) ? max.W : w;
 			w = (w < min.W) ? min.W : w;
 			result.X = x;
@@ -7521,15 +7568,20 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = w;
 		}
 		
-		public static void Lerp (ref Vector4 value1, ref Vector4 value2, Single amount, out Vector4 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector4 a,
+			ref Vector4 b,
+			Single amount,
+			out Vector4 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-			result.W = value1.W + ((value2.W - value1.W) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
+			result.W = a.W + ((b.W - a.W) * amount);
 		}
-		
-		#endregion
 
 	}
 
@@ -10473,31 +10525,31 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// Returns a vector that contains the lowest value from each matching pair of components.
 		/// </summary>
-		public static void Min (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
 		}
 
 		/// <summary>
 		/// Returns a vector that contains the highest value from each matching pair of components.
 		/// </summary>
-		public static void Max (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
 		}
 
 		/// <summary>
 		/// Restricts a value to be within a specified range.
 		/// </summary>
-		public static void Clamp (ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
+		public static void Clamp (ref Vector2 a, ref Vector2 min, ref Vector2 max, out Vector2 result)
 		{
-			Double x = value1.X;
+			Double x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
 			
-			Double y = value1.Y;
+			Double y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
 
@@ -10508,7 +10560,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// Performs a linear interpolation between two vectors.
 		/// </summary>
-		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Double amount, out Vector2 result)
+		public static void Lerp (ref Vector2 a, ref Vector2 b, Double amount, out Vector2 result)
 		{
 			Double zero = 0;
 			Double one = 1;
@@ -10517,8 +10569,8 @@ namespace Sungiant.Abacus.DoublePrecision
 				throw new ArgumentOutOfRangeException();
 			}
 			
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 
 	}
@@ -11081,31 +11133,52 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		#endregion
-		#region Utilities
+		// Utilities //-------------------------------------------------------//
 
-		public static void Min (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
 		}
 
-		public static void Max (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
 		}
 		
-		public static void Clamp (ref Vector3 value1, ref Vector3 min, ref Vector3 max, out Vector3 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector3 a,
+			ref Vector3 min,
+			ref Vector3 max,
+			out Vector3 result)
 		{
-			Double x = value1.X;
+			Double x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Double y = value1.Y;
+			Double y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Double z = value1.Z;
+			Double z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
 			result.X = x;
@@ -11113,14 +11186,19 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = z;
 		}
 
-		public static void Lerp (ref Vector3 value1, ref Vector3 value2, Double amount, out Vector3 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector3 a,
+			ref Vector3 b,
+			Double amount,
+			out Vector3 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
 		}
-		
-		#endregion
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
@@ -11698,36 +11776,57 @@ namespace Sungiant.Abacus.DoublePrecision
 		
 		#endregion
 
-		#region Utilities
+		// Utilities //-------------------------------------------------------//
 
-		public static void Min (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W < value2.W) ? value1.W : value2.W;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+			result.W = (a.W < b.W) ? a.W : b.W;
 		}
 
-		public static void Max (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W > value2.W) ? value1.W : value2.W;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+			result.W = (a.W > b.W) ? a.W : b.W;
 		}
 		
-		public static void Clamp (ref Vector4 value1, ref Vector4 min, ref Vector4 max, out Vector4 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector4 a,
+			ref Vector4 min,
+			ref Vector4 max,
+			out Vector4 result)
 		{
-			Double x = value1.X;
+			Double x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Double y = value1.Y;
+			Double y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Double z = value1.Z;
+			Double z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
-			Double w = value1.W;
+			Double w = a.W;
 			w = (w > max.W) ? max.W : w;
 			w = (w < min.W) ? min.W : w;
 			result.X = x;
@@ -11736,15 +11835,20 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = w;
 		}
 		
-		public static void Lerp (ref Vector4 value1, ref Vector4 value2, Double amount, out Vector4 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector4 a,
+			ref Vector4 b,
+			Double amount,
+			out Vector4 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-			result.W = value1.W + ((value2.W - value1.W) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
+			result.W = a.W + ((b.W - a.W) * amount);
 		}
-		
-		#endregion
 
 	}
 
