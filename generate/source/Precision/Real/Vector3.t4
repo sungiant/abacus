@@ -44,7 +44,10 @@
 		/// </summary>
 		public <#= type #> Length ()
 		{
-			<#= type #> num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			<#= type #> num = (this.X * this.X) + 
+				              (this.Y * this.Y) + 
+			                  (this.Z * this.Z);
+
 			return RealMaths.Sqrt (num);
 		}
 
@@ -53,7 +56,10 @@
 		/// </summary>
 		public <#= type #> LengthSquared ()
 		{
-			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+			return
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z);
 		}
 
 		/// <summary>
@@ -61,7 +67,15 @@
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -69,7 +83,11 @@
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode ()
+				);
 		}
 
 		/// <summary>

@@ -5662,7 +5662,14 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -6370,7 +6377,10 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public Single Length ()
 		{
-			Single num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			Single num = (this.X * this.X) + 
+				              (this.Y * this.Y) + 
+			                  (this.Z * this.Z);
+
 			return RealMaths.Sqrt (num);
 		}
 
@@ -6379,7 +6389,10 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public Single LengthSquared ()
 		{
-			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+			return
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z);
 		}
 
 		/// <summary>
@@ -6387,7 +6400,15 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -6395,7 +6416,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode ()
+				);
 		}
 
 		/// <summary>
@@ -6978,7 +7003,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// Initilises a new instance of Vector4 from four Single values 
 		/// representing X, Y, Z and W respectively.
 		/// </summary>
-		public Vector4 (Single x, Single y, Single z, Single w)
+		public Vector4 (
+			Single x, 
+			Single y, 
+			Single z, 
+			Single w)
 		{
 			this.X = x;
 			this.Y = y;
@@ -7016,7 +7045,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public Single Length ()
 		{
-			Single num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
+			Single num = (this.X * this.X) + 
+							  (this.Y * this.Y) + 
+							  (this.Z * this.Z) + 
+							  (this.W * this.W);
+			
 			return RealMaths.Sqrt (num);
 		}
 
@@ -7025,7 +7058,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public Single LengthSquared ()
 		{
-			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
+			return 
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z) + 
+				(this.W * this.W);
 		}
 
 		/// <summary>
@@ -7033,7 +7070,16 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2} W:{3}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString (), 
+					this.W.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -7041,7 +7087,12 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode () + 
+				this.W.GetHashCode ()
+				);
 		}
 
 		/// <summary>
@@ -9945,7 +9996,14 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -10653,7 +10711,10 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public Double Length ()
 		{
-			Double num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			Double num = (this.X * this.X) + 
+				              (this.Y * this.Y) + 
+			                  (this.Z * this.Z);
+
 			return RealMaths.Sqrt (num);
 		}
 
@@ -10662,7 +10723,10 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public Double LengthSquared ()
 		{
-			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+			return
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z);
 		}
 
 		/// <summary>
@@ -10670,7 +10734,15 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -10678,7 +10750,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode ()
+				);
 		}
 
 		/// <summary>
@@ -11261,7 +11337,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// Initilises a new instance of Vector4 from four Double values 
 		/// representing X, Y, Z and W respectively.
 		/// </summary>
-		public Vector4 (Double x, Double y, Double z, Double w)
+		public Vector4 (
+			Double x, 
+			Double y, 
+			Double z, 
+			Double w)
 		{
 			this.X = x;
 			this.Y = y;
@@ -11299,7 +11379,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public Double Length ()
 		{
-			Double num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
+			Double num = (this.X * this.X) + 
+							  (this.Y * this.Y) + 
+							  (this.Z * this.Z) + 
+							  (this.W * this.W);
+			
 			return RealMaths.Sqrt (num);
 		}
 
@@ -11308,7 +11392,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public Double LengthSquared ()
 		{
-			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
+			return 
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z) + 
+				(this.W * this.W);
 		}
 
 		/// <summary>
@@ -11316,7 +11404,16 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2} W:{3}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString (), 
+					this.W.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -11324,7 +11421,12 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode () + 
+				this.W.GetHashCode ()
+				);
 		}
 
 		/// <summary>

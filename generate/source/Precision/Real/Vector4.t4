@@ -26,7 +26,11 @@
 		/// Initilises a new instance of Vector4 from four <#= type #> values 
 		/// representing X, Y, Z and W respectively.
 		/// </summary>
-		public Vector4 (<#= type #> x, <#= type #> y, <#= type #> z, <#= type #> w)
+		public Vector4 (
+			<#= type #> x, 
+			<#= type #> y, 
+			<#= type #> z, 
+			<#= type #> w)
 		{
 			this.X = x;
 			this.Y = y;
@@ -64,7 +68,11 @@
 		/// </summary>
 		public <#= type #> Length ()
 		{
-			<#= type #> num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
+			<#= type #> num = (this.X * this.X) + 
+							  (this.Y * this.Y) + 
+							  (this.Z * this.Z) + 
+							  (this.W * this.W);
+			
 			return RealMaths.Sqrt (num);
 		}
 
@@ -73,7 +81,11 @@
 		/// </summary>
 		public <#= type #> LengthSquared ()
 		{
-			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
+			return 
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z) + 
+				(this.W * this.W);
 		}
 
 		/// <summary>
@@ -81,7 +93,16 @@
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2} W:{3}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString (), 
+					this.W.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
@@ -89,7 +110,12 @@
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode () + 
+				this.W.GetHashCode ()
+				);
 		}
 
 		/// <summary>

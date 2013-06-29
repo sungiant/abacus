@@ -44,7 +44,14 @@
 		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString () 
+				}
+				);
 		}
 
 		/// <summary>
