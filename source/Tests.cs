@@ -933,13 +933,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestConstant_Zero ()
 		{
-			Single zero = 0;
-			var v_zero = Vector2.Zero;
-
-			Assert.That(v_zero.X, Is.EqualTo(zero));
-			Assert.That(v_zero.Y, Is.EqualTo(zero));
-
-			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
+			Vector2 result = Vector2.Zero;
+			Vector2 expected = new Vector2(0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Constant: One //----------------------------------------------//
@@ -951,13 +947,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestConstant_One ()
 		{
-			Single one = 1;
-			var v_one = Vector2.One;
-
-			Assert.That(v_one.X, Is.EqualTo(one));
-			Assert.That(v_one.Y, Is.EqualTo(one));
-
-			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
+			Vector2 result = Vector2.One;
+			Vector2 expected = new Vector2(1, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Constant: UnitX //--------------------------------------------//
@@ -969,15 +961,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestConstant_UnitX ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_x = Vector2.UnitX;
-
-			Assert.That(v_unit_x.X, Is.EqualTo(one));
-			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
-
-			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
+			Vector2 result = Vector2.UnitX;
+			Vector2 expected = new Vector2(1, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Constant: UnitY //--------------------------------------------//
@@ -989,15 +975,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestConstant_UnitY ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_y = Vector2.UnitY;
-
-			Assert.That(v_unit_y.X, Is.EqualTo(zero));
-			Assert.That(v_unit_y.Y, Is.EqualTo(one));
-			
-			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
+			Vector2 result = Vector2.UnitY;
+			Vector2 expected = new Vector2(0, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Static Fn: Distance //----------------------------------------//
@@ -2589,80 +2569,160 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		#region Utilities
+		// Test Constant: Zero //---------------------------------------------//
 
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Zero constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
-			Single zero = 0;
-			var v_zero = Vector3.Zero;
-
-			Assert.That(v_zero.X, Is.EqualTo(zero));
-			Assert.That(v_zero.Y, Is.EqualTo(zero));
-			Assert.That(v_zero.Z, Is.EqualTo(zero));
-			
-			Assert.That(v_zero, Is.EqualTo(new Vector3(zero, zero, zero)));
+			Vector3 result = Vector3.Zero;
+			Vector3 expected = new Vector3(0, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the One constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
-			Single one = 1;
-			var v_one = Vector3.One;
-
-			Assert.That(v_one.X, Is.EqualTo(one));
-			Assert.That(v_one.Y, Is.EqualTo(one));
-			Assert.That(v_one.Z, Is.EqualTo(one));
-
-			Assert.That(v_one, Is.EqualTo(new Vector3(one, one, one)));
+			Vector3 result = Vector3.One;
+			Vector3 expected = new Vector3(1, 1, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_x = Vector3.UnitX;
-
-			Assert.That(v_unit_x.X, Is.EqualTo(one));
-			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
-
-			Assert.That(v_unit_x, Is.EqualTo(new Vector3(one, zero, zero)));
+			Vector3 result = Vector3.UnitX;
+			Vector3 expected = new Vector3(1, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the UnitY
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_y = Vector3.UnitY;
-
-			Assert.That(v_unit_y.X, Is.EqualTo(zero));
-			Assert.That(v_unit_y.Y, Is.EqualTo(one));
-			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
-
-			Assert.That(v_unit_y, Is.EqualTo(new Vector3(zero, one, zero)));
+			Vector3 result = Vector3.UnitY;
+			Vector3 expected = new Vector3(0, 1, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitZ //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the UnitZ
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitZ ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_z = Vector3.UnitZ;
-
-			Assert.That(v_unit_z.X, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Z, Is.EqualTo(one));
-
-			Assert.That(v_unit_z, Is.EqualTo(new Vector3(zero, zero, one)));
+			Vector3 result = Vector3.UnitZ;
+			Vector3 expected = new Vector3(0, 0, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
-		#endregion
+		// Test Constant: Up //-----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Up
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Up ()
+		{
+			Vector3 result = Vector3.Up;
+			Vector3 expected = new Vector3(0, 1, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Down //---------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Down
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Down ()
+		{
+			Vector3 result = Vector3.Down;
+			Vector3 expected = new Vector3(0, -1, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Right //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Right
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Right ()
+		{
+			Vector3 result = Vector3.Right;
+			Vector3 expected = new Vector3(1, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Left //---------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Left
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Left ()
+		{
+			Vector3 result = Vector3.Left;
+			Vector3 expected = new Vector3(-1, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Forward //------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Forward
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Forward ()
+		{
+			Vector3 result = Vector3.Forward;
+			Vector3 expected = new Vector3(0, 0, -1);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Backward //-----------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Backward
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Backward ()
+		{
+			Vector3 result = Vector3.Backward;
+			Vector3 expected = new Vector3(0, 0, 1);
+			AssertEqualWithinReason(result, expected);
+		}
+
 		#region Maths
 
 		[Test]
@@ -2927,102 +2987,90 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		#region Utilities
+		// Test Constant: Zero //---------------------------------------------//
 
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the Zero constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
-			Single zero = 0;
-			var v_zero = Vector4.Zero;
-
-			Assert.That(v_zero.W, Is.EqualTo(zero));
-			Assert.That(v_zero.X, Is.EqualTo(zero));
-			Assert.That(v_zero.Y, Is.EqualTo(zero));
-			Assert.That(v_zero.Z, Is.EqualTo(zero));
-
-			Assert.That(v_zero, Is.EqualTo(new Vector4(zero, zero, zero, zero)));
+			Vector4 result = Vector4.Zero;
+			Vector4 expected = new Vector4(0, 0, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the One constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
-			Single one = 1;
-			var v_one = Vector4.One;
-
-			Assert.That(v_one.W, Is.EqualTo(one));
-			Assert.That(v_one.X, Is.EqualTo(one));
-			Assert.That(v_one.Y, Is.EqualTo(one));
-			Assert.That(v_one.Z, Is.EqualTo(one));
-
-			Assert.That(v_one, Is.EqualTo(new Vector4(one, one, one, one)));
+			Vector4 result = Vector4.One;
+			Vector4 expected = new Vector4(1, 1, 1, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_x = Vector4.UnitX;
-
-			Assert.That(v_unit_x.X, Is.EqualTo(one));
-			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
-			Assert.That(v_unit_x.W, Is.EqualTo(zero));
-
-			Assert.That(v_unit_x, Is.EqualTo(new Vector4(one, zero, zero, zero)));
+			Vector4 result = Vector4.UnitX;
+			Vector4 expected = new Vector4(1, 0, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitY
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_y = Vector4.UnitY;
-
-			Assert.That(v_unit_y.X, Is.EqualTo(zero));
-			Assert.That(v_unit_y.Y, Is.EqualTo(one));
-			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
-			Assert.That(v_unit_y.W, Is.EqualTo(zero));
-
-			Assert.That(v_unit_y, Is.EqualTo(new Vector4(zero, one, zero, zero)));
+			Vector4 result = Vector4.UnitY;
+			Vector4 expected = new Vector4(0, 1, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitZ //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitZ 
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitZ ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_z = Vector4.UnitZ;
-
-			Assert.That(v_unit_z.X, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Z, Is.EqualTo(one));
-			Assert.That(v_unit_z.W, Is.EqualTo(zero));
-			
-			Assert.That(v_unit_z, Is.EqualTo(new Vector4(zero, zero, one, zero)));
+			Vector4 result = Vector4.UnitZ;
+			Vector4 expected = new Vector4(0, 0, 1, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitW //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitW
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitW ()
 		{
-			Single zero = 0;
-			Single one = 1;
-
-			var v_unit_w = Vector4.UnitW;
-
-			Assert.That(v_unit_w.X, Is.EqualTo(zero));
-			Assert.That(v_unit_w.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_w.Z, Is.EqualTo(zero));
-			Assert.That(v_unit_w.W, Is.EqualTo(one));
-
-
-			Assert.That(v_unit_w, Is.EqualTo(new Vector4(zero, zero, zero, one)));
+			Vector4 result = Vector4.UnitW;
+			Vector4 expected = new Vector4(0, 0, 0, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
-		#endregion
 		#region Maths
 
 		[Test]
@@ -3631,13 +3679,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestConstant_Zero ()
 		{
-			Double zero = 0;
-			var v_zero = Vector2.Zero;
-
-			Assert.That(v_zero.X, Is.EqualTo(zero));
-			Assert.That(v_zero.Y, Is.EqualTo(zero));
-
-			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
+			Vector2 result = Vector2.Zero;
+			Vector2 expected = new Vector2(0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Constant: One //----------------------------------------------//
@@ -3649,13 +3693,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestConstant_One ()
 		{
-			Double one = 1;
-			var v_one = Vector2.One;
-
-			Assert.That(v_one.X, Is.EqualTo(one));
-			Assert.That(v_one.Y, Is.EqualTo(one));
-
-			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
+			Vector2 result = Vector2.One;
+			Vector2 expected = new Vector2(1, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Constant: UnitX //--------------------------------------------//
@@ -3667,15 +3707,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestConstant_UnitX ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_x = Vector2.UnitX;
-
-			Assert.That(v_unit_x.X, Is.EqualTo(one));
-			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
-
-			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
+			Vector2 result = Vector2.UnitX;
+			Vector2 expected = new Vector2(1, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Constant: UnitY //--------------------------------------------//
@@ -3687,15 +3721,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestConstant_UnitY ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_y = Vector2.UnitY;
-
-			Assert.That(v_unit_y.X, Is.EqualTo(zero));
-			Assert.That(v_unit_y.Y, Is.EqualTo(one));
-			
-			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
+			Vector2 result = Vector2.UnitY;
+			Vector2 expected = new Vector2(0, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
 		// Test Static Fn: Distance //----------------------------------------//
@@ -5287,80 +5315,160 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		#region Utilities
+		// Test Constant: Zero //---------------------------------------------//
 
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Zero constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
-			Double zero = 0;
-			var v_zero = Vector3.Zero;
-
-			Assert.That(v_zero.X, Is.EqualTo(zero));
-			Assert.That(v_zero.Y, Is.EqualTo(zero));
-			Assert.That(v_zero.Z, Is.EqualTo(zero));
-			
-			Assert.That(v_zero, Is.EqualTo(new Vector3(zero, zero, zero)));
+			Vector3 result = Vector3.Zero;
+			Vector3 expected = new Vector3(0, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the One constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
-			Double one = 1;
-			var v_one = Vector3.One;
-
-			Assert.That(v_one.X, Is.EqualTo(one));
-			Assert.That(v_one.Y, Is.EqualTo(one));
-			Assert.That(v_one.Z, Is.EqualTo(one));
-
-			Assert.That(v_one, Is.EqualTo(new Vector3(one, one, one)));
+			Vector3 result = Vector3.One;
+			Vector3 expected = new Vector3(1, 1, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_x = Vector3.UnitX;
-
-			Assert.That(v_unit_x.X, Is.EqualTo(one));
-			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
-
-			Assert.That(v_unit_x, Is.EqualTo(new Vector3(one, zero, zero)));
+			Vector3 result = Vector3.UnitX;
+			Vector3 expected = new Vector3(1, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the UnitY
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_y = Vector3.UnitY;
-
-			Assert.That(v_unit_y.X, Is.EqualTo(zero));
-			Assert.That(v_unit_y.Y, Is.EqualTo(one));
-			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
-
-			Assert.That(v_unit_y, Is.EqualTo(new Vector3(zero, one, zero)));
+			Vector3 result = Vector3.UnitY;
+			Vector3 expected = new Vector3(0, 1, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitZ //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the UnitZ
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitZ ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_z = Vector3.UnitZ;
-
-			Assert.That(v_unit_z.X, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Z, Is.EqualTo(one));
-
-			Assert.That(v_unit_z, Is.EqualTo(new Vector3(zero, zero, one)));
+			Vector3 result = Vector3.UnitZ;
+			Vector3 expected = new Vector3(0, 0, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
-		#endregion
+		// Test Constant: Up //-----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Up
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Up ()
+		{
+			Vector3 result = Vector3.Up;
+			Vector3 expected = new Vector3(0, 1, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Down //---------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Down
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Down ()
+		{
+			Vector3 result = Vector3.Down;
+			Vector3 expected = new Vector3(0, -1, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Right //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Right
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Right ()
+		{
+			Vector3 result = Vector3.Right;
+			Vector3 expected = new Vector3(1, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Left //---------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Left
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Left ()
+		{
+			Vector3 result = Vector3.Left;
+			Vector3 expected = new Vector3(-1, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Forward //------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Forward
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Forward ()
+		{
+			Vector3 result = Vector3.Forward;
+			Vector3 expected = new Vector3(0, 0, -1);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Backward //-----------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector3 initilised using the Backward
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Backward ()
+		{
+			Vector3 result = Vector3.Backward;
+			Vector3 expected = new Vector3(0, 0, 1);
+			AssertEqualWithinReason(result, expected);
+		}
+
 		#region Maths
 
 		[Test]
@@ -5625,102 +5733,90 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(true, Is.EqualTo(false));
 		}
 
-		#region Utilities
+		// Test Constant: Zero //---------------------------------------------//
 
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the Zero constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
-			Double zero = 0;
-			var v_zero = Vector4.Zero;
-
-			Assert.That(v_zero.W, Is.EqualTo(zero));
-			Assert.That(v_zero.X, Is.EqualTo(zero));
-			Assert.That(v_zero.Y, Is.EqualTo(zero));
-			Assert.That(v_zero.Z, Is.EqualTo(zero));
-
-			Assert.That(v_zero, Is.EqualTo(new Vector4(zero, zero, zero, zero)));
+			Vector4 result = Vector4.Zero;
+			Vector4 expected = new Vector4(0, 0, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the One constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
-			Double one = 1;
-			var v_one = Vector4.One;
-
-			Assert.That(v_one.W, Is.EqualTo(one));
-			Assert.That(v_one.X, Is.EqualTo(one));
-			Assert.That(v_one.Y, Is.EqualTo(one));
-			Assert.That(v_one.Z, Is.EqualTo(one));
-
-			Assert.That(v_one, Is.EqualTo(new Vector4(one, one, one, one)));
+			Vector4 result = Vector4.One;
+			Vector4 expected = new Vector4(1, 1, 1, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_x = Vector4.UnitX;
-
-			Assert.That(v_unit_x.X, Is.EqualTo(one));
-			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_x.Z, Is.EqualTo(zero));
-			Assert.That(v_unit_x.W, Is.EqualTo(zero));
-
-			Assert.That(v_unit_x, Is.EqualTo(new Vector4(one, zero, zero, zero)));
+			Vector4 result = Vector4.UnitX;
+			Vector4 expected = new Vector4(1, 0, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitY
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_y = Vector4.UnitY;
-
-			Assert.That(v_unit_y.X, Is.EqualTo(zero));
-			Assert.That(v_unit_y.Y, Is.EqualTo(one));
-			Assert.That(v_unit_y.Z, Is.EqualTo(zero));
-			Assert.That(v_unit_y.W, Is.EqualTo(zero));
-
-			Assert.That(v_unit_y, Is.EqualTo(new Vector4(zero, one, zero, zero)));
+			Vector4 result = Vector4.UnitY;
+			Vector4 expected = new Vector4(0, 1, 0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitZ //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitZ 
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitZ ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_z = Vector4.UnitZ;
-
-			Assert.That(v_unit_z.X, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_z.Z, Is.EqualTo(one));
-			Assert.That(v_unit_z.W, Is.EqualTo(zero));
-			
-			Assert.That(v_unit_z, Is.EqualTo(new Vector4(zero, zero, one, zero)));
+			Vector4 result = Vector4.UnitZ;
+			Vector4 expected = new Vector4(0, 0, 1, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitW //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector4 initilised using the UnitW
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitW ()
 		{
-			Double zero = 0;
-			Double one = 1;
-
-			var v_unit_w = Vector4.UnitW;
-
-			Assert.That(v_unit_w.X, Is.EqualTo(zero));
-			Assert.That(v_unit_w.Y, Is.EqualTo(zero));
-			Assert.That(v_unit_w.Z, Is.EqualTo(zero));
-			Assert.That(v_unit_w.W, Is.EqualTo(one));
-
-
-			Assert.That(v_unit_w, Is.EqualTo(new Vector4(zero, zero, zero, one)));
+			Vector4 result = Vector4.UnitW;
+			Vector4 expected = new Vector4(0, 0, 0, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
-		#endregion
 		#region Maths
 
 		[Test]
