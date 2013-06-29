@@ -617,7 +617,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[TestFixture]
 	public class Vector2Tests
 	{
-				/// <summary>
+		/// <summary>
 		/// The random number generator used for testing.
 		/// </summary>
 		static readonly System.Random rand;
@@ -664,7 +664,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Helper to encapsulate asserting that two vectors are equal.
+		/// Helper to encapsulate asserting that two Vector2s are equal.
 		/// </summary>
 		static void AssertEqualWithinReason (Vector2 a, Vector2 b)
 		{
@@ -2475,6 +2475,66 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 	}	[TestFixture]
 	public class Vector3Tests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static Vector3Tests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Single value.
+		/// </summary>
+		static Single GetNextRandomSingle ()
+		{
+			Single randomValue = rand.NextSingle();
+
+			Single zero = 0;
+			Single multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Vector3.
+		/// </summary>
+		static Vector3 GetNextRandomVector3 ()
+		{
+			Single a = GetNextRandomSingle();
+			Single b = GetNextRandomSingle();
+			Single c = GetNextRandomSingle();
+
+			return new Vector3(a, b, c);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Vector3s are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Vector3 a, Vector3 b)
+		{
+			Single tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+			Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -2751,6 +2811,68 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 	}	[TestFixture]
 	public class Vector4Tests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static Vector4Tests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Single value.
+		/// </summary>
+		static Single GetNextRandomSingle ()
+		{
+			Single randomValue = rand.NextSingle();
+
+			Single zero = 0;
+			Single multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Vector4.
+		/// </summary>
+		static Vector4 GetNextRandomVector4 ()
+		{
+			Single a = GetNextRandomSingle();
+			Single b = GetNextRandomSingle();
+			Single c = GetNextRandomSingle();
+			Single d = GetNextRandomSingle();
+
+			return new Vector4(a, b, c, d);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Vector4s are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Vector4 a, Vector4 b)
+		{
+			Single tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+			Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
+			Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -3193,7 +3315,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[TestFixture]
 	public class Vector2Tests
 	{
-				/// <summary>
+		/// <summary>
 		/// The random number generator used for testing.
 		/// </summary>
 		static readonly System.Random rand;
@@ -3240,7 +3362,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Helper to encapsulate asserting that two vectors are equal.
+		/// Helper to encapsulate asserting that two Vector2s are equal.
 		/// </summary>
 		static void AssertEqualWithinReason (Vector2 a, Vector2 b)
 		{
@@ -5051,6 +5173,66 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 	}	[TestFixture]
 	public class Vector3Tests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static Vector3Tests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Double value.
+		/// </summary>
+		static Double GetNextRandomDouble ()
+		{
+			Double randomValue = rand.NextDouble();
+
+			Double zero = 0;
+			Double multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Vector3.
+		/// </summary>
+		static Vector3 GetNextRandomVector3 ()
+		{
+			Double a = GetNextRandomDouble();
+			Double b = GetNextRandomDouble();
+			Double c = GetNextRandomDouble();
+
+			return new Vector3(a, b, c);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Vector3s are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Vector3 a, Vector3 b)
+		{
+			Double tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+			Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -5327,6 +5509,68 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 	}	[TestFixture]
 	public class Vector4Tests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static Vector4Tests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Double value.
+		/// </summary>
+		static Double GetNextRandomDouble ()
+		{
+			Double randomValue = rand.NextDouble();
+
+			Double zero = 0;
+			Double multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Vector4.
+		/// </summary>
+		static Vector4 GetNextRandomVector4 ()
+		{
+			Double a = GetNextRandomDouble();
+			Double b = GetNextRandomDouble();
+			Double c = GetNextRandomDouble();
+			Double d = GetNextRandomDouble();
+
+			return new Vector4(a, b, c, d);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Vector4s are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Vector4 a, Vector4 b)
+		{
+			Double tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+			Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
+			Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{

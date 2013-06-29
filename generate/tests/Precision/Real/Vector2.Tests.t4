@@ -1,7 +1,7 @@
 	[TestFixture]
 	public class Vector2Tests
 	{
-		<#@ include file="Vector2.TestHelpers.t4"#>
+<#@ include file="Vector2.TestHelpers.t4"#>
 
 		// Test: StructLayout //----------------------------------------------//
 

@@ -1,6 +1,8 @@
 	[TestFixture]
 	public class Vector4Tests
 	{
+<#@ include file="Vector4.TestHelpers.t4"#>
+
 		[Test]
 		public void Test_Constructors ()
 		{
