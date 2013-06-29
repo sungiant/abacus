@@ -8,7 +8,7 @@
 		/// always gets initilised with the same seed, making the tests
 		/// behave in a deterministic manner.
 		/// </summary>
-		static Vector2Tests()
+		static Vector2Tests ()
 		{
 			rand = new System.Random(0);
 		}
@@ -16,7 +16,7 @@
 		/// <summary>
 		/// Helper function for getting the next random <#= type #> value.
 		/// </summary>
-		static <#= type #> GetNextRandom<#= type #>()
+		static <#= type #> GetNextRandom<#= type #> ()
 		{
 			<#= type #> randomValue = rand.Next<#= type #>();
 
@@ -36,7 +36,7 @@
 		/// <summary>
 		/// Helper function for getting the next random Vector2.
 		/// </summary>
-		static Vector2 GetNextRandomVector2()
+		static Vector2 GetNextRandomVector2 ()
 		{
 			<#= type #> a = GetNextRandom<#= type #>();
 			<#= type #> b = GetNextRandom<#= type #>();
@@ -47,7 +47,7 @@
 		/// <summary>
 		/// Helper to encapsulate asserting that two vectors are equal.
 		/// </summary>
-		static void AssertEqualWithinReason(Vector2 a, Vector2 b)
+		static void AssertEqualWithinReason (Vector2 a, Vector2 b)
 		{
 			<#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
 

@@ -3,7 +3,7 @@
 		/// <summary>
 		/// Helper method for testing equality.
 		/// </summary>
-		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
+		void TestEquality (Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
 			//   (a == b) == expected
@@ -88,7 +88,7 @@
 		/// <summary>
 		/// Helper method for testing addition.
 		/// </summary>
-		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
+		void TestAddition (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a + b == expected
@@ -169,7 +169,7 @@
 		/// <summary>
 		/// Helper method for testing subtraction.
 		/// </summary>
-		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
+		void TestSubtraction (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a - b == expected
@@ -239,7 +239,7 @@
 		/// <summary>
 		/// Helper method for testing negation.
 		/// </summary>
-		void TestNegation(Vector2 a, Vector2 expected )
+		void TestNegation (Vector2 a, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   -a == expected
@@ -322,7 +322,7 @@
 		/// <summary>
 		/// Helper method for testing multiplication.
 		/// </summary>
-		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
+		void TestMultiplication (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a * b == expected
@@ -386,7 +386,7 @@
 		/// <summary>
 		/// Helper method for testing division.
 		/// </summary>
-		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
+		void TestDivision (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a / b == expected

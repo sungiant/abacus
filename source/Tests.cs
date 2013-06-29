@@ -627,7 +627,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// always gets initilised with the same seed, making the tests
 		/// behave in a deterministic manner.
 		/// </summary>
-		static Vector2Tests()
+		static Vector2Tests ()
 		{
 			rand = new System.Random(0);
 		}
@@ -635,7 +635,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Single value.
 		/// </summary>
-		static Single GetNextRandomSingle()
+		static Single GetNextRandomSingle ()
 		{
 			Single randomValue = rand.NextSingle();
 
@@ -655,7 +655,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Vector2.
 		/// </summary>
-		static Vector2 GetNextRandomVector2()
+		static Vector2 GetNextRandomVector2 ()
 		{
 			Single a = GetNextRandomSingle();
 			Single b = GetNextRandomSingle();
@@ -666,7 +666,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two vectors are equal.
 		/// </summary>
-		static void AssertEqualWithinReason(Vector2 a, Vector2 b)
+		static void AssertEqualWithinReason (Vector2 a, Vector2 b)
 		{
 			Single tolerance; RealMaths.TestTolerance(out tolerance);
 
@@ -1423,7 +1423,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper method for testing equality.
 		/// </summary>
-		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
+		void TestEquality (Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
 			//   (a == b) == expected
@@ -1508,7 +1508,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper method for testing addition.
 		/// </summary>
-		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
+		void TestAddition (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a + b == expected
@@ -1589,7 +1589,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper method for testing subtraction.
 		/// </summary>
-		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
+		void TestSubtraction (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a - b == expected
@@ -1659,7 +1659,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper method for testing negation.
 		/// </summary>
-		void TestNegation(Vector2 a, Vector2 expected )
+		void TestNegation (Vector2 a, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   -a == expected
@@ -1742,7 +1742,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper method for testing multiplication.
 		/// </summary>
-		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
+		void TestMultiplication (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a * b == expected
@@ -1806,7 +1806,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper method for testing division.
 		/// </summary>
-		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
+		void TestDivision (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a / b == expected
@@ -1918,7 +1918,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep_ii()
+		public void TestStaticFn_SmoothStep_ii ()
 		{
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
@@ -2038,7 +2038,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_ii()
+		public void TestStaticFn_CatmullRom_ii ()
 		{
 			var a = new Vector2( -90, +30 );
 			var b = new Vector2( -30, -30 );
@@ -2103,7 +2103,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_iii()
+		public void TestStaticFn_CatmullRom_iii ()
 		{
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
@@ -2133,7 +2133,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// should be a straight line.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_iv()
+		public void TestStaticFn_CatmullRom_iv ()
 		{
 			var a = new Vector2( -90, -90 );
 			var b = new Vector2( -30, -30 );
@@ -2450,7 +2450,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Lerp_ii()
+		public void TestStaticFn_Lerp_ii ()
 		{
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();
@@ -3203,7 +3203,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// always gets initilised with the same seed, making the tests
 		/// behave in a deterministic manner.
 		/// </summary>
-		static Vector2Tests()
+		static Vector2Tests ()
 		{
 			rand = new System.Random(0);
 		}
@@ -3211,7 +3211,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Double value.
 		/// </summary>
-		static Double GetNextRandomDouble()
+		static Double GetNextRandomDouble ()
 		{
 			Double randomValue = rand.NextDouble();
 
@@ -3231,7 +3231,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Vector2.
 		/// </summary>
-		static Vector2 GetNextRandomVector2()
+		static Vector2 GetNextRandomVector2 ()
 		{
 			Double a = GetNextRandomDouble();
 			Double b = GetNextRandomDouble();
@@ -3242,7 +3242,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two vectors are equal.
 		/// </summary>
-		static void AssertEqualWithinReason(Vector2 a, Vector2 b)
+		static void AssertEqualWithinReason (Vector2 a, Vector2 b)
 		{
 			Double tolerance; RealMaths.TestTolerance(out tolerance);
 
@@ -3999,7 +3999,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper method for testing equality.
 		/// </summary>
-		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
+		void TestEquality (Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
 			//   (a == b) == expected
@@ -4084,7 +4084,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper method for testing addition.
 		/// </summary>
-		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
+		void TestAddition (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a + b == expected
@@ -4165,7 +4165,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper method for testing subtraction.
 		/// </summary>
-		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
+		void TestSubtraction (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a - b == expected
@@ -4235,7 +4235,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper method for testing negation.
 		/// </summary>
-		void TestNegation(Vector2 a, Vector2 expected )
+		void TestNegation (Vector2 a, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   -a == expected
@@ -4318,7 +4318,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper method for testing multiplication.
 		/// </summary>
-		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
+		void TestMultiplication (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a * b == expected
@@ -4382,7 +4382,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper method for testing division.
 		/// </summary>
-		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
+		void TestDivision (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a / b == expected
@@ -4494,7 +4494,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep_ii()
+		public void TestStaticFn_SmoothStep_ii ()
 		{
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
@@ -4614,7 +4614,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_ii()
+		public void TestStaticFn_CatmullRom_ii ()
 		{
 			var a = new Vector2( -90, +30 );
 			var b = new Vector2( -30, -30 );
@@ -4679,7 +4679,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_iii()
+		public void TestStaticFn_CatmullRom_iii ()
 		{
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
@@ -4709,7 +4709,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// should be a straight line.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_iv()
+		public void TestStaticFn_CatmullRom_iv ()
 		{
 			var a = new Vector2( -90, -90 );
 			var b = new Vector2( -30, -30 );
@@ -5026,7 +5026,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Lerp_ii()
+		public void TestStaticFn_Lerp_ii ()
 		{
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();

@@ -127,7 +127,7 @@
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Lerp_ii()
+		public void TestStaticFn_Lerp_ii ()
 		{
 			Vector2 a = GetNextRandomVector2();
 			Vector2 b = GetNextRandomVector2();

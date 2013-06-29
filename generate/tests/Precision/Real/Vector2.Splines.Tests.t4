@@ -36,7 +36,7 @@
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep_ii()
+		public void TestStaticFn_SmoothStep_ii ()
 		{
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
@@ -156,7 +156,7 @@
 		/// This tests compares results against a known example.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_ii()
+		public void TestStaticFn_CatmullRom_ii ()
 		{
 			var a = new Vector2( -90, +30 );
 			var b = new Vector2( -30, -30 );
@@ -221,7 +221,7 @@
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_iii()
+		public void TestStaticFn_CatmullRom_iii ()
 		{
 			var a = GetNextRandomVector2();
 			var b = GetNextRandomVector2();
@@ -251,7 +251,7 @@
 		/// should be a straight line.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom_iv()
+		public void TestStaticFn_CatmullRom_iv ()
 		{
 			var a = new Vector2( -90, -90 );
 			var b = new Vector2( -30, -30 );
