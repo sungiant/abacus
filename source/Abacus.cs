@@ -5708,13 +5708,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		static Vector2 ()
 		{
-			Single temp_one; RealMaths.One(out temp_one);
-			Single temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector2 ();
+			one = 		new Vector2 (1, 1);
 
-			zero = new Vector2 ();
-			one = new Vector2 (temp_one, temp_one);
-			unitX = new Vector2 (temp_one, temp_zero);
-			unitY = new Vector2 (temp_zero, temp_one);
+			unitX = 	new Vector2 (1, 0);
+			unitY = 	new Vector2 (0, 1);
 		}
 
 		/// <summary>
@@ -5726,7 +5724,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns a Vector2 with both of its components set to one.
+		/// Returns a Vector2 with all of its components set to one.
 		/// </summary>
 		public static Vector2 One
 		{
@@ -6404,114 +6402,170 @@ namespace Sungiant.Abacus.SinglePrecision
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector3 _zero;
-		static Vector3 _one;
-		static Vector3 _half;
-		static Vector3 _unitX;
-		static Vector3 _unitY;
-		static Vector3 _unitZ;
-		static Vector3 _up;
-		static Vector3 _down;
-		static Vector3 _right;
-		static Vector3 _left;
-		static Vector3 _forward;
-		static Vector3 _backward;
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to zero.
+		/// </summary>
+		static Vector3 zero;
 
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to one.
+		/// </summary>
+		static Vector3 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		static Vector3 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		static Vector3 unitY;
+
+		/// <summary>
+		/// Defines the unit vector for the z-axis.
+		/// </summary>
+		static Vector3 unitZ;
+
+		/// <summary>
+		/// Defines the unit up vector.
+		/// </summary>
+		static Vector3 up;
+
+		/// <summary>
+		/// Defines the unit down vector.
+		/// </summary>
+		static Vector3 down;
+
+		/// <summary>
+		/// Defines the unit right vector.
+		/// </summary>
+		static Vector3 right;
+
+		/// <summary>
+		/// Defines the unit left vector.
+		/// </summary>
+		static Vector3 left;
+
+		/// <summary>
+		/// Defines the unit forward vector.
+		/// </summary>
+		static Vector3 forward;
+
+		/// <summary>
+		/// Defines the unit backward vector.
+		/// </summary>
+		static Vector3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector3 ()
 		{
-			Single temp_one; RealMaths.One(out temp_one);
-			Single temp_half; RealMaths.Half(out temp_half);
-			Single temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector3 ();
+			one = 		new Vector3 ( 1,  1,  1);
 
-			_zero = new Vector3 ();
-			_one = new Vector3 (temp_one, temp_one, temp_one);
-			_half = new Vector3(temp_half, temp_half, temp_half);
-			_unitX = new Vector3 (temp_one, temp_zero, temp_zero);
-			_unitY = new Vector3 (temp_zero, temp_one, temp_zero);
-			_unitZ = new Vector3 (temp_zero, temp_zero, temp_one);
-			_up = new Vector3 (temp_zero, temp_one, temp_zero);
-			_down = new Vector3 (temp_zero, -temp_one, temp_zero);
-			_right = new Vector3 (temp_one, temp_zero, temp_zero);
-			_left = new Vector3 (-temp_one, temp_zero, temp_zero);
-			_forward = new Vector3 (temp_zero, temp_zero, -temp_one);
-			_backward = new Vector3 (temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector3 ( 1,  0,  0);
+			unitY = 	new Vector3 ( 0,  1,  0);
+			unitZ = 	new Vector3 ( 0,  0,  1);
+
+			up = 		new Vector3 ( 0,  1,  0);
+			down = 		new Vector3 ( 0, -1,  0);
+			right = 	new Vector3 ( 1,  0,  0);
+			left = 		new Vector3 (-1,  0,  0);
+			forward = 	new Vector3 ( 0,  0, -1);
+			backward = 	new Vector3 ( 0,  0,  1);
 		}
 		
-		public static Vector3 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to zero.
+		/// </summary>
+		public static Vector3 Zero
+		{
+			get { return zero; }
 		}
 		
-		public static Vector3 One {
-			get {
-				return _one;
-			}
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to one.
+		/// </summary>
+		public static Vector3 One
+		{
+			get { return one; }
 		}
 		
-		public static Vector3 Half {
-			get {
-				return _half;
-			}
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
+		public static Vector3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
+		public static Vector3 UnitY
+		{
+			get { return unitY; }
 		}
 		
-		public static Vector3 UnitX {
-			get {
-				return _unitX;
-			}
+		/// <summary>
+		/// Returns the unit vector for the z-axis.
+		/// </summary>
+		public static Vector3 UnitZ
+		{
+			get { return unitZ; }
 		}
 		
-		public static Vector3 UnitY {
-			get {
-				return _unitY;
-			}
+		/// <summary>
+		/// Returns the unit up vector.
+		/// </summary>
+		public static Vector3 Up
+		{
+			get { return up; }
 		}
 		
-		public static Vector3 UnitZ {
-			get {
-				return _unitZ;
-			}
+		/// <summary>
+		/// Returns the unit down vector.
+		/// </summary>
+		public static Vector3 Down
+		{
+			get { return down; }
 		}
 		
-		public static Vector3 Up {
-			get {
-				return _up;
-			}
+		/// <summary>
+		/// Returns the unit right vector.
+		/// </summary>
+		public static Vector3 Right
+		{
+			get { return right; }
 		}
 		
-		public static Vector3 Down {
-			get {
-				return _down;
-			}
+		/// <summary>
+		/// Returns the unit left vector.
+		/// </summary>
+		public static Vector3 Left
+		{
+			get { return left; }
 		}
 		
-		public static Vector3 Right {
-			get {
-				return _right;
-			}
+		/// <summary>
+		/// Returns the unit forward vector.
+		/// </summary>
+		public static Vector3 Forward
+		{
+			get { return forward; }
 		}
 		
-		public static Vector3 Left {
-			get {
-				return _left;
-			}
+		/// <summary>
+		/// Returns the unit backward vector.
+		/// </summary>
+		public static Vector3 Backward
+		{
+			get { return backward; }
 		}
-		
-		public static Vector3 Forward {
-			get {
-				return _forward;
-			}
-		}
-		
-		public static Vector3 Backward {
-			get {
-				return _backward;
-			}
-		}
-		
-		#endregion
 		#region Maths
 
 		public static void Distance (ref Vector3 value1, ref Vector3 value2, out Single result)
@@ -6962,65 +7016,100 @@ namespace Sungiant.Abacus.SinglePrecision
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector4 _zero;
-		static Vector4 _one;
-		static Vector4 _unitX;
-		static Vector4 _unitY;
-		static Vector4 _unitZ;
-		static Vector4 _unitW;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		static Vector4 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		static Vector4 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		static Vector4 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		static Vector4 unitY;
+
+		/// <summary>
+		/// Defines the unit vector for the z-axis.
+		/// </summary>
+		static Vector4 unitZ;
+
+		/// <summary>
+		/// Defines the unit vector for the w-axis.
+		/// </summary>
+		static Vector4 unitW;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector4 ()
 		{
-			Single temp_one; RealMaths.One(out temp_one);
-			Single temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector4 ();
+			one = 		new Vector4 (1, 1, 1, 1);
 
-			_zero = new Vector4 ();
-			_one = new Vector4 (temp_one, temp_one, temp_one, temp_one);
-			_unitX = new Vector4 (temp_one, temp_zero, temp_zero, temp_zero);
-			_unitY = new Vector4 (temp_zero, temp_one, temp_zero, temp_zero);
-			_unitZ = new Vector4 (temp_zero, temp_zero, temp_one, temp_zero);
-			_unitW = new Vector4 (temp_zero, temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector4 (1, 0, 0, 0);
+			unitY = 	new Vector4 (0, 1, 0, 0);
+			unitZ = 	new Vector4 (0, 0, 1, 0);
+			unitW = 	new Vector4 (0, 0, 0, 1);
 		}
 
-		public static Vector4 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to zero.
+		/// </summary>
+		public static Vector4 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to one.
+		/// </summary>
+		public static Vector4 One
+		{
+			get { return one; }
 		}
 		
-		public static Vector4 One {
-			get {
-				return _one;
-			}
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
+		public static Vector4 UnitX
+		{
+			get { return unitX; }
 		}
 		
-		public static Vector4 UnitX {
-			get {
-				return _unitX;
-			}
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
+		public static Vector4 UnitY
+		{
+			get { return unitY; }
 		}
 		
-		public static Vector4 UnitY {
-			get {
-				return _unitY;
-			}
+		/// <summary>
+		/// Returns the unit vector for the z-axis.
+		/// </summary>
+		public static Vector4 UnitZ
+		{
+			get { return unitZ; }
 		}
 		
-		public static Vector4 UnitZ {
-			get {
-				return _unitZ;
-			}
+		/// <summary>
+		/// Returns the unit vector for the w-axis.
+		/// </summary>
+		public static Vector4 UnitW
+		{
+			get { return unitW; }
 		}
 		
-		public static Vector4 UnitW {
-			get {
-				return _unitW;
-			}
-		}
-		
-		#endregion
 		#region Maths
 
 		public static void Distance (ref Vector4 value1, ref Vector4 value2, out Single result)
@@ -9826,13 +9915,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		static Vector2 ()
 		{
-			Double temp_one; RealMaths.One(out temp_one);
-			Double temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector2 ();
+			one = 		new Vector2 (1, 1);
 
-			zero = new Vector2 ();
-			one = new Vector2 (temp_one, temp_one);
-			unitX = new Vector2 (temp_one, temp_zero);
-			unitY = new Vector2 (temp_zero, temp_one);
+			unitX = 	new Vector2 (1, 0);
+			unitY = 	new Vector2 (0, 1);
 		}
 
 		/// <summary>
@@ -9844,7 +9931,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns a Vector2 with both of its components set to one.
+		/// Returns a Vector2 with all of its components set to one.
 		/// </summary>
 		public static Vector2 One
 		{
@@ -10522,114 +10609,170 @@ namespace Sungiant.Abacus.DoublePrecision
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector3 _zero;
-		static Vector3 _one;
-		static Vector3 _half;
-		static Vector3 _unitX;
-		static Vector3 _unitY;
-		static Vector3 _unitZ;
-		static Vector3 _up;
-		static Vector3 _down;
-		static Vector3 _right;
-		static Vector3 _left;
-		static Vector3 _forward;
-		static Vector3 _backward;
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to zero.
+		/// </summary>
+		static Vector3 zero;
 
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to one.
+		/// </summary>
+		static Vector3 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		static Vector3 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		static Vector3 unitY;
+
+		/// <summary>
+		/// Defines the unit vector for the z-axis.
+		/// </summary>
+		static Vector3 unitZ;
+
+		/// <summary>
+		/// Defines the unit up vector.
+		/// </summary>
+		static Vector3 up;
+
+		/// <summary>
+		/// Defines the unit down vector.
+		/// </summary>
+		static Vector3 down;
+
+		/// <summary>
+		/// Defines the unit right vector.
+		/// </summary>
+		static Vector3 right;
+
+		/// <summary>
+		/// Defines the unit left vector.
+		/// </summary>
+		static Vector3 left;
+
+		/// <summary>
+		/// Defines the unit forward vector.
+		/// </summary>
+		static Vector3 forward;
+
+		/// <summary>
+		/// Defines the unit backward vector.
+		/// </summary>
+		static Vector3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector3 ()
 		{
-			Double temp_one; RealMaths.One(out temp_one);
-			Double temp_half; RealMaths.Half(out temp_half);
-			Double temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector3 ();
+			one = 		new Vector3 ( 1,  1,  1);
 
-			_zero = new Vector3 ();
-			_one = new Vector3 (temp_one, temp_one, temp_one);
-			_half = new Vector3(temp_half, temp_half, temp_half);
-			_unitX = new Vector3 (temp_one, temp_zero, temp_zero);
-			_unitY = new Vector3 (temp_zero, temp_one, temp_zero);
-			_unitZ = new Vector3 (temp_zero, temp_zero, temp_one);
-			_up = new Vector3 (temp_zero, temp_one, temp_zero);
-			_down = new Vector3 (temp_zero, -temp_one, temp_zero);
-			_right = new Vector3 (temp_one, temp_zero, temp_zero);
-			_left = new Vector3 (-temp_one, temp_zero, temp_zero);
-			_forward = new Vector3 (temp_zero, temp_zero, -temp_one);
-			_backward = new Vector3 (temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector3 ( 1,  0,  0);
+			unitY = 	new Vector3 ( 0,  1,  0);
+			unitZ = 	new Vector3 ( 0,  0,  1);
+
+			up = 		new Vector3 ( 0,  1,  0);
+			down = 		new Vector3 ( 0, -1,  0);
+			right = 	new Vector3 ( 1,  0,  0);
+			left = 		new Vector3 (-1,  0,  0);
+			forward = 	new Vector3 ( 0,  0, -1);
+			backward = 	new Vector3 ( 0,  0,  1);
 		}
 		
-		public static Vector3 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to zero.
+		/// </summary>
+		public static Vector3 Zero
+		{
+			get { return zero; }
 		}
 		
-		public static Vector3 One {
-			get {
-				return _one;
-			}
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to one.
+		/// </summary>
+		public static Vector3 One
+		{
+			get { return one; }
 		}
 		
-		public static Vector3 Half {
-			get {
-				return _half;
-			}
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
+		public static Vector3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
+		public static Vector3 UnitY
+		{
+			get { return unitY; }
 		}
 		
-		public static Vector3 UnitX {
-			get {
-				return _unitX;
-			}
+		/// <summary>
+		/// Returns the unit vector for the z-axis.
+		/// </summary>
+		public static Vector3 UnitZ
+		{
+			get { return unitZ; }
 		}
 		
-		public static Vector3 UnitY {
-			get {
-				return _unitY;
-			}
+		/// <summary>
+		/// Returns the unit up vector.
+		/// </summary>
+		public static Vector3 Up
+		{
+			get { return up; }
 		}
 		
-		public static Vector3 UnitZ {
-			get {
-				return _unitZ;
-			}
+		/// <summary>
+		/// Returns the unit down vector.
+		/// </summary>
+		public static Vector3 Down
+		{
+			get { return down; }
 		}
 		
-		public static Vector3 Up {
-			get {
-				return _up;
-			}
+		/// <summary>
+		/// Returns the unit right vector.
+		/// </summary>
+		public static Vector3 Right
+		{
+			get { return right; }
 		}
 		
-		public static Vector3 Down {
-			get {
-				return _down;
-			}
+		/// <summary>
+		/// Returns the unit left vector.
+		/// </summary>
+		public static Vector3 Left
+		{
+			get { return left; }
 		}
 		
-		public static Vector3 Right {
-			get {
-				return _right;
-			}
+		/// <summary>
+		/// Returns the unit forward vector.
+		/// </summary>
+		public static Vector3 Forward
+		{
+			get { return forward; }
 		}
 		
-		public static Vector3 Left {
-			get {
-				return _left;
-			}
+		/// <summary>
+		/// Returns the unit backward vector.
+		/// </summary>
+		public static Vector3 Backward
+		{
+			get { return backward; }
 		}
-		
-		public static Vector3 Forward {
-			get {
-				return _forward;
-			}
-		}
-		
-		public static Vector3 Backward {
-			get {
-				return _backward;
-			}
-		}
-		
-		#endregion
 		#region Maths
 
 		public static void Distance (ref Vector3 value1, ref Vector3 value2, out Double result)
@@ -11080,65 +11223,100 @@ namespace Sungiant.Abacus.DoublePrecision
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector4 _zero;
-		static Vector4 _one;
-		static Vector4 _unitX;
-		static Vector4 _unitY;
-		static Vector4 _unitZ;
-		static Vector4 _unitW;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		static Vector4 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		static Vector4 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		static Vector4 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		static Vector4 unitY;
+
+		/// <summary>
+		/// Defines the unit vector for the z-axis.
+		/// </summary>
+		static Vector4 unitZ;
+
+		/// <summary>
+		/// Defines the unit vector for the w-axis.
+		/// </summary>
+		static Vector4 unitW;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector4 ()
 		{
-			Double temp_one; RealMaths.One(out temp_one);
-			Double temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector4 ();
+			one = 		new Vector4 (1, 1, 1, 1);
 
-			_zero = new Vector4 ();
-			_one = new Vector4 (temp_one, temp_one, temp_one, temp_one);
-			_unitX = new Vector4 (temp_one, temp_zero, temp_zero, temp_zero);
-			_unitY = new Vector4 (temp_zero, temp_one, temp_zero, temp_zero);
-			_unitZ = new Vector4 (temp_zero, temp_zero, temp_one, temp_zero);
-			_unitW = new Vector4 (temp_zero, temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector4 (1, 0, 0, 0);
+			unitY = 	new Vector4 (0, 1, 0, 0);
+			unitZ = 	new Vector4 (0, 0, 1, 0);
+			unitW = 	new Vector4 (0, 0, 0, 1);
 		}
 
-		public static Vector4 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to zero.
+		/// </summary>
+		public static Vector4 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to one.
+		/// </summary>
+		public static Vector4 One
+		{
+			get { return one; }
 		}
 		
-		public static Vector4 One {
-			get {
-				return _one;
-			}
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
+		public static Vector4 UnitX
+		{
+			get { return unitX; }
 		}
 		
-		public static Vector4 UnitX {
-			get {
-				return _unitX;
-			}
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
+		public static Vector4 UnitY
+		{
+			get { return unitY; }
 		}
 		
-		public static Vector4 UnitY {
-			get {
-				return _unitY;
-			}
+		/// <summary>
+		/// Returns the unit vector for the z-axis.
+		/// </summary>
+		public static Vector4 UnitZ
+		{
+			get { return unitZ; }
 		}
 		
-		public static Vector4 UnitZ {
-			get {
-				return _unitZ;
-			}
+		/// <summary>
+		/// Returns the unit vector for the w-axis.
+		/// </summary>
+		public static Vector4 UnitW
+		{
+			get { return unitW; }
 		}
 		
-		public static Vector4 UnitW {
-			get {
-				return _unitW;
-			}
-		}
-		
-		#endregion
 		#region Maths
 
 		public static void Distance (ref Vector4 value1, ref Vector4 value2, out Double result)

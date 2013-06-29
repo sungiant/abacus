@@ -1,59 +1,94 @@
-﻿		#region Constants
+﻿		// Constants //-------------------------------------------------------//
 
-		static Vector4 _zero;
-		static Vector4 _one;
-		static Vector4 _unitX;
-		static Vector4 _unitY;
-		static Vector4 _unitZ;
-		static Vector4 _unitW;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		static Vector4 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		static Vector4 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		static Vector4 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		static Vector4 unitY;
+
+		/// <summary>
+		/// Defines the unit vector for the z-axis.
+		/// </summary>
+		static Vector4 unitZ;
+
+		/// <summary>
+		/// Defines the unit vector for the w-axis.
+		/// </summary>
+		static Vector4 unitW;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector4 ()
 		{
-			<#= type #> temp_one; RealMaths.One(out temp_one);
-			<#= type #> temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector4 ();
+			one = 		new Vector4 (1, 1, 1, 1);
 
-			_zero = new Vector4 ();
-			_one = new Vector4 (temp_one, temp_one, temp_one, temp_one);
-			_unitX = new Vector4 (temp_one, temp_zero, temp_zero, temp_zero);
-			_unitY = new Vector4 (temp_zero, temp_one, temp_zero, temp_zero);
-			_unitZ = new Vector4 (temp_zero, temp_zero, temp_one, temp_zero);
-			_unitW = new Vector4 (temp_zero, temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector4 (1, 0, 0, 0);
+			unitY = 	new Vector4 (0, 1, 0, 0);
+			unitZ = 	new Vector4 (0, 0, 1, 0);
+			unitW = 	new Vector4 (0, 0, 0, 1);
 		}
 
-		public static Vector4 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to zero.
+		/// </summary>
+		public static Vector4 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to one.
+		/// </summary>
+		public static Vector4 One
+		{
+			get { return one; }
 		}
 		
-		public static Vector4 One {
-			get {
-				return _one;
-			}
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
+		public static Vector4 UnitX
+		{
+			get { return unitX; }
 		}
 		
-		public static Vector4 UnitX {
-			get {
-				return _unitX;
-			}
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
+		public static Vector4 UnitY
+		{
+			get { return unitY; }
 		}
 		
-		public static Vector4 UnitY {
-			get {
-				return _unitY;
-			}
+		/// <summary>
+		/// Returns the unit vector for the z-axis.
+		/// </summary>
+		public static Vector4 UnitZ
+		{
+			get { return unitZ; }
 		}
 		
-		public static Vector4 UnitZ {
-			get {
-				return _unitZ;
-			}
+		/// <summary>
+		/// Returns the unit vector for the w-axis.
+		/// </summary>
+		public static Vector4 UnitW
+		{
+			get { return unitW; }
 		}
 		
-		public static Vector4 UnitW {
-			get {
-				return _unitW;
-			}
-		}
-		
-		#endregion
