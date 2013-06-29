@@ -5818,7 +5818,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Returns the reflection of a vector off a surface that has the specified normal.
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
 		/// </summary>
 		public static void Reflect (
 			ref Vector2 vector, ref Vector2 normal, out Vector2 result)
@@ -5828,12 +5829,18 @@ namespace Sungiant.Abacus.SinglePrecision
 				throw new ArgumentOutOfRangeException();
 			}
 
-			Single dot; Dot(ref vector, ref normal, out dot);
+			// dot = vector . normal 
+			//     = |vector| * [normal] * cosθ
+			//     = |vector| * cosθ
+			//     = adjacent
+			Single dot;
+			Dot(ref vector, ref normal, out dot);
 
-			Single two = 2;
+			Single twoDot = dot * 2;
 
-			result.X = vector.X - ((two * dot) * normal.X);
-			result.Y = vector.Y - ((two * dot) * normal.Y);
+			// Starting vector minus twice the length of the adjcent projected 
+			// along the normal.
+			result = vector - (twoDot * normal);
 		}
 
 		/// <summary>
@@ -9918,7 +9925,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Returns the reflection of a vector off a surface that has the specified normal.
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
 		/// </summary>
 		public static void Reflect (
 			ref Vector2 vector, ref Vector2 normal, out Vector2 result)
@@ -9928,12 +9936,18 @@ namespace Sungiant.Abacus.DoublePrecision
 				throw new ArgumentOutOfRangeException();
 			}
 
-			Double dot; Dot(ref vector, ref normal, out dot);
+			// dot = vector . normal 
+			//     = |vector| * [normal] * cosθ
+			//     = |vector| * cosθ
+			//     = adjacent
+			Double dot;
+			Dot(ref vector, ref normal, out dot);
 
-			Double two = 2;
+			Double twoDot = dot * 2;
 
-			result.X = vector.X - ((two * dot) * normal.X);
-			result.Y = vector.Y - ((two * dot) * normal.Y);
+			// Starting vector minus twice the length of the adjcent projected 
+			// along the normal.
+			result = vector - (twoDot * normal);
 		}
 
 		/// <summary>

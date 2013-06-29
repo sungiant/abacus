@@ -73,17 +73,37 @@
 			<#= type #> j; RealMaths.FromFraction( 165,  8, out j); // 20.625
 			<#= type #> k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
+			<#= type #> a0 = 0;
+			<#= type #> a1 = (one * 1) / 8;
+			<#= type #> a2 = (one * 2) / 8;
+			<#= type #> a3 = (one * 3) / 8;
+			<#= type #> a4 = (one * 4) / 8;
+			<#= type #> a5 = (one * 5) / 8;
+			<#= type #> a6 = (one * 6) / 8;
+			<#= type #> a7 = (one * 7) / 8;
+			<#= type #> a8 = 1;
+
+			Vector2 r0 = a;
+			Vector2 r1 = new Vector2( -i, -i );
+			Vector2 r2 = new Vector2( -j, -j );
+			Vector2 r3 = new Vector2( -k, -k );
+			Vector2 r4 = Vector2.Zero;
+			Vector2 r5 = new Vector2(  k,  k );
+			Vector2 r6 = new Vector2(  j,  j );
+			Vector2 r7 = new Vector2(  i,  i );
+			Vector2 r8 = b;
+
 			var knownResults = new List<Tuple<<#= type #>, Vector2>>
 			{
-				new Tuple<<#= type #>, Vector2>( 0, a ),
-				new Tuple<<#= type #>, Vector2>( (one * 1) / 8, new Vector2( -i, -i ) ),
-				new Tuple<<#= type #>, Vector2>( (one * 2) / 8, new Vector2( -j, -j ) ),
-				new Tuple<<#= type #>, Vector2>( (one * 3) / 8, new Vector2( -k, -k ) ),
-				new Tuple<<#= type #>, Vector2>( (one * 4) / 8, Vector2.Zero ),
-				new Tuple<<#= type #>, Vector2>( (one * 5) / 8, new Vector2(  k,  k ) ),
-				new Tuple<<#= type #>, Vector2>( (one * 6) / 8, new Vector2(  j,  j ) ),
-				new Tuple<<#= type #>, Vector2>( (one * 7) / 8, new Vector2(  i,  i ) ),
-				new Tuple<<#= type #>, Vector2>( 1, b ),
+				new Tuple<<#= type #>, Vector2>( a0, r0 ),
+				new Tuple<<#= type #>, Vector2>( a1, r1 ),
+				new Tuple<<#= type #>, Vector2>( a2, r2 ),
+				new Tuple<<#= type #>, Vector2>( a3, r3 ),
+				new Tuple<<#= type #>, Vector2>( a4, r4 ),
+				new Tuple<<#= type #>, Vector2>( a5, r5 ),
+				new Tuple<<#= type #>, Vector2>( a6, r6 ),
+				new Tuple<<#= type #>, Vector2>( a7, r7 ),
+				new Tuple<<#= type #>, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -152,17 +172,37 @@
 			<#= type #> y = (<#= type #>) 15   / (<#= type #>)  2; // 14.5
 			<#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
 
+			<#= type #> a0 = 0;
+			<#= type #> a1 = (one * 1) / 8;
+			<#= type #> a2 = (one * 2) / 8;
+			<#= type #> a3 = (one * 3) / 8;
+			<#= type #> a4 = (one * 4) / 8;
+			<#= type #> a5 = (one * 5) / 8;
+			<#= type #> a6 = (one * 6) / 8;
+			<#= type #> a7 = (one * 7) / 8;
+			<#= type #> a8 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( -w, -x );
+			Vector2 r2 = new Vector2( -u, -v );
+			Vector2 r3 = new Vector2( -y, -z );
+			Vector2 r4 = Vector2.Zero;
+			Vector2 r5 = new Vector2(  y,  z );
+			Vector2 r6 = new Vector2(  u,  v );
+			Vector2 r7 = new Vector2(  w,  x );
+			Vector2 r8 = c;
+
 			var knownResults = new List<Tuple<<#= type #>, Vector2>>
 			{
-				new Tuple<<#= type #>, Vector2>( 0, b ),
-				new Tuple<<#= type #>, Vector2>( one * 1 / 8, new Vector2( -w, -x ) ),
-				new Tuple<<#= type #>, Vector2>( one * 2 / 8, new Vector2( -u, -v ) ),
-				new Tuple<<#= type #>, Vector2>( one * 3 / 8, new Vector2( -y, -z ) ),
-				new Tuple<<#= type #>, Vector2>( one * 4 / 8, Vector2.Zero ),
-				new Tuple<<#= type #>, Vector2>( one * 5 / 8, new Vector2(  y,  z ) ),
-				new Tuple<<#= type #>, Vector2>( one * 6 / 8, new Vector2(  u,  v ) ),
-				new Tuple<<#= type #>, Vector2>( one * 7 / 8, new Vector2(  w,  x ) ),
-				new Tuple<<#= type #>, Vector2>( 1, c ),
+				new Tuple<<#= type #>, Vector2>( a0, r0 ),
+				new Tuple<<#= type #>, Vector2>( a1, r1 ),
+				new Tuple<<#= type #>, Vector2>( a2, r2 ),
+				new Tuple<<#= type #>, Vector2>( a3, r3 ),
+				new Tuple<<#= type #>, Vector2>( a4, r4 ),
+				new Tuple<<#= type #>, Vector2>( a5, r5 ),
+				new Tuple<<#= type #>, Vector2>( a6, r6 ),
+				new Tuple<<#= type #>, Vector2>( a7, r7 ),
+				new Tuple<<#= type #>, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -218,17 +258,27 @@
 			var c = new Vector2( +30, +30 );
 			var d = new Vector2( +90, +90 );
 
-			<#= type #> half; RealMaths.Half(out half);
-			<#= type #> quarter = half / 2;
-			<#= type #> threeQuarters = quarter * 3;
+			<#= type #> one = 1;
+
+			<#= type #> a0 = 0;
+			<#= type #> a1 = (one * 1) / 4;
+			<#= type #> a2 = (one * 2) / 4;
+			<#= type #> a3 = (one * 3) / 4;
+			<#= type #> a4 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( -15, -15 );
+			Vector2 r2 = Vector2.Zero;
+			Vector2 r3 = new Vector2( 15, 15 );
+			Vector2 r4 = c;
 
 			var knownResults = new List<Tuple<<#= type #>, Vector2>>
 			{
-				new Tuple<<#= type #>, Vector2>( 0, b ),
-				new Tuple<<#= type #>, Vector2>( quarter, new Vector2( -15, -15 ) ),
-				new Tuple<<#= type #>, Vector2>( half, Vector2.Zero ),
-				new Tuple<<#= type #>, Vector2>( threeQuarters, new Vector2( 15, 15 ) ),
-				new Tuple<<#= type #>, Vector2>( 1, c ),
+				new Tuple<<#= type #>, Vector2>( a0, r0 ),
+				new Tuple<<#= type #>, Vector2>( a1, r1 ),
+				new Tuple<<#= type #>, Vector2>( a2, r2 ),
+				new Tuple<<#= type #>, Vector2>( a3, r3 ),
+				new Tuple<<#= type #>, Vector2>( a4, r4 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -345,17 +395,37 @@
 			<#= type #> q = (<#= type #>) 45 / (<#= type #>) 128; // 0.3515625
 			<#= type #> r = (<#= type #>) 45 / (<#= type #>) 256; // 0.17578125
 
+			<#= type #> a0 = 0;
+			<#= type #> a1 = (one * 1) / 8;
+			<#= type #> a2 = (one * 2) / 8;
+			<#= type #> a3 = (one * 3) / 8;
+			<#= type #> a4 = (one * 4) / 8;
+			<#= type #> a5 = (one * 5) / 8;
+			<#= type #> a6 = (one * 6) / 8;
+			<#= type #> a7 = (one * 7) / 8;
+			<#= type #> a8 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( e, -f );
+			Vector2 r2 = new Vector2( g, -h );
+			Vector2 r3 = new Vector2( i, -j );
+			Vector2 r4 = new Vector2( k, -l );
+			Vector2 r5 = new Vector2( m, -n );
+			Vector2 r6 = new Vector2( o, -p );
+			Vector2 r7 = new Vector2( -q, r );
+			Vector2 r8 = c;
+
 			var knownResults = new List<Tuple<<#= type #>, Vector2>>
 			{
-				new Tuple<<#= type #>, Vector2>( 0, b ),
-				new Tuple<<#= type #>, Vector2>( one * 1 / 8, new Vector2( e, -f ) ),
-				new Tuple<<#= type #>, Vector2>( one * 2 / 8, new Vector2( g, -h ) ),
-				new Tuple<<#= type #>, Vector2>( one * 3 / 8, new Vector2( i, -j ) ),
-				new Tuple<<#= type #>, Vector2>( one * 4 / 8, new Vector2( k, -l ) ),
-				new Tuple<<#= type #>, Vector2>( one * 5 / 8, new Vector2( m, -n ) ),
-				new Tuple<<#= type #>, Vector2>( one * 6 / 8, new Vector2( o, -p ) ),
-				new Tuple<<#= type #>, Vector2>( one * 7 / 8, new Vector2( -q, r ) ),
-				new Tuple<<#= type #>, Vector2>( 1, c ),
+				new Tuple<<#= type #>, Vector2>( a0, r0 ),
+				new Tuple<<#= type #>, Vector2>( a1, r1 ),
+				new Tuple<<#= type #>, Vector2>( a2, r2 ),
+				new Tuple<<#= type #>, Vector2>( a3, r3 ),
+				new Tuple<<#= type #>, Vector2>( a4, r4 ),
+				new Tuple<<#= type #>, Vector2>( a5, r5 ),
+				new Tuple<<#= type #>, Vector2>( a6, r6 ),
+				new Tuple<<#= type #>, Vector2>( a7, r7 ),
+				new Tuple<<#= type #>, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )

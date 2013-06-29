@@ -1003,73 +1003,72 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Static Fn: Distance //----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of known examples, the Distance method
+		/// yeilds the correct results.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_i ()
 		{
-			Vector2 a = new Vector2(0, 4);
-			Vector2 b = new Vector2(3, 0);
+			{
+				Vector2 a = new Vector2(0, 4);
+				Vector2 b = new Vector2(3, 0);
 
-			Single expected = 5;
-			Single result; Vector2.Distance(ref a, ref b, out result);
+				Single expected = 5;
+				Single result;
 
-			Assert.That(result, Is.EqualTo(expected));
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = new Vector2(0, -4);
+				Vector2 b = new Vector2(3, 0);
+
+				Single expected = 5;
+				Single result;
+
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = new Vector2(0, -4);
+				Vector2 b = new Vector2(-3, 0);
+
+				Single expected = 5;
+				Single result;
+
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = Vector2.Zero;
+
+				Single expected = 0;
+				Single result;
+
+				Vector2.Distance(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Distance method yeilds the same results as those obtained from
+		/// performing a manual calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_ii ()
 		{
-			Vector2 a = new Vector2(0, -4);
-			Vector2 b = new Vector2(3, 0);
-
-			Single expected = 5;
-			Single result; Vector2.Distance(ref a, ref b, out result);
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Distance_iii ()
-		{
-			Vector2 a = new Vector2(0, -4);
-			Vector2 b = new Vector2(-3, 0);
-
-			Single expected = 5;
-			Single result; Vector2.Distance(ref a, ref b, out result);
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Distance_iv ()
-		{
-			Vector2 a = Vector2.Zero;
-
-			Single expected = 0;
-
-			Assert.That(a.Length(), Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Distance_v ()
-		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
 				Vector2 a = GetNextRandomVector2();
-				
+
 				Single expected = 
 					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
@@ -1080,23 +1079,41 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Static Fn: DistanceSquared //---------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of known examples, the DistanceSquared 
+		/// method yeilds the correct results.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_i ()
 		{
-			Vector2 a = new Vector2(0, 4);
-			Vector2 b = new Vector2(3, 0);
+			{
+				Vector2 a = new Vector2(0, 4);
+				Vector2 b = new Vector2(3, 0);
 
-			Single expected = 25;
-			Single result;
-			Vector2.DistanceSquared(ref a, ref b, out result);
+				Single expected = 25;
+				Single result;
 
-			Assert.That(result, Is.EqualTo(expected));
+				Vector2.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = Vector2.Zero;
+
+				Single expected = 0;
+				Single result;
+
+				Vector2.DistanceSquared(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated examples, the 
+		/// DistanceSquared method yeilds the same results as those obtained 
+		/// from performing a manual calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_ii ()
@@ -1105,9 +1122,12 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
+
 				Vector2 c = b - a;
+
 				Single expected = (c.X * c.X) + (c.Y * c.Y);
 				Single result;
+
 				Vector2.DistanceSquared(ref a, ref b, out result);
 
 				Assert.That(result, Is.EqualTo(expected));
@@ -1117,7 +1137,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Static Fn: Dot //---------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Dot method yeilds the same results as those obtained from
+		/// performing a manual calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_i ()
@@ -1126,6 +1148,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
+
 				Single expected = (a.X * b.X) + (a.Y * b.Y);
 				Single result; Vector2.Dot(ref a, ref b, out result);
 
@@ -1134,7 +1157,8 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that two unit vectors pointing in opposing directions yeild a
+		/// dot product of negative one.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_ii ()
@@ -1149,18 +1173,33 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that two unit vectors pointing in the same direction yeild a
+		/// dot product of one.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_iii ()
 		{
-			Vector2 a = new Vector2(100, 0);
-			Vector2 b = new Vector2(10, 0);
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(1, 0);
 
 			Single expected = 1;
 			Single result; Vector2.Dot(ref a, ref b, out result);
 
-			result = result / (10 * 100);
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that two perpendicular unit vectors yeild a dot product of 
+		/// zero.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_iv ()
+		{
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(0, 1);
+
+			Single expected = 0;
+			Single result; Vector2.Dot(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
@@ -1168,34 +1207,45 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		// Test Static Fn: Normalise //---------------------------------------//
 
 		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Normalise_i()
-		{
-			Vector2 a = Vector2.Zero;
-
-			Vector2 b; Vector2.Normalise(ref a, out b);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Normalise_ii()
-		{
-			Vector2 a = new Vector2(
-				Single.MaxValue, 
-				Single.MaxValue);
-
-			Vector2 b; Vector2.Normalise(ref a, out b);
-		}
-
-		/// <summary>
-		/// 
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Normalise_iii ()
+		public void TestStaticFn_Normalise_i()
+		{
+			{
+				Vector2 a = Vector2.Zero;
+
+				Vector2 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector2.Normalise(ref a, out b)
+				);
+			}
+
+			{
+				Vector2 a = new Vector2(
+					Single.MaxValue, 
+					Single.MaxValue);
+
+				Vector2 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector2.Normalise(ref a, out b)
+				);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a unit vector (with length equal to one);
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_ii ()
 		{
 			Single epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -1206,22 +1256,133 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2 b; Vector2.Normalise(ref a, out b);
 				
 				Single expected = 1;
-
 				Single result = b.Length();
 
 				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a vector, which when multipled by the 
+		/// length of the original vector results in the same vector as the
+		/// original vector;
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_iii ()
+		{
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Single l = a.Length();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+				
+				Vector2 expected = a;
+				Vector2 result = b * l;
+
+				AssertEqualWithinReason(result, expected);
+			}
+		}
+
 		// Test Static Fn: Reflect //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of known examples, the Reflect method
+		/// yeilds the correct results.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That (true, Is.EqualTo (false));
+			{
+				Vector2 incident = new Vector2(20, -5);
+
+				Vector2 normal = new Vector2(1, -1);
+				Vector2.Normalise(ref normal, out normal);
+
+				Vector2 expected = new Vector2(-5, 20);
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector2 incident = new Vector2(20, -5);
+
+				Vector2 normal = new Vector2(2, -1);
+				Vector2.Normalise(ref normal, out normal);
+
+				Vector2 expected = new Vector2(-16, 13);
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector2 incident = Vector2.Zero;
+
+				Vector2 normal = new Vector2(1, 0);
+
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, Vector2.Zero);
+			}
+		}
+
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Reflect method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Reflect_ii ()
+		{
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b = GetNextRandomVector2();
+
+				Vector2.Normalise(ref b, out b);
+
+				Vector2 result;
+				Vector2.Reflect(ref a, ref b, out result);
+				
+				Single dot;
+				Vector2.Dot(ref a, ref b, out dot);
+
+				Vector2 expected = a - (2 * dot * b);
+
+				AssertEqualWithinReason(result, expected);
+			}
+		}
+
+		/// <summary>
+		/// Assert that an argument exception is thrown if the value passed in
+		/// to the normal parameter is not normalised.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Reflect_iii ()
+		{
+			Vector2 incident = GetNextRandomVector2();
+			Vector2 normal = new Vector2(12, -241);
+
+			Vector2 result; 
+
+			Assert.Throws(
+				typeof(ArgumentOutOfRangeException), 
+				() => 
+				Vector2.Reflect(ref incident, ref normal, out result)
+			);
 		}
 
 		// Test Static Fn: TransformMatrix44 //-------------------------------//
@@ -1794,17 +1955,37 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Single j; RealMaths.FromFraction( 165,  8, out j); // 20.625
 			Single k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector2 r0 = a;
+			Vector2 r1 = new Vector2( -i, -i );
+			Vector2 r2 = new Vector2( -j, -j );
+			Vector2 r3 = new Vector2( -k, -k );
+			Vector2 r4 = Vector2.Zero;
+			Vector2 r5 = new Vector2(  k,  k );
+			Vector2 r6 = new Vector2(  j,  j );
+			Vector2 r7 = new Vector2(  i,  i );
+			Vector2 r8 = b;
+
 			var knownResults = new List<Tuple<Single, Vector2>>
 			{
-				new Tuple<Single, Vector2>( 0, a ),
-				new Tuple<Single, Vector2>( (one * 1) / 8, new Vector2( -i, -i ) ),
-				new Tuple<Single, Vector2>( (one * 2) / 8, new Vector2( -j, -j ) ),
-				new Tuple<Single, Vector2>( (one * 3) / 8, new Vector2( -k, -k ) ),
-				new Tuple<Single, Vector2>( (one * 4) / 8, Vector2.Zero ),
-				new Tuple<Single, Vector2>( (one * 5) / 8, new Vector2(  k,  k ) ),
-				new Tuple<Single, Vector2>( (one * 6) / 8, new Vector2(  j,  j ) ),
-				new Tuple<Single, Vector2>( (one * 7) / 8, new Vector2(  i,  i ) ),
-				new Tuple<Single, Vector2>( 1, b ),
+				new Tuple<Single, Vector2>( a0, r0 ),
+				new Tuple<Single, Vector2>( a1, r1 ),
+				new Tuple<Single, Vector2>( a2, r2 ),
+				new Tuple<Single, Vector2>( a3, r3 ),
+				new Tuple<Single, Vector2>( a4, r4 ),
+				new Tuple<Single, Vector2>( a5, r5 ),
+				new Tuple<Single, Vector2>( a6, r6 ),
+				new Tuple<Single, Vector2>( a7, r7 ),
+				new Tuple<Single, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -1873,17 +2054,37 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Single y = (Single) 15   / (Single)  2; // 14.5
 			Single z = (Single) 705  / (Single) 64; // 11.015625
 
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( -w, -x );
+			Vector2 r2 = new Vector2( -u, -v );
+			Vector2 r3 = new Vector2( -y, -z );
+			Vector2 r4 = Vector2.Zero;
+			Vector2 r5 = new Vector2(  y,  z );
+			Vector2 r6 = new Vector2(  u,  v );
+			Vector2 r7 = new Vector2(  w,  x );
+			Vector2 r8 = c;
+
 			var knownResults = new List<Tuple<Single, Vector2>>
 			{
-				new Tuple<Single, Vector2>( 0, b ),
-				new Tuple<Single, Vector2>( one * 1 / 8, new Vector2( -w, -x ) ),
-				new Tuple<Single, Vector2>( one * 2 / 8, new Vector2( -u, -v ) ),
-				new Tuple<Single, Vector2>( one * 3 / 8, new Vector2( -y, -z ) ),
-				new Tuple<Single, Vector2>( one * 4 / 8, Vector2.Zero ),
-				new Tuple<Single, Vector2>( one * 5 / 8, new Vector2(  y,  z ) ),
-				new Tuple<Single, Vector2>( one * 6 / 8, new Vector2(  u,  v ) ),
-				new Tuple<Single, Vector2>( one * 7 / 8, new Vector2(  w,  x ) ),
-				new Tuple<Single, Vector2>( 1, c ),
+				new Tuple<Single, Vector2>( a0, r0 ),
+				new Tuple<Single, Vector2>( a1, r1 ),
+				new Tuple<Single, Vector2>( a2, r2 ),
+				new Tuple<Single, Vector2>( a3, r3 ),
+				new Tuple<Single, Vector2>( a4, r4 ),
+				new Tuple<Single, Vector2>( a5, r5 ),
+				new Tuple<Single, Vector2>( a6, r6 ),
+				new Tuple<Single, Vector2>( a7, r7 ),
+				new Tuple<Single, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -1939,17 +2140,27 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			var c = new Vector2( +30, +30 );
 			var d = new Vector2( +90, +90 );
 
-			Single half; RealMaths.Half(out half);
-			Single quarter = half / 2;
-			Single threeQuarters = quarter * 3;
+			Single one = 1;
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 4;
+			Single a2 = (one * 2) / 4;
+			Single a3 = (one * 3) / 4;
+			Single a4 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( -15, -15 );
+			Vector2 r2 = Vector2.Zero;
+			Vector2 r3 = new Vector2( 15, 15 );
+			Vector2 r4 = c;
 
 			var knownResults = new List<Tuple<Single, Vector2>>
 			{
-				new Tuple<Single, Vector2>( 0, b ),
-				new Tuple<Single, Vector2>( quarter, new Vector2( -15, -15 ) ),
-				new Tuple<Single, Vector2>( half, Vector2.Zero ),
-				new Tuple<Single, Vector2>( threeQuarters, new Vector2( 15, 15 ) ),
-				new Tuple<Single, Vector2>( 1, c ),
+				new Tuple<Single, Vector2>( a0, r0 ),
+				new Tuple<Single, Vector2>( a1, r1 ),
+				new Tuple<Single, Vector2>( a2, r2 ),
+				new Tuple<Single, Vector2>( a3, r3 ),
+				new Tuple<Single, Vector2>( a4, r4 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -2066,17 +2277,37 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Single q = (Single) 45 / (Single) 128; // 0.3515625
 			Single r = (Single) 45 / (Single) 256; // 0.17578125
 
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( e, -f );
+			Vector2 r2 = new Vector2( g, -h );
+			Vector2 r3 = new Vector2( i, -j );
+			Vector2 r4 = new Vector2( k, -l );
+			Vector2 r5 = new Vector2( m, -n );
+			Vector2 r6 = new Vector2( o, -p );
+			Vector2 r7 = new Vector2( -q, r );
+			Vector2 r8 = c;
+
 			var knownResults = new List<Tuple<Single, Vector2>>
 			{
-				new Tuple<Single, Vector2>( 0, b ),
-				new Tuple<Single, Vector2>( one * 1 / 8, new Vector2( e, -f ) ),
-				new Tuple<Single, Vector2>( one * 2 / 8, new Vector2( g, -h ) ),
-				new Tuple<Single, Vector2>( one * 3 / 8, new Vector2( i, -j ) ),
-				new Tuple<Single, Vector2>( one * 4 / 8, new Vector2( k, -l ) ),
-				new Tuple<Single, Vector2>( one * 5 / 8, new Vector2( m, -n ) ),
-				new Tuple<Single, Vector2>( one * 6 / 8, new Vector2( o, -p ) ),
-				new Tuple<Single, Vector2>( one * 7 / 8, new Vector2( -q, r ) ),
-				new Tuple<Single, Vector2>( 1, c ),
+				new Tuple<Single, Vector2>( a0, r0 ),
+				new Tuple<Single, Vector2>( a1, r1 ),
+				new Tuple<Single, Vector2>( a2, r2 ),
+				new Tuple<Single, Vector2>( a3, r3 ),
+				new Tuple<Single, Vector2>( a4, r4 ),
+				new Tuple<Single, Vector2>( a5, r5 ),
+				new Tuple<Single, Vector2>( a6, r6 ),
+				new Tuple<Single, Vector2>( a7, r7 ),
+				new Tuple<Single, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -3348,73 +3579,72 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Static Fn: Distance //----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of known examples, the Distance method
+		/// yeilds the correct results.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_i ()
 		{
-			Vector2 a = new Vector2(0, 4);
-			Vector2 b = new Vector2(3, 0);
+			{
+				Vector2 a = new Vector2(0, 4);
+				Vector2 b = new Vector2(3, 0);
 
-			Double expected = 5;
-			Double result; Vector2.Distance(ref a, ref b, out result);
+				Double expected = 5;
+				Double result;
 
-			Assert.That(result, Is.EqualTo(expected));
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = new Vector2(0, -4);
+				Vector2 b = new Vector2(3, 0);
+
+				Double expected = 5;
+				Double result;
+
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = new Vector2(0, -4);
+				Vector2 b = new Vector2(-3, 0);
+
+				Double expected = 5;
+				Double result;
+
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = Vector2.Zero;
+
+				Double expected = 0;
+				Double result;
+
+				Vector2.Distance(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Distance method yeilds the same results as those obtained from
+		/// performing a manual calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_ii ()
 		{
-			Vector2 a = new Vector2(0, -4);
-			Vector2 b = new Vector2(3, 0);
-
-			Double expected = 5;
-			Double result; Vector2.Distance(ref a, ref b, out result);
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Distance_iii ()
-		{
-			Vector2 a = new Vector2(0, -4);
-			Vector2 b = new Vector2(-3, 0);
-
-			Double expected = 5;
-			Double result; Vector2.Distance(ref a, ref b, out result);
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Distance_iv ()
-		{
-			Vector2 a = Vector2.Zero;
-
-			Double expected = 0;
-
-			Assert.That(a.Length(), Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Distance_v ()
-		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
 				Vector2 a = GetNextRandomVector2();
-				
+
 				Double expected = 
 					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
@@ -3425,23 +3655,41 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Static Fn: DistanceSquared //---------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of known examples, the DistanceSquared 
+		/// method yeilds the correct results.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_i ()
 		{
-			Vector2 a = new Vector2(0, 4);
-			Vector2 b = new Vector2(3, 0);
+			{
+				Vector2 a = new Vector2(0, 4);
+				Vector2 b = new Vector2(3, 0);
 
-			Double expected = 25;
-			Double result;
-			Vector2.DistanceSquared(ref a, ref b, out result);
+				Double expected = 25;
+				Double result;
 
-			Assert.That(result, Is.EqualTo(expected));
+				Vector2.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = Vector2.Zero;
+
+				Double expected = 0;
+				Double result;
+
+				Vector2.DistanceSquared(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated examples, the 
+		/// DistanceSquared method yeilds the same results as those obtained 
+		/// from performing a manual calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_ii ()
@@ -3450,9 +3698,12 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
+
 				Vector2 c = b - a;
+
 				Double expected = (c.X * c.X) + (c.Y * c.Y);
 				Double result;
+
 				Vector2.DistanceSquared(ref a, ref b, out result);
 
 				Assert.That(result, Is.EqualTo(expected));
@@ -3462,7 +3713,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Static Fn: Dot //---------------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Dot method yeilds the same results as those obtained from
+		/// performing a manual calculation.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_i ()
@@ -3471,6 +3724,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			{
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
+
 				Double expected = (a.X * b.X) + (a.Y * b.Y);
 				Double result; Vector2.Dot(ref a, ref b, out result);
 
@@ -3479,7 +3733,8 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that two unit vectors pointing in opposing directions yeild a
+		/// dot product of negative one.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_ii ()
@@ -3494,18 +3749,33 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// 
+		/// Assert that two unit vectors pointing in the same direction yeild a
+		/// dot product of one.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_iii ()
 		{
-			Vector2 a = new Vector2(100, 0);
-			Vector2 b = new Vector2(10, 0);
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(1, 0);
 
 			Double expected = 1;
 			Double result; Vector2.Dot(ref a, ref b, out result);
 
-			result = result / (10 * 100);
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that two perpendicular unit vectors yeild a dot product of 
+		/// zero.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_iv ()
+		{
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(0, 1);
+
+			Double expected = 0;
+			Double result; Vector2.Dot(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
@@ -3513,34 +3783,45 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		// Test Static Fn: Normalise //---------------------------------------//
 
 		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Normalise_i()
-		{
-			Vector2 a = Vector2.Zero;
-
-			Vector2 b; Vector2.Normalise(ref a, out b);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Normalise_ii()
-		{
-			Vector2 a = new Vector2(
-				Double.MaxValue, 
-				Double.MaxValue);
-
-			Vector2 b; Vector2.Normalise(ref a, out b);
-		}
-
-		/// <summary>
-		/// 
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
-		public void TestStaticFn_Normalise_iii ()
+		public void TestStaticFn_Normalise_i()
+		{
+			{
+				Vector2 a = Vector2.Zero;
+
+				Vector2 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector2.Normalise(ref a, out b)
+				);
+			}
+
+			{
+				Vector2 a = new Vector2(
+					Double.MaxValue, 
+					Double.MaxValue);
+
+				Vector2 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector2.Normalise(ref a, out b)
+				);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a unit vector (with length equal to one);
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_ii ()
 		{
 			Double epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -3551,22 +3832,133 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2 b; Vector2.Normalise(ref a, out b);
 				
 				Double expected = 1;
-
 				Double result = b.Length();
 
 				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a vector, which when multipled by the 
+		/// length of the original vector results in the same vector as the
+		/// original vector;
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_iii ()
+		{
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Double l = a.Length();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+				
+				Vector2 expected = a;
+				Vector2 result = b * l;
+
+				AssertEqualWithinReason(result, expected);
+			}
+		}
+
 		// Test Static Fn: Reflect //-----------------------------------------//
 
 		/// <summary>
-		/// 
+		/// Assert that, for a number of known examples, the Reflect method
+		/// yeilds the correct results.
 		/// </summary>
 		[Test]
 		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That (true, Is.EqualTo (false));
+			{
+				Vector2 incident = new Vector2(20, -5);
+
+				Vector2 normal = new Vector2(1, -1);
+				Vector2.Normalise(ref normal, out normal);
+
+				Vector2 expected = new Vector2(-5, 20);
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector2 incident = new Vector2(20, -5);
+
+				Vector2 normal = new Vector2(2, -1);
+				Vector2.Normalise(ref normal, out normal);
+
+				Vector2 expected = new Vector2(-16, 13);
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector2 incident = Vector2.Zero;
+
+				Vector2 normal = new Vector2(1, 0);
+
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, Vector2.Zero);
+			}
+		}
+
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Reflect method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Reflect_ii ()
+		{
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b = GetNextRandomVector2();
+
+				Vector2.Normalise(ref b, out b);
+
+				Vector2 result;
+				Vector2.Reflect(ref a, ref b, out result);
+				
+				Double dot;
+				Vector2.Dot(ref a, ref b, out dot);
+
+				Vector2 expected = a - (2 * dot * b);
+
+				AssertEqualWithinReason(result, expected);
+			}
+		}
+
+		/// <summary>
+		/// Assert that an argument exception is thrown if the value passed in
+		/// to the normal parameter is not normalised.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Reflect_iii ()
+		{
+			Vector2 incident = GetNextRandomVector2();
+			Vector2 normal = new Vector2(12, -241);
+
+			Vector2 result; 
+
+			Assert.Throws(
+				typeof(ArgumentOutOfRangeException), 
+				() => 
+				Vector2.Reflect(ref incident, ref normal, out result)
+			);
 		}
 
 		// Test Static Fn: TransformMatrix44 //-------------------------------//
@@ -4139,17 +4531,37 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Double j; RealMaths.FromFraction( 165,  8, out j); // 20.625
 			Double k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector2 r0 = a;
+			Vector2 r1 = new Vector2( -i, -i );
+			Vector2 r2 = new Vector2( -j, -j );
+			Vector2 r3 = new Vector2( -k, -k );
+			Vector2 r4 = Vector2.Zero;
+			Vector2 r5 = new Vector2(  k,  k );
+			Vector2 r6 = new Vector2(  j,  j );
+			Vector2 r7 = new Vector2(  i,  i );
+			Vector2 r8 = b;
+
 			var knownResults = new List<Tuple<Double, Vector2>>
 			{
-				new Tuple<Double, Vector2>( 0, a ),
-				new Tuple<Double, Vector2>( (one * 1) / 8, new Vector2( -i, -i ) ),
-				new Tuple<Double, Vector2>( (one * 2) / 8, new Vector2( -j, -j ) ),
-				new Tuple<Double, Vector2>( (one * 3) / 8, new Vector2( -k, -k ) ),
-				new Tuple<Double, Vector2>( (one * 4) / 8, Vector2.Zero ),
-				new Tuple<Double, Vector2>( (one * 5) / 8, new Vector2(  k,  k ) ),
-				new Tuple<Double, Vector2>( (one * 6) / 8, new Vector2(  j,  j ) ),
-				new Tuple<Double, Vector2>( (one * 7) / 8, new Vector2(  i,  i ) ),
-				new Tuple<Double, Vector2>( 1, b ),
+				new Tuple<Double, Vector2>( a0, r0 ),
+				new Tuple<Double, Vector2>( a1, r1 ),
+				new Tuple<Double, Vector2>( a2, r2 ),
+				new Tuple<Double, Vector2>( a3, r3 ),
+				new Tuple<Double, Vector2>( a4, r4 ),
+				new Tuple<Double, Vector2>( a5, r5 ),
+				new Tuple<Double, Vector2>( a6, r6 ),
+				new Tuple<Double, Vector2>( a7, r7 ),
+				new Tuple<Double, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -4218,17 +4630,37 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Double y = (Double) 15   / (Double)  2; // 14.5
 			Double z = (Double) 705  / (Double) 64; // 11.015625
 
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( -w, -x );
+			Vector2 r2 = new Vector2( -u, -v );
+			Vector2 r3 = new Vector2( -y, -z );
+			Vector2 r4 = Vector2.Zero;
+			Vector2 r5 = new Vector2(  y,  z );
+			Vector2 r6 = new Vector2(  u,  v );
+			Vector2 r7 = new Vector2(  w,  x );
+			Vector2 r8 = c;
+
 			var knownResults = new List<Tuple<Double, Vector2>>
 			{
-				new Tuple<Double, Vector2>( 0, b ),
-				new Tuple<Double, Vector2>( one * 1 / 8, new Vector2( -w, -x ) ),
-				new Tuple<Double, Vector2>( one * 2 / 8, new Vector2( -u, -v ) ),
-				new Tuple<Double, Vector2>( one * 3 / 8, new Vector2( -y, -z ) ),
-				new Tuple<Double, Vector2>( one * 4 / 8, Vector2.Zero ),
-				new Tuple<Double, Vector2>( one * 5 / 8, new Vector2(  y,  z ) ),
-				new Tuple<Double, Vector2>( one * 6 / 8, new Vector2(  u,  v ) ),
-				new Tuple<Double, Vector2>( one * 7 / 8, new Vector2(  w,  x ) ),
-				new Tuple<Double, Vector2>( 1, c ),
+				new Tuple<Double, Vector2>( a0, r0 ),
+				new Tuple<Double, Vector2>( a1, r1 ),
+				new Tuple<Double, Vector2>( a2, r2 ),
+				new Tuple<Double, Vector2>( a3, r3 ),
+				new Tuple<Double, Vector2>( a4, r4 ),
+				new Tuple<Double, Vector2>( a5, r5 ),
+				new Tuple<Double, Vector2>( a6, r6 ),
+				new Tuple<Double, Vector2>( a7, r7 ),
+				new Tuple<Double, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -4284,17 +4716,27 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			var c = new Vector2( +30, +30 );
 			var d = new Vector2( +90, +90 );
 
-			Double half; RealMaths.Half(out half);
-			Double quarter = half / 2;
-			Double threeQuarters = quarter * 3;
+			Double one = 1;
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 4;
+			Double a2 = (one * 2) / 4;
+			Double a3 = (one * 3) / 4;
+			Double a4 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( -15, -15 );
+			Vector2 r2 = Vector2.Zero;
+			Vector2 r3 = new Vector2( 15, 15 );
+			Vector2 r4 = c;
 
 			var knownResults = new List<Tuple<Double, Vector2>>
 			{
-				new Tuple<Double, Vector2>( 0, b ),
-				new Tuple<Double, Vector2>( quarter, new Vector2( -15, -15 ) ),
-				new Tuple<Double, Vector2>( half, Vector2.Zero ),
-				new Tuple<Double, Vector2>( threeQuarters, new Vector2( 15, 15 ) ),
-				new Tuple<Double, Vector2>( 1, c ),
+				new Tuple<Double, Vector2>( a0, r0 ),
+				new Tuple<Double, Vector2>( a1, r1 ),
+				new Tuple<Double, Vector2>( a2, r2 ),
+				new Tuple<Double, Vector2>( a3, r3 ),
+				new Tuple<Double, Vector2>( a4, r4 ),
 			};
 
 			foreach(var knownResult in knownResults )
@@ -4411,17 +4853,37 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Double q = (Double) 45 / (Double) 128; // 0.3515625
 			Double r = (Double) 45 / (Double) 256; // 0.17578125
 
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector2 r0 = b;
+			Vector2 r1 = new Vector2( e, -f );
+			Vector2 r2 = new Vector2( g, -h );
+			Vector2 r3 = new Vector2( i, -j );
+			Vector2 r4 = new Vector2( k, -l );
+			Vector2 r5 = new Vector2( m, -n );
+			Vector2 r6 = new Vector2( o, -p );
+			Vector2 r7 = new Vector2( -q, r );
+			Vector2 r8 = c;
+
 			var knownResults = new List<Tuple<Double, Vector2>>
 			{
-				new Tuple<Double, Vector2>( 0, b ),
-				new Tuple<Double, Vector2>( one * 1 / 8, new Vector2( e, -f ) ),
-				new Tuple<Double, Vector2>( one * 2 / 8, new Vector2( g, -h ) ),
-				new Tuple<Double, Vector2>( one * 3 / 8, new Vector2( i, -j ) ),
-				new Tuple<Double, Vector2>( one * 4 / 8, new Vector2( k, -l ) ),
-				new Tuple<Double, Vector2>( one * 5 / 8, new Vector2( m, -n ) ),
-				new Tuple<Double, Vector2>( one * 6 / 8, new Vector2( o, -p ) ),
-				new Tuple<Double, Vector2>( one * 7 / 8, new Vector2( -q, r ) ),
-				new Tuple<Double, Vector2>( 1, c ),
+				new Tuple<Double, Vector2>( a0, r0 ),
+				new Tuple<Double, Vector2>( a1, r1 ),
+				new Tuple<Double, Vector2>( a2, r2 ),
+				new Tuple<Double, Vector2>( a3, r3 ),
+				new Tuple<Double, Vector2>( a4, r4 ),
+				new Tuple<Double, Vector2>( a5, r5 ),
+				new Tuple<Double, Vector2>( a6, r6 ),
+				new Tuple<Double, Vector2>( a7, r7 ),
+				new Tuple<Double, Vector2>( a8, r8 ),
 			};
 
 			foreach(var knownResult in knownResults )
