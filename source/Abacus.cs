@@ -5905,7 +5905,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		// Equality Operators //----------------------------------------------//
 
 		/// <summary>
-		///
+		/// Determines whether or not this Vector2 object is equal to another
+		/// object.
 		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
@@ -5919,7 +5920,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		#region IEquatable<Vector2>
 
 		/// <summary>
-		///
+		/// Determines whether or not this Vector2 object is equal to another
+		/// Vector2 object.
 		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
@@ -5929,7 +5931,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		#endregion
 
 		/// <summary>
-		///
+		/// Determines whether or not two Vector2 objects are equal using the
+		/// (X==Y) operator.
 		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
@@ -5937,7 +5940,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Determines whether or not two Vector2 objects are not equal using
+		/// the (X!=Y) operator.
 		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
@@ -5950,7 +5954,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		// Addition Operators //----------------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs addition of two Vector2 objects.
 		/// </summary>
 		public static void Add (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -5960,7 +5964,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs addition of two Vector2 objects using the (X+Y) operator. 
 		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
@@ -5974,7 +5978,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		// Subtraction Operators //-------------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs subtraction of two Vector2 objects.
 		/// </summary>
 		public static void Subtract (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -5984,7 +5988,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs subtraction of two Vector2 objects using the (X-Y) 
+		/// operator.
 		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
@@ -5998,7 +6003,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		// Negation Operators //----------------------------------------------//
 		
 		/// <summary>
-		///
+		/// Performs negation of a Vector2 object.
 		/// </summary>
 		public static void Negate (ref Vector2 value, out Vector2 result)
 		{
@@ -6007,7 +6012,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs negation of a Vector2 object using the (-X) operator.
 		/// </summary>
 		public static Vector2 operator - (Vector2 value)
 		{
@@ -6020,7 +6025,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		// Multiplication Operators //----------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs muliplication of two Vector2 objects.
 		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -6030,29 +6035,19 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs multiplication of a Vector2 object and a Single
+		/// precision scaling factor.
 		/// </summary>
 		public static void Multiply (
-			ref Vector2 value1, Single scaleFactor, out Vector2 result)
+			ref Vector2 value, Single scaleFactor, out Vector2 result)
 		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
 		}
 
 		/// <summary>
-		///
-		/// </summary>
-		public static Vector2 operator * (
-			Single scaleFactor, Vector2 value)
-		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
-		}
-
-		/// <summary>
-		///
+		/// Performs muliplication of two Vector2 objects using the (X*Y)
+		/// operator.
 		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value1, Vector2 value2)
@@ -6064,10 +6059,24 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
-		/// </summary>		
+		/// Performs multiplication of a Vector2 object and a Single
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value, Single scaleFactor)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aVector2 object using the (x*Y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Single scaleFactor, Vector2 value)
 		{
 			Vector2 vector;
 			vector.X = value.X * scaleFactor;
@@ -6078,7 +6087,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		// Division Operators //----------------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs division of two Vector2 objects.
 		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -6088,7 +6097,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs division of a Vector2 object and a Single precision
+		/// scaling factor.
 		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, Single divider, out Vector2 result)
@@ -6100,7 +6110,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs division of two Vector2 objects using the (X/Y) operator.
 		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
@@ -6111,7 +6121,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs division of a Vector2 object and a Single precision
+		/// scaling factor using the (X/y) operator.
 		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Single divider)
 		{
@@ -10012,7 +10023,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		// Equality Operators //----------------------------------------------//
 
 		/// <summary>
-		///
+		/// Determines whether or not this Vector2 object is equal to another
+		/// object.
 		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
@@ -10026,7 +10038,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		#region IEquatable<Vector2>
 
 		/// <summary>
-		///
+		/// Determines whether or not this Vector2 object is equal to another
+		/// Vector2 object.
 		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
@@ -10036,7 +10049,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		#endregion
 
 		/// <summary>
-		///
+		/// Determines whether or not two Vector2 objects are equal using the
+		/// (X==Y) operator.
 		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
@@ -10044,7 +10058,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Determines whether or not two Vector2 objects are not equal using
+		/// the (X!=Y) operator.
 		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
@@ -10057,7 +10072,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		// Addition Operators //----------------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs addition of two Vector2 objects.
 		/// </summary>
 		public static void Add (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -10067,7 +10082,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs addition of two Vector2 objects using the (X+Y) operator. 
 		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
@@ -10081,7 +10096,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		// Subtraction Operators //-------------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs subtraction of two Vector2 objects.
 		/// </summary>
 		public static void Subtract (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -10091,7 +10106,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs subtraction of two Vector2 objects using the (X-Y) 
+		/// operator.
 		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
@@ -10105,7 +10121,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		// Negation Operators //----------------------------------------------//
 		
 		/// <summary>
-		///
+		/// Performs negation of a Vector2 object.
 		/// </summary>
 		public static void Negate (ref Vector2 value, out Vector2 result)
 		{
@@ -10114,7 +10130,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs negation of a Vector2 object using the (-X) operator.
 		/// </summary>
 		public static Vector2 operator - (Vector2 value)
 		{
@@ -10127,7 +10143,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		// Multiplication Operators //----------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs muliplication of two Vector2 objects.
 		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -10137,29 +10153,19 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs multiplication of a Vector2 object and a Double
+		/// precision scaling factor.
 		/// </summary>
 		public static void Multiply (
-			ref Vector2 value1, Double scaleFactor, out Vector2 result)
+			ref Vector2 value, Double scaleFactor, out Vector2 result)
 		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
 		}
 
 		/// <summary>
-		///
-		/// </summary>
-		public static Vector2 operator * (
-			Double scaleFactor, Vector2 value)
-		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
-		}
-
-		/// <summary>
-		///
+		/// Performs muliplication of two Vector2 objects using the (X*Y)
+		/// operator.
 		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value1, Vector2 value2)
@@ -10171,10 +10177,24 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
-		/// </summary>		
+		/// Performs multiplication of a Vector2 object and a Double
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value, Double scaleFactor)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aVector2 object using the (x*Y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Double scaleFactor, Vector2 value)
 		{
 			Vector2 vector;
 			vector.X = value.X * scaleFactor;
@@ -10185,7 +10205,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		// Division Operators //----------------------------------------------//
 
 		/// <summary>
-		///
+		/// Performs division of two Vector2 objects.
 		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
@@ -10195,7 +10215,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs division of a Vector2 object and a Double precision
+		/// scaling factor.
 		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, Double divider, out Vector2 result)
@@ -10207,7 +10228,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs division of two Vector2 objects using the (X/Y) operator.
 		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
@@ -10218,7 +10239,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		///
+		/// Performs division of a Vector2 object and a Double precision
+		/// scaling factor using the (X/y) operator.
 		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Double divider)
 		{
