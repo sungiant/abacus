@@ -6256,18 +6256,26 @@ namespace Sungiant.Abacus.SinglePrecision
 		// Utilities //-------------------------------------------------------//
 
 		/// <summary>
-		/// Returns a vector that contains the lowest value from each matching pair of components.
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
 		/// </summary>
-		public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 result)
+		public static void Min (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
 			result.X = (a.X < b.X) ? a.X : b.X;
 			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
 		}
 
 		/// <summary>
-		/// Returns a vector that contains the highest value from each matching pair of components.
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
 		/// </summary>
-		public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 result)
+		public static void Max (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
 			result.X = (a.X > b.X) ? a.X : b.X;
 			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
@@ -6276,7 +6284,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// Restricts a value to be within a specified range.
 		/// </summary>
-		public static void Clamp (ref Vector2 a, ref Vector2 min, ref Vector2 max, out Vector2 result)
+		public static void Clamp (
+			ref Vector2 a, 
+			ref Vector2 min, 
+			ref Vector2 max, 
+			out Vector2 result)
 		{
 			Single x = a.X;
 			x = (x > max.X) ? max.X : x;
@@ -6293,7 +6305,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// Performs a linear interpolation between two vectors.
 		/// </summary>
-		public static void Lerp (ref Vector2 a, ref Vector2 b, Single amount, out Vector2 result)
+		public static void Lerp (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Single amount, 
+			out Vector2 result)
 		{
 			Single zero = 0;
 			Single one = 1;
@@ -10523,18 +10539,26 @@ namespace Sungiant.Abacus.DoublePrecision
 		// Utilities //-------------------------------------------------------//
 
 		/// <summary>
-		/// Returns a vector that contains the lowest value from each matching pair of components.
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
 		/// </summary>
-		public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 result)
+		public static void Min (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
 			result.X = (a.X < b.X) ? a.X : b.X;
 			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
 		}
 
 		/// <summary>
-		/// Returns a vector that contains the highest value from each matching pair of components.
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
 		/// </summary>
-		public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 result)
+		public static void Max (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
 			result.X = (a.X > b.X) ? a.X : b.X;
 			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
@@ -10543,7 +10567,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// Restricts a value to be within a specified range.
 		/// </summary>
-		public static void Clamp (ref Vector2 a, ref Vector2 min, ref Vector2 max, out Vector2 result)
+		public static void Clamp (
+			ref Vector2 a, 
+			ref Vector2 min, 
+			ref Vector2 max, 
+			out Vector2 result)
 		{
 			Double x = a.X;
 			x = (x > max.X) ? max.X : x;
@@ -10560,7 +10588,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// Performs a linear interpolation between two vectors.
 		/// </summary>
-		public static void Lerp (ref Vector2 a, ref Vector2 b, Double amount, out Vector2 result)
+		public static void Lerp (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Double amount, 
+			out Vector2 result)
 		{
 			Double zero = 0;
 			Double one = 1;
