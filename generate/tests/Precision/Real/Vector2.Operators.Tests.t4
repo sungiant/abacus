@@ -196,11 +196,10 @@
 		{
 			var a = new Vector2(12, -4);
 			var b = new Vector2(15, 11);
-			var c = new Vector2(-423, 342);
-
 			var expected = new Vector2(-3, -15);
-
 			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector2(-423, 342);
 			this.TestSubtraction(c, Vector2.Zero, c);
 		}
 
@@ -429,16 +428,15 @@
 		{
 			<#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
 			<#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
-
 			<#= type #> x = 2000;
 			<#= type #> y = 200;
 			<#= type #> z = -5;
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-			var d = new Vector2(t, u);
+			var a = new Vector2(y, z);
+			var b = new Vector2(x, y);
+			var c = new Vector2(t, u);
 
-			this.TestDivision(b, a, d);
+			this.TestDivision(a, b, c);
 		}
 
 		/// <summary>

@@ -1,12 +1,8 @@
-﻿		#region Splines
+﻿		// Splines //---------------------------------------------------------//
 
-		public static void Barycentric (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, <#= type #> amount1, <#= type #> amount2, out Vector3 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
-		}
-	
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
 		public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, <#= type #> amount, out Vector3 result)
 		{
 			<#= type #> zero = 0;
@@ -21,6 +17,16 @@
 			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
 		}
 
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
 		public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, <#= type #> amount, out Vector3 result)
 		{
 			<#= type #> half; RealMaths.Half(out half);
@@ -36,6 +42,9 @@
 			result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
 		}
 
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
 		public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, <#= type #> amount, out Vector3 result)
 		{
 			<#= type #> one = 1;
@@ -52,5 +61,4 @@
 			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
 			result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
 		}
-		
-		#endregion
+

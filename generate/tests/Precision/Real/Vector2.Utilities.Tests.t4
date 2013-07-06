@@ -76,9 +76,9 @@
 			Vector2 min = new Vector2(-30, 1);
 			Vector2 max = new Vector2(32, 130);
 
-			Vector2 a = new Vector2(-1, 13);
+			Vector2 a = new Vector2(-100, 1113);
 
-			Vector2 expected = a;
+			Vector2 expected = new Vector2(-30, 130);
 
 			Vector2 result;
 			Vector2.Clamp (ref a, ref min, ref max, out result);
@@ -88,7 +88,7 @@
 			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
 			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
 
-			Assert.That(a, Is.EqualTo(expected));
+			AssertEqualWithinReason(result, expected);
 
 		}
 

@@ -47,6 +47,9 @@ using System.Runtime.CompilerServices;
 namespace Sungiant.Abacus.Tests
 {
 
+	/// <summary>
+	/// todo
+	/// </summary>
 	[TestFixture]
     public class RealMaths
 	{
@@ -57,14 +60,23 @@ namespace Sungiant.Abacus.Tests
 
 namespace Sungiant.Abacus.Packed.Tests
 {
+	/// <summary>
+	/// todo
+	/// </summary>
 	public static class Settings
     {
         public const Int32 NumTests = 50000;
     }
 
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public static class Alpha_8Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {   
@@ -88,9 +100,15 @@ namespace Sungiant.Abacus.Packed.Tests
         }
     }
 
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Bgr_5_6_5Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {
@@ -113,9 +131,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Bgra16Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {
@@ -138,9 +162,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Bgra_5_5_5_1Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {
@@ -163,9 +193,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Byte4Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -192,9 +228,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class NormalisedByte2Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {
@@ -219,9 +261,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class NormalisedByte4Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -247,9 +295,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class NormalisedShort2Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -275,9 +329,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class NormalisedShort4Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -303,9 +363,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Rg32Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -331,9 +397,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Rgba32Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -359,9 +431,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Rgba64Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -388,9 +466,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Rgba_10_10_10_2Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -416,9 +500,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Short2Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -444,9 +534,15 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class Short4Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {
@@ -480,9 +576,98 @@ namespace Sungiant.Abacus.Packed.Tests
 
 namespace Sungiant.Abacus.SinglePrecision.Tests
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	[TestFixture]
 	public class Matrix44Tests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static Matrix44Tests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Single value.
+		/// </summary>
+		static Single GetNextRandomSingle ()
+		{
+			Single randomValue = rand.NextSingle();
+
+			Single zero = 0;
+			Single multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Matrix44.
+		/// </summary>
+		static Matrix44 GetNextRandomMatrix44 ()
+		{
+			Single a = GetNextRandomSingle();
+			Single b = GetNextRandomSingle();
+			Single c = GetNextRandomSingle();
+			Single d = GetNextRandomSingle();
+			Single e = GetNextRandomSingle();
+			Single f = GetNextRandomSingle();
+			Single g = GetNextRandomSingle();
+			Single h = GetNextRandomSingle();
+			Single i = GetNextRandomSingle();
+			Single j = GetNextRandomSingle();
+			Single k = GetNextRandomSingle();
+			Single l = GetNextRandomSingle();
+			Single m = GetNextRandomSingle();
+			Single n = GetNextRandomSingle();
+			Single o = GetNextRandomSingle();
+			Single p = GetNextRandomSingle();
+
+			return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Matrix44s are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+		{
+			Single tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
+			Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
+			Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
+			Assert.That(a.M14, Is.EqualTo(b.M14).Within(tolerance));
+			Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
+			Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
+			Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
+			Assert.That(a.M24, Is.EqualTo(b.M24).Within(tolerance));
+			Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
+			Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
+			Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
+			Assert.That(a.M34, Is.EqualTo(b.M34).Within(tolerance));
+			Assert.That(a.M41, Is.EqualTo(b.M41).Within(tolerance));
+			Assert.That(a.M42, Is.EqualTo(b.M42).Within(tolerance));
+			Assert.That(a.M43, Is.EqualTo(b.M43).Within(tolerance));
+			Assert.That(a.M44, Is.EqualTo(b.M44).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -540,23 +725,6 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		[Test]
-		public void CreateFromQuaternion ()
-		{
-			Single pi; RealMaths.Pi(out pi);
-
-			Quaternion q;
-			Quaternion.CreateFromYawPitchRoll(pi, pi*2, pi / 2, out q);
-
-			Matrix44 mat1;
-			Matrix44.CreateFromQuaternion(ref q, out mat1);
-
-			Matrix44 mat2;
-			Matrix44.CreateFromQuaternionOld(ref q, out mat2);
-
-			Assert.That(mat1, Is.EqualTo(mat2));
-		}
-
-		[Test]
 		public void Decompose ()
 		{
             Matrix44 scale;
@@ -587,9 +755,92 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
 
 		}
-	}	[TestFixture]
+
+		// Test Constant: Identity //------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Matrix44 initilised using the Identity 
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Identity ()
+		{
+			Matrix44 result = Matrix44.Identity;
+			Matrix44 expected = new Matrix44 (
+				1, 0, 0, 0, 
+				0, 1, 0, 0, 
+				0, 0, 1, 0, 
+				0, 0, 0, 1);
+
+			AssertEqualWithinReason(result, expected);
+		}	}	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class QuaternionTests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static QuaternionTests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Single value.
+		/// </summary>
+		static Single GetNextRandomSingle ()
+		{
+			Single randomValue = rand.NextSingle();
+
+			Single zero = 0;
+			Single multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Quaternion.
+		/// </summary>
+		static Quaternion GetNextRandomQuaternion ()
+		{
+			Single a = GetNextRandomSingle();
+			Single b = GetNextRandomSingle();
+			Single c = GetNextRandomSingle();
+			Single d = GetNextRandomSingle();
+
+			return new Quaternion(a, b, c, d);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Quaternions are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Quaternion a, Quaternion b)
+		{
+			Single tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+			Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
+			Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -613,8 +864,26 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
-	}
-		[TestFixture]
+
+		// Test Constant: Identity //------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Quaternion initilised using the Identity 
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Identity ()
+		{
+			Quaternion result = Quaternion.Identity;
+			Quaternion expected = new Quaternion (
+				0, 0, 0, 1);
+
+			AssertEqualWithinReason(result, expected);
+		}	}
+		/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class Vector2Tests
 	{
 		/// <summary>
@@ -1596,11 +1865,10 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		{
 			var a = new Vector2(12, -4);
 			var b = new Vector2(15, 11);
-			var c = new Vector2(-423, 342);
-
 			var expected = new Vector2(-3, -15);
-
 			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector2(-423, 342);
 			this.TestSubtraction(c, Vector2.Zero, c);
 		}
 
@@ -1829,16 +2097,15 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		{
 			Single t = ((Single) 1 ) / ((Single) 10);
 			Single u = ((Single) (-1) ) / ((Single) 40 );
-
 			Single x = 2000;
 			Single y = 200;
 			Single z = -5;
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-			var d = new Vector2(t, u);
+			var a = new Vector2(y, z);
+			var b = new Vector2(x, y);
+			var c = new Vector2(t, u);
 
-			this.TestDivision(b, a, d);
+			this.TestDivision(a, b, c);
 		}
 
 		/// <summary>
@@ -1894,7 +2161,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
+		/// Assert that, for known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
@@ -1931,9 +2198,14 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Single one = 1;
 
-			Single i; RealMaths.FromFraction(1755, 64, out i); // 27.421875
-			Single j; RealMaths.FromFraction( 165,  8, out j); // 20.625
-			Single k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
+			Single i;
+			RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			
+			Single j;
+			RealMaths.FromFraction( 165,  8, out j); // 20.625
+			
+			Single k;
+			RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
 			Single a0 = 0;
 			Single a1 = (one * 1) / 8;
@@ -2079,7 +2351,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
+		/// Assert that, for known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
@@ -2234,6 +2506,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		{
 			var a = new Vector2( -100, +50 );
 			var b = new Vector2( +100, -50 );
+
 			var c = new Vector2( -10, +5 );
 			var d = new Vector2( +10, -5 );
 
@@ -2242,20 +2515,47 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
 			Single one = 1;
 			
-			Single e = (Single) 51300 / (Single) 512; // 100.1953125
-			Single f = (Single) 12825 / (Single) 256; // 50.09765625
-			Single g = (Single) 365 / (Single) 4; // 91.25
-			Single h = (Single) 365 / (Single) 8; // 45.625
-			Single i = (Single) 9695 / (Single) 128; // 75.7421875
-			Single j = (Single) 9695 / (Single) 256; // 37.87109375
-			Single k = (Single) 225 / (Single) 4; // 56.25
-			Single l = (Single) 225 / (Single) 8; // 28.125
-			Single m = (Single) 4525 / (Single) 128; // 35.3515625
-			Single n = (Single) 4525 / (Single) 256; // 17.67578125
-			Single o = (Single) 125 / (Single) 8; // 15.625
-			Single p = (Single) 125 / (Single) 16; // 7.8125
-			Single q = (Single) 45 / (Single) 128; // 0.3515625
-			Single r = (Single) 45 / (Single) 256; // 0.17578125
+			// 100.1953125
+			Single e = (Single) 51300 / (Single) 512;
+
+			// 50.09765625
+			Single f = (Single) 12825 / (Single) 256;
+
+			// 91.25
+			Single g = (Single) 365 / (Single) 4;
+
+			// 45.625
+			Single h = (Single) 365 / (Single) 8;
+
+			// 75.7421875
+			Single i = (Single) 9695 / (Single) 128;
+
+			// 37.87109375
+			Single j = (Single) 9695 / (Single) 256;
+
+			// 56.25
+			Single k = (Single) 225 / (Single) 4;
+
+			// 28.125
+			Single l = (Single) 225 / (Single) 8;
+
+			// 35.3515625
+			Single m = (Single) 4525 / (Single) 128;
+
+			// 17.67578125
+			Single n = (Single) 4525 / (Single) 256;
+
+			// 15.625
+			Single o = (Single) 125 / (Single) 8;
+
+			// 7.8125
+			Single p = (Single) 125 / (Single) 16;
+
+			// 0.3515625
+			Single q = (Single) 45 / (Single) 128;
+
+			// 0.17578125
+			Single r = (Single) 45 / (Single) 256;
 
 			Single a0 = 0;
 			Single a1 = (one * 1) / 8;
@@ -2268,13 +2568,13 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Single a8 = 1;
 
 			Vector2 r0 = b;
-			Vector2 r1 = new Vector2( e, -f );
-			Vector2 r2 = new Vector2( g, -h );
-			Vector2 r3 = new Vector2( i, -j );
-			Vector2 r4 = new Vector2( k, -l );
-			Vector2 r5 = new Vector2( m, -n );
-			Vector2 r6 = new Vector2( o, -p );
-			Vector2 r7 = new Vector2( -q, r );
+			Vector2 r1 = new Vector2(  e, -f );
+			Vector2 r2 = new Vector2(  g, -h );
+			Vector2 r3 = new Vector2(  i, -j );
+			Vector2 r4 = new Vector2(  k, -l );
+			Vector2 r5 = new Vector2(  m, -n );
+			Vector2 r6 = new Vector2(  o, -p );
+			Vector2 r7 = new Vector2( -q,  r );
 			Vector2 r8 = c;
 
 			var knownResults = new List<Tuple<Single, Vector2>>
@@ -2379,9 +2679,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Vector2 min = new Vector2(-30, 1);
 			Vector2 max = new Vector2(32, 130);
 
-			Vector2 a = new Vector2(-1, 13);
+			Vector2 a = new Vector2(-100, 1113);
 
-			Vector2 expected = a;
+			Vector2 expected = new Vector2(-30, 130);
 
 			Vector2 result;
 			Vector2.Clamp (ref a, ref min, ref max, out result);
@@ -2391,7 +2691,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
 			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
 
-			Assert.That(a, Is.EqualTo(expected));
+			AssertEqualWithinReason(result, expected);
 
 		}
 
@@ -2452,7 +2752,10 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		}
 
 
-	}	[TestFixture]
+	}	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class Vector3Tests
 	{
 		/// <summary>
@@ -2936,152 +3239,1529 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			AssertEqualWithinReason(result, expected);
 		}
 
-		#region Maths
+		// Test Static Fn: Distance //----------------------------------------//
 
+		/// <summary>
+		/// Assert that, for a number of known examples, the Distance method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Distance ()
+		public void TestStaticFn_Distance_i ()
+		{
+			{
+				Vector3 a = new Vector3(0, 4, 12);
+				Vector3 b = new Vector3(3, 0, 0);
+
+				Single expected = 13;
+				Single result;
+
+				Vector3.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = new Vector3(0, -4, 12);
+				Vector3 b = new Vector3(3, 0, 0);
+
+				Single expected = 13;
+				Single result;
+
+				Vector3.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = new Vector3(0, -4, -12);
+				Vector3 b = new Vector3(-3, 0, 0);
+
+				Single expected = 13;
+				Single result;
+
+				Vector3.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = Vector3.Zero;
+
+				Single expected = 0;
+				Single result;
+
+				Vector3.Distance(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Distance method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Distance_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Single expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
+
+				Assert.That(a.Length(), Is.EqualTo(expected));
+			}
+		}
+
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the DistanceSquared 
+		/// method yeilds the correct results.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_DistanceSquared_i ()
+		{
+			{
+				Vector3 a = new Vector3(0, 4, 12);
+				Vector3 b = new Vector3(3, 0, 0);
+
+				Single expected = 161;
+				Single result;
+
+				Vector3.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = Vector3.Zero;
+
+				Single expected = 0;
+				Single result;
+
+				Vector3.DistanceSquared(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// DistanceSquared method yeilds the same results as those obtained 
+		/// from performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_DistanceSquared_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = GetNextRandomVector3();
+
+				Vector3 c = b - a;
+
+				Single expected = (c.X * c.X) + (c.Y * c.Y) + (c.Z * c.Z);
+				Single result;
+
+				Vector3.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Dot method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = GetNextRandomVector3();
+
+				Single expected = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+				Single result; Vector3.Dot(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		/// <summary>
+		/// Assert that two unit vectors pointing in opposing directions yeild a
+		/// dot product of negative one.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_ii ()
+		{
+			Vector3 a = new Vector3(0, 0, 1);
+			Vector3 b = new Vector3(0, 0, -1);
+
+			Single expected = -1;
+			Single result; Vector3.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that two unit vectors pointing in the same direction yeild a
+		/// dot product of one.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_iii ()
+		{
+			Vector3 a = new Vector3(0, 0, 1);
+			Vector3 b = new Vector3(0, 0, 1);
+
+			Single expected = 1;
+			Single result; Vector3.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that two perpendicular unit vectors yeild a dot product of 
+		/// zero.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_iv ()
+		{
+			Vector3 a = new Vector3(0, 1, 0);
+			Vector3 b = new Vector3(0, 0, 1);
+
+			Single expected = 0;
+			Single result; Vector3.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Static Fn: Normalise //---------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_i()
+		{
+			{
+				Vector3 a = Vector3.Zero;
+
+				Vector3 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector3.Normalise(ref a, out b)
+				);
+			}
+
+			{
+				Vector3 a = new Vector3(
+					Single.MaxValue, 
+					Single.MaxValue, 
+					Single.MaxValue);
+
+				Vector3 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector3.Normalise(ref a, out b)
+				);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a unit vector (with length equal to one);
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_ii ()
+		{
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Vector3 b; Vector3.Normalise(ref a, out b);
+				
+				Single expected = 1;
+				Single result = b.Length();
+
+				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a vector, which when multipled by the 
+		/// length of the original vector results in the same vector as the
+		/// original vector;
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_iii ()
+		{
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Single l = a.Length();
+
+				Vector3 b; Vector3.Normalise(ref a, out b);
+				
+				Vector3 expected = a;
+				Vector3 result = b * l;
+
+				AssertEqualWithinReason(result, expected);
+			}
+		}
+
+		// Test Static Fn: Cross //-------------------------------------------//
+		[Test]
+		public void TestStaticFn_Cross_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: Reflect //-----------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the Reflect method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_DistanceSquared ()
+		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector3 incident = new Vector3(20, -5, 10);
+
+				Vector3 normal = new Vector3(1, -1, 2);
+				Vector3.Normalise(ref normal, out normal);
+
+				Vector3 expected = new Vector3(-5, 20, 2);
+				Vector3 result;
+				Vector3.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector3 incident = new Vector3(20, -5, 10);
+
+				Vector3 normal = new Vector3(2, -1, 2);
+				Vector3.Normalise(ref normal, out normal);
+
+				Vector3 expected = new Vector3(-16, 13, 2);
+				Vector3 result;
+				Vector3.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector3 incident = Vector3.Zero;
+
+				Vector3 normal = new Vector3(0, 0, 1);
+
+				Vector3 result;
+				Vector3.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, Vector3.Zero);
+			}
 		}
 
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Reflect method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Dot ()
+		public void TestStaticFn_Reflect_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Vector3 b = GetNextRandomVector3();
+
+				Vector3.Normalise(ref b, out b);
+
+				Vector3 result;
+				Vector3.Reflect(ref a, ref b, out result);
+				
+				Single dot;
+				Vector3.Dot(ref a, ref b, out dot);
+
+				Vector3 expected = a - (2 * dot * b);
+
+				AssertEqualWithinReason(result, expected);
+			}
 		}
 
+		/// <summary>
+		/// Assert that an argument exception is thrown if the value passed in
+		/// to the normal parameter is not normalised.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_PerpDot ()
+		public void TestStaticFn_Reflect_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector3 incident = GetNextRandomVector3();
+			Vector3 normal = new Vector3(12, -241, 123);
+
+			Vector3 result; 
+
+			Assert.Throws(
+				typeof(ArgumentOutOfRangeException), 
+				() => 
+				Vector3.Reflect(ref incident, ref normal, out result)
+			);
 		}
 
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Perpendicular ()
+		public void TestStaticFn_TransformMatix44_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Normalise ()
+		public void TestStaticFn_TransformNormal_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_TransformQuaternion_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
-		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		// Test Operator: Equality //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing equality.
+		/// </summary>
+		void TestEquality (Vector3 a, Vector3 b, Boolean expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   (a == b) == expected
+			//   (b == a) == expected
+			//   (a != b) == !expected
+			//   (b != a) == !expected
+
+			Boolean result_1a = (a == b);
+			Boolean result_1b = (a.Equals(b));
+			Boolean result_1c = (a.Equals((Object)b));
+			
+			Boolean result_2a = (b == a);
+			Boolean result_2b = (b.Equals(a));
+			Boolean result_2c = (b.Equals((Object)a));
+
+			Boolean result_3a = (a != b);
+			Boolean result_4a = (b != a);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_1c, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+			Assert.That(result_2c, Is.EqualTo(expected));
+			Assert.That(result_3a, Is.EqualTo(!expected));
+			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of TRUE when two equal  
+		/// Vector3 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestOperator_Equality_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(44, -54, -22);
+			var b = new Vector3(44, -54, -22);
+
+			Boolean expected = true;
+
+			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of FALSE when two unequal  
+		/// Vector3 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestOperator_Equality_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(44, 54, 2);
+			var b = new Vector3(44, -54, 2);
+
+			Boolean expected = false;
+
+			this.TestEquality(a, b, expected);
 		}
 
-		#endregion
-		#region Utilities
-
+		/// <summary>
+		/// Tests to make sure that all the equality opperators and functions 
+		/// yield the expected result of TRUE when used on a number of randomly 
+		/// generated pairs of equal Vector3 objects.
+		/// </summary>
 		[Test]
-		public void TestOperator_Addition ()
+		public void TestOperator_Equality_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+
+				Vector3 b = a;
+
+				this.TestEquality(a, b, true);
+			}
 		}
 
-		[Test]
-		public void TestOperator_Subtraction ()
+
+		// Test Operator: Addition //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing addition.
+		/// </summary>
+		void TestAddition (Vector3 a, Vector3 b, Vector3 expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   a + b == expected
+			//   b + a == expected
+
+			var result_1a = a + b;
+			var result_2a = b + a;
+
+			Vector3 result_1b; Vector3.Add(ref a, ref b, out result_1b);
+			Vector3 result_2b; Vector3.Add(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that, for a known example, all the addition opperators
+		/// and functions yield the correct result.
+		/// </summary>
 		[Test]
-		public void TestOperator_Negation ()
+		public void TestOperator_Addition_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(3, -6, 44);
+			var b = new Vector3(-6, 12, 18);
+
+			var expected = new Vector3(-3, 6, 62);
+
+			this.TestAddition(a, b, expected);
 		}
 
+		/// <summary>
+		/// Assert that, for a known example involving the zero vector, all the 
+		/// addition opperators and functions yield the correct result.
+		/// </summary>
 		[Test]
-		public void TestOperator_Multiplication ()
+		public void TestOperator_Addition_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(-2313, 88, 199);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector3.Zero, expected);
 		}
 
+		/// <summary>
+		/// Assert that, for a known example involving two zero vectors, all the 
+		/// addition opperators and functions yield the correct result of zero.
+		/// </summary>
 		[Test]
-		public void TestOperator_Division ()
+		public void TestOperator_Addition_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			this.TestAddition(Vector3.Zero, Vector3.Zero, Vector3.Zero);
 		}
 
-		#endregion
-		#region Splines
-
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// addition opperators and functions yield the same results as a
+		/// manual addition calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep ()
+		public void TestOperator_Addition_iv ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var expected = new Vector3(
+					a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+
+				this.TestAddition(a, b, expected);
+			}
 		}
 
-		[Test]
-		public void TestStaticFn_CatmullRom ()
+		// Test Operator: Subtraction //--------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing subtraction.
+		/// </summary>
+		void TestSubtraction (Vector3 a, Vector3 b, Vector3 expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   a - b == expected
+			//   b - a == -expected
+
+			var result_1a = a - b;
+			var result_2a = b - a;
+
+			Vector3 result_1b; Vector3.Subtract(ref a, ref b, out result_1b);
+			Vector3 result_2b; Vector3.Subtract(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(-expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(-expected));
 		}
 
+		/// <summary>
+		/// Assert that, for known examples, all the subtraction opperators
+		/// and functions yield the correct result.
+		/// <summary>
 		[Test]
-		public void TestStaticFn_Hermite ()
+		public void TestOperator_Subtraction_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(12, -4, 14);
+			var b = new Vector3(15, 11, 7);
+			var expected = new Vector3(-3, -15, 7);
+			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector3(-423, 342, 7);
+			this.TestSubtraction(c, Vector3.Zero, c);
 		}
 
-		#endregion
-				#region Utilities
+		/// <summary>
+		/// Assert that when subtracting the zero vector fromt the zero vector, 
+		/// all the subtraction opperators and functions yield the correct 
+		/// result.
+		/// <summary>
+		[Test]
+		public void TestOperator_Subtraction_ii ()
+		{
+			this.TestSubtraction(Vector3.Zero, Vector3.Zero, Vector3.Zero);
+		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// subtraction opperators and functions yield the same results as a
+		/// manual subtraction calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Subtraction_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var expected = new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+
+				this.TestSubtraction(a, b, expected);
+			}
+		}
+
+		// Test Operator: Negation //-----------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing negation.
+		/// </summary>
+		void TestNegation (Vector3 a, Vector3 expected )
+		{
+			// This test asserts the following:
+			//   -a == expected
+
+			var result_1a = -a;
+
+			Vector3 result_1b; Vector3.Negate(ref a, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for known examples, all the negation opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_i ()
+		{
+			Single r = 3432;
+			Single s = -6218;
+			Single t = -3432;
+			Single u = 6218;
+
+			var a = new Vector3(r, s, t);
+			var b = new Vector3(u, t, s);
+			var c = new Vector3(t, u, r);
+			var d = new Vector3(s, r, u);
+
+			this.TestNegation(a, c);
+			this.TestNegation(b, d);
+		}
+
+		/// <summary>
+		/// Assert that, for known examples involving the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_ii ()
+		{
+			Single t = -3432;
+			Single u = 6218;
+			Single r = 3432;
+			Single s = -6218;
+
+			var c = new Vector3(t, u, r);
+			var d = new Vector3(s, r, u);
+
+			this.TestNegation(c, Vector3.Zero - c);
+			this.TestNegation(d, Vector3.Zero - d);
+		}
+
+		/// <summary>
+		/// Assert that when negating the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iii ()
+		{
+			this.TestNegation(Vector3.Zero, Vector3.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// negation opperators and functions yield the same results as a
+		/// manual negation calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iv ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				this.TestNegation(a, Vector3.Zero - a);
+			}
+		}
+
+		// Test Operator: Multiplication //-----------------------------------//
+
+		/// <summary>
+		/// Helper method for testing multiplication.
+		/// </summary>
+		void TestMultiplication (Vector3 a, Vector3 b, Vector3 expected )
+		{
+			// This test asserts the following:
+			//   a * b == expected
+			//   b * a == expected
+
+			var result_1a = a * b;
+			var result_2a = b * a;
+
+			Vector3 result_1b; Vector3.Multiply(ref a, ref b, out result_1b);
+			Vector3 result_2b; Vector3.Multiply(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_i ()
+		{
+			Single r = -27;
+			Single s = 36;
+			Single t = 9;
+
+			Single x = 3;
+			Single y = 6;
+			Single z = -9;
+
+			var a = new Vector3(x, y, x);
+			var b = new Vector3(z, y, x);
+			var c = new Vector3(r, s, t);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// multiplication opperators and functions yield the same results as a
+		/// manual multiplication calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var c = new Vector3(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
+
+				this.TestMultiplication(a, b, c);
+			}
+		}
+
+
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing division.
+		/// </summary>
+		void TestDivision (Vector3 a, Vector3 b, Vector3 expected )
+		{
+			// This test asserts the following:
+			//   a / b == expected
+
+			var result_1a = a / b;
+
+			Vector3 result_1b; Vector3.Divide(ref a, ref b, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using whole numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_i ()
+		{
+			Single r = 10;
+			Single s = -40;
+			Single t = 1;
+
+			Single x = 2000;
+			Single y = 200;
+			Single z = -5;
+
+			var a = new Vector3(x, y, x);
+			var b = new Vector3(y, z, x);
+			var c = new Vector3(r, s, t);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using fractional numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_ii ()
+		{
+			Single t = ((Single) 1 ) / ((Single) 10);
+			Single u = ((Single) (-1) ) / ((Single) 40 );
+			Single v = -20;
+			Single w = 100;
+			Single x = 2000;
+			Single y = 200;
+			Single z = -5;
+
+			var a = new Vector3(y, z, w);
+			var b = new Vector3(x, y, z);
+			var c = new Vector3(t, u, v);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// division opperators and functions yield the same results as a
+		/// manual addition division.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var c = new Vector3(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
+
+				this.TestDivision(a, b, c);
+			}
+		}
+
+		// Test Static Fn: SmoothStep //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				Single amount1 = 0;
+				Vector3 result1;
+
+				Vector3.SmoothStep (
+					ref a, ref b, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Single amount2 = 1;
+				Vector3 result2;
+
+				Vector3.SmoothStep (
+					ref a, ref b, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_ii ()
+		{
+			var a = GetNextRandomVector3();
+			var b = GetNextRandomVector3();
+
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector3 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.SmoothStep (
+							ref a, ref b, amount, out result)
+					);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_iii ()
+		{
+			var a = new Vector3( -30, -30, -30 );
+			var b = new Vector3( +30, +30, +30 );
+
+			Single one = 1;
+
+			Single i;
+			RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			
+			Single j;
+			RealMaths.FromFraction( 165,  8, out j); // 20.625
+			
+			Single k;
+			RealMaths.FromFraction( 705, 64, out k); // 11.015625
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector3 r0 = a;
+			Vector3 r1 = new Vector3( -i, -i, -i );
+			Vector3 r2 = new Vector3( -j, -j, -j );
+			Vector3 r3 = new Vector3( -k, -k, -k );
+			Vector3 r4 = Vector3.Zero;
+			Vector3 r5 = new Vector3(  k,  k,  k );
+			Vector3 r6 = new Vector3(  j,  j,  j );
+			Vector3 r7 = new Vector3(  i,  i,  i );
+			Vector3 r8 = b;
+
+			var knownResults = new List<Tuple<Single, Vector3>>
+			{
+				new Tuple<Single, Vector3>( a0, r0 ),
+				new Tuple<Single, Vector3>( a1, r1 ),
+				new Tuple<Single, Vector3>( a2, r2 ),
+				new Tuple<Single, Vector3>( a3, r3 ),
+				new Tuple<Single, Vector3>( a4, r4 ),
+				new Tuple<Single, Vector3>( a5, r5 ),
+				new Tuple<Single, Vector3>( a6, r6 ),
+				new Tuple<Single, Vector3>( a7, r7 ),
+				new Tuple<Single, Vector3>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.SmoothStep (
+					ref a, ref b, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: CatmullRom //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+				var c = GetNextRandomVector3();
+				var d = GetNextRandomVector3();
+
+				Single amount1 = 0;
+				Vector3 result1;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				Single amount2 = 1;
+				Vector3 result2;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_ii ()
+		{
+			var a = new Vector3( -90, +30, +90 );
+			var b = new Vector3( -30, -30, +30 );
+			var c = new Vector3( +30, +30, -30 );
+			var d = new Vector3( +90, -30, -90 );
+
+			Single one = 1;
+
+			Single u = 15;
+			Single v = (Single) 165  / (Single)  8; // 20.5
+			Single w = (Single) 45   / (Single)  2; // 20.625
+			Single x = (Single) 1755 / (Single) 64; // 27.421875
+			Single y = (Single) 15   / (Single)  2; // 14.5
+			Single z = (Single) 705  / (Single) 64; // 11.015625
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector3 r0 = b;
+			Vector3 r1 = new Vector3( -w, -x,  w );
+			Vector3 r2 = new Vector3( -u, -v,  u );
+			Vector3 r3 = new Vector3( -y, -z,  y );
+			Vector3 r4 = Vector3.Zero;
+			Vector3 r5 = new Vector3(  y,  z, -y );
+			Vector3 r6 = new Vector3(  u,  v, -u );
+			Vector3 r7 = new Vector3(  w,  x, -w );
+			Vector3 r8 = c;
+
+			var knownResults = new List<Tuple<Single, Vector3>>
+			{
+				new Tuple<Single, Vector3>( a0, r0 ),
+				new Tuple<Single, Vector3>( a1, r1 ),
+				new Tuple<Single, Vector3>( a2, r2 ),
+				new Tuple<Single, Vector3>( a3, r3 ),
+				new Tuple<Single, Vector3>( a4, r4 ),
+				new Tuple<Single, Vector3>( a5, r5 ),
+				new Tuple<Single, Vector3>( a6, r6 ),
+				new Tuple<Single, Vector3>( a7, r7 ),
+				new Tuple<Single, Vector3>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iii ()
+		{
+			var a = GetNextRandomVector3();
+			var b = GetNextRandomVector3();
+			var c = GetNextRandomVector3();
+			var d = GetNextRandomVector3();
+			
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector3 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.CatmullRom (
+							ref a, ref b, ref c, ref d, amount, out result)
+				);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.  In this case the resulting spline
+		/// should be a straight line.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iv ()
+		{
+			var a = new Vector3( -90, -90, +90 );
+			var b = new Vector3( -30, -30, +30 );
+			var c = new Vector3( +30, +30, -30 );
+			var d = new Vector3( +90, +90, -90 );
+
+			Single one = 1;
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 4;
+			Single a2 = (one * 2) / 4;
+			Single a3 = (one * 3) / 4;
+			Single a4 = 1;
+
+			Vector3 r0 = b;
+			Vector3 r1 = new Vector3( -15, -15,  15 );
+			Vector3 r2 = Vector3.Zero;
+			Vector3 r3 = new Vector3(  15,  15, -15 );
+			Vector3 r4 = c;
+
+			var knownResults = new List<Tuple<Single, Vector3>>
+			{
+				new Tuple<Single, Vector3>( a0, r0 ),
+				new Tuple<Single, Vector3>( a1, r1 ),
+				new Tuple<Single, Vector3>( a2, r2 ),
+				new Tuple<Single, Vector3>( a3, r3 ),
+				new Tuple<Single, Vector3>( a4, r4 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: Hermite //-----------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a  = GetNextRandomVector3();
+				var b  = GetNextRandomVector3();
+
+				var c = GetNextRandomVector3();
+				var d = GetNextRandomVector3();
+
+				Vector3 an; Vector3.Normalise(ref c, out an);
+				Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+				Single amount1 = 0;
+				Vector3 result1;
+
+				Vector3.Hermite (
+					ref a, ref an, ref b, ref bn, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Single amount2 = 1;
+				Vector3 result2;
+
+				Vector3.Hermite (
+					ref a, ref an, ref b, ref bn, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_ii ()
+		{
+			var a = GetNextRandomVector3();
+			var b = GetNextRandomVector3();
+			var c = GetNextRandomVector3();
+			var d = GetNextRandomVector3();
+
+			Vector3 an; Vector3.Normalise(ref c, out an);
+			Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector3 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.Hermite (
+							ref a, ref an, ref b, ref bn, amount, out result)
+					);
+				
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iii ()
+		{
+			var a = new Vector3( -100, +50, +100 );
+			var b = new Vector3( +100, -50, -100 );
+
+			var c = new Vector3( -10, +5, +10 );
+			var d = new Vector3( +10, -5, -10 );
+
+			Vector3 an; Vector3.Normalise(ref c, out an);
+			Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+			Single one = 1;
+			
+			// 100.1953125
+			Single e = (Single) 51300 / (Single) 512;
+
+			// 50.09765625
+			Single f = (Single) 12825 / (Single) 256;
+
+			// 91.25
+			Single g = (Single) 365 / (Single) 4;
+
+			// 45.625
+			Single h = (Single) 365 / (Single) 8;
+
+			// 75.7421875
+			Single i = (Single) 9695 / (Single) 128;
+
+			// 37.87109375
+			Single j = (Single) 9695 / (Single) 256;
+
+			// 56.25
+			Single k = (Single) 225 / (Single) 4;
+
+			// 28.125
+			Single l = (Single) 225 / (Single) 8;
+
+			// 35.3515625
+			Single m = (Single) 4525 / (Single) 128;
+
+			// 17.67578125
+			Single n = (Single) 4525 / (Single) 256;
+
+			// 15.625
+			Single o = (Single) 125 / (Single) 8;
+
+			// 7.8125
+			Single p = (Single) 125 / (Single) 16;
+
+			// 0.3515625
+			Single q = (Single) 45 / (Single) 128;
+
+			// 0.17578125
+			Single r = (Single) 45 / (Single) 256;
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector3 r0 = b;
+			Vector3 r1 = new Vector3(  e, -f, -e );
+			Vector3 r2 = new Vector3(  g, -h, -g );
+			Vector3 r3 = new Vector3(  i, -j, -i );
+			Vector3 r4 = new Vector3(  k, -l, -k );
+			Vector3 r5 = new Vector3(  m, -n, -m );
+			Vector3 r6 = new Vector3(  o, -p, -o );
+			Vector3 r7 = new Vector3( -q,  r,  q );
+			Vector3 r8 = c;
+
+			var knownResults = new List<Tuple<Single, Vector3>>
+			{
+				new Tuple<Single, Vector3>( a0, r0 ),
+				new Tuple<Single, Vector3>( a1, r1 ),
+				new Tuple<Single, Vector3>( a2, r2 ),
+				new Tuple<Single, Vector3>( a3, r3 ),
+				new Tuple<Single, Vector3>( a4, r4 ),
+				new Tuple<Single, Vector3>( a5, r5 ),
+				new Tuple<Single, Vector3>( a6, r6 ),
+				new Tuple<Single, Vector3>( a7, r7 ),
+				new Tuple<Single, Vector3>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+				/// <summary>
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector3 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = a * 2;
+
+				Vector3 result;
+				Vector3.Min (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector3 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = GetNextRandomVector3();
+
+				Vector3 result;
+				Vector3.Max (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector3 objects for a given min-max range, yields
+		/// results that fall within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Clamp ()
+		public void TestStaticFn_Clamp_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector3 min = new Vector3(-30, 1, 18);
+			Vector3 max = new Vector3(32, 130, 47);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Vector3 result;
+				Vector3.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on an a Vector3 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Lerp ()
+		public void TestStaticFn_Clamp_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector3 min = new Vector3(-30, 1, 18);
+			Vector3 max = new Vector3(32, 130, 47);
+
+			Vector3 a = new Vector3(-100, 1113, 50);
+
+			Vector3 expected = new Vector3(-30, 130, 47);
+
+			Vector3 result;
+			Vector3.Clamp (ref a, ref min, ref max, out result);
+
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.Z, Is.LessThanOrEqualTo(max.Z));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.Z, Is.GreaterThanOrEqualTo(min.Z));
+
+			AssertEqualWithinReason(result, expected);
+
 		}
 
-		#endregion
+		/// <summary>
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector3 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			for(Int32 j = 0; j < 100; ++j)
+			{
+				Single delta = j;
 
-	}	[TestFixture]
+				delta = delta / 100;
+
+				for(Int32 i = 0; i < 100; ++i)
+				{
+					Vector3 a = GetNextRandomVector3();
+					Vector3 b = GetNextRandomVector3();
+
+					Vector3 result;
+					Vector3.Lerp (ref a, ref b, delta, out result);
+
+					Vector3 expected = a + ( ( b - a ) * delta );
+
+					AssertEqualWithinReason(result, expected);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_ii ()
+		{
+			Vector3 a = GetNextRandomVector3();
+			Vector3 b = GetNextRandomVector3();
+
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var weighting in tests )
+			{
+				Vector3 result; 
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.Lerp (
+							ref a, ref b, weighting, out result)
+					);
+			}
+		}
+
+
+	}	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class Vector4Tests
 	{
 		/// <summary>
@@ -3518,164 +5198,1525 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			AssertEqualWithinReason(result, expected);
 		}
 
-		#region Maths
+		// Test Static Fn: Distance //----------------------------------------//
 
+		/// <summary>
+		/// Assert that, for a number of known examples, the Distance method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Distance ()
+		public void TestStaticFn_Distance_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector4 a = new Vector4(0, 4, 12, 0);
+				Vector4 b = new Vector4(3, 0, 0, 84);
+
+				Single expected = 85;
+				Single result;
+
+				Vector4.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = new Vector4(0, -4, 12, 0);
+				Vector4 b = new Vector4(3, 0, 0, 84);
+
+				Single expected = 85;
+				Single result;
+
+				Vector4.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = new Vector4(0, -4, -12, 0);
+				Vector4 b = new Vector4(-3, 0, 0, -84);
+
+				Single expected = 85;
+				Single result;
+
+				Vector4.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = Vector4.Zero;
+
+				Single expected = 0;
+				Single result;
+
+				Vector4.Distance(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Distance method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_DistanceSquared ()
+		public void TestStaticFn_Distance_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Single expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z) + (a.W * a.W));
+
+				Assert.That(a.Length(), Is.EqualTo(expected));
+			}
 		}
 
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the DistanceSquared 
+		/// method yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Dot ()
+		public void TestStaticFn_DistanceSquared_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector4 a = new Vector4(0, 4, 12, 0);
+				Vector4 b = new Vector4(3, 0, 0, 84);
+
+				Single expected = 7225;
+				Single result;
+
+				Vector4.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = Vector4.Zero;
+
+				Single expected = 0;
+				Single result;
+
+				Vector4.DistanceSquared(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// DistanceSquared method yeilds the same results as those obtained 
+		/// from performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_PerpDot ()
+		public void TestStaticFn_DistanceSquared_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = GetNextRandomVector4();
+
+				Vector4 c = b - a;
+
+				Single expected = (c.X * c.X) + (c.Y * c.Y) + (c.Z * c.Z) + (c.W * c.W);
+				Single result;
+
+				Vector4.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Dot method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Perpendicular ()
+		public void TestStaticFn_Dot_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = GetNextRandomVector4();
+
+				Single expected = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
+				Single result; Vector4.Dot(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+		/// <summary>
+		/// Assert that two unit vectors pointing in opposing directions yeild a
+		/// dot product of negative one.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Normalise ()
+		public void TestStaticFn_Dot_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(0, 0, 0, 1);
+			Vector4 b = new Vector4(0, 0, 0, -1);
+
+			Single expected = -1;
+			Single result; Vector4.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that two unit vectors pointing in the same direction yeild a
+		/// dot product of one.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_Dot_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(0, 0, 0, 1);
+			Vector4 b = new Vector4(0, 0, 0, 1);
+
+			Single expected = 1;
+			Single result; Vector4.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that two perpendicular unit vectors yeild a dot product of 
+		/// zero.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		public void TestStaticFn_Dot_iv ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(0, 0, 1, 0);
+			Vector4 b = new Vector4(0, 0, 0, 1);
+
+			Single expected = 0;
+			Single result; Vector4.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Static Fn: Normalise //---------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestStaticFn_Normalise_i()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector4 a = Vector4.Zero;
+
+				Vector4 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector4.Normalise(ref a, out b)
+				);
+			}
+
+			{
+				Vector4 a = new Vector4(
+					Single.MaxValue, 
+					Single.MaxValue, 
+					Single.MaxValue, 
+					Single.MaxValue);
+
+				Vector4 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector4.Normalise(ref a, out b)
+				);
+			}
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a unit vector (with length equal to one);
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestStaticFn_Normalise_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Vector4 b; Vector4.Normalise(ref a, out b);
+				
+				Single expected = 1;
+				Single result = b.Length();
+
+				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			}
 		}
 
-		#endregion
-		#region Utilities
-
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a vector, which when multipled by the 
+		/// length of the original vector results in the same vector as the
+		/// original vector;
+		/// </summary>
 		[Test]
-		public void TestOperator_Addition ()
+		public void TestStaticFn_Normalise_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Single l = a.Length();
+
+				Vector4 b; Vector4.Normalise(ref a, out b);
+				
+				Vector4 expected = a;
+				Vector4 result = b * l;
+
+				AssertEqualWithinReason(result, expected);
+			}
 		}
 
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestOperator_Subtraction ()
+		public void TestStaticFn_TransformMatix44_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestOperator_Negation ()
+		public void TestStaticFn_TransformNormal_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestOperator_Multiplication ()
+		public void TestStaticFn_TransformQuaternion_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
-		[Test]
-		public void TestOperator_Division ()
+		// Test Operator: Equality //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing equality.
+		/// </summary>
+		void TestEquality (Vector4 a, Vector4 b, Boolean expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   (a == b) == expected
+			//   (b == a) == expected
+			//   (a != b) == !expected
+			//   (b != a) == !expected
+
+			Boolean result_1a = (a == b);
+			Boolean result_1b = (a.Equals(b));
+			Boolean result_1c = (a.Equals((Object)b));
+			
+			Boolean result_2a = (b == a);
+			Boolean result_2b = (b.Equals(a));
+			Boolean result_2c = (b.Equals((Object)a));
+
+			Boolean result_3a = (a != b);
+			Boolean result_4a = (b != a);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_1c, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+			Assert.That(result_2c, Is.EqualTo(expected));
+			Assert.That(result_3a, Is.EqualTo(!expected));
+			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
-		#endregion
-		#region Splines
-
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of TRUE when two equal  
+		/// Vector4 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Barycentric ()
+		public void TestOperator_Equality_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector4(44, -54, -22, 11);
+			var b = new Vector4(44, -54, -22, 11);
+
+			Boolean expected = true;
+
+			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of FALSE when two unequal  
+		/// Vector4 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep ()
+		public void TestOperator_Equality_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector4(44, 54, 2, 11);
+			var b = new Vector4(44, -54, 2, -1);
+
+			Boolean expected = false;
+
+			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// Tests to make sure that all the equality opperators and functions 
+		/// yield the expected result of TRUE when used on a number of randomly 
+		/// generated pairs of equal Vector4 objects.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom ()
+		public void TestOperator_Equality_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+
+				Vector4 b = a;
+
+				this.TestEquality(a, b, true);
+			}
 		}
 
-		[Test]
-		public void TestStaticFn_Hermite ()
+
+		// Test Operator: Addition //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing addition.
+		/// </summary>
+		void TestAddition (Vector4 a, Vector4 b, Vector4 expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   a + b == expected
+			//   b + a == expected
+
+			var result_1a = a + b;
+			var result_2a = b + a;
+
+			Vector4 result_1b; Vector4.Add(ref a, ref b, out result_1b);
+			Vector4 result_2b; Vector4.Add(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
-		#endregion
-				#region Utilities
+		/// <summary>
+		/// Assert that, for a known example, all the addition opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_i ()
+		{
+			var a = new Vector4(3, -6, 44, 11);
+			var b = new Vector4(-6, 12, 18, -3);
 
+			var expected = new Vector4(-3, 6, 62, 8);
+
+			this.TestAddition(a, b, expected);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example involving the zero vector, all the 
+		/// addition opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_ii ()
+		{
+			var a = new Vector4(-2313, 88, 199, 42);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector4.Zero, expected);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example involving two zero vectors, all the 
+		/// addition opperators and functions yield the correct result of zero.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_iii ()
+		{
+			this.TestAddition(Vector4.Zero, Vector4.Zero, Vector4.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// addition opperators and functions yield the same results as a
+		/// manual addition calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_iv ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var expected = new Vector4(
+					a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
+
+				this.TestAddition(a, b, expected);
+			}
+		}
+
+		// Test Operator: Subtraction //--------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing subtraction.
+		/// </summary>
+		void TestSubtraction (Vector4 a, Vector4 b, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   a - b == expected
+			//   b - a == -expected
+
+			var result_1a = a - b;
+			var result_2a = b - a;
+
+			Vector4 result_1b; Vector4.Subtract(ref a, ref b, out result_1b);
+			Vector4 result_2b; Vector4.Subtract(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(-expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(-expected));
+		}
+
+		/// <summary>
+		/// Assert that, for known examples, all the subtraction opperators
+		/// and functions yield the correct result.
+		/// <summary>
+		[Test]
+		public void TestOperator_Subtraction_i ()
+		{
+			var a = new Vector4(12, -4, 14, 18);
+			var b = new Vector4(15, 11, 7, 27);
+			var expected = new Vector4(-3, -15, 7, -9);
+			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector4(-423, 342, 7, -800);
+			this.TestSubtraction(c, Vector4.Zero, c);
+		}
+
+		/// <summary>
+		/// Assert that when subtracting the zero vector fromt the zero vector, 
+		/// all the subtraction opperators and functions yield the correct 
+		/// result.
+		/// <summary>
+		[Test]
+		public void TestOperator_Subtraction_ii ()
+		{
+			this.TestSubtraction(Vector4.Zero, Vector4.Zero, Vector4.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// subtraction opperators and functions yield the same results as a
+		/// manual subtraction calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Subtraction_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var expected = new Vector4(
+					a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
+
+				this.TestSubtraction(a, b, expected);
+			}
+		}
+
+		// Test Operator: Negation //-----------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing negation.
+		/// </summary>
+		void TestNegation (Vector4 a, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   -a == expected
+
+			var result_1a = -a;
+
+			Vector4 result_1b; Vector4.Negate(ref a, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for known examples, all the negation opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_i ()
+		{
+			Single r = 3432;
+			Single s = -6218;
+			Single t = -3432;
+			Single u = 6218;
+
+			var a = new Vector4(r, s, t, u);
+			var b = new Vector4(u, t, s, r);
+			var c = new Vector4(t, u, r, s);
+			var d = new Vector4(s, r, u, t);
+
+			this.TestNegation(a, c);
+			this.TestNegation(b, d);
+		}
+
+		/// <summary>
+		/// Assert that, for known examples involving the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_ii ()
+		{
+			Single t = -3432;
+			Single u = 6218;
+			Single r = 3432;
+			Single s = -6218;
+
+			var c = new Vector4(t, u, r, s);
+			var d = new Vector4(s, r, u, t);
+
+			this.TestNegation(c, Vector4.Zero - c);
+			this.TestNegation(d, Vector4.Zero - d);
+		}
+
+		/// <summary>
+		/// Assert that when negating the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iii ()
+		{
+			this.TestNegation(Vector4.Zero, Vector4.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// negation opperators and functions yield the same results as a
+		/// manual negation calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iv ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				this.TestNegation(a, Vector4.Zero - a);
+			}
+		}
+
+		// Test Operator: Multiplication //-----------------------------------//
+
+		/// <summary>
+		/// Helper method for testing multiplication.
+		/// </summary>
+		void TestMultiplication (Vector4 a, Vector4 b, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   a * b == expected
+			//   b * a == expected
+
+			var result_1a = a * b;
+			var result_2a = b * a;
+
+			Vector4 result_1b; Vector4.Multiply(ref a, ref b, out result_1b);
+			Vector4 result_2b; Vector4.Multiply(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_i ()
+		{
+			Single r = -27;
+			Single s = 36;
+			Single t = 9;
+			Single u = -54;
+
+			Single x = 3;
+			Single y = 6;
+			Single z = -9;
+
+			var a = new Vector4(x, y, x, y);
+			var b = new Vector4(z, y, x, z);
+			var c = new Vector4(r, s, t, u);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// multiplication opperators and functions yield the same results as a
+		/// manual multiplication calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var c = new Vector4(
+					a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W);
+
+				this.TestMultiplication(a, b, c);
+			}
+		}
+
+
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing division.
+		/// </summary>
+		void TestDivision (Vector4 a, Vector4 b, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   a / b == expected
+
+			var result_1a = a / b;
+
+			Vector4 result_1b; Vector4.Divide(ref a, ref b, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using whole numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_i ()
+		{
+			Single r = 10;
+			Single s = -40;
+			Single t = 1;
+			Single u = -400;
+
+			Single x = 2000;
+			Single y = 200;
+			Single z = -5;
+
+			var a = new Vector4(x, y, x, x);
+			var b = new Vector4(y, z, x, z);
+			var c = new Vector4(r, s, t, u);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using fractional numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_ii ()
+		{
+			Single s = 4;
+			Single t = ((Single) 1 ) / ((Single) 10);
+			Single u = ((Single) (-1) ) / ((Single) 40 );
+			Single v = -20;
+			Single w = 100;
+			Single x = 2000;
+			Single y = 200;
+			Single z = -5;
+
+			var a = new Vector4(y, z, w, v);
+			var b = new Vector4(x, y, z, z);
+			var c = new Vector4(t, u, v, s);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// division opperators and functions yield the same results as a
+		/// manual addition division.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var c = new Vector4(
+					a.X / b.X, a.Y / b.Y, a.Z / b.Z, a.W / b.W);
+
+				this.TestDivision(a, b, c);
+			}
+		}
+
+		// Test Static Fn: SmoothStep //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				Single amount1 = 0;
+				Vector4 result1;
+
+				Vector4.SmoothStep (
+					ref a, ref b, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Single amount2 = 1;
+				Vector4 result2;
+
+				Vector4.SmoothStep (
+					ref a, ref b, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_ii ()
+		{
+			var a = GetNextRandomVector4();
+			var b = GetNextRandomVector4();
+
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector4 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.SmoothStep (
+							ref a, ref b, amount, out result)
+					);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_iii ()
+		{
+			var a = new Vector4( -30, -30, -30, -30 );
+			var b = new Vector4( +30, +30, +30, +30 );
+
+			Single one = 1;
+
+			Single i;
+			RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			
+			Single j;
+			RealMaths.FromFraction( 165,  8, out j); // 20.625
+			
+			Single k;
+			RealMaths.FromFraction( 705, 64, out k); // 11.015625
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector4 r0 = a;
+			Vector4 r1 = new Vector4( -i, -i, -i, -i );
+			Vector4 r2 = new Vector4( -j, -j, -j, -j );
+			Vector4 r3 = new Vector4( -k, -k, -k, -k );
+			Vector4 r4 = Vector4.Zero;
+			Vector4 r5 = new Vector4(  k,  k,  k,  k );
+			Vector4 r6 = new Vector4(  j,  j,  j,  j );
+			Vector4 r7 = new Vector4(  i,  i,  i,  i );
+			Vector4 r8 = b;
+
+			var knownResults = new List<Tuple<Single, Vector4>>
+			{
+				new Tuple<Single, Vector4>( a0, r0 ),
+				new Tuple<Single, Vector4>( a1, r1 ),
+				new Tuple<Single, Vector4>( a2, r2 ),
+				new Tuple<Single, Vector4>( a3, r3 ),
+				new Tuple<Single, Vector4>( a4, r4 ),
+				new Tuple<Single, Vector4>( a5, r5 ),
+				new Tuple<Single, Vector4>( a6, r6 ),
+				new Tuple<Single, Vector4>( a7, r7 ),
+				new Tuple<Single, Vector4>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.SmoothStep (
+					ref a, ref b, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: CatmullRom //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+				var c = GetNextRandomVector4();
+				var d = GetNextRandomVector4();
+
+				Single amount1 = 0;
+				Vector4 result1;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				Single amount2 = 1;
+				Vector4 result2;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_ii ()
+		{
+			var a = new Vector4( -90, +30, +90, -30 );
+			var b = new Vector4( -30, -30, +30, +30 );
+			var c = new Vector4( +30, +30, -30, -30 );
+			var d = new Vector4( +90, -30, -90, -30 );
+
+			Single one = 1;
+
+			Single u = 15;
+			Single v = (Single) 165  / (Single)  8; // 20.5
+			Single w = (Single) 45   / (Single)  2; // 20.625
+			Single x = (Single) 1755 / (Single) 64; // 27.421875
+			Single y = (Single) 15   / (Single)  2; // 14.5
+			Single z = (Single) 705  / (Single) 64; // 11.015625
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector4 r0 = b;
+			Vector4 r1 = new Vector4( -w, -x,  w,  x );
+			Vector4 r2 = new Vector4( -u, -v,  u,  v );
+			Vector4 r3 = new Vector4( -y, -z,  y,  z );
+			Vector4 r4 = Vector4.Zero;
+			Vector4 r5 = new Vector4(  y,  z, -y, -z );
+			Vector4 r6 = new Vector4(  u,  v, -u, -v );
+			Vector4 r7 = new Vector4(  w,  x, -w, -x );
+			Vector4 r8 = c;
+
+			var knownResults = new List<Tuple<Single, Vector4>>
+			{
+				new Tuple<Single, Vector4>( a0, r0 ),
+				new Tuple<Single, Vector4>( a1, r1 ),
+				new Tuple<Single, Vector4>( a2, r2 ),
+				new Tuple<Single, Vector4>( a3, r3 ),
+				new Tuple<Single, Vector4>( a4, r4 ),
+				new Tuple<Single, Vector4>( a5, r5 ),
+				new Tuple<Single, Vector4>( a6, r6 ),
+				new Tuple<Single, Vector4>( a7, r7 ),
+				new Tuple<Single, Vector4>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iii ()
+		{
+			var a = GetNextRandomVector4();
+			var b = GetNextRandomVector4();
+			var c = GetNextRandomVector4();
+			var d = GetNextRandomVector4();
+			
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector4 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.CatmullRom (
+							ref a, ref b, ref c, ref d, amount, out result)
+				);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.  In this case the resulting spline
+		/// should be a straight line.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iv ()
+		{
+			var a = new Vector4( -90, +30, +90, -30 );
+			var b = new Vector4( -30, -30, +30, +30 );
+			var c = new Vector4( +30, +30, -30, -30 );
+			var d = new Vector4( +90, -30, -90, -30 );
+
+			Single one = 1;
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 4;
+			Single a2 = (one * 2) / 4;
+			Single a3 = (one * 3) / 4;
+			Single a4 = 1;
+
+			Vector4 r0 = b;
+			Vector4 r1 = new Vector4( -15, -15,  15,  15 );
+			Vector4 r2 = Vector4.Zero;
+			Vector4 r3 = new Vector4(  15,  15, -15, -15 );
+			Vector4 r4 = c;
+
+			var knownResults = new List<Tuple<Single, Vector4>>
+			{
+				new Tuple<Single, Vector4>( a0, r0 ),
+				new Tuple<Single, Vector4>( a1, r1 ),
+				new Tuple<Single, Vector4>( a2, r2 ),
+				new Tuple<Single, Vector4>( a3, r3 ),
+				new Tuple<Single, Vector4>( a4, r4 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: Hermite //-----------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a  = GetNextRandomVector4();
+				var b  = GetNextRandomVector4();
+
+				var c = GetNextRandomVector4();
+				var d = GetNextRandomVector4();
+
+				Vector4 an; Vector4.Normalise(ref c, out an);
+				Vector4 bn; Vector4.Normalise(ref d, out bn);
+
+				Single amount1 = 0;
+				Vector4 result1;
+
+				Vector4.Hermite (
+					ref a, ref an, ref b, ref bn, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Single amount2 = 1;
+				Vector4 result2;
+
+				Vector4.Hermite (
+					ref a, ref an, ref b, ref bn, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_ii ()
+		{
+			var a = GetNextRandomVector4();
+			var b = GetNextRandomVector4();
+			var c = GetNextRandomVector4();
+			var d = GetNextRandomVector4();
+
+			Vector4 an; Vector4.Normalise(ref c, out an);
+			Vector4 bn; Vector4.Normalise(ref d, out bn);
+
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector4 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.Hermite (
+							ref a, ref an, ref b, ref bn, amount, out result)
+					);
+				
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iii ()
+		{
+			var a = new Vector4( -100, +50, +100, -50 );
+			var b = new Vector4( +100, -50, -100, +50 );
+
+			var c = new Vector4( -10, +5, +10, -5 );
+			var d = new Vector4( +10, -5, -10, +5 );
+
+			Vector4 an; Vector4.Normalise(ref c, out an);
+			Vector4 bn; Vector4.Normalise(ref d, out bn);
+
+			Single one = 1;
+			
+			// 100.1953125
+			Single e = (Single) 51300 / (Single) 512;
+
+			// 50.09765625
+			Single f = (Single) 12825 / (Single) 256;
+
+			// 91.25
+			Single g = (Single) 365 / (Single) 4;
+
+			// 45.625
+			Single h = (Single) 365 / (Single) 8;
+
+			// 75.7421875
+			Single i = (Single) 9695 / (Single) 128;
+
+			// 37.87109375
+			Single j = (Single) 9695 / (Single) 256;
+
+			// 56.25
+			Single k = (Single) 225 / (Single) 4;
+
+			// 28.125
+			Single l = (Single) 225 / (Single) 8;
+
+			// 35.3515625
+			Single m = (Single) 4525 / (Single) 128;
+
+			// 17.67578125
+			Single n = (Single) 4525 / (Single) 256;
+
+			// 15.625
+			Single o = (Single) 125 / (Single) 8;
+
+			// 7.8125
+			Single p = (Single) 125 / (Single) 16;
+
+			// 0.3515625
+			Single q = (Single) 45 / (Single) 128;
+
+			// 0.17578125
+			Single r = (Single) 45 / (Single) 256;
+
+			Single a0 = 0;
+			Single a1 = (one * 1) / 8;
+			Single a2 = (one * 2) / 8;
+			Single a3 = (one * 3) / 8;
+			Single a4 = (one * 4) / 8;
+			Single a5 = (one * 5) / 8;
+			Single a6 = (one * 6) / 8;
+			Single a7 = (one * 7) / 8;
+			Single a8 = 1;
+
+			Vector4 r0 = b;
+			Vector4 r1 = new Vector4(  e, -f, -e,  f );
+			Vector4 r2 = new Vector4(  g, -h, -g,  h );
+			Vector4 r3 = new Vector4(  i, -j, -i,  j );
+			Vector4 r4 = new Vector4(  k, -l, -k,  l );
+			Vector4 r5 = new Vector4(  m, -n, -m,  n );
+			Vector4 r6 = new Vector4(  o, -p, -o,  p );
+			Vector4 r7 = new Vector4( -q,  r,  q, -r );
+			Vector4 r8 = c;
+
+			var knownResults = new List<Tuple<Single, Vector4>>
+			{
+				new Tuple<Single, Vector4>( a0, r0 ),
+				new Tuple<Single, Vector4>( a1, r1 ),
+				new Tuple<Single, Vector4>( a2, r2 ),
+				new Tuple<Single, Vector4>( a3, r3 ),
+				new Tuple<Single, Vector4>( a4, r4 ),
+				new Tuple<Single, Vector4>( a5, r5 ),
+				new Tuple<Single, Vector4>( a6, r6 ),
+				new Tuple<Single, Vector4>( a7, r7 ),
+				new Tuple<Single, Vector4>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+				/// <summary>
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector4 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = a * 2;
+
+				Vector4 result;
+				Vector4.Min (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector4 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = GetNextRandomVector4();
+
+				Vector4 result;
+				Vector4.Max (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector4 objects for a given min-max range, yields
+		/// results that fall within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Clamp ()
+		public void TestStaticFn_Clamp_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 min = new Vector4(-30, 1, 18, -22);
+			Vector4 max = new Vector4(32, 130, 47, -2);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Vector4 result;
+				Vector4.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on an a Vector4 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Lerp ()
+		public void TestStaticFn_Clamp_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 min = new Vector4(-30, 1, 18, -22);
+			Vector4 max = new Vector4(32, 130, 47, -2);
+
+			Vector4 a = new Vector4(-100, 1113, 50, 14);
+
+			Vector4 expected = new Vector4(-30, 130, 47, -2);
+
+			Vector4 result;
+			Vector4.Clamp (ref a, ref min, ref max, out result);
+
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.Z, Is.LessThanOrEqualTo(max.Z));
+			Assert.That(result.W, Is.LessThanOrEqualTo(max.W));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.Z, Is.GreaterThanOrEqualTo(min.Z));
+			Assert.That(result.W, Is.GreaterThanOrEqualTo(min.W));
+
+			AssertEqualWithinReason(result, expected);
+
 		}
 
-		#endregion
+		/// <summary>
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector4 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			for(Int32 j = 0; j < 100; ++j)
+			{
+				Single delta = j;
+
+				delta = delta / 100;
+
+				for(Int32 i = 0; i < 100; ++i)
+				{
+					Vector4 a = GetNextRandomVector4();
+					Vector4 b = GetNextRandomVector4();
+
+					Vector4 result;
+					Vector4.Lerp (ref a, ref b, delta, out result);
+
+					Vector4 expected = a + ( ( b - a ) * delta );
+
+					AssertEqualWithinReason(result, expected);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_ii ()
+		{
+			Vector4 a = GetNextRandomVector4();
+			Vector4 b = GetNextRandomVector4();
+
+			Single half; RealMaths.Half(out half);
+
+			var tests = new Single[] { 2, half + 1, -half, -1 };
+
+			foreach( var weighting in tests )
+			{
+				Vector4 result; 
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.Lerp (
+							ref a, ref b, weighting, out result)
+					);
+			}
+		}
+
 
 	}}
 
 namespace Sungiant.Abacus.DoublePrecision.Tests
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	[TestFixture]
 	public class Matrix44Tests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static Matrix44Tests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Double value.
+		/// </summary>
+		static Double GetNextRandomDouble ()
+		{
+			Double randomValue = rand.NextDouble();
+
+			Double zero = 0;
+			Double multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Matrix44.
+		/// </summary>
+		static Matrix44 GetNextRandomMatrix44 ()
+		{
+			Double a = GetNextRandomDouble();
+			Double b = GetNextRandomDouble();
+			Double c = GetNextRandomDouble();
+			Double d = GetNextRandomDouble();
+			Double e = GetNextRandomDouble();
+			Double f = GetNextRandomDouble();
+			Double g = GetNextRandomDouble();
+			Double h = GetNextRandomDouble();
+			Double i = GetNextRandomDouble();
+			Double j = GetNextRandomDouble();
+			Double k = GetNextRandomDouble();
+			Double l = GetNextRandomDouble();
+			Double m = GetNextRandomDouble();
+			Double n = GetNextRandomDouble();
+			Double o = GetNextRandomDouble();
+			Double p = GetNextRandomDouble();
+
+			return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Matrix44s are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+		{
+			Double tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
+			Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
+			Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
+			Assert.That(a.M14, Is.EqualTo(b.M14).Within(tolerance));
+			Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
+			Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
+			Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
+			Assert.That(a.M24, Is.EqualTo(b.M24).Within(tolerance));
+			Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
+			Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
+			Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
+			Assert.That(a.M34, Is.EqualTo(b.M34).Within(tolerance));
+			Assert.That(a.M41, Is.EqualTo(b.M41).Within(tolerance));
+			Assert.That(a.M42, Is.EqualTo(b.M42).Within(tolerance));
+			Assert.That(a.M43, Is.EqualTo(b.M43).Within(tolerance));
+			Assert.That(a.M44, Is.EqualTo(b.M44).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -3733,23 +6774,6 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		[Test]
-		public void CreateFromQuaternion ()
-		{
-			Double pi; RealMaths.Pi(out pi);
-
-			Quaternion q;
-			Quaternion.CreateFromYawPitchRoll(pi, pi*2, pi / 2, out q);
-
-			Matrix44 mat1;
-			Matrix44.CreateFromQuaternion(ref q, out mat1);
-
-			Matrix44 mat2;
-			Matrix44.CreateFromQuaternionOld(ref q, out mat2);
-
-			Assert.That(mat1, Is.EqualTo(mat2));
-		}
-
-		[Test]
 		public void Decompose ()
 		{
             Matrix44 scale;
@@ -3780,9 +6804,92 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
 
 		}
-	}	[TestFixture]
+
+		// Test Constant: Identity //------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Matrix44 initilised using the Identity 
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Identity ()
+		{
+			Matrix44 result = Matrix44.Identity;
+			Matrix44 expected = new Matrix44 (
+				1, 0, 0, 0, 
+				0, 1, 0, 0, 
+				0, 0, 1, 0, 
+				0, 0, 0, 1);
+
+			AssertEqualWithinReason(result, expected);
+		}	}	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class QuaternionTests
 	{
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static QuaternionTests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Double value.
+		/// </summary>
+		static Double GetNextRandomDouble ()
+		{
+			Double randomValue = rand.NextDouble();
+
+			Double zero = 0;
+			Double multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Quaternion.
+		/// </summary>
+		static Quaternion GetNextRandomQuaternion ()
+		{
+			Double a = GetNextRandomDouble();
+			Double b = GetNextRandomDouble();
+			Double c = GetNextRandomDouble();
+			Double d = GetNextRandomDouble();
+
+			return new Quaternion(a, b, c, d);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Quaternions are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Quaternion a, Quaternion b)
+		{
+			Double tolerance; RealMaths.TestTolerance(out tolerance);
+
+			Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+			Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+			Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
+			Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+		}
+		
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -3806,8 +6913,26 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
-	}
-		[TestFixture]
+
+		// Test Constant: Identity //------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Quaternion initilised using the Identity 
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Identity ()
+		{
+			Quaternion result = Quaternion.Identity;
+			Quaternion expected = new Quaternion (
+				0, 0, 0, 1);
+
+			AssertEqualWithinReason(result, expected);
+		}	}
+		/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class Vector2Tests
 	{
 		/// <summary>
@@ -4789,11 +7914,10 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		{
 			var a = new Vector2(12, -4);
 			var b = new Vector2(15, 11);
-			var c = new Vector2(-423, 342);
-
 			var expected = new Vector2(-3, -15);
-
 			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector2(-423, 342);
 			this.TestSubtraction(c, Vector2.Zero, c);
 		}
 
@@ -5022,16 +8146,15 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		{
 			Double t = ((Double) 1 ) / ((Double) 10);
 			Double u = ((Double) (-1) ) / ((Double) 40 );
-
 			Double x = 2000;
 			Double y = 200;
 			Double z = -5;
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-			var d = new Vector2(t, u);
+			var a = new Vector2(y, z);
+			var b = new Vector2(x, y);
+			var c = new Vector2(t, u);
 
-			this.TestDivision(b, a, d);
+			this.TestDivision(a, b, c);
 		}
 
 		/// <summary>
@@ -5087,7 +8210,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
+		/// Assert that, for known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
@@ -5124,9 +8247,14 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Double one = 1;
 
-			Double i; RealMaths.FromFraction(1755, 64, out i); // 27.421875
-			Double j; RealMaths.FromFraction( 165,  8, out j); // 20.625
-			Double k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
+			Double i;
+			RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			
+			Double j;
+			RealMaths.FromFraction( 165,  8, out j); // 20.625
+			
+			Double k;
+			RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
 			Double a0 = 0;
 			Double a1 = (one * 1) / 8;
@@ -5272,7 +8400,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
+		/// Assert that, for known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
@@ -5427,6 +8555,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		{
 			var a = new Vector2( -100, +50 );
 			var b = new Vector2( +100, -50 );
+
 			var c = new Vector2( -10, +5 );
 			var d = new Vector2( +10, -5 );
 
@@ -5435,20 +8564,47 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
 			Double one = 1;
 			
-			Double e = (Double) 51300 / (Double) 512; // 100.1953125
-			Double f = (Double) 12825 / (Double) 256; // 50.09765625
-			Double g = (Double) 365 / (Double) 4; // 91.25
-			Double h = (Double) 365 / (Double) 8; // 45.625
-			Double i = (Double) 9695 / (Double) 128; // 75.7421875
-			Double j = (Double) 9695 / (Double) 256; // 37.87109375
-			Double k = (Double) 225 / (Double) 4; // 56.25
-			Double l = (Double) 225 / (Double) 8; // 28.125
-			Double m = (Double) 4525 / (Double) 128; // 35.3515625
-			Double n = (Double) 4525 / (Double) 256; // 17.67578125
-			Double o = (Double) 125 / (Double) 8; // 15.625
-			Double p = (Double) 125 / (Double) 16; // 7.8125
-			Double q = (Double) 45 / (Double) 128; // 0.3515625
-			Double r = (Double) 45 / (Double) 256; // 0.17578125
+			// 100.1953125
+			Double e = (Double) 51300 / (Double) 512;
+
+			// 50.09765625
+			Double f = (Double) 12825 / (Double) 256;
+
+			// 91.25
+			Double g = (Double) 365 / (Double) 4;
+
+			// 45.625
+			Double h = (Double) 365 / (Double) 8;
+
+			// 75.7421875
+			Double i = (Double) 9695 / (Double) 128;
+
+			// 37.87109375
+			Double j = (Double) 9695 / (Double) 256;
+
+			// 56.25
+			Double k = (Double) 225 / (Double) 4;
+
+			// 28.125
+			Double l = (Double) 225 / (Double) 8;
+
+			// 35.3515625
+			Double m = (Double) 4525 / (Double) 128;
+
+			// 17.67578125
+			Double n = (Double) 4525 / (Double) 256;
+
+			// 15.625
+			Double o = (Double) 125 / (Double) 8;
+
+			// 7.8125
+			Double p = (Double) 125 / (Double) 16;
+
+			// 0.3515625
+			Double q = (Double) 45 / (Double) 128;
+
+			// 0.17578125
+			Double r = (Double) 45 / (Double) 256;
 
 			Double a0 = 0;
 			Double a1 = (one * 1) / 8;
@@ -5461,13 +8617,13 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Double a8 = 1;
 
 			Vector2 r0 = b;
-			Vector2 r1 = new Vector2( e, -f );
-			Vector2 r2 = new Vector2( g, -h );
-			Vector2 r3 = new Vector2( i, -j );
-			Vector2 r4 = new Vector2( k, -l );
-			Vector2 r5 = new Vector2( m, -n );
-			Vector2 r6 = new Vector2( o, -p );
-			Vector2 r7 = new Vector2( -q, r );
+			Vector2 r1 = new Vector2(  e, -f );
+			Vector2 r2 = new Vector2(  g, -h );
+			Vector2 r3 = new Vector2(  i, -j );
+			Vector2 r4 = new Vector2(  k, -l );
+			Vector2 r5 = new Vector2(  m, -n );
+			Vector2 r6 = new Vector2(  o, -p );
+			Vector2 r7 = new Vector2( -q,  r );
 			Vector2 r8 = c;
 
 			var knownResults = new List<Tuple<Double, Vector2>>
@@ -5572,9 +8728,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Vector2 min = new Vector2(-30, 1);
 			Vector2 max = new Vector2(32, 130);
 
-			Vector2 a = new Vector2(-1, 13);
+			Vector2 a = new Vector2(-100, 1113);
 
-			Vector2 expected = a;
+			Vector2 expected = new Vector2(-30, 130);
 
 			Vector2 result;
 			Vector2.Clamp (ref a, ref min, ref max, out result);
@@ -5584,7 +8740,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
 			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
 
-			Assert.That(a, Is.EqualTo(expected));
+			AssertEqualWithinReason(result, expected);
 
 		}
 
@@ -5645,7 +8801,10 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		}
 
 
-	}	[TestFixture]
+	}	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class Vector3Tests
 	{
 		/// <summary>
@@ -6129,152 +9288,1529 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			AssertEqualWithinReason(result, expected);
 		}
 
-		#region Maths
+		// Test Static Fn: Distance //----------------------------------------//
 
+		/// <summary>
+		/// Assert that, for a number of known examples, the Distance method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Distance ()
+		public void TestStaticFn_Distance_i ()
+		{
+			{
+				Vector3 a = new Vector3(0, 4, 12);
+				Vector3 b = new Vector3(3, 0, 0);
+
+				Double expected = 13;
+				Double result;
+
+				Vector3.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = new Vector3(0, -4, 12);
+				Vector3 b = new Vector3(3, 0, 0);
+
+				Double expected = 13;
+				Double result;
+
+				Vector3.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = new Vector3(0, -4, -12);
+				Vector3 b = new Vector3(-3, 0, 0);
+
+				Double expected = 13;
+				Double result;
+
+				Vector3.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = Vector3.Zero;
+
+				Double expected = 0;
+				Double result;
+
+				Vector3.Distance(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Distance method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Distance_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Double expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
+
+				Assert.That(a.Length(), Is.EqualTo(expected));
+			}
+		}
+
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the DistanceSquared 
+		/// method yeilds the correct results.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_DistanceSquared_i ()
+		{
+			{
+				Vector3 a = new Vector3(0, 4, 12);
+				Vector3 b = new Vector3(3, 0, 0);
+
+				Double expected = 161;
+				Double result;
+
+				Vector3.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector3 a = Vector3.Zero;
+
+				Double expected = 0;
+				Double result;
+
+				Vector3.DistanceSquared(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// DistanceSquared method yeilds the same results as those obtained 
+		/// from performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_DistanceSquared_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = GetNextRandomVector3();
+
+				Vector3 c = b - a;
+
+				Double expected = (c.X * c.X) + (c.Y * c.Y) + (c.Z * c.Z);
+				Double result;
+
+				Vector3.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Dot method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = GetNextRandomVector3();
+
+				Double expected = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+				Double result; Vector3.Dot(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+		}
+
+		/// <summary>
+		/// Assert that two unit vectors pointing in opposing directions yeild a
+		/// dot product of negative one.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_ii ()
+		{
+			Vector3 a = new Vector3(0, 0, 1);
+			Vector3 b = new Vector3(0, 0, -1);
+
+			Double expected = -1;
+			Double result; Vector3.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that two unit vectors pointing in the same direction yeild a
+		/// dot product of one.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_iii ()
+		{
+			Vector3 a = new Vector3(0, 0, 1);
+			Vector3 b = new Vector3(0, 0, 1);
+
+			Double expected = 1;
+			Double result; Vector3.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that two perpendicular unit vectors yeild a dot product of 
+		/// zero.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_iv ()
+		{
+			Vector3 a = new Vector3(0, 1, 0);
+			Vector3 b = new Vector3(0, 0, 1);
+
+			Double expected = 0;
+			Double result; Vector3.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Static Fn: Normalise //---------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_i()
+		{
+			{
+				Vector3 a = Vector3.Zero;
+
+				Vector3 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector3.Normalise(ref a, out b)
+				);
+			}
+
+			{
+				Vector3 a = new Vector3(
+					Double.MaxValue, 
+					Double.MaxValue, 
+					Double.MaxValue);
+
+				Vector3 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector3.Normalise(ref a, out b)
+				);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a unit vector (with length equal to one);
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_ii ()
+		{
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Vector3 b; Vector3.Normalise(ref a, out b);
+				
+				Double expected = 1;
+				Double result = b.Length();
+
+				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a vector, which when multipled by the 
+		/// length of the original vector results in the same vector as the
+		/// original vector;
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Normalise_iii ()
+		{
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Double l = a.Length();
+
+				Vector3 b; Vector3.Normalise(ref a, out b);
+				
+				Vector3 expected = a;
+				Vector3 result = b * l;
+
+				AssertEqualWithinReason(result, expected);
+			}
+		}
+
+		// Test Static Fn: Cross //-------------------------------------------//
+		[Test]
+		public void TestStaticFn_Cross_i ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
 
+		// Test Static Fn: Reflect //-----------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the Reflect method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_DistanceSquared ()
+		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector3 incident = new Vector3(20, -5, 10);
+
+				Vector3 normal = new Vector3(1, -1, 2);
+				Vector3.Normalise(ref normal, out normal);
+
+				Vector3 expected = new Vector3(-5, 20, 2);
+				Vector3 result;
+				Vector3.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector3 incident = new Vector3(20, -5, 10);
+
+				Vector3 normal = new Vector3(2, -1, 2);
+				Vector3.Normalise(ref normal, out normal);
+
+				Vector3 expected = new Vector3(-16, 13, 2);
+				Vector3 result;
+				Vector3.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector3 incident = Vector3.Zero;
+
+				Vector3 normal = new Vector3(0, 0, 1);
+
+				Vector3 result;
+				Vector3.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, Vector3.Zero);
+			}
 		}
 
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Reflect method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Dot ()
+		public void TestStaticFn_Reflect_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Vector3 b = GetNextRandomVector3();
+
+				Vector3.Normalise(ref b, out b);
+
+				Vector3 result;
+				Vector3.Reflect(ref a, ref b, out result);
+				
+				Double dot;
+				Vector3.Dot(ref a, ref b, out dot);
+
+				Vector3 expected = a - (2 * dot * b);
+
+				AssertEqualWithinReason(result, expected);
+			}
 		}
 
+		/// <summary>
+		/// Assert that an argument exception is thrown if the value passed in
+		/// to the normal parameter is not normalised.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_PerpDot ()
+		public void TestStaticFn_Reflect_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector3 incident = GetNextRandomVector3();
+			Vector3 normal = new Vector3(12, -241, 123);
+
+			Vector3 result; 
+
+			Assert.Throws(
+				typeof(ArgumentOutOfRangeException), 
+				() => 
+				Vector3.Reflect(ref incident, ref normal, out result)
+			);
 		}
 
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Perpendicular ()
+		public void TestStaticFn_TransformMatix44_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Normalise ()
+		public void TestStaticFn_TransformNormal_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_TransformQuaternion_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
-		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		// Test Operator: Equality //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing equality.
+		/// </summary>
+		void TestEquality (Vector3 a, Vector3 b, Boolean expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   (a == b) == expected
+			//   (b == a) == expected
+			//   (a != b) == !expected
+			//   (b != a) == !expected
+
+			Boolean result_1a = (a == b);
+			Boolean result_1b = (a.Equals(b));
+			Boolean result_1c = (a.Equals((Object)b));
+			
+			Boolean result_2a = (b == a);
+			Boolean result_2b = (b.Equals(a));
+			Boolean result_2c = (b.Equals((Object)a));
+
+			Boolean result_3a = (a != b);
+			Boolean result_4a = (b != a);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_1c, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+			Assert.That(result_2c, Is.EqualTo(expected));
+			Assert.That(result_3a, Is.EqualTo(!expected));
+			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of TRUE when two equal  
+		/// Vector3 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestOperator_Equality_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(44, -54, -22);
+			var b = new Vector3(44, -54, -22);
+
+			Boolean expected = true;
+
+			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of FALSE when two unequal  
+		/// Vector3 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestOperator_Equality_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(44, 54, 2);
+			var b = new Vector3(44, -54, 2);
+
+			Boolean expected = false;
+
+			this.TestEquality(a, b, expected);
 		}
 
-		#endregion
-		#region Utilities
-
+		/// <summary>
+		/// Tests to make sure that all the equality opperators and functions 
+		/// yield the expected result of TRUE when used on a number of randomly 
+		/// generated pairs of equal Vector3 objects.
+		/// </summary>
 		[Test]
-		public void TestOperator_Addition ()
+		public void TestOperator_Equality_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+
+				Vector3 b = a;
+
+				this.TestEquality(a, b, true);
+			}
 		}
 
-		[Test]
-		public void TestOperator_Subtraction ()
+
+		// Test Operator: Addition //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing addition.
+		/// </summary>
+		void TestAddition (Vector3 a, Vector3 b, Vector3 expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   a + b == expected
+			//   b + a == expected
+
+			var result_1a = a + b;
+			var result_2a = b + a;
+
+			Vector3 result_1b; Vector3.Add(ref a, ref b, out result_1b);
+			Vector3 result_2b; Vector3.Add(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that, for a known example, all the addition opperators
+		/// and functions yield the correct result.
+		/// </summary>
 		[Test]
-		public void TestOperator_Negation ()
+		public void TestOperator_Addition_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(3, -6, 44);
+			var b = new Vector3(-6, 12, 18);
+
+			var expected = new Vector3(-3, 6, 62);
+
+			this.TestAddition(a, b, expected);
 		}
 
+		/// <summary>
+		/// Assert that, for a known example involving the zero vector, all the 
+		/// addition opperators and functions yield the correct result.
+		/// </summary>
 		[Test]
-		public void TestOperator_Multiplication ()
+		public void TestOperator_Addition_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(-2313, 88, 199);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector3.Zero, expected);
 		}
 
+		/// <summary>
+		/// Assert that, for a known example involving two zero vectors, all the 
+		/// addition opperators and functions yield the correct result of zero.
+		/// </summary>
 		[Test]
-		public void TestOperator_Division ()
+		public void TestOperator_Addition_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			this.TestAddition(Vector3.Zero, Vector3.Zero, Vector3.Zero);
 		}
 
-		#endregion
-		#region Splines
-
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// addition opperators and functions yield the same results as a
+		/// manual addition calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep ()
+		public void TestOperator_Addition_iv ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var expected = new Vector3(
+					a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+
+				this.TestAddition(a, b, expected);
+			}
 		}
 
-		[Test]
-		public void TestStaticFn_CatmullRom ()
+		// Test Operator: Subtraction //--------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing subtraction.
+		/// </summary>
+		void TestSubtraction (Vector3 a, Vector3 b, Vector3 expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   a - b == expected
+			//   b - a == -expected
+
+			var result_1a = a - b;
+			var result_2a = b - a;
+
+			Vector3 result_1b; Vector3.Subtract(ref a, ref b, out result_1b);
+			Vector3 result_2b; Vector3.Subtract(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(-expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(-expected));
 		}
 
+		/// <summary>
+		/// Assert that, for known examples, all the subtraction opperators
+		/// and functions yield the correct result.
+		/// <summary>
 		[Test]
-		public void TestStaticFn_Hermite ()
+		public void TestOperator_Subtraction_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector3(12, -4, 14);
+			var b = new Vector3(15, 11, 7);
+			var expected = new Vector3(-3, -15, 7);
+			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector3(-423, 342, 7);
+			this.TestSubtraction(c, Vector3.Zero, c);
 		}
 
-		#endregion
-				#region Utilities
+		/// <summary>
+		/// Assert that when subtracting the zero vector fromt the zero vector, 
+		/// all the subtraction opperators and functions yield the correct 
+		/// result.
+		/// <summary>
+		[Test]
+		public void TestOperator_Subtraction_ii ()
+		{
+			this.TestSubtraction(Vector3.Zero, Vector3.Zero, Vector3.Zero);
+		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// subtraction opperators and functions yield the same results as a
+		/// manual subtraction calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Subtraction_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var expected = new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+
+				this.TestSubtraction(a, b, expected);
+			}
+		}
+
+		// Test Operator: Negation //-----------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing negation.
+		/// </summary>
+		void TestNegation (Vector3 a, Vector3 expected )
+		{
+			// This test asserts the following:
+			//   -a == expected
+
+			var result_1a = -a;
+
+			Vector3 result_1b; Vector3.Negate(ref a, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for known examples, all the negation opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_i ()
+		{
+			Double r = 3432;
+			Double s = -6218;
+			Double t = -3432;
+			Double u = 6218;
+
+			var a = new Vector3(r, s, t);
+			var b = new Vector3(u, t, s);
+			var c = new Vector3(t, u, r);
+			var d = new Vector3(s, r, u);
+
+			this.TestNegation(a, c);
+			this.TestNegation(b, d);
+		}
+
+		/// <summary>
+		/// Assert that, for known examples involving the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_ii ()
+		{
+			Double t = -3432;
+			Double u = 6218;
+			Double r = 3432;
+			Double s = -6218;
+
+			var c = new Vector3(t, u, r);
+			var d = new Vector3(s, r, u);
+
+			this.TestNegation(c, Vector3.Zero - c);
+			this.TestNegation(d, Vector3.Zero - d);
+		}
+
+		/// <summary>
+		/// Assert that when negating the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iii ()
+		{
+			this.TestNegation(Vector3.Zero, Vector3.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// negation opperators and functions yield the same results as a
+		/// manual negation calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iv ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				this.TestNegation(a, Vector3.Zero - a);
+			}
+		}
+
+		// Test Operator: Multiplication //-----------------------------------//
+
+		/// <summary>
+		/// Helper method for testing multiplication.
+		/// </summary>
+		void TestMultiplication (Vector3 a, Vector3 b, Vector3 expected )
+		{
+			// This test asserts the following:
+			//   a * b == expected
+			//   b * a == expected
+
+			var result_1a = a * b;
+			var result_2a = b * a;
+
+			Vector3 result_1b; Vector3.Multiply(ref a, ref b, out result_1b);
+			Vector3 result_2b; Vector3.Multiply(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_i ()
+		{
+			Double r = -27;
+			Double s = 36;
+			Double t = 9;
+
+			Double x = 3;
+			Double y = 6;
+			Double z = -9;
+
+			var a = new Vector3(x, y, x);
+			var b = new Vector3(z, y, x);
+			var c = new Vector3(r, s, t);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// multiplication opperators and functions yield the same results as a
+		/// manual multiplication calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var c = new Vector3(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
+
+				this.TestMultiplication(a, b, c);
+			}
+		}
+
+
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing division.
+		/// </summary>
+		void TestDivision (Vector3 a, Vector3 b, Vector3 expected )
+		{
+			// This test asserts the following:
+			//   a / b == expected
+
+			var result_1a = a / b;
+
+			Vector3 result_1b; Vector3.Divide(ref a, ref b, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using whole numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_i ()
+		{
+			Double r = 10;
+			Double s = -40;
+			Double t = 1;
+
+			Double x = 2000;
+			Double y = 200;
+			Double z = -5;
+
+			var a = new Vector3(x, y, x);
+			var b = new Vector3(y, z, x);
+			var c = new Vector3(r, s, t);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using fractional numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_ii ()
+		{
+			Double t = ((Double) 1 ) / ((Double) 10);
+			Double u = ((Double) (-1) ) / ((Double) 40 );
+			Double v = -20;
+			Double w = 100;
+			Double x = 2000;
+			Double y = 200;
+			Double z = -5;
+
+			var a = new Vector3(y, z, w);
+			var b = new Vector3(x, y, z);
+			var c = new Vector3(t, u, v);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// division opperators and functions yield the same results as a
+		/// manual addition division.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				var c = new Vector3(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
+
+				this.TestDivision(a, b, c);
+			}
+		}
+
+		// Test Static Fn: SmoothStep //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+
+				Double amount1 = 0;
+				Vector3 result1;
+
+				Vector3.SmoothStep (
+					ref a, ref b, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Double amount2 = 1;
+				Vector3 result2;
+
+				Vector3.SmoothStep (
+					ref a, ref b, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_ii ()
+		{
+			var a = GetNextRandomVector3();
+			var b = GetNextRandomVector3();
+
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector3 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.SmoothStep (
+							ref a, ref b, amount, out result)
+					);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_iii ()
+		{
+			var a = new Vector3( -30, -30, -30 );
+			var b = new Vector3( +30, +30, +30 );
+
+			Double one = 1;
+
+			Double i;
+			RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			
+			Double j;
+			RealMaths.FromFraction( 165,  8, out j); // 20.625
+			
+			Double k;
+			RealMaths.FromFraction( 705, 64, out k); // 11.015625
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector3 r0 = a;
+			Vector3 r1 = new Vector3( -i, -i, -i );
+			Vector3 r2 = new Vector3( -j, -j, -j );
+			Vector3 r3 = new Vector3( -k, -k, -k );
+			Vector3 r4 = Vector3.Zero;
+			Vector3 r5 = new Vector3(  k,  k,  k );
+			Vector3 r6 = new Vector3(  j,  j,  j );
+			Vector3 r7 = new Vector3(  i,  i,  i );
+			Vector3 r8 = b;
+
+			var knownResults = new List<Tuple<Double, Vector3>>
+			{
+				new Tuple<Double, Vector3>( a0, r0 ),
+				new Tuple<Double, Vector3>( a1, r1 ),
+				new Tuple<Double, Vector3>( a2, r2 ),
+				new Tuple<Double, Vector3>( a3, r3 ),
+				new Tuple<Double, Vector3>( a4, r4 ),
+				new Tuple<Double, Vector3>( a5, r5 ),
+				new Tuple<Double, Vector3>( a6, r6 ),
+				new Tuple<Double, Vector3>( a7, r7 ),
+				new Tuple<Double, Vector3>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.SmoothStep (
+					ref a, ref b, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: CatmullRom //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector3();
+				var b = GetNextRandomVector3();
+				var c = GetNextRandomVector3();
+				var d = GetNextRandomVector3();
+
+				Double amount1 = 0;
+				Vector3 result1;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				Double amount2 = 1;
+				Vector3 result2;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_ii ()
+		{
+			var a = new Vector3( -90, +30, +90 );
+			var b = new Vector3( -30, -30, +30 );
+			var c = new Vector3( +30, +30, -30 );
+			var d = new Vector3( +90, -30, -90 );
+
+			Double one = 1;
+
+			Double u = 15;
+			Double v = (Double) 165  / (Double)  8; // 20.5
+			Double w = (Double) 45   / (Double)  2; // 20.625
+			Double x = (Double) 1755 / (Double) 64; // 27.421875
+			Double y = (Double) 15   / (Double)  2; // 14.5
+			Double z = (Double) 705  / (Double) 64; // 11.015625
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector3 r0 = b;
+			Vector3 r1 = new Vector3( -w, -x,  w );
+			Vector3 r2 = new Vector3( -u, -v,  u );
+			Vector3 r3 = new Vector3( -y, -z,  y );
+			Vector3 r4 = Vector3.Zero;
+			Vector3 r5 = new Vector3(  y,  z, -y );
+			Vector3 r6 = new Vector3(  u,  v, -u );
+			Vector3 r7 = new Vector3(  w,  x, -w );
+			Vector3 r8 = c;
+
+			var knownResults = new List<Tuple<Double, Vector3>>
+			{
+				new Tuple<Double, Vector3>( a0, r0 ),
+				new Tuple<Double, Vector3>( a1, r1 ),
+				new Tuple<Double, Vector3>( a2, r2 ),
+				new Tuple<Double, Vector3>( a3, r3 ),
+				new Tuple<Double, Vector3>( a4, r4 ),
+				new Tuple<Double, Vector3>( a5, r5 ),
+				new Tuple<Double, Vector3>( a6, r6 ),
+				new Tuple<Double, Vector3>( a7, r7 ),
+				new Tuple<Double, Vector3>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iii ()
+		{
+			var a = GetNextRandomVector3();
+			var b = GetNextRandomVector3();
+			var c = GetNextRandomVector3();
+			var d = GetNextRandomVector3();
+			
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector3 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.CatmullRom (
+							ref a, ref b, ref c, ref d, amount, out result)
+				);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.  In this case the resulting spline
+		/// should be a straight line.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iv ()
+		{
+			var a = new Vector3( -90, -90, +90 );
+			var b = new Vector3( -30, -30, +30 );
+			var c = new Vector3( +30, +30, -30 );
+			var d = new Vector3( +90, +90, -90 );
+
+			Double one = 1;
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 4;
+			Double a2 = (one * 2) / 4;
+			Double a3 = (one * 3) / 4;
+			Double a4 = 1;
+
+			Vector3 r0 = b;
+			Vector3 r1 = new Vector3( -15, -15,  15 );
+			Vector3 r2 = Vector3.Zero;
+			Vector3 r3 = new Vector3(  15,  15, -15 );
+			Vector3 r4 = c;
+
+			var knownResults = new List<Tuple<Double, Vector3>>
+			{
+				new Tuple<Double, Vector3>( a0, r0 ),
+				new Tuple<Double, Vector3>( a1, r1 ),
+				new Tuple<Double, Vector3>( a2, r2 ),
+				new Tuple<Double, Vector3>( a3, r3 ),
+				new Tuple<Double, Vector3>( a4, r4 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: Hermite //-----------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a  = GetNextRandomVector3();
+				var b  = GetNextRandomVector3();
+
+				var c = GetNextRandomVector3();
+				var d = GetNextRandomVector3();
+
+				Vector3 an; Vector3.Normalise(ref c, out an);
+				Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+				Double amount1 = 0;
+				Vector3 result1;
+
+				Vector3.Hermite (
+					ref a, ref an, ref b, ref bn, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Double amount2 = 1;
+				Vector3 result2;
+
+				Vector3.Hermite (
+					ref a, ref an, ref b, ref bn, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_ii ()
+		{
+			var a = GetNextRandomVector3();
+			var b = GetNextRandomVector3();
+			var c = GetNextRandomVector3();
+			var d = GetNextRandomVector3();
+
+			Vector3 an; Vector3.Normalise(ref c, out an);
+			Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector3 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.Hermite (
+							ref a, ref an, ref b, ref bn, amount, out result)
+					);
+				
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iii ()
+		{
+			var a = new Vector3( -100, +50, +100 );
+			var b = new Vector3( +100, -50, -100 );
+
+			var c = new Vector3( -10, +5, +10 );
+			var d = new Vector3( +10, -5, -10 );
+
+			Vector3 an; Vector3.Normalise(ref c, out an);
+			Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+			Double one = 1;
+			
+			// 100.1953125
+			Double e = (Double) 51300 / (Double) 512;
+
+			// 50.09765625
+			Double f = (Double) 12825 / (Double) 256;
+
+			// 91.25
+			Double g = (Double) 365 / (Double) 4;
+
+			// 45.625
+			Double h = (Double) 365 / (Double) 8;
+
+			// 75.7421875
+			Double i = (Double) 9695 / (Double) 128;
+
+			// 37.87109375
+			Double j = (Double) 9695 / (Double) 256;
+
+			// 56.25
+			Double k = (Double) 225 / (Double) 4;
+
+			// 28.125
+			Double l = (Double) 225 / (Double) 8;
+
+			// 35.3515625
+			Double m = (Double) 4525 / (Double) 128;
+
+			// 17.67578125
+			Double n = (Double) 4525 / (Double) 256;
+
+			// 15.625
+			Double o = (Double) 125 / (Double) 8;
+
+			// 7.8125
+			Double p = (Double) 125 / (Double) 16;
+
+			// 0.3515625
+			Double q = (Double) 45 / (Double) 128;
+
+			// 0.17578125
+			Double r = (Double) 45 / (Double) 256;
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector3 r0 = b;
+			Vector3 r1 = new Vector3(  e, -f, -e );
+			Vector3 r2 = new Vector3(  g, -h, -g );
+			Vector3 r3 = new Vector3(  i, -j, -i );
+			Vector3 r4 = new Vector3(  k, -l, -k );
+			Vector3 r5 = new Vector3(  m, -n, -m );
+			Vector3 r6 = new Vector3(  o, -p, -o );
+			Vector3 r7 = new Vector3( -q,  r,  q );
+			Vector3 r8 = c;
+
+			var knownResults = new List<Tuple<Double, Vector3>>
+			{
+				new Tuple<Double, Vector3>( a0, r0 ),
+				new Tuple<Double, Vector3>( a1, r1 ),
+				new Tuple<Double, Vector3>( a2, r2 ),
+				new Tuple<Double, Vector3>( a3, r3 ),
+				new Tuple<Double, Vector3>( a4, r4 ),
+				new Tuple<Double, Vector3>( a5, r5 ),
+				new Tuple<Double, Vector3>( a6, r6 ),
+				new Tuple<Double, Vector3>( a7, r7 ),
+				new Tuple<Double, Vector3>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector3 result;
+
+				Vector3.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+				/// <summary>
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector3 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = a * 2;
+
+				Vector3 result;
+				Vector3.Min (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector3 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = GetNextRandomVector3();
+
+				Vector3 result;
+				Vector3.Max (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector3 objects for a given min-max range, yields
+		/// results that fall within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Clamp ()
+		public void TestStaticFn_Clamp_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector3 min = new Vector3(-30, 1, 18);
+			Vector3 max = new Vector3(32, 130, 47);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Vector3 result;
+				Vector3.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on an a Vector3 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Lerp ()
+		public void TestStaticFn_Clamp_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector3 min = new Vector3(-30, 1, 18);
+			Vector3 max = new Vector3(32, 130, 47);
+
+			Vector3 a = new Vector3(-100, 1113, 50);
+
+			Vector3 expected = new Vector3(-30, 130, 47);
+
+			Vector3 result;
+			Vector3.Clamp (ref a, ref min, ref max, out result);
+
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.Z, Is.LessThanOrEqualTo(max.Z));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.Z, Is.GreaterThanOrEqualTo(min.Z));
+
+			AssertEqualWithinReason(result, expected);
+
 		}
 
-		#endregion
+		/// <summary>
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector3 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			for(Int32 j = 0; j < 100; ++j)
+			{
+				Double delta = j;
 
-	}	[TestFixture]
+				delta = delta / 100;
+
+				for(Int32 i = 0; i < 100; ++i)
+				{
+					Vector3 a = GetNextRandomVector3();
+					Vector3 b = GetNextRandomVector3();
+
+					Vector3 result;
+					Vector3.Lerp (ref a, ref b, delta, out result);
+
+					Vector3 expected = a + ( ( b - a ) * delta );
+
+					AssertEqualWithinReason(result, expected);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_ii ()
+		{
+			Vector3 a = GetNextRandomVector3();
+			Vector3 b = GetNextRandomVector3();
+
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var weighting in tests )
+			{
+				Vector3 result; 
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.Lerp (
+							ref a, ref b, weighting, out result)
+					);
+			}
+		}
+
+
+	}	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class Vector4Tests
 	{
 		/// <summary>
@@ -6711,156 +11247,1428 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			AssertEqualWithinReason(result, expected);
 		}
 
-		#region Maths
+		// Test Static Fn: Distance //----------------------------------------//
 
+		/// <summary>
+		/// Assert that, for a number of known examples, the Distance method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Distance ()
+		public void TestStaticFn_Distance_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector4 a = new Vector4(0, 4, 12, 0);
+				Vector4 b = new Vector4(3, 0, 0, 84);
+
+				Double expected = 85;
+				Double result;
+
+				Vector4.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = new Vector4(0, -4, 12, 0);
+				Vector4 b = new Vector4(3, 0, 0, 84);
+
+				Double expected = 85;
+				Double result;
+
+				Vector4.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = new Vector4(0, -4, -12, 0);
+				Vector4 b = new Vector4(-3, 0, 0, -84);
+
+				Double expected = 85;
+				Double result;
+
+				Vector4.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = Vector4.Zero;
+
+				Double expected = 0;
+				Double result;
+
+				Vector4.Distance(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Distance method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_DistanceSquared ()
+		public void TestStaticFn_Distance_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Double expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z) + (a.W * a.W));
+
+				Assert.That(a.Length(), Is.EqualTo(expected));
+			}
 		}
 
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the DistanceSquared 
+		/// method yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Dot ()
+		public void TestStaticFn_DistanceSquared_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector4 a = new Vector4(0, 4, 12, 0);
+				Vector4 b = new Vector4(3, 0, 0, 84);
+
+				Double expected = 7225;
+				Double result;
+
+				Vector4.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector4 a = Vector4.Zero;
+
+				Double expected = 0;
+				Double result;
+
+				Vector4.DistanceSquared(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// DistanceSquared method yeilds the same results as those obtained 
+		/// from performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_PerpDot ()
+		public void TestStaticFn_DistanceSquared_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = GetNextRandomVector4();
+
+				Vector4 c = b - a;
+
+				Double expected = (c.X * c.X) + (c.Y * c.Y) + (c.Z * c.Z) + (c.W * c.W);
+				Double result;
+
+				Vector4.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Dot method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Perpendicular ()
+		public void TestStaticFn_Dot_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = GetNextRandomVector4();
+
+				Double expected = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
+				Double result; Vector4.Dot(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+		/// <summary>
+		/// Assert that two unit vectors pointing in opposing directions yeild a
+		/// dot product of negative one.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Normalise ()
+		public void TestStaticFn_Dot_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(0, 0, 0, 1);
+			Vector4 b = new Vector4(0, 0, 0, -1);
+
+			Double expected = -1;
+			Double result; Vector4.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that two unit vectors pointing in the same direction yeild a
+		/// dot product of one.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_Dot_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(0, 0, 0, 1);
+			Vector4 b = new Vector4(0, 0, 0, 1);
+
+			Double expected = 1;
+			Double result; Vector4.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that two perpendicular unit vectors yeild a dot product of 
+		/// zero.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		public void TestStaticFn_Dot_iv ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 a = new Vector4(0, 0, 1, 0);
+			Vector4 b = new Vector4(0, 0, 0, 1);
+
+			Double expected = 0;
+			Double result; Vector4.Dot(ref a, ref b, out result);
+
+			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Static Fn: Normalise //---------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestStaticFn_Normalise_i()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector4 a = Vector4.Zero;
+
+				Vector4 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector4.Normalise(ref a, out b)
+				);
+			}
+
+			{
+				Vector4 a = new Vector4(
+					Double.MaxValue, 
+					Double.MaxValue, 
+					Double.MaxValue, 
+					Double.MaxValue);
+
+				Vector4 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector4.Normalise(ref a, out b)
+				);
+			}
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a unit vector (with length equal to one);
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestStaticFn_Normalise_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Vector4 b; Vector4.Normalise(ref a, out b);
+				
+				Double expected = 1;
+				Double result = b.Length();
+
+				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			}
 		}
 
-		#endregion
-		#region Utilities
-
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a vector, which when multipled by the 
+		/// length of the original vector results in the same vector as the
+		/// original vector;
+		/// </summary>
 		[Test]
-		public void TestOperator_Addition ()
+		public void TestStaticFn_Normalise_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Double l = a.Length();
+
+				Vector4 b; Vector4.Normalise(ref a, out b);
+				
+				Vector4 expected = a;
+				Vector4 result = b * l;
+
+				AssertEqualWithinReason(result, expected);
+			}
 		}
 
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestOperator_Subtraction ()
+		public void TestStaticFn_TransformMatix44_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestOperator_Negation ()
+		public void TestStaticFn_TransformNormal_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Test]
-		public void TestOperator_Multiplication ()
+		public void TestStaticFn_TransformQuaternion_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Assert.That (true, Is.EqualTo (false));
 		}
 
-		[Test]
-		public void TestOperator_Division ()
+		// Test Operator: Equality //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing equality.
+		/// </summary>
+		void TestEquality (Vector4 a, Vector4 b, Boolean expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   (a == b) == expected
+			//   (b == a) == expected
+			//   (a != b) == !expected
+			//   (b != a) == !expected
+
+			Boolean result_1a = (a == b);
+			Boolean result_1b = (a.Equals(b));
+			Boolean result_1c = (a.Equals((Object)b));
+			
+			Boolean result_2a = (b == a);
+			Boolean result_2b = (b.Equals(a));
+			Boolean result_2c = (b.Equals((Object)a));
+
+			Boolean result_3a = (a != b);
+			Boolean result_4a = (b != a);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_1c, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+			Assert.That(result_2c, Is.EqualTo(expected));
+			Assert.That(result_3a, Is.EqualTo(!expected));
+			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
-		#endregion
-		#region Splines
-
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of TRUE when two equal  
+		/// Vector4 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Barycentric ()
+		public void TestOperator_Equality_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector4(44, -54, -22, 11);
+			var b = new Vector4(44, -54, -22, 11);
+
+			Boolean expected = true;
+
+			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of FALSE when two unequal  
+		/// Vector4 objects are compared.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_SmoothStep ()
+		public void TestOperator_Equality_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			var a = new Vector4(44, 54, 2, 11);
+			var b = new Vector4(44, -54, 2, -1);
+
+			Boolean expected = false;
+
+			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// Tests to make sure that all the equality opperators and functions 
+		/// yield the expected result of TRUE when used on a number of randomly 
+		/// generated pairs of equal Vector4 objects.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_CatmullRom ()
+		public void TestOperator_Equality_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+
+				Vector4 b = a;
+
+				this.TestEquality(a, b, true);
+			}
 		}
 
-		[Test]
-		public void TestStaticFn_Hermite ()
+
+		// Test Operator: Addition //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing addition.
+		/// </summary>
+		void TestAddition (Vector4 a, Vector4 b, Vector4 expected )
 		{
-			Assert.That(true, Is.EqualTo(false));
+			// This test asserts the following:
+			//   a + b == expected
+			//   b + a == expected
+
+			var result_1a = a + b;
+			var result_2a = b + a;
+
+			Vector4 result_1b; Vector4.Add(ref a, ref b, out result_1b);
+			Vector4 result_2b; Vector4.Add(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
-		#endregion
-				#region Utilities
+		/// <summary>
+		/// Assert that, for a known example, all the addition opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_i ()
+		{
+			var a = new Vector4(3, -6, 44, 11);
+			var b = new Vector4(-6, 12, 18, -3);
 
+			var expected = new Vector4(-3, 6, 62, 8);
+
+			this.TestAddition(a, b, expected);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example involving the zero vector, all the 
+		/// addition opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_ii ()
+		{
+			var a = new Vector4(-2313, 88, 199, 42);
+
+			var expected = a;
+
+			this.TestAddition(a, Vector4.Zero, expected);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example involving two zero vectors, all the 
+		/// addition opperators and functions yield the correct result of zero.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_iii ()
+		{
+			this.TestAddition(Vector4.Zero, Vector4.Zero, Vector4.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// addition opperators and functions yield the same results as a
+		/// manual addition calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Addition_iv ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var expected = new Vector4(
+					a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
+
+				this.TestAddition(a, b, expected);
+			}
+		}
+
+		// Test Operator: Subtraction //--------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing subtraction.
+		/// </summary>
+		void TestSubtraction (Vector4 a, Vector4 b, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   a - b == expected
+			//   b - a == -expected
+
+			var result_1a = a - b;
+			var result_2a = b - a;
+
+			Vector4 result_1b; Vector4.Subtract(ref a, ref b, out result_1b);
+			Vector4 result_2b; Vector4.Subtract(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(-expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(-expected));
+		}
+
+		/// <summary>
+		/// Assert that, for known examples, all the subtraction opperators
+		/// and functions yield the correct result.
+		/// <summary>
+		[Test]
+		public void TestOperator_Subtraction_i ()
+		{
+			var a = new Vector4(12, -4, 14, 18);
+			var b = new Vector4(15, 11, 7, 27);
+			var expected = new Vector4(-3, -15, 7, -9);
+			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector4(-423, 342, 7, -800);
+			this.TestSubtraction(c, Vector4.Zero, c);
+		}
+
+		/// <summary>
+		/// Assert that when subtracting the zero vector fromt the zero vector, 
+		/// all the subtraction opperators and functions yield the correct 
+		/// result.
+		/// <summary>
+		[Test]
+		public void TestOperator_Subtraction_ii ()
+		{
+			this.TestSubtraction(Vector4.Zero, Vector4.Zero, Vector4.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// subtraction opperators and functions yield the same results as a
+		/// manual subtraction calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Subtraction_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var expected = new Vector4(
+					a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
+
+				this.TestSubtraction(a, b, expected);
+			}
+		}
+
+		// Test Operator: Negation //-----------------------------------------//
+		
+		/// <summary>
+		/// Helper method for testing negation.
+		/// </summary>
+		void TestNegation (Vector4 a, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   -a == expected
+
+			var result_1a = -a;
+
+			Vector4 result_1b; Vector4.Negate(ref a, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for known examples, all the negation opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_i ()
+		{
+			Double r = 3432;
+			Double s = -6218;
+			Double t = -3432;
+			Double u = 6218;
+
+			var a = new Vector4(r, s, t, u);
+			var b = new Vector4(u, t, s, r);
+			var c = new Vector4(t, u, r, s);
+			var d = new Vector4(s, r, u, t);
+
+			this.TestNegation(a, c);
+			this.TestNegation(b, d);
+		}
+
+		/// <summary>
+		/// Assert that, for known examples involving the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_ii ()
+		{
+			Double t = -3432;
+			Double u = 6218;
+			Double r = 3432;
+			Double s = -6218;
+
+			var c = new Vector4(t, u, r, s);
+			var d = new Vector4(s, r, u, t);
+
+			this.TestNegation(c, Vector4.Zero - c);
+			this.TestNegation(d, Vector4.Zero - d);
+		}
+
+		/// <summary>
+		/// Assert that when negating the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iii ()
+		{
+			this.TestNegation(Vector4.Zero, Vector4.Zero);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// negation opperators and functions yield the same results as a
+		/// manual negation calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Negation_iv ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				this.TestNegation(a, Vector4.Zero - a);
+			}
+		}
+
+		// Test Operator: Multiplication //-----------------------------------//
+
+		/// <summary>
+		/// Helper method for testing multiplication.
+		/// </summary>
+		void TestMultiplication (Vector4 a, Vector4 b, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   a * b == expected
+			//   b * a == expected
+
+			var result_1a = a * b;
+			var result_2a = b * a;
+
+			Vector4 result_1b; Vector4.Multiply(ref a, ref b, out result_1b);
+			Vector4 result_2b; Vector4.Multiply(ref b, ref a, out result_2b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_2a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+			Assert.That(result_2b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_i ()
+		{
+			Double r = -27;
+			Double s = 36;
+			Double t = 9;
+			Double u = -54;
+
+			Double x = 3;
+			Double y = 6;
+			Double z = -9;
+
+			var a = new Vector4(x, y, x, y);
+			var b = new Vector4(z, y, x, z);
+			var c = new Vector4(r, s, t, u);
+
+			this.TestMultiplication(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// multiplication opperators and functions yield the same results as a
+		/// manual multiplication calculation.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var c = new Vector4(
+					a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W);
+
+				this.TestMultiplication(a, b, c);
+			}
+		}
+
+
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing division.
+		/// </summary>
+		void TestDivision (Vector4 a, Vector4 b, Vector4 expected )
+		{
+			// This test asserts the following:
+			//   a / b == expected
+
+			var result_1a = a / b;
+
+			Vector4 result_1b; Vector4.Divide(ref a, ref b, out result_1b);
+			
+			Assert.That(result_1a, Is.EqualTo(expected));
+			Assert.That(result_1b, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using whole numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_i ()
+		{
+			Double r = 10;
+			Double s = -40;
+			Double t = 1;
+			Double u = -400;
+
+			Double x = 2000;
+			Double y = 200;
+			Double z = -5;
+
+			var a = new Vector4(x, y, x, x);
+			var b = new Vector4(y, z, x, z);
+			var c = new Vector4(r, s, t, u);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a known example using fractional numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_ii ()
+		{
+			Double s = 4;
+			Double t = ((Double) 1 ) / ((Double) 10);
+			Double u = ((Double) (-1) ) / ((Double) 40 );
+			Double v = -20;
+			Double w = 100;
+			Double x = 2000;
+			Double y = 200;
+			Double z = -5;
+
+			var a = new Vector4(y, z, w, v);
+			var b = new Vector4(x, y, z, z);
+			var c = new Vector4(t, u, v, s);
+
+			this.TestDivision(a, b, c);
+		}
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// division opperators and functions yield the same results as a
+		/// manual addition division.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				var c = new Vector4(
+					a.X / b.X, a.Y / b.Y, a.Z / b.Z, a.W / b.W);
+
+				this.TestDivision(a, b, c);
+			}
+		}
+
+		// Test Static Fn: SmoothStep //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+
+				Double amount1 = 0;
+				Vector4 result1;
+
+				Vector4.SmoothStep (
+					ref a, ref b, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Double amount2 = 1;
+				Vector4 result2;
+
+				Vector4.SmoothStep (
+					ref a, ref b, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_ii ()
+		{
+			var a = GetNextRandomVector4();
+			var b = GetNextRandomVector4();
+
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector4 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.SmoothStep (
+							ref a, ref b, amount, out result)
+					);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_SmoothStep_iii ()
+		{
+			var a = new Vector4( -30, -30, -30, -30 );
+			var b = new Vector4( +30, +30, +30, +30 );
+
+			Double one = 1;
+
+			Double i;
+			RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			
+			Double j;
+			RealMaths.FromFraction( 165,  8, out j); // 20.625
+			
+			Double k;
+			RealMaths.FromFraction( 705, 64, out k); // 11.015625
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector4 r0 = a;
+			Vector4 r1 = new Vector4( -i, -i, -i, -i );
+			Vector4 r2 = new Vector4( -j, -j, -j, -j );
+			Vector4 r3 = new Vector4( -k, -k, -k, -k );
+			Vector4 r4 = Vector4.Zero;
+			Vector4 r5 = new Vector4(  k,  k,  k,  k );
+			Vector4 r6 = new Vector4(  j,  j,  j,  j );
+			Vector4 r7 = new Vector4(  i,  i,  i,  i );
+			Vector4 r8 = b;
+
+			var knownResults = new List<Tuple<Double, Vector4>>
+			{
+				new Tuple<Double, Vector4>( a0, r0 ),
+				new Tuple<Double, Vector4>( a1, r1 ),
+				new Tuple<Double, Vector4>( a2, r2 ),
+				new Tuple<Double, Vector4>( a3, r3 ),
+				new Tuple<Double, Vector4>( a4, r4 ),
+				new Tuple<Double, Vector4>( a5, r5 ),
+				new Tuple<Double, Vector4>( a6, r6 ),
+				new Tuple<Double, Vector4>( a7, r7 ),
+				new Tuple<Double, Vector4>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.SmoothStep (
+					ref a, ref b, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: CatmullRom //--------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector4();
+				var b = GetNextRandomVector4();
+				var c = GetNextRandomVector4();
+				var d = GetNextRandomVector4();
+
+				Double amount1 = 0;
+				Vector4 result1;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, amount1, out result1);
+
+				AssertEqualWithinReason(result1, b);
+
+				Double amount2 = 1;
+				Vector4 result2;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, amount2, out result2);
+
+				AssertEqualWithinReason(result2, c);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_ii ()
+		{
+			var a = new Vector4( -90, +30, +90, -30 );
+			var b = new Vector4( -30, -30, +30, +30 );
+			var c = new Vector4( +30, +30, -30, -30 );
+			var d = new Vector4( +90, -30, -90, -30 );
+
+			Double one = 1;
+
+			Double u = 15;
+			Double v = (Double) 165  / (Double)  8; // 20.5
+			Double w = (Double) 45   / (Double)  2; // 20.625
+			Double x = (Double) 1755 / (Double) 64; // 27.421875
+			Double y = (Double) 15   / (Double)  2; // 14.5
+			Double z = (Double) 705  / (Double) 64; // 11.015625
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector4 r0 = b;
+			Vector4 r1 = new Vector4( -w, -x,  w,  x );
+			Vector4 r2 = new Vector4( -u, -v,  u,  v );
+			Vector4 r3 = new Vector4( -y, -z,  y,  z );
+			Vector4 r4 = Vector4.Zero;
+			Vector4 r5 = new Vector4(  y,  z, -y, -z );
+			Vector4 r6 = new Vector4(  u,  v, -u, -v );
+			Vector4 r7 = new Vector4(  w,  x, -w, -x );
+			Vector4 r8 = c;
+
+			var knownResults = new List<Tuple<Double, Vector4>>
+			{
+				new Tuple<Double, Vector4>( a0, r0 ),
+				new Tuple<Double, Vector4>( a1, r1 ),
+				new Tuple<Double, Vector4>( a2, r2 ),
+				new Tuple<Double, Vector4>( a3, r3 ),
+				new Tuple<Double, Vector4>( a4, r4 ),
+				new Tuple<Double, Vector4>( a5, r5 ),
+				new Tuple<Double, Vector4>( a6, r6 ),
+				new Tuple<Double, Vector4>( a7, r7 ),
+				new Tuple<Double, Vector4>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iii ()
+		{
+			var a = GetNextRandomVector4();
+			var b = GetNextRandomVector4();
+			var c = GetNextRandomVector4();
+			var d = GetNextRandomVector4();
+			
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector4 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.CatmullRom (
+							ref a, ref b, ref c, ref d, amount, out result)
+				);
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against an example where all the control
+		/// points are in a straight line.  In this case the resulting spline
+		/// should be a straight line.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CatmullRom_iv ()
+		{
+			var a = new Vector4( -90, +30, +90, -30 );
+			var b = new Vector4( -30, -30, +30, +30 );
+			var c = new Vector4( +30, +30, -30, -30 );
+			var d = new Vector4( +90, -30, -90, -30 );
+
+			Double one = 1;
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 4;
+			Double a2 = (one * 2) / 4;
+			Double a3 = (one * 3) / 4;
+			Double a4 = 1;
+
+			Vector4 r0 = b;
+			Vector4 r1 = new Vector4( -15, -15,  15,  15 );
+			Vector4 r2 = Vector4.Zero;
+			Vector4 r3 = new Vector4(  15,  15, -15, -15 );
+			Vector4 r4 = c;
+
+			var knownResults = new List<Tuple<Double, Vector4>>
+			{
+				new Tuple<Double, Vector4>( a0, r0 ),
+				new Tuple<Double, Vector4>( a1, r1 ),
+				new Tuple<Double, Vector4>( a2, r2 ),
+				new Tuple<Double, Vector4>( a3, r3 ),
+				new Tuple<Double, Vector4>( a4, r4 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+		// Test Static Fn: Hermite //-----------------------------------------//
+
+		/// <summary>
+		/// This test runs a number of random scenarios and makes sure that when
+		/// the weighting parameter is at it's limits the spline passes directly 
+		/// through the correct control points.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_i ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a  = GetNextRandomVector4();
+				var b  = GetNextRandomVector4();
+
+				var c = GetNextRandomVector4();
+				var d = GetNextRandomVector4();
+
+				Vector4 an; Vector4.Normalise(ref c, out an);
+				Vector4 bn; Vector4.Normalise(ref d, out bn);
+
+				Double amount1 = 0;
+				Vector4 result1;
+
+				Vector4.Hermite (
+					ref a, ref an, ref b, ref bn, amount1, out result1);
+
+				AssertEqualWithinReason(result1, a);
+
+				Double amount2 = 1;
+				Vector4 result2;
+
+				Vector4.Hermite (
+					ref a, ref an, ref b, ref bn, amount2, out result2);
+
+				AssertEqualWithinReason(result2, b);
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_ii ()
+		{
+			var a = GetNextRandomVector4();
+			var b = GetNextRandomVector4();
+			var c = GetNextRandomVector4();
+			var d = GetNextRandomVector4();
+
+			Vector4 an; Vector4.Normalise(ref c, out an);
+			Vector4 bn; Vector4.Normalise(ref d, out bn);
+
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var amount in tests )
+			{
+				Vector4 result;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.Hermite (
+							ref a, ref an, ref b, ref bn, amount, out result)
+					);
+				
+			}
+		}
+
+		/// <summary>
+		/// This tests compares results against a known example.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Hermite_iii ()
+		{
+			var a = new Vector4( -100, +50, +100, -50 );
+			var b = new Vector4( +100, -50, -100, +50 );
+
+			var c = new Vector4( -10, +5, +10, -5 );
+			var d = new Vector4( +10, -5, -10, +5 );
+
+			Vector4 an; Vector4.Normalise(ref c, out an);
+			Vector4 bn; Vector4.Normalise(ref d, out bn);
+
+			Double one = 1;
+			
+			// 100.1953125
+			Double e = (Double) 51300 / (Double) 512;
+
+			// 50.09765625
+			Double f = (Double) 12825 / (Double) 256;
+
+			// 91.25
+			Double g = (Double) 365 / (Double) 4;
+
+			// 45.625
+			Double h = (Double) 365 / (Double) 8;
+
+			// 75.7421875
+			Double i = (Double) 9695 / (Double) 128;
+
+			// 37.87109375
+			Double j = (Double) 9695 / (Double) 256;
+
+			// 56.25
+			Double k = (Double) 225 / (Double) 4;
+
+			// 28.125
+			Double l = (Double) 225 / (Double) 8;
+
+			// 35.3515625
+			Double m = (Double) 4525 / (Double) 128;
+
+			// 17.67578125
+			Double n = (Double) 4525 / (Double) 256;
+
+			// 15.625
+			Double o = (Double) 125 / (Double) 8;
+
+			// 7.8125
+			Double p = (Double) 125 / (Double) 16;
+
+			// 0.3515625
+			Double q = (Double) 45 / (Double) 128;
+
+			// 0.17578125
+			Double r = (Double) 45 / (Double) 256;
+
+			Double a0 = 0;
+			Double a1 = (one * 1) / 8;
+			Double a2 = (one * 2) / 8;
+			Double a3 = (one * 3) / 8;
+			Double a4 = (one * 4) / 8;
+			Double a5 = (one * 5) / 8;
+			Double a6 = (one * 6) / 8;
+			Double a7 = (one * 7) / 8;
+			Double a8 = 1;
+
+			Vector4 r0 = b;
+			Vector4 r1 = new Vector4(  e, -f, -e,  f );
+			Vector4 r2 = new Vector4(  g, -h, -g,  h );
+			Vector4 r3 = new Vector4(  i, -j, -i,  j );
+			Vector4 r4 = new Vector4(  k, -l, -k,  l );
+			Vector4 r5 = new Vector4(  m, -n, -m,  n );
+			Vector4 r6 = new Vector4(  o, -p, -o,  p );
+			Vector4 r7 = new Vector4( -q,  r,  q, -r );
+			Vector4 r8 = c;
+
+			var knownResults = new List<Tuple<Double, Vector4>>
+			{
+				new Tuple<Double, Vector4>( a0, r0 ),
+				new Tuple<Double, Vector4>( a1, r1 ),
+				new Tuple<Double, Vector4>( a2, r2 ),
+				new Tuple<Double, Vector4>( a3, r3 ),
+				new Tuple<Double, Vector4>( a4, r4 ),
+				new Tuple<Double, Vector4>( a5, r5 ),
+				new Tuple<Double, Vector4>( a6, r6 ),
+				new Tuple<Double, Vector4>( a7, r7 ),
+				new Tuple<Double, Vector4>( a8, r8 ),
+			};
+
+			foreach(var knownResult in knownResults )
+			{
+				Vector4 result;
+
+				Vector4.CatmullRom (
+					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+				AssertEqualWithinReason(result, knownResult.Item2);
+			}
+		}
+
+				/// <summary>
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector4 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Min ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = a * 2;
+
+				Vector4 result;
+				Vector4.Min (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector4 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Max ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+				Vector4 b = GetNextRandomVector4();
+
+				Vector4 result;
+				Vector4.Max (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector4 objects for a given min-max range, yields
+		/// results that fall within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Clamp ()
+		public void TestStaticFn_Clamp_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 min = new Vector4(-30, 1, 18, -22);
+			Vector4 max = new Vector4(32, 130, 47, -2);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector4 a = GetNextRandomVector4();
+
+				Vector4 result;
+				Vector4.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, running the Clamp function on an a Vector4 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Lerp ()
+		public void TestStaticFn_Clamp_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector4 min = new Vector4(-30, 1, 18, -22);
+			Vector4 max = new Vector4(32, 130, 47, -2);
+
+			Vector4 a = new Vector4(-100, 1113, 50, 14);
+
+			Vector4 expected = new Vector4(-30, 130, 47, -2);
+
+			Vector4 result;
+			Vector4.Clamp (ref a, ref min, ref max, out result);
+
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.Z, Is.LessThanOrEqualTo(max.Z));
+			Assert.That(result.W, Is.LessThanOrEqualTo(max.W));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.Z, Is.GreaterThanOrEqualTo(min.Z));
+			Assert.That(result.W, Is.GreaterThanOrEqualTo(min.W));
+
+			AssertEqualWithinReason(result, expected);
+
 		}
 
-		#endregion
+		/// <summary>
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector4 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			for(Int32 j = 0; j < 100; ++j)
+			{
+				Double delta = j;
+
+				delta = delta / 100;
+
+				for(Int32 i = 0; i < 100; ++i)
+				{
+					Vector4 a = GetNextRandomVector4();
+					Vector4 b = GetNextRandomVector4();
+
+					Vector4 result;
+					Vector4.Lerp (ref a, ref b, delta, out result);
+
+					Vector4 expected = a + ( ( b - a ) * delta );
+
+					AssertEqualWithinReason(result, expected);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_ii ()
+		{
+			Vector4 a = GetNextRandomVector4();
+			Vector4 b = GetNextRandomVector4();
+
+			Double half; RealMaths.Half(out half);
+
+			var tests = new Double[] { 2, half + 1, -half, -1 };
+
+			foreach( var weighting in tests )
+			{
+				Vector4 result; 
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector4.Lerp (
+							ref a, ref b, weighting, out result)
+					);
+			}
+		}
+
 
 	}}
 

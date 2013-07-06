@@ -1,3 +1,6 @@
+	/// <summary>
+	/// 
+	/// </summary>
 	[TestFixture]
 	public class Vector3Tests
 	{

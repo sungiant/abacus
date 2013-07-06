@@ -32,7 +32,7 @@
 		}
 
 		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
+		/// Assert that, for known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
@@ -69,9 +69,14 @@
 
 			<#= type #> one = 1;
 
-			<#= type #> i; RealMaths.FromFraction(1755, 64, out i); // 27.421875
-			<#= type #> j; RealMaths.FromFraction( 165,  8, out j); // 20.625
-			<#= type #> k; RealMaths.FromFraction( 705, 64, out k); // 11.015625
+			<#= type #> i;
+			RealMaths.FromFraction(1755, 64, out i); // 27.421875
+			
+			<#= type #> j;
+			RealMaths.FromFraction( 165,  8, out j); // 20.625
+			
+			<#= type #> k;
+			RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
 			<#= type #> a0 = 0;
 			<#= type #> a1 = (one * 1) / 8;
@@ -217,7 +222,7 @@
 		}
 
 		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
+		/// Assert that, for known examples where the weighting parameter is
 		/// is outside the allowed range, the correct exception is thrown.
 		/// </summary>
 		[Test]
@@ -372,6 +377,7 @@
 		{
 			var a = new Vector2( -100, +50 );
 			var b = new Vector2( +100, -50 );
+
 			var c = new Vector2( -10, +5 );
 			var d = new Vector2( +10, -5 );
 
@@ -380,20 +386,47 @@
 
 			<#= type #> one = 1;
 			
-			<#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512; // 100.1953125
-			<#= type #> f = (<#= type #>) 12825 / (<#= type #>) 256; // 50.09765625
-			<#= type #> g = (<#= type #>) 365 / (<#= type #>) 4; // 91.25
-			<#= type #> h = (<#= type #>) 365 / (<#= type #>) 8; // 45.625
-			<#= type #> i = (<#= type #>) 9695 / (<#= type #>) 128; // 75.7421875
-			<#= type #> j = (<#= type #>) 9695 / (<#= type #>) 256; // 37.87109375
-			<#= type #> k = (<#= type #>) 225 / (<#= type #>) 4; // 56.25
-			<#= type #> l = (<#= type #>) 225 / (<#= type #>) 8; // 28.125
-			<#= type #> m = (<#= type #>) 4525 / (<#= type #>) 128; // 35.3515625
-			<#= type #> n = (<#= type #>) 4525 / (<#= type #>) 256; // 17.67578125
-			<#= type #> o = (<#= type #>) 125 / (<#= type #>) 8; // 15.625
-			<#= type #> p = (<#= type #>) 125 / (<#= type #>) 16; // 7.8125
-			<#= type #> q = (<#= type #>) 45 / (<#= type #>) 128; // 0.3515625
-			<#= type #> r = (<#= type #>) 45 / (<#= type #>) 256; // 0.17578125
+			// 100.1953125
+			<#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512;
+
+			// 50.09765625
+			<#= type #> f = (<#= type #>) 12825 / (<#= type #>) 256;
+
+			// 91.25
+			<#= type #> g = (<#= type #>) 365 / (<#= type #>) 4;
+
+			// 45.625
+			<#= type #> h = (<#= type #>) 365 / (<#= type #>) 8;
+
+			// 75.7421875
+			<#= type #> i = (<#= type #>) 9695 / (<#= type #>) 128;
+
+			// 37.87109375
+			<#= type #> j = (<#= type #>) 9695 / (<#= type #>) 256;
+
+			// 56.25
+			<#= type #> k = (<#= type #>) 225 / (<#= type #>) 4;
+
+			// 28.125
+			<#= type #> l = (<#= type #>) 225 / (<#= type #>) 8;
+
+			// 35.3515625
+			<#= type #> m = (<#= type #>) 4525 / (<#= type #>) 128;
+
+			// 17.67578125
+			<#= type #> n = (<#= type #>) 4525 / (<#= type #>) 256;
+
+			// 15.625
+			<#= type #> o = (<#= type #>) 125 / (<#= type #>) 8;
+
+			// 7.8125
+			<#= type #> p = (<#= type #>) 125 / (<#= type #>) 16;
+
+			// 0.3515625
+			<#= type #> q = (<#= type #>) 45 / (<#= type #>) 128;
+
+			// 0.17578125
+			<#= type #> r = (<#= type #>) 45 / (<#= type #>) 256;
 
 			<#= type #> a0 = 0;
 			<#= type #> a1 = (one * 1) / 8;
@@ -406,13 +439,13 @@
 			<#= type #> a8 = 1;
 
 			Vector2 r0 = b;
-			Vector2 r1 = new Vector2( e, -f );
-			Vector2 r2 = new Vector2( g, -h );
-			Vector2 r3 = new Vector2( i, -j );
-			Vector2 r4 = new Vector2( k, -l );
-			Vector2 r5 = new Vector2( m, -n );
-			Vector2 r6 = new Vector2( o, -p );
-			Vector2 r7 = new Vector2( -q, r );
+			Vector2 r1 = new Vector2(  e, -f );
+			Vector2 r2 = new Vector2(  g, -h );
+			Vector2 r3 = new Vector2(  i, -j );
+			Vector2 r4 = new Vector2(  k, -l );
+			Vector2 r5 = new Vector2(  m, -n );
+			Vector2 r6 = new Vector2(  o, -p );
+			Vector2 r7 = new Vector2( -q,  r );
 			Vector2 r8 = c;
 
 			var knownResults = new List<Tuple<<#= type #>, Vector2>>

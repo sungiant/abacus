@@ -1,6 +1,12 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
     public class Bgra16Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {

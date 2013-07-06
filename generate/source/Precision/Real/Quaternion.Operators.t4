@@ -1,5 +1,6 @@
-﻿		#region Operators
-
+﻿		/// <summary>
+		/// todo
+		/// </summary>
 		public static Quaternion operator - (Quaternion quaternion)
 		{
 			Quaternion quaternion2;
@@ -10,11 +11,17 @@
 			return quaternion2;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator == (Quaternion quaternion1, Quaternion quaternion2)
 		{
 			return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator != (Quaternion quaternion1, Quaternion quaternion2)
 		{
 			if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
@@ -22,7 +29,10 @@
 			}
 			return true;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Quaternion operator + (Quaternion quaternion1, Quaternion quaternion2)
 		{
 			Quaternion quaternion;
@@ -33,6 +43,9 @@
 			return quaternion;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Quaternion operator - (Quaternion quaternion1, Quaternion quaternion2)
 		{
 			Quaternion quaternion;
@@ -43,6 +56,9 @@
 			return quaternion;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Quaternion operator * (Quaternion quaternion1, Quaternion quaternion2)
 		{
 			Quaternion quaternion;
@@ -65,6 +81,9 @@
 			return quaternion;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Quaternion operator * (Quaternion quaternion1, <#= type #> scaleFactor)
 		{
 			Quaternion quaternion;
@@ -75,6 +94,9 @@
 			return quaternion;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
 		{
 			<#= type #> one = 1;
@@ -101,9 +123,9 @@
 			return quaternion;
 		}
 
-
-
-		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Negate (ref Quaternion quaternion, out Quaternion result)
 		{
 			result.X = -quaternion.X;
@@ -112,6 +134,9 @@
 			result.W = -quaternion.W;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Add (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
 		{
 			result.X = quaternion1.X + quaternion2.X;
@@ -120,6 +145,9 @@
 			result.W = quaternion1.W + quaternion2.W;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Subtract (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
 		{
 			result.X = quaternion1.X - quaternion2.X;
@@ -128,6 +156,9 @@
 			result.W = quaternion1.W - quaternion2.W;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Multiply (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
 		{
 			<#= type #> x = quaternion1.X;
@@ -148,6 +179,9 @@
 			result.W = (w * num) - num9;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Multiply (ref Quaternion quaternion1, <#= type #> scaleFactor, out Quaternion result)
 		{
 			result.X = quaternion1.X * scaleFactor;
@@ -155,7 +189,10 @@
 			result.Z = quaternion1.Z * scaleFactor;
 			result.W = quaternion1.W * scaleFactor;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Divide (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
 		{
 			<#= type #> one = 1;
@@ -179,5 +216,4 @@
 			result.Z = ((z * num) + (num2 * w)) + num11;
 			result.W = (w * num) - num10;
 		}
-		
-		#endregion
+

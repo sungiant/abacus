@@ -1,54 +1,154 @@
-﻿    //
-    // This class provides maths functions with consistent function
-    // signatures across all supported precisions.  The idea being
-    // the more you use this, the more you will be able to write 
-    // code once and easily change the precision later.
-    //
+﻿    /// <summary>
+    /// This class provides maths functions with consistent function
+    /// signatures across all supported precisions.  The idea being
+    /// the more you use this, the more you will be able to write 
+    /// code once and easily change the precision later.
+	/// </summary>
 	public static class RealMaths
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Zero(out Single value) { value = 0; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Zero(out Double value) { value = 0; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Half(out Single value) { value = 0.5f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Half(out Double value) { value = 0.5; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void One(out Single value) { value = 1f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void One(out Double value) { value = 1; }
 
-        // TODO: Improve upon the accuracy of the following mathematical constants.
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void E(out Single value) { value = 71828183f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void E(out Double value) { value = 71828183; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Log10E(out Single value) { value = 0.4342945f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Log10E(out Double value) { value = 0.4342945; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Log2E(out Single value) { value = 1.442695f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Log2E(out Double value) { value = 1.442695; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Pi(out Single value) { value = 3.1415926536f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Pi(out Double value) { value = 3.1415926536; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void PiOver2(out Single value) { value = 1.570796f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void PiOver2(out Double value) { value = 1.570796; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void PiOver4(out Single value) { value = 0.7853982f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void PiOver4(out Double value) { value = 0.7853982; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Tau(out Single value) { value = 6.283185f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Tau(out Double value) { value = 6.283185; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Epsilon(out Single value) { value = 1.0e-6f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Epsilon(out Double value) { value = 1.0e-6; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root2(out Single value) { value = 1.41421f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root2(out Double value) { value = 1.41421; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root3(out Single value) { value = 1.73205f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root3(out Double value) { value = 1.73205; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		internal static void TestTolerance(out Single value) { value = 1.0e-4f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		internal static void TestTolerance(out Double value) { value = 1.0e-7; }
 
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Boolean IsZero(Single value)
         {
             Single ep;
@@ -56,6 +156,9 @@
             return Abs(value) < ep;
         }
 
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Boolean IsZero(Double value)
         {
             Double ep;
@@ -63,6 +166,9 @@
             return Abs(value) < ep;
         }
 
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Int32 Sign(Single value)
         {
             if (value > 0)
@@ -77,6 +183,9 @@
             return 0;
         }
 
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Int32 Sign(Double value)
         {
             if (value > 0)
@@ -91,201 +200,249 @@
             return 0;
         }
 
-        //--------------------------------------------------------------
-        // FromString (str, &val)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
         public static void FromString(String str, out Single value)
         {
             value = 0f;
             Single.TryParse(str, out value);
         }
+
+		/// <summary>
+		/// todo
+		/// </summary>
         public static void FromString(String str, out Double value)
         {
             value = 0;
             Double.TryParse(str, out value);
         }
 
-
-        //--------------------------------------------------------------
-        // FromFraction(numerator, denominator, &val)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
         public static void FromFraction(Int32 numerator, Int32 denominator, out Single value)
         {
             value = (Single) numerator / (Single) denominator;
         }
+
+		/// <summary>
+		/// todo
+		/// </summary>
         public static void FromFraction(Int32 numerator, Int32 denominator, out Double value)
         {
             value = (Double) numerator / (Double) denominator;
         }
 
-        //--------------------------------------------------------------
-        // ToRadians (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single ToRadians(Single input)
 		{
 			Single tau; Tau(out tau);
 			return input * tau / 360f;
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double ToRadians(Double input)
         {
             Double tau; Tau(out tau);
             return input * tau / 360.0;
         }
 
-
-        //--------------------------------------------------------------
-        // ToDegrees (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single ToDegrees(Single input)
 		{
 			Single tau; Tau(out tau);
 			return input / tau * 360f;
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double ToDegrees(Double input)
         {
             Double tau; Tau(out tau);
             return input / tau * 360.0;
         }
 
-
-        //--------------------------------------------------------------
-        // Sqrt (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single Sqrt(Single input)
 		{
 			Single output = (Single)Math.Sqrt(input);
 			return output;
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double Sqrt(Double input)
 		{
 			return Math.Sqrt(input);
 		}
 
-
-        //--------------------------------------------------------------
-        // Sin (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single Sin(Single input)
 		{
             return (Single) Math.Sin((Single) input);
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double Sin(Double input)
 		{
             return Math.Sin(input);
 		}
 
-
-        //--------------------------------------------------------------
-        // Cos (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single Cos(Single input)
 		{
             return (Single)Math.Cos((Single)input);
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double Cos(Double input)
 		{
             return Math.Cos(input);
 		}
 
-
-        //--------------------------------------------------------------
-        // Tan (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single Tan(Single input)
 		{
             return (Single)Math.Tan((Single)input);
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double Tan(Double input)
 		{
             return Math.Tan(input);
 		}
 
-
-        //--------------------------------------------------------------
-        // Abs (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single Abs(Single input)
 		{
             return (Single)Math.Abs((Single)input);
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double Abs(Double input)
 		{
             return Math.Abs(input);
 		}
 
-
-        //--------------------------------------------------------------
-        // ArcSin (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single ArcSin(Single input)
 		{
             return (Single)Math.Asin((Single)input);
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double ArcSin(Double input)
 		{
 			throw new System.NotImplementedException();
 		}
 
-
-        //--------------------------------------------------------------
-        // ArcCos (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single ArcCos(Single input)
 		{
             return (Single)Math.Acos((Single)input);
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double ArcCos(Double input)
 		{
 			throw new System.NotImplementedException();
 		}
 
-
-        //--------------------------------------------------------------
-        // ArcTan (x)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single ArcTan(Single input)
 		{
             return (Single)Math.Atan((Single)input);
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double ArcTan(Double input)
 		{
 			throw new System.NotImplementedException();
 		}
 
-
-        //--------------------------------------------------------------
-        // Min (a, b)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single Min(Single a, Single b)
 		{
 			return a < b ? a : b;
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double Min(Double a, Double b)
 		{
 			return a < b ? a : b;
 		}
 
-
-        //--------------------------------------------------------------
-        // Max (a, b)
-        //
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single Max(Single a, Single b)
 		{
 			return a > b ? a : b;
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Double Max(Double a, Double b)
 		{
 			return a > b ? a : b;
 		}
 
-		//--------------------------------------------------------------
-		// WithinEpsilon(a, b)
-		//
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean WithinEpsilon(Single a, Single b)
 		{
 			Single num = a - b;
 			return ((-Single.Epsilon <= num) && (num <= Single.Epsilon));
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean WithinEpsilon(Double a, Double b)
 		{
 			Double num = a - b;

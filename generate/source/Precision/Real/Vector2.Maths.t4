@@ -93,25 +93,7 @@
 		}
 
 		/// <summary>
-		/// Transforms a vector normal by a matrix.
-		/// </summary>
-		public static void TransformNormal (
-			ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
-		{
-			if( !normal.IsUnit() )
-			{
-				throw new ArgumentOutOfRangeException();
-			}
-
-			<#= type #> a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-			<#= type #> b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-			
-			result.X = a;
-			result.Y = b;
-		}
-
-		/// <summary>
-		/// Transforms a Vector3 by a specified Matrix.
+		/// Transforms a Vector2 by the specified Matrix44.
 		/// </summary>
 		public static void Transform (
 			ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
@@ -129,7 +111,7 @@
 		}
 
 		/// <summary>
-		/// Transforms a Vector3 by a specified Quaternion.
+		/// Transforms a Vector2 by the specified Quaternion.
 		/// </summary>
 		public static void Transform (
 			ref Vector2 value, ref Quaternion rotation, out Vector2 result)
@@ -151,3 +133,21 @@
 			result.Y = j;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix.
+		/// </summary>
+		public static void TransformNormal (
+			ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			<#= type #> a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+			<#= type #> b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+			
+			result.X = a;
+			result.Y = b;
+		}
+

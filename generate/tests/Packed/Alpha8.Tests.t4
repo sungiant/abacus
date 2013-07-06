@@ -1,6 +1,12 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
     public static class Alpha_8Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {   

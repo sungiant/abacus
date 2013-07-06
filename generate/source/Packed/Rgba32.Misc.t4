@@ -1,8 +1,14 @@
-﻿		Rgba32(UInt32 packedValue)
+﻿		/// <summary>
+		/// todo
+		/// </summary>
+		Rgba32(UInt32 packedValue)
 		{
 			this.packedValue = packedValue;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(Int32 r, Int32 g, Int32 b)
 		{
 			if ((((r | g) | b) & -256) != 0)
@@ -18,6 +24,9 @@
 			this.packedValue = (UInt32)(((r | g) | b) | -16777216);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(Int32 r, Int32 g, Int32 b, Int32 a)
 		{
 			if (((((r | g) | b) | a) & -256) != 0)
@@ -35,24 +44,36 @@
 			this.packedValue = (UInt32)(((r | g) | b) | a);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32 (Single r, Single g, Single b)
 		{
 			var val = new SinglePrecision.Vector4(r, g, b, 1f);
 			Pack ( ref val, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32 (Single r, Single g, Single b, Single a)
 		{
 			var val = new SinglePrecision.Vector4(r, g, b, a);
 			Pack(ref val, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(SinglePrecision.Vector3 vector)
 		{
 			var val = new SinglePrecision.Vector4(vector.X, vector.Y, vector.Z, 1f);
 			Pack(ref val, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 GenerateColorFromName(string name)
 		{
 			System.Random random = new System.Random(name.GetHashCode());
@@ -62,8 +83,9 @@
 				(byte)random.Next(byte.MaxValue));
 		}
 
-		
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 FromNonPremultiplied(SinglePrecision.Vector4 vector)
 		{
 			Rgba32 color;
@@ -72,6 +94,9 @@
 			return color;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 FromNonPremultiplied(int r, int g, int b, int a)
 		{
 			Rgba32 color;
@@ -86,6 +111,9 @@
 			return color;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Int32 ClampToByte32(Int32 value)
 		{
 			if (value < 0)
@@ -101,6 +129,9 @@
 			return value;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Int32 ClampToByte64(Int64 value)
 		{
 			if (value < 0L)
@@ -116,7 +147,9 @@
 			return (Int32)value;
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte R
 		{
 			get
@@ -129,6 +162,9 @@
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte G
 		{
 			get
@@ -141,6 +177,9 @@
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte B
 		{
 			get
@@ -153,6 +192,9 @@
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte A
 		{
 			get
@@ -165,6 +207,9 @@
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 Lerp(Rgba32 value1, Rgba32 value2, Single amount)
 		{
 			Rgba32 color;
@@ -187,6 +232,9 @@
 			return color;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public SinglePrecision.Vector3 ToVector3()
 		{
 			SinglePrecision.Vector4 colourVec4;
@@ -195,7 +243,9 @@
 			return new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 Desaturate(Rgba32 colour, float desaturation)
 		{
 			System.Diagnostics.Debug.Assert(desaturation <= 1f && desaturation >= 0f);
@@ -207,7 +257,6 @@
 			colour.UnpackTo(out colourVec4);
 
 			SinglePrecision.Vector3 colourVec = new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
-
 
 			float luminance;
 

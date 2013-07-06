@@ -1,6 +1,11 @@
+	/// <summary>
+	/// 
+	/// </summary>
 	[TestFixture]
 	public class QuaternionTests
 	{
+<#@ include file="Quaternion.TestHelpers.t4"#>
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -24,5 +29,7 @@
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
+
+<#@ include file="Quaternion.Constants.Tests.t4"#>
 	}
 	

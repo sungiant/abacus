@@ -1,137 +1,257 @@
-﻿	[StructLayout (LayoutKind.Sequential)]
+﻿	/// <summary>
+	/// todo
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
 	public partial struct Matrix44 
 		: IEquatable<Matrix44>
 	{
-		// Row 0
+		/// <summary>
+		/// Row 1, Column 1
+		/// </summary>
 		public <#= type #> M11;
+
+		/// <summary>
+		/// Row 1, Column 2
+		/// </summary>
 		public <#= type #> M12;
+
+		/// <summary>
+		/// Row 1, Column 3
+		/// </summary>
 		public <#= type #> M13;
+
+		/// <summary>
+		/// Row 1, Column 4
+		/// </summary>
 		public <#= type #> M14;
 
-		// Row 1
+		/// <summary>
+		/// Row 2, Column 1
+		/// </summary>
 		public <#= type #> M21;
+
+		/// <summary>
+		/// Row 2, Column 2
+		/// </summary>
 		public <#= type #> M22;
+
+		/// <summary>
+		/// Row 2, Column 3
+		/// </summary>
 		public <#= type #> M23;
+
+		/// <summary>
+		/// Row 2, Column 4
+		/// </summary>
 		public <#= type #> M24;
 
-		// Row 2
+		/// <summary>
+		/// Row 3, Column 1
+		/// </summary>
 		public <#= type #> M31;
+
+		/// <summary>
+		/// Row 3, Column 2
+		/// </summary>
 		public <#= type #> M32;
+
+		/// <summary>
+		/// Row 3, Column 3
+		/// </summary>
 		public <#= type #> M33;
+
+		/// <summary>
+		/// Row 3, Column 4
+		/// </summary>
 		public <#= type #> M34;
 
-		// Row 3
+		/// <summary>
+		/// Row 4, Column 1
+		/// </summary>
 		public <#= type #> M41; // translation.x
+
+		/// <summary>
+		/// Row 4, Column 2
+		/// </summary>
 		public <#= type #> M42; // translation.y
+
+		/// <summary>
+		/// Row 4, Column 3
+		/// </summary>
 		public <#= type #> M43; // translation.z
+
+		/// <summary>
+		/// Row 4, Column 4
+		/// </summary>
 		public <#= type #> M44;
 		
-		public Vector3 Up {
-			get {
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Up 
+		{
+			get 
+			{
 				Vector3 vector;
 				vector.X = this.M21;
 				vector.Y = this.M22;
 				vector.Z = this.M23;
 				return vector;
 			}
-			set {
+			set 
+			{
 				this.M21 = value.X;
 				this.M22 = value.Y;
 				this.M23 = value.Z;
 			}
 		}
 
-		public Vector3 Down {
-			get {
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Down 
+		{
+			get 
+			{
 				Vector3 vector;
 				vector.X = -this.M21;
 				vector.Y = -this.M22;
 				vector.Z = -this.M23;
 				return vector;
 			}
-			set {
+			set 
+			{
 				this.M21 = -value.X;
 				this.M22 = -value.Y;
 				this.M23 = -value.Z;
 			}
 		}
 
-		public Vector3 Right {
-			get {
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Right 
+		{
+			get 
+			{
 				Vector3 vector;
 				vector.X = this.M11;
 				vector.Y = this.M12;
 				vector.Z = this.M13;
 				return vector;
 			}
-			set {
+			set 
+			{
 				this.M11 = value.X;
 				this.M12 = value.Y;
 				this.M13 = value.Z;
 			}
 		}
 
-		public Vector3 Left {
-			get {
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Left
+		{
+			get
+			{
 				Vector3 vector;
 				vector.X = -this.M11;
 				vector.Y = -this.M12;
 				vector.Z = -this.M13;
 				return vector;
 			}
-			set {
+			set
+			{
 				this.M11 = -value.X;
 				this.M12 = -value.Y;
 				this.M13 = -value.Z;
 			}
 		}
 
-		public Vector3 Forward {
-			get {
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Forward
+		{
+			get
+			{
 				Vector3 vector;
 				vector.X = -this.M31;
 				vector.Y = -this.M32;
 				vector.Z = -this.M33;
 				return vector;
 			}
-			set {
+			set 
+			{
 				this.M31 = -value.X;
 				this.M32 = -value.Y;
 				this.M33 = -value.Z;
 			}
 		}
 
-		public Vector3 Backward {
-			get {
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Backward
+		{
+			get
+			{
 				Vector3 vector;
 				vector.X = this.M31;
 				vector.Y = this.M32;
 				vector.Z = this.M33;
 				return vector;
 			}
-			set {
+			set
+			{
 				this.M31 = value.X;
 				this.M32 = value.Y;
 				this.M33 = value.Z;
 			}
 		}
 
-		public Vector3 Translation {
-			get {
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Translation
+		{
+			get 
+			{
 				Vector3 vector;
 				vector.X = this.M41;
 				vector.Y = this.M42;
 				vector.Z = this.M43;
 				return vector;
 			}
-			set {
+			set
+			{
 				this.M41 = value.X;
 				this.M42 = value.Y;
 				this.M43 = value.Z;
 			}
 		}
 
-		public Matrix44 (<#= type #> m11, <#= type #> m12, <#= type #> m13, <#= type #> m14, <#= type #> m21, <#= type #> m22, <#= type #> m23, <#= type #> m24, <#= type #> m31, <#= type #> m32, <#= type #> m33, <#= type #> m34, <#= type #> m41, <#= type #> m42, <#= type #> m43, <#= type #> m44)
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Matrix44 (
+			<#= type #> m11, 
+			<#= type #> m12, 
+			<#= type #> m13, 
+			<#= type #> m14, 
+			<#= type #> m21, 
+			<#= type #> m22, 
+			<#= type #> m23, 
+			<#= type #> m24, 
+			<#= type #> m31, 
+			<#= type #> m32, 
+			<#= type #> m33, 
+			<#= type #> m34, 
+			<#= type #> m41, 
+			<#= type #> m42, 
+			<#= type #> m43, 
+			<#= type #> m44)
 		{
 			this.M11 = m11;
 			this.M12 = m12;
@@ -151,16 +271,80 @@
 			this.M44 = m44;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
-			return ("{ " + string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", new Object[] { this.M11.ToString (), this.M12.ToString (), this.M13.ToString (), this.M14.ToString () }) + string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", new Object[] { this.M21.ToString (), this.M22.ToString (), this.M23.ToString (), this.M24.ToString () }) + string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", new Object[] { this.M31.ToString (), this.M32.ToString (), this.M33.ToString (), this.M34.ToString () }) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", new Object[] { this.M41.ToString (), this.M42.ToString (), this.M43.ToString (), this.M44.ToString () }) + "}");
+			return 
+				(
+					"{ " + 
+					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M11.ToString (), 
+							this.M12.ToString (), 
+							this.M13.ToString (), 
+							this.M14.ToString () 
+						}
+					) + 
+					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M21.ToString (), 
+							this.M22.ToString (), 
+							this.M23.ToString (), 
+							this.M24.ToString () 
+							}
+					) + 
+					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M31.ToString (), 
+							this.M32.ToString (), 
+							this.M33.ToString (), 
+							this.M34.ToString () 
+						}
+					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
+					new Object[] 
+					{ 
+						this.M41.ToString (), 
+						this.M42.ToString (), 
+						this.M43.ToString (), 
+						this.M44.ToString () 
+					}
+					) + 
+					"}"
+				);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals (Matrix44 other)
 		{
-			return ((((((this.M11 == other.M11) && (this.M22 == other.M22)) && ((this.M33 == other.M33) && (this.M44 == other.M44))) && (((this.M12 == other.M12) && (this.M13 == other.M13)) && ((this.M14 == other.M14) && (this.M21 == other.M21)))) && ((((this.M23 == other.M23) && (this.M24 == other.M24)) && ((this.M31 == other.M31) && (this.M32 == other.M32))) && (((this.M34 == other.M34) && (this.M41 == other.M41)) && (this.M42 == other.M42)))) && (this.M43 == other.M43));
+			return 
+				((((((this.M11 == other.M11) && 
+				     (this.M22 == other.M22)) && 
+				    ((this.M33 == other.M33) && 
+				     (this.M44 == other.M44))) && 
+				   (((this.M12 == other.M12) && 
+				     (this.M13 == other.M13)) && 
+				    ((this.M14 == other.M14) && 
+				     (this.M21 == other.M21)))) && 
+				  ((((this.M23 == other.M23) && 
+				     (this.M24 == other.M24)) && 
+				    ((this.M31 == other.M31) && 
+				     (this.M32 == other.M32))) && 
+				   (((this.M34 == other.M34) && 
+				     (this.M41 == other.M41)) && 
+				     (this.M42 == other.M42)))) && 
+				     (this.M43 == other.M43));
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -171,9 +355,29 @@
 			return flag;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return (((((((((((((((this.M11.GetHashCode () + this.M12.GetHashCode ()) + this.M13.GetHashCode ()) + this.M14.GetHashCode ()) + this.M21.GetHashCode ()) + this.M22.GetHashCode ()) + this.M23.GetHashCode ()) + this.M24.GetHashCode ()) + this.M31.GetHashCode ()) + this.M32.GetHashCode ()) + this.M33.GetHashCode ()) + this.M34.GetHashCode ()) + this.M41.GetHashCode ()) + this.M42.GetHashCode ()) + this.M43.GetHashCode ()) + this.M44.GetHashCode ());
+			return 
+				(((((((((((((((
+					this.M11.GetHashCode () + 
+					this.M12.GetHashCode ()) + 
+					this.M13.GetHashCode ()) + 
+					this.M14.GetHashCode ()) + 
+					this.M21.GetHashCode ()) + 
+					this.M22.GetHashCode ()) + 
+					this.M23.GetHashCode ()) + 
+					this.M24.GetHashCode ()) + 
+					this.M31.GetHashCode ()) + 
+					this.M32.GetHashCode ()) + 
+					this.M33.GetHashCode ()) + 
+					this.M34.GetHashCode ()) + 
+					this.M41.GetHashCode ()) + 
+					this.M42.GetHashCode ()) + 
+					this.M43.GetHashCode ()) + 
+					this.M44.GetHashCode ());
 		}
 
 <#@ include file="Matrix44.Constants.t4"#>
@@ -181,6 +385,5 @@
 <#@ include file="Matrix44.Maths.t4"#>
 <#@ include file="Matrix44.Operators.t4"#>
 <#@ include file="Matrix44.Utilities.t4"#>
-
 	}
 

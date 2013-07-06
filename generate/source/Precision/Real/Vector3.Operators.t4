@@ -1,10 +1,9 @@
-﻿		#region Operators
-		
-		public Boolean Equals (Vector3 other)
-		{
-			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-		}
+﻿		// Equality Operators //----------------------------------------------//
 
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// object.
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -14,20 +13,32 @@
 			return flag;
 		}
 
-		public static Vector3 operator - (Vector3 value)
+		#region IEquatable<Vector3>
+
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// Vector3 object.
+		/// </summary>
+		public Boolean Equals (Vector3 other)
 		{
-			Vector3 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			vector.Z = -value.Z;
-			return vector;
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
 		}
-		
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector3 value1, Vector3 value2)
 		{
 			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector3 value1, Vector3 value2)
 		{
 			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
@@ -35,7 +46,22 @@
 			}
 			return true;
 		}
-		
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects.
+		/// </summary>
+		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector3 operator + (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -44,7 +70,24 @@
 			vector.Z = value1.Z + value2.Z;
 			return vector;
 		}
-		
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects.
+		/// </summary>
+		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector3 operator - (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -53,7 +96,59 @@
 			vector.Z = value1.Z - value2.Z;
 			return vector;
 		}
+
+
+		// Negation Operators //----------------------------------------------//
 		
+		/// <summary>
+		/// Performs negation of a Vector3 object.
+		/// </summary>
+		public static void Negate (ref Vector3 value, out Vector3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector3 object using the (-X) operator.
+		/// </summary>
+		public static Vector3 operator - (Vector3 value)
+		{
+			Vector3 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			vector.Z = -value.Z;
+			return vector;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a <#= type #>
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, <#= type #> scaleFactor, out Vector3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -62,7 +157,11 @@
 			vector.Z = value1.Z * value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a <#= type #>
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value, <#= type #> scaleFactor)
 		{
 			Vector3 vector;
@@ -71,7 +170,11 @@
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a <#= type #> precision scaling factor 
+		/// and aVector3 object using the (x*Y) operator.
+		/// </summary>
 		public static Vector3 operator * (<#= type #> scaleFactor, Vector3 value)
 		{
 			Vector3 vector;
@@ -80,7 +183,35 @@
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector3 objects.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a <#= type #> precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, <#= type #> value2, out Vector3 result)
+		{
+			<#= type #> one = 1;
+			<#= type #> num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector3 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -89,7 +220,11 @@
 			vector.Z = value1.Z / value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a <#= type #> precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value, <#= type #> divider)
 		{
 			Vector3 vector;
@@ -101,56 +236,4 @@
 			vector.Z = value.Z * num;
 			return vector;
 		}
-
-		public static void Negate (ref Vector3 value, out Vector3 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-			result.Z = -value.Z;
-		}
-
-		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-			result.Z = value1.Z + value2.Z;
-		}
-
-		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-			result.Z = value1.Z - value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-			result.Z = value1.Z * value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, <#= type #> scaleFactor, out Vector3 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-			result.Z = value1.Z * scaleFactor;
-		}
-
-		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-			result.Z = value1.Z / value2.Z;
-		}
-
-		public static void Divide (ref Vector3 value1, <#= type #> value2, out Vector3 result)
-		{
-			<#= type #> one = 1;
-			<#= type #> num = one / value2;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-			result.Z = value1.Z * num;
-		}
 		
-		#endregion

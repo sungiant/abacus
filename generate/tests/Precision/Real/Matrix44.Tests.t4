@@ -1,6 +1,11 @@
-﻿	[TestFixture]
+﻿	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
 	public class Matrix44Tests
 	{
+<#@ include file="Matrix44.TestHelpers.t4"#>
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -58,23 +63,6 @@
 		}
 
 		[Test]
-		public void CreateFromQuaternion ()
-		{
-			<#= type #> pi; RealMaths.Pi(out pi);
-
-			Quaternion q;
-			Quaternion.CreateFromYawPitchRoll(pi, pi*2, pi / 2, out q);
-
-			Matrix44 mat1;
-			Matrix44.CreateFromQuaternion(ref q, out mat1);
-
-			Matrix44 mat2;
-			Matrix44.CreateFromQuaternionOld(ref q, out mat2);
-
-			Assert.That(mat1, Is.EqualTo(mat2));
-		}
-
-		[Test]
 		public void Decompose ()
 		{
             Matrix44 scale;
@@ -105,4 +93,6 @@
 			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
 
 		}
+
+<#@ include file="Matrix44.Constants.Tests.t4"#>
 	}

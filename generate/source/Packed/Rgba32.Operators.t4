@@ -1,4 +1,7 @@
-﻿		public static Rgba32 operator *(Rgba32 value, Single scale)
+﻿		/// <summary>
+		/// todo
+		/// </summary>
+		public static Rgba32 operator *(Rgba32 value, Single scale)
 		{
 			UInt32 num;
 			Rgba32 color;
@@ -44,6 +47,9 @@
 			return color;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Multiply(ref Rgba32 value, ref Single scale, out Rgba32 colour )
 		{
 			UInt32 num;
@@ -87,3 +93,4 @@
 			}
 			colour.packedValue = ((num5 | (num4 << 8)) | (num3 << 0x10)) | (num2 << 0x18);
 		}
+
