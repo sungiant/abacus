@@ -11,22 +11,22 @@
 		static Vector4 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector2 for the X-axis.
 		/// </summary>
 		static Vector4 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector2 for the Y-axis.
 		/// </summary>
 		static Vector4 unitY;
 
 		/// <summary>
-		/// Defines the unit vector for the z-axis.
+		/// Defines the unit Vector2 for the Z-axis.
 		/// </summary>
 		static Vector4 unitZ;
 
 		/// <summary>
-		/// Defines the unit vector for the w-axis.
+		/// Defines the unit Vector2 for the W-axis.
 		/// </summary>
 		static Vector4 unitW;
 
@@ -61,7 +61,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector2 for the X-axis.
 		/// </summary>
 		public static Vector4 UnitX
 		{
@@ -69,7 +69,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector2 for the Y-axis.
 		/// </summary>
 		public static Vector4 UnitY
 		{
@@ -77,7 +77,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the z-axis.
+		/// Returns the unit Vector2 for the Z-axis.
 		/// </summary>
 		public static Vector4 UnitZ
 		{
@@ -85,7 +85,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the w-axis.
+		/// Returns the unit Vector2 for the W-axis.
 		/// </summary>
 		public static Vector4 UnitW
 		{

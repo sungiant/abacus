@@ -4698,6 +4698,1613 @@ namespace Sungiant.Abacus.Packed
 }
 
 
+namespace Sungiant.Abacus.Int32Precision
+{
+	/// <summary>
+	/// Represents a point on a 2D integer grid.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
+	public struct Point2 
+		: IEquatable<Point2>
+	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
+		public Int32 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
+		public Int32 Y;
+
+		/// <summary>
+		/// Initilises a new instance of Point2 from two Int32 values 
+		/// representing X and Y respectively.
+		/// </summary>
+		public Point2 (Int32 x, Int32 y)
+		{
+			this.X = x;
+			this.Y = y;
+		}
+
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
+		{
+			return String.Format ("{{X:{0} Y:{1}}}", this.X, this.Y );
+		}
+
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (this.X.GetHashCode () + this.Y.GetHashCode ());
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to zero.
+		/// </summary>
+		static Point2 zero;
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to one.
+		/// </summary>
+		static Point2 one;
+
+		/// <summary>
+		/// Defines the unit Point2 for the X-axis.
+		/// </summary>
+		static Point2 unitX;
+
+		/// <summary>
+		/// Defines the unit Point2 for the Y-axis.
+		/// </summary>
+		static Point2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Point2()
+		{
+			zero = new Point2();
+			one = new Point2(1, 1);
+			unitX = new Point2(1, 0);
+			unitY = new Point2(0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to zero.
+		/// </summary>
+		public static Point2 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to one.
+		/// </summary>
+		public static Point2 One
+		{
+			get { return one; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the X-axis.
+		/// </summary>
+		public static Point2 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the Y-axis.
+		/// </summary>
+		public static Point2 UnitY
+		{
+			get { return unitY; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point2) {
+				flag = this.Equals ((Point2)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Point2>
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// Point2 object.
+		/// </summary>
+		public Boolean Equals (Point2 other)
+		{
+			return ((this.X == other.X) && (this.Y == other.Y));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point2 value1, Point2 value2)
+		{
+			return ((value1.X == value2.X) && (value1.Y == value2.Y));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point2 value1, Point2 value2)
+		{
+			if (value1.X == value2.X) {
+				return !(value1.Y == value2.Y);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point2 objects.
+		/// </summary>
+		public static void Add (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point2 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point2 operator + (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X + value2.X;
+			point.Y = value1.Y + value2.Y;
+			return point;
+		}
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects.
+		/// </summary>
+		public static void Subtract (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X - value2.X;
+			point.Y = value1.Y - value2.Y;
+			return point;
+		}
+
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point2 object.
+		/// </summary>
+		public static void Negate (ref Point2 value, out Point2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point2 object using the (-X) operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value)
+		{
+			Point2 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value, Int32 scaleFactor, out Point2 result)
+		{
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X * value2.X;
+			point.Y = value1.Y * value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value, Int32 scaleFactor)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Int32 precision scaling factor 
+		/// and aPoint2 object using the (x*Y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Int32 scaleFactor, Point2 value)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point2 objects.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, Int32 divider, out Point2 result)
+		{
+			Int32 one = 1;
+			Int32 num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point2 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X / value2.X;
+			point.Y = value1.Y / value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Int32 divider)
+		{
+			Point2 point;
+			Int32 one = 1;
+			Int32 num = one / divider;
+			point.X = value1.X * num;
+			point.Y = value1.Y * num;
+			return point;
+		}
+		
+	}
+
+	/// <summary>
+	/// Represents a point on a 3D integer grid.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
+	public struct Point3 
+		: IEquatable<Point3>
+	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
+		public Int32 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
+		public Int32 Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the point.
+		/// </summary>
+		public Int32 Z;
+
+		/// <summary>
+		/// Initilises a new instance of Point3 from three Int32 values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
+		public Point3(Int32 x, Int32 y, Int32 z)
+		{
+			this.X = x;
+			this.Y = y;
+			this.Z = z;
+		}
+
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString()
+		{
+			return String.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
+		}
+
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
+		public override Int32 GetHashCode()
+		{
+			return (this.X.GetHashCode() + this.Y.GetHashCode() + this.Z.GetHashCode());
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Point3 with all of its components set to zero.
+		/// </summary>
+		static Point3 zero;
+
+		/// <summary>
+		/// Defines a Point3 with all of its components set to one.
+		/// </summary>
+		static Point3 one;
+
+		/// <summary>
+		/// Defines the unit Point3 for the X-axis.
+		/// </summary>
+		static Point3 unitX;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Y-axis.
+		/// </summary>
+		static Point3 unitY;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Z-axis.
+		/// </summary>
+		static Point3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		static Point3 up;
+
+		/// <summary>
+		/// Defines a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		static Point3 down;
+
+		/// <summary>
+		/// Defines a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Point3 right;
+
+		/// <summary>
+		/// Defines a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		static Point3 left;
+
+		/// <summary>
+		/// Defines a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Point3 forward;
+
+		/// <summary>
+		/// Defines a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Point3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Point3()
+		{
+			zero = new Point3();
+			one = new Point3(1, 1, 1);
+			unitX = new Point3(1, 0, 0);
+			unitY = new Point3(0, 1, 0);
+			unitZ = new Point3(0, 0, 1);
+			up = new Point3(0, 1, 0);
+			down = new Point3(0, -1, 0);
+			right = new Point3(1, 0, 0);
+			left = new Point3(-1, 0, 0);
+			forward = new Point3(0, 0, -1);
+			backward = new Point3(0, 0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Point3 with all of its components set to zero.
+		/// </summary>
+		public static Point3 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Point3 with all of its components set to one.
+		/// </summary>
+		public static Point3 One
+		{
+			get { return one; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the X-axis.
+		/// </summary>
+		public static Point3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Y-axis.
+		/// </summary>
+		public static Point3 UnitY
+		{
+			get { return unitY; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Z-axis.
+		/// </summary>
+		public static Point3 UnitZ
+		{
+			get { return unitZ; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		public static Point3 Up
+		{
+			get { return up; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		public static Point3 Down
+		{
+			get { return down; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Point3 Right
+		{
+			get { return right; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Point3 Left
+		{
+			get { return left; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Point3 Forward
+		{
+			get { return forward; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Point3 Backward
+		{
+			get { return backward; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point3) {
+				flag = this.Equals ((Point3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Point3>
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// Point3 object.
+		/// </summary>
+		public Boolean Equals (Point3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point3 value1, Point3 value2)
+		{
+			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point3 value1, Point3 value2)
+		{
+			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
+				return !(value1.Z == value2.Z);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point3 objects.
+		/// </summary>
+		public static void Add (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point3 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point3 operator + (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X + value2.X;
+			point.Y = value1.Y + value2.Y;
+			point.Z = value1.Z + value2.Z;
+			return point;
+		}
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects.
+		/// </summary>
+		public static void Subtract (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X - value2.X;
+			point.Y = value1.Y - value2.Y;
+			point.Z = value1.Z - value2.Z;
+			return point;
+		}
+
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point3 object.
+		/// </summary>
+		public static void Negate (ref Point3 value, out Point3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point3 object using the (-X) operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value)
+		{
+			Point3 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			point.Z = -value.Z;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, Int32 scaleFactor, out Point3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X * value2.X;
+			point.Y = value1.Y * value2.Y;
+			point.Z = value1.Z * value2.Z;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value, Int32 scaleFactor)
+		{
+			Point3 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			point.Z = value.Z * scaleFactor;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Int32 precision scaling factor 
+		/// and aPoint3 object using the (x*Y) operator.
+		/// </summary>
+		public static Point3 operator * (Int32 scaleFactor, Point3 value)
+		{
+			Point3 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			point.Z = value.Z * scaleFactor;
+			return point;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point3 objects.
+		/// </summary>
+		public static void Divide (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a Int32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Point3 value1, Int32 value2, out Point3 result)
+		{
+			Int32 one = 1;
+			Int32 num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point3 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X / value2.X;
+			point.Y = value1.Y / value2.Y;
+			point.Z = value1.Z / value2.Z;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a Int32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value, Int32 divider)
+		{
+			Point3 point;
+			Int32 one = 1;
+
+			Int32 num = one / divider;
+			point.X = value.X * num;
+			point.Y = value.Y * num;
+			point.Z = value.Z * num;
+			return point;
+		}
+		
+	}
+
+}
+
+namespace Sungiant.Abacus.Int64Precision
+{
+	/// <summary>
+	/// Represents a point on a 2D integer grid.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
+	public struct Point2 
+		: IEquatable<Point2>
+	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
+		public Int64 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
+		public Int64 Y;
+
+		/// <summary>
+		/// Initilises a new instance of Point2 from two Int64 values 
+		/// representing X and Y respectively.
+		/// </summary>
+		public Point2 (Int64 x, Int64 y)
+		{
+			this.X = x;
+			this.Y = y;
+		}
+
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
+		{
+			return String.Format ("{{X:{0} Y:{1}}}", this.X, this.Y );
+		}
+
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (this.X.GetHashCode () + this.Y.GetHashCode ());
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to zero.
+		/// </summary>
+		static Point2 zero;
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to one.
+		/// </summary>
+		static Point2 one;
+
+		/// <summary>
+		/// Defines the unit Point2 for the X-axis.
+		/// </summary>
+		static Point2 unitX;
+
+		/// <summary>
+		/// Defines the unit Point2 for the Y-axis.
+		/// </summary>
+		static Point2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Point2()
+		{
+			zero = new Point2();
+			one = new Point2(1, 1);
+			unitX = new Point2(1, 0);
+			unitY = new Point2(0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to zero.
+		/// </summary>
+		public static Point2 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to one.
+		/// </summary>
+		public static Point2 One
+		{
+			get { return one; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the X-axis.
+		/// </summary>
+		public static Point2 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the Y-axis.
+		/// </summary>
+		public static Point2 UnitY
+		{
+			get { return unitY; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point2) {
+				flag = this.Equals ((Point2)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Point2>
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// Point2 object.
+		/// </summary>
+		public Boolean Equals (Point2 other)
+		{
+			return ((this.X == other.X) && (this.Y == other.Y));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point2 value1, Point2 value2)
+		{
+			return ((value1.X == value2.X) && (value1.Y == value2.Y));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point2 value1, Point2 value2)
+		{
+			if (value1.X == value2.X) {
+				return !(value1.Y == value2.Y);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point2 objects.
+		/// </summary>
+		public static void Add (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point2 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point2 operator + (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X + value2.X;
+			point.Y = value1.Y + value2.Y;
+			return point;
+		}
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects.
+		/// </summary>
+		public static void Subtract (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X - value2.X;
+			point.Y = value1.Y - value2.Y;
+			return point;
+		}
+
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point2 object.
+		/// </summary>
+		public static void Negate (ref Point2 value, out Point2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point2 object using the (-X) operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value)
+		{
+			Point2 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int64
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value, Int64 scaleFactor, out Point2 result)
+		{
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X * value2.X;
+			point.Y = value1.Y * value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int64
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value, Int64 scaleFactor)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Int64 precision scaling factor 
+		/// and aPoint2 object using the (x*Y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Int64 scaleFactor, Point2 value)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point2 objects.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int64 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, Int64 divider, out Point2 result)
+		{
+			Int64 one = 1;
+			Int64 num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point2 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X / value2.X;
+			point.Y = value1.Y / value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int64 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Int64 divider)
+		{
+			Point2 point;
+			Int64 one = 1;
+			Int64 num = one / divider;
+			point.X = value1.X * num;
+			point.Y = value1.Y * num;
+			return point;
+		}
+		
+	}
+
+	/// <summary>
+	/// Represents a point on a 3D integer grid.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
+	public struct Point3 
+		: IEquatable<Point3>
+	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
+		public Int64 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
+		public Int64 Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the point.
+		/// </summary>
+		public Int64 Z;
+
+		/// <summary>
+		/// Initilises a new instance of Point3 from three Int64 values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
+		public Point3(Int64 x, Int64 y, Int64 z)
+		{
+			this.X = x;
+			this.Y = y;
+			this.Z = z;
+		}
+
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString()
+		{
+			return String.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
+		}
+
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
+		public override Int32 GetHashCode()
+		{
+			return (this.X.GetHashCode() + this.Y.GetHashCode() + this.Z.GetHashCode());
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Point3 with all of its components set to zero.
+		/// </summary>
+		static Point3 zero;
+
+		/// <summary>
+		/// Defines a Point3 with all of its components set to one.
+		/// </summary>
+		static Point3 one;
+
+		/// <summary>
+		/// Defines the unit Point3 for the X-axis.
+		/// </summary>
+		static Point3 unitX;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Y-axis.
+		/// </summary>
+		static Point3 unitY;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Z-axis.
+		/// </summary>
+		static Point3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		static Point3 up;
+
+		/// <summary>
+		/// Defines a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		static Point3 down;
+
+		/// <summary>
+		/// Defines a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Point3 right;
+
+		/// <summary>
+		/// Defines a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		static Point3 left;
+
+		/// <summary>
+		/// Defines a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Point3 forward;
+
+		/// <summary>
+		/// Defines a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Point3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Point3()
+		{
+			zero = new Point3();
+			one = new Point3(1, 1, 1);
+			unitX = new Point3(1, 0, 0);
+			unitY = new Point3(0, 1, 0);
+			unitZ = new Point3(0, 0, 1);
+			up = new Point3(0, 1, 0);
+			down = new Point3(0, -1, 0);
+			right = new Point3(1, 0, 0);
+			left = new Point3(-1, 0, 0);
+			forward = new Point3(0, 0, -1);
+			backward = new Point3(0, 0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Point3 with all of its components set to zero.
+		/// </summary>
+		public static Point3 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Point3 with all of its components set to one.
+		/// </summary>
+		public static Point3 One
+		{
+			get { return one; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the X-axis.
+		/// </summary>
+		public static Point3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Y-axis.
+		/// </summary>
+		public static Point3 UnitY
+		{
+			get { return unitY; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Z-axis.
+		/// </summary>
+		public static Point3 UnitZ
+		{
+			get { return unitZ; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		public static Point3 Up
+		{
+			get { return up; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		public static Point3 Down
+		{
+			get { return down; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Point3 Right
+		{
+			get { return right; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Point3 Left
+		{
+			get { return left; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Point3 Forward
+		{
+			get { return forward; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Point3 Backward
+		{
+			get { return backward; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point3) {
+				flag = this.Equals ((Point3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Point3>
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// Point3 object.
+		/// </summary>
+		public Boolean Equals (Point3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point3 value1, Point3 value2)
+		{
+			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point3 value1, Point3 value2)
+		{
+			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
+				return !(value1.Z == value2.Z);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point3 objects.
+		/// </summary>
+		public static void Add (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point3 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point3 operator + (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X + value2.X;
+			point.Y = value1.Y + value2.Y;
+			point.Z = value1.Z + value2.Z;
+			return point;
+		}
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects.
+		/// </summary>
+		public static void Subtract (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X - value2.X;
+			point.Y = value1.Y - value2.Y;
+			point.Z = value1.Z - value2.Z;
+			return point;
+		}
+
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point3 object.
+		/// </summary>
+		public static void Negate (ref Point3 value, out Point3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point3 object using the (-X) operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value)
+		{
+			Point3 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			point.Z = -value.Z;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int64
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, Int64 scaleFactor, out Point3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X * value2.X;
+			point.Y = value1.Y * value2.Y;
+			point.Z = value1.Z * value2.Z;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int64
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value, Int64 scaleFactor)
+		{
+			Point3 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			point.Z = value.Z * scaleFactor;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Int64 precision scaling factor 
+		/// and aPoint3 object using the (x*Y) operator.
+		/// </summary>
+		public static Point3 operator * (Int64 scaleFactor, Point3 value)
+		{
+			Point3 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			point.Z = value.Z * scaleFactor;
+			return point;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point3 objects.
+		/// </summary>
+		public static void Divide (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a Int64 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Point3 value1, Int64 value2, out Point3 result)
+		{
+			Int64 one = 1;
+			Int64 num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point3 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X / value2.X;
+			point.Y = value1.Y / value2.Y;
+			point.Z = value1.Z / value2.Z;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a Int64 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value, Int64 divider)
+		{
+			Point3 point;
+			Int64 one = 1;
+
+			Int64 num = one / divider;
+			point.X = value.X * num;
+			point.Y = value.Y * num;
+			point.Z = value.Z * num;
+			return point;
+		}
+		
+	}
+
+}
+
+
 namespace Sungiant.Abacus.SinglePrecision
 {
 	/// <summary>
@@ -5044,7 +6651,7 @@ namespace Sungiant.Abacus.SinglePrecision
 	/// todo
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Matrix44 
+	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
 		/// <summary>
@@ -6919,7 +8526,7 @@ namespace Sungiant.Abacus.SinglePrecision
 	/// todo
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Quaternion 
+	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
 		/// <summary>
@@ -7531,16 +9138,16 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 	}	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector2
+	public struct Vector2
 		: IEquatable<Vector2>
 	{
 		/// <summary>
-		/// Gets or sets the x-component of the vector.
+		/// Gets or sets the X-component of the Vector2.
 		/// </summary>
 		public Single X;
 
 		/// <summary>
-		/// Gets or sets the y-component of the vector.
+		/// Gets or sets the Y-component of the Vector2.
 		/// </summary>
 		public Single Y;
 
@@ -7555,7 +9162,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector.
+		/// Calculates the length of the Vector2.
 		/// </summary>
 		public Single Length ()
 		{
@@ -7564,7 +9171,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector squared.
+		/// Calculates the length of the Vector2 squared.
 		/// </summary>
 		public Single LengthSquared ()
 		{
@@ -7587,7 +9194,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Gets the hash code of the vector object.
+		/// Gets the hash code of the Vector2 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -7595,7 +9202,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether or not the vector is of unit length.
+		/// Detemines whether or not the Vector2 is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
@@ -7616,12 +9223,12 @@ namespace Sungiant.Abacus.SinglePrecision
 		readonly static Vector2 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector2 for the X-axis.
 		/// </summary>
 		readonly static Vector2 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector2 for the Y-axis.
 		/// </summary>
 		readonly static Vector2 unitY;
 
@@ -7654,7 +9261,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector2 for the X-axis.
 		/// </summary>
 		public static Vector2 UnitX
 		{
@@ -7662,7 +9269,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector2 for the Y-axis.
 		/// </summary>
 		public static Vector2 UnitY
 		{
@@ -8246,21 +9853,21 @@ namespace Sungiant.Abacus.SinglePrecision
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector3 
+	public struct Vector3 
 		: IEquatable<Vector3>
 	{
 		/// <summary>
-		/// Gets or sets the x-component of the vector.
+		/// Gets or sets the X-component of the Vector3.
 		/// </summary>
 		public Single X;
 
 		/// <summary>
-		/// Gets or sets the y-component of the vector.
+		/// Gets or sets the Y-component of the Vector3.
 		/// </summary>
 		public Single Y;
 
 		/// <summary>
-		/// Gets or sets the z-component of the vector.
+		/// Gets or sets the Z-component of the Vector3.
 		/// </summary>
 		public Single Z;
 
@@ -8287,7 +9894,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector.
+		/// Calculates the length of the Vector3.
 		/// </summary>
 		public Single Length ()
 		{
@@ -8299,7 +9906,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector squared.
+		/// Calculates the length of the Vector3 squared.
 		/// </summary>
 		public Single LengthSquared ()
 		{
@@ -8326,7 +9933,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Gets the hash code of the vector object.
+		/// Gets the hash code of the Vector3 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -8338,7 +9945,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether or not the vector is of unit length.
+		/// Detemines whether or not the Vector3 is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
@@ -8359,47 +9966,49 @@ namespace Sungiant.Abacus.SinglePrecision
 		static Vector3 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector3 for the X-axis.
 		/// </summary>
 		static Vector3 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector3 for the Y-axis.
 		/// </summary>
 		static Vector3 unitY;
 
 		/// <summary>
-		/// Defines the unit vector for the z-axis.
+		/// Defines the unit Vector3 for the Z-axis.
 		/// </summary>
 		static Vector3 unitZ;
 
 		/// <summary>
-		/// Defines the unit up vector.
+		/// Defines a unit Vector3 designating up (0, 1, 0).
 		/// </summary>
 		static Vector3 up;
 
 		/// <summary>
-		/// Defines the unit down vector.
+		/// Defines a unit Vector3 designating down (0, −1, 0).
 		/// </summary>
 		static Vector3 down;
 
 		/// <summary>
-		/// Defines the unit right vector.
+		/// Defines a unit Vector3 pointing to the right (1, 0, 0).
 		/// </summary>
 		static Vector3 right;
 
 		/// <summary>
-		/// Defines the unit left vector.
+		/// Defines a unit Vector3 designating left (−1, 0, 0).
 		/// </summary>
 		static Vector3 left;
 
 		/// <summary>
-		/// Defines the unit forward vector.
+		/// Defines a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
 		/// </summary>
 		static Vector3 forward;
 
 		/// <summary>
-		/// Defines the unit backward vector.
+		/// Defines a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
 		/// </summary>
 		static Vector3 backward;
 
@@ -8440,7 +10049,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector3 for the X-axis.
 		/// </summary>
 		public static Vector3 UnitX
 		{
@@ -8448,7 +10057,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector3 for the Y-axis.
 		/// </summary>
 		public static Vector3 UnitY
 		{
@@ -8456,7 +10065,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the z-axis.
+		/// Returns the unit Vector3 for the Z-axis.
 		/// </summary>
 		public static Vector3 UnitZ
 		{
@@ -8464,7 +10073,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit up vector.
+		/// Returns a unit Vector3 designating up (0, 1, 0).
 		/// </summary>
 		public static Vector3 Up
 		{
@@ -8472,7 +10081,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit down vector.
+		/// Returns a unit Vector3 designating down (0, −1, 0).
 		/// </summary>
 		public static Vector3 Down
 		{
@@ -8480,7 +10089,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit right vector.
+		/// Returns a unit Vector3 pointing to the right (1, 0, 0).
 		/// </summary>
 		public static Vector3 Right
 		{
@@ -8488,7 +10097,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit left vector.
+		/// Returns a unit Vector3 designating left (−1, 0, 0).
 		/// </summary>
 		public static Vector3 Left
 		{
@@ -8496,7 +10105,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit forward vector.
+		/// Returns a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
 		/// </summary>
 		public static Vector3 Forward
 		{
@@ -8504,7 +10114,8 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit backward vector.
+		/// Returns a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
 		/// </summary>
 		public static Vector3 Backward
 		{
@@ -9015,26 +10626,26 @@ namespace Sungiant.Abacus.SinglePrecision
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector4 
+	public struct Vector4 
 		: IEquatable<Vector4>
 	{
 		/// <summary>
-		/// Gets or sets the x-component of the vector.
+		/// Gets or sets the X-component of the Vector4.
 		/// </summary>
 		public Single X;
 
 		/// <summary>
-		/// Gets or sets the y-component of the vector.
+		/// Gets or sets the Y-component of the Vector4.
 		/// </summary>
 		public Single Y;
 
 		/// <summary>
-		/// Gets or sets the z-component of the vector.
+		/// Gets or sets the Z-component of the Vector4.
 		/// </summary>
 		public Single Z;
 
 		/// <summary>
-		/// Gets or sets the w-component of the vector.
+		/// Gets or sets the W-component of the Vector4.
 		/// </summary>
 		public Single W;
 
@@ -9080,7 +10691,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector.
+		/// Calculates the length of the Vector4.
 		/// </summary>
 		public Single Length ()
 		{
@@ -9093,7 +10704,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector squared.
+		/// Calculates the length of the Vector4 squared.
 		/// </summary>
 		public Single LengthSquared ()
 		{
@@ -9122,7 +10733,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Gets the hash code of the vector object.
+		/// Gets the hash code of the Vector4 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -9135,7 +10746,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether or not the vector is of unit length.
+		/// Detemines whether or not the Vector4 is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
@@ -9156,22 +10767,22 @@ namespace Sungiant.Abacus.SinglePrecision
 		static Vector4 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector2 for the X-axis.
 		/// </summary>
 		static Vector4 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector2 for the Y-axis.
 		/// </summary>
 		static Vector4 unitY;
 
 		/// <summary>
-		/// Defines the unit vector for the z-axis.
+		/// Defines the unit Vector2 for the Z-axis.
 		/// </summary>
 		static Vector4 unitZ;
 
 		/// <summary>
-		/// Defines the unit vector for the w-axis.
+		/// Defines the unit Vector2 for the W-axis.
 		/// </summary>
 		static Vector4 unitW;
 
@@ -9206,7 +10817,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector2 for the X-axis.
 		/// </summary>
 		public static Vector4 UnitX
 		{
@@ -9214,7 +10825,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector2 for the Y-axis.
 		/// </summary>
 		public static Vector4 UnitY
 		{
@@ -9222,7 +10833,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the z-axis.
+		/// Returns the unit Vector2 for the Z-axis.
 		/// </summary>
 		public static Vector4 UnitZ
 		{
@@ -9230,7 +10841,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the w-axis.
+		/// Returns the unit Vector2 for the W-axis.
 		/// </summary>
 		public static Vector4 UnitW
 		{
@@ -10161,7 +11772,7 @@ namespace Sungiant.Abacus.DoublePrecision
 	/// todo
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Matrix44 
+	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
 		/// <summary>
@@ -12036,7 +13647,7 @@ namespace Sungiant.Abacus.DoublePrecision
 	/// todo
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Quaternion 
+	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
 		/// <summary>
@@ -12648,16 +14259,16 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 	}	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector2
+	public struct Vector2
 		: IEquatable<Vector2>
 	{
 		/// <summary>
-		/// Gets or sets the x-component of the vector.
+		/// Gets or sets the X-component of the Vector2.
 		/// </summary>
 		public Double X;
 
 		/// <summary>
-		/// Gets or sets the y-component of the vector.
+		/// Gets or sets the Y-component of the Vector2.
 		/// </summary>
 		public Double Y;
 
@@ -12672,7 +14283,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector.
+		/// Calculates the length of the Vector2.
 		/// </summary>
 		public Double Length ()
 		{
@@ -12681,7 +14292,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector squared.
+		/// Calculates the length of the Vector2 squared.
 		/// </summary>
 		public Double LengthSquared ()
 		{
@@ -12704,7 +14315,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Gets the hash code of the vector object.
+		/// Gets the hash code of the Vector2 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -12712,7 +14323,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether or not the vector is of unit length.
+		/// Detemines whether or not the Vector2 is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
@@ -12733,12 +14344,12 @@ namespace Sungiant.Abacus.DoublePrecision
 		readonly static Vector2 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector2 for the X-axis.
 		/// </summary>
 		readonly static Vector2 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector2 for the Y-axis.
 		/// </summary>
 		readonly static Vector2 unitY;
 
@@ -12771,7 +14382,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector2 for the X-axis.
 		/// </summary>
 		public static Vector2 UnitX
 		{
@@ -12779,7 +14390,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector2 for the Y-axis.
 		/// </summary>
 		public static Vector2 UnitY
 		{
@@ -13363,21 +14974,21 @@ namespace Sungiant.Abacus.DoublePrecision
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector3 
+	public struct Vector3 
 		: IEquatable<Vector3>
 	{
 		/// <summary>
-		/// Gets or sets the x-component of the vector.
+		/// Gets or sets the X-component of the Vector3.
 		/// </summary>
 		public Double X;
 
 		/// <summary>
-		/// Gets or sets the y-component of the vector.
+		/// Gets or sets the Y-component of the Vector3.
 		/// </summary>
 		public Double Y;
 
 		/// <summary>
-		/// Gets or sets the z-component of the vector.
+		/// Gets or sets the Z-component of the Vector3.
 		/// </summary>
 		public Double Z;
 
@@ -13404,7 +15015,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector.
+		/// Calculates the length of the Vector3.
 		/// </summary>
 		public Double Length ()
 		{
@@ -13416,7 +15027,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector squared.
+		/// Calculates the length of the Vector3 squared.
 		/// </summary>
 		public Double LengthSquared ()
 		{
@@ -13443,7 +15054,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Gets the hash code of the vector object.
+		/// Gets the hash code of the Vector3 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -13455,7 +15066,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether or not the vector is of unit length.
+		/// Detemines whether or not the Vector3 is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
@@ -13476,47 +15087,49 @@ namespace Sungiant.Abacus.DoublePrecision
 		static Vector3 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector3 for the X-axis.
 		/// </summary>
 		static Vector3 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector3 for the Y-axis.
 		/// </summary>
 		static Vector3 unitY;
 
 		/// <summary>
-		/// Defines the unit vector for the z-axis.
+		/// Defines the unit Vector3 for the Z-axis.
 		/// </summary>
 		static Vector3 unitZ;
 
 		/// <summary>
-		/// Defines the unit up vector.
+		/// Defines a unit Vector3 designating up (0, 1, 0).
 		/// </summary>
 		static Vector3 up;
 
 		/// <summary>
-		/// Defines the unit down vector.
+		/// Defines a unit Vector3 designating down (0, −1, 0).
 		/// </summary>
 		static Vector3 down;
 
 		/// <summary>
-		/// Defines the unit right vector.
+		/// Defines a unit Vector3 pointing to the right (1, 0, 0).
 		/// </summary>
 		static Vector3 right;
 
 		/// <summary>
-		/// Defines the unit left vector.
+		/// Defines a unit Vector3 designating left (−1, 0, 0).
 		/// </summary>
 		static Vector3 left;
 
 		/// <summary>
-		/// Defines the unit forward vector.
+		/// Defines a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
 		/// </summary>
 		static Vector3 forward;
 
 		/// <summary>
-		/// Defines the unit backward vector.
+		/// Defines a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
 		/// </summary>
 		static Vector3 backward;
 
@@ -13557,7 +15170,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector3 for the X-axis.
 		/// </summary>
 		public static Vector3 UnitX
 		{
@@ -13565,7 +15178,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector3 for the Y-axis.
 		/// </summary>
 		public static Vector3 UnitY
 		{
@@ -13573,7 +15186,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the z-axis.
+		/// Returns the unit Vector3 for the Z-axis.
 		/// </summary>
 		public static Vector3 UnitZ
 		{
@@ -13581,7 +15194,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit up vector.
+		/// Returns a unit Vector3 designating up (0, 1, 0).
 		/// </summary>
 		public static Vector3 Up
 		{
@@ -13589,7 +15202,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit down vector.
+		/// Returns a unit Vector3 designating down (0, −1, 0).
 		/// </summary>
 		public static Vector3 Down
 		{
@@ -13597,7 +15210,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit right vector.
+		/// Returns a unit Vector3 pointing to the right (1, 0, 0).
 		/// </summary>
 		public static Vector3 Right
 		{
@@ -13605,7 +15218,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit left vector.
+		/// Returns a unit Vector3 designating left (−1, 0, 0).
 		/// </summary>
 		public static Vector3 Left
 		{
@@ -13613,7 +15226,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit forward vector.
+		/// Returns a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
 		/// </summary>
 		public static Vector3 Forward
 		{
@@ -13621,7 +15235,8 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit backward vector.
+		/// Returns a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
 		/// </summary>
 		public static Vector3 Backward
 		{
@@ -14132,26 +15747,26 @@ namespace Sungiant.Abacus.DoublePrecision
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector4 
+	public struct Vector4 
 		: IEquatable<Vector4>
 	{
 		/// <summary>
-		/// Gets or sets the x-component of the vector.
+		/// Gets or sets the X-component of the Vector4.
 		/// </summary>
 		public Double X;
 
 		/// <summary>
-		/// Gets or sets the y-component of the vector.
+		/// Gets or sets the Y-component of the Vector4.
 		/// </summary>
 		public Double Y;
 
 		/// <summary>
-		/// Gets or sets the z-component of the vector.
+		/// Gets or sets the Z-component of the Vector4.
 		/// </summary>
 		public Double Z;
 
 		/// <summary>
-		/// Gets or sets the w-component of the vector.
+		/// Gets or sets the W-component of the Vector4.
 		/// </summary>
 		public Double W;
 
@@ -14197,7 +15812,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector.
+		/// Calculates the length of the Vector4.
 		/// </summary>
 		public Double Length ()
 		{
@@ -14210,7 +15825,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector squared.
+		/// Calculates the length of the Vector4 squared.
 		/// </summary>
 		public Double LengthSquared ()
 		{
@@ -14239,7 +15854,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Gets the hash code of the vector object.
+		/// Gets the hash code of the Vector4 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -14252,7 +15867,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// Detemines whether or not the vector is of unit length.
+		/// Detemines whether or not the Vector4 is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{
@@ -14273,22 +15888,22 @@ namespace Sungiant.Abacus.DoublePrecision
 		static Vector4 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector2 for the X-axis.
 		/// </summary>
 		static Vector4 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector2 for the Y-axis.
 		/// </summary>
 		static Vector4 unitY;
 
 		/// <summary>
-		/// Defines the unit vector for the z-axis.
+		/// Defines the unit Vector2 for the Z-axis.
 		/// </summary>
 		static Vector4 unitZ;
 
 		/// <summary>
-		/// Defines the unit vector for the w-axis.
+		/// Defines the unit Vector2 for the W-axis.
 		/// </summary>
 		static Vector4 unitW;
 
@@ -14323,7 +15938,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector2 for the X-axis.
 		/// </summary>
 		public static Vector4 UnitX
 		{
@@ -14331,7 +15946,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector2 for the Y-axis.
 		/// </summary>
 		public static Vector4 UnitY
 		{
@@ -14339,7 +15954,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the z-axis.
+		/// Returns the unit Vector2 for the Z-axis.
 		/// </summary>
 		public static Vector4 UnitZ
 		{
@@ -14347,7 +15962,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the w-axis.
+		/// Returns the unit Vector2 for the W-axis.
 		/// </summary>
 		public static Vector4 UnitW
 		{

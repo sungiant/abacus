@@ -11,47 +11,49 @@
 		static Vector3 one;
 
 		/// <summary>
-		/// Defines the unit vector for the x-axis.
+		/// Defines the unit Vector3 for the X-axis.
 		/// </summary>
 		static Vector3 unitX;
 
 		/// <summary>
-		/// Defines the unit vector for the y-axis.
+		/// Defines the unit Vector3 for the Y-axis.
 		/// </summary>
 		static Vector3 unitY;
 
 		/// <summary>
-		/// Defines the unit vector for the z-axis.
+		/// Defines the unit Vector3 for the Z-axis.
 		/// </summary>
 		static Vector3 unitZ;
 
 		/// <summary>
-		/// Defines the unit up vector.
+		/// Defines a unit Vector3 designating up (0, 1, 0).
 		/// </summary>
 		static Vector3 up;
 
 		/// <summary>
-		/// Defines the unit down vector.
+		/// Defines a unit Vector3 designating down (0, −1, 0).
 		/// </summary>
 		static Vector3 down;
 
 		/// <summary>
-		/// Defines the unit right vector.
+		/// Defines a unit Vector3 pointing to the right (1, 0, 0).
 		/// </summary>
 		static Vector3 right;
 
 		/// <summary>
-		/// Defines the unit left vector.
+		/// Defines a unit Vector3 designating left (−1, 0, 0).
 		/// </summary>
 		static Vector3 left;
 
 		/// <summary>
-		/// Defines the unit forward vector.
+		/// Defines a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
 		/// </summary>
 		static Vector3 forward;
 
 		/// <summary>
-		/// Defines the unit backward vector.
+		/// Defines a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
 		/// </summary>
 		static Vector3 backward;
 
@@ -92,7 +94,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the x-axis.
+		/// Returns the unit Vector3 for the X-axis.
 		/// </summary>
 		public static Vector3 UnitX
 		{
@@ -100,7 +102,7 @@
 		}
 
 		/// <summary>
-		/// Returns the unit vector for the y-axis.
+		/// Returns the unit Vector3 for the Y-axis.
 		/// </summary>
 		public static Vector3 UnitY
 		{
@@ -108,7 +110,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit vector for the z-axis.
+		/// Returns the unit Vector3 for the Z-axis.
 		/// </summary>
 		public static Vector3 UnitZ
 		{
@@ -116,7 +118,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit up vector.
+		/// Returns a unit Vector3 designating up (0, 1, 0).
 		/// </summary>
 		public static Vector3 Up
 		{
@@ -124,7 +126,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit down vector.
+		/// Returns a unit Vector3 designating down (0, −1, 0).
 		/// </summary>
 		public static Vector3 Down
 		{
@@ -132,7 +134,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit right vector.
+		/// Returns a unit Vector3 pointing to the right (1, 0, 0).
 		/// </summary>
 		public static Vector3 Right
 		{
@@ -140,7 +142,7 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit left vector.
+		/// Returns a unit Vector3 designating left (−1, 0, 0).
 		/// </summary>
 		public static Vector3 Left
 		{
@@ -148,7 +150,8 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit forward vector.
+		/// Returns a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
 		/// </summary>
 		public static Vector3 Forward
 		{
@@ -156,7 +159,8 @@
 		}
 		
 		/// <summary>
-		/// Returns the unit backward vector.
+		/// Returns a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
 		/// </summary>
 		public static Vector3 Backward
 		{

@@ -573,6 +573,122 @@ namespace Sungiant.Abacus.Packed.Tests
 
 }
 
+namespace Sungiant.Abacus.Int32Precision.Tests
+{
+	[TestFixture]
+	public class Point2Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class Point3Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+	}
+
+namespace Sungiant.Abacus.Int64Precision.Tests
+{
+	[TestFixture]
+	public class Point2Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+		[TestFixture]
+	public class Point3Tests
+	{
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void Test_Equality ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+	}
+	}
+
 
 namespace Sungiant.Abacus.SinglePrecision.Tests
 {

@@ -2,7 +2,7 @@
 	/// todo
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Quaternion 
+	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
 		/// <summary>

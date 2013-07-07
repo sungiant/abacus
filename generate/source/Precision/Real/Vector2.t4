@@ -1,14 +1,14 @@
 ﻿	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector2
+	public struct Vector2
 		: IEquatable<Vector2>
 	{
 		/// <summary>
-		/// Gets or sets the x-component of the vector.
+		/// Gets or sets the X-component of the Vector2.
 		/// </summary>
 		public <#= type #> X;
 
 		/// <summary>
-		/// Gets or sets the y-component of the vector.
+		/// Gets or sets the Y-component of the Vector2.
 		/// </summary>
 		public <#= type #> Y;
 
@@ -23,7 +23,7 @@
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector.
+		/// Calculates the length of the Vector2.
 		/// </summary>
 		public <#= type #> Length ()
 		{
@@ -32,7 +32,7 @@
 		}
 
 		/// <summary>
-		/// Calculates the length of the vector squared.
+		/// Calculates the length of the Vector2 squared.
 		/// </summary>
 		public <#= type #> LengthSquared ()
 		{
@@ -55,7 +55,7 @@
 		}
 
 		/// <summary>
-		/// Gets the hash code of the vector object.
+		/// Gets the hash code of the Vector2 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -63,7 +63,7 @@
 		}
 
 		/// <summary>
-		/// Detemines whether or not the vector is of unit length.
+		/// Detemines whether or not the Vector2 is of unit length.
 		/// </summary>
 		public Boolean IsUnit()
 		{

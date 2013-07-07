@@ -2,7 +2,7 @@
 	/// todo
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Matrix44 
+	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
 		/// <summary>
