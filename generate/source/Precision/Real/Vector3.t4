@@ -2,37 +2,36 @@
 	public partial struct Vector3 
 		: IEquatable<Vector3>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the vector.
+		/// </summary>
 		public <#= type #> X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the vector.
+		/// </summary>
 		public <#= type #> Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the vector.
+		/// </summary>
 		public <#= type #> Z;
 
-		public Vector2 XY
-		{
-			get
-			{
-				return new Vector2(X, Y);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector3 from three <#= type #> values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Vector3 (<#= type #> x, <#= type #> y, <#= type #> z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public Vector3 (<#= type #> value)
-		{
-			this.X = this.Y = this.Z = value;
-		}
 		
+		/// <summary>
+		/// Initilises a new instance of Vector3 from one Vector2 value
+		/// representing X and Y and one <#= type #> value representing Z.
+		/// </summary>
 		public Vector3 (Vector2 value, <#= type #> z)
 		{
 			this.X = value.X;
@@ -40,56 +39,63 @@
 			this.Z = z;
 		}
 
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
-		}
-
-		public Boolean Equals (Vector3 other)
-		{
-			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector3) {
-				flag = this.Equals ((Vector3)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the vector.
+		/// </summary>
 		public <#= type #> Length ()
 		{
-			<#= type #> num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			<#= type #> num = (this.X * this.X) + 
+				              (this.Y * this.Y) + 
+			                  (this.Z * this.Z);
+
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the vector squared.
+		/// </summary>
 		public <#= type #> LengthSquared ()
 		{
-			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+			return
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z);
 		}
 
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			<#= type #> one = 1;
-			<#= type #> num2 = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			<#= type #> num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the vector object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode ()
+				);
+		}
+
+		/// <summary>
+		/// Detemines whether or not the vector is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			<#= type #> one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
@@ -98,5 +104,5 @@
 <#@ include file="Vector3.Operators.t4"#>
 <#@ include file="Vector3.Splines.t4"#>
 <#@ include file="Vector3.Utilities.t4"#>
-
 	}
+

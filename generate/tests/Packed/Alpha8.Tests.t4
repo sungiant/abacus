@@ -1,11 +1,20 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
     public static class Alpha_8Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
-        {
-            for (Byte packed = Byte.MinValue; packed < Byte.MaxValue; ++packed)
+        {   
+            Byte packed = Byte.MinValue;
+            while ( packed < Byte.MaxValue )
             {
+                ++packed;
+
                 var packedObj = new Alpha_8();
 
                 packedObj.PackedValue = packed;

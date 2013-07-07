@@ -1,108 +1,164 @@
-﻿		#region Constants
+﻿		// Constants //-------------------------------------------------------//
 
-		static Vector3 _zero;
-		static Vector3 _one;
-		static Vector3 _half;
-		static Vector3 _unitX;
-		static Vector3 _unitY;
-		static Vector3 _unitZ;
-		static Vector3 _up;
-		static Vector3 _down;
-		static Vector3 _right;
-		static Vector3 _left;
-		static Vector3 _forward;
-		static Vector3 _backward;
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to zero.
+		/// </summary>
+		static Vector3 zero;
 
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to one.
+		/// </summary>
+		static Vector3 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		static Vector3 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		static Vector3 unitY;
+
+		/// <summary>
+		/// Defines the unit vector for the z-axis.
+		/// </summary>
+		static Vector3 unitZ;
+
+		/// <summary>
+		/// Defines the unit up vector.
+		/// </summary>
+		static Vector3 up;
+
+		/// <summary>
+		/// Defines the unit down vector.
+		/// </summary>
+		static Vector3 down;
+
+		/// <summary>
+		/// Defines the unit right vector.
+		/// </summary>
+		static Vector3 right;
+
+		/// <summary>
+		/// Defines the unit left vector.
+		/// </summary>
+		static Vector3 left;
+
+		/// <summary>
+		/// Defines the unit forward vector.
+		/// </summary>
+		static Vector3 forward;
+
+		/// <summary>
+		/// Defines the unit backward vector.
+		/// </summary>
+		static Vector3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector3 ()
 		{
-			<#= type #> temp_one; RealMaths.One(out temp_one);
-			<#= type #> temp_half; RealMaths.Half(out temp_half);
-			<#= type #> temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector3 ();
+			one = 		new Vector3 ( 1,  1,  1);
 
-			_zero = new Vector3 ();
-			_one = new Vector3 (temp_one, temp_one, temp_one);
-			_half = new Vector3(temp_half, temp_half, temp_half);
-			_unitX = new Vector3 (temp_one, temp_zero, temp_zero);
-			_unitY = new Vector3 (temp_zero, temp_one, temp_zero);
-			_unitZ = new Vector3 (temp_zero, temp_zero, temp_one);
-			_up = new Vector3 (temp_zero, temp_one, temp_zero);
-			_down = new Vector3 (temp_zero, -temp_one, temp_zero);
-			_right = new Vector3 (temp_one, temp_zero, temp_zero);
-			_left = new Vector3 (-temp_one, temp_zero, temp_zero);
-			_forward = new Vector3 (temp_zero, temp_zero, -temp_one);
-			_backward = new Vector3 (temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector3 ( 1,  0,  0);
+			unitY = 	new Vector3 ( 0,  1,  0);
+			unitZ = 	new Vector3 ( 0,  0,  1);
+
+			up = 		new Vector3 ( 0,  1,  0);
+			down = 		new Vector3 ( 0, -1,  0);
+			right = 	new Vector3 ( 1,  0,  0);
+			left = 		new Vector3 (-1,  0,  0);
+			forward = 	new Vector3 ( 0,  0, -1);
+			backward = 	new Vector3 ( 0,  0,  1);
 		}
 		
-		public static Vector3 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to zero.
+		/// </summary>
+		public static Vector3 Zero
+		{
+			get { return zero; }
 		}
 		
-		public static Vector3 One {
-			get {
-				return _one;
-			}
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to one.
+		/// </summary>
+		public static Vector3 One
+		{
+			get { return one; }
 		}
 		
-		public static Vector3 Half {
-			get {
-				return _half;
-			}
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
+		public static Vector3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
+		public static Vector3 UnitY
+		{
+			get { return unitY; }
 		}
 		
-		public static Vector3 UnitX {
-			get {
-				return _unitX;
-			}
+		/// <summary>
+		/// Returns the unit vector for the z-axis.
+		/// </summary>
+		public static Vector3 UnitZ
+		{
+			get { return unitZ; }
 		}
 		
-		public static Vector3 UnitY {
-			get {
-				return _unitY;
-			}
+		/// <summary>
+		/// Returns the unit up vector.
+		/// </summary>
+		public static Vector3 Up
+		{
+			get { return up; }
 		}
 		
-		public static Vector3 UnitZ {
-			get {
-				return _unitZ;
-			}
+		/// <summary>
+		/// Returns the unit down vector.
+		/// </summary>
+		public static Vector3 Down
+		{
+			get { return down; }
 		}
 		
-		public static Vector3 Up {
-			get {
-				return _up;
-			}
+		/// <summary>
+		/// Returns the unit right vector.
+		/// </summary>
+		public static Vector3 Right
+		{
+			get { return right; }
 		}
 		
-		public static Vector3 Down {
-			get {
-				return _down;
-			}
+		/// <summary>
+		/// Returns the unit left vector.
+		/// </summary>
+		public static Vector3 Left
+		{
+			get { return left; }
 		}
 		
-		public static Vector3 Right {
-			get {
-				return _right;
-			}
+		/// <summary>
+		/// Returns the unit forward vector.
+		/// </summary>
+		public static Vector3 Forward
+		{
+			get { return forward; }
 		}
 		
-		public static Vector3 Left {
-			get {
-				return _left;
-			}
+		/// <summary>
+		/// Returns the unit backward vector.
+		/// </summary>
+		public static Vector3 Backward
+		{
+			get { return backward; }
 		}
-		
-		public static Vector3 Forward {
-			get {
-				return _forward;
-			}
-		}
-		
-		public static Vector3 Backward {
-			get {
-				return _backward;
-			}
-		}
-		
-		#endregion

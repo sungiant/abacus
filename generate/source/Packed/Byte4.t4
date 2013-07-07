@@ -1,13 +1,22 @@
-﻿	[StructLayout (LayoutKind.Sequential)]
+﻿	/// <summary>
+	/// todo
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
 	public struct Byte4 
 		: IPackedValue<UInt32>
 		, IEquatable<Byte4>
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt32 packedXyzw)
 		{
 			UInt32 y = PackUtils.PackUnsigned (255f, realXyzw.X);
@@ -17,6 +26,9 @@
 			packedXyzw = (UInt32)(((y | x) | z) | w);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXyzw, out SinglePrecision.Vector4 realXyzw)
 		{
 			realXyzw.X = packedXyzw & 0xff;
@@ -25,6 +37,5 @@
 			realXyzw.W = (packedXyzw >> 0x18) & 0xff;
 		}
 
-		<#  GeneratePackedCommon("Byte4", "UInt32", "packedXyzw", "realXyzw", 4); #>
-
+<#  GeneratePackedCommon("Byte4", "UInt32", "packedXyzw", "realXyzw", 4); #>
 	}

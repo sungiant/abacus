@@ -1,94 +1,153 @@
-﻿		#region Maths
+﻿		// Maths //-----------------------------------------------------------//
 
-		public static void Distance (ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
+		public static void Distance (
+			ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
 		{
-			<#= type #> num2 = value1.X - value2.X;
-			<#= type #> num = value1.Y - value2.Y;
-			<#= type #> num3 = (num2 * num2) + (num * num);
-			result = RealMaths.Sqrt (num3);
+			<#= type #> a = value1.X - value2.X;
+			<#= type #> b = value1.Y - value2.Y;
+			
+			<#= type #> c = (a * a) + (b * b);
+
+			result = RealMaths.Sqrt (c);
 		}
 
-		public static void DistanceSquared (ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
+		public static void DistanceSquared (
+			ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
 		{
-			<#= type #> num2 = value1.X - value2.X;
-			<#= type #> num = value1.Y - value2.Y;
-			result = (num2 * num2) + (num * num);
+			<#= type #> a = value1.X - value2.X;
+			<#= type #> b = value1.Y - value2.Y;
+			
+			result = (a * a) + (b * b);
 		}
 
-		public static void Dot (ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
+		public static void Dot (
+			ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
 		{
 			result = (value1.X * value2.X) + (value1.Y * value2.Y);
 		}
 
-		public static void PerpDot (ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
-		{
-			result = (value1.X * value2.Y - value1.Y * value2.X);
-		}
-
-		public static void Perpendicular (ref Vector2 value, out Vector2 result)
-		{
-			result = new Vector2 (-value.X, value.Y);
-		}
-
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector2 value, out Vector2 result)
 		{
-			<#= type #> lengthSquared = (value.X * value.X) + (value.Y * value.Y);
+			<#= type #> lengthSquared = 
+				(value.X * value.X) + (value.Y * value.Y);
 
 			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
-			if( lengthSquared <= epsilon || <#= type #>.IsInfinity(lengthSquared) )
+
+			if( lengthSquared <= epsilon || 
+				<#= type #>.IsInfinity(lengthSquared) )
 			{
 				throw new ArgumentOutOfRangeException();
 			}
 
 			<#= type #> one = 1;
-			<#= type #> multiplier = one / (RealMaths.Sqrt (lengthSquared));
+			<#= type #> multiplier = one / RealMaths.Sqrt (lengthSquared);
 
 			result.X = value.X * multiplier;
 			result.Y = value.Y * multiplier;
 
 		}
 
-		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
+		public static void Reflect (
+			ref Vector2 vector, ref Vector2 normal, out Vector2 result)
 		{
-			<#= type #> two = 2;
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
-			<#= type #> num = (vector.X * normal.X) + (vector.Y * normal.Y);
-			result.X = vector.X - ((two * num) * normal.X);
-			result.Y = vector.Y - ((two * num) * normal.Y);
+			// dot = vector . normal 
+			//     = |vector| * [normal] * cosθ
+			//     = |vector| * cosθ
+			//     = adjacent
+			<#= type #> dot;
+			Dot(ref vector, ref normal, out dot);
+
+			<#= type #> twoDot = dot * 2;
+
+			// Starting vector minus twice the length of the adjcent projected 
+			// along the normal.
+			result = vector - (twoDot * normal);
 		}
-		
-		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
 		{
-			<#= type #> num2 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-			<#= type #> num = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-			result.X = num2;
-			result.Y = num;
+			<#= type #> a = 
+				((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+				matrix.M41;
+
+			<#= type #> b = 
+				((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+				matrix.M42;
+			
+			result.X = a;
+			result.Y = b;
 		}
-		
-		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
-		{
-			<#= type #> num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-			<#= type #> num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 value, ref Quaternion rotation, out Vector2 result)
 		{
 			<#= type #> one = 1;
 
-			<#= type #> num10 = rotation.X + rotation.X;
-			<#= type #> num5 = rotation.Y + rotation.Y;
-			<#= type #> num4 = rotation.Z + rotation.Z;
-			<#= type #> num3 = rotation.W * num4;
-			<#= type #> num9 = rotation.X * num10;
-			<#= type #> num2 = rotation.X * num5;
-			<#= type #> num8 = rotation.Y * num5;
-			<#= type #> num = rotation.Z * num4;
-			<#= type #> num7 = (value.X * ((one - num8) - num)) + (value.Y * (num2 - num3));
-			<#= type #> num6 = (value.X * (num2 + num3)) + (value.Y * ((one - num9) - num));
-			result.X = num7;
-			result.Y = num6;
+			<#= type #> a = rotation.X + rotation.X;
+			<#= type #> b = rotation.Y + rotation.Y;
+			<#= type #> c = rotation.Z + rotation.Z;
+			<#= type #> d = rotation.W * c;
+			<#= type #> e = rotation.X * a;
+			<#= type #> f = rotation.X * b;
+			<#= type #> g = rotation.Y * b;
+			<#= type #> h = rotation.Z * c;
+			<#= type #> i = (value.X * ((one - g) - h)) + (value.Y * (f - d));
+			<#= type #> j = (value.X * (f + d)) + (value.Y * ((one - e) - h));
+
+			result.X = i;
+			result.Y = j;
 		}
 		
-		#endregion
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix.
+		/// </summary>
+		public static void TransformNormal (
+			ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			<#= type #> a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+			<#= type #> b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+			
+			result.X = a;
+			result.Y = b;
+		}
+

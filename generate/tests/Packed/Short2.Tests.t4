@@ -1,6 +1,12 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
     public class Short2Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {

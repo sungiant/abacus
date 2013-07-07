@@ -50,9 +50,14 @@ namespace Sungiant.Abacus
 <#@ include file="PackUtils.t4"#>
 <#@ include file="RealMaths.t4"#>
 
+	/// <summary>
+	/// todo
+	/// </summary>
 	public static class RandomExtensions
 	{
-		// Returns a random Single between 0.0 & 1.0
+		/// <summary>
+		/// Returns a random Single between 0.0 & 1.0
+		/// </summary>
 		public static Single NextSingle(this System.Random r)
 		{
 			return (Single) r.NextDouble();

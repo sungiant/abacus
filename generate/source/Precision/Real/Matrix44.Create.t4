@@ -1,5 +1,6 @@
-﻿		#region Create
-
+﻿		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (ref Vector3 position, out Matrix44 result)
 		{
 			result.M11 = 1;
@@ -20,6 +21,9 @@
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (<#= type #> xPosition, <#= type #> yPosition, <#= type #> zPosition, out Matrix44 result)
 		{	
 			result.M11 = 1;
@@ -40,7 +44,9 @@
 			result.M44 = 1;
 		}
 		
-		// Creates a scaling matrix based on x, y, z.
+		/// <summary>
+		/// Creates a scaling matrix based on x, y, z.
+		/// </summary>
 		public static void CreateScale (<#= type #> xScale, <#= type #> yScale, <#= type #> zScale, out Matrix44 result)
 		{
 			result.M11 = xScale;
@@ -61,7 +67,9 @@
 			result.M44 = 1;
 		}
 
-		// Creates a scaling matrix based on a vector.
+		/// <summary>
+		/// Creates a scaling matrix based on a vector.
+		/// </summary>
 		public static void CreateScale (ref Vector3 scales, out Matrix44 result)
 		{
 			result.M11 = scales.X;
@@ -82,7 +90,9 @@
 			result.M44 = 1;
 		}
 
-		// Create a scaling matrix consistant along each axis
+		/// <summary>
+		/// Create a scaling matrix consistant along each axis
+		/// </summary>
 		public static void CreateScale (<#= type #> scale, out Matrix44 result)
 		{
 			result.M11 = scale;
@@ -103,10 +113,11 @@
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationX (<#= type #> radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			<#= type #> cos = RealMaths.Cos (radians);
 			<#= type #> sin = RealMaths.Sin (radians);
 
@@ -128,10 +139,11 @@
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationY (<#= type #> radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			<#= type #> cos = RealMaths.Cos (radians);
 			<#= type #> sin = RealMaths.Sin (radians);
 
@@ -152,11 +164,12 @@
 			result.M43 = 0;
 			result.M44 = 1;
 		}
-		
+
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationZ (<#= type #> radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			<#= type #> cos = RealMaths.Cos (radians);
 			<#= type #> sin = RealMaths.Sin (radians);
 
@@ -178,6 +191,9 @@
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, <#= type #> angle, out Matrix44 result)
 		{
 			<#= type #> one = 1;
@@ -218,6 +234,9 @@
 			result.M44 = one;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
 		{
 			if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
@@ -243,6 +262,9 @@
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			Vector3 backward = -forward;
@@ -251,7 +273,7 @@
 
 			Vector3.Cross (ref up, ref backward, out right);
 
-			right.Normalise();
+			Vector3.Normalise(ref right, out right);
 
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
@@ -260,6 +282,9 @@
 			result.M43 = position.Z;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			if(!forward.IsUnit() || !up.IsUnit() )
@@ -295,6 +320,9 @@
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
 		{
 			if(!quaternion.IsUnit())
@@ -339,42 +367,9 @@
 			result.M44 = one;
 		}
 
-
-
-		// todo: remove when we dont need this for the tests
-		internal static void CreateFromQuaternionOld (ref Quaternion quaternion, out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
-			<#= type #> two = 2;
-
-			<#= type #> num9 = quaternion.X * quaternion.X;
-			<#= type #> num8 = quaternion.Y * quaternion.Y;
-			<#= type #> num7 = quaternion.Z * quaternion.Z;
-			<#= type #> num6 = quaternion.X * quaternion.Y;
-			<#= type #> num5 = quaternion.Z * quaternion.W;
-			<#= type #> num4 = quaternion.Z * quaternion.X;
-			<#= type #> num3 = quaternion.Y * quaternion.W;
-			<#= type #> num2 = quaternion.Y * quaternion.Z;
-			<#= type #> num = quaternion.X * quaternion.W;
-			result.M11 = one - (two * (num8 + num7));
-			result.M12 = two * (num6 + num5);
-			result.M13 = two * (num4 - num3);
-			result.M14 = zero;
-			result.M21 = two * (num6 - num5);
-			result.M22 = one - (two * (num7 + num9));
-			result.M23 = two * (num2 + num);
-			result.M24 = zero;
-			result.M31 = two * (num4 + num3);
-			result.M32 = two * (num2 - num);
-			result.M33 = one - (two * (num8 + num9));
-			result.M34 = zero;
-			result.M41 = zero;
-			result.M42 = zero;
-			result.M43 = zero;
-			result.M44 = one;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (<#= type #> yaw, <#= type #> pitch, <#= type #> roll, out Matrix44 result)
 		{
 			Quaternion quaternion;
@@ -384,32 +379,21 @@
 			CreateFromQuaternion (ref quaternion, out result);
 		}
 
-
-
-
-
-
-
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		// FROM XNA
-		// --------
-		// Creates a cylindrical billboard that rotates around a specified axis.
-		// This method computes the facing direction of the billboard from the object position and camera position. 
-		// When the object and camera positions are too close, the matrix will not be accurate. 
-		// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Creates a cylindrical billboard that rotates around a specified axis.
+		/// This method computes the facing direction of the billboard from the object position and camera position. 
+		/// When the object and camera positions are too close, the matrix will not be accurate. 
+		/// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		/// </summary>
 		public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
 		{
 			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 
 			Vector3 vector;
 			Vector3 vector2;
@@ -426,7 +410,9 @@
 				Vector3.Multiply (ref vector, (<#= type #>)(one / (RealMaths.Sqrt (num))), out vector);
 			}
 			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
-			vector3.Normalise ();
+
+			Vector3.Normalise (ref vector3, out vector3);
+
 			Vector3.Cross (ref vector, ref vector3, out vector2);
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -445,11 +431,25 @@
 			result.M43 = ObjectPosition.Z;
 			result.M44 = one;
 		}
-		
-		public static void CreateConstrainedBillboard (ref Vector3 objectPosition, ref Vector3 cameraPosition, ref Vector3 rotateAxis, Vector3? cameraForwardVector, Vector3? objectForwardVector, out Matrix44 result)
+
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static void CreateConstrainedBillboard (
+			ref Vector3 objectPosition, 
+			ref Vector3 cameraPosition, 
+			ref Vector3 rotateAxis, 
+			Vector3? cameraForwardVector, 
+			Vector3? objectForwardVector, 
+			out Matrix44 result)
 		{
 			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 
 			<#= type #> num;
 			Vector3 vector;
@@ -484,14 +484,14 @@
 					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
 				}
 				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			} else {
 				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref vector4, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			}
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -511,12 +511,24 @@
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
-		public static void CreatePerspectiveFieldOfView (<#= type #> fieldOfView, <#= type #> aspectRatio, <#= type #> nearPlaneDistance, <#= type #> farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveFieldOfView (
+			<#= type #> fieldOfView, 
+			<#= type #> aspectRatio, 
+			<#= type #> nearPlaneDistance, 
+			<#= type #> farPlaneDistance, 
+			out Matrix44 result)
 		{
 			<#= type #> zero = 0;
 			<#= type #> half; RealMaths.Half(out half);
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 			<#= type #> pi; RealMaths.Pi(out pi);
 
 			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
@@ -544,11 +556,23 @@
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
-		public static void CreatePerspective (<#= type #> width, <#= type #> height, <#= type #> nearPlaneDistance, <#= type #> farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspective (
+			<#= type #> width, 
+			<#= type #> height, 
+			<#= type #> nearPlaneDistance, 
+			<#= type #> farPlaneDistance, 
+			out Matrix44 result)
 		{
 			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 			<#= type #> two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -571,12 +595,25 @@
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
-		public static void CreatePerspectiveOffCenter (<#= type #> left, <#= type #> right, <#= type #> bottom, <#= type #> top, <#= type #> nearPlaneDistance, <#= type #> farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveOffCenter (
+			<#= type #> left, 
+			<#= type #> right, 
+			<#= type #> bottom, 
+			<#= type #> top, 
+			<#= type #> nearPlaneDistance, 
+			<#= type #> farPlaneDistance, 
+			out Matrix44 result)
 		{
 			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 			<#= type #> two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -600,11 +637,23 @@
 			result.M41 = result.M42 = result.M44 = zero;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
-		public static void CreateOrthographic (<#= type #> width, <#= type #> height, <#= type #> zNearPlane, <#= type #> zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographic (
+			<#= type #> width, 
+			<#= type #> height, 
+			<#= type #> zNearPlane, 
+			<#= type #> zFarPlane, 
+			out Matrix44 result)
 		{
 			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 			<#= type #> two = 2;
 
 			result.M11 = two / width;
@@ -618,11 +667,25 @@
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
-		public static void CreateOrthographicOffCenter (<#= type #> left, <#= type #> right, <#= type #> bottom, <#= type #> top, <#= type #> zNearPlane, <#= type #> zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographicOffCenter (
+			<#= type #> left, 
+			<#= type #> right, 
+			<#= type #> bottom, 
+			<#= type #> top, 
+			<#= type #> zNearPlane, 
+			<#= type #> zFarPlane, 
+			out Matrix44 result)
 		{
 			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 			<#= type #> two = 2;
 
 			result.M11 = two / (right - left);
@@ -637,11 +700,22 @@
 			result.M44 = one;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-		public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+		/// </summary>
+		public static void CreateLookAt (
+			ref Vector3 cameraPosition, 
+			ref Vector3 cameraTarget, 
+			ref Vector3 cameraUpVector, 
+			out Matrix44 result)
 		{
 			<#= type #> zero = 0;
-			<#= type #> one; RealMaths.One(out one);
+			<#= type #> one = 1;
 
 			Vector3 targetToPosition = cameraPosition - cameraTarget;
 
@@ -674,5 +748,4 @@
 
 			result.M44 = one;
 		}
-		
-		#endregion
+

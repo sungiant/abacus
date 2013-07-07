@@ -1,18 +1,27 @@
-﻿		#region Constants
+﻿		// Constants //-------------------------------------------------------//
 
+		/// <summary>
+		/// Defines the identity matrix.
+		/// </summary>
 		static Matrix44 identity;
 
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Matrix44 ()
 		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-			identity = new Matrix44 (one, zero, zero, zero, zero, one, zero, zero, zero, zero, one, zero, zero, zero, zero, one);
+			identity = new Matrix44 (
+				1, 0, 0, 0, 
+				0, 1, 0, 0, 
+				0, 0, 1, 0, 
+				0, 0, 0, 1);
 		}
 
-		public static Matrix44 Identity {
-			get {
-				return identity;
-			}
+		/// <summary>
+		/// Returns the identity matrix.
+		/// </summary>
+		public static Matrix44 Identity 
+		{
+			get { return identity; }
 		}
 		
-		#endregion

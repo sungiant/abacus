@@ -1,11 +1,20 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
     public class Bgra_5_5_5_1Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestAllPossibleValues()
         {
-            for (UInt16 packed = UInt16.MinValue; packed < UInt16.MaxValue; ++packed)
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
             {
+                ++packed;
+                
                 var packedObj = new Bgra_5_5_5_1();
                 
                 packedObj.PackedValue = packed;

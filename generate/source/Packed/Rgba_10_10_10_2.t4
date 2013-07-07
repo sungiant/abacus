@@ -28,5 +28,6 @@
 			realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 30));
 		}
 
-		<#  GeneratePackedCommon("Rgba_10_10_10_2", "UInt32", "packedRgba", "realRgba", 4); #>
+<#  GeneratePackedCommon("Rgba_10_10_10_2", "UInt32", "packedRgba", "realRgba", 4); #>
 	}
+

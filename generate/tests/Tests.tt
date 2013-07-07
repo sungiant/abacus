@@ -37,22 +37,28 @@
 <#@ include file="../Types.t4"#>
 
 using System;
-using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
+using System.Runtime.CompilerServices;
 
 namespace Sungiant.Abacus.Tests
 {
 
 <#@ include file="RealMaths.Tests.t4"#>
-<#@ include file="PackUtils.Tests.t4"#>
 
 }
 
 namespace Sungiant.Abacus.Packed.Tests
 {
+	/// <summary>
+	/// todo
+	/// </summary>
 	public static class Settings
     {
         public const Int32 NumTests = 50000;

@@ -1,6 +1,12 @@
+    /// <summary>
+    /// todo
+    /// </summary>
     [TestFixture]
     public class NormalisedShort4Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {

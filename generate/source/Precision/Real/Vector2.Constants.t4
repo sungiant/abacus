@@ -1,39 +1,66 @@
-﻿		#region Constants
+﻿		// Constants //-------------------------------------------------------//
 
-		static Vector2 zero;
-		static Vector2 one;
-		static Vector2 unitX;
-		static Vector2 unitY;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		readonly static Vector2 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		readonly static Vector2 one;
+
+		/// <summary>
+		/// Defines the unit vector for the x-axis.
+		/// </summary>
+		readonly static Vector2 unitX;
+
+		/// <summary>
+		/// Defines the unit vector for the y-axis.
+		/// </summary>
+		readonly static Vector2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector2 ()
 		{
-			<#= type #> temp_one; RealMaths.One(out temp_one);
-			<#= type #> temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector2 ();
+			one = 		new Vector2 (1, 1);
 
-			zero = new Vector2 ();
-			one = new Vector2 (temp_one, temp_one);
-			unitX = new Vector2 (temp_one, temp_zero);
-			unitY = new Vector2 (temp_zero, temp_one);
+			unitX = 	new Vector2 (1, 0);
+			unitY = 	new Vector2 (0, 1);
 		}
 
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to zero.
+		/// </summary>
 		public static Vector2 Zero
 		{
 			get { return zero; }
 		}
 		
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to one.
+		/// </summary>
 		public static Vector2 One
 		{
 			get { return one; }
 		}
 		
+		/// <summary>
+		/// Returns the unit vector for the x-axis.
+		/// </summary>
 		public static Vector2 UnitX
 		{
 			get { return unitX; }
 		}
 		
+		/// <summary>
+		/// Returns the unit vector for the y-axis.
+		/// </summary>
 		public static Vector2 UnitY
 		{
 			get { return unitY; }
 		}
-		
-		#endregion
+

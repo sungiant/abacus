@@ -1,55 +1,56 @@
-		#region Utilities
+		// Test Constant: Zero //---------------------------------------------//
 
+		/// <summary>
+		/// Tests to make sure that a Vector2 initilised using the Zero constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_Zero ()
 		{
-			<#= type #> zero = 0;
-			var v_zero = Vector2.Zero;
-
-			Assert.That(v_zero.X, Is.EqualTo(zero));
-			Assert.That(v_zero.Y, Is.EqualTo(zero));
-
-			Assert.That(v_zero, Is.EqualTo(new Vector2(zero, zero)));
+			Vector2 result = Vector2.Zero;
+			Vector2 expected = new Vector2(0, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector2 initilised using the One constant
+		/// has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_One ()
 		{
-			<#= type #> one = 1;
-			var v_one = Vector2.One;
-
-			Assert.That(v_one.X, Is.EqualTo(one));
-			Assert.That(v_one.Y, Is.EqualTo(one));
-
-			Assert.That(v_one, Is.EqualTo(new Vector2(one, one)));
+			Vector2 result = Vector2.One;
+			Vector2 expected = new Vector2(1, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector2 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitX ()
 		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-
-			var v_unit_x = Vector2.UnitX;
-
-			Assert.That(v_unit_x.X, Is.EqualTo(one));
-			Assert.That(v_unit_x.Y, Is.EqualTo(zero));
-
-			Assert.That(v_unit_x, Is.EqualTo(new Vector2(one, zero)));
+			Vector2 result = Vector2.UnitX;
+			Vector2 expected = new Vector2(1, 0);
+			AssertEqualWithinReason(result, expected);
 		}
 
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Vector2 initilised using the UnitY
+		/// constant has it's member variables correctly set.
+		/// </summary>
 		[Test]
 		public void TestConstant_UnitY ()
 		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-
-			var v_unit_y = Vector2.UnitY;
-
-			Assert.That(v_unit_y.X, Is.EqualTo(zero));
-			Assert.That(v_unit_y.Y, Is.EqualTo(one));
-			
-			Assert.That(v_unit_y, Is.EqualTo(new Vector2(zero, one)));
+			Vector2 result = Vector2.UnitY;
+			Vector2 expected = new Vector2(0, 1);
+			AssertEqualWithinReason(result, expected);
 		}
 
-		#endregion

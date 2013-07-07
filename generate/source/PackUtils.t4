@@ -1,5 +1,11 @@
-﻿	internal static class PackUtils
+﻿	/// <summary>
+	/// todo
+	/// </summary>
+	internal static class PackUtils
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Double ClampAndRound (Single value, Single min, Single max)
 		{
 			if (Single.IsNaN (value)) 
@@ -25,6 +31,9 @@
 			return Math.Round ((Double)value);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static UInt32 PackSigned (UInt32 bitmask, Single value)
 		{
 			Single max = bitmask >> 1;
@@ -32,11 +41,17 @@
 			return (((UInt32)((Int32)ClampAndRound (value, min, max))) & bitmask);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static UInt32 PackUnsigned (Single bitmask, Single value)
 		{
 			return (UInt32)ClampAndRound (value, 0f, bitmask);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static UInt32 PackSignedNormalised (UInt32 bitmask, Single value)
 		{
 			Single max = bitmask >> 1;
@@ -44,6 +59,9 @@
 			return (((UInt32)((Int32)ClampAndRound (value, -max, max))) & bitmask);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single UnpackSignedNormalised (UInt32 bitmask, UInt32 value)
 		{
 			UInt32 num = (UInt32)((bitmask + 1) >> 1);
@@ -59,12 +77,18 @@
 			return (((Single)value) / num2);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static UInt32 PackUnsignedNormalisedValue (Single bitmask, Single value)
 		{
 			value *= bitmask;
 			return (UInt32)ClampAndRound (value, 0f, bitmask);
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Single UnpackUnsignedNormalisedValue (UInt32 bitmask, UInt32 value)
 		{
 			value &= bitmask;

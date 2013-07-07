@@ -1,5 +1,6 @@
-﻿		#region Operators
-		
+﻿		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator - (Matrix44 matrix1)
 		{
 			Matrix44 matrix;
@@ -21,12 +22,18 @@
 			matrix.M44 = -matrix1.M44;
 			return matrix;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator == (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			return ((((((matrix1.M11 == matrix2.M11) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M44 == matrix2.M44))) && (((matrix1.M12 == matrix2.M12) && (matrix1.M13 == matrix2.M13)) && ((matrix1.M14 == matrix2.M14) && (matrix1.M21 == matrix2.M21)))) && ((((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)) && ((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32))) && (((matrix1.M34 == matrix2.M34) && (matrix1.M41 == matrix2.M41)) && (matrix1.M42 == matrix2.M42)))) && (matrix1.M43 == matrix2.M43));
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator != (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			if (((((matrix1.M11 == matrix2.M11) && (matrix1.M12 == matrix2.M12)) && ((matrix1.M13 == matrix2.M13) && (matrix1.M14 == matrix2.M14))) && (((matrix1.M21 == matrix2.M21) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)))) && ((((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M34 == matrix2.M34))) && (((matrix1.M41 == matrix2.M41) && (matrix1.M42 == matrix2.M42)) && (matrix1.M43 == matrix2.M43)))) {
@@ -34,7 +41,10 @@
 			}
 			return true;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			Matrix44 matrix;
@@ -56,7 +66,10 @@
 			matrix.M44 = matrix1.M44 + matrix2.M44;
 			return matrix;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			Matrix44 matrix;
@@ -78,7 +91,10 @@
 			matrix.M44 = matrix1.M44 - matrix2.M44;
 			return matrix;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			Matrix44 matrix;
@@ -100,7 +116,10 @@
 			matrix.M44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
 			return matrix;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator * (Matrix44 matrix, <#= type #> scaleFactor)
 		{
 			Matrix44 matrix2;
@@ -123,7 +142,10 @@
 			matrix2.M44 = matrix.M44 * num;
 			return matrix2;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator * (<#= type #> scaleFactor, Matrix44 matrix)
 		{
 			Matrix44 matrix2;
@@ -146,7 +168,10 @@
 			matrix2.M44 = matrix.M44 * num;
 			return matrix2;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			Matrix44 matrix;
@@ -168,7 +193,10 @@
 			matrix.M44 = matrix1.M44 / matrix2.M44;
 			return matrix;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Matrix44 operator / (Matrix44 matrix1, <#= type #> divider)
 		{
 			Matrix44 matrix;
@@ -192,7 +220,10 @@
 			matrix.M44 = matrix1.M44 * num;
 			return matrix;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
 		{
 			result.M11 = -matrix.M11;
@@ -212,7 +243,10 @@
 			result.M43 = -matrix.M43;
 			result.M44 = -matrix.M44;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Add (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + matrix2.M11;
@@ -232,7 +266,10 @@
 			result.M43 = matrix1.M43 + matrix2.M43;
 			result.M44 = matrix1.M44 + matrix2.M44;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Subtract (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 - matrix2.M11;
@@ -253,6 +290,9 @@
 			result.M44 = matrix1.M44 - matrix2.M44;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			<#= type #> num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
@@ -289,6 +329,9 @@
 			result.M44 = num;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Multiply (ref Matrix44 matrix1, <#= type #> scaleFactor, out Matrix44 result)
 		{
 			<#= type #> num = scaleFactor;
@@ -310,6 +353,9 @@
 			result.M44 = matrix1.M44 * num;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 / matrix2.M11;
@@ -330,6 +376,9 @@
 			result.M44 = matrix1.M44 / matrix2.M44;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, <#= type #> divider, out Matrix44 result)
 		{
 			<#= type #> one = 1;
@@ -352,5 +401,4 @@
 			result.M43 = matrix1.M43 * num;
 			result.M44 = matrix1.M44 * num;
 		}
-
-		#endregion
+		

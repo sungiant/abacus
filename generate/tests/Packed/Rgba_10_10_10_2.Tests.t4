@@ -1,6 +1,12 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
     public class Rgba_10_10_10_2Tests
     {
+        /// <summary>
+        /// todo
+        /// </summary>
         [Test]
         public static void TestRandomValues()
         {

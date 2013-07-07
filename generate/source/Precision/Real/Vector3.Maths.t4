@@ -1,5 +1,8 @@
-﻿		#region Maths
+﻿		// Maths //-----------------------------------------------------------//
 
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector3 value1, ref Vector3 value2, out <#= type #> result)
 		{
 			<#= type #> num3 = value1.X - value2.X;
@@ -8,7 +11,10 @@
 			<#= type #> num4 = ((num3 * num3) + (num2 * num2)) + (num * num);
 			result = RealMaths.Sqrt (num4);
 		}
-		
+
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector3 value1, ref Vector3 value2, out <#= type #> result)
 		{
 			<#= type #> num3 = value1.X - value2.X;
@@ -17,11 +23,24 @@
 			result = ((num3 * num3) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out <#= type #> result)
 		{
 			result = ((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z);
 		}
 
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
 			<#= type #> one = 1;
@@ -33,6 +52,9 @@
 			result.Z = value.Z * num;
 		}
 
+		/// <summary>
+		/// Calculates the cross product of two vectors.
+		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
 			<#= type #> num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -43,6 +65,10 @@
 			result.Z = num;
 		}
 
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
 		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
 			<#= type #> two = 2;
@@ -53,6 +79,9 @@
 			result.Z = vector.Z - ((two * num) * normal.Z);
 		}
 
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector3 result)
 		{
 			<#= type #> num3 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -63,16 +92,9 @@
 			result.Z = num;
 		}
 		
-		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
-		{
-			<#= type #> num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-			<#= type #> num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-			<#= type #> num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
-		}
-		
+		/// <summary>
+		/// Transforms a vector by a specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector3 result)
 		{
 			<#= type #> one = 1;
@@ -96,4 +118,16 @@
 			result.Z = num13;
 		}
 		
-		#endregion
+		/// <summary>
+		/// Transforms a normalised Vector3 by a Matrix44.
+		/// </summary>
+		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
+		{
+			<#= type #> num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+			<#= type #> num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+			<#= type #> num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+			result.X = num3;
+			result.Y = num2;
+			result.Z = num;
+		}
+		

@@ -1,5 +1,6 @@
-﻿		#region Utilities
-
+﻿		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
 		{
 			<#= type #> zero = 0;
@@ -34,6 +35,9 @@
 			result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
 		{
 			<#= type #> zero = 0;
@@ -60,5 +64,4 @@
 			result.Z *= num3;
 			result.W *= num3;
 		}
-		
-		#endregion
+

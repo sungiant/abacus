@@ -1,8 +1,9 @@
-		#region Operators
+		// Test Operator: Equality //-----------------------------------------//
 
-		// Equality //--------------------------------------------------------//
-		
-		void TestEquality(Vector2 a, Vector2 b, Boolean expected )
+		/// <summary>
+		/// Helper method for testing equality.
+		/// </summary>
+		void TestEquality (Vector2 a, Vector2 b, Boolean expected )
 		{
 			// This test asserts the following:
 			//   (a == b) == expected
@@ -31,6 +32,11 @@
 			Assert.That(result_4a, Is.EqualTo(!expected));
 		}
 
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of TRUE when two equal  
+		/// Vector2 objects are compared.
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_i ()
 		{
@@ -42,7 +48,11 @@
 			this.TestEquality(a, b, expected);
 		}
 
-
+		/// <summary>
+		/// Makes sure that, for a known example, all the equality opperators
+		/// and functions yield the expected result of FALSE when two unequal  
+		/// Vector2 objects are compared.
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_ii ()
 		{
@@ -54,18 +64,31 @@
 			this.TestEquality(a, b, expected);
 		}
 
+		/// <summary>
+		/// Tests to make sure that all the equality opperators and functions 
+		/// yield the expected result of TRUE when used on a number of randomly 
+		/// generated pairs of equal Vector2 objects.
+		/// </summary>
 		[Test]
 		public void TestOperator_Equality_iii ()
 		{
-			var a = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
 
-			this.TestEquality(a, a, true);
+				Vector2 b = a;
+
+				this.TestEquality(a, b, true);
+			}
 		}
 
 
-		// Addition //--------------------------------------------------------//
+		// Test Operator: Addition //-----------------------------------------//
 
-		void TestAddition(Vector2 a, Vector2 b, Vector2 expected )
+		/// <summary>
+		/// Helper method for testing addition.
+		/// </summary>
+		void TestAddition (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a + b == expected
@@ -84,8 +107,8 @@
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, simple vector addition yields the 
-		/// correct result.
+		/// Assert that, for a known example, all the addition opperators
+		/// and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_i ()
@@ -99,8 +122,8 @@
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, vector addition work correctly 
-		/// when one zero vector is involved.
+		/// Assert that, for a known example involving the zero vector, all the 
+		/// addition opperators and functions yield the correct result.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_ii ()
@@ -113,7 +136,8 @@
 		}
 
 		/// <summary>
-		/// Assert that two zero vectors correctly add to yield zero.
+		/// Assert that, for a known example involving two zero vectors, all the 
+		/// addition opperators and functions yield the correct result of zero.
 		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iii ()
@@ -121,21 +145,31 @@
 			this.TestAddition(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// addition opperators and functions yield the same results as a
+		/// manual addition calculation.
+		/// </summary>
 		[Test]
 		public void TestOperator_Addition_iv ()
-		{var a = GetNextRandomVector2();
-			
-			var b = GetNextRandomVector2();
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var expected = new Vector2(a.X + b.X, a.Y + b.Y);
+				var expected = new Vector2(a.X + b.X, a.Y + b.Y);
 
-			this.TestAddition(a, b, expected);
+				this.TestAddition(a, b, expected);
+			}
 		}
 
-
-		// Subtraction //-----------------------------------------------------//
+		// Test Operator: Subtraction //--------------------------------------//
 		
-		void TestSubtraction(Vector2 a, Vector2 b, Vector2 expected )
+		/// <summary>
+		/// Helper method for testing subtraction.
+		/// </summary>
+		void TestSubtraction (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a - b == expected
@@ -154,58 +188,57 @@
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, simple vector subtraction yields 
-		/// the correct result.
+		/// Assert that, for known examples, all the subtraction opperators
+		/// and functions yield the correct result.
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_i ()
 		{
 			var a = new Vector2(12, -4);
 			var b = new Vector2(15, 11);
-
 			var expected = new Vector2(-3, -15);
-
 			this.TestSubtraction(a, b, expected);
+
+			var c = new Vector2(-423, 342);
+			this.TestSubtraction(c, Vector2.Zero, c);
 		}
 
 		/// <summary>
-		/// Assert that, for a known example, vector subtraction work correctly 
-		/// when one zero vector is involved.
+		/// Assert that when subtracting the zero vector fromt the zero vector, 
+		/// all the subtraction opperators and functions yield the correct 
+		/// result.
 		/// <summary>
 		[Test]
 		public void TestOperator_Subtraction_ii ()
 		{
-			var a = new Vector2(-423, 342);
-
-			var expected = a;
-
-			this.TestSubtraction(a, Vector2.Zero, expected);
-		}
-
-		/// <summary>
-		/// Assert that two zero vectors correctly subtract to yield zero.
-		/// <summary>
-		[Test]
-		public void TestOperator_Subtraction_iii ()
-		{
 			this.TestSubtraction(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// subtraction opperators and functions yield the same results as a
+		/// manual subtraction calculation.
+		/// </summary>
 		[Test]
-		public void TestOperator_Subtraction_iv ()
+		public void TestOperator_Subtraction_iii ()
 		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			var expected = new Vector2(a.X - b.X, a.Y - b.Y);
+				var expected = new Vector2(a.X - b.X, a.Y - b.Y);
 
-			this.TestSubtraction(a, b, expected);
+				this.TestSubtraction(a, b, expected);
+			}
 		}
 
-
-		// Negation //--------------------------------------------------------//
+		// Test Operator: Negation //-----------------------------------------//
 		
-		void TestNegation(Vector2 a, Vector2 expected )
+		/// <summary>
+		/// Helper method for testing negation.
+		/// </summary>
+		void TestNegation (Vector2 a, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   -a == expected
@@ -218,6 +251,10 @@
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that, for known examples, all the negation opperators
+		/// and functions yield the correct result.
+		/// </summary>
 		[Test]
 		public void TestOperator_Negation_i ()
 		{
@@ -227,64 +264,64 @@
 			<#= type #> u = 6218;
 
 			var a = new Vector2(r, s);
-			var c = new Vector2(t, u);
-
-			this.TestNegation(a, c);
-		}
-
-		[Test]
-		public void TestOperator_Negation_ii ()
-		{
-			<#= type #> r = 3432;
-			<#= type #> s = -6218;
-			<#= type #> t = -3432;
-			<#= type #> u = 6218;
-
 			var b = new Vector2(u, t);
+			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
 
+			this.TestNegation(a, c);
 			this.TestNegation(b, d);
 		}
 
+		/// <summary>
+		/// Assert that, for known examples involving the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
 		[Test]
-		public void TestOperator_Negation_iii ()
+		public void TestOperator_Negation_ii ()
 		{
 			<#= type #> t = -3432;
 			<#= type #> u = 6218;
-
-			var c = new Vector2(t, u);
-
-			this.TestNegation(c, Vector2.Zero - c);
-		}
-
-		[Test]
-		public void TestOperator_Negation_iv ()
-		{
 			<#= type #> r = 3432;
 			<#= type #> s = -6218;
 
+			var c = new Vector2(t, u);
 			var d = new Vector2(s, r);
 
+			this.TestNegation(c, Vector2.Zero - c);
 			this.TestNegation(d, Vector2.Zero - d);
 		}
 
+		/// <summary>
+		/// Assert that when negating the zero vector, all the 
+		/// negation opperators and functions yield the correct result.
+		/// </summary>
 		[Test]
-		public void TestOperator_Negation_v ()
+		public void TestOperator_Negation_iii ()
 		{
 			this.TestNegation(Vector2.Zero, Vector2.Zero);
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// negation opperators and functions yield the same results as a
+		/// manual negation calculation.
+		/// </summary>
 		[Test]
-		public void TestOperator_Negation_vi ()
+		public void TestOperator_Negation_iv ()
 		{
-			var a = GetNextRandomVector2();
-			this.TestNegation(a, Vector2.Zero - a);
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				this.TestNegation(a, Vector2.Zero - a);
+			}
 		}
 
+		// Test Operator: Multiplication //-----------------------------------//
 
-		// Multiplication //--------------------------------------------------//
-		
-		void TestMultiplication(Vector2 a, Vector2 b, Vector2 expected )
+		/// <summary>
+		/// Helper method for testing multiplication.
+		/// </summary>
+		void TestMultiplication (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a * b == expected
@@ -302,6 +339,10 @@
 			Assert.That(result_2b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
@@ -314,57 +355,37 @@
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var c = new Vector2(r, s);
 
 			this.TestMultiplication(a, b, c);
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// multiplication opperators and functions yield the same results as a
+		/// manual multiplication calculation.
+		/// </summary>
 		[Test]
 		public void TestOperator_Multiplication_ii ()
 		{
-			<#= type #> r = 18;
-			<#= type #> s = -54;
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
 
-			<#= type #> x = 3;
-			<#= type #> y = 6;
-			<#= type #> z = -9;
+				var c = new Vector2(a.X * b.X, a.Y * b.Y);
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-
-			var c = new Vector2(r, s);
-
-			// Test multiplication with the (*) operator
-			var test1_op = a * b;
-			var test2_op = b * a;
-
-			Assert.That(test1_op, Is.EqualTo(c));
-			Assert.That(test2_op, Is.EqualTo(c));
-
-			// Test multiplication with static Multiply function
-			Vector2 test1_st; Vector2.Multiply(ref a, ref b, out test1_st);
-			Vector2 test2_st; Vector2.Multiply(ref b, ref a, out test2_st);
-
-			Assert.That(test1_st, Is.EqualTo(c));
-			Assert.That(test2_st, Is.EqualTo(c));
-		}
-
-		[Test]
-		public void TestOperator_Multiplication_iii ()
-		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
-
-			var c = new Vector2(a.X * b.X, a.Y * b.Y);
-
-			this.TestMultiplication(a, b, c);
+				this.TestMultiplication(a, b, c);
+			}
 		}
 
 
-		// Division //--------------------------------------------------------//
-		
-		void TestDivision(Vector2 a, Vector2 b, Vector2 expected )
+		// Test Operator: Division //-----------------------------------------//
+
+		/// <summary>
+		/// Helper method for testing division.
+		/// </summary>
+		void TestDivision (Vector2 a, Vector2 b, Vector2 expected )
 		{
 			// This test asserts the following:
 			//   a / b == expected
@@ -377,6 +398,10 @@
 			Assert.That(result_1b, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that, for a known example using whole numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_i ()
 		{
@@ -389,39 +414,47 @@
 
 			var a = new Vector2(x, y);
 			var b = new Vector2(y, z);
-
 			var c = new Vector2(r, s);
 
 			this.TestDivision(a, b, c);
 		}
 
+		/// <summary>
+		/// Assert that, for a known example using fractional numbers, all the 
+		/// division opperators and functions yield the correct result.
+		/// </summary>
 		[Test]
 		public void TestOperator_Division_ii ()
 		{
 			<#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
 			<#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
-
 			<#= type #> x = 2000;
 			<#= type #> y = 200;
 			<#= type #> z = -5;
 
-			var a = new Vector2(x, y);
-			var b = new Vector2(y, z);
-
-			var d = new Vector2(t, u);
-
-			this.TestDivision(b, a, d);
-		}
-
-		[Test]
-		public void TestOperator_Division_iii ()
-		{
-			var a = GetNextRandomVector2();
-			var b = GetNextRandomVector2();
-
-			var c = new Vector2(a.X / b.X, a.Y / b.Y);
+			var a = new Vector2(y, z);
+			var b = new Vector2(x, y);
+			var c = new Vector2(t, u);
 
 			this.TestDivision(a, b, c);
 		}
 
-		#endregion
+		/// <summary>
+		/// Assert that, for a number of randomly generated scenarios, all the 
+		/// division opperators and functions yield the same results as a
+		/// manual addition division.
+		/// </summary>
+		[Test]
+		public void TestOperator_Division_iii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				var a = GetNextRandomVector2();
+				var b = GetNextRandomVector2();
+
+				var c = new Vector2(a.X / b.X, a.Y / b.Y);
+
+				this.TestDivision(a, b, c);
+			}
+		}
+

@@ -1,5 +1,11 @@
+	/// <summary>
+	/// todo
+	/// </summary>
 	public class GjkDistance
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public GjkDistance ()
 		{
 			for (Int32 i = 0; i < 0x10; i++)
@@ -8,6 +14,9 @@
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean AddSupportPoint (ref Vector3 newPoint)
 		{
 			Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
@@ -22,7 +31,10 @@
 
 				this.edges [num2] [index] = vector;
 				this.edges [index] [num2] = -vector;
-				this.edgeLengthSq [index] [num2] = this.edgeLengthSq [num2] [index] = vector.LengthSquared ();
+
+				this.edgeLengthSq [index] [num2] = 
+					this.edgeLengthSq [num2] [index] = 
+						vector.LengthSquared ();
 			}
 
 			this.UpdateDeterminant (index);
@@ -30,6 +42,9 @@
 			return this.UpdateSimplex (index);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Reset ()
 		{
 			<#= type #> zero = 0;
@@ -38,32 +53,97 @@
 			this.maxLengthSq = zero;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Vector3 ClosestPoint
 		{
 			get { return this.closestPoint; }
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean FullSimplex
 		{
 			get { return (this.simplexBits == 15); }
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> MaxLengthSquared
 		{
 			get { return this.maxLengthSq; }
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 closestPoint;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		<#= type #>[][] det = new <#= type #>[0x10][];
-		<#= type #>[][] edgeLengthSq = new <#= type #>[][] { new <#= type #>[4], new <#= type #>[4], new <#= type #>[4], new <#= type #>[4] };
-		Vector3[][] edges = new Vector3[][] { new Vector3[4], new Vector3[4], new Vector3[4], new Vector3[4] };
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		<#= type #>[][] edgeLengthSq = 
+			new <#= type #>[][] 
+			{ 
+				new <#= type #>[4], 
+				new <#= type #>[4], 
+				new <#= type #>[4], 
+				new <#= type #>[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
+		Vector3[][] edges = 
+			new Vector3[][] 
+			{ 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
 		<#= type #> maxLengthSq;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Int32 simplexBits;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3[] y = new Vector3[4];
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		<#= type #>[] yLengthSq = new <#= type #>[4];
 
-		static Int32[] BitsToIndices = new Int32[] { 0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 };
+		/// <summary>
+		/// todo
+		/// </summary>
+		static Int32[] BitsToIndices = 
+			new Int32[] 
+			{ 
+				0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
+				4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+			};
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 ComputeClosestPoint ()
 		{
 			<#= type #> fzero; RealMaths.Zero(out fzero);
@@ -81,12 +161,16 @@
 				num3 += num4;
 				zero += (Vector3)(this.y [index] * num4);
 
-				this.maxLengthSq = RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
+				this.maxLengthSq = 
+				RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
 			}
 
 			return (Vector3)(zero / num3);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean IsSatisfiesRule (Int32 xBits, Int32 yBits)
 		{
 			<#= type #> fzero; RealMaths.Zero(out fzero);
@@ -112,6 +196,9 @@
 			return true;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		void UpdateDeterminant (Int32 xmIdx)
 		{
 			<#= type #> fone; RealMaths.One(out fone);
@@ -128,8 +215,11 @@
 				Int32 num12 = ((int)1) << num;
 				Int32 num6 = num12 | index;
 
-				this.det [num6] [num] = Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
-				this.det [num6] [xmIdx] = Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
+				this.det [num6] [num] = 
+					Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
+
+				this.det [num6] [xmIdx] = 
+					Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
 				Int32 num11 = num14;
 
@@ -206,6 +296,9 @@
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean UpdateSimplex (Int32 newIndex)
 		{
 			Int32 yBits = this.simplexBits | (((Int32)1) << newIndex);
@@ -237,6 +330,9 @@
 			return flag;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static <#= type #> Dot (ref Vector3 a, ref Vector3 b)
 		{
 			return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));

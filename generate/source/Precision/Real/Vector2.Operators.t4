@@ -1,7 +1,9 @@
-﻿		#region Operators
+﻿		// Equality Operators //----------------------------------------------//
 
-		// Equality //--------------------------------------------------------//
-
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// object.
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -12,17 +14,31 @@
 		}
 
 		#region IEquatable<Vector2>
+
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// Vector2 object.
+		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
 			return ((this.X == other.X) && (this.Y == other.Y));
 		}
+
 		#endregion
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
 			return ((value1.X == value2.X) && (value1.Y == value2.Y));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
 			if (value1.X == value2.X) {
@@ -31,9 +47,11 @@
 			return true;
 		}
 
+		// Addition Operators //----------------------------------------------//
 
-		// Addition //--------------------------------------------------------//
-
+		/// <summary>
+		/// Performs addition of two Vector2 objects.
+		/// </summary>
 		public static void Add (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -41,6 +59,9 @@
 			result.Y = value1.Y + value2.Y;
 		}
 
+		/// <summary>
+		/// Performs addition of two Vector2 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -50,8 +71,11 @@
 		}
 
 
-		// Subtraction //-----------------------------------------------------//
-		
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects.
+		/// </summary>
 		public static void Subtract (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -59,6 +83,10 @@
 			result.Y = value1.Y - value2.Y;
 		}
 
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -68,14 +96,20 @@
 		}
 
 
-		// Negation //--------------------------------------------------------//
+		// Negation Operators //----------------------------------------------//
 		
+		/// <summary>
+		/// Performs negation of a Vector2 object.
+		/// </summary>
 		public static void Negate (ref Vector2 value, out Vector2 result)
 		{
 			result.X = -value.X;
 			result.Y = -value.Y;
 		}
 
+		/// <summary>
+		/// Performs negation of a Vector2 object using the (-X) operator.
+		/// </summary>
 		public static Vector2 operator - (Vector2 value)
 		{
 			Vector2 vector;
@@ -84,32 +118,33 @@
 			return vector;
 		}
 
+		// Multiplication Operators //----------------------------------------//
 
-		// Multiplication //--------------------------------------------------//
-
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects.
+		/// </summary>
 		public static void Multiply (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
 			result.X = value1.X * value2.X;
 			result.Y = value1.Y * value2.Y;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a <#= type #>
+		/// precision scaling factor.
+		/// </summary>
 		public static void Multiply (
-			ref Vector2 value1, <#= type #> scaleFactor, out Vector2 result)
+			ref Vector2 value, <#= type #> scaleFactor, out Vector2 result)
 		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
 		}
 
-		public static Vector2 operator * (
-			<#= type #> scaleFactor, Vector2 value)
-		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
-		}
-
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value1, Vector2 value2)
 		{
@@ -118,7 +153,11 @@
 			vector.Y = value1.Y * value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a <#= type #>
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector2 operator * (
 			Vector2 value, <#= type #> scaleFactor)
 		{
@@ -128,9 +167,24 @@
 			return vector;
 		}
 
+		/// <summary>
+		/// Performs multiplication of a <#= type #> precision scaling factor 
+		/// and aVector2 object using the (x*Y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			<#= type #> scaleFactor, Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
 
-		// Division //--------------------------------------------------------//
+		// Division Operators //----------------------------------------------//
 
+		/// <summary>
+		/// Performs division of two Vector2 objects.
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
 		{
@@ -138,6 +192,10 @@
 			result.Y = value1.Y / value2.Y;
 		}
 
+		/// <summary>
+		/// Performs division of a Vector2 object and a <#= type #> precision
+		/// scaling factor.
+		/// </summary>
 		public static void Divide (
 			ref Vector2 value1, <#= type #> divider, out Vector2 result)
 		{
@@ -147,6 +205,9 @@
 			result.Y = value1.Y * num;
 		}
 
+		/// <summary>
+		/// Performs division of two Vector2 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -154,7 +215,11 @@
 			vector.Y = value1.Y / value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector2 object and a <#= type #> precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, <#= type #> divider)
 		{
 			Vector2 vector;
@@ -165,4 +230,3 @@
 			return vector;
 		}
 		
-		#endregion

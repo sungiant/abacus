@@ -1,76 +1,118 @@
-		#region Maths
+		// Test Static Fn: Distance //----------------------------------------//
 
+		/// <summary>
+		/// Assert that, for a number of known examples, the Distance method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_i ()
 		{
-			Vector2 a = new Vector2(0, 4);
-			Vector2 b = new Vector2(3, 0);
+			{
+				Vector2 a = new Vector2(0, 4);
+				Vector2 b = new Vector2(3, 0);
 
-			<#= type #> expected = 5;
-			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
+				<#= type #> expected = 5;
+				<#= type #> result;
 
-			Assert.That(result, Is.EqualTo(expected));
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = new Vector2(0, -4);
+				Vector2 b = new Vector2(3, 0);
+
+				<#= type #> expected = 5;
+				<#= type #> result;
+
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = new Vector2(0, -4);
+				Vector2 b = new Vector2(-3, 0);
+
+				<#= type #> expected = 5;
+				<#= type #> result;
+
+				Vector2.Distance(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = Vector2.Zero;
+
+				<#= type #> expected = 0;
+				<#= type #> result;
+
+				Vector2.Distance(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Distance method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Distance_ii ()
-		{
-			Vector2 a = new Vector2(0, -4);
-			Vector2 b = new Vector2(3, 0);
-
-			<#= type #> expected = 5;
-			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestStaticFn_Distance_iii ()
-		{
-			Vector2 a = new Vector2(0, -4);
-			Vector2 b = new Vector2(-3, 0);
-
-			<#= type #> expected = 5;
-			<#= type #> result; Vector2.Distance(ref a, ref b, out result);
-
-			Assert.That(result, Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestStaticFn_Distance_iv ()
-		{
-			Vector2 a = Vector2.Zero;
-
-			<#= type #> expected = 0;
-
-			Assert.That(a.Length(), Is.EqualTo(expected));
-		}
-
-		[Test]
-		public void TestStaticFn_Distance_v ()
 		{
 			for(Int32 i = 0; i < 100; ++i)
 			{
 				Vector2 a = GetNextRandomVector2();
-				
-				<#= type #> expected = RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
+
+				<#= type #> expected = 
+					RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
 				Assert.That(a.Length(), Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: DistanceSquared //---------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the DistanceSquared 
+		/// method yeilds the correct results.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_i ()
 		{
-			Vector2 a = new Vector2(0, 4);
-			Vector2 b = new Vector2(3, 0);
+			{
+				Vector2 a = new Vector2(0, 4);
+				Vector2 b = new Vector2(3, 0);
 
-			<#= type #> expected = 25;
-			<#= type #> result; Vector2.DistanceSquared(ref a, ref b, out result);
+				<#= type #> expected = 25;
+				<#= type #> result;
 
-			Assert.That(result, Is.EqualTo(expected));
+				Vector2.DistanceSquared(ref a, ref b, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
+
+			{
+				Vector2 a = Vector2.Zero;
+
+				<#= type #> expected = 0;
+				<#= type #> result;
+
+				Vector2.DistanceSquared(ref a, ref a, out result);
+
+				Assert.That(result, Is.EqualTo(expected));
+			}
 		}
 
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// DistanceSquared method yeilds the same results as those obtained 
+		/// from performing a manual calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_DistanceSquared_ii ()
 		{
@@ -78,14 +120,25 @@
 			{
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
+
 				Vector2 c = b - a;
+
 				<#= type #> expected = (c.X * c.X) + (c.Y * c.Y);
-				<#= type #> result; Vector2.DistanceSquared(ref a, ref b, out result);
+				<#= type #> result;
+
+				Vector2.DistanceSquared(ref a, ref b, out result);
 
 				Assert.That(result, Is.EqualTo(expected));
 			}
 		}
 
+		// Test Static Fn: Dot //---------------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Dot method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_i ()
 		{
@@ -93,6 +146,7 @@
 			{
 				Vector2 a = GetNextRandomVector2();
 				Vector2 b = GetNextRandomVector2();
+
 				<#= type #> expected = (a.X * b.X) + (a.Y * b.Y);
 				<#= type #> result; Vector2.Dot(ref a, ref b, out result);
 
@@ -100,6 +154,10 @@
 			}
 		}
 
+		/// <summary>
+		/// Assert that two unit vectors pointing in opposing directions yeild a
+		/// dot product of negative one.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_ii ()
 		{
@@ -112,52 +170,80 @@
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		/// <summary>
+		/// Assert that two unit vectors pointing in the same direction yeild a
+		/// dot product of one.
+		/// </summary>
 		[Test]
 		public void TestStaticFn_Dot_iii ()
 		{
-			Vector2 a = new Vector2(100, 0);
-			Vector2 b = new Vector2(10, 0);
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(1, 0);
 
 			<#= type #> expected = 1;
 			<#= type #> result; Vector2.Dot(ref a, ref b, out result);
 
-			result = result / (10 * 100);
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		/// <summary>
+		/// Assert that two perpendicular unit vectors yeild a dot product of 
+		/// zero.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Dot_iv ()
+		{
+			Vector2 a = new Vector2(1, 0);
+			Vector2 b = new Vector2(0, 1);
+
+			<#= type #> expected = 0;
+			<#= type #> result; Vector2.Dot(ref a, ref b, out result);
 
 			Assert.That(result, Is.EqualTo(expected));
 		}
 
+		// Test Static Fn: Normalise //---------------------------------------//
 
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_PerpDot ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		[Test]
-		public void TestStaticFn_Perpendicular ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void TestStaticFn_Normalise_i()
 		{
-			Vector2 a = Vector2.Zero;
+			{
+				Vector2 a = Vector2.Zero;
 
-			Vector2 b; Vector2.Normalise(ref a, out b);
+				Vector2 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector2.Normalise(ref a, out b)
+				);
+			}
+
+			{
+				Vector2 a = new Vector2(
+					<#= type #>.MaxValue, 
+					<#= type #>.MaxValue);
+
+				Vector2 b;
+
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+					Vector2.Normalise(ref a, out b)
+				);
+			}
 		}
 
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void TestStaticFn_Normalise_ii()
-		{
-			Vector2 a = new Vector2(<#= type #>.MaxValue, <#= type #>.MaxValue);
-
-			Vector2 b; Vector2.Normalise(ref a, out b);
-		}
-
-
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a unit vector (with length equal to one);
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Normalise_iii ()
+		public void TestStaticFn_Normalise_ii ()
 		{
 			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -168,36 +254,165 @@
 				Vector2 b; Vector2.Normalise(ref a, out b);
 				
 				<#= type #> expected = 1;
-
 				<#= type #> result = b.Length();
 
 				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
 			}
-
 		}
 
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Normalise method yeilds a vector, which when multipled by the 
+		/// length of the original vector results in the same vector as the
+		/// original vector;
+		/// </summary>
 		[Test]
-		public void TestStaticFn_Reflect ()
+		public void TestStaticFn_Normalise_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				<#= type #> l = a.Length();
+
+				Vector2 b; Vector2.Normalise(ref a, out b);
+				
+				Vector2 expected = a;
+				Vector2 result = b * l;
+
+				AssertEqualWithinReason(result, expected);
+			}
 		}
 
+		// Test Static Fn: Reflect //-----------------------------------------//
+
+		/// <summary>
+		/// Assert that, for a number of known examples, the Reflect method
+		/// yeilds the correct results.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformMatix44 ()
+		public void TestStaticFn_Reflect_i ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			{
+				Vector2 incident = new Vector2(20, -5);
+
+				Vector2 normal = new Vector2(1, -1);
+				Vector2.Normalise(ref normal, out normal);
+
+				Vector2 expected = new Vector2(-5, 20);
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector2 incident = new Vector2(20, -5);
+
+				Vector2 normal = new Vector2(2, -1);
+				Vector2.Normalise(ref normal, out normal);
+
+				Vector2 expected = new Vector2(-16, 13);
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, expected);
+			}
+
+			{
+				Vector2 incident = Vector2.Zero;
+
+				Vector2 normal = new Vector2(1, 0);
+
+				Vector2 result;
+				Vector2.Reflect(ref incident, ref normal, out result);
+
+				AssertEqualWithinReason(result, Vector2.Zero);
+			}
 		}
 
+
+		/// <summary>
+		/// Assert that, for a number of randomly generated examples, the 
+		/// Reflect method yeilds the same results as those obtained from
+		/// performing a manual calculation.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformNormal ()
+		public void TestStaticFn_Reflect_ii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
+
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Vector2 a = GetNextRandomVector2();
+
+				Vector2 b = GetNextRandomVector2();
+
+				Vector2.Normalise(ref b, out b);
+
+				Vector2 result;
+				Vector2.Reflect(ref a, ref b, out result);
+				
+				<#= type #> dot;
+				Vector2.Dot(ref a, ref b, out dot);
+
+				Vector2 expected = a - (2 * dot * b);
+
+				AssertEqualWithinReason(result, expected);
+			}
 		}
 
+		/// <summary>
+		/// Assert that an argument exception is thrown if the value passed in
+		/// to the normal parameter is not normalised.
+		/// </summary>
 		[Test]
-		public void TestStaticFn_TransformQuaternion ()
+		public void TestStaticFn_Reflect_iii ()
 		{
-			Assert.That(true, Is.EqualTo(false));
+			Vector2 incident = GetNextRandomVector2();
+			Vector2 normal = new Vector2(12, -241);
+
+			Vector2 result; 
+
+			Assert.Throws(
+				typeof(ArgumentOutOfRangeException), 
+				() => 
+				Vector2.Reflect(ref incident, ref normal, out result)
+			);
 		}
 
-		#endregion
+		// Test Static Fn: TransformMatrix44 //-------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_TransformMatix44_i ()
+		{
+			Assert.That (true, Is.EqualTo (false));
+		}
+
+		// Test Static Fn: TransformNormal //---------------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_TransformNormal_i ()
+		{
+			Assert.That (true, Is.EqualTo (false));
+		}
+
+		// Test Static Fn: TransformQuaternion //-----------------------------//
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Test]
+		public void TestStaticFn_TransformQuaternion_i ()
+		{
+			Assert.That (true, Is.EqualTo (false));
+		}
+
