@@ -1,6 +1,8 @@
 	[TestFixture]
 	public class Point3Tests
 	{
+<#@ include file="Point3.TestHelpers.t4"#>
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -24,5 +26,8 @@
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
+
+<#@ include file="Point3.Constants.Tests.t4"#>
+<#@ include file="Point3.Operators.Tests.t4"#>
 	}
 	

@@ -31,5 +31,9 @@
 		}
 
 <#@ include file="Quaternion.Constants.Tests.t4"#>
+<#@ include file="Quaternion.Create.Tests.t4"#>
+<#@ include file="Quaternion.Maths.Tests.t4"#>
+<#@ include file="Quaternion.Operators.Tests.t4"#>
+<#@ include file="Quaternion.Utilities.Tests.t4"#>
 	}
 	

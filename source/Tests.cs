@@ -570,7 +570,6 @@ namespace Sungiant.Abacus.Packed.Tests
             }
         }
     }
-
 }
 
 namespace Sungiant.Abacus.Int32Precision.Tests
@@ -578,6 +577,7 @@ namespace Sungiant.Abacus.Int32Precision.Tests
 	[TestFixture]
 	public class Point2Tests
 	{
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -601,10 +601,12 @@ namespace Sungiant.Abacus.Int32Precision.Tests
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
+
 	}
 		[TestFixture]
 	public class Point3Tests
 	{
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -628,6 +630,7 @@ namespace Sungiant.Abacus.Int32Precision.Tests
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
+
 	}
 	}
 
@@ -636,6 +639,7 @@ namespace Sungiant.Abacus.Int64Precision.Tests
 	[TestFixture]
 	public class Point2Tests
 	{
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -659,10 +663,12 @@ namespace Sungiant.Abacus.Int64Precision.Tests
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
+
 	}
 		[TestFixture]
 	public class Point3Tests
 	{
+
 		[Test]
 		public void Test_Constructors ()
 		{
@@ -686,6 +692,7 @@ namespace Sungiant.Abacus.Int64Precision.Tests
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
+
 	}
 	}
 

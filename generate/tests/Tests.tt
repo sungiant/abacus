@@ -79,7 +79,6 @@ namespace Sungiant.Abacus.Packed.Tests
 <#@ include file="Packed/Rgba_10_10_10_2.Tests.t4"#>
 <#@ include file="Packed/Short2.Tests.t4"#>
 <#@ include file="Packed/Short4.Tests.t4"#>
-
 }
 
 <# foreach( var type in GetIntegerTypes() ) { #>

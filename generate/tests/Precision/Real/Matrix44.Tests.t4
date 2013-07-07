@@ -95,4 +95,8 @@
 		}
 
 <#@ include file="Matrix44.Constants.Tests.t4"#>
+<#@ include file="Matrix44.Create.Tests.t4"#>
+<#@ include file="Matrix44.Maths.Tests.t4"#>
+<#@ include file="Matrix44.Operators.Tests.t4"#>
+<#@ include file="Matrix44.Utilities.Tests.t4"#>
 	}
