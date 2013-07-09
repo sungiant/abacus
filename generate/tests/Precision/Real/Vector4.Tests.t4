@@ -262,10 +262,22 @@
 						<#= type #> phi = 2 * pi * j / 100;
 						<#= type #> gamma = 2 * pi * k / 100;
 
-						<#= type #> x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
-						<#= type #> y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
-						<#= type #> z = RealMaths.Cos(phi) * RealMaths.Sin(gamma) * radius;
-						<#= type #> w = RealMaths.Cos(gamma) * radius;			
+						<#= type #> x = 
+							RealMaths.Cos(theta) * 
+							RealMaths.Sin(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						<#= type #> y = 
+							RealMaths.Sin(theta) * 
+							RealMaths.Sin(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						<#= type #> z = 
+							RealMaths.Cos(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						<#= type #> w = 
+							RealMaths.Cos(gamma) * radius;			
 
 						Assert.That(
 							new Vector4(x, y,  z, w).IsUnit(), 

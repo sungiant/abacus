@@ -3176,9 +3176,16 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 					Single theta = 2 * pi * i / 100;
 					Single phi = 2 * pi * j / 100;
 
-					Single x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * radius;
-					Single y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * radius;
-					Single z = RealMaths.Cos(phi) * radius;				
+					Single x = 
+						RealMaths.Cos(theta) * 
+						RealMaths.Sin(phi) * radius;
+
+					Single y = 
+						RealMaths.Sin(theta) * 
+						RealMaths.Sin(phi) * radius;
+
+					Single z = 
+						RealMaths.Cos(phi) * radius;				
 
 					Assert.That(
 						new Vector3( x,  y,  z).IsUnit(), 
@@ -5213,10 +5220,22 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 						Single phi = 2 * pi * j / 100;
 						Single gamma = 2 * pi * k / 100;
 
-						Single x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
-						Single y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
-						Single z = RealMaths.Cos(phi) * RealMaths.Sin(gamma) * radius;
-						Single w = RealMaths.Cos(gamma) * radius;			
+						Single x = 
+							RealMaths.Cos(theta) * 
+							RealMaths.Sin(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						Single y = 
+							RealMaths.Sin(theta) * 
+							RealMaths.Sin(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						Single z = 
+							RealMaths.Cos(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						Single w = 
+							RealMaths.Cos(gamma) * radius;			
 
 						Assert.That(
 							new Vector4(x, y,  z, w).IsUnit(), 
@@ -9243,9 +9262,16 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 					Double theta = 2 * pi * i / 100;
 					Double phi = 2 * pi * j / 100;
 
-					Double x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * radius;
-					Double y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * radius;
-					Double z = RealMaths.Cos(phi) * radius;				
+					Double x = 
+						RealMaths.Cos(theta) * 
+						RealMaths.Sin(phi) * radius;
+
+					Double y = 
+						RealMaths.Sin(theta) * 
+						RealMaths.Sin(phi) * radius;
+
+					Double z = 
+						RealMaths.Cos(phi) * radius;				
 
 					Assert.That(
 						new Vector3( x,  y,  z).IsUnit(), 
@@ -11280,10 +11306,22 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 						Double phi = 2 * pi * j / 100;
 						Double gamma = 2 * pi * k / 100;
 
-						Double x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
-						Double y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
-						Double z = RealMaths.Cos(phi) * RealMaths.Sin(gamma) * radius;
-						Double w = RealMaths.Cos(gamma) * radius;			
+						Double x = 
+							RealMaths.Cos(theta) * 
+							RealMaths.Sin(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						Double y = 
+							RealMaths.Sin(theta) * 
+							RealMaths.Sin(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						Double z = 
+							RealMaths.Cos(phi) * 
+							RealMaths.Sin(gamma) * radius;
+						
+						Double w = 
+							RealMaths.Cos(gamma) * radius;			
 
 						Assert.That(
 							new Vector4(x, y,  z, w).IsUnit(), 

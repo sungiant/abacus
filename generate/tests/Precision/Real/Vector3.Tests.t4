@@ -239,9 +239,16 @@
 					<#= type #> theta = 2 * pi * i / 100;
 					<#= type #> phi = 2 * pi * j / 100;
 
-					<#= type #> x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * radius;
-					<#= type #> y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * radius;
-					<#= type #> z = RealMaths.Cos(phi) * radius;				
+					<#= type #> x = 
+						RealMaths.Cos(theta) * 
+						RealMaths.Sin(phi) * radius;
+
+					<#= type #> y = 
+						RealMaths.Sin(theta) * 
+						RealMaths.Sin(phi) * radius;
+
+					<#= type #> z = 
+						RealMaths.Cos(phi) * radius;				
 
 					Assert.That(
 						new Vector3( x,  y,  z).IsUnit(), 
