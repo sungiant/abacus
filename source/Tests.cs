@@ -1272,29 +1272,19 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			Single piOver2; RealMaths.PiOver2(out piOver2);
+			Single radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			Single pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 1000; ++ i)
 			{
-				Single theta = piOver2 / 90 * i;
+				Single theta = 2 * pi * i / 100;
 
 				Single x = RealMaths.Sin(theta);
 				Single y = RealMaths.Cos(theta);				
 
 				Assert.That(
-					new Vector2( x,  y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2( x, -y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2(-x,  y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2(-x, -y).IsUnit(), 
+					new Vector2(x,  y).IsUnit(), 
 					Is.EqualTo(true));
 			}
 		}
@@ -1626,11 +1616,17 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector2 a = GetNextRandomVector2();
 
 				Vector2 b; Vector2.Normalise(ref a, out b);
-				
 				Single expected = 1;
-				Single result = b.Length();
+				Single result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector2 c = a;
+				Vector2.Normalise(ref c, out c);
+				Single result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -1648,15 +1644,21 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector2 a = GetNextRandomVector2();
-
 				Single l = a.Length();
+				Vector2 expected = a;
 
 				Vector2 b; Vector2.Normalise(ref a, out b);
-				
-				Vector2 expected = a;
-				Vector2 result = b * l;
+				Vector2 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector2 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector2.Normalise(ref c, out c);
+				Vector2 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 
@@ -3163,31 +3165,25 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			Single piOver2; RealMaths.PiOver2(out piOver2);
+			Single radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			Single pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 31; ++ i)
 			{
-				Single theta = piOver2 / 90 * i;
+				for( Int32 j = 0; j <= 31; ++ j)
+				{
+					Single theta = 2 * pi * i / 100;
+					Single phi = 2 * pi * j / 100;
 
-				Single x = RealMaths.Sin(theta);
-				Single y = RealMaths.Cos(theta);
-				Single z = 0;				
+					Single x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * radius;
+					Single y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * radius;
+					Single z = RealMaths.Cos(phi) * radius;				
 
-				Assert.That(
-					new Vector3( x,  y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3( x, -y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3(-x,  y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3(-x, -y,  z).IsUnit(), 
-					Is.EqualTo(true));
+					Assert.That(
+						new Vector3( x,  y,  z).IsUnit(), 
+						Is.EqualTo(true));
+				}
 			}
 		}
 
@@ -3617,11 +3613,17 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector3 a = GetNextRandomVector3();
 
 				Vector3 b; Vector3.Normalise(ref a, out b);
-				
 				Single expected = 1;
-				Single result = b.Length();
+				Single result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector3 c = a;
+				Vector3.Normalise(ref c, out c);
+				Single result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -3639,15 +3641,21 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector3 a = GetNextRandomVector3();
-
 				Single l = a.Length();
+				Vector3 expected = a;
 
 				Vector3 b; Vector3.Normalise(ref a, out b);
-				
-				Vector3 expected = a;
-				Vector3 result = b * l;
+				Vector3 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector3 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector3.Normalise(ref c, out c);
+				Vector3 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 
@@ -5191,32 +5199,30 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			Single piOver2; RealMaths.PiOver2(out piOver2);
+			Single radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			Single pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 10; ++ i)
 			{
-				Single theta = piOver2 / 90 * i;
+				for( Int32 j = 0; j <= 10; ++ j)
+				{
+					for( Int32 k = 0; k <= 10; ++ k)
+					{
+						Single theta = 2 * pi * i / 100;
+						Single phi = 2 * pi * j / 100;
+						Single gamma = 2 * pi * k / 100;
 
-				Single x = RealMaths.Sin(theta);
-				Single y = RealMaths.Cos(theta);				
-				Single z = 0;
-				Single w = 0;
+						Single x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
+						Single y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
+						Single z = RealMaths.Cos(phi) * RealMaths.Sin(gamma) * radius;
+						Single w = RealMaths.Cos(gamma) * radius;			
 
-				Assert.That(
-					new Vector4( x,  y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4( x, -y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4(-x,  y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4(-x, -y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
+						Assert.That(
+							new Vector4(x, y,  z, w).IsUnit(), 
+							Is.EqualTo(true));
+					}
+				}
 			}
 		}
 
@@ -5577,11 +5583,17 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector4 a = GetNextRandomVector4();
 
 				Vector4 b; Vector4.Normalise(ref a, out b);
-				
 				Single expected = 1;
-				Single result = b.Length();
+				Single result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector4 c = a;
+				Vector4.Normalise(ref c, out c);
+				Single result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -5599,15 +5611,21 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector4 a = GetNextRandomVector4();
-
 				Single l = a.Length();
+				Vector4 expected = a;
 
 				Vector4 b; Vector4.Normalise(ref a, out b);
-				
-				Vector4 expected = a;
-				Vector4 result = b * l;
+				Vector4 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector4 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector4.Normalise(ref c, out c);
+				Vector4 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 
@@ -7321,29 +7339,19 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			Double piOver2; RealMaths.PiOver2(out piOver2);
+			Double radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			Double pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 1000; ++ i)
 			{
-				Double theta = piOver2 / 90 * i;
+				Double theta = 2 * pi * i / 100;
 
 				Double x = RealMaths.Sin(theta);
 				Double y = RealMaths.Cos(theta);				
 
 				Assert.That(
-					new Vector2( x,  y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2( x, -y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2(-x,  y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2(-x, -y).IsUnit(), 
+					new Vector2(x,  y).IsUnit(), 
 					Is.EqualTo(true));
 			}
 		}
@@ -7675,11 +7683,17 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector2 a = GetNextRandomVector2();
 
 				Vector2 b; Vector2.Normalise(ref a, out b);
-				
 				Double expected = 1;
-				Double result = b.Length();
+				Double result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector2 c = a;
+				Vector2.Normalise(ref c, out c);
+				Double result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -7697,15 +7711,21 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector2 a = GetNextRandomVector2();
-
 				Double l = a.Length();
+				Vector2 expected = a;
 
 				Vector2 b; Vector2.Normalise(ref a, out b);
-				
-				Vector2 expected = a;
-				Vector2 result = b * l;
+				Vector2 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector2 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector2.Normalise(ref c, out c);
+				Vector2 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 
@@ -9212,31 +9232,25 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			Double piOver2; RealMaths.PiOver2(out piOver2);
+			Double radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			Double pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 31; ++ i)
 			{
-				Double theta = piOver2 / 90 * i;
+				for( Int32 j = 0; j <= 31; ++ j)
+				{
+					Double theta = 2 * pi * i / 100;
+					Double phi = 2 * pi * j / 100;
 
-				Double x = RealMaths.Sin(theta);
-				Double y = RealMaths.Cos(theta);
-				Double z = 0;				
+					Double x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * radius;
+					Double y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * radius;
+					Double z = RealMaths.Cos(phi) * radius;				
 
-				Assert.That(
-					new Vector3( x,  y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3( x, -y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3(-x,  y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3(-x, -y,  z).IsUnit(), 
-					Is.EqualTo(true));
+					Assert.That(
+						new Vector3( x,  y,  z).IsUnit(), 
+						Is.EqualTo(true));
+				}
 			}
 		}
 
@@ -9666,11 +9680,17 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector3 a = GetNextRandomVector3();
 
 				Vector3 b; Vector3.Normalise(ref a, out b);
-				
 				Double expected = 1;
-				Double result = b.Length();
+				Double result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector3 c = a;
+				Vector3.Normalise(ref c, out c);
+				Double result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -9688,15 +9708,21 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector3 a = GetNextRandomVector3();
-
 				Double l = a.Length();
+				Vector3 expected = a;
 
 				Vector3 b; Vector3.Normalise(ref a, out b);
-				
-				Vector3 expected = a;
-				Vector3 result = b * l;
+				Vector3 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector3 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector3.Normalise(ref c, out c);
+				Vector3 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 
@@ -11240,32 +11266,30 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			Double piOver2; RealMaths.PiOver2(out piOver2);
+			Double radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			Double pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 10; ++ i)
 			{
-				Double theta = piOver2 / 90 * i;
+				for( Int32 j = 0; j <= 10; ++ j)
+				{
+					for( Int32 k = 0; k <= 10; ++ k)
+					{
+						Double theta = 2 * pi * i / 100;
+						Double phi = 2 * pi * j / 100;
+						Double gamma = 2 * pi * k / 100;
 
-				Double x = RealMaths.Sin(theta);
-				Double y = RealMaths.Cos(theta);				
-				Double z = 0;
-				Double w = 0;
+						Double x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
+						Double y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
+						Double z = RealMaths.Cos(phi) * RealMaths.Sin(gamma) * radius;
+						Double w = RealMaths.Cos(gamma) * radius;			
 
-				Assert.That(
-					new Vector4( x,  y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4( x, -y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4(-x,  y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4(-x, -y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
+						Assert.That(
+							new Vector4(x, y,  z, w).IsUnit(), 
+							Is.EqualTo(true));
+					}
+				}
 			}
 		}
 
@@ -11626,11 +11650,17 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector4 a = GetNextRandomVector4();
 
 				Vector4 b; Vector4.Normalise(ref a, out b);
-				
 				Double expected = 1;
-				Double result = b.Length();
+				Double result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector4 c = a;
+				Vector4.Normalise(ref c, out c);
+				Double result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -11648,15 +11678,21 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector4 a = GetNextRandomVector4();
-
 				Double l = a.Length();
+				Vector4 expected = a;
 
 				Vector4 b; Vector4.Normalise(ref a, out b);
-				
-				Vector4 expected = a;
-				Vector4 result = b * l;
+				Vector4 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector4 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector4.Normalise(ref c, out c);
+				Vector4 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 

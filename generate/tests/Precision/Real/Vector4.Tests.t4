@@ -248,32 +248,30 @@
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			<#= type #> piOver2; RealMaths.PiOver2(out piOver2);
+			<#= type #> radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			<#= type #> pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 10; ++ i)
 			{
-				<#= type #> theta = piOver2 / 90 * i;
+				for( Int32 j = 0; j <= 10; ++ j)
+				{
+					for( Int32 k = 0; k <= 10; ++ k)
+					{
+						<#= type #> theta = 2 * pi * i / 100;
+						<#= type #> phi = 2 * pi * j / 100;
+						<#= type #> gamma = 2 * pi * k / 100;
 
-				<#= type #> x = RealMaths.Sin(theta);
-				<#= type #> y = RealMaths.Cos(theta);				
-				<#= type #> z = 0;
-				<#= type #> w = 0;
+						<#= type #> x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
+						<#= type #> y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * RealMaths.Sin(gamma) * radius;
+						<#= type #> z = RealMaths.Cos(phi) * RealMaths.Sin(gamma) * radius;
+						<#= type #> w = RealMaths.Cos(gamma) * radius;			
 
-				Assert.That(
-					new Vector4( x,  y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4( x, -y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4(-x,  y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector4(-x, -y,  z,  w).IsUnit(), 
-					Is.EqualTo(true));
+						Assert.That(
+							new Vector4(x, y,  z, w).IsUnit(), 
+							Is.EqualTo(true));
+					}
+				}
 			}
 		}
 

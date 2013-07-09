@@ -211,29 +211,19 @@
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			<#= type #> piOver2; RealMaths.PiOver2(out piOver2);
+			<#= type #> radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			<#= type #> pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 1000; ++ i)
 			{
-				<#= type #> theta = piOver2 / 90 * i;
+				<#= type #> theta = 2 * pi * i / 100;
 
 				<#= type #> x = RealMaths.Sin(theta);
 				<#= type #> y = RealMaths.Cos(theta);				
 
 				Assert.That(
-					new Vector2( x,  y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2( x, -y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2(-x,  y).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector2(-x, -y).IsUnit(), 
+					new Vector2(x,  y).IsUnit(), 
 					Is.EqualTo(true));
 			}
 		}

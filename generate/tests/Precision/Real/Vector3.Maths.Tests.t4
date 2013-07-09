@@ -253,11 +253,17 @@
 				Vector3 a = GetNextRandomVector3();
 
 				Vector3 b; Vector3.Normalise(ref a, out b);
-				
 				<#= type #> expected = 1;
-				<#= type #> result = b.Length();
+				<#= type #> result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector3 c = a;
+				Vector3.Normalise(ref c, out c);
+				<#= type #> result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -275,15 +281,21 @@
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector3 a = GetNextRandomVector3();
-
 				<#= type #> l = a.Length();
+				Vector3 expected = a;
 
 				Vector3 b; Vector3.Normalise(ref a, out b);
-				
-				Vector3 expected = a;
-				Vector3 result = b * l;
+				Vector3 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector3 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector3.Normalise(ref c, out c);
+				Vector3 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 

@@ -254,11 +254,17 @@
 				Vector4 a = GetNextRandomVector4();
 
 				Vector4 b; Vector4.Normalise(ref a, out b);
-				
 				<#= type #> expected = 1;
-				<#= type #> result = b.Length();
+				<#= type #> result1 = b.Length();
+				Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
-				Assert.That(result, Is.EqualTo(expected).Within(epsilon));
+			 	// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector4 c = a;
+				Vector4.Normalise(ref c, out c);
+				<#= type #> result2 = c.Length();
+				Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
 			}
 		}
 
@@ -276,15 +282,21 @@
 			for( Int32 i = 0; i < 100; ++ i)
 			{
 				Vector4 a = GetNextRandomVector4();
-
 				<#= type #> l = a.Length();
+				Vector4 expected = a;
 
 				Vector4 b; Vector4.Normalise(ref a, out b);
-				
-				Vector4 expected = a;
-				Vector4 result = b * l;
+				Vector4 result1 = b * l;
+				AssertEqualWithinReason(result1, expected);
 
-				AssertEqualWithinReason(result, expected);
+				Vector4 c = a;
+
+				// The normalise function takes both a ref and out parameter,
+				// need to check that if we pass in the same value as both
+				// parameters we get the same results.
+				Vector4.Normalise(ref c, out c);
+				Vector4 result2 = c * l;
+				AssertEqualWithinReason(result2, expected);
 			}
 		}
 

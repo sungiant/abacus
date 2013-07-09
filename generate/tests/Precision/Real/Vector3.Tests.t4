@@ -228,31 +228,25 @@
 		[Test]
 		public void TestMemberFn_IsUnit_iii ()
 		{
-			<#= type #> piOver2; RealMaths.PiOver2(out piOver2);
+			<#= type #> radius = 1;
 
-			for( Int32 i = 0; i <= 90; ++ i)
+			<#= type #> pi; RealMaths.Pi(out pi);
+
+			for( Int32 i = 0; i <= 31; ++ i)
 			{
-				<#= type #> theta = piOver2 / 90 * i;
+				for( Int32 j = 0; j <= 31; ++ j)
+				{
+					<#= type #> theta = 2 * pi * i / 100;
+					<#= type #> phi = 2 * pi * j / 100;
 
-				<#= type #> x = RealMaths.Sin(theta);
-				<#= type #> y = RealMaths.Cos(theta);
-				<#= type #> z = 0;				
+					<#= type #> x = RealMaths.Cos(theta) * RealMaths.Sin(phi) * radius;
+					<#= type #> y = RealMaths.Sin(theta) * RealMaths.Sin(phi) * radius;
+					<#= type #> z = RealMaths.Cos(phi) * radius;				
 
-				Assert.That(
-					new Vector3( x,  y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3( x, -y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3(-x,  y,  z).IsUnit(), 
-					Is.EqualTo(true));
-				
-				Assert.That(
-					new Vector3(-x, -y,  z).IsUnit(), 
-					Is.EqualTo(true));
+					Assert.That(
+						new Vector3( x,  y,  z).IsUnit(), 
+						Is.EqualTo(true));
+				}
 			}
 		}
 
