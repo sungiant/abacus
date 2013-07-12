@@ -6,18 +6,37 @@
 	{
 <#@ include file="Matrix44.TestHelpers.t4"#>
 
+		/// <summary>
+		/// This test makes sure that the struct layout has been defined
+		/// correctly.
+		/// </summary>
+		[Test]
+		public void Test_StructLayout_i ()
+		{
+			Type t = typeof(Matrix44);
+
+			Assert.That(
+				t.StructLayoutAttribute.Value, 
+				Is.EqualTo(LayoutKind.Sequential));
+		}
+
+		/// <summary>
+		/// This test makes sure that when examining the memory addresses of the 
+		/// member variables of a number of randomly generated Matrix44
+		/// objects the results are as expected. 
+		/// </summary>
+		[Test]
+		public unsafe void Test_StructLayout_ii ()
+		{
+			throw new NotImplementedException();
+		}
+
 		[Test]
 		public void Test_Constructors ()
 		{
 			Assert.That(true, Is.EqualTo(false));
 		}
-
-		[Test]
-		public void Test_Equality ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-
+		
 		[Test]
 		public void TestMemberFn_ToString ()
 		{
@@ -28,70 +47,6 @@
 		public void TestMemberFn_GetHashCode ()
 		{
 			Assert.That(true, Is.EqualTo(false));
-		}
-		
-		[Test]
-		public void TestTranspose_MemberFn ()
-		{
-			Matrix44 startMatrix = new Matrix44(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-
-			Matrix44 testMatrix = startMatrix;
-
-			Matrix44 testMatrixExpectedTranspose = new Matrix44(0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15);
-
-			testMatrix.Transpose();
-
-			Assert.That(testMatrix, Is.EqualTo(testMatrixExpectedTranspose));
-		}
-
-		[Test]
-		public void TestTranspose_StaticFn ()
-		{
-			Matrix44 startMatrix = new Matrix44(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-
-			Matrix44 testMatrix = startMatrix;
-
-			Matrix44 testMatrixExpectedTranspose = new Matrix44(0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15);
-
-			// RUN THE STATIC VERSION OF THE FUNCTION
-			Matrix44 resultMatrix = Matrix44.Identity;
-
-			Matrix44.Transpose(ref testMatrix, out resultMatrix);
-
-			Assert.That(resultMatrix, Is.EqualTo(testMatrixExpectedTranspose));
-
-		}
-
-		[Test]
-		public void Decompose ()
-		{
-            Matrix44 scale;
-            Matrix44.CreateScale(4, 2, 3, out scale);
-
-            Matrix44 rotation;
-            <#= type #> pi; RealMaths.Pi(out pi);
-            Matrix44.CreateRotationY(pi, out rotation);
-
-            Matrix44 translation;
-            Matrix44.CreateTranslation(100, 5, 3, out translation);
-
-            Matrix44 m = rotation * scale;
-            //m = translation * m;
-			m.Translation = new Vector3(100, 5, 3);
-
-            Vector3 outScale;
-            Quaternion outRotation;
-            Vector3 outTranslation;
-
-            m.Decompose(out outScale, out outRotation, out outTranslation);
-
-			Matrix44 mat;
-            Matrix44.CreateFromQuaternion(ref outRotation, out mat);
-
-			Assert.That(outScale, Is.EqualTo(new Vector3(4, 2, 3)));
-			Assert.That(mat, Is.EqualTo(rotation));
-			Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
-
 		}
 
 <#@ include file="Matrix44.Constants.Tests.t4"#>

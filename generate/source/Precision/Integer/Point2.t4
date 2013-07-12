@@ -1,5 +1,5 @@
 ﻿	/// <summary>
-	/// Represents a point on a 2D integer grid.
+	/// Represents a <#= type #> precision point on a 2D integer grid.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point2 

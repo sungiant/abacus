@@ -5,7 +5,7 @@
 		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_Zero ()
+		public void TestConstant_Zero_i ()
 		{
 			Vector4 result = Vector4.Zero;
 			Vector4 expected = new Vector4(0, 0, 0, 0);
@@ -19,7 +19,7 @@
 		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_One ()
+		public void TestConstant_One_i ()
 		{
 			Vector4 result = Vector4.One;
 			Vector4 expected = new Vector4(1, 1, 1, 1);
@@ -33,7 +33,7 @@
 		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_UnitX ()
+		public void TestConstant_UnitX_i ()
 		{
 			Vector4 result = Vector4.UnitX;
 			Vector4 expected = new Vector4(1, 0, 0, 0);
@@ -47,7 +47,7 @@
 		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_UnitY ()
+		public void TestConstant_UnitY_i ()
 		{
 			Vector4 result = Vector4.UnitY;
 			Vector4 expected = new Vector4(0, 1, 0, 0);
@@ -61,7 +61,7 @@
 		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_UnitZ ()
+		public void TestConstant_UnitZ_i ()
 		{
 			Vector4 result = Vector4.UnitZ;
 			Vector4 expected = new Vector4(0, 0, 1, 0);
@@ -75,7 +75,7 @@
 		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_UnitW ()
+		public void TestConstant_UnitW_i ()
 		{
 			Vector4 result = Vector4.UnitW;
 			Vector4 expected = new Vector4(0, 0, 0, 1);

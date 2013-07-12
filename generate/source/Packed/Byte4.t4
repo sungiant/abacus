@@ -39,3 +39,4 @@
 
 <#  GeneratePackedCommon("Byte4", "UInt32", "packedXyzw", "realXyzw", 4); #>
 	}
+

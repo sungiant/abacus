@@ -8,6 +8,8 @@ bool clsCompliant = !( packedType == "UInt32" || packedType == "UInt16" || packe
 		/// </summary>
 		<#= packedType #> packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -23,6 +25,8 @@ bool clsCompliant = !( packedType == "UInt32" || packedType == "UInt16" || packe
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -40,6 +44,8 @@ bool clsCompliant = !( packedType == "UInt32" || packedType == "UInt16" || packe
 			return ((obj is <#= type #>) && this.Equals((<#= type #>)obj));
 		}
 
+		#region IEquatable<<#= type #>>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -47,6 +53,8 @@ bool clsCompliant = !( packedType == "UInt32" || packedType == "UInt16" || packe
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo

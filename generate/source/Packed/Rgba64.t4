@@ -28,4 +28,4 @@
 
 <#  GeneratePackedCommon("Rgba64", "UInt64", "packedRgba", "realRgba", 4); #>
 	}
-
+	

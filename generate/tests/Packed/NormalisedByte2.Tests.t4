@@ -1,14 +1,16 @@
 ﻿    /// <summary>
-    /// todo
+    /// Tests the NormalisedByte2 packed data type.
     /// </summary>
     [TestFixture]
     public class NormalisedByte2Tests
     {
         /// <summary>
-        /// todo
+        /// Iterates over every possible NormalisedByte2 value and makes sure that
+        /// unpacking them and then re-packing that result yeilds the 
+        /// original packed value.
         /// </summary>
         [Test]
-        public static void TestAllPossibleValues()
+        public void TestAllPossibleValues_i()
         {
             UInt16 packed = UInt16.MinValue;
             while ( packed < UInt16.MaxValue )
@@ -30,4 +32,7 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed).Within(5));
             }
         }
+
+<#  GeneratePackedTestsCommon("NormalisedByte2", "UInt16", "packedXy", "realXy", 2); #>
     }
+

@@ -192,7 +192,7 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static UInt32 PackSigned (UInt32 bitmask, Single value)
+		internal static UInt32 PackSigned (UInt32 bitmask, Single value)
 		{
 			Single max = bitmask >> 1;
 			Single min = -max - 1f;
@@ -202,7 +202,7 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static UInt32 PackUnsigned (Single bitmask, Single value)
+		internal static UInt32 PackUnsigned (Single bitmask, Single value)
 		{
 			return (UInt32)ClampAndRound (value, 0f, bitmask);
 		}
@@ -210,7 +210,7 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static UInt32 PackSignedNormalised (UInt32 bitmask, Single value)
+		internal static UInt32 PackSignedNormalised (UInt32 bitmask, Single value)
 		{
 			Single max = bitmask >> 1;
 			value *= max;
@@ -220,7 +220,7 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static Single UnpackSignedNormalised (UInt32 bitmask, UInt32 value)
+		internal static Single UnpackSignedNormalised (UInt32 bitmask, UInt32 value)
 		{
 			UInt32 num = (UInt32)((bitmask + 1) >> 1);
 			if ((value & num) != 0) {
@@ -238,7 +238,7 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static UInt32 PackUnsignedNormalisedValue (Single bitmask, Single value)
+		internal static UInt32 PackUnsignedNormalisedValue (Single bitmask, Single value)
 		{
 			value *= bitmask;
 			return (UInt32)ClampAndRound (value, 0f, bitmask);
@@ -247,7 +247,7 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static Single UnpackUnsignedNormalisedValue (UInt32 bitmask, UInt32 value)
+		internal static Single UnpackUnsignedNormalisedValue (UInt32 bitmask, UInt32 value)
 		{
 			value &= bitmask;
 			return (((Single)value) / ((Single)bitmask));
@@ -420,40 +420,6 @@ namespace Sungiant.Abacus
             Double ep;
             Epsilon(out ep);
             return Abs(value) < ep;
-        }
-
-		/// <summary>
-		/// todo
-		/// </summary>
-        public static Int32 Sign(Single value)
-        {
-            if (value > 0)
-            {
-                return 1;
-            }
-            else if (value < 0)
-            {
-                return -1;
-            }
-
-            return 0;
-        }
-
-		/// <summary>
-		/// todo
-		/// </summary>
-        public static Int32 Sign(Double value)
-        {
-            if (value > 0)
-            {
-                return 1;
-            }
-            else if (value < 0)
-            {
-                return -1;
-            }
-
-            return 0;
         }
 
 		/// <summary>
@@ -666,23 +632,7 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static Double Min(Double a, Double b)
-		{
-			return a < b ? a : b;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
 		public static Single Max(Single a, Single b)
-		{
-			return a > b ? a : b;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double Max(Double a, Double b)
 		{
 			return a > b ? a : b;
 		}
@@ -699,11 +649,62 @@ namespace Sungiant.Abacus
 		/// <summary>
 		/// todo
 		/// </summary>
+        public static Int32 Sign(Single value)
+        {
+            if (value > 0)
+            {
+                return 1;
+            }
+            else if (value < 0)
+            {
+                return -1;
+            }
+
+            return 0;
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Min(Double a, Double b)
+		{
+			return a < b ? a : b;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Max(Double a, Double b)
+		{
+			return a > b ? a : b;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean WithinEpsilon(Double a, Double b)
 		{
 			Double num = a - b;
 			return ((-Double.Epsilon <= num) && (num <= Double.Epsilon));
 		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static Int32 Sign(Double value)
+        {
+            if (value > 0)
+            {
+                return 1;
+            }
+            else if (value < 0)
+            {
+                return -1;
+            }
+
+            return 0;
+        }
+
 	}
 
 	/// <summary>
@@ -762,6 +763,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		Byte packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -777,6 +780,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -794,6 +799,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Alpha_8) && this.Equals((Alpha_8)obj));
 		}
 
+		#region IEquatable<Alpha_8>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -801,6 +808,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -886,6 +895,7 @@ namespace Sungiant.Abacus.Packed
 		}
 
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -929,6 +939,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt16 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -944,6 +956,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -961,6 +975,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Bgr_5_6_5) && this.Equals((Bgr_5_6_5)obj));
 		}
 
+		#region IEquatable<Bgr_5_6_5>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -968,6 +984,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1052,6 +1070,7 @@ namespace Sungiant.Abacus.Packed
 			realRgb = new DoublePrecision.Vector3((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -1097,6 +1116,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt16 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1112,6 +1133,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1129,6 +1152,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Bgra16) && this.Equals((Bgra16)obj));
 		}
 
+		#region IEquatable<Bgra16>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1136,6 +1161,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1220,6 +1247,7 @@ namespace Sungiant.Abacus.Packed
 			realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -1265,6 +1293,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt16 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1280,6 +1310,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1297,6 +1329,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Bgra_5_5_5_1) && this.Equals((Bgra_5_5_5_1)obj));
 		}
 
+		#region IEquatable<Bgra_5_5_5_1>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1304,6 +1338,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1388,6 +1424,7 @@ namespace Sungiant.Abacus.Packed
 			realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -1432,6 +1469,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt32 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1447,6 +1486,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1464,6 +1505,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Byte4) && this.Equals((Byte4)obj));
 		}
 
+		#region IEquatable<Byte4>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1471,6 +1514,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1555,6 +1600,7 @@ namespace Sungiant.Abacus.Packed
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -1596,6 +1642,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt16 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1611,6 +1659,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1628,6 +1678,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is NormalisedByte2) && this.Equals((NormalisedByte2)obj));
 		}
 
+		#region IEquatable<NormalisedByte2>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1635,6 +1687,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1719,6 +1773,7 @@ namespace Sungiant.Abacus.Packed
 			realXy = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -1764,6 +1819,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt32 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1779,6 +1836,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1796,6 +1855,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is NormalisedByte4) && this.Equals((NormalisedByte4)obj));
 		}
 
+		#region IEquatable<NormalisedByte4>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1803,6 +1864,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1887,6 +1950,7 @@ namespace Sungiant.Abacus.Packed
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -1928,6 +1992,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt32 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1943,6 +2009,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -1960,6 +2028,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is NormalisedShort2) && this.Equals((NormalisedShort2)obj));
 		}
 
+		#region IEquatable<NormalisedShort2>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -1967,6 +2037,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -2051,6 +2123,7 @@ namespace Sungiant.Abacus.Packed
 			realXy = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -2096,6 +2169,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt64 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -2111,6 +2186,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -2128,6 +2205,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is NormalisedShort4) && this.Equals((NormalisedShort4)obj));
 		}
 
+		#region IEquatable<NormalisedShort4>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -2135,6 +2214,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -2219,6 +2300,7 @@ namespace Sungiant.Abacus.Packed
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
 	}
+
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -2260,6 +2342,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt32 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -2275,6 +2359,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -2292,6 +2378,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Rg32) && this.Equals((Rg32)obj));
 		}
 
+		#region IEquatable<Rg32>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -2299,6 +2387,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -2383,6 +2473,7 @@ namespace Sungiant.Abacus.Packed
 			realRg = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
 	}
+	
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -3627,22 +3718,29 @@ namespace Sungiant.Abacus.Packed
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static Rgba32 GenerateColorFromName(string name)
+		public static Rgba32 FromNonPremultiplied(SinglePrecision.Vector4 vector)
 		{
-			System.Random random = new System.Random(name.GetHashCode());
-			return new Rgba32(
-				(byte)random.Next(byte.MaxValue),
-				(byte)random.Next(byte.MaxValue),
-				(byte)random.Next(byte.MaxValue));
+			Rgba32 color;
+			var val = new SinglePrecision.Vector4(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+			Pack(ref val, out color.packedValue);
+			return color;
+		}
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Rgba32(DoublePrecision.Vector3 vector)
+		{
+			var val = new DoublePrecision.Vector4(vector.X, vector.Y, vector.Z, 1f);
+			Pack(ref val, out this.packedValue);
 		}
 
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static Rgba32 FromNonPremultiplied(SinglePrecision.Vector4 vector)
+		public static Rgba32 FromNonPremultiplied(DoublePrecision.Vector4 vector)
 		{
 			Rgba32 color;
-			var val = new SinglePrecision.Vector4(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+			var val = new DoublePrecision.Vector4(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
 			Pack(ref val, out color.packedValue);
 			return color;
 		}
@@ -3788,12 +3886,22 @@ namespace Sungiant.Abacus.Packed
 		/// <summary>
 		/// todo
 		/// </summary>
-		public SinglePrecision.Vector3 ToVector3()
+		public void ToVector3(out SinglePrecision.Vector3 result)
 		{
 			SinglePrecision.Vector4 colourVec4;
 			this.UnpackTo(out colourVec4);
 
-			return new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
+			result = new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
+		}
+		/// <summary>
+		/// todo
+		/// </summary>
+		public void ToVector3(out DoublePrecision.Vector3 result)
+		{
+			DoublePrecision.Vector4 colourVec4;
+			this.UnpackTo(out colourVec4);
+
+			result = new DoublePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
 		}
 
 		/// <summary>
@@ -3918,10 +4026,13 @@ namespace Sungiant.Abacus.Packed
 			colour.packedValue = ((num5 | (num4 << 8)) | (num3 << 0x10)) | (num2 << 0x18);
 		}
 
+
 		/// <summary>
 		/// todo
 		/// </summary>
 		UInt32 packedValue;
+
+		#region IPackedValue
 
 		/// <summary>
 		/// todo
@@ -3939,6 +4050,8 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -3955,6 +4068,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Rgba32) && this.Equals((Rgba32)obj));
 		}
 
+		#region IEquatable<Rgba32>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -3962,6 +4077,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4080,6 +4197,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt64 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4095,6 +4214,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4112,6 +4233,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Rgba64) && this.Equals((Rgba64)obj));
 		}
 
+		#region IEquatable<Rgba64>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4119,6 +4242,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4203,7 +4328,7 @@ namespace Sungiant.Abacus.Packed
 			realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
 	}
-
+	
 	// 2 bit alpha
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Rgba_10_10_10_2 
@@ -4239,6 +4364,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt32 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4254,6 +4381,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4271,6 +4400,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Rgba_10_10_10_2) && this.Equals((Rgba_10_10_10_2)obj));
 		}
 
+		#region IEquatable<Rgba_10_10_10_2>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4278,6 +4409,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4404,6 +4537,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt32 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4419,6 +4554,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4436,6 +4573,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Short2) && this.Equals((Short2)obj));
 		}
 
+		#region IEquatable<Short2>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4443,6 +4582,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4527,6 +4668,7 @@ namespace Sungiant.Abacus.Packed
 			realXy = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
 	}
+	
 	/// <summary>
 	/// todo
 	/// </summary>
@@ -4572,6 +4714,8 @@ namespace Sungiant.Abacus.Packed
 		/// </summary>
 		UInt64 packedValue;
 
+		#region IPackedValue
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4587,6 +4731,8 @@ namespace Sungiant.Abacus.Packed
 				this.packedValue = value;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4604,6 +4750,8 @@ namespace Sungiant.Abacus.Packed
 			return ((obj is Short4) && this.Equals((Short4)obj));
 		}
 
+		#region IEquatable<Short4>
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -4611,6 +4759,8 @@ namespace Sungiant.Abacus.Packed
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// todo
@@ -4695,13 +4845,14 @@ namespace Sungiant.Abacus.Packed
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
 	}
+
 }
 
 
 namespace Sungiant.Abacus.Int32Precision
 {
 	/// <summary>
-	/// Represents a point on a 2D integer grid.
+	/// Represents a Int32 precision point on a 2D integer grid.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point2 
@@ -5043,7 +5194,7 @@ namespace Sungiant.Abacus.Int32Precision
 	}
 
 	/// <summary>
-	/// Represents a point on a 3D integer grid.
+	/// Represents a Int32 precision point on a 3D integer grid.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point3 
@@ -5072,6 +5223,17 @@ namespace Sungiant.Abacus.Int32Precision
 		{
 			this.X = x;
 			this.Y = y;
+			this.Z = z;
+		}
+		
+		/// <summary>
+		/// Initilises a new instance of Point3 from one Point2 value
+		/// representing X and Y and one Int32 value representing Z.
+		/// </summary>
+		public Point3 (Point2 value, Int32 z)
+		{
+			this.X = value.X;
+			this.Y = value.Y;
 			this.Z = z;
 		}
 
@@ -5504,7 +5666,7 @@ namespace Sungiant.Abacus.Int32Precision
 namespace Sungiant.Abacus.Int64Precision
 {
 	/// <summary>
-	/// Represents a point on a 2D integer grid.
+	/// Represents a Int64 precision point on a 2D integer grid.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point2 
@@ -5846,7 +6008,7 @@ namespace Sungiant.Abacus.Int64Precision
 	}
 
 	/// <summary>
-	/// Represents a point on a 3D integer grid.
+	/// Represents a Int64 precision point on a 3D integer grid.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point3 
@@ -5875,6 +6037,17 @@ namespace Sungiant.Abacus.Int64Precision
 		{
 			this.X = x;
 			this.Y = y;
+			this.Z = z;
+		}
+		
+		/// <summary>
+		/// Initilises a new instance of Point3 from one Point2 value
+		/// representing X and Y and one Int64 value representing Z.
+		/// </summary>
+		public Point3 (Point2 value, Int64 z)
+		{
+			this.X = value.X;
+			this.Y = value.Y;
 			this.Z = z;
 		}
 
@@ -6310,12 +6483,12 @@ namespace Sungiant.Abacus.SinglePrecision
 	/// <summary>
 	/// todo
 	/// </summary>
-	public class GjkDistance
+	internal class GjkDistance
 	{
 		/// <summary>
 		/// todo
 		/// </summary>
-		public GjkDistance ()
+		internal GjkDistance ()
 		{
 			for (Int32 i = 0; i < 0x10; i++)
 			{
@@ -6326,7 +6499,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Boolean AddSupportPoint (ref Vector3 newPoint)
+		internal Boolean AddSupportPoint (ref Vector3 newPoint)
 		{
 			Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
@@ -6354,7 +6527,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public void Reset ()
+		internal void Reset ()
 		{
 			Single zero = 0;
 
@@ -6365,7 +6538,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Vector3 ClosestPoint
+		internal Vector3 ClosestPoint
 		{
 			get { return this.closestPoint; }
 		}
@@ -6373,7 +6546,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Boolean FullSimplex
+		internal Boolean FullSimplex
 		{
 			get { return (this.simplexBits == 15); }
 		}
@@ -6381,7 +6554,7 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Single MaxLengthSquared
+		internal Single MaxLengthSquared
 		{
 			get { return this.maxLengthSq; }
 		}
@@ -6648,92 +6821,204 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 	}
 	/// <summary>
-	/// todo
+	/// Single precision Matrix44.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
 		/// <summary>
-		/// Row 1, Column 1
+		/// Gets or sets (Row 1, Column 1) of the Matrix44.
 		/// </summary>
 		public Single M11;
 
 		/// <summary>
-		/// Row 1, Column 2
+		/// Gets or sets (Row 1, Column 2) of the Matrix44.
 		/// </summary>
 		public Single M12;
 
 		/// <summary>
-		/// Row 1, Column 3
+		/// Gets or sets (Row 1, Column 3) of the Matrix44.
 		/// </summary>
 		public Single M13;
 
 		/// <summary>
-		/// Row 1, Column 4
+		/// Gets or sets (Row 1, Column 4) of the Matrix44.
 		/// </summary>
 		public Single M14;
 
 		/// <summary>
-		/// Row 2, Column 1
+		/// Gets or sets (Row 2, Column 1) of the Matrix44.
 		/// </summary>
 		public Single M21;
 
 		/// <summary>
-		/// Row 2, Column 2
+		/// Gets or sets (Row 2, Column 2) of the Matrix44.
 		/// </summary>
 		public Single M22;
 
 		/// <summary>
-		/// Row 2, Column 3
+		/// Gets or sets (ow 2, Column 3) of the Matrix44.
 		/// </summary>
 		public Single M23;
 
 		/// <summary>
-		/// Row 2, Column 4
+		/// Gets or sets (Row 2, Column 4) of the Matrix44.
 		/// </summary>
 		public Single M24;
 
 		/// <summary>
-		/// Row 3, Column 1
+		/// Row 3, Column 1) of the Matrix44.
 		/// </summary>
 		public Single M31;
 
 		/// <summary>
-		/// Row 3, Column 2
+		/// Gets or sets (Row 3, Column 2) of the Matrix44.
 		/// </summary>
 		public Single M32;
 
 		/// <summary>
-		/// Row 3, Column 3
+		/// Gets or sets (Row 3, Column 3) of the Matrix44.
 		/// </summary>
 		public Single M33;
 
 		/// <summary>
-		/// Row 3, Column 4
+		/// Gets or sets (Row 3, Column 4) of the Matrix44.
 		/// </summary>
 		public Single M34;
 
 		/// <summary>
-		/// Row 4, Column 1
+		/// Gets or sets (Row 4, Column 1) of the Matrix44.
 		/// </summary>
 		public Single M41; // translation.x
 
 		/// <summary>
-		/// Row 4, Column 2
+		/// Gets or sets (Row 4, Column 2) of the Matrix44.
 		/// </summary>
 		public Single M42; // translation.y
 
 		/// <summary>
-		/// Row 4, Column 3
+		/// Gets or sets (Row 4, Column 3) of the Matrix44.
 		/// </summary>
 		public Single M43; // translation.z
 
 		/// <summary>
-		/// Row 4, Column 4
+		/// Gets or sets (Row 4, Column 4) of the Matrix44.
 		/// </summary>
 		public Single M44;
 		
+		/// <summary>
+		/// Initilises a new instance of Matrix44 from sixteen Single 
+		/// values representing the matrix, in row major order, respectively.
+		/// </summary>
+		public Matrix44 (
+			Single m11, 
+			Single m12, 
+			Single m13, 
+			Single m14, 
+			Single m21, 
+			Single m22, 
+			Single m23, 
+			Single m24, 
+			Single m31, 
+			Single m32, 
+			Single m33, 
+			Single m34, 
+			Single m41, 
+			Single m42, 
+			Single m43, 
+			Single m44)
+		{
+			this.M11 = m11;
+			this.M12 = m12;
+			this.M13 = m13;
+			this.M14 = m14;
+			this.M21 = m21;
+			this.M22 = m22;
+			this.M23 = m23;
+			this.M24 = m24;
+			this.M31 = m31;
+			this.M32 = m32;
+			this.M33 = m33;
+			this.M34 = m34;
+			this.M41 = m41;
+			this.M42 = m42;
+			this.M43 = m43;
+			this.M44 = m44;
+		}
+
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
+		{
+			return 
+				(
+					"{ " + 
+					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M11.ToString (), 
+							this.M12.ToString (), 
+							this.M13.ToString (), 
+							this.M14.ToString () 
+						}
+					) + 
+					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M21.ToString (), 
+							this.M22.ToString (), 
+							this.M23.ToString (), 
+							this.M24.ToString () 
+							}
+					) + 
+					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M31.ToString (), 
+							this.M32.ToString (), 
+							this.M33.ToString (), 
+							this.M34.ToString () 
+						}
+					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
+					new Object[] 
+					{ 
+						this.M41.ToString (), 
+						this.M42.ToString (), 
+						this.M43.ToString (), 
+						this.M44.ToString () 
+					}
+					) + 
+					"}"
+				);
+		}
+
+		/// <summary>
+		/// Gets the hash code of the Matrix44 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return 
+				(((((((((((((((
+					this.M11.GetHashCode () + 
+					this.M12.GetHashCode ()) + 
+					this.M13.GetHashCode ()) + 
+					this.M14.GetHashCode ()) + 
+					this.M21.GetHashCode ()) + 
+					this.M22.GetHashCode ()) + 
+					this.M23.GetHashCode ()) + 
+					this.M24.GetHashCode ()) + 
+					this.M31.GetHashCode ()) + 
+					this.M32.GetHashCode ()) + 
+					this.M33.GetHashCode ()) + 
+					this.M34.GetHashCode ()) + 
+					this.M41.GetHashCode ()) + 
+					this.M42.GetHashCode ()) + 
+					this.M43.GetHashCode ()) + 
+					this.M44.GetHashCode ());
+		}
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -6879,154 +7164,6 @@ namespace Sungiant.Abacus.SinglePrecision
 				this.M42 = value.Y;
 				this.M43 = value.Z;
 			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Matrix44 (
-			Single m11, 
-			Single m12, 
-			Single m13, 
-			Single m14, 
-			Single m21, 
-			Single m22, 
-			Single m23, 
-			Single m24, 
-			Single m31, 
-			Single m32, 
-			Single m33, 
-			Single m34, 
-			Single m41, 
-			Single m42, 
-			Single m43, 
-			Single m44)
-		{
-			this.M11 = m11;
-			this.M12 = m12;
-			this.M13 = m13;
-			this.M14 = m14;
-			this.M21 = m21;
-			this.M22 = m22;
-			this.M23 = m23;
-			this.M24 = m24;
-			this.M31 = m31;
-			this.M32 = m32;
-			this.M33 = m33;
-			this.M34 = m34;
-			this.M41 = m41;
-			this.M42 = m42;
-			this.M43 = m43;
-			this.M44 = m44;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override String ToString ()
-		{
-			return 
-				(
-					"{ " + 
-					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
-						new Object[] 
-						{ 
-							this.M11.ToString (), 
-							this.M12.ToString (), 
-							this.M13.ToString (), 
-							this.M14.ToString () 
-						}
-					) + 
-					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
-						new Object[] 
-						{ 
-							this.M21.ToString (), 
-							this.M22.ToString (), 
-							this.M23.ToString (), 
-							this.M24.ToString () 
-							}
-					) + 
-					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
-						new Object[] 
-						{ 
-							this.M31.ToString (), 
-							this.M32.ToString (), 
-							this.M33.ToString (), 
-							this.M34.ToString () 
-						}
-					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
-					new Object[] 
-					{ 
-						this.M41.ToString (), 
-						this.M42.ToString (), 
-						this.M43.ToString (), 
-						this.M44.ToString () 
-					}
-					) + 
-					"}"
-				);
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Boolean Equals (Matrix44 other)
-		{
-			return 
-				((((((this.M11 == other.M11) && 
-				     (this.M22 == other.M22)) && 
-				    ((this.M33 == other.M33) && 
-				     (this.M44 == other.M44))) && 
-				   (((this.M12 == other.M12) && 
-				     (this.M13 == other.M13)) && 
-				    ((this.M14 == other.M14) && 
-				     (this.M21 == other.M21)))) && 
-				  ((((this.M23 == other.M23) && 
-				     (this.M24 == other.M24)) && 
-				    ((this.M31 == other.M31) && 
-				     (this.M32 == other.M32))) && 
-				   (((this.M34 == other.M34) && 
-				     (this.M41 == other.M41)) && 
-				     (this.M42 == other.M42)))) && 
-				     (this.M43 == other.M43));
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Matrix44)
-			{
-				flag = this.Equals ((Matrix44)obj);
-			}
-			return flag;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Int32 GetHashCode ()
-		{
-			return 
-				(((((((((((((((
-					this.M11.GetHashCode () + 
-					this.M12.GetHashCode ()) + 
-					this.M13.GetHashCode ()) + 
-					this.M14.GetHashCode ()) + 
-					this.M21.GetHashCode ()) + 
-					this.M22.GetHashCode ()) + 
-					this.M23.GetHashCode ()) + 
-					this.M24.GetHashCode ()) + 
-					this.M31.GetHashCode ()) + 
-					this.M32.GetHashCode ()) + 
-					this.M33.GetHashCode ()) + 
-					this.M34.GetHashCode ()) + 
-					this.M41.GetHashCode ()) + 
-					this.M42.GetHashCode ()) + 
-					this.M43.GetHashCode ()) + 
-					this.M44.GetHashCode ());
 		}
 
 		// Constants //-------------------------------------------------------//
@@ -7810,54 +7947,36 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public void Transpose()
-		{
-			Single temp = this.M12;
-			this.M12 = this.M21;
-			this.M21 = temp;
-
-			temp = this.M13;
-			this.M13 = this.M31;
-			this.M31 = temp;
-
-			temp = this.M14;
-			this.M14 = this.M41;
-			this.M41 = temp;
-
-			temp = this.M23;
-			this.M23 = this.M32;
-			this.M32 = temp;
-
-			temp = this.M24;
-			this.M24 = this.M42;
-			this.M42 = temp;
-
-			temp =  this.M34;
-			this.M34 = this.M43;
-			this.M43 = temp;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
 		public static void Transpose (ref Matrix44 input, out Matrix44 output)
 		{
-		    output.M11 = input.M11;
-			output.M12 = input.M21;
-			output.M13 = input.M31;
-			output.M14 = input.M41;
-			output.M21 = input.M12;
+			output.M11 = input.M11;
 			output.M22 = input.M22;
-			output.M23 = input.M32;
-			output.M24 = input.M42;
-			output.M31 = input.M13;
-			output.M32 = input.M23;
 			output.M33 = input.M33;
-			output.M34 = input.M43;
-			output.M41 = input.M14;
-			output.M42 = input.M24;
-			output.M43 = input.M34;
 			output.M44 = input.M44;
+
+			Single temp = input.M12;
+			output.M12 = input.M21;
+			output.M21 = temp;
+
+			temp = input.M13;
+			output.M13 = input.M31;
+			output.M31 = temp;
+
+			temp = input.M14;
+			output.M14 = input.M41;
+			output.M41 = temp;
+
+			temp = input.M23;
+			output.M23 = input.M32;
+			output.M32 = temp;
+
+			temp = input.M24;
+			output.M24 = input.M42;
+			output.M42 = temp;
+
+			temp =  input.M34;
+			output.M34 = input.M43;
+			output.M43 = temp;
 		}
 
 		/// <summary>
@@ -8092,254 +8211,94 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = num22;
 		}
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator - (Matrix44 matrix1)
-		{
-			Matrix44 matrix;
-			matrix.M11 = -matrix1.M11;
-			matrix.M12 = -matrix1.M12;
-			matrix.M13 = -matrix1.M13;
-			matrix.M14 = -matrix1.M14;
-			matrix.M21 = -matrix1.M21;
-			matrix.M22 = -matrix1.M22;
-			matrix.M23 = -matrix1.M23;
-			matrix.M24 = -matrix1.M24;
-			matrix.M31 = -matrix1.M31;
-			matrix.M32 = -matrix1.M32;
-			matrix.M33 = -matrix1.M33;
-			matrix.M34 = -matrix1.M34;
-			matrix.M41 = -matrix1.M41;
-			matrix.M42 = -matrix1.M42;
-			matrix.M43 = -matrix1.M43;
-			matrix.M44 = -matrix1.M44;
-			return matrix;
-		}
+		// Equality Operators //----------------------------------------------//
 
 		/// <summary>
-		/// todo
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+
+			if (obj is Matrix44)
+			{
+				flag = this.Equals ((Matrix44) obj);
+			}
+			
+			return flag;
+		}
+
+		#region IEquatable<Matrix44>
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// Matrix44 object.
+		/// </summary>
+		public Boolean Equals (Matrix44 other)
+		{
+			return 
+				(this.M11 == other.M11) && 
+				(this.M22 == other.M22) && 
+				(this.M33 == other.M33) && 
+				(this.M44 == other.M44) && 
+				(this.M12 == other.M12) && 
+				(this.M13 == other.M13) && 
+				(this.M14 == other.M14) && 
+				(this.M21 == other.M21) && 
+				(this.M23 == other.M23) && 
+				(this.M24 == other.M24) && 
+				(this.M31 == other.M31) && 
+				(this.M32 == other.M32) && 
+				(this.M34 == other.M34) && 
+				(this.M41 == other.M41) && 
+				(this.M42 == other.M42) && 
+				(this.M43 == other.M43);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are equal using the
+		/// (X==Y) operator.
 		/// </summary>
 		public static Boolean operator == (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			return ((((((matrix1.M11 == matrix2.M11) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M44 == matrix2.M44))) && (((matrix1.M12 == matrix2.M12) && (matrix1.M13 == matrix2.M13)) && ((matrix1.M14 == matrix2.M14) && (matrix1.M21 == matrix2.M21)))) && ((((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)) && ((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32))) && (((matrix1.M34 == matrix2.M34) && (matrix1.M41 == matrix2.M41)) && (matrix1.M42 == matrix2.M42)))) && (matrix1.M43 == matrix2.M43));
 		}
-
+		
 		/// <summary>
-		/// todo
+		/// Determines whether or not two Matrix44 objects are not equal using
+		/// the (X!=Y) operator.
 		/// </summary>
 		public static Boolean operator != (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			if (((((matrix1.M11 == matrix2.M11) && (matrix1.M12 == matrix2.M12)) && ((matrix1.M13 == matrix2.M13) && (matrix1.M14 == matrix2.M14))) && (((matrix1.M21 == matrix2.M21) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)))) && ((((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M34 == matrix2.M34))) && (((matrix1.M41 == matrix2.M41) && (matrix1.M42 == matrix2.M42)) && (matrix1.M43 == matrix2.M43)))) {
+			if ((matrix1.M11 == matrix2.M11) && 
+				(matrix1.M12 == matrix2.M12) && 
+				(matrix1.M13 == matrix2.M13) && 
+				(matrix1.M14 == matrix2.M14) && 
+				(matrix1.M21 == matrix2.M21) && 
+				(matrix1.M22 == matrix2.M22) && 
+				(matrix1.M23 == matrix2.M23) && 
+				(matrix1.M24 == matrix2.M24) && 
+				(matrix1.M31 == matrix2.M31) && 
+				(matrix1.M32 == matrix2.M32) && 
+				(matrix1.M33 == matrix2.M33) && 
+				(matrix1.M34 == matrix2.M34) && 
+				(matrix1.M41 == matrix2.M41) && 
+				(matrix1.M42 == matrix2.M42) && 
+				(matrix1.M43 == matrix2.M43))
+			{
 				return !(matrix1.M44 == matrix2.M44);
 			}
+
 			return true;
 		}
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 + matrix2.M11;
-			matrix.M12 = matrix1.M12 + matrix2.M12;
-			matrix.M13 = matrix1.M13 + matrix2.M13;
-			matrix.M14 = matrix1.M14 + matrix2.M14;
-			matrix.M21 = matrix1.M21 + matrix2.M21;
-			matrix.M22 = matrix1.M22 + matrix2.M22;
-			matrix.M23 = matrix1.M23 + matrix2.M23;
-			matrix.M24 = matrix1.M24 + matrix2.M24;
-			matrix.M31 = matrix1.M31 + matrix2.M31;
-			matrix.M32 = matrix1.M32 + matrix2.M32;
-			matrix.M33 = matrix1.M33 + matrix2.M33;
-			matrix.M34 = matrix1.M34 + matrix2.M34;
-			matrix.M41 = matrix1.M41 + matrix2.M41;
-			matrix.M42 = matrix1.M42 + matrix2.M42;
-			matrix.M43 = matrix1.M43 + matrix2.M43;
-			matrix.M44 = matrix1.M44 + matrix2.M44;
-			return matrix;
-		}
+		// Addition Operators //----------------------------------------------//
 
 		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 - matrix2.M11;
-			matrix.M12 = matrix1.M12 - matrix2.M12;
-			matrix.M13 = matrix1.M13 - matrix2.M13;
-			matrix.M14 = matrix1.M14 - matrix2.M14;
-			matrix.M21 = matrix1.M21 - matrix2.M21;
-			matrix.M22 = matrix1.M22 - matrix2.M22;
-			matrix.M23 = matrix1.M23 - matrix2.M23;
-			matrix.M24 = matrix1.M24 - matrix2.M24;
-			matrix.M31 = matrix1.M31 - matrix2.M31;
-			matrix.M32 = matrix1.M32 - matrix2.M32;
-			matrix.M33 = matrix1.M33 - matrix2.M33;
-			matrix.M34 = matrix1.M34 - matrix2.M34;
-			matrix.M41 = matrix1.M41 - matrix2.M41;
-			matrix.M42 = matrix1.M42 - matrix2.M42;
-			matrix.M43 = matrix1.M43 - matrix2.M43;
-			matrix.M44 = matrix1.M44 - matrix2.M44;
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			matrix.M12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			matrix.M13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			matrix.M14 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			matrix.M21 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			matrix.M22 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			matrix.M23 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			matrix.M24 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			matrix.M31 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			matrix.M32 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			matrix.M33 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			matrix.M34 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			matrix.M41 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			matrix.M42 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			matrix.M43 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			matrix.M44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator * (Matrix44 matrix, Single scaleFactor)
-		{
-			Matrix44 matrix2;
-			Single num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator * (Single scaleFactor, Matrix44 matrix)
-		{
-			Matrix44 matrix2;
-			Single num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 / matrix2.M11;
-			matrix.M12 = matrix1.M12 / matrix2.M12;
-			matrix.M13 = matrix1.M13 / matrix2.M13;
-			matrix.M14 = matrix1.M14 / matrix2.M14;
-			matrix.M21 = matrix1.M21 / matrix2.M21;
-			matrix.M22 = matrix1.M22 / matrix2.M22;
-			matrix.M23 = matrix1.M23 / matrix2.M23;
-			matrix.M24 = matrix1.M24 / matrix2.M24;
-			matrix.M31 = matrix1.M31 / matrix2.M31;
-			matrix.M32 = matrix1.M32 / matrix2.M32;
-			matrix.M33 = matrix1.M33 / matrix2.M33;
-			matrix.M34 = matrix1.M34 / matrix2.M34;
-			matrix.M41 = matrix1.M41 / matrix2.M41;
-			matrix.M42 = matrix1.M42 / matrix2.M42;
-			matrix.M43 = matrix1.M43 / matrix2.M43;
-			matrix.M44 = matrix1.M44 / matrix2.M44;
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator / (Matrix44 matrix1, Single divider)
-		{
-			Matrix44 matrix;
-			Single one = 1;
-			Single num = one / divider;
-			matrix.M11 = matrix1.M11 * num;
-			matrix.M12 = matrix1.M12 * num;
-			matrix.M13 = matrix1.M13 * num;
-			matrix.M14 = matrix1.M14 * num;
-			matrix.M21 = matrix1.M21 * num;
-			matrix.M22 = matrix1.M22 * num;
-			matrix.M23 = matrix1.M23 * num;
-			matrix.M24 = matrix1.M24 * num;
-			matrix.M31 = matrix1.M31 * num;
-			matrix.M32 = matrix1.M32 * num;
-			matrix.M33 = matrix1.M33 * num;
-			matrix.M34 = matrix1.M34 * num;
-			matrix.M41 = matrix1.M41 * num;
-			matrix.M42 = matrix1.M42 * num;
-			matrix.M43 = matrix1.M43 * num;
-			matrix.M44 = matrix1.M44 * num;
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
-		{
-			result.M11 = -matrix.M11;
-			result.M12 = -matrix.M12;
-			result.M13 = -matrix.M13;
-			result.M14 = -matrix.M14;
-			result.M21 = -matrix.M21;
-			result.M22 = -matrix.M22;
-			result.M23 = -matrix.M23;
-			result.M24 = -matrix.M24;
-			result.M31 = -matrix.M31;
-			result.M32 = -matrix.M32;
-			result.M33 = -matrix.M33;
-			result.M34 = -matrix.M34;
-			result.M41 = -matrix.M41;
-			result.M42 = -matrix.M42;
-			result.M43 = -matrix.M43;
-			result.M44 = -matrix.M44;
-		}
-
-		/// <summary>
-		/// todo
+		/// Performs addition of two Matrix44 objects.
 		/// </summary>
 		public static void Add (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
@@ -8362,7 +8321,34 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 
 		/// <summary>
-		/// todo
+		/// Performs addition of two Matrix44 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 + matrix2.M11;
+			result.M12 = matrix1.M12 + matrix2.M12;
+			result.M13 = matrix1.M13 + matrix2.M13;
+			result.M14 = matrix1.M14 + matrix2.M14;
+			result.M21 = matrix1.M21 + matrix2.M21;
+			result.M22 = matrix1.M22 + matrix2.M22;
+			result.M23 = matrix1.M23 + matrix2.M23;
+			result.M24 = matrix1.M24 + matrix2.M24;
+			result.M31 = matrix1.M31 + matrix2.M31;
+			result.M32 = matrix1.M32 + matrix2.M32;
+			result.M33 = matrix1.M33 + matrix2.M33;
+			result.M34 = matrix1.M34 + matrix2.M34;
+			result.M41 = matrix1.M41 + matrix2.M41;
+			result.M42 = matrix1.M42 + matrix2.M42;
+			result.M43 = matrix1.M43 + matrix2.M43;
+			result.M44 = matrix1.M44 + matrix2.M44;
+			return result;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects.
 		/// </summary>
 		public static void Subtract (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
@@ -8383,72 +8369,374 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = matrix1.M43 - matrix2.M43;
 			result.M44 = matrix1.M44 - matrix2.M44;
 		}
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 - matrix2.M11;
+			result.M12 = matrix1.M12 - matrix2.M12;
+			result.M13 = matrix1.M13 - matrix2.M13;
+			result.M14 = matrix1.M14 - matrix2.M14;
+			result.M21 = matrix1.M21 - matrix2.M21;
+			result.M22 = matrix1.M22 - matrix2.M22;
+			result.M23 = matrix1.M23 - matrix2.M23;
+			result.M24 = matrix1.M24 - matrix2.M24;
+			result.M31 = matrix1.M31 - matrix2.M31;
+			result.M32 = matrix1.M32 - matrix2.M32;
+			result.M33 = matrix1.M33 - matrix2.M33;
+			result.M34 = matrix1.M34 - matrix2.M34;
+			result.M41 = matrix1.M41 - matrix2.M41;
+			result.M42 = matrix1.M42 - matrix2.M42;
+			result.M43 = matrix1.M43 - matrix2.M43;
+			result.M44 = matrix1.M44 - matrix2.M44;
+			return result;
+		}
+
+		// Negation Operators //----------------------------------------------//
 		
 		/// <summary>
-		/// todo
+		/// Performs negation of a Matrix44 object.
 		/// </summary>
-		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
 		{
-			Single num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			Single num15 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			Single num14 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			Single num13 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			Single num12 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			Single num11 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			Single num10 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			Single num9 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			Single num8 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			Single num7 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			Single num6 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			Single num5 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			Single num4 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			Single num3 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			Single num2 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			Single num = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			result.M11 = num16;
-			result.M12 = num15;
-			result.M13 = num14;
-			result.M14 = num13;
-			result.M21 = num12;
-			result.M22 = num11;
-			result.M23 = num10;
-			result.M24 = num9;
-			result.M31 = num8;
-			result.M32 = num7;
-			result.M33 = num6;
-			result.M34 = num5;
-			result.M41 = num4;
-			result.M42 = num3;
-			result.M43 = num2;
-			result.M44 = num;
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
 		}
 
 		/// <summary>
-		/// todo
+		/// Performs negation of a Matrix44 object using the (-X) operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix)
+		{
+			Matrix44 result;
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+			return result;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects.
+		/// </summary>
+		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+		{	
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Single
+		/// precision scaling factor.
 		/// </summary>
 		public static void Multiply (ref Matrix44 matrix1, Single scaleFactor, out Matrix44 result)
 		{
-			Single num = scaleFactor;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
 		}
 
 		/// <summary>
-		/// todo
+		/// Performs muliplication of two Matrix44 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Single
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Single scaleFactor)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aMatrix44 object using the (x*Y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Single scaleFactor, Matrix44 matrix1)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Matrix44 objects.
 		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
@@ -8469,33 +8757,86 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = matrix1.M43 / matrix2.M43;
 			result.M44 = matrix1.M44 / matrix2.M44;
 		}
-		
+
 		/// <summary>
-		/// todo
+		/// Performs division of a Matrix44 object and a Single precision
+		/// scaling factor.
 		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, Single divider, out Matrix44 result)
 		{
-			Single one = 1;
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
+		}
 
-			Single num = one / divider;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+		/// <summary>
+		/// Performs division of two Matrix44 objects using the (X/Y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+
+			result.M11 = matrix1.M11 / matrix2.M11;
+			result.M12 = matrix1.M12 / matrix2.M12;
+			result.M13 = matrix1.M13 / matrix2.M13;
+			result.M14 = matrix1.M14 / matrix2.M14;
+			result.M21 = matrix1.M21 / matrix2.M21;
+			result.M22 = matrix1.M22 / matrix2.M22;
+			result.M23 = matrix1.M23 / matrix2.M23;
+			result.M24 = matrix1.M24 / matrix2.M24;
+			result.M31 = matrix1.M31 / matrix2.M31;
+			result.M32 = matrix1.M32 / matrix2.M32;
+			result.M33 = matrix1.M33 / matrix2.M33;
+			result.M34 = matrix1.M34 / matrix2.M34;
+			result.M41 = matrix1.M41 / matrix2.M41;
+			result.M42 = matrix1.M42 / matrix2.M42;
+			result.M43 = matrix1.M43 / matrix2.M43;
+			result.M44 = matrix1.M44 / matrix2.M44;
+
+			return result;
 		}
 		
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Single precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Single divider)
+		{
+			Matrix44 result;
+
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
+
+			return result;
+		}
+
 		/// <summary>
 		/// beware, doing this might not produce what you expect.  you likely
 		/// want to lerp between quaternions.
@@ -8523,7 +8864,7 @@ namespace Sungiant.Abacus.SinglePrecision
 			}
 
 	/// <summary>
-	/// todo
+	/// Single precision Quaternion.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Quaternion 
@@ -8577,28 +8918,6 @@ namespace Sungiant.Abacus.SinglePrecision
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Boolean Equals (Quaternion other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Boolean Equals (Object obj)
-		{
-
-			Boolean flag = false;
-			if (obj is Quaternion)
-			{
-				flag = this.Equals ((Quaternion)obj);
-			}
-			return flag;
 		}
 
 		/// <summary>
@@ -8793,15 +9112,18 @@ namespace Sungiant.Abacus.SinglePrecision
 		public static void Inverse (ref Quaternion quaternion, out Quaternion result)
 		{
 			Single one = 1;
-			Single num2 = ( ( (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) ) + 
-			                (quaternion.Z * quaternion.Z) ) + (quaternion.W * quaternion.W);
+			Single a =
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+			    (quaternion.Z * quaternion.Z) + 
+			    (quaternion.W * quaternion.W);
 
-			Single num = one / num2;
+			Single b = one / a;
 
-			result.X = -quaternion.X * num;
-			result.Y = -quaternion.Y * num;
-			result.Z = -quaternion.Z * num;
-			result.W = quaternion.W * num;
+			result.X = -quaternion.X * b;
+			result.Y = -quaternion.Y * b;
+			result.Z = -quaternion.Z * b;
+			result.W =  quaternion.W * b;
 		}
 		
 		/// <summary>
@@ -8809,8 +9131,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Single result)
 		{
-			result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + 
-			          (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+			result = 
+				(quaternion1.X * quaternion2.X) + 
+				(quaternion1.Y * quaternion2.Y) + 
+			    (quaternion1.Z * quaternion2.Z) + 
+			    (quaternion1.W * quaternion2.W);
 		}
 
 		/// <summary>
@@ -8822,18 +9147,21 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single y = value2.Y;
 			Single z = value2.Z;
 			Single w = value2.W;
-			Single num4 = value1.X;
-			Single num3 = value1.Y;
-			Single num2 = value1.Z;
-			Single num = value1.W;
-			Single num12 = (y * num2) - (z * num3);
-			Single num11 = (z * num4) - (x * num2);
-			Single num10 = (x * num3) - (y * num4);
-			Single num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
+
+			Single a = value1.X;
+			Single b = value1.Y;
+			Single c = value1.Z;
+			Single d = value1.W;
+
+			Single e = (y * c) - (z * b);
+			Single f = (z * a) - (x * c);
+			Single g = (x * b) - (y * a);
+			Single h = ((x * a) + (y * b)) + (z * c);
+
+			result.X = (x * d) + (a * w) + e;
+			result.Y = (y * d) + (b * w) + f;
+			result.Z = (z * d) + (c * w) + g;
+			result.W = (w * d) - h;
 		}
 
 		/// <summary>
@@ -8843,231 +9171,365 @@ namespace Sungiant.Abacus.SinglePrecision
 		{
 			Single one = 1;
 
-			Single num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-			Single num = one / RealMaths.Sqrt (num2);
-			result.X = quaternion.X * num;
-			result.Y = quaternion.Y * num;
-			result.Z = quaternion.Z * num;
-			result.W = quaternion.W * num;
+			Single a = 
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+				(quaternion.Z * quaternion.Z) + 
+				(quaternion.W * quaternion.W);
+
+			Single b = one / RealMaths.Sqrt (a);
+
+			result.X = quaternion.X * b;
+			result.Y = quaternion.Y * b;
+			result.Z = quaternion.Z * b;
+			result.W = quaternion.W * b;
 		}
 
+		// Equality Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Determines whether or not this Quaternion object is equal to another
+		/// object
 		/// </summary>
-		public static Quaternion operator - (Quaternion quaternion)
+		public override Boolean Equals (Object obj)
 		{
-			Quaternion quaternion2;
-			quaternion2.X = -quaternion.X;
-			quaternion2.Y = -quaternion.Y;
-			quaternion2.Z = -quaternion.Z;
-			quaternion2.W = -quaternion.W;
-			return quaternion2;
+			Boolean flag = false;
+			
+			if (obj is Quaternion)
+			{
+				flag = this.Equals ((Quaternion) obj);
+			}
+
+			return flag;
+		}
+
+		#region IEquatable<Quaternion>
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// Quaternion object.
+		/// </summary>
+		public Boolean Equals (Quaternion other)
+		{
+			return 
+				(this.X == other.X) && 
+				(this.Y == other.Y) && 
+				(this.Z == other.Z) && 
+				(this.W == other.W);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Quaternion value1, Quaternion value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
 		}
 		
 		/// <summary>
-		/// todo
+		/// Determines whether or not two Quaternion objects are not equal using
+		/// the (X!=Y) operator.
 		/// </summary>
-		public static Boolean operator == (Quaternion quaternion1, Quaternion quaternion2)
+		public static Boolean operator != (Quaternion value1, Quaternion value2)
 		{
-			return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
-		}
-		
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Boolean operator != (Quaternion quaternion1, Quaternion quaternion2)
-		{
-			if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
-				return !(quaternion1.W == quaternion2.W);
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
 			}
 			return true;
 		}
 
+		// Addition Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Performs addition of two Quaternion objects.
 		/// </summary>
-		public static Quaternion operator + (Quaternion quaternion1, Quaternion quaternion2)
+		public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects using the (X+Y) operator. 
+		/// </summary>
+		public static Quaternion operator + (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X + value2.X;
+			quat.Y = value1.Y + value2.Y;
+			quat.Z = value1.Z + value2.Z;
+			quat.W = value1.W + value2.W;
+			return quat;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects.
+		/// </summary>
+		public static void Subtract (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X - value2.X;
+			quat.Y = value1.Y - value2.Y;
+			quat.Z = value1.Z - value2.Z;
+			quat.W = value1.W - value2.W;
+			return quat;
+		}
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Quaternion object.
+		/// </summary>
+		public static void Negate (ref Quaternion value, out Quaternion result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Quaternion object using the (-X) operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value)
+		{
+			Quaternion quat;
+			quat.X = -value.X;
+			quat.Y = -value.Y;
+			quat.Z = -value.Z;
+			quat.W = -value.W;
+			return quat;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			Single x1 = value1.X;
+			Single y1 = value1.Y;
+			Single z1 = value1.Z;
+			Single w1 = value1.W;
+
+			Single x2 = value2.X;
+			Single y2 = value2.Y;
+			Single z2 = value2.Z;
+			Single w2 = value2.W;
+
+			Single a = (y1 * z2) - (z1 * y2);
+			Single b = (z1 * x2) - (x1 * z2);
+			Single c = (x1 * y2) - (y1 * x2);
+			Single d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			result.X = ((x1 * w2) + (x2 * w1)) + a;
+			result.Y = ((y1 * w2) + (y2 * w1)) + b;
+			result.Z = ((z1 * w2) + (z2 * w1)) + c;
+			result.W = (w1 * w2) - d;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Single
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, Single scaleFactor, out Quaternion result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Quaternion value2)
 		{
 			Quaternion quaternion;
-			quaternion.X = quaternion1.X + quaternion2.X;
-			quaternion.Y = quaternion1.Y + quaternion2.Y;
-			quaternion.Z = quaternion1.Z + quaternion2.Z;
-			quaternion.W = quaternion1.W + quaternion2.W;
+			
+			Single x1 = value1.X;
+			Single y1 = value1.Y;
+			Single z1 = value1.Z;
+			Single w1 = value1.W;
+
+			Single x2 = value2.X;
+			Single y2 = value2.Y;
+			Single z2 = value2.Z;
+			Single w2 = value2.W;
+
+			Single a = (y1 * z2) - (z1 * y2);
+			Single b = (z1 * x2) - (x1 * z2);
+			Single c = (x1 * y2) - (y1 * x2);
+			Single d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			quaternion.X = ((x1 * w2) + (x2 * w1)) + a;
+			quaternion.Y = ((y1 * w2) + (y2 * w1)) + b;
+			quaternion.Z = ((z1 * w2) + (z2 * w1)) + c;
+			quaternion.W = (w1 * w2) - d;
+
 			return quaternion;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs multiplication of a Quaternion object and a Single
+		/// precision scaling factor using the (X*y) operator.
 		/// </summary>
-		public static Quaternion operator - (Quaternion quaternion1, Quaternion quaternion2)
+		public static Quaternion operator * (Quaternion value1, Single scaleFactor)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X - quaternion2.X;
-			quaternion.Y = quaternion1.Y - quaternion2.Y;
-			quaternion.Z = quaternion1.Z - quaternion2.Z;
-			quaternion.W = quaternion1.W - quaternion2.W;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aQuaternion object using the (x*Y) operator.
 		/// </summary>
-		public static Quaternion operator * (Quaternion quaternion1, Quaternion quaternion2)
+		public static Quaternion operator * (Single scaleFactor, Quaternion value1)
 		{
-			Quaternion quaternion;
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num4 = quaternion2.X;
-			Single num3 = quaternion2.Y;
-			Single num2 = quaternion2.Z;
-			Single num = quaternion2.W;
-			Single num12 = (y * num2) - (z * num3);
-			Single num11 = (z * num4) - (x * num2);
-			Single num10 = (x * num3) - (y * num4);
-			Single num9 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num12;
-			quaternion.Y = ((y * num) + (num3 * w)) + num11;
-			quaternion.Z = ((z * num) + (num2 * w)) + num10;
-			quaternion.W = (w * num) - num9;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
+		// Division Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Performs division of two Quaternion objects.
 		/// </summary>
-		public static Quaternion operator * (Quaternion quaternion1, Single scaleFactor)
+		public static void Divide (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X * scaleFactor;
-			quaternion.Y = quaternion1.Y * scaleFactor;
-			quaternion.Z = quaternion1.Z * scaleFactor;
-			quaternion.W = quaternion1.W * scaleFactor;
-			return quaternion;
+			Single one = 1;
+
+			Single x = value1.X;
+			Single y = value1.Y;
+			Single z = value1.Z;
+			Single w = value1.W;
+
+			Single a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Single b = one / a;
+
+			Single c = -value2.X * b;
+			Single d = -value2.Y * b;
+			Single e = -value2.Z * b;
+			Single f = value2.W * b;
+
+			Single g = (y * e) - (z * d);
+			Single h = (z * c) - (x * e);
+			Single i = (x * d) - (y * c);
+			Single j = ((x * c) + (y * d)) + (z * e);
+
+			result.X = ((x * f) + (c * w)) + g;
+			result.Y = ((y * f) + (d * w)) + h;
+			result.Z = ((z * f) + (e * w)) + i;
+			result.W = (w * f) - j;
 		}
-		
+
 		/// <summary>
-		/// todo
+		/// Performs division of a Quaternion object and a Single precision
+		/// scaling factor.
 		/// </summary>
-		public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
+		public static void Divide (ref Quaternion value1, Single divider, out Quaternion result)
+		{
+			Single one = 1;
+			Single a = one / divider;
+
+			result.X = value1.X * a;
+			result.Y = value1.Y * a;
+			result.Z = value1.Z * a;
+			result.W = value1.W * a;
+		}
+
+		/// <summary>
+		/// Performs division of two Quaternion objects using the (X/Y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Quaternion value2)
 		{
 			Single one = 1;
 
 			Quaternion quaternion;
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Single num5 = one / num14;
-			Single num4 = -quaternion2.X * num5;
-			Single num3 = -quaternion2.Y * num5;
-			Single num2 = -quaternion2.Z * num5;
-			Single num = quaternion2.W * num5;
-			Single num13 = (y * num2) - (z * num3);
-			Single num12 = (z * num4) - (x * num2);
-			Single num11 = (x * num3) - (y * num4);
-			Single num10 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num13;
-			quaternion.Y = ((y * num) + (num3 * w)) + num12;
-			quaternion.Z = ((z * num) + (num2 * w)) + num11;
-			quaternion.W = (w * num) - num10;
+
+			Single x = value1.X;
+			Single y = value1.Y;
+			Single z = value1.Z;
+			Single w = value1.W;
+
+			Single a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Single b = one / a;
+
+			Single c = -value2.X * b;
+			Single d = -value2.Y * b;
+			Single e = -value2.Z * b;
+			Single f =  value2.W * b;
+
+			Single g = (y * e) - (z * d);
+			Single h = (z * c) - (x * e);
+			Single i = (x * d) - (y * c);
+			Single j = (x * c) + (y * d) + (z * e);
+
+			quaternion.X = (x * f) + (c * w) + g;
+			quaternion.Y = (y * f) + (d * w) + h;
+			quaternion.Z = (z * f) + (e * w) + i;
+			quaternion.W = (w * f) - j;
+
 			return quaternion;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Negate (ref Quaternion quaternion, out Quaternion result)
-		{
-			result.X = -quaternion.X;
-			result.Y = -quaternion.Y;
-			result.Z = -quaternion.Z;
-			result.W = -quaternion.W;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Add (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X + quaternion2.X;
-			result.Y = quaternion1.Y + quaternion2.Y;
-			result.Z = quaternion1.Z + quaternion2.Z;
-			result.W = quaternion1.W + quaternion2.W;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs division of a Quaternion object and a Single precision
+		/// scaling factor using the (X/y) operator.
 		/// </summary>
-		public static void Subtract (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X - quaternion2.X;
-			result.Y = quaternion1.Y - quaternion2.Y;
-			result.Z = quaternion1.Z - quaternion2.Z;
-			result.W = quaternion1.W - quaternion2.W;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Multiply (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num4 = quaternion2.X;
-			Single num3 = quaternion2.Y;
-			Single num2 = quaternion2.Z;
-			Single num = quaternion2.W;
-			Single num12 = (y * num2) - (z * num3);
-			Single num11 = (z * num4) - (x * num2);
-			Single num10 = (x * num3) - (y * num4);
-			Single num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Multiply (ref Quaternion quaternion1, Single scaleFactor, out Quaternion result)
-		{
-			result.X = quaternion1.X * scaleFactor;
-			result.Y = quaternion1.Y * scaleFactor;
-			result.Z = quaternion1.Z * scaleFactor;
-			result.W = quaternion1.W * scaleFactor;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Divide (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+		public static Quaternion operator / (Quaternion value1, Single divider)
 		{
 			Single one = 1;
 
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Single num5 = one / num14;
-			Single num4 = -quaternion2.X * num5;
-			Single num3 = -quaternion2.Y * num5;
-			Single num2 = -quaternion2.Z * num5;
-			Single num = quaternion2.W * num5;
-			Single num13 = (y * num2) - (z * num3);
-			Single num12 = (z * num4) - (x * num2);
-			Single num11 = (x * num3) - (y * num4);
-			Single num10 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num13;
-			result.Y = ((y * num) + (num3 * w)) + num12;
-			result.Z = ((z * num) + (num2 * w)) + num11;
-			result.W = (w * num) - num10;
+			Quaternion quat;
+
+			Single num = one / divider;
+
+			quat.X = value1.X * num;
+			quat.Y = value1.Y * num;
+			quat.Z = value1.Z * num;
+			quat.W = value1.W * num;
+
+			return quat;
 		}
 
 		/// <summary>
@@ -9137,7 +9599,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W *= num3;
 		}
 
-	}	[StructLayout (LayoutKind.Sequential)]
+	}	/// <summary>
+	/// Single precision Vector2.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
 	public struct Vector2
 		: IEquatable<Vector2>
 	{
@@ -9852,6 +10317,9 @@ namespace Sungiant.Abacus.SinglePrecision
 
 	}
 
+	/// <summary>
+	/// Single precision Vector3.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Vector3 
 		: IEquatable<Vector3>
@@ -10625,6 +11093,9 @@ namespace Sungiant.Abacus.SinglePrecision
 		}
 	}
 
+	/// <summary>
+	/// Single precision Vector4.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Vector4 
 		: IEquatable<Vector4>
@@ -11431,12 +11902,12 @@ namespace Sungiant.Abacus.DoublePrecision
 	/// <summary>
 	/// todo
 	/// </summary>
-	public class GjkDistance
+	internal class GjkDistance
 	{
 		/// <summary>
 		/// todo
 		/// </summary>
-		public GjkDistance ()
+		internal GjkDistance ()
 		{
 			for (Int32 i = 0; i < 0x10; i++)
 			{
@@ -11447,7 +11918,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Boolean AddSupportPoint (ref Vector3 newPoint)
+		internal Boolean AddSupportPoint (ref Vector3 newPoint)
 		{
 			Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
@@ -11475,7 +11946,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public void Reset ()
+		internal void Reset ()
 		{
 			Double zero = 0;
 
@@ -11486,7 +11957,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Vector3 ClosestPoint
+		internal Vector3 ClosestPoint
 		{
 			get { return this.closestPoint; }
 		}
@@ -11494,7 +11965,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Boolean FullSimplex
+		internal Boolean FullSimplex
 		{
 			get { return (this.simplexBits == 15); }
 		}
@@ -11502,7 +11973,7 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Double MaxLengthSquared
+		internal Double MaxLengthSquared
 		{
 			get { return this.maxLengthSq; }
 		}
@@ -11769,92 +12240,204 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 	}
 	/// <summary>
-	/// todo
+	/// Double precision Matrix44.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
 		/// <summary>
-		/// Row 1, Column 1
+		/// Gets or sets (Row 1, Column 1) of the Matrix44.
 		/// </summary>
 		public Double M11;
 
 		/// <summary>
-		/// Row 1, Column 2
+		/// Gets or sets (Row 1, Column 2) of the Matrix44.
 		/// </summary>
 		public Double M12;
 
 		/// <summary>
-		/// Row 1, Column 3
+		/// Gets or sets (Row 1, Column 3) of the Matrix44.
 		/// </summary>
 		public Double M13;
 
 		/// <summary>
-		/// Row 1, Column 4
+		/// Gets or sets (Row 1, Column 4) of the Matrix44.
 		/// </summary>
 		public Double M14;
 
 		/// <summary>
-		/// Row 2, Column 1
+		/// Gets or sets (Row 2, Column 1) of the Matrix44.
 		/// </summary>
 		public Double M21;
 
 		/// <summary>
-		/// Row 2, Column 2
+		/// Gets or sets (Row 2, Column 2) of the Matrix44.
 		/// </summary>
 		public Double M22;
 
 		/// <summary>
-		/// Row 2, Column 3
+		/// Gets or sets (ow 2, Column 3) of the Matrix44.
 		/// </summary>
 		public Double M23;
 
 		/// <summary>
-		/// Row 2, Column 4
+		/// Gets or sets (Row 2, Column 4) of the Matrix44.
 		/// </summary>
 		public Double M24;
 
 		/// <summary>
-		/// Row 3, Column 1
+		/// Row 3, Column 1) of the Matrix44.
 		/// </summary>
 		public Double M31;
 
 		/// <summary>
-		/// Row 3, Column 2
+		/// Gets or sets (Row 3, Column 2) of the Matrix44.
 		/// </summary>
 		public Double M32;
 
 		/// <summary>
-		/// Row 3, Column 3
+		/// Gets or sets (Row 3, Column 3) of the Matrix44.
 		/// </summary>
 		public Double M33;
 
 		/// <summary>
-		/// Row 3, Column 4
+		/// Gets or sets (Row 3, Column 4) of the Matrix44.
 		/// </summary>
 		public Double M34;
 
 		/// <summary>
-		/// Row 4, Column 1
+		/// Gets or sets (Row 4, Column 1) of the Matrix44.
 		/// </summary>
 		public Double M41; // translation.x
 
 		/// <summary>
-		/// Row 4, Column 2
+		/// Gets or sets (Row 4, Column 2) of the Matrix44.
 		/// </summary>
 		public Double M42; // translation.y
 
 		/// <summary>
-		/// Row 4, Column 3
+		/// Gets or sets (Row 4, Column 3) of the Matrix44.
 		/// </summary>
 		public Double M43; // translation.z
 
 		/// <summary>
-		/// Row 4, Column 4
+		/// Gets or sets (Row 4, Column 4) of the Matrix44.
 		/// </summary>
 		public Double M44;
 		
+		/// <summary>
+		/// Initilises a new instance of Matrix44 from sixteen Double 
+		/// values representing the matrix, in row major order, respectively.
+		/// </summary>
+		public Matrix44 (
+			Double m11, 
+			Double m12, 
+			Double m13, 
+			Double m14, 
+			Double m21, 
+			Double m22, 
+			Double m23, 
+			Double m24, 
+			Double m31, 
+			Double m32, 
+			Double m33, 
+			Double m34, 
+			Double m41, 
+			Double m42, 
+			Double m43, 
+			Double m44)
+		{
+			this.M11 = m11;
+			this.M12 = m12;
+			this.M13 = m13;
+			this.M14 = m14;
+			this.M21 = m21;
+			this.M22 = m22;
+			this.M23 = m23;
+			this.M24 = m24;
+			this.M31 = m31;
+			this.M32 = m32;
+			this.M33 = m33;
+			this.M34 = m34;
+			this.M41 = m41;
+			this.M42 = m42;
+			this.M43 = m43;
+			this.M44 = m44;
+		}
+
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
+		{
+			return 
+				(
+					"{ " + 
+					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M11.ToString (), 
+							this.M12.ToString (), 
+							this.M13.ToString (), 
+							this.M14.ToString () 
+						}
+					) + 
+					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M21.ToString (), 
+							this.M22.ToString (), 
+							this.M23.ToString (), 
+							this.M24.ToString () 
+							}
+					) + 
+					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M31.ToString (), 
+							this.M32.ToString (), 
+							this.M33.ToString (), 
+							this.M34.ToString () 
+						}
+					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
+					new Object[] 
+					{ 
+						this.M41.ToString (), 
+						this.M42.ToString (), 
+						this.M43.ToString (), 
+						this.M44.ToString () 
+					}
+					) + 
+					"}"
+				);
+		}
+
+		/// <summary>
+		/// Gets the hash code of the Matrix44 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return 
+				(((((((((((((((
+					this.M11.GetHashCode () + 
+					this.M12.GetHashCode ()) + 
+					this.M13.GetHashCode ()) + 
+					this.M14.GetHashCode ()) + 
+					this.M21.GetHashCode ()) + 
+					this.M22.GetHashCode ()) + 
+					this.M23.GetHashCode ()) + 
+					this.M24.GetHashCode ()) + 
+					this.M31.GetHashCode ()) + 
+					this.M32.GetHashCode ()) + 
+					this.M33.GetHashCode ()) + 
+					this.M34.GetHashCode ()) + 
+					this.M41.GetHashCode ()) + 
+					this.M42.GetHashCode ()) + 
+					this.M43.GetHashCode ()) + 
+					this.M44.GetHashCode ());
+		}
+
 		/// <summary>
 		/// todo
 		/// </summary>
@@ -12000,154 +12583,6 @@ namespace Sungiant.Abacus.DoublePrecision
 				this.M42 = value.Y;
 				this.M43 = value.Z;
 			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Matrix44 (
-			Double m11, 
-			Double m12, 
-			Double m13, 
-			Double m14, 
-			Double m21, 
-			Double m22, 
-			Double m23, 
-			Double m24, 
-			Double m31, 
-			Double m32, 
-			Double m33, 
-			Double m34, 
-			Double m41, 
-			Double m42, 
-			Double m43, 
-			Double m44)
-		{
-			this.M11 = m11;
-			this.M12 = m12;
-			this.M13 = m13;
-			this.M14 = m14;
-			this.M21 = m21;
-			this.M22 = m22;
-			this.M23 = m23;
-			this.M24 = m24;
-			this.M31 = m31;
-			this.M32 = m32;
-			this.M33 = m33;
-			this.M34 = m34;
-			this.M41 = m41;
-			this.M42 = m42;
-			this.M43 = m43;
-			this.M44 = m44;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override String ToString ()
-		{
-			return 
-				(
-					"{ " + 
-					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
-						new Object[] 
-						{ 
-							this.M11.ToString (), 
-							this.M12.ToString (), 
-							this.M13.ToString (), 
-							this.M14.ToString () 
-						}
-					) + 
-					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
-						new Object[] 
-						{ 
-							this.M21.ToString (), 
-							this.M22.ToString (), 
-							this.M23.ToString (), 
-							this.M24.ToString () 
-							}
-					) + 
-					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
-						new Object[] 
-						{ 
-							this.M31.ToString (), 
-							this.M32.ToString (), 
-							this.M33.ToString (), 
-							this.M34.ToString () 
-						}
-					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
-					new Object[] 
-					{ 
-						this.M41.ToString (), 
-						this.M42.ToString (), 
-						this.M43.ToString (), 
-						this.M44.ToString () 
-					}
-					) + 
-					"}"
-				);
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Boolean Equals (Matrix44 other)
-		{
-			return 
-				((((((this.M11 == other.M11) && 
-				     (this.M22 == other.M22)) && 
-				    ((this.M33 == other.M33) && 
-				     (this.M44 == other.M44))) && 
-				   (((this.M12 == other.M12) && 
-				     (this.M13 == other.M13)) && 
-				    ((this.M14 == other.M14) && 
-				     (this.M21 == other.M21)))) && 
-				  ((((this.M23 == other.M23) && 
-				     (this.M24 == other.M24)) && 
-				    ((this.M31 == other.M31) && 
-				     (this.M32 == other.M32))) && 
-				   (((this.M34 == other.M34) && 
-				     (this.M41 == other.M41)) && 
-				     (this.M42 == other.M42)))) && 
-				     (this.M43 == other.M43));
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Matrix44)
-			{
-				flag = this.Equals ((Matrix44)obj);
-			}
-			return flag;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Int32 GetHashCode ()
-		{
-			return 
-				(((((((((((((((
-					this.M11.GetHashCode () + 
-					this.M12.GetHashCode ()) + 
-					this.M13.GetHashCode ()) + 
-					this.M14.GetHashCode ()) + 
-					this.M21.GetHashCode ()) + 
-					this.M22.GetHashCode ()) + 
-					this.M23.GetHashCode ()) + 
-					this.M24.GetHashCode ()) + 
-					this.M31.GetHashCode ()) + 
-					this.M32.GetHashCode ()) + 
-					this.M33.GetHashCode ()) + 
-					this.M34.GetHashCode ()) + 
-					this.M41.GetHashCode ()) + 
-					this.M42.GetHashCode ()) + 
-					this.M43.GetHashCode ()) + 
-					this.M44.GetHashCode ());
 		}
 
 		// Constants //-------------------------------------------------------//
@@ -12931,54 +13366,36 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// <summary>
 		/// todo
 		/// </summary>
-		public void Transpose()
-		{
-			Double temp = this.M12;
-			this.M12 = this.M21;
-			this.M21 = temp;
-
-			temp = this.M13;
-			this.M13 = this.M31;
-			this.M31 = temp;
-
-			temp = this.M14;
-			this.M14 = this.M41;
-			this.M41 = temp;
-
-			temp = this.M23;
-			this.M23 = this.M32;
-			this.M32 = temp;
-
-			temp = this.M24;
-			this.M24 = this.M42;
-			this.M42 = temp;
-
-			temp =  this.M34;
-			this.M34 = this.M43;
-			this.M43 = temp;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
 		public static void Transpose (ref Matrix44 input, out Matrix44 output)
 		{
-		    output.M11 = input.M11;
-			output.M12 = input.M21;
-			output.M13 = input.M31;
-			output.M14 = input.M41;
-			output.M21 = input.M12;
+			output.M11 = input.M11;
 			output.M22 = input.M22;
-			output.M23 = input.M32;
-			output.M24 = input.M42;
-			output.M31 = input.M13;
-			output.M32 = input.M23;
 			output.M33 = input.M33;
-			output.M34 = input.M43;
-			output.M41 = input.M14;
-			output.M42 = input.M24;
-			output.M43 = input.M34;
 			output.M44 = input.M44;
+
+			Double temp = input.M12;
+			output.M12 = input.M21;
+			output.M21 = temp;
+
+			temp = input.M13;
+			output.M13 = input.M31;
+			output.M31 = temp;
+
+			temp = input.M14;
+			output.M14 = input.M41;
+			output.M41 = temp;
+
+			temp = input.M23;
+			output.M23 = input.M32;
+			output.M32 = temp;
+
+			temp = input.M24;
+			output.M24 = input.M42;
+			output.M42 = temp;
+
+			temp =  input.M34;
+			output.M34 = input.M43;
+			output.M43 = temp;
 		}
 
 		/// <summary>
@@ -13213,254 +13630,94 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = num22;
 		}
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator - (Matrix44 matrix1)
-		{
-			Matrix44 matrix;
-			matrix.M11 = -matrix1.M11;
-			matrix.M12 = -matrix1.M12;
-			matrix.M13 = -matrix1.M13;
-			matrix.M14 = -matrix1.M14;
-			matrix.M21 = -matrix1.M21;
-			matrix.M22 = -matrix1.M22;
-			matrix.M23 = -matrix1.M23;
-			matrix.M24 = -matrix1.M24;
-			matrix.M31 = -matrix1.M31;
-			matrix.M32 = -matrix1.M32;
-			matrix.M33 = -matrix1.M33;
-			matrix.M34 = -matrix1.M34;
-			matrix.M41 = -matrix1.M41;
-			matrix.M42 = -matrix1.M42;
-			matrix.M43 = -matrix1.M43;
-			matrix.M44 = -matrix1.M44;
-			return matrix;
-		}
+		// Equality Operators //----------------------------------------------//
 
 		/// <summary>
-		/// todo
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+
+			if (obj is Matrix44)
+			{
+				flag = this.Equals ((Matrix44) obj);
+			}
+			
+			return flag;
+		}
+
+		#region IEquatable<Matrix44>
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// Matrix44 object.
+		/// </summary>
+		public Boolean Equals (Matrix44 other)
+		{
+			return 
+				(this.M11 == other.M11) && 
+				(this.M22 == other.M22) && 
+				(this.M33 == other.M33) && 
+				(this.M44 == other.M44) && 
+				(this.M12 == other.M12) && 
+				(this.M13 == other.M13) && 
+				(this.M14 == other.M14) && 
+				(this.M21 == other.M21) && 
+				(this.M23 == other.M23) && 
+				(this.M24 == other.M24) && 
+				(this.M31 == other.M31) && 
+				(this.M32 == other.M32) && 
+				(this.M34 == other.M34) && 
+				(this.M41 == other.M41) && 
+				(this.M42 == other.M42) && 
+				(this.M43 == other.M43);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are equal using the
+		/// (X==Y) operator.
 		/// </summary>
 		public static Boolean operator == (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			return ((((((matrix1.M11 == matrix2.M11) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M44 == matrix2.M44))) && (((matrix1.M12 == matrix2.M12) && (matrix1.M13 == matrix2.M13)) && ((matrix1.M14 == matrix2.M14) && (matrix1.M21 == matrix2.M21)))) && ((((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)) && ((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32))) && (((matrix1.M34 == matrix2.M34) && (matrix1.M41 == matrix2.M41)) && (matrix1.M42 == matrix2.M42)))) && (matrix1.M43 == matrix2.M43));
 		}
-
+		
 		/// <summary>
-		/// todo
+		/// Determines whether or not two Matrix44 objects are not equal using
+		/// the (X!=Y) operator.
 		/// </summary>
 		public static Boolean operator != (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			if (((((matrix1.M11 == matrix2.M11) && (matrix1.M12 == matrix2.M12)) && ((matrix1.M13 == matrix2.M13) && (matrix1.M14 == matrix2.M14))) && (((matrix1.M21 == matrix2.M21) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)))) && ((((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M34 == matrix2.M34))) && (((matrix1.M41 == matrix2.M41) && (matrix1.M42 == matrix2.M42)) && (matrix1.M43 == matrix2.M43)))) {
+			if ((matrix1.M11 == matrix2.M11) && 
+				(matrix1.M12 == matrix2.M12) && 
+				(matrix1.M13 == matrix2.M13) && 
+				(matrix1.M14 == matrix2.M14) && 
+				(matrix1.M21 == matrix2.M21) && 
+				(matrix1.M22 == matrix2.M22) && 
+				(matrix1.M23 == matrix2.M23) && 
+				(matrix1.M24 == matrix2.M24) && 
+				(matrix1.M31 == matrix2.M31) && 
+				(matrix1.M32 == matrix2.M32) && 
+				(matrix1.M33 == matrix2.M33) && 
+				(matrix1.M34 == matrix2.M34) && 
+				(matrix1.M41 == matrix2.M41) && 
+				(matrix1.M42 == matrix2.M42) && 
+				(matrix1.M43 == matrix2.M43))
+			{
 				return !(matrix1.M44 == matrix2.M44);
 			}
+
 			return true;
 		}
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 + matrix2.M11;
-			matrix.M12 = matrix1.M12 + matrix2.M12;
-			matrix.M13 = matrix1.M13 + matrix2.M13;
-			matrix.M14 = matrix1.M14 + matrix2.M14;
-			matrix.M21 = matrix1.M21 + matrix2.M21;
-			matrix.M22 = matrix1.M22 + matrix2.M22;
-			matrix.M23 = matrix1.M23 + matrix2.M23;
-			matrix.M24 = matrix1.M24 + matrix2.M24;
-			matrix.M31 = matrix1.M31 + matrix2.M31;
-			matrix.M32 = matrix1.M32 + matrix2.M32;
-			matrix.M33 = matrix1.M33 + matrix2.M33;
-			matrix.M34 = matrix1.M34 + matrix2.M34;
-			matrix.M41 = matrix1.M41 + matrix2.M41;
-			matrix.M42 = matrix1.M42 + matrix2.M42;
-			matrix.M43 = matrix1.M43 + matrix2.M43;
-			matrix.M44 = matrix1.M44 + matrix2.M44;
-			return matrix;
-		}
+		// Addition Operators //----------------------------------------------//
 
 		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 - matrix2.M11;
-			matrix.M12 = matrix1.M12 - matrix2.M12;
-			matrix.M13 = matrix1.M13 - matrix2.M13;
-			matrix.M14 = matrix1.M14 - matrix2.M14;
-			matrix.M21 = matrix1.M21 - matrix2.M21;
-			matrix.M22 = matrix1.M22 - matrix2.M22;
-			matrix.M23 = matrix1.M23 - matrix2.M23;
-			matrix.M24 = matrix1.M24 - matrix2.M24;
-			matrix.M31 = matrix1.M31 - matrix2.M31;
-			matrix.M32 = matrix1.M32 - matrix2.M32;
-			matrix.M33 = matrix1.M33 - matrix2.M33;
-			matrix.M34 = matrix1.M34 - matrix2.M34;
-			matrix.M41 = matrix1.M41 - matrix2.M41;
-			matrix.M42 = matrix1.M42 - matrix2.M42;
-			matrix.M43 = matrix1.M43 - matrix2.M43;
-			matrix.M44 = matrix1.M44 - matrix2.M44;
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			matrix.M12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			matrix.M13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			matrix.M14 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			matrix.M21 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			matrix.M22 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			matrix.M23 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			matrix.M24 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			matrix.M31 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			matrix.M32 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			matrix.M33 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			matrix.M34 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			matrix.M41 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			matrix.M42 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			matrix.M43 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			matrix.M44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator * (Matrix44 matrix, Double scaleFactor)
-		{
-			Matrix44 matrix2;
-			Double num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator * (Double scaleFactor, Matrix44 matrix)
-		{
-			Matrix44 matrix2;
-			Double num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 / matrix2.M11;
-			matrix.M12 = matrix1.M12 / matrix2.M12;
-			matrix.M13 = matrix1.M13 / matrix2.M13;
-			matrix.M14 = matrix1.M14 / matrix2.M14;
-			matrix.M21 = matrix1.M21 / matrix2.M21;
-			matrix.M22 = matrix1.M22 / matrix2.M22;
-			matrix.M23 = matrix1.M23 / matrix2.M23;
-			matrix.M24 = matrix1.M24 / matrix2.M24;
-			matrix.M31 = matrix1.M31 / matrix2.M31;
-			matrix.M32 = matrix1.M32 / matrix2.M32;
-			matrix.M33 = matrix1.M33 / matrix2.M33;
-			matrix.M34 = matrix1.M34 / matrix2.M34;
-			matrix.M41 = matrix1.M41 / matrix2.M41;
-			matrix.M42 = matrix1.M42 / matrix2.M42;
-			matrix.M43 = matrix1.M43 / matrix2.M43;
-			matrix.M44 = matrix1.M44 / matrix2.M44;
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Matrix44 operator / (Matrix44 matrix1, Double divider)
-		{
-			Matrix44 matrix;
-			Double one = 1;
-			Double num = one / divider;
-			matrix.M11 = matrix1.M11 * num;
-			matrix.M12 = matrix1.M12 * num;
-			matrix.M13 = matrix1.M13 * num;
-			matrix.M14 = matrix1.M14 * num;
-			matrix.M21 = matrix1.M21 * num;
-			matrix.M22 = matrix1.M22 * num;
-			matrix.M23 = matrix1.M23 * num;
-			matrix.M24 = matrix1.M24 * num;
-			matrix.M31 = matrix1.M31 * num;
-			matrix.M32 = matrix1.M32 * num;
-			matrix.M33 = matrix1.M33 * num;
-			matrix.M34 = matrix1.M34 * num;
-			matrix.M41 = matrix1.M41 * num;
-			matrix.M42 = matrix1.M42 * num;
-			matrix.M43 = matrix1.M43 * num;
-			matrix.M44 = matrix1.M44 * num;
-			return matrix;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
-		{
-			result.M11 = -matrix.M11;
-			result.M12 = -matrix.M12;
-			result.M13 = -matrix.M13;
-			result.M14 = -matrix.M14;
-			result.M21 = -matrix.M21;
-			result.M22 = -matrix.M22;
-			result.M23 = -matrix.M23;
-			result.M24 = -matrix.M24;
-			result.M31 = -matrix.M31;
-			result.M32 = -matrix.M32;
-			result.M33 = -matrix.M33;
-			result.M34 = -matrix.M34;
-			result.M41 = -matrix.M41;
-			result.M42 = -matrix.M42;
-			result.M43 = -matrix.M43;
-			result.M44 = -matrix.M44;
-		}
-
-		/// <summary>
-		/// todo
+		/// Performs addition of two Matrix44 objects.
 		/// </summary>
 		public static void Add (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
@@ -13483,7 +13740,34 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 
 		/// <summary>
-		/// todo
+		/// Performs addition of two Matrix44 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 + matrix2.M11;
+			result.M12 = matrix1.M12 + matrix2.M12;
+			result.M13 = matrix1.M13 + matrix2.M13;
+			result.M14 = matrix1.M14 + matrix2.M14;
+			result.M21 = matrix1.M21 + matrix2.M21;
+			result.M22 = matrix1.M22 + matrix2.M22;
+			result.M23 = matrix1.M23 + matrix2.M23;
+			result.M24 = matrix1.M24 + matrix2.M24;
+			result.M31 = matrix1.M31 + matrix2.M31;
+			result.M32 = matrix1.M32 + matrix2.M32;
+			result.M33 = matrix1.M33 + matrix2.M33;
+			result.M34 = matrix1.M34 + matrix2.M34;
+			result.M41 = matrix1.M41 + matrix2.M41;
+			result.M42 = matrix1.M42 + matrix2.M42;
+			result.M43 = matrix1.M43 + matrix2.M43;
+			result.M44 = matrix1.M44 + matrix2.M44;
+			return result;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects.
 		/// </summary>
 		public static void Subtract (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
@@ -13504,72 +13788,374 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = matrix1.M43 - matrix2.M43;
 			result.M44 = matrix1.M44 - matrix2.M44;
 		}
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 - matrix2.M11;
+			result.M12 = matrix1.M12 - matrix2.M12;
+			result.M13 = matrix1.M13 - matrix2.M13;
+			result.M14 = matrix1.M14 - matrix2.M14;
+			result.M21 = matrix1.M21 - matrix2.M21;
+			result.M22 = matrix1.M22 - matrix2.M22;
+			result.M23 = matrix1.M23 - matrix2.M23;
+			result.M24 = matrix1.M24 - matrix2.M24;
+			result.M31 = matrix1.M31 - matrix2.M31;
+			result.M32 = matrix1.M32 - matrix2.M32;
+			result.M33 = matrix1.M33 - matrix2.M33;
+			result.M34 = matrix1.M34 - matrix2.M34;
+			result.M41 = matrix1.M41 - matrix2.M41;
+			result.M42 = matrix1.M42 - matrix2.M42;
+			result.M43 = matrix1.M43 - matrix2.M43;
+			result.M44 = matrix1.M44 - matrix2.M44;
+			return result;
+		}
+
+		// Negation Operators //----------------------------------------------//
 		
 		/// <summary>
-		/// todo
+		/// Performs negation of a Matrix44 object.
 		/// </summary>
-		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
 		{
-			Double num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			Double num15 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			Double num14 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			Double num13 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			Double num12 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			Double num11 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			Double num10 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			Double num9 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			Double num8 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			Double num7 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			Double num6 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			Double num5 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			Double num4 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			Double num3 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			Double num2 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			Double num = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			result.M11 = num16;
-			result.M12 = num15;
-			result.M13 = num14;
-			result.M14 = num13;
-			result.M21 = num12;
-			result.M22 = num11;
-			result.M23 = num10;
-			result.M24 = num9;
-			result.M31 = num8;
-			result.M32 = num7;
-			result.M33 = num6;
-			result.M34 = num5;
-			result.M41 = num4;
-			result.M42 = num3;
-			result.M43 = num2;
-			result.M44 = num;
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
 		}
 
 		/// <summary>
-		/// todo
+		/// Performs negation of a Matrix44 object using the (-X) operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix)
+		{
+			Matrix44 result;
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+			return result;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects.
+		/// </summary>
+		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+		{	
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Double
+		/// precision scaling factor.
 		/// </summary>
 		public static void Multiply (ref Matrix44 matrix1, Double scaleFactor, out Matrix44 result)
 		{
-			Double num = scaleFactor;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
 		}
 
 		/// <summary>
-		/// todo
+		/// Performs muliplication of two Matrix44 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Double
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Double scaleFactor)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aMatrix44 object using the (x*Y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Double scaleFactor, Matrix44 matrix1)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Matrix44 objects.
 		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
@@ -13590,33 +14176,86 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = matrix1.M43 / matrix2.M43;
 			result.M44 = matrix1.M44 / matrix2.M44;
 		}
-		
+
 		/// <summary>
-		/// todo
+		/// Performs division of a Matrix44 object and a Double precision
+		/// scaling factor.
 		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, Double divider, out Matrix44 result)
 		{
-			Double one = 1;
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
+		}
 
-			Double num = one / divider;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+		/// <summary>
+		/// Performs division of two Matrix44 objects using the (X/Y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+
+			result.M11 = matrix1.M11 / matrix2.M11;
+			result.M12 = matrix1.M12 / matrix2.M12;
+			result.M13 = matrix1.M13 / matrix2.M13;
+			result.M14 = matrix1.M14 / matrix2.M14;
+			result.M21 = matrix1.M21 / matrix2.M21;
+			result.M22 = matrix1.M22 / matrix2.M22;
+			result.M23 = matrix1.M23 / matrix2.M23;
+			result.M24 = matrix1.M24 / matrix2.M24;
+			result.M31 = matrix1.M31 / matrix2.M31;
+			result.M32 = matrix1.M32 / matrix2.M32;
+			result.M33 = matrix1.M33 / matrix2.M33;
+			result.M34 = matrix1.M34 / matrix2.M34;
+			result.M41 = matrix1.M41 / matrix2.M41;
+			result.M42 = matrix1.M42 / matrix2.M42;
+			result.M43 = matrix1.M43 / matrix2.M43;
+			result.M44 = matrix1.M44 / matrix2.M44;
+
+			return result;
 		}
 		
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Double precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Double divider)
+		{
+			Matrix44 result;
+
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
+
+			return result;
+		}
+
 		/// <summary>
 		/// beware, doing this might not produce what you expect.  you likely
 		/// want to lerp between quaternions.
@@ -13644,7 +14283,7 @@ namespace Sungiant.Abacus.DoublePrecision
 			}
 
 	/// <summary>
-	/// todo
+	/// Double precision Quaternion.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Quaternion 
@@ -13698,28 +14337,6 @@ namespace Sungiant.Abacus.DoublePrecision
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Boolean Equals (Quaternion other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Boolean Equals (Object obj)
-		{
-
-			Boolean flag = false;
-			if (obj is Quaternion)
-			{
-				flag = this.Equals ((Quaternion)obj);
-			}
-			return flag;
 		}
 
 		/// <summary>
@@ -13914,15 +14531,18 @@ namespace Sungiant.Abacus.DoublePrecision
 		public static void Inverse (ref Quaternion quaternion, out Quaternion result)
 		{
 			Double one = 1;
-			Double num2 = ( ( (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) ) + 
-			                (quaternion.Z * quaternion.Z) ) + (quaternion.W * quaternion.W);
+			Double a =
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+			    (quaternion.Z * quaternion.Z) + 
+			    (quaternion.W * quaternion.W);
 
-			Double num = one / num2;
+			Double b = one / a;
 
-			result.X = -quaternion.X * num;
-			result.Y = -quaternion.Y * num;
-			result.Z = -quaternion.Z * num;
-			result.W = quaternion.W * num;
+			result.X = -quaternion.X * b;
+			result.Y = -quaternion.Y * b;
+			result.Z = -quaternion.Z * b;
+			result.W =  quaternion.W * b;
 		}
 		
 		/// <summary>
@@ -13930,8 +14550,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Double result)
 		{
-			result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + 
-			          (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+			result = 
+				(quaternion1.X * quaternion2.X) + 
+				(quaternion1.Y * quaternion2.Y) + 
+			    (quaternion1.Z * quaternion2.Z) + 
+			    (quaternion1.W * quaternion2.W);
 		}
 
 		/// <summary>
@@ -13943,18 +14566,21 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double y = value2.Y;
 			Double z = value2.Z;
 			Double w = value2.W;
-			Double num4 = value1.X;
-			Double num3 = value1.Y;
-			Double num2 = value1.Z;
-			Double num = value1.W;
-			Double num12 = (y * num2) - (z * num3);
-			Double num11 = (z * num4) - (x * num2);
-			Double num10 = (x * num3) - (y * num4);
-			Double num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
+
+			Double a = value1.X;
+			Double b = value1.Y;
+			Double c = value1.Z;
+			Double d = value1.W;
+
+			Double e = (y * c) - (z * b);
+			Double f = (z * a) - (x * c);
+			Double g = (x * b) - (y * a);
+			Double h = ((x * a) + (y * b)) + (z * c);
+
+			result.X = (x * d) + (a * w) + e;
+			result.Y = (y * d) + (b * w) + f;
+			result.Z = (z * d) + (c * w) + g;
+			result.W = (w * d) - h;
 		}
 
 		/// <summary>
@@ -13964,231 +14590,365 @@ namespace Sungiant.Abacus.DoublePrecision
 		{
 			Double one = 1;
 
-			Double num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-			Double num = one / RealMaths.Sqrt (num2);
-			result.X = quaternion.X * num;
-			result.Y = quaternion.Y * num;
-			result.Z = quaternion.Z * num;
-			result.W = quaternion.W * num;
+			Double a = 
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+				(quaternion.Z * quaternion.Z) + 
+				(quaternion.W * quaternion.W);
+
+			Double b = one / RealMaths.Sqrt (a);
+
+			result.X = quaternion.X * b;
+			result.Y = quaternion.Y * b;
+			result.Z = quaternion.Z * b;
+			result.W = quaternion.W * b;
 		}
 
+		// Equality Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Determines whether or not this Quaternion object is equal to another
+		/// object
 		/// </summary>
-		public static Quaternion operator - (Quaternion quaternion)
+		public override Boolean Equals (Object obj)
 		{
-			Quaternion quaternion2;
-			quaternion2.X = -quaternion.X;
-			quaternion2.Y = -quaternion.Y;
-			quaternion2.Z = -quaternion.Z;
-			quaternion2.W = -quaternion.W;
-			return quaternion2;
+			Boolean flag = false;
+			
+			if (obj is Quaternion)
+			{
+				flag = this.Equals ((Quaternion) obj);
+			}
+
+			return flag;
+		}
+
+		#region IEquatable<Quaternion>
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// Quaternion object.
+		/// </summary>
+		public Boolean Equals (Quaternion other)
+		{
+			return 
+				(this.X == other.X) && 
+				(this.Y == other.Y) && 
+				(this.Z == other.Z) && 
+				(this.W == other.W);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Quaternion value1, Quaternion value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
 		}
 		
 		/// <summary>
-		/// todo
+		/// Determines whether or not two Quaternion objects are not equal using
+		/// the (X!=Y) operator.
 		/// </summary>
-		public static Boolean operator == (Quaternion quaternion1, Quaternion quaternion2)
+		public static Boolean operator != (Quaternion value1, Quaternion value2)
 		{
-			return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
-		}
-		
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Boolean operator != (Quaternion quaternion1, Quaternion quaternion2)
-		{
-			if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
-				return !(quaternion1.W == quaternion2.W);
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
 			}
 			return true;
 		}
 
+		// Addition Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Performs addition of two Quaternion objects.
 		/// </summary>
-		public static Quaternion operator + (Quaternion quaternion1, Quaternion quaternion2)
+		public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects using the (X+Y) operator. 
+		/// </summary>
+		public static Quaternion operator + (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X + value2.X;
+			quat.Y = value1.Y + value2.Y;
+			quat.Z = value1.Z + value2.Z;
+			quat.W = value1.W + value2.W;
+			return quat;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects.
+		/// </summary>
+		public static void Subtract (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X - value2.X;
+			quat.Y = value1.Y - value2.Y;
+			quat.Z = value1.Z - value2.Z;
+			quat.W = value1.W - value2.W;
+			return quat;
+		}
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Quaternion object.
+		/// </summary>
+		public static void Negate (ref Quaternion value, out Quaternion result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Quaternion object using the (-X) operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value)
+		{
+			Quaternion quat;
+			quat.X = -value.X;
+			quat.Y = -value.Y;
+			quat.Z = -value.Z;
+			quat.W = -value.W;
+			return quat;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			Double x1 = value1.X;
+			Double y1 = value1.Y;
+			Double z1 = value1.Z;
+			Double w1 = value1.W;
+
+			Double x2 = value2.X;
+			Double y2 = value2.Y;
+			Double z2 = value2.Z;
+			Double w2 = value2.W;
+
+			Double a = (y1 * z2) - (z1 * y2);
+			Double b = (z1 * x2) - (x1 * z2);
+			Double c = (x1 * y2) - (y1 * x2);
+			Double d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			result.X = ((x1 * w2) + (x2 * w1)) + a;
+			result.Y = ((y1 * w2) + (y2 * w1)) + b;
+			result.Z = ((z1 * w2) + (z2 * w1)) + c;
+			result.W = (w1 * w2) - d;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Double
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, Double scaleFactor, out Quaternion result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Quaternion value2)
 		{
 			Quaternion quaternion;
-			quaternion.X = quaternion1.X + quaternion2.X;
-			quaternion.Y = quaternion1.Y + quaternion2.Y;
-			quaternion.Z = quaternion1.Z + quaternion2.Z;
-			quaternion.W = quaternion1.W + quaternion2.W;
+			
+			Double x1 = value1.X;
+			Double y1 = value1.Y;
+			Double z1 = value1.Z;
+			Double w1 = value1.W;
+
+			Double x2 = value2.X;
+			Double y2 = value2.Y;
+			Double z2 = value2.Z;
+			Double w2 = value2.W;
+
+			Double a = (y1 * z2) - (z1 * y2);
+			Double b = (z1 * x2) - (x1 * z2);
+			Double c = (x1 * y2) - (y1 * x2);
+			Double d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			quaternion.X = ((x1 * w2) + (x2 * w1)) + a;
+			quaternion.Y = ((y1 * w2) + (y2 * w1)) + b;
+			quaternion.Z = ((z1 * w2) + (z2 * w1)) + c;
+			quaternion.W = (w1 * w2) - d;
+
 			return quaternion;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs multiplication of a Quaternion object and a Double
+		/// precision scaling factor using the (X*y) operator.
 		/// </summary>
-		public static Quaternion operator - (Quaternion quaternion1, Quaternion quaternion2)
+		public static Quaternion operator * (Quaternion value1, Double scaleFactor)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X - quaternion2.X;
-			quaternion.Y = quaternion1.Y - quaternion2.Y;
-			quaternion.Z = quaternion1.Z - quaternion2.Z;
-			quaternion.W = quaternion1.W - quaternion2.W;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aQuaternion object using the (x*Y) operator.
 		/// </summary>
-		public static Quaternion operator * (Quaternion quaternion1, Quaternion quaternion2)
+		public static Quaternion operator * (Double scaleFactor, Quaternion value1)
 		{
-			Quaternion quaternion;
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num4 = quaternion2.X;
-			Double num3 = quaternion2.Y;
-			Double num2 = quaternion2.Z;
-			Double num = quaternion2.W;
-			Double num12 = (y * num2) - (z * num3);
-			Double num11 = (z * num4) - (x * num2);
-			Double num10 = (x * num3) - (y * num4);
-			Double num9 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num12;
-			quaternion.Y = ((y * num) + (num3 * w)) + num11;
-			quaternion.Z = ((z * num) + (num2 * w)) + num10;
-			quaternion.W = (w * num) - num9;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
+		// Division Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Performs division of two Quaternion objects.
 		/// </summary>
-		public static Quaternion operator * (Quaternion quaternion1, Double scaleFactor)
+		public static void Divide (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X * scaleFactor;
-			quaternion.Y = quaternion1.Y * scaleFactor;
-			quaternion.Z = quaternion1.Z * scaleFactor;
-			quaternion.W = quaternion1.W * scaleFactor;
-			return quaternion;
+			Double one = 1;
+
+			Double x = value1.X;
+			Double y = value1.Y;
+			Double z = value1.Z;
+			Double w = value1.W;
+
+			Double a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Double b = one / a;
+
+			Double c = -value2.X * b;
+			Double d = -value2.Y * b;
+			Double e = -value2.Z * b;
+			Double f = value2.W * b;
+
+			Double g = (y * e) - (z * d);
+			Double h = (z * c) - (x * e);
+			Double i = (x * d) - (y * c);
+			Double j = ((x * c) + (y * d)) + (z * e);
+
+			result.X = ((x * f) + (c * w)) + g;
+			result.Y = ((y * f) + (d * w)) + h;
+			result.Z = ((z * f) + (e * w)) + i;
+			result.W = (w * f) - j;
 		}
-		
+
 		/// <summary>
-		/// todo
+		/// Performs division of a Quaternion object and a Double precision
+		/// scaling factor.
 		/// </summary>
-		public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
+		public static void Divide (ref Quaternion value1, Double divider, out Quaternion result)
+		{
+			Double one = 1;
+			Double a = one / divider;
+
+			result.X = value1.X * a;
+			result.Y = value1.Y * a;
+			result.Z = value1.Z * a;
+			result.W = value1.W * a;
+		}
+
+		/// <summary>
+		/// Performs division of two Quaternion objects using the (X/Y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Quaternion value2)
 		{
 			Double one = 1;
 
 			Quaternion quaternion;
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Double num5 = one / num14;
-			Double num4 = -quaternion2.X * num5;
-			Double num3 = -quaternion2.Y * num5;
-			Double num2 = -quaternion2.Z * num5;
-			Double num = quaternion2.W * num5;
-			Double num13 = (y * num2) - (z * num3);
-			Double num12 = (z * num4) - (x * num2);
-			Double num11 = (x * num3) - (y * num4);
-			Double num10 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num13;
-			quaternion.Y = ((y * num) + (num3 * w)) + num12;
-			quaternion.Z = ((z * num) + (num2 * w)) + num11;
-			quaternion.W = (w * num) - num10;
+
+			Double x = value1.X;
+			Double y = value1.Y;
+			Double z = value1.Z;
+			Double w = value1.W;
+
+			Double a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Double b = one / a;
+
+			Double c = -value2.X * b;
+			Double d = -value2.Y * b;
+			Double e = -value2.Z * b;
+			Double f =  value2.W * b;
+
+			Double g = (y * e) - (z * d);
+			Double h = (z * c) - (x * e);
+			Double i = (x * d) - (y * c);
+			Double j = (x * c) + (y * d) + (z * e);
+
+			quaternion.X = (x * f) + (c * w) + g;
+			quaternion.Y = (y * f) + (d * w) + h;
+			quaternion.Z = (z * f) + (e * w) + i;
+			quaternion.W = (w * f) - j;
+
 			return quaternion;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Negate (ref Quaternion quaternion, out Quaternion result)
-		{
-			result.X = -quaternion.X;
-			result.Y = -quaternion.Y;
-			result.Z = -quaternion.Z;
-			result.W = -quaternion.W;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Add (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X + quaternion2.X;
-			result.Y = quaternion1.Y + quaternion2.Y;
-			result.Z = quaternion1.Z + quaternion2.Z;
-			result.W = quaternion1.W + quaternion2.W;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs division of a Quaternion object and a Double precision
+		/// scaling factor using the (X/y) operator.
 		/// </summary>
-		public static void Subtract (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X - quaternion2.X;
-			result.Y = quaternion1.Y - quaternion2.Y;
-			result.Z = quaternion1.Z - quaternion2.Z;
-			result.W = quaternion1.W - quaternion2.W;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Multiply (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num4 = quaternion2.X;
-			Double num3 = quaternion2.Y;
-			Double num2 = quaternion2.Z;
-			Double num = quaternion2.W;
-			Double num12 = (y * num2) - (z * num3);
-			Double num11 = (z * num4) - (x * num2);
-			Double num10 = (x * num3) - (y * num4);
-			Double num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Multiply (ref Quaternion quaternion1, Double scaleFactor, out Quaternion result)
-		{
-			result.X = quaternion1.X * scaleFactor;
-			result.Y = quaternion1.Y * scaleFactor;
-			result.Z = quaternion1.Z * scaleFactor;
-			result.W = quaternion1.W * scaleFactor;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Divide (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+		public static Quaternion operator / (Quaternion value1, Double divider)
 		{
 			Double one = 1;
 
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Double num5 = one / num14;
-			Double num4 = -quaternion2.X * num5;
-			Double num3 = -quaternion2.Y * num5;
-			Double num2 = -quaternion2.Z * num5;
-			Double num = quaternion2.W * num5;
-			Double num13 = (y * num2) - (z * num3);
-			Double num12 = (z * num4) - (x * num2);
-			Double num11 = (x * num3) - (y * num4);
-			Double num10 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num13;
-			result.Y = ((y * num) + (num3 * w)) + num12;
-			result.Z = ((z * num) + (num2 * w)) + num11;
-			result.W = (w * num) - num10;
+			Quaternion quat;
+
+			Double num = one / divider;
+
+			quat.X = value1.X * num;
+			quat.Y = value1.Y * num;
+			quat.Z = value1.Z * num;
+			quat.W = value1.W * num;
+
+			return quat;
 		}
 
 		/// <summary>
@@ -14258,7 +15018,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W *= num3;
 		}
 
-	}	[StructLayout (LayoutKind.Sequential)]
+	}	/// <summary>
+	/// Double precision Vector2.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
 	public struct Vector2
 		: IEquatable<Vector2>
 	{
@@ -14973,6 +15736,9 @@ namespace Sungiant.Abacus.DoublePrecision
 
 	}
 
+	/// <summary>
+	/// Double precision Vector3.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Vector3 
 		: IEquatable<Vector3>
@@ -15746,6 +16512,9 @@ namespace Sungiant.Abacus.DoublePrecision
 		}
 	}
 
+	/// <summary>
+	/// Double precision Vector4.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Vector4 
 		: IEquatable<Vector4>

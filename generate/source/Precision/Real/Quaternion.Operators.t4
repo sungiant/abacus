@@ -1,219 +1,347 @@
-﻿		/// <summary>
-		/// todo
+﻿		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// object
 		/// </summary>
-		public static Quaternion operator - (Quaternion quaternion)
+		public override Boolean Equals (Object obj)
 		{
-			Quaternion quaternion2;
-			quaternion2.X = -quaternion.X;
-			quaternion2.Y = -quaternion.Y;
-			quaternion2.Z = -quaternion.Z;
-			quaternion2.W = -quaternion.W;
-			return quaternion2;
+			Boolean flag = false;
+			
+			if (obj is Quaternion)
+			{
+				flag = this.Equals ((Quaternion) obj);
+			}
+
+			return flag;
+		}
+
+		#region IEquatable<Quaternion>
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// Quaternion object.
+		/// </summary>
+		public Boolean Equals (Quaternion other)
+		{
+			return 
+				(this.X == other.X) && 
+				(this.Y == other.Y) && 
+				(this.Z == other.Z) && 
+				(this.W == other.W);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Quaternion value1, Quaternion value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
 		}
 		
 		/// <summary>
-		/// todo
+		/// Determines whether or not two Quaternion objects are not equal using
+		/// the (X!=Y) operator.
 		/// </summary>
-		public static Boolean operator == (Quaternion quaternion1, Quaternion quaternion2)
+		public static Boolean operator != (Quaternion value1, Quaternion value2)
 		{
-			return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
-		}
-		
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Boolean operator != (Quaternion quaternion1, Quaternion quaternion2)
-		{
-			if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
-				return !(quaternion1.W == quaternion2.W);
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
 			}
 			return true;
 		}
 
+		// Addition Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Performs addition of two Quaternion objects.
 		/// </summary>
-		public static Quaternion operator + (Quaternion quaternion1, Quaternion quaternion2)
+		public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects using the (X+Y) operator. 
+		/// </summary>
+		public static Quaternion operator + (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X + value2.X;
+			quat.Y = value1.Y + value2.Y;
+			quat.Z = value1.Z + value2.Z;
+			quat.W = value1.W + value2.W;
+			return quat;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects.
+		/// </summary>
+		public static void Subtract (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X - value2.X;
+			quat.Y = value1.Y - value2.Y;
+			quat.Z = value1.Z - value2.Z;
+			quat.W = value1.W - value2.W;
+			return quat;
+		}
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Quaternion object.
+		/// </summary>
+		public static void Negate (ref Quaternion value, out Quaternion result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Quaternion object using the (-X) operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value)
+		{
+			Quaternion quat;
+			quat.X = -value.X;
+			quat.Y = -value.Y;
+			quat.Z = -value.Z;
+			quat.W = -value.W;
+			return quat;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			<#= type #> x1 = value1.X;
+			<#= type #> y1 = value1.Y;
+			<#= type #> z1 = value1.Z;
+			<#= type #> w1 = value1.W;
+
+			<#= type #> x2 = value2.X;
+			<#= type #> y2 = value2.Y;
+			<#= type #> z2 = value2.Z;
+			<#= type #> w2 = value2.W;
+
+			<#= type #> a = (y1 * z2) - (z1 * y2);
+			<#= type #> b = (z1 * x2) - (x1 * z2);
+			<#= type #> c = (x1 * y2) - (y1 * x2);
+			<#= type #> d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			result.X = ((x1 * w2) + (x2 * w1)) + a;
+			result.Y = ((y1 * w2) + (y2 * w1)) + b;
+			result.Z = ((z1 * w2) + (z2 * w1)) + c;
+			result.W = (w1 * w2) - d;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a <#= type #>
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, <#= type #> scaleFactor, out Quaternion result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Quaternion value2)
 		{
 			Quaternion quaternion;
-			quaternion.X = quaternion1.X + quaternion2.X;
-			quaternion.Y = quaternion1.Y + quaternion2.Y;
-			quaternion.Z = quaternion1.Z + quaternion2.Z;
-			quaternion.W = quaternion1.W + quaternion2.W;
+			
+			<#= type #> x1 = value1.X;
+			<#= type #> y1 = value1.Y;
+			<#= type #> z1 = value1.Z;
+			<#= type #> w1 = value1.W;
+
+			<#= type #> x2 = value2.X;
+			<#= type #> y2 = value2.Y;
+			<#= type #> z2 = value2.Z;
+			<#= type #> w2 = value2.W;
+
+			<#= type #> a = (y1 * z2) - (z1 * y2);
+			<#= type #> b = (z1 * x2) - (x1 * z2);
+			<#= type #> c = (x1 * y2) - (y1 * x2);
+			<#= type #> d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			quaternion.X = ((x1 * w2) + (x2 * w1)) + a;
+			quaternion.Y = ((y1 * w2) + (y2 * w1)) + b;
+			quaternion.Z = ((z1 * w2) + (z2 * w1)) + c;
+			quaternion.W = (w1 * w2) - d;
+
 			return quaternion;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs multiplication of a Quaternion object and a <#= type #>
+		/// precision scaling factor using the (X*y) operator.
 		/// </summary>
-		public static Quaternion operator - (Quaternion quaternion1, Quaternion quaternion2)
+		public static Quaternion operator * (Quaternion value1, <#= type #> scaleFactor)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X - quaternion2.X;
-			quaternion.Y = quaternion1.Y - quaternion2.Y;
-			quaternion.Z = quaternion1.Z - quaternion2.Z;
-			quaternion.W = quaternion1.W - quaternion2.W;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs multiplication of a <#= type #> precision scaling factor 
+		/// and aQuaternion object using the (x*Y) operator.
 		/// </summary>
-		public static Quaternion operator * (Quaternion quaternion1, Quaternion quaternion2)
+		public static Quaternion operator * (<#= type #> scaleFactor, Quaternion value1)
 		{
-			Quaternion quaternion;
-			<#= type #> x = quaternion1.X;
-			<#= type #> y = quaternion1.Y;
-			<#= type #> z = quaternion1.Z;
-			<#= type #> w = quaternion1.W;
-			<#= type #> num4 = quaternion2.X;
-			<#= type #> num3 = quaternion2.Y;
-			<#= type #> num2 = quaternion2.Z;
-			<#= type #> num = quaternion2.W;
-			<#= type #> num12 = (y * num2) - (z * num3);
-			<#= type #> num11 = (z * num4) - (x * num2);
-			<#= type #> num10 = (x * num3) - (y * num4);
-			<#= type #> num9 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num12;
-			quaternion.Y = ((y * num) + (num3 * w)) + num11;
-			quaternion.Z = ((z * num) + (num2 * w)) + num10;
-			quaternion.W = (w * num) - num9;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
+		// Division Operators //----------------------------------------------//
+
 		/// <summary>
-		/// todo
+		/// Performs division of two Quaternion objects.
 		/// </summary>
-		public static Quaternion operator * (Quaternion quaternion1, <#= type #> scaleFactor)
+		public static void Divide (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X * scaleFactor;
-			quaternion.Y = quaternion1.Y * scaleFactor;
-			quaternion.Z = quaternion1.Z * scaleFactor;
-			quaternion.W = quaternion1.W * scaleFactor;
-			return quaternion;
+			<#= type #> one = 1;
+
+			<#= type #> x = value1.X;
+			<#= type #> y = value1.Y;
+			<#= type #> z = value1.Z;
+			<#= type #> w = value1.W;
+
+			<#= type #> a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			<#= type #> b = one / a;
+
+			<#= type #> c = -value2.X * b;
+			<#= type #> d = -value2.Y * b;
+			<#= type #> e = -value2.Z * b;
+			<#= type #> f = value2.W * b;
+
+			<#= type #> g = (y * e) - (z * d);
+			<#= type #> h = (z * c) - (x * e);
+			<#= type #> i = (x * d) - (y * c);
+			<#= type #> j = ((x * c) + (y * d)) + (z * e);
+
+			result.X = ((x * f) + (c * w)) + g;
+			result.Y = ((y * f) + (d * w)) + h;
+			result.Z = ((z * f) + (e * w)) + i;
+			result.W = (w * f) - j;
 		}
-		
+
 		/// <summary>
-		/// todo
+		/// Performs division of a Quaternion object and a <#= type #> precision
+		/// scaling factor.
 		/// </summary>
-		public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
+		public static void Divide (ref Quaternion value1, <#= type #> divider, out Quaternion result)
+		{
+			<#= type #> one = 1;
+			<#= type #> a = one / divider;
+
+			result.X = value1.X * a;
+			result.Y = value1.Y * a;
+			result.Z = value1.Z * a;
+			result.W = value1.W * a;
+		}
+
+		/// <summary>
+		/// Performs division of two Quaternion objects using the (X/Y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Quaternion value2)
 		{
 			<#= type #> one = 1;
 
 			Quaternion quaternion;
-			<#= type #> x = quaternion1.X;
-			<#= type #> y = quaternion1.Y;
-			<#= type #> z = quaternion1.Z;
-			<#= type #> w = quaternion1.W;
-			<#= type #> num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			<#= type #> num5 = one / num14;
-			<#= type #> num4 = -quaternion2.X * num5;
-			<#= type #> num3 = -quaternion2.Y * num5;
-			<#= type #> num2 = -quaternion2.Z * num5;
-			<#= type #> num = quaternion2.W * num5;
-			<#= type #> num13 = (y * num2) - (z * num3);
-			<#= type #> num12 = (z * num4) - (x * num2);
-			<#= type #> num11 = (x * num3) - (y * num4);
-			<#= type #> num10 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num13;
-			quaternion.Y = ((y * num) + (num3 * w)) + num12;
-			quaternion.Z = ((z * num) + (num2 * w)) + num11;
-			quaternion.W = (w * num) - num10;
+
+			<#= type #> x = value1.X;
+			<#= type #> y = value1.Y;
+			<#= type #> z = value1.Z;
+			<#= type #> w = value1.W;
+
+			<#= type #> a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			<#= type #> b = one / a;
+
+			<#= type #> c = -value2.X * b;
+			<#= type #> d = -value2.Y * b;
+			<#= type #> e = -value2.Z * b;
+			<#= type #> f =  value2.W * b;
+
+			<#= type #> g = (y * e) - (z * d);
+			<#= type #> h = (z * c) - (x * e);
+			<#= type #> i = (x * d) - (y * c);
+			<#= type #> j = (x * c) + (y * d) + (z * e);
+
+			quaternion.X = (x * f) + (c * w) + g;
+			quaternion.Y = (y * f) + (d * w) + h;
+			quaternion.Z = (z * f) + (e * w) + i;
+			quaternion.W = (w * f) - j;
+
 			return quaternion;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Negate (ref Quaternion quaternion, out Quaternion result)
-		{
-			result.X = -quaternion.X;
-			result.Y = -quaternion.Y;
-			result.Z = -quaternion.Z;
-			result.W = -quaternion.W;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Add (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X + quaternion2.X;
-			result.Y = quaternion1.Y + quaternion2.Y;
-			result.Z = quaternion1.Z + quaternion2.Z;
-			result.W = quaternion1.W + quaternion2.W;
 		}
 		
 		/// <summary>
-		/// todo
+		/// Performs division of a Quaternion object and a <#= type #> precision
+		/// scaling factor using the (X/y) operator.
 		/// </summary>
-		public static void Subtract (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X - quaternion2.X;
-			result.Y = quaternion1.Y - quaternion2.Y;
-			result.Z = quaternion1.Z - quaternion2.Z;
-			result.W = quaternion1.W - quaternion2.W;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Multiply (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			<#= type #> x = quaternion1.X;
-			<#= type #> y = quaternion1.Y;
-			<#= type #> z = quaternion1.Z;
-			<#= type #> w = quaternion1.W;
-			<#= type #> num4 = quaternion2.X;
-			<#= type #> num3 = quaternion2.Y;
-			<#= type #> num2 = quaternion2.Z;
-			<#= type #> num = quaternion2.W;
-			<#= type #> num12 = (y * num2) - (z * num3);
-			<#= type #> num11 = (z * num4) - (x * num2);
-			<#= type #> num10 = (x * num3) - (y * num4);
-			<#= type #> num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Multiply (ref Quaternion quaternion1, <#= type #> scaleFactor, out Quaternion result)
-		{
-			result.X = quaternion1.X * scaleFactor;
-			result.Y = quaternion1.Y * scaleFactor;
-			result.Z = quaternion1.Z * scaleFactor;
-			result.W = quaternion1.W * scaleFactor;
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Divide (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+		public static Quaternion operator / (Quaternion value1, <#= type #> divider)
 		{
 			<#= type #> one = 1;
 
-			<#= type #> x = quaternion1.X;
-			<#= type #> y = quaternion1.Y;
-			<#= type #> z = quaternion1.Z;
-			<#= type #> w = quaternion1.W;
-			<#= type #> num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			<#= type #> num5 = one / num14;
-			<#= type #> num4 = -quaternion2.X * num5;
-			<#= type #> num3 = -quaternion2.Y * num5;
-			<#= type #> num2 = -quaternion2.Z * num5;
-			<#= type #> num = quaternion2.W * num5;
-			<#= type #> num13 = (y * num2) - (z * num3);
-			<#= type #> num12 = (z * num4) - (x * num2);
-			<#= type #> num11 = (x * num3) - (y * num4);
-			<#= type #> num10 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num13;
-			result.Y = ((y * num) + (num3 * w)) + num12;
-			result.Z = ((z * num) + (num2 * w)) + num11;
-			result.W = (w * num) - num10;
+			Quaternion quat;
+
+			<#= type #> num = one / divider;
+
+			quat.X = value1.X * num;
+			quat.Y = value1.Y * num;
+			quat.Z = value1.Z * num;
+			quat.W = value1.W * num;
+
+			return quat;
 		}
 

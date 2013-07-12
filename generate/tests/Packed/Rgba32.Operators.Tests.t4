@@ -1,0 +1,14 @@
+		void TestMultiplication ()
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Assert that, for a known example, all the multiplication opperators
+		/// and functions yield the correct result.
+		/// </summary>
+		[Test]
+		public void TestOperator_Multiplication_i ()
+		{
+			this.TestMultiplication();
+		}

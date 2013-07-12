@@ -1,14 +1,16 @@
 ﻿    /// <summary>
-    /// todo
+    /// Tests the Rgba32 packed data type.
     /// </summary>
     [TestFixture]
     public class Rgba32Tests
     {
         /// <summary>
-        /// todo
+        /// Iterates over a random selection of values within the range of
+        /// possible Rgba32 values and makes sure that unpacking them and 
+        /// then re-packing that result yeilds the original packed value.
         /// </summary>
         [Test]
-        public static void TestRandomValues()
+        public void TestRandomValues_i()
         {
             var rand = new System.Random();
             var buff = new Byte[4];
@@ -31,4 +33,11 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
+
+<#@ include file="Rgba32.Constants.Tests.t4"#>
+<#@ include file="Rgba32.Misc.Tests.t4"#>
+<#@ include file="Rgba32.Operators.Tests.t4"#>
+
+<#  GeneratePackedTestsCommon("Rgba32", "UInt32", "packedRgba32", "realRgba32", 4); #>
     }
+

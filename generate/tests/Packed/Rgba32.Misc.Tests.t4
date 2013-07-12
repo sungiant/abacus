@@ -1,0 +1,54 @@
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void Test_Constructors_ii ()
+        {
+            throw new NotImplementedException();
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		[Test]
+		public void TestStaticFn_FromNonPremultiplied_i ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		[Test]
+		public void TestStaticFn_FromNonPremultiplied_ii ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		[Test]
+		public void TestMemberFn_ToVector3_i ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Desaturate_i ()
+		{
+			throw new NotImplementedException ();
+		}
+

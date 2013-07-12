@@ -40,3 +40,4 @@
 
 <#  GeneratePackedCommon("Short4", "UInt64", "packedXyzw", "realXyzw", 4); #>
 	}
+

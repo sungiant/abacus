@@ -1,14 +1,16 @@
 ﻿    /// <summary>
-    /// todo
+    /// Tests the Short4 packed data type.
     /// </summary>
     [TestFixture]
     public class Short4Tests
     {
         /// <summary>
-        /// todo
+        /// Iterates over a random selection of values within the range of
+        /// possible Short4 values and makes sure that unpacking them and 
+        /// then re-packing that result yeilds the original packed value.
         /// </summary>
         [Test]
-        public static void TestRandomValues()
+        public void TestRandomValues_i()
         {
             var rand = new System.Random();
             var buff = new Byte[8];
@@ -33,4 +35,7 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
+
+<#  GeneratePackedTestsCommon("Short4", "UInt64", "packedXyzw", "realXyzw", 4); #>
     }
+

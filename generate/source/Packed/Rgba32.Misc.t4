@@ -62,37 +62,27 @@
 			Pack(ref val, out this.packedValue);
 		}
 
+<# foreach( var realType in GetRealTypes() ) { #>
 		/// <summary>
 		/// todo
 		/// </summary>
-		public Rgba32(SinglePrecision.Vector3 vector)
+		public Rgba32(<#= realType #>Precision.Vector3 vector)
 		{
-			var val = new SinglePrecision.Vector4(vector.X, vector.Y, vector.Z, 1f);
+			var val = new <#=realType #>Precision.Vector4(vector.X, vector.Y, vector.Z, 1f);
 			Pack(ref val, out this.packedValue);
 		}
 
 		/// <summary>
 		/// todo
 		/// </summary>
-		public static Rgba32 GenerateColorFromName(string name)
-		{
-			System.Random random = new System.Random(name.GetHashCode());
-			return new Rgba32(
-				(byte)random.Next(byte.MaxValue),
-				(byte)random.Next(byte.MaxValue),
-				(byte)random.Next(byte.MaxValue));
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Rgba32 FromNonPremultiplied(SinglePrecision.Vector4 vector)
+		public static Rgba32 FromNonPremultiplied(<#= realType #>Precision.Vector4 vector)
 		{
 			Rgba32 color;
-			var val = new SinglePrecision.Vector4(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+			var val = new <#= realType #>Precision.Vector4(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
 			Pack(ref val, out color.packedValue);
 			return color;
 		}
+<# } #>
 
 		/// <summary>
 		/// todo
@@ -232,16 +222,18 @@
 			return color;
 		}
 
+<# foreach( var realType in GetRealTypes() ) { #>
 		/// <summary>
 		/// todo
 		/// </summary>
-		public SinglePrecision.Vector3 ToVector3()
+		public void ToVector3(out <#= realType #>Precision.Vector3 result)
 		{
-			SinglePrecision.Vector4 colourVec4;
+			<#= realType #>Precision.Vector4 colourVec4;
 			this.UnpackTo(out colourVec4);
 
-			return new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
+			result = new <#= realType #>Precision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
 		}
+<# } #>
 
 		/// <summary>
 		/// todo

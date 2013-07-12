@@ -5,7 +5,7 @@
 		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_Zero ()
+		public void TestConstant_Zero_i ()
 		{
 			Vector2 result = Vector2.Zero;
 			Vector2 expected = new Vector2(0, 0);
@@ -19,7 +19,7 @@
 		/// has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_One ()
+		public void TestConstant_One_i ()
 		{
 			Vector2 result = Vector2.One;
 			Vector2 expected = new Vector2(1, 1);
@@ -33,7 +33,7 @@
 		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_UnitX ()
+		public void TestConstant_UnitX_i ()
 		{
 			Vector2 result = Vector2.UnitX;
 			Vector2 expected = new Vector2(1, 0);
@@ -47,7 +47,7 @@
 		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_UnitY ()
+		public void TestConstant_UnitY_i ()
 		{
 			Vector2 result = Vector2.UnitY;
 			Vector2 expected = new Vector2(0, 1);

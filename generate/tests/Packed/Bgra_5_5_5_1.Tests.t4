@@ -1,14 +1,16 @@
 ﻿    /// <summary>
-    /// todo
+    /// Tests the Bgra_5_5_5_1 packed data type.
     /// </summary>
     [TestFixture]
     public class Bgra_5_5_5_1Tests
     {
         /// <summary>
-        /// todo
+        /// Iterates over every possible Bgra_5_5_5_1 value and makes sure that
+        /// unpacking them and then re-packing that result yeilds the 
+        /// original packed value.
         /// </summary>
         [Test]
-        public static void TestAllPossibleValues()
+        public void TestAllPossibleValues_i()
         {
             UInt16 packed = UInt16.MinValue;
             while ( packed < UInt16.MaxValue )
@@ -28,4 +30,6 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
+
+<#  GeneratePackedTestsCommon("Bgra_5_5_5_1", "UInt16", "packedBgra", "realRgba", 4); #>
     }

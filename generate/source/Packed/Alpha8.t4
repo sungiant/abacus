@@ -33,3 +33,4 @@
 
 <#  GeneratePackedCommon("Alpha_8", "Byte", "packedAlpha", "realAlpha", 1); #>
 	}
+

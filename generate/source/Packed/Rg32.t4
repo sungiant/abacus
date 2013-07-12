@@ -36,3 +36,4 @@
 
 <#  GeneratePackedCommon("Rg32", "UInt32", "packedRg", "realRg", 2); #>
 	}
+	

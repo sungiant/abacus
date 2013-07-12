@@ -15,15 +15,18 @@
 		public static void Inverse (ref Quaternion quaternion, out Quaternion result)
 		{
 			<#= type #> one = 1;
-			<#= type #> num2 = ( ( (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) ) + 
-			                (quaternion.Z * quaternion.Z) ) + (quaternion.W * quaternion.W);
+			<#= type #> a =
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+			    (quaternion.Z * quaternion.Z) + 
+			    (quaternion.W * quaternion.W);
 
-			<#= type #> num = one / num2;
+			<#= type #> b = one / a;
 
-			result.X = -quaternion.X * num;
-			result.Y = -quaternion.Y * num;
-			result.Z = -quaternion.Z * num;
-			result.W = quaternion.W * num;
+			result.X = -quaternion.X * b;
+			result.Y = -quaternion.Y * b;
+			result.Z = -quaternion.Z * b;
+			result.W =  quaternion.W * b;
 		}
 		
 		/// <summary>
@@ -31,8 +34,11 @@
 		/// </summary>
 		public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out <#= type #> result)
 		{
-			result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + 
-			          (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+			result = 
+				(quaternion1.X * quaternion2.X) + 
+				(quaternion1.Y * quaternion2.Y) + 
+			    (quaternion1.Z * quaternion2.Z) + 
+			    (quaternion1.W * quaternion2.W);
 		}
 
 		/// <summary>
@@ -44,18 +50,21 @@
 			<#= type #> y = value2.Y;
 			<#= type #> z = value2.Z;
 			<#= type #> w = value2.W;
-			<#= type #> num4 = value1.X;
-			<#= type #> num3 = value1.Y;
-			<#= type #> num2 = value1.Z;
-			<#= type #> num = value1.W;
-			<#= type #> num12 = (y * num2) - (z * num3);
-			<#= type #> num11 = (z * num4) - (x * num2);
-			<#= type #> num10 = (x * num3) - (y * num4);
-			<#= type #> num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
+
+			<#= type #> a = value1.X;
+			<#= type #> b = value1.Y;
+			<#= type #> c = value1.Z;
+			<#= type #> d = value1.W;
+
+			<#= type #> e = (y * c) - (z * b);
+			<#= type #> f = (z * a) - (x * c);
+			<#= type #> g = (x * b) - (y * a);
+			<#= type #> h = ((x * a) + (y * b)) + (z * c);
+
+			result.X = (x * d) + (a * w) + e;
+			result.Y = (y * d) + (b * w) + f;
+			result.Z = (z * d) + (c * w) + g;
+			result.W = (w * d) - h;
 		}
 
 		/// <summary>
@@ -65,11 +74,17 @@
 		{
 			<#= type #> one = 1;
 
-			<#= type #> num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-			<#= type #> num = one / RealMaths.Sqrt (num2);
-			result.X = quaternion.X * num;
-			result.Y = quaternion.Y * num;
-			result.Z = quaternion.Z * num;
-			result.W = quaternion.W * num;
+			<#= type #> a = 
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+				(quaternion.Z * quaternion.Z) + 
+				(quaternion.W * quaternion.W);
+
+			<#= type #> b = one / RealMaths.Sqrt (a);
+
+			result.X = quaternion.X * b;
+			result.Y = quaternion.Y * b;
+			result.Z = quaternion.Z * b;
+			result.W = quaternion.W * b;
 		}
 

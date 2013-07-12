@@ -1,5 +1,5 @@
 ﻿	/// <summary>
-	/// Represents a point on a 3D integer grid.
+	/// Represents a <#= type #> precision point on a 3D integer grid.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point3 
@@ -28,6 +28,17 @@
 		{
 			this.X = x;
 			this.Y = y;
+			this.Z = z;
+		}
+		
+		/// <summary>
+		/// Initilises a new instance of Point3 from one Point2 value
+		/// representing X and Y and one <#= type #> value representing Z.
+		/// </summary>
+		public Point3 (Point2 value, <#= type #> z)
+		{
+			this.X = value.X;
+			this.Y = value.Y;
 			this.Z = z;
 		}
 

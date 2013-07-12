@@ -1,5 +1,5 @@
 	/// <summary>
-	/// 
+	/// todo
 	/// </summary>
 	[TestFixture]
 	public class Vector2Tests
@@ -217,7 +217,7 @@
 
 			for( Int32 i = 0; i <= 1000; ++ i)
 			{
-				<#= type #> theta = 2 * pi * i / 100;
+				<#= type #> theta = 2 * pi * i * radius / 100;
 
 				<#= type #> x = RealMaths.Sin(theta);
 				<#= type #> y = RealMaths.Cos(theta);				

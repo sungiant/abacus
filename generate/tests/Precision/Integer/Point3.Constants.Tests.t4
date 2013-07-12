@@ -1,0 +1,154 @@
+		// Test Constant: Zero //---------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the Zero constant
+		/// has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Zero_i ()
+		{
+			Point3 result = Point3.Zero;
+			Point3 expected = new Point3(0, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: One //----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the One constant
+		/// has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_One_i ()
+		{
+			Point3 result = Point3.One;
+			Point3 expected = new Point3(1, 1, 1);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: UnitX //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the UnitX 
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_UnitX_i ()
+		{
+			Point3 result = Point3.UnitX;
+			Point3 expected = new Point3(1, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: UnitY //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the UnitY
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_UnitY_i ()
+		{
+			Point3 result = Point3.UnitY;
+			Point3 expected = new Point3(0, 1, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: UnitZ //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the UnitZ
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_UnitZ_i ()
+		{
+			Point3 result = Point3.UnitZ;
+			Point3 expected = new Point3(0, 0, 1);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Up //-----------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the Up
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Up_i ()
+		{
+			Point3 result = Point3.Up;
+			Point3 expected = new Point3(0, 1, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Down //---------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the Down
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Down_i ()
+		{
+			Point3 result = Point3.Down;
+			Point3 expected = new Point3(0, -1, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Right //--------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the Right
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Right_i ()
+		{
+			Point3 result = Point3.Right;
+			Point3 expected = new Point3(1, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Left //---------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the Left
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Left_i ()
+		{
+			Point3 result = Point3.Left;
+			Point3 expected = new Point3(-1, 0, 0);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Forward //------------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the Forward
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Forward_i ()
+		{
+			Point3 result = Point3.Forward;
+			Point3 expected = new Point3(0, 0, -1);
+			AssertEqualWithinReason(result, expected);
+		}
+
+		// Test Constant: Backward //-----------------------------------------//
+
+		/// <summary>
+		/// Tests to make sure that a Point3 initilised using the Backward
+		/// constant has it's member variables correctly set.
+		/// </summary>
+		[Test]
+		public void TestConstant_Backward_i ()
+		{
+			Point3 result = Point3.Backward;
+			Point3 expected = new Point3(0, 0, 1);
+			AssertEqualWithinReason(result, expected);
+		}
+

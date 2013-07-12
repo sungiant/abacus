@@ -35,6 +35,7 @@
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
 <#@ include file="../Types.t4"#>
+<#@ include file="GeneratePackedTests.t4"#>
 
 using System;
 using System.Globalization;

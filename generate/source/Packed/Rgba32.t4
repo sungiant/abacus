@@ -41,6 +41,7 @@
 <#@ include file="Rgba32.Constants.t4"#>
 <#@ include file="Rgba32.Misc.t4"#>
 <#@ include file="Rgba32.Operators.t4"#>
+
 <#  GeneratePackedCommon("Rgba32", "UInt32", "packedRgba32", "realRgba32", 4); #>
 	}
 

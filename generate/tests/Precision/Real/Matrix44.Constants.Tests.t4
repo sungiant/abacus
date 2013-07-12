@@ -1,11 +1,11 @@
-		// Test Constant: Identity //------------------------------------------//
+		// Test Constant: Identity //-----------------------------------------//
 
 		/// <summary>
 		/// Tests to make sure that a Matrix44 initilised using the Identity 
 		/// constant has it's member variables correctly set.
 		/// </summary>
 		[Test]
-		public void TestConstant_Identity ()
+		public void TestConstant_Identity_i ()
 		{
 			Matrix44 result = Matrix44.Identity;
 			Matrix44 expected = new Matrix44 (

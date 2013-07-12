@@ -1,0 +1,96 @@
+<#+ 
+void GeneratePackedTestsCommon(string type, string packedType, string packedVariableName, string realVariableName, int numPackedElements)
+{
+#>
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestProperty_PackedValue_i ()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Makes sure that the hashing function is good by testing 
+        /// random scenarios and ensuring that there are no more than a 
+        /// reasonable number of collisions.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_GetHashCode_i ()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+           throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Makes sure that, for a known example, all the equality opperators
+        /// and functions yield the expected result of TRUE when two equal  
+        /// Alpha_8 objects are compared.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_i ()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Makes sure that, for a known example, all the equality opperators
+        /// and functions yield the expected result of FALSE when two unequal  
+        /// Alpha_8 objects are compared.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_ii ()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Tests to make sure that all the equality opperators and functions 
+        /// yield the expected result of TRUE when used on a number of randomly 
+        /// generated pairs of equal Alpha_8 objects.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_iii ()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void Test_Constructors_i ()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_PackFrom_i()
+        {
+
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_UnpackTo_i()
+        {
+
+        }
+<#+
+}
+#>

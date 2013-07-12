@@ -1,14 +1,16 @@
 ﻿    /// <summary>
-    /// todo
+    /// Tests the Byte4 packed data type.
     /// </summary>
     [TestFixture]
     public class Byte4Tests
     {
         /// <summary>
-        /// todo
+        /// Iterates over a random selection of values within the range of
+        /// possible Byte4 values and makes sure that unpacking them and 
+        /// then re-packing that result yeilds the original packed value.
         /// </summary>
         [Test]
-        public static void TestRandomValues()
+        public void TestRandomValues_i()
         {
             var rand = new System.Random();
             var buff = new Byte[4];
@@ -32,4 +34,7 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
+
+<#  GeneratePackedTestsCommon("Byte4", "UInt32", "packedXyzw", "realXyzw", 4); #>
     }
+

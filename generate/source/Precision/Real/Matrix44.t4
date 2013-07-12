@@ -1,239 +1,93 @@
 ﻿	/// <summary>
-	/// todo
+	/// <#= type #> precision Matrix44.
 	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
 		/// <summary>
-		/// Row 1, Column 1
+		/// Gets or sets (Row 1, Column 1) of the Matrix44.
 		/// </summary>
 		public <#= type #> M11;
 
 		/// <summary>
-		/// Row 1, Column 2
+		/// Gets or sets (Row 1, Column 2) of the Matrix44.
 		/// </summary>
 		public <#= type #> M12;
 
 		/// <summary>
-		/// Row 1, Column 3
+		/// Gets or sets (Row 1, Column 3) of the Matrix44.
 		/// </summary>
 		public <#= type #> M13;
 
 		/// <summary>
-		/// Row 1, Column 4
+		/// Gets or sets (Row 1, Column 4) of the Matrix44.
 		/// </summary>
 		public <#= type #> M14;
 
 		/// <summary>
-		/// Row 2, Column 1
+		/// Gets or sets (Row 2, Column 1) of the Matrix44.
 		/// </summary>
 		public <#= type #> M21;
 
 		/// <summary>
-		/// Row 2, Column 2
+		/// Gets or sets (Row 2, Column 2) of the Matrix44.
 		/// </summary>
 		public <#= type #> M22;
 
 		/// <summary>
-		/// Row 2, Column 3
+		/// Gets or sets (ow 2, Column 3) of the Matrix44.
 		/// </summary>
 		public <#= type #> M23;
 
 		/// <summary>
-		/// Row 2, Column 4
+		/// Gets or sets (Row 2, Column 4) of the Matrix44.
 		/// </summary>
 		public <#= type #> M24;
 
 		/// <summary>
-		/// Row 3, Column 1
+		/// Row 3, Column 1) of the Matrix44.
 		/// </summary>
 		public <#= type #> M31;
 
 		/// <summary>
-		/// Row 3, Column 2
+		/// Gets or sets (Row 3, Column 2) of the Matrix44.
 		/// </summary>
 		public <#= type #> M32;
 
 		/// <summary>
-		/// Row 3, Column 3
+		/// Gets or sets (Row 3, Column 3) of the Matrix44.
 		/// </summary>
 		public <#= type #> M33;
 
 		/// <summary>
-		/// Row 3, Column 4
+		/// Gets or sets (Row 3, Column 4) of the Matrix44.
 		/// </summary>
 		public <#= type #> M34;
 
 		/// <summary>
-		/// Row 4, Column 1
+		/// Gets or sets (Row 4, Column 1) of the Matrix44.
 		/// </summary>
 		public <#= type #> M41; // translation.x
 
 		/// <summary>
-		/// Row 4, Column 2
+		/// Gets or sets (Row 4, Column 2) of the Matrix44.
 		/// </summary>
 		public <#= type #> M42; // translation.y
 
 		/// <summary>
-		/// Row 4, Column 3
+		/// Gets or sets (Row 4, Column 3) of the Matrix44.
 		/// </summary>
 		public <#= type #> M43; // translation.z
 
 		/// <summary>
-		/// Row 4, Column 4
+		/// Gets or sets (Row 4, Column 4) of the Matrix44.
 		/// </summary>
 		public <#= type #> M44;
 		
 		/// <summary>
-		/// todo
-		/// </summary>
-		public Vector3 Up 
-		{
-			get 
-			{
-				Vector3 vector;
-				vector.X = this.M21;
-				vector.Y = this.M22;
-				vector.Z = this.M23;
-				return vector;
-			}
-			set 
-			{
-				this.M21 = value.X;
-				this.M22 = value.Y;
-				this.M23 = value.Z;
-			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Vector3 Down 
-		{
-			get 
-			{
-				Vector3 vector;
-				vector.X = -this.M21;
-				vector.Y = -this.M22;
-				vector.Z = -this.M23;
-				return vector;
-			}
-			set 
-			{
-				this.M21 = -value.X;
-				this.M22 = -value.Y;
-				this.M23 = -value.Z;
-			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Vector3 Right 
-		{
-			get 
-			{
-				Vector3 vector;
-				vector.X = this.M11;
-				vector.Y = this.M12;
-				vector.Z = this.M13;
-				return vector;
-			}
-			set 
-			{
-				this.M11 = value.X;
-				this.M12 = value.Y;
-				this.M13 = value.Z;
-			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Vector3 Left
-		{
-			get
-			{
-				Vector3 vector;
-				vector.X = -this.M11;
-				vector.Y = -this.M12;
-				vector.Z = -this.M13;
-				return vector;
-			}
-			set
-			{
-				this.M11 = -value.X;
-				this.M12 = -value.Y;
-				this.M13 = -value.Z;
-			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Vector3 Forward
-		{
-			get
-			{
-				Vector3 vector;
-				vector.X = -this.M31;
-				vector.Y = -this.M32;
-				vector.Z = -this.M33;
-				return vector;
-			}
-			set 
-			{
-				this.M31 = -value.X;
-				this.M32 = -value.Y;
-				this.M33 = -value.Z;
-			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Vector3 Backward
-		{
-			get
-			{
-				Vector3 vector;
-				vector.X = this.M31;
-				vector.Y = this.M32;
-				vector.Z = this.M33;
-				return vector;
-			}
-			set
-			{
-				this.M31 = value.X;
-				this.M32 = value.Y;
-				this.M33 = value.Z;
-			}
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Vector3 Translation
-		{
-			get 
-			{
-				Vector3 vector;
-				vector.X = this.M41;
-				vector.Y = this.M42;
-				vector.Z = this.M43;
-				return vector;
-			}
-			set
-			{
-				this.M41 = value.X;
-				this.M42 = value.Y;
-				this.M43 = value.Z;
-			}
-		}
-
-		/// <summary>
-		/// todo
+		/// Initilises a new instance of Matrix44 from sixteen <#= type #> 
+		/// values representing the matrix, in row major order, respectively.
 		/// </summary>
 		public Matrix44 (
 			<#= type #> m11, 
@@ -272,7 +126,7 @@
 		}
 
 		/// <summary>
-		/// todo
+		/// Retrieves a string representation of the current object.
 		/// </summary>
 		public override String ToString ()
 		{
@@ -319,44 +173,7 @@
 		}
 
 		/// <summary>
-		/// todo
-		/// </summary>
-		public Boolean Equals (Matrix44 other)
-		{
-			return 
-				((((((this.M11 == other.M11) && 
-				     (this.M22 == other.M22)) && 
-				    ((this.M33 == other.M33) && 
-				     (this.M44 == other.M44))) && 
-				   (((this.M12 == other.M12) && 
-				     (this.M13 == other.M13)) && 
-				    ((this.M14 == other.M14) && 
-				     (this.M21 == other.M21)))) && 
-				  ((((this.M23 == other.M23) && 
-				     (this.M24 == other.M24)) && 
-				    ((this.M31 == other.M31) && 
-				     (this.M32 == other.M32))) && 
-				   (((this.M34 == other.M34) && 
-				     (this.M41 == other.M41)) && 
-				     (this.M42 == other.M42)))) && 
-				     (this.M43 == other.M43));
-		}
-
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Matrix44)
-			{
-				flag = this.Equals ((Matrix44)obj);
-			}
-			return flag;
-		}
-
-		/// <summary>
-		/// todo
+		/// Gets the hash code of the Matrix44 object.
 		/// </summary>
 		public override Int32 GetHashCode ()
 		{
@@ -380,6 +197,7 @@
 					this.M44.GetHashCode ());
 		}
 
+<#@ include file="Matrix44.Accessors.t4"#>
 <#@ include file="Matrix44.Constants.t4"#>
 <#@ include file="Matrix44.Create.t4"#>
 <#@ include file="Matrix44.Maths.t4"#>

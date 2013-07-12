@@ -1,0 +1,55 @@
+		/// <summary>
+		/// The random number generator used for testing.
+		/// </summary>
+		static readonly System.Random rand;
+
+		/// <summary>
+		/// Static constructor used to ensure that the random number generator
+		/// always gets initilised with the same seed, making the tests
+		/// behave in a deterministic manner.
+		/// </summary>
+		static Point2Tests ()
+		{
+			rand = new System.Random(0);
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random <#= type #> value.
+		/// </summary>
+		static <#= type #> GetNextRandom<#= type #> ()
+		{
+			<#= type #> randomValue = rand.Next();
+
+			<#= type #> zero = 0;
+			<#= type #> multiplier = 1000;
+
+			randomValue *= multiplier;
+
+			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+			if( randomBoolean )
+				randomValue = zero - randomValue;
+
+			return randomValue;
+		}
+
+		/// <summary>
+		/// Helper function for getting the next random Point2.
+		/// </summary>
+		static Point2 GetNextRandomPoint2 ()
+		{
+			<#= type #> a = GetNextRandom<#= type #>();
+			<#= type #> b = GetNextRandom<#= type #>();
+
+			return new Point2(a, b);
+		}
+
+		/// <summary>
+		/// Helper to encapsulate asserting that two Point2s are equal.
+		/// </summary>
+		static void AssertEqualWithinReason (Point2 a, Point2 b)
+		{
+			Assert.That(a.X, Is.EqualTo(b.X));
+			Assert.That(a.Y, Is.EqualTo(b.Y));
+		}
+		

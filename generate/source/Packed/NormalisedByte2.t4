@@ -36,3 +36,4 @@
 
 <#  GeneratePackedCommon("NormalisedByte2", "UInt16", "packedXy", "realXy", 2); #>
 	}
+

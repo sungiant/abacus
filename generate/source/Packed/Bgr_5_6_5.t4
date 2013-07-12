@@ -38,3 +38,4 @@
 
 <#  GeneratePackedCommon("Bgr_5_6_5", "UInt16", "packedBgr", "realRgb", 3); #>
 	}
+

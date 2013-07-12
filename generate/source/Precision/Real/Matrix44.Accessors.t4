@@ -1,0 +1,147 @@
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Up 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M21;
+				vector.Y = this.M22;
+				vector.Z = this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = value.X;
+				this.M22 = value.Y;
+				this.M23 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Down 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = -this.M21;
+				vector.Y = -this.M22;
+				vector.Z = -this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = -value.X;
+				this.M22 = -value.Y;
+				this.M23 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Right 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M11;
+				vector.Y = this.M12;
+				vector.Z = this.M13;
+				return vector;
+			}
+			set 
+			{
+				this.M11 = value.X;
+				this.M12 = value.Y;
+				this.M13 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Left
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M11;
+				vector.Y = -this.M12;
+				vector.Z = -this.M13;
+				return vector;
+			}
+			set
+			{
+				this.M11 = -value.X;
+				this.M12 = -value.Y;
+				this.M13 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Forward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M31;
+				vector.Y = -this.M32;
+				vector.Z = -this.M33;
+				return vector;
+			}
+			set 
+			{
+				this.M31 = -value.X;
+				this.M32 = -value.Y;
+				this.M33 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Backward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = this.M31;
+				vector.Y = this.M32;
+				vector.Z = this.M33;
+				return vector;
+			}
+			set
+			{
+				this.M31 = value.X;
+				this.M32 = value.Y;
+				this.M33 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Translation
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M41;
+				vector.Y = this.M42;
+				vector.Z = this.M43;
+				return vector;
+			}
+			set
+			{
+				this.M41 = value.X;
+				this.M42 = value.Y;
+				this.M43 = value.Z;
+			}
+		}
+

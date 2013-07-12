@@ -1,4 +1,7 @@
-﻿	[StructLayout (LayoutKind.Sequential)]
+﻿	/// <summary>
+	/// <#= type #> precision Vector4.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
 	public struct Vector4 
 		: IEquatable<Vector4>
 	{

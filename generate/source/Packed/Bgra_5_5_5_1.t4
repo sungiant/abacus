@@ -40,3 +40,4 @@
 
 <#  GeneratePackedCommon("Bgra_5_5_5_1", "UInt16", "packedBgra", "realRgba", 4); #>
 	}
+
