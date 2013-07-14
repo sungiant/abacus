@@ -506,7 +506,7 @@ namespace Sungiant.Abacus
 		Int32 TwoToThePowerOf(int val) { return PowersOfTwo[val]; }
 
 		
-		static readonly Int32 FMask = One.RawValue - 1;
+		//static readonly Int32 FMask = One.RawValue - 1;
 		static readonly Int32 DMul = 1;
 		static readonly Int32 Digits = 0;
 
@@ -1256,6 +1256,30 @@ namespace Sungiant.Abacus
 		public static Fixed32 Sqrt(Fixed32 input)
 		{
 			return Fixed32.Sqrt(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Square(Single input)
+		{
+			return input * input;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Square(Double input)
+		{
+			return input * input;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Square(Fixed32 input)
+		{
+			return Fixed32.Square(input);
 		}
 
 		/// <summary>

@@ -11,7 +11,7 @@
 		Int32 TwoToThePowerOf(int val) { return PowersOfTwo[val]; }
 
 		
-		static readonly Int32 FMask = One.RawValue - 1;
+		//static readonly Int32 FMask = One.RawValue - 1;
 		static readonly Int32 DMul = 1;
 		static readonly Int32 Digits = 0;
 
