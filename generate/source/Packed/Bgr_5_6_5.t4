@@ -1,14 +1,23 @@
-﻿	[StructLayout (LayoutKind.Sequential)]
+﻿	/// <summary>
+	/// todo
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
 	public struct Bgr_5_6_5 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgr_5_6_5>
 		, IPackedReal3
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X4", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector3 realRgb, out UInt16 packedBgr)
 		{
 			UInt32 r = PackUtils.PackUnsignedNormalisedValue(31f, realRgb.X) << 11;
@@ -17,6 +26,9 @@
 			packedBgr = (UInt16)((r | g) | b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgr, out SinglePrecision.Vector3 realRgb)
 		{
 			realRgb.X = PackUtils.UnpackUnsignedNormalisedValue(0x1f, (UInt32)(packedBgr >> 11));
@@ -24,5 +36,6 @@
 			realRgb.Z = PackUtils.UnpackUnsignedNormalisedValue(0x1f, packedBgr);
 		}
 
-		<#  GeneratePackedCommon("Bgr_5_6_5", "UInt16", "packedBgr", "realRgb", 3); #>
+<#  GeneratePackedCommon("Bgr_5_6_5", "UInt16", "packedBgr", "realRgb", 3); #>
 	}
+

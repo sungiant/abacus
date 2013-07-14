@@ -59,6 +59,26 @@
 
 
 
+		public static bool IsInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.NegativeInfinity || value == Fixed32.PositiveInfinity );
+		}
+
+		public static bool IsNegativeInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.NegativeInfinity );
+		}
+		
+		public static bool IsPositiveInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.PositiveInfinity );
+		}
+
+		public static bool IsNaNInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.NaN );
+		}
+
 		// perhaps this shouldn't be public
 		public Int32 RawValue { get { return numerator; } }
 		//public Int32 RawHigh { get { return numerator >> n; } }

@@ -27,7 +27,7 @@
 			return k;
 		}
 		
-		public static Fixed32 Sqrt (Fixed32 f)
+		internal static Fixed32 Sqrt (Fixed32 f)
 		{
 			Int32 numberOfIterations = 8;
 			
@@ -44,14 +44,14 @@
 			return Sqrt (f, numberOfIterations);
 		}
 
-		public static Fixed32 Square (Fixed32 f)
+		internal static Fixed32 Square (Fixed32 f)
 		{
 			int v = f.numerator >> (n / 2);
 			int w = f.numerator >> (n - (n / 2));
 			return CreateFromRaw (v * w);
 		}
 
-		public static Fixed32 Sin (Fixed32 f)
+		internal static Fixed32 Sin (Fixed32 f)
 		{
 			Fixed32 x_ = f % Fixed32.Tau;
 
@@ -73,12 +73,12 @@
 			return y;
 		}
 		
-		public static Fixed32 Cos (Fixed32 f)
+		internal static Fixed32 Cos (Fixed32 f)
 		{
 			return Sin (PiOver2 - f);
 		}
 		
-		public static Fixed32 Tan (Fixed32 f)
+		internal static Fixed32 Tan (Fixed32 f)
 		{
 			return Sin (f) / Cos (f);
 		}

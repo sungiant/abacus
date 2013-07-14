@@ -1,0 +1,39 @@
+    /// <summary>
+    /// Tests the NormalisedShort4 packed data type.
+    /// </summary>
+    [TestFixture]
+    public class NormalisedShort4Tests
+    {
+        /// <summary>
+        /// Iterates over a random selection of values within the range of
+        /// possible NormalisedShort4 values and makes sure that unpacking them and 
+        /// then re-packing that result yeilds the original packed value.
+        /// </summary>
+        [Test]
+        public void TestRandomValues_i()
+        {
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                BitConverter.ToUInt32(buff, 0);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new NormalisedShort4();
+                
+                packedObj.PackedValue = packed;
+                
+                SinglePrecision.Vector4 unpacked;
+                
+                packedObj.UnpackTo(out unpacked);
+                
+                var newPackedObj = new NormalisedShort4(ref unpacked);
+                
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+            }
+        }
+
+<#  GeneratePackedTestsCommon("NormalisedShort4", "UInt64", "packedXyzw", "realXyzw", 4); #>
+    }
+

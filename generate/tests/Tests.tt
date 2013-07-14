@@ -35,25 +35,32 @@
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
 <#@ include file="../Types.t4"#>
+<#@ include file="GeneratePackedTests.t4"#>
 
 using System;
-using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
+using System.Runtime.CompilerServices;
 
 namespace Sungiant.Abacus.Tests
 {
 
 <#@ include file="RealMaths.Tests.t4"#>
-<#@ include file="PackUtils.Tests.t4"#>
 <#@ include file="Fixed.Tests.t4"#>
 
 }
 
 namespace Sungiant.Abacus.Packed.Tests
 {
+	/// <summary>
+	/// todo
+	/// </summary>
 	public static class Settings
     {
         public const Int32 NumTests = 50000;
@@ -67,20 +74,32 @@ namespace Sungiant.Abacus.Packed.Tests
 <#@ include file="Packed/NormalisedByte2.Tests.t4"#>
 <#@ include file="Packed/NormalisedByte4.Tests.t4"#>
 <#@ include file="Packed/NormalisedShort2.Tests.t4"#>
+<#@ include file="Packed/NormalisedShort4.Tests.t4"#>
 <#@ include file="Packed/Rg32.Tests.t4"#>
 <#@ include file="Packed/Rgba32.Tests.t4"#>
 <#@ include file="Packed/Rgba64.Tests.t4"#>
 <#@ include file="Packed/Rgba_10_10_10_2.Tests.t4"#>
 <#@ include file="Packed/Short2.Tests.t4"#>
 <#@ include file="Packed/Short4.Tests.t4"#>
-
 }
 
+<# foreach( var type in GetIntegerTypes() ) { #>
+namespace Sungiant.Abacus.<#= type #>Precision.Tests
+{
+<#@ include file="Precision/Integer/Point2.Tests.t4"#>
+<#@ include file="Precision/Integer/Point3.Tests.t4"#>
+}
+
+<# } #>
 
 <# foreach(var type in GetRealTypes() ) { #>
 namespace Sungiant.Abacus.<#= type #>Precision.Tests
 {
 <#@ include file="Precision/Real/Matrix44.Tests.t4"#>
+<#@ include file="Precision/Real/Quaternion.Tests.t4"#>
+<#@ include file="Precision/Real/Vector2.Tests.t4"#>
+<#@ include file="Precision/Real/Vector3.Tests.t4"#>
+<#@ include file="Precision/Real/Vector4.Tests.t4"#>
 }
 
 <# } #>

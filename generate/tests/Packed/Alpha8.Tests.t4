@@ -1,11 +1,22 @@
-﻿    [TestFixture]
-    public static class Alpha_8Tests
+﻿    /// <summary>
+    /// Tests the Alpha_8 packed data type.
+    /// </summary>
+    [TestFixture]
+    public class Alpha_8Tests
     {
+        /// <summary>
+        /// Iterates over every possible Alpha_8 value and makes sure that
+        /// unpacking them and then re-packing that result yeilds the 
+        /// original packed value.
+        /// </summary>
         [Test]
-        public static void TestAllPossibleValues()
-        {
-            for (Byte packed = Byte.MinValue; packed < Byte.MaxValue; ++packed)
+        public void TestAllPossibleValues_i()
+        {   
+            Byte packed = Byte.MinValue;
+            while ( packed < Byte.MaxValue )
             {
+                ++packed;
+
                 var packedObj = new Alpha_8();
 
                 packedObj.PackedValue = packed;
@@ -19,5 +30,7 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
+
+<#  GeneratePackedTestsCommon("Alpha_8", "Byte", "packedAlpha", "realAlpha", 1); #>
     }
 

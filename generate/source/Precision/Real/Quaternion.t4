@@ -1,13 +1,33 @@
-﻿	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Quaternion 
+﻿	/// <summary>
+	/// <#= type #> precision Quaternion.
+	/// </summary>
+	[StructLayout (LayoutKind.Sequential)]
+	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> X;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> Y;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> Z;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> W;
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (<#= type #> x, <#= type #> y, <#= type #> z, <#= type #> w)
 		{
 			this.X = x;
@@ -16,6 +36,9 @@
 			this.W = w;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (Vector3 vectorPart, <#= type #> scalarPart)
 		{
 			this.X = vectorPart.X;
@@ -24,43 +47,42 @@
 			this.W = scalarPart;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
 		}
 
-		public Boolean Equals (Quaternion other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-
-			Boolean flag = false;
-			if (obj is Quaternion)
-			{
-				flag = this.Equals ((Quaternion)obj);
-			}
-			return flag;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> LengthSquared ()
 		{
 			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> Length ()
 		{
 			<#= type #> num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Normalise ()
 		{
 			<#= type #> one = 1;
@@ -72,6 +94,9 @@
 			this.W *= num;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			<#= type #> one = 1;
@@ -79,6 +104,9 @@
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Conjugate ()
 		{
 			this.X = -this.X;
@@ -91,5 +119,4 @@
 <#@ include file="Quaternion.Maths.t4"#>
 <#@ include file="Quaternion.Operators.t4"#>
 <#@ include file="Quaternion.Utilities.t4"#>
-
 	}

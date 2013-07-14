@@ -1,5 +1,6 @@
-﻿		#region Create
-
+﻿		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, <#= type #> angle, out Quaternion result)
 		{
 			<#= type #> half; RealMaths.Half(out half);
@@ -14,7 +15,10 @@
 
 			result.W = cos;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (<#= type #> yaw, <#= type #> pitch, <#= type #> roll, out Quaternion result)
 		{
 			<#= type #> half; RealMaths.Half(out half);
@@ -38,7 +42,10 @@
 			result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
 			result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
 		{
 			<#= type #> zero = 0;
@@ -84,5 +91,3 @@
 				result.W = (matrix.M12 - matrix.M21) * num2;
 			}
 		}
-		
-		#endregion

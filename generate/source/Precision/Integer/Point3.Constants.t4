@@ -1,0 +1,167 @@
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Point3 with all of its components set to zero.
+		/// </summary>
+		static Point3 zero;
+
+		/// <summary>
+		/// Defines a Point3 with all of its components set to one.
+		/// </summary>
+		static Point3 one;
+
+		/// <summary>
+		/// Defines the unit Point3 for the X-axis.
+		/// </summary>
+		static Point3 unitX;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Y-axis.
+		/// </summary>
+		static Point3 unitY;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Z-axis.
+		/// </summary>
+		static Point3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		static Point3 up;
+
+		/// <summary>
+		/// Defines a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		static Point3 down;
+
+		/// <summary>
+		/// Defines a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Point3 right;
+
+		/// <summary>
+		/// Defines a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		static Point3 left;
+
+		/// <summary>
+		/// Defines a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Point3 forward;
+
+		/// <summary>
+		/// Defines a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Point3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Point3()
+		{
+			zero = new Point3();
+			one = new Point3(1, 1, 1);
+			unitX = new Point3(1, 0, 0);
+			unitY = new Point3(0, 1, 0);
+			unitZ = new Point3(0, 0, 1);
+			up = new Point3(0, 1, 0);
+			down = new Point3(0, -1, 0);
+			right = new Point3(1, 0, 0);
+			left = new Point3(-1, 0, 0);
+			forward = new Point3(0, 0, -1);
+			backward = new Point3(0, 0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Point3 with all of its components set to zero.
+		/// </summary>
+		public static Point3 Zero
+		{
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Point3 with all of its components set to one.
+		/// </summary>
+		public static Point3 One
+		{
+			get { return one; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the X-axis.
+		/// </summary>
+		public static Point3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Y-axis.
+		/// </summary>
+		public static Point3 UnitY
+		{
+			get { return unitY; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Z-axis.
+		/// </summary>
+		public static Point3 UnitZ
+		{
+			get { return unitZ; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		public static Point3 Up
+		{
+			get { return up; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		public static Point3 Down
+		{
+			get { return down; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Point3 Right
+		{
+			get { return right; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Point3 Left
+		{
+			get { return left; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Point3 Forward
+		{
+			get { return forward; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Point3 Backward
+		{
+			get { return backward; }
+		}
+

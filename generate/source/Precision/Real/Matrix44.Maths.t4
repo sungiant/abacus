@@ -1,58 +1,41 @@
-﻿		#region Maths
-
-		//----------------------------------------------------------------------
-		// Transpose
-		//
-		public void Transpose()
-		{
-			<#= type #> temp = this.M12;
-			this.M12 = this.M21;
-			this.M21 = temp;
-
-			temp = this.M13;
-			this.M13 = this.M31;
-			this.M31 = temp;
-
-			temp = this.M14;
-			this.M14 = this.M41;
-			this.M41 = temp;
-
-			temp = this.M23;
-			this.M23 = this.M32;
-			this.M32 = temp;
-
-			temp = this.M24;
-			this.M24 = this.M42;
-			this.M42 = temp;
-
-			temp =  this.M34;
-			this.M34 = this.M43;
-			this.M43 = temp;
-		}
-
+﻿		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Transpose (ref Matrix44 input, out Matrix44 output)
 		{
-		    output.M11 = input.M11;
-			output.M12 = input.M21;
-			output.M13 = input.M31;
-			output.M14 = input.M41;
-			output.M21 = input.M12;
+			output.M11 = input.M11;
 			output.M22 = input.M22;
-			output.M23 = input.M32;
-			output.M24 = input.M42;
-			output.M31 = input.M13;
-			output.M32 = input.M23;
 			output.M33 = input.M33;
-			output.M34 = input.M43;
-			output.M41 = input.M14;
-			output.M42 = input.M24;
-			output.M43 = input.M34;
 			output.M44 = input.M44;
+
+			<#= type #> temp = input.M12;
+			output.M12 = input.M21;
+			output.M21 = temp;
+
+			temp = input.M13;
+			output.M13 = input.M31;
+			output.M31 = temp;
+
+			temp = input.M14;
+			output.M14 = input.M41;
+			output.M41 = temp;
+
+			temp = input.M23;
+			output.M23 = input.M32;
+			output.M32 = temp;
+
+			temp = input.M24;
+			output.M24 = input.M42;
+			output.M42 = temp;
+
+			temp =  input.M34;
+			output.M34 = input.M43;
+			output.M43 = temp;
 		}
 
-		//----------------------------------------------------------------------
-		// Decompose
-		// ref: Essential Mathemathics For Games & Interactive Applications
+		/// <summary>
+		/// Essential Mathemathics For Games & Interactive Applications
+		/// </summary>
 		public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
 		{
 			translation.X = M41;
@@ -75,17 +58,17 @@
 				return false;
 			}
 
-			a.Normalise();
-			b.Normalise();
-			c.Normalise();
+			Vector3.Normalise(ref a, out a);
+			Vector3.Normalise(ref b, out b);
+			Vector3.Normalise(ref c, out c);
 
 			Vector3 right = new Vector3(a.X, b.X, c.X);
 			Vector3 up = new Vector3(a.Y, b.Y, c.Y);
 			Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
 
-			right.Normalise();
-			up.Normalise();
-			backward.Normalise();
+			Vector3.Normalise(ref right, out right);
+			Vector3.Normalise(ref up, out up);
+			Vector3.Normalise(ref backward, out backward);
 
 			Matrix44 rotMat;
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
@@ -95,19 +78,14 @@
 			return true;
 		}
 
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		//----------------------------------------------------------------------
-		// Determinant
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public <#= type #> Determinant ()
 		{
 			<#= type #> num22 = this.M11;
@@ -137,9 +115,14 @@
 			return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
 		}
 		
-		//----------------------------------------------------------------------
-		// Invert
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Invert (ref Matrix44 matrix, out Matrix44 result)
 		{
 			<#= type #> one = 1;
@@ -200,10 +183,14 @@
 			result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
 		}
 
-
-		//----------------------------------------------------------------------
-		// Transform - Transforms a Matrix by applying a Quaternion rotation.
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Transforms a Matrix by applying a Quaternion rotation.
+		/// </summary>
 		public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
 		{
 			<#= type #> one = 1;
@@ -277,5 +264,4 @@
 			result.M43 = num23;
 			result.M44 = num22;
 		}
-		
-		#endregion
+

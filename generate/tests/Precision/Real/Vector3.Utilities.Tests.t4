@@ -1,0 +1,153 @@
+		/// <summary>
+		/// Assert that, running the Min function on a number of randomly
+		/// generated pairs of Vector3 objects, yields the same results as those
+		/// obtained from performing a manual Min calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Min ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = a * 2;
+
+				Vector3 result;
+				Vector3.Min (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
+		}
+
+		/// <summary>
+		/// Assert that, running the Max function on a number of randomly
+		/// generated pairs of Vector3 objects, yields the same results as those
+		/// obtained from performing a manual Max calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Max ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+				Vector3 b = GetNextRandomVector3();
+
+				Vector3 result;
+				Vector3.Max (ref a, ref b, out result);
+
+				Assert.That(result.X, Is.EqualTo(1));
+				Assert.That(result.Y, Is.EqualTo(1));
+			}
+		}
+
+		/// <summary>
+		/// Assert that, running the Clamp function on a number of randomly
+		/// generated Vector3 objects for a given min-max range, yields
+		/// results that fall within that range.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Clamp_i ()
+		{
+			Vector3 min = new Vector3(-30, 1, 18);
+			Vector3 max = new Vector3(32, 130, 47);
+
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Vector3 a = GetNextRandomVector3();
+
+				Vector3 result;
+				Vector3.Clamp (ref a, ref min, ref max, out result);
+
+				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			}
+		}
+
+		/// <summary>
+		/// Assert that, running the Clamp function on an a Vector3 object known
+		/// to fall outside of a given min-max range, yields a result that fall 
+		/// within that range.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Clamp_ii ()
+		{
+			Vector3 min = new Vector3(-30, 1, 18);
+			Vector3 max = new Vector3(32, 130, 47);
+
+			Vector3 a = new Vector3(-100, 1113, 50);
+
+			Vector3 expected = new Vector3(-30, 130, 47);
+
+			Vector3 result;
+			Vector3.Clamp (ref a, ref min, ref max, out result);
+
+			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+			Assert.That(result.Z, Is.LessThanOrEqualTo(max.Z));
+			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+			Assert.That(result.Z, Is.GreaterThanOrEqualTo(min.Z));
+
+			AssertEqualWithinReason(result, expected);
+
+		}
+
+		/// <summary>
+		/// Assert that, running the Lerp function on a number of randomly
+		/// generated pairs of Vector3 objects for a range of weighting amounts, 
+		/// yields the same results as those obtained from performing a manual 
+		/// Lerp calculation.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_i ()
+		{
+			for(Int32 j = 0; j < 100; ++j)
+			{
+				<#= type #> delta = j;
+
+				delta = delta / 100;
+
+				for(Int32 i = 0; i < 100; ++i)
+				{
+					Vector3 a = GetNextRandomVector3();
+					Vector3 b = GetNextRandomVector3();
+
+					Vector3 result;
+					Vector3.Lerp (ref a, ref b, delta, out result);
+
+					Vector3 expected = a + ( ( b - a ) * delta );
+
+					AssertEqualWithinReason(result, expected);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Assert that, for a known examples where the weighting parameter is
+		/// is outside the allowed range, the correct exception is thrown.
+		/// </summary>
+		[Test]
+		public void TestStaticFn_Lerp_ii ()
+		{
+			Vector3 a = GetNextRandomVector3();
+			Vector3 b = GetNextRandomVector3();
+
+			<#= type #> half; RealMaths.Half(out half);
+
+			var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+
+			foreach( var weighting in tests )
+			{
+				Vector3 result; 
+				Assert.Throws(
+					typeof(ArgumentOutOfRangeException), 
+					() => 
+						Vector3.Lerp (
+							ref a, ref b, weighting, out result)
+					);
+			}
+		}
+

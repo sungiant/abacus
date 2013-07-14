@@ -1,0 +1,143 @@
+	/// <summary>
+	/// todo
+	/// </summary>
+	[TestFixture]
+	public class Point3Tests
+	{
+<#@ include file="Point3.TestHelpers.t4"#>
+
+		// Test: StructLayout //----------------------------------------------//
+
+		/// <summary>
+		/// This test makes sure that the struct layout has been defined
+		/// correctly.
+		/// </summary>
+		[Test]
+		public void Test_StructLayout_i ()
+		{
+			Type t = typeof(Point3);
+
+			Assert.That(
+				t.StructLayoutAttribute.Value, 
+				Is.EqualTo(LayoutKind.Sequential));
+		}
+
+		/// <summary>
+		/// This test makes sure that when examining the memory addresses of the 
+		/// X, Y and Z member variables of a number of randomly generated 
+		/// Point3 objects the results are as expected. 
+		/// </summary>
+		[Test]
+		public unsafe void Test_StructLayout_ii ()
+		{
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Point3 pnt = GetNextRandomPoint3();
+
+				GCHandle h_pnt = GCHandle.Alloc(pnt, GCHandleType.Pinned);
+
+		        IntPtr pntAddress = h_pnt.AddrOfPinnedObject();
+
+		        <#= type #>[] data = new <#= type #>[3];
+
+		        // nb: when Fixed32 and Half are moved back into the main
+		        //     dev branch there will be need for an extension method for
+		        //     Marshal that will perform the copy for those types. 
+		        MarshalHelper.Copy(pntAddress, data, 0, 3);
+		        Assert.That(data[0], Is.EqualTo(pnt.X));
+		        Assert.That(data[1], Is.EqualTo(pnt.Y));
+		        Assert.That(data[2], Is.EqualTo(pnt.Z));
+				
+		        h_pnt.Free();
+			}
+		}
+
+		// Test: Constructors //----------------------------------------------//
+
+		/// <summary>
+		/// This test goes though each public constuctor and ensures that the 
+		/// data members of the structure have been properly set.
+		/// </summary>
+		[Test]
+		public void Test_Constructors_i ()
+		{
+			{
+				// Test default values
+				Point3 a = new Point3();
+				Assert.That(a, Is.EqualTo(Point3.Zero));
+			}
+			{
+				// Test Point3( <#= type #>, <#= type #>, <#= type #> )
+				<#= type #> a = -189;
+				<#= type #> b = 429;
+				<#= type #> c = 4298;
+				Point3 d = new Point3(a, b, c);
+				Assert.That(d.X, Is.EqualTo(a));
+				Assert.That(d.Y, Is.EqualTo(b));
+				Assert.That(d.Z, Is.EqualTo(c));
+			}
+			{
+				// Test Point3( Point2, <#= type #> )
+				Point2 a = new Point2(-189, 429);
+				<#= type #> b = 4298;
+				Point3 c = new Point3(a, b);
+				Assert.That(c.X, Is.EqualTo(a.X));
+				Assert.That(c.Y, Is.EqualTo(a.Y));
+				Assert.That(c.Z, Is.EqualTo(b));
+			}
+			{
+				// Test no constructor
+				Point3 a;
+				a.X = 0;
+				a.Y = 0;
+				a.Z = 0;
+				Assert.That(a, Is.EqualTo(Point3.Zero));
+			}
+		}
+
+		// Test Member Fn: ToString //----------------------------------------//
+
+		/// <summary>
+		/// For a given example, this test ensures that the ToString function
+		/// yields the expected string.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_ToString_i ()
+		{
+			Point3 a = new Point3(42, -17, 13);
+
+			String result = a.ToString();
+
+			String expected = "{X:42 Y:-17 Z:13}";
+
+			Assert.That(result, Is.EqualTo(expected));
+		}
+
+		// Test Member Fn: GetHashCode //-------------------------------------//
+
+		/// <summary>
+		/// Makes sure that the hashing function is good by testing 10,000
+		/// random scenarios and ensuring that there are no more than 10
+		/// collisions.
+		/// </summary>
+		[Test]
+		public void TestMemberFn_GetHashCode_i ()
+		{
+			var hs1 = new System.Collections.Generic.HashSet<Point3>();
+			var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+			for(Int32 i = 0; i < 10000; ++i)
+			{
+				var a = GetNextRandomPoint3();
+
+				hs1.Add(a);
+				hs2.Add(a.GetHashCode());
+			}
+
+			Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+		}
+
+<#@ include file="Point3.Constants.Tests.t4"#>
+<#@ include file="Point3.Operators.Tests.t4"#>
+	}
+	

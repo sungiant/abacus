@@ -1,7 +1,7 @@
-﻿		#region Utilities
-
-		// beware, doing this might not produce what you expect.  you likely
-		// want to lerp between quaternions.
+﻿		/// <summary>
+		/// beware, doing this might not produce what you expect.  you likely
+		/// want to lerp between quaternions.
+		/// </summary>
 		public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, <#= type #> amount, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
@@ -21,6 +21,5 @@
 			result.M43 = matrix1.M43 + ((matrix2.M43 - matrix1.M43) * amount);
 			result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
 		}
-		
-		#endregion
+
 		

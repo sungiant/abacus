@@ -41,80 +41,167 @@ using System.Collections.Generic;
 
 namespace Sungiant.Abacus
 {
-	public enum ContainmentType
-	{
-		Disjoint,
-		Contains,
-		Intersects
-	}
-
-	public enum PlaneIntersectionType
-	{
-		Front,
-		Back,
-		Intersecting
-	}
-
+	/// <summary>
+	/// 
+	/// </summary>
 	public interface IPackedReal
 	{
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(Single input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out Single output);
 
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(Double input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out Double output);
 
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(Fixed32 input);
-		void UnpackTo(out Fixed32 output);
 
+		/// <summary>
+		/// 
+		/// </summary>
+		void UnpackTo(out Fixed32 output);
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public interface IPackedReal2
 	{
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref SinglePrecision.Vector2 input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out SinglePrecision.Vector2 output);
 
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref DoublePrecision.Vector2 input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out DoublePrecision.Vector2 output);
 
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref Fixed32Precision.Vector2 input);
-		void UnpackTo(out Fixed32Precision.Vector2 output);
 
+		/// <summary>
+		/// 
+		/// </summary>
+		void UnpackTo(out Fixed32Precision.Vector2 output);
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public interface IPackedReal3
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref SinglePrecision.Vector3 input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out SinglePrecision.Vector3 output);
-
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref DoublePrecision.Vector3 input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out DoublePrecision.Vector3 output);
-
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref Fixed32Precision.Vector3 input);
-		void UnpackTo(out Fixed32Precision.Vector3 output);
 
+		/// <summary>
+		/// 
+		/// </summary>
+		void UnpackTo(out Fixed32Precision.Vector3 output);
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public interface IPackedReal4
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref SinglePrecision.Vector4 input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out SinglePrecision.Vector4 output);
-
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref DoublePrecision.Vector4 input);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		void UnpackTo(out DoublePrecision.Vector4 output);
-
+		/// <summary>
+		/// 
+		/// </summary>
 		void PackFrom(ref Fixed32Precision.Vector4 input);
-		void UnpackTo(out Fixed32Precision.Vector4 output);
 
+		/// <summary>
+		/// 
+		/// </summary>
+		void UnpackTo(out Fixed32Precision.Vector4 output);
 	}
 
-	// T is the type that the value is packed into
+	/// <summary>
+	/// T is the type that the value is packed into
+	/// </summary>
 	public interface IPackedValue<T>
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		T PackedValue { get; set; }
 	}
 
-	static class PackUtils
+	/// <summary>
+	/// todo
+	/// </summary>
+	internal static class PackUtils
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Double ClampAndRound (Single value, Single min, Single max)
 		{
 			if (Single.IsNaN (value)) 
@@ -140,26 +227,38 @@ namespace Sungiant.Abacus
 			return Math.Round ((Double)value);
 		}
 
-		public static UInt32 PackSigned (UInt32 bitmask, Single value)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static UInt32 PackSigned (UInt32 bitmask, Single value)
 		{
 			Single max = bitmask >> 1;
 			Single min = -max - 1f;
 			return (((UInt32)((Int32)ClampAndRound (value, min, max))) & bitmask);
 		}
 
-		public static UInt32 PackUnsigned (Single bitmask, Single value)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static UInt32 PackUnsigned (Single bitmask, Single value)
 		{
 			return (UInt32)ClampAndRound (value, 0f, bitmask);
 		}
 
-		public static UInt32 PackSignedNormalised (UInt32 bitmask, Single value)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static UInt32 PackSignedNormalised (UInt32 bitmask, Single value)
 		{
 			Single max = bitmask >> 1;
 			value *= max;
 			return (((UInt32)((Int32)ClampAndRound (value, -max, max))) & bitmask);
 		}
 
-		public static Single UnpackSignedNormalised (UInt32 bitmask, UInt32 value)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static Single UnpackSignedNormalised (UInt32 bitmask, UInt32 value)
 		{
 			UInt32 num = (UInt32)((bitmask + 1) >> 1);
 			if ((value & num) != 0) {
@@ -174,13 +273,19 @@ namespace Sungiant.Abacus
 			return (((Single)value) / num2);
 		}
 
-		public static UInt32 PackUnsignedNormalisedValue (Single bitmask, Single value)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static UInt32 PackUnsignedNormalisedValue (Single bitmask, Single value)
 		{
 			value *= bitmask;
 			return (UInt32)ClampAndRound (value, 0f, bitmask);
 		}
 		
-		public static Single UnpackUnsignedNormalisedValue (UInt32 bitmask, UInt32 value)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static Single UnpackUnsignedNormalisedValue (UInt32 bitmask, UInt32 value)
 		{
 			value &= bitmask;
 			return (((Single)value) / ((Single)bitmask));
@@ -247,6 +352,26 @@ namespace Sungiant.Abacus
 		double value { get { return (double)numerator / (double)denominator; } }
 
 
+
+		public static bool IsInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.NegativeInfinity || value == Fixed32.PositiveInfinity );
+		}
+
+		public static bool IsNegativeInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.NegativeInfinity );
+		}
+		
+		public static bool IsPositiveInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.PositiveInfinity );
+		}
+
+		public static bool IsNaNInfinity(Fixed32 value)
+		{
+			return ( value == Fixed32.NaN );
+		}
 
 		// perhaps this shouldn't be public
 		public Int32 RawValue { get { return numerator; } }
@@ -399,8 +524,11 @@ namespace Sungiant.Abacus
 		static readonly Fixed32 Tau = Pi * new Fixed32(2);
 
 		public static readonly Fixed32 Epsilon = CreateFromRaw(1);
-		public static readonly Fixed32 MaxValue = CreateFromRaw(Int32.MaxValue);
-		public static readonly Fixed32 MinValue = CreateFromRaw(Int32.MinValue);
+		public static readonly Fixed32 MaxValue = CreateFromRaw(Int32.MaxValue - 2);
+		public static readonly Fixed32 MinValue = CreateFromRaw(Int32.MinValue + 1);
+		public static readonly Fixed32 PositiveInfinity = CreateFromRaw(Int32.MaxValue - 1);
+		public static readonly Fixed32 NegativeInfinity = CreateFromRaw(Int32.MinValue);
+		public static readonly Fixed32 NaN = CreateFromRaw(Int32.MaxValue);
 
 		#endregion
 
@@ -433,7 +561,7 @@ namespace Sungiant.Abacus
 			return k;
 		}
 		
-		public static Fixed32 Sqrt (Fixed32 f)
+		internal static Fixed32 Sqrt (Fixed32 f)
 		{
 			Int32 numberOfIterations = 8;
 			
@@ -450,14 +578,14 @@ namespace Sungiant.Abacus
 			return Sqrt (f, numberOfIterations);
 		}
 
-		public static Fixed32 Square (Fixed32 f)
+		internal static Fixed32 Square (Fixed32 f)
 		{
 			int v = f.numerator >> (n / 2);
 			int w = f.numerator >> (n - (n / 2));
 			return CreateFromRaw (v * w);
 		}
 
-		public static Fixed32 Sin (Fixed32 f)
+		internal static Fixed32 Sin (Fixed32 f)
 		{
 			Fixed32 x_ = f % Fixed32.Tau;
 
@@ -479,12 +607,12 @@ namespace Sungiant.Abacus
 			return y;
 		}
 		
-		public static Fixed32 Cos (Fixed32 f)
+		internal static Fixed32 Cos (Fixed32 f)
 		{
 			return Sin (PiOver2 - f);
 		}
 		
-		public static Fixed32 Tan (Fixed32 f)
+		internal static Fixed32 Tan (Fixed32 f)
 		{
 			return Sin (f) / Cos (f);
 		}
@@ -901,68 +1029,445 @@ namespace Sungiant.Abacus
 
 	}
 
-    //
-    // This class provides maths functions with consistent function
-    // signatures across all supported precisions.  The idea being
-    // the more you use this, the more you will be able to write 
-    // code once and easily change the precision later.
-    //
+    /// <summary>
+    /// This class provides maths functions with consistent function
+    /// signatures across all supported precisions.  The idea being
+    /// the more you use this, the more you will be able to write 
+    /// code once and easily change the precision later.
+	/// </summary>
 	public static class RealMaths
 	{
+		/// <summary>
+		/// Assigns a Single precision real number representing
+		/// zero to the output value.
+		/// </summary>
 		public static void Zero(out Single value) { value = 0; }
+
+		/// <summary>
+		/// Assigns a Double precision real number representing
+		/// zero to the output value.
+		/// </summary>
 		public static void Zero(out Double value) { value = 0; }
-        public static void Zero(out Fixed32 value) { value = 0; }
 
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing
+		/// zero to the output value.
+		/// </summary>
+		public static void Zero(out Fixed32 value) { value = 0; }
+
+		/// <summary>
+		/// Assigns a Single precision real number representing half to the
+		/// output value.
+		/// </summary>
 		public static void Half(out Single value) { value = 0.5f; }
+
+		/// <summary>
+		/// Assigns a Double precision real number representing half to the
+		/// output value.
+		/// </summary>
 		public static void Half(out Double value) { value = 0.5; }
-        public static void Half(out Fixed32 value) { value = Fixed32.Parse("0.5"); }
 
-		public static void One(out Single value) { value = 1f; }
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing half to the
+		/// output value.
+		/// </summary>
+		public static void Half(out Fixed32 value) { value = Fixed32.Parse("0.5"); }
+
+		/// <summary>
+		/// Assigns a Single precision real number representing
+		/// one to the output value.
+		/// </summary>
+		public static void One(out Single value) { value = 1; }
+
+		/// <summary>
+		/// Assigns a Double precision real number representing
+		/// one to the output value.
+		/// </summary>
 		public static void One(out Double value) { value = 1; }
-        public static void One(out Fixed32 value) { value = Fixed32.Parse("1"); }
 
-        // TODO: Improve upon the accuracy of the following mathematical constants.
-		public static void E(out Single value) { value = 71828183f; }
-		public static void E(out Double value) { value = 71828183; }
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing
+		/// one to the output value.
+		/// </summary>
+		public static void One(out Fixed32 value) { value = 1; }
+
+
+		/// <summary>
+		/// Assigns a Single precision real number representing the mathematical
+		/// constant E, Euler's number, to the output value.
+		/// </summary>
+		public static void E(out Single value) { value = 2.71828183f; }
+
+		/// <summary>
+		/// Assigns a Double precision real number representing the mathematical
+		/// constant E, Euler's number, to the output value.
+		/// </summary>
+		public static void E(out Double value) { value = 2.71828182845904523536028747135266249775724709369995; }
+
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing the mathematical
+		/// constant E, Euler's number, to the output value.
+		/// </summary>
 		public static void E(out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
 
-		public static void Log10E(out Single value) { value = 0.4342945f; }
+		/// <summary>
+		/// Assigns a Single precision real number representing the common 
+		/// logarithm of the mathematical constant E to the output value.
+		/// </summary>
+		public static void Log10E(out Single value) { value = 0.4342944821f; }
+
+		/// <summary>
+		/// Assigns a Double precision real number representing the binary 
+		/// logarithm of the mathematical constant E to the output value.
+		/// </summary>
 		public static void Log10E(out Double value) { value = 0.4342945; }
-        public static void Log10E(out Fixed32 value) { value = Fixed32.Parse("0.4342945"); }
 
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing the binary 
+		/// logarithm of the mathematical constant E to the output value.
+		/// </summary>
+		public static void Log10E(out Fixed32 value) { value = Fixed32.Parse("0.4342945"); }
+
+		/// <summary>
+		/// Assigns a Single precision real number representing the binary 
+		/// logarithm of the mathematical constant E to the output value.
+		/// </summary>
 		public static void Log2E(out Single value) { value = 1.442695f; }
+
+		/// <summary>
+		/// Assigns a Double precision real number representing the binary 
+		/// logarithm of the mathematical constant E to the output value.
+		/// </summary>
 		public static void Log2E(out Double value) { value = 1.442695; }
-        public static void Log2E(out Fixed32 value) { value = Fixed32.Parse("1.442695"); }
 
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing the binary 
+		/// logarithm of the mathematical constant E to the output value.
+		/// </summary>
+		public static void Log2E(out Fixed32 value) { value = Fixed32.Parse("1.442695"); }
+
+		/// <summary>
+		/// Assigns a Single precision real number representing the 
+		/// mathematical constant π to the output value.
+		/// </summary>
 		public static void Pi(out Single value) { value = 3.1415926536f; }
-		public static void Pi(out Double value) { value = 3.1415926536; }
-        public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
 
-		public static void PiOver2(out Single value) { value = 1.570796f; }
-		public static void PiOver2(out Double value) { value = 1.570796; }
-        public static void PiOver2(out Fixed32 value) { value = Fixed32.Parse("1.570796"); }
+		/// <summary>
+		/// Assigns a Double precision real number representing the 
+		/// mathematical constant π to the output value.
+		/// </summary>
+		public static void Pi(out Double value) { value = 3.14159265358979323846264338327950288; }
 
-		public static void PiOver4(out Single value) { value = 0.7853982f; }
-		public static void PiOver4(out Double value) { value = 0.7853982; }
-        public static void PiOver4(out Fixed32 value) { value = Fixed32.Parse("0.7853982"); }
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing the 
+		/// mathematical constant π to the output value.
+		/// </summary>
+		public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
 
+		/// <summary>
+		/// Assigns a Single precision real number representing the 
+		/// mathematical constant 2π to the output value.
+		/// </summary>
 		public static void Tau(out Single value) { value = 6.283185f; }
+
+		/// <summary>
+		/// Assigns a Double precision real number representing the 
+		/// mathematical constant 2π to the output value.
+		/// </summary>
 		public static void Tau(out Double value) { value = 6.283185; }
-        public static void Tau(out Fixed32 value) { value = Fixed32.Parse("2.718282"); }
 
+		/// <summary>
+		/// Assigns a Fixed32 precision real number representing the 
+		/// mathematical constant 2π to the output value.
+		/// </summary>
+		public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Epsilon(out Single value) { value = 1.0e-6f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Epsilon(out Double value) { value = 1.0e-6; }
-        public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.000001"); }
 
+		public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.000001"); }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root2(out Single value) { value = 1.41421f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root2(out Double value) { value = 1.41421; }
-        public static void Root2(out Fixed32 value) { value = Fixed32.Parse("1.41421"); }
 
+		public static void Root2(out Fixed32 value) { value = Fixed32.Parse("1.41421"); }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root3(out Single value) { value = 1.73205f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Root3(out Double value) { value = 1.73205; }
-        public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.73205"); }
 
+		public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.73205"); }
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static void TestTolerance(out Single value) { value = 1.0e-4f; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static void TestTolerance(out Double value) { value = 1.0e-7; }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal static void TestTolerance(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Sqrt(Single input)
+		{
+			Single output = (Single)Math.Sqrt(input);
+			return output;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Sqrt(Double input)
+		{
+			return Math.Sqrt(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Sqrt(Fixed32 input)
+		{
+			return Fixed32.Sqrt(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Sin(Single input)
+		{
+            return (Single) Math.Sin((Single) input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Sin(Double input)
+		{
+            return Math.Sin(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Sin(Fixed32 input)
+		{
+            return Fixed32.Sin(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Cos(Single input)
+		{
+            return (Single)Math.Cos((Single)input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Cos(Double input)
+		{
+            return Math.Cos(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Cos(Fixed32 input)
+		{
+            return Fixed32.Cos(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Tan(Single input)
+		{
+            return (Single)Math.Tan((Single)input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Tan(Double input)
+		{
+            return Math.Tan(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Tan(Fixed32 input)
+		{
+            return Fixed32.Tan(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Abs(Single input)
+		{
+            return (Single)Math.Abs((Single)input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Abs(Double input)
+		{
+            return Math.Abs(input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Abs(Fixed32 input)
+		{
+            if (input < new Fixed32(0))
+            {
+                return input * new Fixed32(-1);
+            }
+
+            return input;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single ArcSin(Single input)
+		{
+            return (Single)Math.Asin((Single)input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double ArcSin(Double input)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 ArcSin(Fixed32 input)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single ArcCos(Single input)
+		{
+            return (Single)Math.Acos((Single)input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double ArcCos(Double input)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 ArcCos(Fixed32 input)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single ArcTan(Single input)
+		{
+            return (Single)Math.Atan((Single)input);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double ArcTan(Double input)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 ArcTan(Fixed32 input)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single ToRadians(Single input)
+		{
+			Single tau; Tau(out tau);
+			return input * tau / ((Single)360);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single ToDegrees(Single input)
+		{
+			Single tau; Tau(out tau);
+			return input / tau * ((Single)360);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static void FromFraction(Int32 numerator, Int32 denominator, out Single value)
+        {
+            value = (Single) numerator / (Single) denominator;
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static void FromString(String str, out Single value)
+        {
+            Single.TryParse(str, out value);
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Boolean IsZero(Single value)
         {
             Single ep;
@@ -970,20 +1475,34 @@ namespace Sungiant.Abacus
             return Abs(value) < ep;
         }
 
-        public static Boolean IsZero(Double value)
-        {
-            Double ep;
-            Epsilon(out ep);
-            return Abs(value) < ep;
-        }
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Min(Single a, Single b)
+		{
+			return a < b ? a : b;
+		}
 
-        public static Boolean IsZero(Fixed32 value)
-        {
-            Fixed32 ep;
-            Epsilon(out ep);
-            return Abs(value) < ep;
-        }
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Single Max(Single a, Single b)
+		{
+			return a > b ? a : b;
+		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Boolean WithinEpsilon(Single a, Single b)
+		{
+			Single num = a - b;
+			return ((-Single.Epsilon <= num) && (num <= Single.Epsilon));
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Int32 Sign(Single value)
         {
             if (value > 0)
@@ -998,6 +1517,78 @@ namespace Sungiant.Abacus
             return 0;
         }
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double ToRadians(Double input)
+		{
+			Double tau; Tau(out tau);
+			return input * tau / ((Double)360);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double ToDegrees(Double input)
+		{
+			Double tau; Tau(out tau);
+			return input / tau * ((Double)360);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static void FromFraction(Int32 numerator, Int32 denominator, out Double value)
+        {
+            value = (Double) numerator / (Double) denominator;
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static void FromString(String str, out Double value)
+        {
+            Double.TryParse(str, out value);
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static Boolean IsZero(Double value)
+        {
+            Double ep;
+            Epsilon(out ep);
+            return Abs(value) < ep;
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Min(Double a, Double b)
+		{
+			return a < b ? a : b;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Double Max(Double a, Double b)
+		{
+			return a > b ? a : b;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Boolean WithinEpsilon(Double a, Double b)
+		{
+			Double num = a - b;
+			return ((-Double.Epsilon <= num) && (num <= Double.Epsilon));
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Int32 Sign(Double value)
         {
             if (value > 0)
@@ -1012,6 +1603,78 @@ namespace Sungiant.Abacus
             return 0;
         }
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 ToRadians(Fixed32 input)
+		{
+			Fixed32 tau; Tau(out tau);
+			return input * tau / ((Fixed32)360);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 ToDegrees(Fixed32 input)
+		{
+			Fixed32 tau; Tau(out tau);
+			return input / tau * ((Fixed32)360);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static void FromFraction(Int32 numerator, Int32 denominator, out Fixed32 value)
+        {
+            value = (Fixed32) numerator / (Fixed32) denominator;
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static void FromString(String str, out Fixed32 value)
+        {
+            Fixed32.TryParse(str, out value);
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+        public static Boolean IsZero(Fixed32 value)
+        {
+            Fixed32 ep;
+            Epsilon(out ep);
+            return Abs(value) < ep;
+        }
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Min(Fixed32 a, Fixed32 b)
+		{
+			return a < b ? a : b;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Fixed32 Max(Fixed32 a, Fixed32 b)
+		{
+			return a > b ? a : b;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Boolean WithinEpsilon(Fixed32 a, Fixed32 b)
+		{
+			Fixed32 num = a - b;
+			return ((-Fixed32.Epsilon <= num) && (num <= Fixed32.Epsilon));
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
         public static Int32 Sign(Fixed32 value)
         {
             if (value > 0)
@@ -1026,265 +1689,118 @@ namespace Sungiant.Abacus
             return 0;
         }
 
-        //--------------------------------------------------------------
-        // FromString (str, &val)
-        //
-        public static void FromString(String str, out Single value)
-        {
-            value = 0f;
-            Single.TryParse(str, out value);
-        }
-        public static void FromString(String str, out Double value)
-        {
-            value = 0;
-            Double.TryParse(str, out value);
-        }
-        public static void FromString(String str, out Fixed32 value)
-        {
-            Double temp = 0;
-            Double.TryParse(str, out temp);
+	}
 
-            value = new Fixed32(temp);
-        }
+	/// <summary>
+	/// todo
+	/// </summary>
+	internal static class MarshalHelper
+	{
+		// Copies data from an unmanaged memory pointer to a managed 32-bit signed integer array.
+		internal static void Copy( IntPtr source, Int32[] destination, Int32 startIndex, Int32 length )
+		{
+			Marshal.Copy(source, destination, startIndex, length);
+		}	
 
-        //--------------------------------------------------------------
-        // ToRadians (x)
-        //
-		public static Single ToRadians(Single input)
+		// Copies data from an unmanaged memory pointer to a managed 64-bit signed integer array.
+		internal static void Copy( IntPtr source, Int64[] destination, Int32 startIndex, Int32 length )
 		{
-			Single tau; Tau(out tau);
-			return input * tau / 360f;
-		}
-		public static Double ToRadians(Double input)
-        {
-            Double tau; Tau(out tau);
-            return input * tau / 360.0;
-        }
-        public static Fixed32 ToRadians(Fixed32 input)
-        {
-            Fixed32 tau; Tau(out tau);
-            return input * tau / new Fixed32(360);
-        }
-
-
-        //--------------------------------------------------------------
-        // ToDegrees (x)
-        //
-		public static Single ToDegrees(Single input)
-		{
-			Single tau; Tau(out tau);
-			return input / tau * 360f;
-		}
-		public static Double ToDegrees(Double input)
-        {
-            Double tau; Tau(out tau);
-            return input / tau * 360.0;
-        }
-		public static Fixed32 ToDegrees(Fixed32 input)
-        {
-            Fixed32 tau; Tau(out tau);
-            return input / tau * new Fixed32(360);
-        }
-
-        //--------------------------------------------------------------
-        // Sqrt (x)
-        //
-		public static Single Sqrt(Single input)
-		{
-			Single output = (Single)Math.Sqrt(input);
-			return output;
-		}
-		public static Double Sqrt(Double input)
-		{
-			return Math.Sqrt(input);
-		}
-		public static Fixed32 Sqrt(Fixed32 input)
-		{
-			return Fixed32.Sqrt(input);
+			Marshal.Copy(source, destination, startIndex, length);
 		}
 
-        //--------------------------------------------------------------
-        // Sin (x)
-        //
-		public static Single Sin(Single input)
+		// Copies data from an unmanaged memory pointer to a managed single-precision floating-point number array.
+		internal static void Copy( IntPtr source, Single[] destination, Int32 startIndex, Int32 length )
 		{
-            return (Single) Math.Sin((Single) input);
-		}
-		public static Double Sin(Double input)
-		{
-            return Math.Sin(input);
-		}
-		public static Fixed32 Sin(Fixed32 input)
-		{
-            return Fixed32.Sin(input);
+			Marshal.Copy(source, destination, startIndex, length);
 		}
 
-
-        //--------------------------------------------------------------
-        // Cos (x)
-        //
-		public static Single Cos(Single input)
+		// Copies data from an unmanaged memory pointer to a managed double-precision floating-point number array.
+		internal static void Copy( IntPtr source, Double[] destination, Int32 startIndex, Int32 length )
 		{
-            return (Single)Math.Cos((Single)input);
-		}
-		public static Double Cos(Double input)
-		{
-            return Math.Cos(input);
-		}
-		public static Fixed32 Cos(Fixed32 input)
-		{
-            return Fixed32.Cos(input);
+			Marshal.Copy(source, destination, startIndex, length);
 		}
 
-        //--------------------------------------------------------------
-        // Tan (x)
-        //
-		public static Single Tan(Single input)
+		// Copies data from an unmanaged memory pointer to a managed fixed32-precision fixed-point number array.
+		internal static void Copy( IntPtr source, Fixed32[] destination, Int32 startIndex, Int32 length )
 		{
-            return (Single)Math.Tan((Single)input);
-		}
-		public static Double Tan(Double input)
-		{
-            return Math.Tan(input);
-		}
-		public static Fixed32 Tan(Fixed32 input)
-		{
-            return Fixed32.Tan(input);
-		}
-
-        //--------------------------------------------------------------
-        // Abs (x)
-        //
-		public static Single Abs(Single input)
-		{
-            return (Single)Math.Abs((Single)input);
-		}
-		public static Double Abs(Double input)
-		{
-            return Math.Abs(input);
-		}
-		public static Fixed32 Abs(Fixed32 input)
-		{
-            if (input < new Fixed32(0))
-            {
-                return input * new Fixed32(-1);
-            }
-
-            return input;
-		}
-
-
-        //--------------------------------------------------------------
-        // ArcSin (x)
-        //
-		public static Single ArcSin(Single input)
-		{
-            return (Single)Math.Asin((Single)input);
-		}
-		public static Double ArcSin(Double input)
-		{
-			throw new System.NotImplementedException();
-		}
-		public static Fixed32 ArcSin(Fixed32 input)
-		{
-			throw new System.NotImplementedException();
-		}
-
-
-        //--------------------------------------------------------------
-        // ArcCos (x)
-        //
-		public static Single ArcCos(Single input)
-		{
-            return (Single)Math.Acos((Single)input);
-		}
-		public static Double ArcCos(Double input)
-		{
-			throw new System.NotImplementedException();
-		}
-		public static Fixed32 ArcCos(Fixed32 input)
-		{
-			throw new System.NotImplementedException();
-		}
-
-
-        //--------------------------------------------------------------
-        // ArcTan (x)
-        //
-		public static Single ArcTan(Single input)
-		{
-            return (Single)Math.Atan((Single)input);
-		}
-		public static Double ArcTan(Double input)
-		{
-			throw new System.NotImplementedException();
-		}
-		public static Fixed32 ArcTan(Fixed32 input)
-		{
-			throw new System.NotImplementedException();
-		}
-
-        //--------------------------------------------------------------
-        // Min (a, b)
-        //
-		public static Single Min(Single a, Single b)
-		{
-			return a < b ? a : b;
-		}
-		public static Double Min(Double a, Double b)
-		{
-			return a < b ? a : b;
-		}
-		public static Fixed32 Min(Fixed32 a, Fixed32 b)
-		{
-			return a < b ? a : b;
-		}
-
-        //--------------------------------------------------------------
-        // Max (a, b)
-        //
-		public static Single Max(Single a, Single b)
-		{
-			return a > b ? a : b;
-		}
-		public static Double Max(Double a, Double b)
-		{
-			return a > b ? a : b;
-		}
-		public static Fixed32 Max(Fixed32 a, Fixed32 b)
-		{
-			return a > b ? a : b;
+			throw new NotImplementedException();
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
+	public static class RandomExtensions
+	{
+		/// <summary>
+		/// Returns a random Single between 0.0 & 1.0
+		/// </summary>
+		public static Single NextSingle(this System.Random r)
+		{
+			return (Single) r.NextDouble();
+		}
+
+		/// <summary>
+		/// Returns a random Fixed32 between 0.0 & 1.0
+		/// </summary>
+		public static Fixed32 NextFixed32(this System.Random r)
+		{
+			Fixed32 max = 1;
+			Fixed32 min = 0;
+
+			Int32 randomInt32 = r.Next(min.RawValue, max.RawValue);
+
+			return Fixed32.CreateFromRaw(randomInt32);
+		}
+	}
+
 }
 
 namespace Sungiant.Abacus.Packed
 {
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Alpha_8
 		: IPackedValue<Byte>
 		, IEquatable<Alpha_8>
 		, IPackedReal
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString()
 		{
 			return this.packedValue.ToString("X2", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(Single realAlpha, out Byte packedAlpha)
 		{
 			packedAlpha = (Byte)PackUtils.PackUnsignedNormalisedValue(255f, realAlpha);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(Byte packedAlpha, out Single realAlpha)
 		{
 			realAlpha = PackUtils.UnpackUnsignedNormalisedValue(0xff, packedAlpha);
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		Byte packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (true)]
 		public Byte PackedValue
 		{
@@ -1298,84 +1814,136 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Alpha_8) && this.Equals((Alpha_8)obj));
 		}
 
+		#region IEquatable<Alpha_8>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Alpha_8 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Alpha_8 a, Alpha_8 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Alpha_8 a, Alpha_8 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Alpha_8(Single realAlpha)
 		{
 			Pack(realAlpha, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(Single realAlpha)
 		{
 			Pack(realAlpha, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Single realAlpha)
 		{
 			Unpack(this.packedValue, out realAlpha);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Alpha_8(Double realAlpha)
 		{
 			Pack(realAlpha, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(Double realAlpha)
 		{
 			Pack(realAlpha, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Double realAlpha)
 		{
 			Unpack(this.packedValue, out realAlpha);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Alpha_8(Fixed32 realAlpha)
 		{
 			Pack(realAlpha, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(Fixed32 realAlpha)
 		{
 			Pack(realAlpha, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32 realAlpha)
 		{
 			Unpack(this.packedValue, out realAlpha);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(Double realAlpha, out Byte packedAlpha)
 		{
 			Single temp = (Single)realAlpha;
 			Pack(temp, out packedAlpha);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		static void Unpack(Byte packedAlpha, out Double realAlpha)
 		{
 			Single temp;
@@ -1383,13 +1951,18 @@ namespace Sungiant.Abacus.Packed
 			realAlpha = (Double) temp;
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(Fixed32 realAlpha, out Byte packedAlpha)
 		{
 			Single temp = (Single)realAlpha;
 			Pack(temp, out packedAlpha);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		static void Unpack(Byte packedAlpha, out Fixed32 realAlpha)
 		{
 			Single temp;
@@ -1398,17 +1971,27 @@ namespace Sungiant.Abacus.Packed
 		}
 
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Bgr_5_6_5 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgr_5_6_5>
 		, IPackedReal3
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X4", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector3 realRgb, out UInt16 packedBgr)
 		{
 			UInt32 r = PackUtils.PackUnsignedNormalisedValue(31f, realRgb.X) << 11;
@@ -1417,6 +2000,9 @@ namespace Sungiant.Abacus.Packed
 			packedBgr = (UInt16)((r | g) | b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgr, out SinglePrecision.Vector3 realRgb)
 		{
 			realRgb.X = PackUtils.UnpackUnsignedNormalisedValue(0x1f, (UInt32)(packedBgr >> 11));
@@ -1424,10 +2010,16 @@ namespace Sungiant.Abacus.Packed
 			realRgb.Z = PackUtils.UnpackUnsignedNormalisedValue(0x1f, packedBgr);
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt16 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt16 PackedValue
 		{
@@ -1441,95 +2033,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Bgr_5_6_5) && this.Equals((Bgr_5_6_5)obj));
 		}
 
+		#region IEquatable<Bgr_5_6_5>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Bgr_5_6_5 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Bgr_5_6_5 a, Bgr_5_6_5 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Bgr_5_6_5 a, Bgr_5_6_5 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgr_5_6_5(ref SinglePrecision.Vector3 realRgb)
 		{
 			Pack(ref realRgb, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector3 realRgb)
 		{
 			Pack(ref realRgb, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector3 realRgb)
 		{
 			Unpack(this.packedValue, out realRgb);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgr_5_6_5(ref DoublePrecision.Vector3 realRgb)
 		{
 			Pack(ref realRgb, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector3 realRgb)
 		{
 			Pack(ref realRgb, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector3 realRgb)
 		{
 			Unpack(this.packedValue, out realRgb);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgr_5_6_5(ref Fixed32Precision.Vector3 realRgb)
 		{
 			Pack(ref realRgb, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector3 realRgb)
 		{
 			Pack(ref realRgb, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector3 realRgb)
 		{
 			Unpack(this.packedValue, out realRgb);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector3 realRgb, out UInt16 packedBgr)
 		{
 			SinglePrecision.Vector3 singleVector = new SinglePrecision.Vector3((Single)realRgb.X, (Single)realRgb.Y, (Single)realRgb.Z);
 			Pack(ref singleVector, out packedBgr);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgr, out DoublePrecision.Vector3 realRgb)
 		{
 			SinglePrecision.Vector3 singleVector;
 			Unpack(packedBgr, out singleVector);
 			realRgb = new DoublePrecision.Vector3((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector3 realRgb, out UInt16 packedBgr)
 		{
 			SinglePrecision.Vector3 singleVector = new SinglePrecision.Vector3((Single)realRgb.X, (Single)realRgb.Y, (Single)realRgb.Z);
 			Pack(ref singleVector, out packedBgr);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgr, out Fixed32Precision.Vector3 realRgb)
 		{
 			SinglePrecision.Vector3 singleVector;
@@ -1537,18 +2188,27 @@ namespace Sungiant.Abacus.Packed
 			realRgb = new Fixed32Precision.Vector3((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Bgra16 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgra16>
 		, IPackedReal4
 	{
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X4", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt16 packedBgra)
 		{
 			UInt32 r = PackUtils.PackUnsignedNormalisedValue (15f, realRgba.X) << 8;
@@ -1558,6 +2218,9 @@ namespace Sungiant.Abacus.Packed
 			packedBgra = (UInt16)(((r | g) | b) | a);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgra, out SinglePrecision.Vector4 realRgba)
 		{
 			realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (15, (UInt32)(packedBgra >> 8));
@@ -1566,10 +2229,16 @@ namespace Sungiant.Abacus.Packed
 			realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (15, (UInt32)(packedBgra >> 12));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt16 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt16 PackedValue
 		{
@@ -1583,95 +2252,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Bgra16) && this.Equals((Bgra16)obj));
 		}
 
+		#region IEquatable<Bgra16>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Bgra16 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Bgra16 a, Bgra16 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Bgra16 a, Bgra16 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgra16(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgra16(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgra16(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realRgba, out UInt16 packedBgra)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedBgra);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgra, out DoublePrecision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedBgra, out singleVector);
 			realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realRgba, out UInt16 packedBgra)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedBgra);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgra, out Fixed32Precision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -1679,17 +2407,27 @@ namespace Sungiant.Abacus.Packed
 			realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Bgra_5_5_5_1 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgra_5_5_5_1>
 		, IPackedReal4
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X4", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt16 packedBgra)
 		{
 			UInt32 r = PackUtils.PackUnsignedNormalisedValue (31f, realRgba.X) << 10;
@@ -1699,6 +2437,9 @@ namespace Sungiant.Abacus.Packed
 			packedBgra = (UInt16)(((r | g) | b) | a);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgra, out SinglePrecision.Vector4 realRgba)
 		{
 			realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (0x1f, (UInt32)(packedBgra >> 10));
@@ -1707,10 +2448,16 @@ namespace Sungiant.Abacus.Packed
 			realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (1, (UInt32)(packedBgra >> 15));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt16 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt16 PackedValue
 		{
@@ -1724,95 +2471,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Bgra_5_5_5_1) && this.Equals((Bgra_5_5_5_1)obj));
 		}
 
+		#region IEquatable<Bgra_5_5_5_1>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Bgra_5_5_5_1 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Bgra_5_5_5_1 a, Bgra_5_5_5_1 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Bgra_5_5_5_1 a, Bgra_5_5_5_1 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgra_5_5_5_1(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgra_5_5_5_1(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Bgra_5_5_5_1(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realRgba, out UInt16 packedBgra)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedBgra);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgra, out DoublePrecision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedBgra, out singleVector);
 			realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realRgba, out UInt16 packedBgra)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedBgra);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedBgra, out Fixed32Precision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -1820,16 +2626,26 @@ namespace Sungiant.Abacus.Packed
 			realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Byte4 
 		: IPackedValue<UInt32>
 		, IEquatable<Byte4>
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt32 packedXyzw)
 		{
 			UInt32 y = PackUtils.PackUnsigned (255f, realXyzw.X);
@@ -1839,6 +2655,9 @@ namespace Sungiant.Abacus.Packed
 			packedXyzw = (UInt32)(((y | x) | z) | w);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXyzw, out SinglePrecision.Vector4 realXyzw)
 		{
 			realXyzw.X = packedXyzw & 0xff;
@@ -1847,10 +2666,16 @@ namespace Sungiant.Abacus.Packed
 			realXyzw.W = (packedXyzw >> 0x18) & 0xff;
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt32 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt32 PackedValue
 		{
@@ -1864,114 +2689,182 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Byte4) && this.Equals((Byte4)obj));
 		}
 
+		#region IEquatable<Byte4>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Byte4 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Byte4 a, Byte4 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Byte4 a, Byte4 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Byte4(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Byte4(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Byte4(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realXyzw, out UInt32 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXyzw, out DoublePrecision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedXyzw, out singleVector);
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realXyzw, out UInt32 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXyzw, out Fixed32Precision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedXyzw, out singleVector);
 			realXyzw = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
-
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct NormalisedByte2 
 		: IPackedValue<UInt16>
 		, IEquatable<NormalisedByte2>
 		, IPackedReal2
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X4", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector2 realXy, out UInt16 packedXy)
 		{
 			UInt32 x = PackUtils.PackSignedNormalised(0xff, realXy.X);
@@ -1979,16 +2872,25 @@ namespace Sungiant.Abacus.Packed
 			packedXy = (UInt16)(x | y);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedXy, out SinglePrecision.Vector2 realXy)
 		{
 			realXy.X = PackUtils.UnpackSignedNormalised (0xff, packedXy);
 			realXy.Y = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXy >> 8));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt16 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt16 PackedValue
 		{
@@ -2002,95 +2904,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is NormalisedByte2) && this.Equals((NormalisedByte2)obj));
 		}
 
+		#region IEquatable<NormalisedByte2>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(NormalisedByte2 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(NormalisedByte2 a, NormalisedByte2 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(NormalisedByte2 a, NormalisedByte2 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedByte2(ref SinglePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedByte2(ref DoublePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedByte2(ref Fixed32Precision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector2 realXy, out UInt16 packedXy)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realXy.X, (Single)realXy.Y);
 			Pack(ref singleVector, out packedXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedXy, out DoublePrecision.Vector2 realXy)
 		{
 			SinglePrecision.Vector2 singleVector;
 			Unpack(packedXy, out singleVector);
 			realXy = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector2 realXy, out UInt16 packedXy)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realXy.X, (Single)realXy.Y);
 			Pack(ref singleVector, out packedXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt16 packedXy, out Fixed32Precision.Vector2 realXy)
 		{
 			SinglePrecision.Vector2 singleVector;
@@ -2098,17 +3059,27 @@ namespace Sungiant.Abacus.Packed
 			realXy = new Fixed32Precision.Vector2((Fixed32)singleVector.X, (Fixed32)singleVector.Y);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct NormalisedByte4 
 		: IPackedValue<UInt32>
 		, IEquatable<NormalisedByte4>
 		, IPackedReal4
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt32 packedXyzw)
 		{
 			UInt32 x = PackUtils.PackSignedNormalised(0xff, realXyzw.X);
@@ -2118,6 +3089,9 @@ namespace Sungiant.Abacus.Packed
 			packedXyzw = (((x | y) | z) | w);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXyzw, out SinglePrecision.Vector4 realXyzw)
 		{
 			realXyzw.X = PackUtils.UnpackSignedNormalised (0xff, packedXyzw);
@@ -2126,10 +3100,16 @@ namespace Sungiant.Abacus.Packed
 			realXyzw.W = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXyzw >> 24));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt32 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt32 PackedValue
 		{
@@ -2143,95 +3123,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is NormalisedByte4) && this.Equals((NormalisedByte4)obj));
 		}
 
+		#region IEquatable<NormalisedByte4>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(NormalisedByte4 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(NormalisedByte4 a, NormalisedByte4 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(NormalisedByte4 a, NormalisedByte4 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedByte4(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedByte4(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedByte4(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realXyzw, out UInt32 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXyzw, out DoublePrecision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedXyzw, out singleVector);
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realXyzw, out UInt32 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXyzw, out Fixed32Precision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -2239,17 +3278,27 @@ namespace Sungiant.Abacus.Packed
 			realXyzw = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct NormalisedShort2 
 		: IPackedValue<UInt32>
 		, IEquatable<NormalisedShort2>
 		, IPackedReal2
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector2 realXy, out UInt32 packedXy)
 		{
 			UInt32 x = PackUtils.PackSignedNormalised(0xffff, realXy.X);
@@ -2257,16 +3306,25 @@ namespace Sungiant.Abacus.Packed
 			packedXy = (x | y);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXy, out SinglePrecision.Vector2 realXy)
 		{
 			realXy.X = PackUtils.UnpackSignedNormalised (0xffff, packedXy);
 			realXy.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXy >> 16));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt32 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt32 PackedValue
 		{
@@ -2280,95 +3338,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is NormalisedShort2) && this.Equals((NormalisedShort2)obj));
 		}
 
+		#region IEquatable<NormalisedShort2>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(NormalisedShort2 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(NormalisedShort2 a, NormalisedShort2 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(NormalisedShort2 a, NormalisedShort2 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedShort2(ref SinglePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedShort2(ref DoublePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedShort2(ref Fixed32Precision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector2 realXy, out UInt32 packedXy)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realXy.X, (Single)realXy.Y);
 			Pack(ref singleVector, out packedXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXy, out DoublePrecision.Vector2 realXy)
 		{
 			SinglePrecision.Vector2 singleVector;
 			Unpack(packedXy, out singleVector);
 			realXy = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector2 realXy, out UInt32 packedXy)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realXy.X, (Single)realXy.Y);
 			Pack(ref singleVector, out packedXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXy, out Fixed32Precision.Vector2 realXy)
 		{
 			SinglePrecision.Vector2 singleVector;
@@ -2376,17 +3493,27 @@ namespace Sungiant.Abacus.Packed
 			realXy = new Fixed32Precision.Vector2((Fixed32)singleVector.X, (Fixed32)singleVector.Y);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct NormalisedShort4 
 		: IPackedValue<UInt64>
 		, IEquatable<NormalisedShort4>
 		, IPackedReal4
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
 		{
 			UInt64 x = PackUtils.PackSignedNormalised(0xffff, realXyzw.X);
@@ -2396,6 +3523,9 @@ namespace Sungiant.Abacus.Packed
 			packedXyzw = (((x | y) | z) | w);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
 		{
 			realXyzw.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedXyzw);
@@ -2404,10 +3534,16 @@ namespace Sungiant.Abacus.Packed
 			realXyzw.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 48));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt64 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt64 PackedValue
 		{
@@ -2421,95 +3557,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is NormalisedShort4) && this.Equals((NormalisedShort4)obj));
 		}
 
+		#region IEquatable<NormalisedShort4>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(NormalisedShort4 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(NormalisedShort4 a, NormalisedShort4 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(NormalisedShort4 a, NormalisedShort4 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedShort4(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedShort4(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public NormalisedShort4(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedXyzw, out DoublePrecision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedXyzw, out singleVector);
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realXyzw, out UInt64 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedXyzw, out Fixed32Precision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -2517,17 +3712,27 @@ namespace Sungiant.Abacus.Packed
 			realXyzw = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Rg32 
 		: IPackedValue<UInt32>
 		, IEquatable<Rg32>
 		, IPackedReal2
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector2 realRg, out UInt32 packedRg)
 		{
 			UInt32 x = PackUtils.PackUnsignedNormalisedValue(0xffff, realRg.X);
@@ -2535,16 +3740,25 @@ namespace Sungiant.Abacus.Packed
 			packedRg = (x | y);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRg, out SinglePrecision.Vector2 realRg)
 		{
 			realRg.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, packedRg);
 			realRg.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRg >> 16));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt32 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt32 PackedValue
 		{
@@ -2558,114 +3772,182 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Rg32) && this.Equals((Rg32)obj));
 		}
 
+		#region IEquatable<Rg32>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Rg32 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Rg32 a, Rg32 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Rg32 a, Rg32 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rg32(ref SinglePrecision.Vector2 realRg)
 		{
 			Pack(ref realRg, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector2 realRg)
 		{
 			Pack(ref realRg, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector2 realRg)
 		{
 			Unpack(this.packedValue, out realRg);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rg32(ref DoublePrecision.Vector2 realRg)
 		{
 			Pack(ref realRg, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector2 realRg)
 		{
 			Pack(ref realRg, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector2 realRg)
 		{
 			Unpack(this.packedValue, out realRg);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rg32(ref Fixed32Precision.Vector2 realRg)
 		{
 			Pack(ref realRg, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector2 realRg)
 		{
 			Pack(ref realRg, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector2 realRg)
 		{
 			Unpack(this.packedValue, out realRg);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector2 realRg, out UInt32 packedRg)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realRg.X, (Single)realRg.Y);
 			Pack(ref singleVector, out packedRg);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRg, out DoublePrecision.Vector2 realRg)
 		{
 			SinglePrecision.Vector2 singleVector;
 			Unpack(packedRg, out singleVector);
 			realRg = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector2 realRg, out UInt32 packedRg)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realRg.X, (Single)realRg.Y);
 			Pack(ref singleVector, out packedRg);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRg, out Fixed32Precision.Vector2 realRg)
 		{
 			SinglePrecision.Vector2 singleVector;
 			Unpack(packedRg, out singleVector);
 			realRg = new Fixed32Precision.Vector2((Fixed32)singleVector.X, (Fixed32)singleVector.Y);
 		}
-		
 	}
+	
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public partial struct Rgba32 
 		: IPackedValue<UInt32>
 		, IEquatable<Rgba32>
 		, IPackedReal4
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return string.Format ("{{R:{0} G:{1} B:{2} A:{3}}}", new Object[] { this.R, this.G, this.B, this.A });
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realRgba32, out UInt32 packedRgba32)
 		{
 			UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.X);
@@ -2675,6 +3957,9 @@ namespace Sungiant.Abacus.Packed
 			packedRgba32 = ((r | g) | b) | a;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRgba32, out SinglePrecision.Vector4 realRgba32)
 		{
 			realRgba32.X = PackUtils.UnpackUnsignedNormalisedValue (0xff, packedRgba32);
@@ -2683,856 +3968,1145 @@ namespace Sungiant.Abacus.Packed
 			realRgba32.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 24));
 		}
 
-		public static Rgba32 Transparent {
-			get {
-				return new Rgba32 (0);
-			}
-		}
-		
-		public static Rgba32 AliceBlue {
-			get {
-				return new Rgba32 (0xfffff8f0);
-			}
-		}
-		
-		public static Rgba32 AntiqueWhite {
-			get {
-				return new Rgba32 (0xffd7ebfa);
-			}
-		}
-		
-		public static Rgba32 Aqua {
-			get {
-				return new Rgba32 (0xffffff00);
-			}
-		}
-		
-		public static Rgba32 Aquamarine {
-			get {
-				return new Rgba32 (0xffd4ff7f);
-			}
-		}
-		
-		public static Rgba32 Azure {
-			get {
-				return new Rgba32 (0xfffffff0);
-			}
-		}
-		
-		public static Rgba32 Beige {
-			get {
-				return new Rgba32 (0xffdcf5f5);
-			}
-		}
-		
-		public static Rgba32 Bisque {
-			get {
-				return new Rgba32 (0xffc4e4ff);
-			}
-		}
-		
-		public static Rgba32 Black {
-			get {
-				return new Rgba32 (0xff000000);
-			}
-		}
-		
-		public static Rgba32 BlanchedAlmond {
-			get {
-				return new Rgba32 (0xffcdebff);
-			}
-		}
-		
-		public static Rgba32 Blue {
-			get {
-				return new Rgba32 (0xffff0000);
-			}
-		}
-		
-		public static Rgba32 BlueViolet {
-			get {
-				return new Rgba32 (0xffe22b8a);
-			}
-		}
-		
-		public static Rgba32 Brown {
-			get {
-				return new Rgba32 (0xff2a2aa5);
-			}
-		}
-		
-		public static Rgba32 BurlyWood {
-			get {
-				return new Rgba32 (0xff87b8de);
-			}
-		}
-		
-		public static Rgba32 CadetBlue {
-			get {
-				return new Rgba32 (0xffa09e5f);
-			}
-		}
-		
-		public static Rgba32 Chartreuse {
-			get {
-				return new Rgba32 (0xff00ff7f);
-			}
-		}
-		
-		public static Rgba32 Chocolate {
-			get {
-				return new Rgba32 (0xff1e69d2);
-			}
-		}
-		
-		public static Rgba32 Coral {
-			get {
-				return new Rgba32 (0xff507fff);
-			}
-		}
-		
-		public static Rgba32 CornflowerBlue {
-			get {
-				return new Rgba32 (0xffed9564);
-			}
-		}
-		
-		public static Rgba32 Cornsilk {
-			get {
-				return new Rgba32 (0xffdcf8ff);
-			}
-		}
-		
-		public static Rgba32 Crimson {
-			get {
-				return new Rgba32 (0xff3c14dc);
-			}
-		}
-		
-		public static Rgba32 Cyan {
-			get {
-				return new Rgba32 (0xffffff00);
-			}
-		}
-		
-		public static Rgba32 DarkBlue {
-			get {
-				return new Rgba32 (0xff8b0000);
-			}
-		}
-		
-		public static Rgba32 DarkCyan {
-			get {
-				return new Rgba32 (0xff8b8b00);
-			}
-		}
-		
-		public static Rgba32 DarkGoldenrod {
-			get {
-				return new Rgba32 (0xff0b86b8);
-			}
-		}
-		
-		public static Rgba32 DarkGray {
-			get {
-				return new Rgba32 (0xffa9a9a9);
-			}
-		}
-		
-		public static Rgba32 DarkGreen {
-			get {
-				return new Rgba32 (0xff006400);
-			}
-		}
-		
-		public static Rgba32 DarkKhaki {
-			get {
-				return new Rgba32 (0xff6bb7bd);
-			}
-		}
-		
-		public static Rgba32 DarkMagenta {
-			get {
-				return new Rgba32 (0xff8b008b);
-			}
-		}
-		
-		public static Rgba32 DarkOliveGreen {
-			get {
-				return new Rgba32 (0xff2f6b55);
-			}
-		}
-		
-		public static Rgba32 DarkOrange {
-			get {
-				return new Rgba32 (0xff008cff);
-			}
-		}
-		
-		public static Rgba32 DarkOrchid {
-			get {
-				return new Rgba32 (0xffcc3299);
-			}
-		}
-		
-		public static Rgba32 DarkRed {
-			get {
-				return new Rgba32 (0xff00008b);
-			}
-		}
-		
-		public static Rgba32 DarkSalmon {
-			get {
-				return new Rgba32 (0xff7a96e9);
-			}
-		}
-		
-		public static Rgba32 DarkSeaGreen {
-			get {
-				return new Rgba32 (0xff8bbc8f);
-			}
-		}
-		
-		public static Rgba32 DarkSlateBlue {
-			get {
-				return new Rgba32 (0xff8b3d48);
-			}
-		}
-		
-		public static Rgba32 DarkSlateGray {
-			get {
-				return new Rgba32 (0xff4f4f2f);
-			}
-		}
-		
-		public static Rgba32 DarkTurquoise {
-			get {
-				return new Rgba32 (0xffd1ce00);
-			}
-		}
-		
-		public static Rgba32 DarkViolet {
-			get {
-				return new Rgba32 (0xffd30094);
-			}
-		}
-		
-		public static Rgba32 DeepPink {
-			get {
-				return new Rgba32 (0xff9314ff);
-			}
-		}
-		
-		public static Rgba32 DeepSkyBlue {
-			get {
-				return new Rgba32 (0xffffbf00);
-			}
-		}
-		
-		public static Rgba32 DimGray {
-			get {
-				return new Rgba32 (0xff696969);
-			}
-		}
-		
-		public static Rgba32 DodgerBlue {
-			get {
-				return new Rgba32 (0xffff901e);
-			}
-		}
-		
-		public static Rgba32 Firebrick {
-			get {
-				return new Rgba32 (0xff2222b2);
-			}
-		}
-		
-		public static Rgba32 FloralWhite {
-			get {
-				return new Rgba32 (0xfff0faff);
-			}
-		}
-		
-		public static Rgba32 ForestGreen {
-			get {
-				return new Rgba32 (0xff228b22);
-			}
-		}
-		
-		public static Rgba32 Fuchsia {
-			get {
-				return new Rgba32 (0xffff00ff);
-			}
-		}
-		
-		public static Rgba32 Gainsboro {
-			get {
-				return new Rgba32 (0xffdcdcdc);
-			}
-		}
-		
-		public static Rgba32 GhostWhite {
-			get {
-				return new Rgba32 (0xfffff8f8);
-			}
-		}
-		
-		public static Rgba32 Gold {
-			get {
-				return new Rgba32 (0xff00d7ff);
-			}
-		}
-		
-		public static Rgba32 Goldenrod {
-			get {
-				return new Rgba32 (0xff20a5da);
-			}
-		}
-		
-		public static Rgba32 Gray {
-			get {
-				return new Rgba32 (0xff808080);
-			}
-		}
-		
-		public static Rgba32 Green {
-			get {
-				return new Rgba32 (0xff008000);
-			}
-		}
-		
-		public static Rgba32 GreenYellow {
-			get {
-				return new Rgba32 (0xff2fffad);
-			}
-		}
-		
-		public static Rgba32 Honeydew {
-			get {
-				return new Rgba32 (0xfff0fff0);
-			}
-		}
-		
-		public static Rgba32 HotPink {
-			get {
-				return new Rgba32 (0xffb469ff);
-			}
-		}
-		
-		public static Rgba32 IndianRed {
-			get {
-				return new Rgba32 (0xff5c5ccd);
-			}
-		}
-		
-		public static Rgba32 Indigo {
-			get {
-				return new Rgba32 (0xff82004b);
-			}
-		}
-		
-		public static Rgba32 Ivory {
-			get {
-				return new Rgba32 (0xfff0ffff);
-			}
-		}
-		
-		public static Rgba32 Khaki {
-			get {
-				return new Rgba32 (0xff8ce6f0);
-			}
-		}
-		
-		public static Rgba32 Lavender {
-			get {
-				return new Rgba32 (0xfffae6e6);
-			}
-		}
-		
-		public static Rgba32 LavenderBlush {
-			get {
-				return new Rgba32 (0xfff5f0ff);
-			}
-		}
-		
-		public static Rgba32 LawnGreen {
-			get {
-				return new Rgba32 (0xff00fc7c);
-			}
-		}
-		
-		public static Rgba32 LemonChiffon {
-			get {
-				return new Rgba32 (0xffcdfaff);
-			}
-		}
-		
-		public static Rgba32 LightBlue {
-			get {
-				return new Rgba32 (0xffe6d8ad);
-			}
-		}
-		
-		public static Rgba32 LightCoral {
-			get {
-				return new Rgba32 (0xff8080f0);
-			}
-		}
-		
-		public static Rgba32 LightCyan {
-			get {
-				return new Rgba32 (0xffffffe0);
-			}
-		}
-		
-		public static Rgba32 LightGoldenrodYellow {
-			get {
-				return new Rgba32 (0xffd2fafa);
-			}
-		}
-		
-		public static Rgba32 LightGreen {
-			get {
-				return new Rgba32 (0xff90ee90);
-			}
-		}
-		
-		public static Rgba32 LightGray {
-			get {
-				return new Rgba32 (0xffd3d3d3);
-			}
-		}
-		
-		public static Rgba32 LightPink {
-			get {
-				return new Rgba32 (0xffc1b6ff);
-			}
-		}
-		
-		public static Rgba32 LightSalmon {
-			get {
-				return new Rgba32 (0xff7aa0ff);
-			}
-		}
-		
-		public static Rgba32 LightSeaGreen {
-			get {
-				return new Rgba32 (0xffaab220);
-			}
-		}
-		
-		public static Rgba32 LightSkyBlue {
-			get {
-				return new Rgba32 (0xffface87);
-			}
-		}
-		
-		public static Rgba32 LightSlateGray {
-			get {
-				return new Rgba32 (0xff998877);
-			}
-		}
-		
-		public static Rgba32 LightSteelBlue {
-			get {
-				return new Rgba32 (0xffdec4b0);
-			}
-		}
-		
-		public static Rgba32 LightYellow {
-			get {
-				return new Rgba32 (0xffe0ffff);
-			}
-		}
-		
-		public static Rgba32 Lime {
-			get {
-				return new Rgba32 (0xff00ff00);
-			}
-		}
-		
-		public static Rgba32 LimeGreen {
-			get {
-				return new Rgba32 (0xff32cd32);
-			}
-		}
-		
-		public static Rgba32 Linen {
-			get {
-				return new Rgba32 (0xffe6f0fa);
-			}
-		}
-		
-		public static Rgba32 Magenta {
-			get {
-				return new Rgba32 (0xffff00ff);
-			}
-		}
-		
-		public static Rgba32 Maroon {
-			get {
-				return new Rgba32 (0xff000080);
-			}
-		}
-		
-		public static Rgba32 MediumAquamarine {
-			get {
-				return new Rgba32 (0xffaacd66);
-			}
-		}
-		
-		public static Rgba32 MediumBlue {
-			get {
-				return new Rgba32 (0xffcd0000);
-			}
-		}
-		
-		public static Rgba32 MediumOrchid {
-			get {
-				return new Rgba32 (0xffd355ba);
-			}
-		}
-		
-		public static Rgba32 MediumPurple {
-			get {
-				return new Rgba32 (0xffdb7093);
-			}
-		}
-		
-		public static Rgba32 MediumSeaGreen {
-			get {
-				return new Rgba32 (0xff71b33c);
-			}
-		}
-		
-		public static Rgba32 MediumSlateBlue {
-			get {
-				return new Rgba32 (0xffee687b);
-			}
-		}
-		
-		public static Rgba32 MediumSpringGreen {
-			get {
-				return new Rgba32 (0xff9afa00);
-			}
-		}
-		
-		public static Rgba32 MediumTurquoise {
-			get {
-				return new Rgba32 (0xffccd148);
-			}
-		}
-		
-		public static Rgba32 MediumVioletRed {
-			get {
-				return new Rgba32 (0xff8515c7);
-			}
-		}
-		
-		public static Rgba32 MidnightBlue {
-			get {
-				return new Rgba32 (0xff701919);
-			}
-		}
-		
-		public static Rgba32 MintCream {
-			get {
-				return new Rgba32 (0xfffafff5);
-			}
-		}
-		
-		public static Rgba32 MistyRose {
-			get {
-				return new Rgba32 (0xffe1e4ff);
-			}
-		}
-		
-		public static Rgba32 Moccasin {
-			get {
-				return new Rgba32 (0xffb5e4ff);
-			}
-		}
-		
-		public static Rgba32 NavajoWhite {
-			get {
-				return new Rgba32 (0xffaddeff);
-			}
-		}
-		
-		public static Rgba32 Navy {
-			get {
-				return new Rgba32 (0xff800000);
-			}
-		}
-		
-		public static Rgba32 OldLace {
-			get {
-				return new Rgba32 (0xffe6f5fd);
-			}
-		}
-		
-		public static Rgba32 Olive {
-			get {
-				return new Rgba32 (0xff008080);
-			}
-		}
-		
-		public static Rgba32 OliveDrab {
-			get {
-				return new Rgba32 (0xff238e6b);
-			}
-		}
-		
-		public static Rgba32 Orange {
-			get {
-				return new Rgba32 (0xff00a5ff);
-			}
-		}
-		
-		public static Rgba32 OrangeRed {
-			get {
-				return new Rgba32 (0xff0045ff);
-			}
-		}
-		
-		public static Rgba32 Orchid {
-			get {
-				return new Rgba32 (0xffd670da);
-			}
-		}
-		
-		public static Rgba32 PaleGoldenrod {
-			get {
-				return new Rgba32 (0xffaae8ee);
-			}
-		}
-		
-		public static Rgba32 PaleGreen {
-			get {
-				return new Rgba32 (0xff98fb98);
-			}
-		}
-		
-		public static Rgba32 PaleTurquoise {
-			get {
-				return new Rgba32 (0xffeeeeaf);
-			}
-		}
-		
-		public static Rgba32 PaleVioletRed {
-			get {
-				return new Rgba32 (0xff9370db);
-			}
-		}
-		
-		public static Rgba32 PapayaWhip {
-			get {
-				return new Rgba32 (0xffd5efff);
-			}
-		}
-		
-		public static Rgba32 PeachPuff {
-			get {
-				return new Rgba32 (0xffb9daff);
-			}
-		}
-		
-		public static Rgba32 Peru {
-			get {
-				return new Rgba32 (0xff3f85cd);
-			}
-		}
-		
-		public static Rgba32 Pink {
-			get {
-				return new Rgba32 (0xffcbc0ff);
-			}
-		}
-		
-		public static Rgba32 Plum {
-			get {
-				return new Rgba32 (0xffdda0dd);
-			}
-		}
-		
-		public static Rgba32 PowderBlue {
-			get {
-				return new Rgba32 (0xffe6e0b0);
-			}
-		}
-		
-		public static Rgba32 Purple {
-			get {
-				return new Rgba32 (0xff800080);
-			}
-		}
-		
-		public static Rgba32 Red {
-			get {
-				return new Rgba32 (0xff0000ff);
-			}
-		}
-		
-		public static Rgba32 RosyBrown {
-			get {
-				return new Rgba32 (0xff8f8fbc);
-			}
-		}
-		
-		public static Rgba32 RoyalBlue {
-			get {
-				return new Rgba32 (0xffe16941);
-			}
-		}
-		
-		public static Rgba32 SaddleBrown {
-			get {
-				return new Rgba32 (0xff13458b);
-			}
-		}
-		
-		public static Rgba32 Salmon {
-			get {
-				return new Rgba32 (0xff7280fa);
-			}
-		}
-		
-		public static Rgba32 SandyBrown {
-			get {
-				return new Rgba32 (0xff60a4f4);
-			}
-		}
-		
-		public static Rgba32 SeaGreen {
-			get {
-				return new Rgba32 (0xff578b2e);
-			}
-		}
-		
-		public static Rgba32 SeaShell {
-			get {
-				return new Rgba32 (0xffeef5ff);
-			}
-		}
-		
-		public static Rgba32 Sienna {
-			get {
-				return new Rgba32 (0xff2d52a0);
-			}
-		}
-		
-		public static Rgba32 Silver {
-			get {
-				return new Rgba32 (0xffc0c0c0);
-			}
-		}
-		
-		public static Rgba32 SkyBlue {
-			get {
-				return new Rgba32 (0xffebce87);
-			}
-		}
-		
-		public static Rgba32 SlateBlue {
-			get {
-				return new Rgba32 (0xffcd5a6a);
-			}
-		}
-		
-		public static Rgba32 SlateGray {
-			get {
-				return new Rgba32 (0xff908070);
-			}
-		}
-		
-		public static Rgba32 Snow {
-			get {
-				return new Rgba32 (0xfffafaff);
-			}
-		}
-		
-		public static Rgba32 SpringGreen {
-			get {
-				return new Rgba32 (0xff7fff00);
-			}
-		}
-		
-		public static Rgba32 SteelBlue {
-			get {
-				return new Rgba32 (0xffb48246);
-			}
-		}
-		
-		public static Rgba32 Tan {
-			get {
-				return new Rgba32 (0xff8cb4d2);
-			}
-		}
-		
-		public static Rgba32 Teal {
-			get {
-				return new Rgba32 (0xff808000);
-			}
-		}
-		
-		public static Rgba32 Thistle {
-			get {
-				return new Rgba32 (0xffd8bfd8);
-			}
-		}
-		
-		public static Rgba32 Tomato {
-			get {
-				return new Rgba32 (0xff4763ff);
-			}
-		}
-		
-		public static Rgba32 Turquoise {
-			get {
-				return new Rgba32 (0xffd0e040);
-			}
-		}
-		
-		public static Rgba32 Violet {
-			get {
-				return new Rgba32 (0xffee82ee);
-			}
-		}
-		
-		public static Rgba32 Wheat {
-			get {
-				return new Rgba32 (0xffb3def5);
-			}
-		}
-		
-		public static Rgba32 White {
-			get {
-				return new Rgba32 (UInt32.MaxValue);
-			}
-		}
-		
-		public static Rgba32 WhiteSmoke {
-			get {
-				return new Rgba32 (0xfff5f5f5);
-			}
-		}
-		
-		public static Rgba32 Yellow {
-			get {
-				return new Rgba32 (0xff00ffff);
-			}
-		}
-		
-		public static Rgba32 YellowGreen {
-			get {
-				return new Rgba32 (0xff32cd9a);
-			}
-		}
+		/// <summary>
+		/// Transparent
+		/// </summary>
+		public static Rgba32 Transparent
+		{
+			get { return new Rgba32 (0); }
+		}
+
+		/// <summary>
+		/// AliceBlue
+		/// </summary>
+		public static Rgba32 AliceBlue
+		{
+			get { return new Rgba32 (0xfffff8f0); }
+		}
+
+		/// <summary>
+		/// AntiqueWhite
+		/// </summary>
+		public static Rgba32 AntiqueWhite
+		{
+			get { return new Rgba32 (0xffd7ebfa); }
+		}
+
+		/// <summary>
+		/// Aqua
+		/// </summary>
+		public static Rgba32 Aqua
+		{
+			get { return new Rgba32 (0xffffff00); }
+		}
+
+		/// <summary>
+		/// Aquamarine
+		/// </summary>
+		public static Rgba32 Aquamarine
+		{
+			get { return new Rgba32 (0xffd4ff7f); }
+		}
+
+		/// <summary>
+		/// Azure
+		/// </summary>
+		public static Rgba32 Azure
+		{
+			get { return new Rgba32 (0xfffffff0); }
+		}
+
+		/// <summary>
+		/// Beige
+		/// </summary>
+		public static Rgba32 Beige
+		{
+			get { return new Rgba32 (0xffdcf5f5); }
+		}
+
+		/// <summary>
+		/// Bisque
+		/// </summary>
+		public static Rgba32 Bisque
+		{
+			get { return new Rgba32 (0xffc4e4ff); }
+		}
+
+		/// <summary>
+		/// Black
+		/// </summary>
+		public static Rgba32 Black
+		{
+			get { return new Rgba32 (0xff000000); }
+		}
+
+		/// <summary>
+		/// BlanchedAlmond
+		/// </summary>
+		public static Rgba32 BlanchedAlmond
+		{
+			get { return new Rgba32 (0xffcdebff); }
+		}
+
+		/// <summary>
+		/// Blue
+		/// </summary>
+		public static Rgba32 Blue
+		{
+			get { return new Rgba32 (0xffff0000); }
+		}
+
+		/// <summary>
+		/// BlueViolet
+		/// </summary>
+		public static Rgba32 BlueViolet
+		{
+			get { return new Rgba32 (0xffe22b8a); }
+		}
+
+		/// <summary>
+		/// Brown
+		/// </summary>
+		public static Rgba32 Brown
+		{
+			get { return new Rgba32 (0xff2a2aa5); }
+		}
+
+		/// <summary>
+		/// BurlyWood
+		/// </summary>
+		public static Rgba32 BurlyWood
+		{
+			get { return new Rgba32 (0xff87b8de); }
+		}
+
+		/// <summary>
+		/// CadetBlue
+		/// </summary>
+		public static Rgba32 CadetBlue
+		{
+			get { return new Rgba32 (0xffa09e5f); }
+		}
+
+		/// <summary>
+		/// Chartreuse
+		/// </summary>
+		public static Rgba32 Chartreuse
+		{
+			get { return new Rgba32 (0xff00ff7f); }
+		}
+
+		/// <summary>
+		/// Chocolate
+		/// </summary>
+		public static Rgba32 Chocolate
+		{
+			get { return new Rgba32 (0xff1e69d2); }
+		}
+
+		/// <summary>
+		/// Coral
+		/// </summary>
+		public static Rgba32 Coral
+		{
+			get { return new Rgba32 (0xff507fff); }
+		}
+
+		/// <summary>
+		/// CornflowerBlue
+		/// </summary>
+		public static Rgba32 CornflowerBlue
+		{
+			get { return new Rgba32 (0xffed9564); }
+		}
+
+		/// <summary>
+		/// Cornsilk
+		/// </summary>
+		public static Rgba32 Cornsilk
+		{
+			get { return new Rgba32 (0xffdcf8ff); }
+		}
+
+		/// <summary>
+		/// Crimson
+		/// </summary>
+		public static Rgba32 Crimson
+		{
+			get { return new Rgba32 (0xff3c14dc); }
+		}
+
+		/// <summary>
+		/// Cyan
+		/// </summary>
+		public static Rgba32 Cyan
+		{
+			get { return new Rgba32 (0xffffff00); }
+		}
+
+		/// <summary>
+		/// DarkBlue
+		/// </summary>
+		public static Rgba32 DarkBlue
+		{
+			get { return new Rgba32 (0xff8b0000); }
+		}
+
+		/// <summary>
+		/// DarkCyan
+		/// </summary>
+		public static Rgba32 DarkCyan
+		{
+			get { return new Rgba32 (0xff8b8b00); }
+		}
+
+		/// <summary>
+		/// DarkGoldenrod
+		/// </summary>
+		public static Rgba32 DarkGoldenrod
+		{
+			get { return new Rgba32 (0xff0b86b8); }
+		}
+
+		/// <summary>
+		/// DarkGray
+		/// </summary>
+		public static Rgba32 DarkGray
+		{
+			get { return new Rgba32 (0xffa9a9a9); }
+		}
+
+		/// <summary>
+		/// DarkGreen
+		/// </summary>
+		public static Rgba32 DarkGreen
+		{
+			get { return new Rgba32 (0xff006400); }
+		}
+
+		/// <summary>
+		/// DarkKhaki
+		/// </summary>
+		public static Rgba32 DarkKhaki
+		{
+			get { return new Rgba32 (0xff6bb7bd); }
+		}
+
+		/// <summary>
+		/// DarkMagenta
+		/// </summary>
+		public static Rgba32 DarkMagenta
+		{
+			get { return new Rgba32 (0xff8b008b); }
+		}
+
+		/// <summary>
+		/// DarkOliveGreen
+		/// </summary>
+		public static Rgba32 DarkOliveGreen
+		{
+			get { return new Rgba32 (0xff2f6b55); }
+		}
+
+		/// <summary>
+		/// DarkOrange
+		/// </summary>
+		public static Rgba32 DarkOrange
+		{
+			get { return new Rgba32 (0xff008cff); }
+		}
+
+		/// <summary>
+		/// DarkOrchid
+		/// </summary>
+		public static Rgba32 DarkOrchid
+		{
+			get { return new Rgba32 (0xffcc3299); }
+		}
+
+		/// <summary>
+		/// DarkRed
+		/// </summary>
+		public static Rgba32 DarkRed
+		{
+			get { return new Rgba32 (0xff00008b); }
+		}
+
+		/// <summary>
+		/// DarkSalmon
+		/// </summary>
+		public static Rgba32 DarkSalmon
+		{
+			get { return new Rgba32 (0xff7a96e9); }
+		}
+
+		/// <summary>
+		/// DarkSeaGreen
+		/// </summary>
+		public static Rgba32 DarkSeaGreen
+		{
+			get { return new Rgba32 (0xff8bbc8f); }
+		}
+
+		/// <summary>
+		/// DarkSlateBlue
+		/// </summary>
+		public static Rgba32 DarkSlateBlue
+		{
+			get { return new Rgba32 (0xff8b3d48); }
+		}
+
+		/// <summary>
+		/// DarkSlateGray
+		/// </summary>
+		public static Rgba32 DarkSlateGray
+		{
+			get { return new Rgba32 (0xff4f4f2f); }
+		}
+
+		/// <summary>
+		/// DarkTurquoise
+		/// </summary>
+		public static Rgba32 DarkTurquoise
+		{
+			get { return new Rgba32 (0xffd1ce00); }
+		}
+
+		/// <summary>
+		/// DarkViolet
+		/// </summary>
+		public static Rgba32 DarkViolet
+		{
+			get { return new Rgba32 (0xffd30094); }
+		}
+
+		/// <summary>
+		/// DeepPink
+		/// </summary>
+		public static Rgba32 DeepPink
+		{
+			get { return new Rgba32 (0xff9314ff); }
+		}
+
+		/// <summary>
+		/// DeepSkyBlue
+		/// </summary>
+		public static Rgba32 DeepSkyBlue
+		{
+			get { return new Rgba32 (0xffffbf00); }
+		}
+
+		/// <summary>
+		/// DimGray
+		/// </summary>
+		public static Rgba32 DimGray
+		{
+			get { return new Rgba32 (0xff696969); }
+		}
+
+		/// <summary>
+		/// DodgerBlue
+		/// </summary>
+		public static Rgba32 DodgerBlue
+		{
+			get { return new Rgba32 (0xffff901e); }
+		}
+		
+		/// <summary>
+		/// Firebrick
+		/// </summary>
+		public static Rgba32 Firebrick
+		{
+			get { return new Rgba32 (0xff2222b2); }
+		}
+
+		/// <summary>
+		/// FloralWhite
+		/// </summary>
+		public static Rgba32 FloralWhite
+		{
+			get { return new Rgba32 (0xfff0faff); }
+		}
+
+		/// <summary>
+		/// ForestGreen
+		/// </summary>
+		public static Rgba32 ForestGreen
+		{
+			get { return new Rgba32 (0xff228b22); }
+		}
+
+		/// <summary>
+		/// Fuchsia
+		/// </summary>
+		public static Rgba32 Fuchsia
+		{
+			get { return new Rgba32 (0xffff00ff); }
+		}
+
+		/// <summary>
+		/// Gainsboro
+		/// </summary>
+		public static Rgba32 Gainsboro
+		{
+			get { return new Rgba32 (0xffdcdcdc); }
+		}
+
+		/// <summary>
+		/// GhostWhite
+		/// </summary>
+		public static Rgba32 GhostWhite
+		{
+			get { return new Rgba32 (0xfffff8f8); }
+		}
+
+		/// <summary>
+		/// Gold
+		/// </summary>
+		public static Rgba32 Gold
+		{
+			get { return new Rgba32 (0xff00d7ff); }
+		}
+
+		/// <summary>
+		/// Goldenrod
+		/// </summary>
+		public static Rgba32 Goldenrod
+		{
+			get { return new Rgba32 (0xff20a5da); }
+		}
+
+		/// <summary>
+		/// Gray
+		/// </summary>
+		public static Rgba32 Gray
+		{
+			get { return new Rgba32 (0xff808080); }
+		}
+
+		/// <summary>
+		/// Green
+		/// </summary>
+		public static Rgba32 Green
+		{
+			get { return new Rgba32 (0xff008000); }
+		}
+
+		/// <summary>
+		/// GreenYellow
+		/// </summary>
+		public static Rgba32 GreenYellow
+		{
+			get { return new Rgba32 (0xff2fffad); }
+		}
+
+		/// <summary>
+		/// Honeydew
+		/// </summary>
+		public static Rgba32 Honeydew
+		{
+			get { return new Rgba32 (0xfff0fff0); }
+		}
+
+		/// <summary>
+		/// HotPink
+		/// </summary>
+		public static Rgba32 HotPink
+		{
+			get { return new Rgba32 (0xffb469ff); }
+		}
+
+		/// <summary>
+		/// IndianRed
+		/// </summary>
+		public static Rgba32 IndianRed
+		{
+			get { return new Rgba32 (0xff5c5ccd); }
+		}
+
+		/// <summary>
+		/// Indigo
+		/// </summary>
+		public static Rgba32 Indigo
+		{
+			get { return new Rgba32 (0xff82004b); }
+		}
+
+		/// <summary>
+		/// Ivory
+		/// </summary>
+		public static Rgba32 Ivory
+		{
+			get { return new Rgba32 (0xfff0ffff); }
+		}
+
+		/// <summary>
+		/// Khaki
+		/// </summary>
+		public static Rgba32 Khaki
+		{
+			get { return new Rgba32 (0xff8ce6f0); }
+		}
+
+		/// <summary>
+		/// Lavender
+		/// </summary>
+		public static Rgba32 Lavender
+		{
+			get { return new Rgba32 (0xfffae6e6); }
+		}
+
+		/// <summary>
+		/// LavenderBlush
+		/// </summary>
+		public static Rgba32 LavenderBlush
+		{
+			get { return new Rgba32 (0xfff5f0ff); }
+		}
+
+		/// <summary>
+		/// LawnGreen
+		/// </summary>
+		public static Rgba32 LawnGreen
+		{
+			get { return new Rgba32 (0xff00fc7c); }
+		}
+
+		/// <summary>
+		/// LemonChiffon
+		/// </summary>
+		public static Rgba32 LemonChiffon
+		{
+			get { return new Rgba32 (0xffcdfaff); }
+		}
+
+		/// <summary>
+		/// LightBlue
+		/// </summary>
+		public static Rgba32 LightBlue
+		{
+			get { return new Rgba32 (0xffe6d8ad); }
+		}
+
+		/// <summary>
+		/// LightCoral
+		/// </summary>
+		public static Rgba32 LightCoral
+		{
+			get { return new Rgba32 (0xff8080f0); }
+		}
+
+		/// <summary>
+		/// LightCyan
+		/// </summary>
+		public static Rgba32 LightCyan
+		{
+			get { return new Rgba32 (0xffffffe0); }
+		}
+
+		/// <summary>
+		/// LightGoldenrodYellow
+		/// </summary>
+		public static Rgba32 LightGoldenrodYellow
+		{
+			get { return new Rgba32 (0xffd2fafa); }
+		}
+
+		/// <summary>
+		/// LightGreen
+		/// </summary>
+		public static Rgba32 LightGreen
+		{
+			get { return new Rgba32 (0xff90ee90); }
+		}
+
+		/// <summary>
+		/// LightGray
+		/// </summary>
+		public static Rgba32 LightGray
+		{
+			get { return new Rgba32 (0xffd3d3d3); }
+		}
+
+		/// <summary>
+		/// LightPink
+		/// </summary>
+		public static Rgba32 LightPink
+		{
+			get { return new Rgba32 (0xffc1b6ff); }
+		}
+
+		/// <summary>
+		/// LightSalmon
+		/// </summary>
+		public static Rgba32 LightSalmon
+		{
+			get { return new Rgba32 (0xff7aa0ff); }
+		}
+
+		/// <summary>
+		/// LightSeaGreen
+		/// </summary>
+		public static Rgba32 LightSeaGreen
+		{
+			get { return new Rgba32 (0xffaab220); }
+		}
+
+		/// <summary>
+		/// LightSkyBlue
+		/// </summary>
+		public static Rgba32 LightSkyBlue
+		{
+			get { return new Rgba32 (0xffface87); }
+		}
+
+		/// <summary>
+		/// LightSlateGray
+		/// </summary>
+		public static Rgba32 LightSlateGray
+		{
+			get { return new Rgba32 (0xff998877); }
+		}
+
+		/// <summary>
+		/// LightSteelBlue
+		/// </summary>
+		public static Rgba32 LightSteelBlue
+		{
+			get { return new Rgba32 (0xffdec4b0); }
+		}
+
+		/// <summary>
+		/// LightYellow
+		/// </summary>
+		public static Rgba32 LightYellow
+		{
+			get { return new Rgba32 (0xffe0ffff); }
+		}
+
+		/// <summary>
+		/// Lime
+		/// </summary>
+		public static Rgba32 Lime
+		{
+			get { return new Rgba32 (0xff00ff00); }
+		}
+
+		/// <summary>
+		/// LimeGreen
+		/// </summary>
+		public static Rgba32 LimeGreen
+		{
+			get { return new Rgba32 (0xff32cd32); }
+		}
+
+		/// <summary>
+		/// Linen
+		/// </summary>
+		public static Rgba32 Linen
+		{
+			get { return new Rgba32 (0xffe6f0fa); }
+		}
+
+		/// <summary>
+		/// Magenta
+		/// </summary>
+		public static Rgba32 Magenta
+		{
+			get { return new Rgba32 (0xffff00ff); }
+		}
+
+		/// <summary>
+		/// Maroon
+		/// </summary>
+		public static Rgba32 Maroon 
+		{
+			get { return new Rgba32 (0xff000080); }
+		}
+
+		/// <summary>
+		/// MediumAquamarine
+		/// </summary>
+		public static Rgba32 MediumAquamarine
+		{
+			get { return new Rgba32 (0xffaacd66); }
+		}
+
+		/// <summary>
+		/// MediumBlue
+		/// </summary>
+		public static Rgba32 MediumBlue
+		{
+			get { return new Rgba32 (0xffcd0000); }
+		}
+
+		/// <summary>
+		/// MediumOrchid
+		/// </summary>
+		public static Rgba32 MediumOrchid
+		{
+			get { return new Rgba32 (0xffd355ba); }
+		}
+
+		/// <summary>
+		/// MediumPurple
+		/// </summary>
+		public static Rgba32 MediumPurple
+		{
+			get { return new Rgba32 (0xffdb7093); }
+		}
+
+		/// <summary>
+		/// MediumSeaGreen
+		/// </summary>
+		public static Rgba32 MediumSeaGreen
+		{
+			get { return new Rgba32 (0xff71b33c); }
+		}
+
+		/// <summary>
+		/// MediumSlateBlue
+		/// </summary>
+		public static Rgba32 MediumSlateBlue
+		{
+			get { return new Rgba32 (0xffee687b); }
+		}
+
+		/// <summary>
+		/// MediumSpringGreen
+		/// </summary>
+		public static Rgba32 MediumSpringGreen
+		{
+			get { return new Rgba32 (0xff9afa00); }
+		}
+
+		/// <summary>
+		/// MediumTurquoise
+		/// </summary>
+		public static Rgba32 MediumTurquoise
+		{
+			get { return new Rgba32 (0xffccd148); }
+		}
+
+		/// <summary>
+		/// MediumVioletRed
+		/// </summary>
+		public static Rgba32 MediumVioletRed
+		{
+			get { return new Rgba32 (0xff8515c7); }
+		}
+
+		/// <summary>
+		/// MidnightBlue
+		/// </summary>
+		public static Rgba32 MidnightBlue
+		{
+			get { return new Rgba32 (0xff701919); }
+		}
+
+		/// <summary>
+		/// MintCream
+		/// </summary>
+		public static Rgba32 MintCream
+		{
+			get { return new Rgba32 (0xfffafff5); }
+		}
+
+		/// <summary>
+		/// MistyRose
+		/// </summary>
+		public static Rgba32 MistyRose
+		{
+			get { return new Rgba32 (0xffe1e4ff); }
+		}
+
+		/// <summary>
+		/// Moccasin
+		/// </summary>
+		public static Rgba32 Moccasin
+		{
+			get { return new Rgba32 (0xffb5e4ff); }
+		}
+
+		/// <summary>
+		/// NavajoWhite
+		/// </summary>
+		public static Rgba32 NavajoWhite
+		{
+			get { return new Rgba32 (0xffaddeff); }
+		}
+
+		/// <summary>
+		/// Navy
+		/// </summary>
+		public static Rgba32 Navy
+		{
+			get { return new Rgba32 (0xff800000); }
+		}
+
+		/// <summary>
+		/// OldLace
+		/// </summary>
+		public static Rgba32 OldLace
+		{
+			get { return new Rgba32 (0xffe6f5fd); }
+		}
+
+		/// <summary>
+		/// Olive
+		/// </summary>
+		public static Rgba32 Olive
+		{
+			get { return new Rgba32 (0xff008080); }
+		}
+
+		/// <summary>
+		/// OliveDrab
+		/// </summary>
+		public static Rgba32 OliveDrab
+		{
+			get { return new Rgba32 (0xff238e6b); }
+		}
+
+		/// <summary>
+		/// Orange
+		/// </summary>
+		public static Rgba32 Orange
+		{
+			get { return new Rgba32 (0xff00a5ff); }
+		}
+
+		/// <summary>
+		/// OrangeRed
+		/// </summary>
+		public static Rgba32 OrangeRed
+		{
+			get { return new Rgba32 (0xff0045ff); }
+		}
+
+		/// <summary>
+		/// Orchid
+		/// </summary>
+		public static Rgba32 Orchid
+		{
+			get { return new Rgba32 (0xffd670da); }
+		}
+
+		/// <summary>
+		/// PaleGoldenrod
+		/// </summary>
+		public static Rgba32 PaleGoldenrod
+		{
+			get { return new Rgba32 (0xffaae8ee); }
+		}
+
+		/// <summary>
+		/// PaleGreen
+		/// </summary>
+		public static Rgba32 PaleGreen
+		{
+			get { return new Rgba32 (0xff98fb98); }
+		}
+
+		/// <summary>
+		/// PaleTurquoise
+		/// </summary>
+		public static Rgba32 PaleTurquoise
+		{
+			get { return new Rgba32 (0xffeeeeaf); }
+		}
+
+		/// <summary>
+		/// PaleVioletRed
+		/// </summary>
+		public static Rgba32 PaleVioletRed
+		{
+			get { return new Rgba32 (0xff9370db); }
+		}
+
+		/// <summary>
+		/// PapayaWhip
+		/// </summary>
+		public static Rgba32 PapayaWhip
+		{
+			get { return new Rgba32 (0xffd5efff); }
+		}
+
+		/// <summary>
+		/// PeachPuff
+		/// </summary>
+		public static Rgba32 PeachPuff
+		{
+			get { return new Rgba32 (0xffb9daff); }
+		}
+
+		/// <summary>
+		/// Peru
+		/// </summary>
+		public static Rgba32 Peru
+		{
+			get { return new Rgba32 (0xff3f85cd); }
+		}
+
+		/// <summary>
+		/// Pink
+		/// </summary>
+		public static Rgba32 Pink
+		{
+			get { return new Rgba32 (0xffcbc0ff); }
+		}
+
+		/// <summary>
+		/// Plum
+		/// </summary>
+		public static Rgba32 Plum
+		{
+			get { return new Rgba32 (0xffdda0dd); }
+		}
+
+		/// <summary>
+		/// PowderBlue
+		/// </summary>
+		public static Rgba32 PowderBlue
+		{
+			get { return new Rgba32 (0xffe6e0b0); }
+		}
+
+		/// <summary>
+		/// Purple
+		/// </summary>
+		public static Rgba32 Purple
+		{
+			get { return new Rgba32 (0xff800080); }
+		}
+
+		/// <summary>
+		/// Red
+		/// </summary>
+		public static Rgba32 Red
+		{
+			get { return new Rgba32 (0xff0000ff); }
+		}
+
+		/// <summary>
+		/// RosyBrown
+		/// </summary>
+		public static Rgba32 RosyBrown
+		{
+			get { return new Rgba32 (0xff8f8fbc); }
+		}
+
+		/// <summary>
+		/// RoyalBlue
+		/// </summary>
+		public static Rgba32 RoyalBlue
+		{
+			get { return new Rgba32 (0xffe16941); }
+		}
+
+		/// <summary>
+		/// SaddleBrown
+		/// </summary>
+		public static Rgba32 SaddleBrown
+		{
+			get { return new Rgba32 (0xff13458b); }
+		}
+
+		/// <summary>
+		/// Salmon
+		/// </summary>
+		public static Rgba32 Salmon
+		{
+			get { return new Rgba32 (0xff7280fa); }
+		}
+
+		/// <summary>
+		/// SandyBrown
+		/// </summary>
+		public static Rgba32 SandyBrown
+		{
+			get{ return new Rgba32 (0xff60a4f4); }
+		}
+
+		/// <summary>
+		/// SeaGreen
+		/// </summary>
+		public static Rgba32 SeaGreen
+		{
+			get { return new Rgba32 (0xff578b2e); }
+		}
+
+		/// <summary>
+		/// SeaShell
+		/// </summary>
+		public static Rgba32 SeaShell
+		{
+			get { return new Rgba32 (0xffeef5ff); }
+		}
+
+		/// <summary>
+		/// Sienna
+		/// </summary>
+		public static Rgba32 Sienna
+		{
+			get { return new Rgba32 (0xff2d52a0); }
+		}
+
+		/// <summary>
+		/// Silver
+		/// </summary>
+		public static Rgba32 Silver
+		{
+			get { return new Rgba32 (0xffc0c0c0); }
+		}
+
+		/// <summary>
+		/// SkyBlue
+		/// </summary>
+		public static Rgba32 SkyBlue
+		{
+			get { return new Rgba32 (0xffebce87); }
+		}
+
+		/// <summary>
+		/// SlateBlue
+		/// </summary>
+		public static Rgba32 SlateBlue
+		{
+			get { return new Rgba32 (0xffcd5a6a); }
+		}
+
+		/// <summary>
+		/// SlateGray
+		/// </summary>
+		public static Rgba32 SlateGray
+		{
+			get { return new Rgba32 (0xff908070); }
+		}
+
+		/// <summary>
+		/// Snow
+		/// </summary>
+		public static Rgba32 Snow
+		{
+			get { return new Rgba32 (0xfffafaff); }
+		}
+
+		/// <summary>
+		/// SpringGreen
+		/// </summary>
+		public static Rgba32 SpringGreen
+		{
+			get { return new Rgba32 (0xff7fff00); }
+		}
+
+		/// <summary>
+		/// SteelBlue
+		/// </summary>
+		public static Rgba32 SteelBlue
+		{
+			get { return new Rgba32 (0xffb48246); }
+		}
+
+		/// <summary>
+		/// Tan
+		/// </summary>
+		public static Rgba32 Tan
+		{
+			get { return new Rgba32 (0xff8cb4d2); }
+		}
+
+		/// <summary>
+		/// Teal
+		/// </summary>
+		public static Rgba32 Teal
+		{
+			get { return new Rgba32 (0xff808000); }
+		}
+
+		/// <summary>
+		/// Thistle
+		/// </summary>
+		public static Rgba32 Thistle
+		{
+			get { return new Rgba32 (0xffd8bfd8); }
+		}
+
+		/// <summary>
+		/// Tomato
+		/// </summary>
+		public static Rgba32 Tomato
+		{
+			get { return new Rgba32 (0xff4763ff); }
+		}
+
+		/// <summary>
+		/// Turquoise
+		/// </summary>
+		public static Rgba32 Turquoise
+		{
+			get { return new Rgba32 (0xffd0e040); }
+		}
+
+		/// <summary>
+		/// Violet
+		/// </summary>
+		public static Rgba32 Violet
+		{
+			get {return new Rgba32 (0xffee82ee); }
+		}
+
+		/// <summary>
+		/// Wheat
+		/// </summary>
+		public static Rgba32 Wheat
+		{
+			get { return new Rgba32 (0xffb3def5); }
+		}
+
+		/// <summary>
+		/// White
+		/// </summary>
+		public static Rgba32 White
+		{
+			get { return new Rgba32 (UInt32.MaxValue); }
+		}
+
+		/// <summary>
+		/// WhiteSmoke
+		/// </summary>
+		public static Rgba32 WhiteSmoke
+		{
+			get { return new Rgba32 (0xfff5f5f5); }
+		}
+
+		/// <summary>
+		/// Yellow
+		/// </summary>
+		public static Rgba32 Yellow
+		{
+			get { return new Rgba32 (0xff00ffff); }
+		}
+
+		/// <summary>
+		/// YellowGreen
+		/// </summary>
+		public static Rgba32 YellowGreen 
+		{
+			get { return new Rgba32 (0xff32cd9a); }
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Rgba32(UInt32 packedValue)
 		{
 			this.packedValue = packedValue;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(Int32 r, Int32 g, Int32 b)
 		{
 			if ((((r | g) | b) & -256) != 0)
@@ -3548,6 +5122,9 @@ namespace Sungiant.Abacus.Packed
 			this.packedValue = (UInt32)(((r | g) | b) | -16777216);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(Int32 r, Int32 g, Int32 b, Int32 a)
 		{
 			if (((((r | g) | b) | a) & -256) != 0)
@@ -3565,35 +5142,36 @@ namespace Sungiant.Abacus.Packed
 			this.packedValue = (UInt32)(((r | g) | b) | a);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32 (Single r, Single g, Single b)
 		{
 			var val = new SinglePrecision.Vector4(r, g, b, 1f);
 			Pack ( ref val, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32 (Single r, Single g, Single b, Single a)
 		{
 			var val = new SinglePrecision.Vector4(r, g, b, a);
 			Pack(ref val, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(SinglePrecision.Vector3 vector)
 		{
 			var val = new SinglePrecision.Vector4(vector.X, vector.Y, vector.Z, 1f);
 			Pack(ref val, out this.packedValue);
 		}
 
-		public static Rgba32 GenerateColorFromName(string name)
-		{
-			System.Random random = new System.Random(name.GetHashCode());
-			return new Rgba32(
-				(byte)random.Next(byte.MaxValue),
-				(byte)random.Next(byte.MaxValue),
-				(byte)random.Next(byte.MaxValue));
-		}
-
-		
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 FromNonPremultiplied(SinglePrecision.Vector4 vector)
 		{
 			Rgba32 color;
@@ -3601,7 +5179,48 @@ namespace Sungiant.Abacus.Packed
 			Pack(ref val, out color.packedValue);
 			return color;
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Rgba32(DoublePrecision.Vector3 vector)
+		{
+			var val = new DoublePrecision.Vector4(vector.X, vector.Y, vector.Z, 1f);
+			Pack(ref val, out this.packedValue);
+		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Rgba32 FromNonPremultiplied(DoublePrecision.Vector4 vector)
+		{
+			Rgba32 color;
+			var val = new DoublePrecision.Vector4(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+			Pack(ref val, out color.packedValue);
+			return color;
+		}
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Rgba32(Fixed32Precision.Vector3 vector)
+		{
+			var val = new Fixed32Precision.Vector4(vector.X, vector.Y, vector.Z, 1f);
+			Pack(ref val, out this.packedValue);
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static Rgba32 FromNonPremultiplied(Fixed32Precision.Vector4 vector)
+		{
+			Rgba32 color;
+			var val = new Fixed32Precision.Vector4(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+			Pack(ref val, out color.packedValue);
+			return color;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 FromNonPremultiplied(int r, int g, int b, int a)
 		{
 			Rgba32 color;
@@ -3616,6 +5235,9 @@ namespace Sungiant.Abacus.Packed
 			return color;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Int32 ClampToByte32(Int32 value)
 		{
 			if (value < 0)
@@ -3631,6 +5253,9 @@ namespace Sungiant.Abacus.Packed
 			return value;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Int32 ClampToByte64(Int64 value)
 		{
 			if (value < 0L)
@@ -3646,7 +5271,9 @@ namespace Sungiant.Abacus.Packed
 			return (Int32)value;
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte R
 		{
 			get
@@ -3659,6 +5286,9 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte G
 		{
 			get
@@ -3671,6 +5301,9 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte B
 		{
 			get
@@ -3683,6 +5316,9 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public byte A
 		{
 			get
@@ -3695,6 +5331,9 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 Lerp(Rgba32 value1, Rgba32 value2, Single amount)
 		{
 			Rgba32 color;
@@ -3717,15 +5356,40 @@ namespace Sungiant.Abacus.Packed
 			return color;
 		}
 
-		public SinglePrecision.Vector3 ToVector3()
+		/// <summary>
+		/// todo
+		/// </summary>
+		public void ToVector3(out SinglePrecision.Vector3 result)
 		{
 			SinglePrecision.Vector4 colourVec4;
 			this.UnpackTo(out colourVec4);
 
-			return new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
+			result = new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
+		}
+		/// <summary>
+		/// todo
+		/// </summary>
+		public void ToVector3(out DoublePrecision.Vector3 result)
+		{
+			DoublePrecision.Vector4 colourVec4;
+			this.UnpackTo(out colourVec4);
+
+			result = new DoublePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
+		}
+		/// <summary>
+		/// todo
+		/// </summary>
+		public void ToVector3(out Fixed32Precision.Vector3 result)
+		{
+			Fixed32Precision.Vector4 colourVec4;
+			this.UnpackTo(out colourVec4);
+
+			result = new Fixed32Precision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 Desaturate(Rgba32 colour, float desaturation)
 		{
 			System.Diagnostics.Debug.Assert(desaturation <= 1f && desaturation >= 0f);
@@ -3738,7 +5402,6 @@ namespace Sungiant.Abacus.Packed
 
 			SinglePrecision.Vector3 colourVec = new SinglePrecision.Vector3(colourVec4.X, colourVec4.Y, colourVec4.Z);
 
-
 			float luminance;
 
 			SinglePrecision.Vector3.Dot(ref luminanceWeights, ref colourVec, out luminance);
@@ -3750,6 +5413,9 @@ namespace Sungiant.Abacus.Packed
 			return new Rgba32(colourVec.X, colourVec.Y, colourVec.Z, colourVec4.W);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Rgba32 operator *(Rgba32 value, Single scale)
 		{
 			UInt32 num;
@@ -3796,6 +5462,9 @@ namespace Sungiant.Abacus.Packed
 			return color;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Multiply(ref Rgba32 value, ref Single scale, out Rgba32 colour )
 		{
 			UInt32 num;
@@ -3840,10 +5509,17 @@ namespace Sungiant.Abacus.Packed
 			colour.packedValue = ((num5 | (num4 << 8)) | (num3 << 0x10)) | (num2 << 0x18);
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt32 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt32 PackedValue
 		{
@@ -3857,95 +5533,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Rgba32) && this.Equals((Rgba32)obj));
 		}
 
+		#region IEquatable<Rgba32>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Rgba32 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Rgba32 a, Rgba32 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Rgba32 a, Rgba32 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(ref SinglePrecision.Vector4 realRgba32)
 		{
 			Pack(ref realRgba32, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realRgba32)
 		{
 			Pack(ref realRgba32, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realRgba32)
 		{
 			Unpack(this.packedValue, out realRgba32);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(ref DoublePrecision.Vector4 realRgba32)
 		{
 			Pack(ref realRgba32, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realRgba32)
 		{
 			Pack(ref realRgba32, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realRgba32)
 		{
 			Unpack(this.packedValue, out realRgba32);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba32(ref Fixed32Precision.Vector4 realRgba32)
 		{
 			Pack(ref realRgba32, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realRgba32)
 		{
 			Pack(ref realRgba32, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realRgba32)
 		{
 			Unpack(this.packedValue, out realRgba32);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realRgba32, out UInt32 packedRgba32)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba32.X, (Single)realRgba32.Y, (Single)realRgba32.Z, (Single)realRgba32.W);
 			Pack(ref singleVector, out packedRgba32);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRgba32, out DoublePrecision.Vector4 realRgba32)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedRgba32, out singleVector);
 			realRgba32 = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realRgba32, out UInt32 packedRgba32)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba32.X, (Single)realRgba32.Y, (Single)realRgba32.Z, (Single)realRgba32.W);
 			Pack(ref singleVector, out packedRgba32);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRgba32, out Fixed32Precision.Vector4 realRgba32)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -3953,6 +5688,7 @@ namespace Sungiant.Abacus.Packed
 			realRgba32 = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Rgba64 
 		: IPackedValue<UInt64>
@@ -3981,10 +5717,16 @@ namespace Sungiant.Abacus.Packed
 			realRgba.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 48));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt64 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt64 PackedValue
 		{
@@ -3998,95 +5740,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Rgba64) && this.Equals((Rgba64)obj));
 		}
 
+		#region IEquatable<Rgba64>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Rgba64 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Rgba64 a, Rgba64 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Rgba64 a, Rgba64 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba64(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba64(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba64(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realRgba, out UInt64 packedRgba)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedRgba, out DoublePrecision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedRgba, out singleVector);
 			realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realRgba, out UInt64 packedRgba)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedRgba, out Fixed32Precision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -4094,6 +5895,7 @@ namespace Sungiant.Abacus.Packed
 			realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+	
 	// 2 bit alpha
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Rgba_10_10_10_2 
@@ -4124,10 +5926,16 @@ namespace Sungiant.Abacus.Packed
 			realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 30));
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt32 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt32 PackedValue
 		{
@@ -4141,95 +5949,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Rgba_10_10_10_2) && this.Equals((Rgba_10_10_10_2)obj));
 		}
 
+		#region IEquatable<Rgba_10_10_10_2>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Rgba_10_10_10_2 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Rgba_10_10_10_2 a, Rgba_10_10_10_2 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Rgba_10_10_10_2 a, Rgba_10_10_10_2 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba_10_10_10_2(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba_10_10_10_2(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Rgba_10_10_10_2(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realRgba)
 		{
 			Pack(ref realRgba, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realRgba)
 		{
 			Unpack(this.packedValue, out realRgba);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realRgba, out UInt32 packedRgba)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRgba, out DoublePrecision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedRgba, out singleVector);
 			realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realRgba, out UInt32 packedRgba)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
 			Pack(ref singleVector, out packedRgba);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedRgba, out Fixed32Precision.Vector4 realRgba)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -4237,17 +6104,27 @@ namespace Sungiant.Abacus.Packed
 			realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Short2 
 		: IPackedValue<UInt32>
 		, IEquatable<Short2>
 		, IPackedReal2
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector2 realXy, out UInt32 packedXy)
 		{
 			UInt32 x = PackUtils.PackSigned (0xffff, realXy.X);
@@ -4255,16 +6132,25 @@ namespace Sungiant.Abacus.Packed
 			packedXy = (x | y);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXy, out SinglePrecision.Vector2 realXy)
 		{
 			realXy.X = (Int16) packedXy;
 			realXy.Y = (Int16) (packedXy >> 16);
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt32 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt32 PackedValue
 		{
@@ -4278,95 +6164,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Short2) && this.Equals((Short2)obj));
 		}
 
+		#region IEquatable<Short2>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Short2 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Short2 a, Short2 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Short2 a, Short2 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Short2(ref SinglePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Short2(ref DoublePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Short2(ref Fixed32Precision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector2 realXy)
 		{
 			Pack(ref realXy, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector2 realXy)
 		{
 			Unpack(this.packedValue, out realXy);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector2 realXy, out UInt32 packedXy)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realXy.X, (Single)realXy.Y);
 			Pack(ref singleVector, out packedXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXy, out DoublePrecision.Vector2 realXy)
 		{
 			SinglePrecision.Vector2 singleVector;
 			Unpack(packedXy, out singleVector);
 			realXy = new DoublePrecision.Vector2((Double)singleVector.X, (Double)singleVector.Y);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector2 realXy, out UInt32 packedXy)
 		{
 			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)realXy.X, (Single)realXy.Y);
 			Pack(ref singleVector, out packedXy);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt32 packedXy, out Fixed32Precision.Vector2 realXy)
 		{
 			SinglePrecision.Vector2 singleVector;
@@ -4374,17 +6319,27 @@ namespace Sungiant.Abacus.Packed
 			realXy = new Fixed32Precision.Vector2((Fixed32)singleVector.X, (Fixed32)singleVector.Y);
 		}
 	}
+	
+	/// <summary>
+	/// todo
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Short4 
 		: IPackedValue<UInt64>
 		, IEquatable<Short4>
 		, IPackedReal4
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
 		{
 			UInt64 x = PackUtils.PackSigned(0xffff, realXyzw.X);
@@ -4394,6 +6349,9 @@ namespace Sungiant.Abacus.Packed
 			packedXyzw = (((x | y) | z) | w);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
 		{
 			realXyzw.X = (Int16) packedXyzw;
@@ -4402,10 +6360,16 @@ namespace Sungiant.Abacus.Packed
 			realXyzw.W = (Int16) (packedXyzw >> 48);
 		}
 
-		// GENERATED CODE ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		UInt64 packedValue;
 
- 
+		#region IPackedValue
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		[CLSCompliant (false)]
 		public UInt64 PackedValue
 		{
@@ -4419,95 +6383,154 @@ namespace Sungiant.Abacus.Packed
 			}
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode()
 		{
 			return this.packedValue.GetHashCode();
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Boolean Equals(Object obj)
 		{
 			return ((obj is Short4) && this.Equals((Short4)obj));
 		}
 
+		#region IEquatable<Short4>
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean Equals(Short4 other)
 		{
 			return this.packedValue.Equals(other.packedValue);
 		}
 
+		#endregion
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator ==(Short4 a, Short4 b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static Boolean operator !=(Short4 a, Short4 b)
 		{
 			return !a.Equals(b);
 		}
 
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Short4(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref SinglePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out SinglePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Short4(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref DoublePrecision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out DoublePrecision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Short4(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void PackFrom(ref Fixed32Precision.Vector4 realXyzw)
 		{
 			Pack(ref realXyzw, out this.packedValue);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void UnpackTo(out Fixed32Precision.Vector4 realXyzw)
 		{
 			Unpack(this.packedValue, out realXyzw);
 		}
-
-		// SINGLE PRECISION CASTS ----------------------------------------------------------------
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref DoublePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedXyzw, out DoublePrecision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
 			Unpack(packedXyzw, out singleVector);
 			realXyzw = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
 		}
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Pack(ref Fixed32Precision.Vector4 realXyzw, out UInt64 packedXyzw)
 		{
 			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realXyzw.X, (Single)realXyzw.Y, (Single)realXyzw.Z, (Single)realXyzw.W);
 			Pack(ref singleVector, out packedXyzw);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static void Unpack(UInt64 packedXyzw, out Fixed32Precision.Vector4 realXyzw)
 		{
 			SinglePrecision.Vector4 singleVector;
@@ -4515,238 +6538,476 @@ namespace Sungiant.Abacus.Packed
 			realXyzw = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
 		}
 	}
+
 }
 
 
 namespace Sungiant.Abacus.Int32Precision
 {
+	/// <summary>
+	/// Represents a Int32 precision point on a 2D integer grid.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point2 
 		: IEquatable<Point2>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
 		public Int32 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
 		public Int32 Y;
 
+		/// <summary>
+		/// Initilises a new instance of Point2 from two Int32 values 
+		/// representing X and Y respectively.
+		/// </summary>
 		public Point2 (Int32 x, Int32 y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public Boolean Equals (Point2 other)
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			return ((this.X == other.X) && (this.Y == other.Y));
+			return String.Format ("{{X:{0} Y:{1}}}", this.X, this.Y );
 		}
 
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-
-			if (obj is Point2)
-			{
-				flag = this.Equals ((Point2)obj);
-			}
-
-			return flag;
-		}
-
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (this.X.GetHashCode () + this.Y.GetHashCode ());
 		}
 
-		public override String ToString ()
-		{
-			return String.Format ("{{X:{0} Y:{1}}}", this.X, this.Y );
-		}
-		
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to zero.
+		/// </summary>
 		static Point2 zero;
-		
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to one.
+		/// </summary>
+		static Point2 one;
+
+		/// <summary>
+		/// Defines the unit Point2 for the X-axis.
+		/// </summary>
+		static Point2 unitX;
+
+		/// <summary>
+		/// Defines the unit Point2 for the Y-axis.
+		/// </summary>
+		static Point2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Point2()
+		{
+			zero = new Point2();
+			one = new Point2(1, 1);
+			unitX = new Point2(1, 0);
+			unitY = new Point2(0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to zero.
+		/// </summary>
 		public static Point2 Zero
 		{
-			get
-			{
-				return zero;
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to one.
+		/// </summary>
+		public static Point2 One
+		{
+			get { return one; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the X-axis.
+		/// </summary>
+		public static Point2 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the Y-axis.
+		/// </summary>
+		public static Point2 UnitY
+		{
+			get { return unitY; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point2) {
+				flag = this.Equals ((Point2)obj);
 			}
+			return flag;
+		}
+
+		#region IEquatable<Point2>
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// Point2 object.
+		/// </summary>
+		public Boolean Equals (Point2 other)
+		{
+			return ((this.X == other.X) && (this.Y == other.Y));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point2 value1, Point2 value2)
+		{
+			return ((value1.X == value2.X) && (value1.Y == value2.Y));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point2 value1, Point2 value2)
+		{
+			if (value1.X == value2.X) {
+				return !(value1.Y == value2.Y);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point2 objects.
+		/// </summary>
+		public static void Add (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point2 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point2 operator + (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X + value2.X;
+			point.Y = value1.Y + value2.Y;
+			return point;
+		}
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects.
+		/// </summary>
+		public static void Subtract (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X - value2.X;
+			point.Y = value1.Y - value2.Y;
+			return point;
+		}
+
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point2 object.
+		/// </summary>
+		public static void Negate (ref Point2 value, out Point2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point2 object using the (-X) operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value)
+		{
+			Point2 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value, Int32 scaleFactor, out Point2 result)
+		{
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X * value2.X;
+			point.Y = value1.Y * value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value, Int32 scaleFactor)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Int32 precision scaling factor 
+		/// and aPoint2 object using the (x*Y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Int32 scaleFactor, Point2 value)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point2 objects.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, Int32 divider, out Point2 result)
+		{
+			Int32 one = 1;
+			Int32 num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point2 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X / value2.X;
+			point.Y = value1.Y / value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Int32 divider)
+		{
+			Point2 point;
+			Int32 one = 1;
+			Int32 num = one / divider;
+			point.X = value1.X * num;
+			point.Y = value1.Y * num;
+			return point;
 		}
 		
-		static Point2 ()
-		{
-			zero = new Point2 ();
-		}
-
-		public static Boolean operator == (Point2 a, Point2 b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (Point2 a, Point2 b)
-		{
-			if (a.X == b.X)
-			{
-				return (a.Y != b.Y);
-			}
-
-			return true;
-		}	
 	}
+
+	/// <summary>
+	/// Represents a Int32 precision point on a 3D integer grid.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point3 
 		: IEquatable<Point3>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
 		public Int32 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
 		public Int32 Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the point.
+		/// </summary>
 		public Int32 Z;
 
-		static Point3 zero;
-		static Point3 one;
-		static Point3 unitX;
-		static Point3 unitY;
-		static Point3 unitZ;
-		static Point3 up;
-		static Point3 down;
-		static Point3 right;
-		static Point3 left;
-		static Point3 forward;
-		static Point3 backward;
-
-		public static Point3 Zero
-		{
-			get
-			{
-				return zero;
-			}
-		}
-
-		public static Point3 One
-		{
-			get
-			{
-				return one;
-			}
-		}
-
-		public static Point3 UnitX
-		{
-			get
-			{
-				return unitX;
-			}
-		}
-
-		public static Point3 UnitY
-		{
-			get
-			{
-				return unitY;
-			}
-		}
-
-		public static Point3 UnitZ
-		{
-			get
-			{
-				return unitZ;
-			}
-		}
-
-		public static Point3 Up
-		{
-			get
-			{
-				return up;
-			}
-		}
-
-		public static Point3 Down
-		{
-			get
-			{
-				return down;
-			}
-		}
-
-		public static Point3 Right
-		{
-			get
-			{
-				return right;
-			}
-		}
-
-		public static Point3 Left
-		{
-			get
-			{
-				return left;
-			}
-		}
-
-		public static Point3 Forward
-		{
-			get
-			{
-				return forward;
-			}
-		}
-
-		public static Point3 Backward
-		{
-			get
-			{
-				return backward;
-			}
-		}
-
+		/// <summary>
+		/// Initilises a new instance of Point3 from three Int32 values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Point3(Int32 x, Int32 y, Int32 z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public bool Equals(Point3 other)
+		
+		/// <summary>
+		/// Initilises a new instance of Point3 from one Point2 value
+		/// representing X and Y and one Int32 value representing Z.
+		/// </summary>
+		public Point3 (Point2 value, Int32 z)
 		{
-			return ((this.X == other.X) && (this.Y == other.Y) && (this.Z == other.Z));
+			this.X = value.X;
+			this.Y = value.Y;
+			this.Z = z;
 		}
 
-		public override bool Equals(Object obj)
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString()
 		{
-			bool flag = false;
-			if (obj is Point3)
-			{
-				flag = this.Equals((Point3)obj);
-			}
-			return flag;
+			return String.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
 		}
 
-		public override int GetHashCode()
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
+		public override Int32 GetHashCode()
 		{
 			return (this.X.GetHashCode() + this.Y.GetHashCode() + this.Z.GetHashCode());
 		}
 
-		public override string ToString()
-		{
-			return string.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
-		}
+		// Constants //-------------------------------------------------------//
 
-		public static bool operator ==(Point3 a, Point3 b)
-		{
-			return a.Equals(b);
-		}
+		/// <summary>
+		/// Defines a Point3 with all of its components set to zero.
+		/// </summary>
+		static Point3 zero;
 
-		public static bool operator !=(Point3 a, Point3 b)
-		{
-			if (a.X == b.X)
-			{
-				if (a.Y == b.Y)
-				{
-					return (a.Z != b.Z);
-				}
-			}
-			return true;
-		}
+		/// <summary>
+		/// Defines a Point3 with all of its components set to one.
+		/// </summary>
+		static Point3 one;
 
+		/// <summary>
+		/// Defines the unit Point3 for the X-axis.
+		/// </summary>
+		static Point3 unitX;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Y-axis.
+		/// </summary>
+		static Point3 unitY;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Z-axis.
+		/// </summary>
+		static Point3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		static Point3 up;
+
+		/// <summary>
+		/// Defines a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		static Point3 down;
+
+		/// <summary>
+		/// Defines a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Point3 right;
+
+		/// <summary>
+		/// Defines a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		static Point3 left;
+
+		/// <summary>
+		/// Defines a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Point3 forward;
+
+		/// <summary>
+		/// Defines a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Point3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Point3()
 		{
 			zero = new Point3();
@@ -4762,318 +7023,805 @@ namespace Sungiant.Abacus.Int32Precision
 			backward = new Point3(0, 0, 1);
 		}
 
-		public static Point3 operator +(Point3 value)
+		/// <summary>
+		/// Returns a Point3 with all of its components set to zero.
+		/// </summary>
+		public static Point3 Zero
 		{
-			Point3 point = Point3.Zero;
-			point.X = +value.X;
-			point.Y = +value.Y;
-			point.Z = +value.Z;
-			return point;
+			get { return zero; }
 		}
 
-		public static Point3 operator -(Point3 value)
+		/// <summary>
+		/// Returns a Point3 with all of its components set to one.
+		/// </summary>
+		public static Point3 One
 		{
-			Point3 point = Point3.Zero;
-			point.X = -value.X;
-			point.Y = -value.Y;
-			point.Z = -value.Z;
-			return point;
+			get { return one; }
 		}
 
-		public static Point3 operator +(Point3 value1, Point3 value2)
+		/// <summary>
+		/// Returns the unit Point3 for the X-axis.
+		/// </summary>
+		public static Point3 UnitX
 		{
-			Point3 point = Point3.Zero;
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Y-axis.
+		/// </summary>
+		public static Point3 UnitY
+		{
+			get { return unitY; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Z-axis.
+		/// </summary>
+		public static Point3 UnitZ
+		{
+			get { return unitZ; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		public static Point3 Up
+		{
+			get { return up; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		public static Point3 Down
+		{
+			get { return down; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Point3 Right
+		{
+			get { return right; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Point3 Left
+		{
+			get { return left; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Point3 Forward
+		{
+			get { return forward; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Point3 Backward
+		{
+			get { return backward; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point3) {
+				flag = this.Equals ((Point3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Point3>
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// Point3 object.
+		/// </summary>
+		public Boolean Equals (Point3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point3 value1, Point3 value2)
+		{
+			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point3 value1, Point3 value2)
+		{
+			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
+				return !(value1.Z == value2.Z);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point3 objects.
+		/// </summary>
+		public static void Add (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point3 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point3 operator + (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X + value2.X;
 			point.Y = value1.Y + value2.Y;
 			point.Z = value1.Z + value2.Z;
 			return point;
 		}
 
-		public static Point3 operator -(Point3 value1, Point3 value2)
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects.
+		/// </summary>
+		public static void Subtract (ref Point3 value1, ref Point3 value2, out Point3 result)
 		{
-			Point3 point = Point3.Zero;
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X - value2.X;
 			point.Y = value1.Y - value2.Y;
 			point.Z = value1.Z - value2.Z;
 			return point;
 		}
 
-		public static Point3 operator *(Point3 value1, Point3 value2)
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point3 object.
+		/// </summary>
+		public static void Negate (ref Point3 value, out Point3 result)
 		{
-			Point3 point = Point3.Zero;
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point3 object using the (-X) operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value)
+		{
+			Point3 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			point.Z = -value.Z;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, Int32 scaleFactor, out Point3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X * value2.X;
 			point.Y = value1.Y * value2.Y;
 			point.Z = value1.Z * value2.Z;
 			return point;
 		}
 
-		public static Point3 operator *(Point3 value, int scaleFactor)
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value, Int32 scaleFactor)
 		{
-			Point3 point = Point3.Zero;
+			Point3 point;
 			point.X = value.X * scaleFactor;
 			point.Y = value.Y * scaleFactor;
 			point.Z = value.Z * scaleFactor;
 			return point;
 		}
 
-		public static Point3 operator *(int scaleFactor, Point3 value)
+		/// <summary>
+		/// Performs multiplication of a Int32 precision scaling factor 
+		/// and aPoint3 object using the (x*Y) operator.
+		/// </summary>
+		public static Point3 operator * (Int32 scaleFactor, Point3 value)
 		{
-			Point3 point = Point3.Zero;
+			Point3 point;
 			point.X = value.X * scaleFactor;
 			point.Y = value.Y * scaleFactor;
 			point.Z = value.Z * scaleFactor;
 			return point;
 		}
 
-		public static Point3 operator /(Point3 value1, Point3 value2)
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point3 objects.
+		/// </summary>
+		public static void Divide (ref Point3 value1, ref Point3 value2, out Point3 result)
 		{
-			Point3 point = Point3.Zero;
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a Int32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Point3 value1, Int32 value2, out Point3 result)
+		{
+			Int32 one = 1;
+			Int32 num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point3 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X / value2.X;
 			point.Y = value1.Y / value2.Y;
 			point.Z = value1.Z / value2.Z;
 			return point;
 		}
 
-		public static Point3 operator /(Point3 value, int divider)
+		/// <summary>
+		/// Performs division of a Point3 object and a Int32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value, Int32 divider)
 		{
-			Point3 point = Point3.Zero;
-			point.X = value.X / divider;
-			point.Y = value.Y / divider;
-			point.Z = value.Z / divider;
+			Point3 point;
+			Int32 one = 1;
+
+			Int32 num = one / divider;
+			point.X = value.X * num;
+			point.Y = value.Y * num;
+			point.Z = value.Z * num;
 			return point;
 		}
+		
 	}
+
 }
 
 namespace Sungiant.Abacus.Int64Precision
 {
+	/// <summary>
+	/// Represents a Int64 precision point on a 2D integer grid.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point2 
 		: IEquatable<Point2>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
 		public Int64 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
 		public Int64 Y;
 
+		/// <summary>
+		/// Initilises a new instance of Point2 from two Int64 values 
+		/// representing X and Y respectively.
+		/// </summary>
 		public Point2 (Int64 x, Int64 y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public Boolean Equals (Point2 other)
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			return ((this.X == other.X) && (this.Y == other.Y));
+			return String.Format ("{{X:{0} Y:{1}}}", this.X, this.Y );
 		}
 
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-
-			if (obj is Point2)
-			{
-				flag = this.Equals ((Point2)obj);
-			}
-
-			return flag;
-		}
-
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (this.X.GetHashCode () + this.Y.GetHashCode ());
 		}
 
-		public override String ToString ()
-		{
-			return String.Format ("{{X:{0} Y:{1}}}", this.X, this.Y );
-		}
-		
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to zero.
+		/// </summary>
 		static Point2 zero;
-		
+
+		/// <summary>
+		/// Defines a Point2 with all of its components set to one.
+		/// </summary>
+		static Point2 one;
+
+		/// <summary>
+		/// Defines the unit Point2 for the X-axis.
+		/// </summary>
+		static Point2 unitX;
+
+		/// <summary>
+		/// Defines the unit Point2 for the Y-axis.
+		/// </summary>
+		static Point2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Point2()
+		{
+			zero = new Point2();
+			one = new Point2(1, 1);
+			unitX = new Point2(1, 0);
+			unitY = new Point2(0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to zero.
+		/// </summary>
 		public static Point2 Zero
 		{
-			get
-			{
-				return zero;
+			get { return zero; }
+		}
+
+		/// <summary>
+		/// Returns a Point2 with all of its components set to one.
+		/// </summary>
+		public static Point2 One
+		{
+			get { return one; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the X-axis.
+		/// </summary>
+		public static Point2 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point2 for the Y-axis.
+		/// </summary>
+		public static Point2 UnitY
+		{
+			get { return unitY; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point2) {
+				flag = this.Equals ((Point2)obj);
 			}
+			return flag;
+		}
+
+		#region IEquatable<Point2>
+
+		/// <summary>
+		/// Determines whether or not this Point2 object is equal to another
+		/// Point2 object.
+		/// </summary>
+		public Boolean Equals (Point2 other)
+		{
+			return ((this.X == other.X) && (this.Y == other.Y));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point2 value1, Point2 value2)
+		{
+			return ((value1.X == value2.X) && (value1.Y == value2.Y));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point2 value1, Point2 value2)
+		{
+			if (value1.X == value2.X) {
+				return !(value1.Y == value2.Y);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point2 objects.
+		/// </summary>
+		public static void Add (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point2 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point2 operator + (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X + value2.X;
+			point.Y = value1.Y + value2.Y;
+			return point;
+		}
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects.
+		/// </summary>
+		public static void Subtract (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X - value2.X;
+			point.Y = value1.Y - value2.Y;
+			return point;
+		}
+
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point2 object.
+		/// </summary>
+		public static void Negate (ref Point2 value, out Point2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point2 object using the (-X) operator.
+		/// </summary>
+		public static Point2 operator - (Point2 value)
+		{
+			Point2 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int64
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (
+			ref Point2 value, Int64 scaleFactor, out Point2 result)
+		{
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X * value2.X;
+			point.Y = value1.Y * value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point2 object and a Int64
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Point2 value, Int64 scaleFactor)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Int64 precision scaling factor 
+		/// and aPoint2 object using the (x*Y) operator.
+		/// </summary>
+		public static Point2 operator * (
+			Int64 scaleFactor, Point2 value)
+		{
+			Point2 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			return point;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point2 objects.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, ref Point2 value2, out Point2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int64 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (
+			ref Point2 value1, Int64 divider, out Point2 result)
+		{
+			Int64 one = 1;
+			Int64 num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point2 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Point2 value2)
+		{
+			Point2 point;
+			point.X = value1.X / value2.X;
+			point.Y = value1.Y / value2.Y;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs division of a Point2 object and a Int64 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point2 operator / (Point2 value1, Int64 divider)
+		{
+			Point2 point;
+			Int64 one = 1;
+			Int64 num = one / divider;
+			point.X = value1.X * num;
+			point.Y = value1.Y * num;
+			return point;
 		}
 		
-		static Point2 ()
-		{
-			zero = new Point2 ();
-		}
-
-		public static Boolean operator == (Point2 a, Point2 b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (Point2 a, Point2 b)
-		{
-			if (a.X == b.X)
-			{
-				return (a.Y != b.Y);
-			}
-
-			return true;
-		}	
 	}
+
+	/// <summary>
+	/// Represents a Int64 precision point on a 3D integer grid.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Point3 
 		: IEquatable<Point3>
 	{
+		/// <summary>
+		/// Gets or sets the x-component of the point.
+		/// </summary>
 		public Int64 X;
+
+		/// <summary>
+		/// Gets or sets the y-component of the point.
+		/// </summary>
 		public Int64 Y;
+
+		/// <summary>
+		/// Gets or sets the z-component of the point.
+		/// </summary>
 		public Int64 Z;
 
-		static Point3 zero;
-		static Point3 one;
-		static Point3 unitX;
-		static Point3 unitY;
-		static Point3 unitZ;
-		static Point3 up;
-		static Point3 down;
-		static Point3 right;
-		static Point3 left;
-		static Point3 forward;
-		static Point3 backward;
-
-		public static Point3 Zero
-		{
-			get
-			{
-				return zero;
-			}
-		}
-
-		public static Point3 One
-		{
-			get
-			{
-				return one;
-			}
-		}
-
-		public static Point3 UnitX
-		{
-			get
-			{
-				return unitX;
-			}
-		}
-
-		public static Point3 UnitY
-		{
-			get
-			{
-				return unitY;
-			}
-		}
-
-		public static Point3 UnitZ
-		{
-			get
-			{
-				return unitZ;
-			}
-		}
-
-		public static Point3 Up
-		{
-			get
-			{
-				return up;
-			}
-		}
-
-		public static Point3 Down
-		{
-			get
-			{
-				return down;
-			}
-		}
-
-		public static Point3 Right
-		{
-			get
-			{
-				return right;
-			}
-		}
-
-		public static Point3 Left
-		{
-			get
-			{
-				return left;
-			}
-		}
-
-		public static Point3 Forward
-		{
-			get
-			{
-				return forward;
-			}
-		}
-
-		public static Point3 Backward
-		{
-			get
-			{
-				return backward;
-			}
-		}
-
+		/// <summary>
+		/// Initilises a new instance of Point3 from three Int64 values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Point3(Int64 x, Int64 y, Int64 z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public bool Equals(Point3 other)
+		
+		/// <summary>
+		/// Initilises a new instance of Point3 from one Point2 value
+		/// representing X and Y and one Int64 value representing Z.
+		/// </summary>
+		public Point3 (Point2 value, Int64 z)
 		{
-			return ((this.X == other.X) && (this.Y == other.Y) && (this.Z == other.Z));
+			this.X = value.X;
+			this.Y = value.Y;
+			this.Z = z;
 		}
 
-		public override bool Equals(Object obj)
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString()
 		{
-			bool flag = false;
-			if (obj is Point3)
-			{
-				flag = this.Equals((Point3)obj);
-			}
-			return flag;
+			return String.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
 		}
 
-		public override int GetHashCode()
+		/// <summary>
+		/// Gets the hash code of the object.
+		/// </summary>
+		public override Int32 GetHashCode()
 		{
 			return (this.X.GetHashCode() + this.Y.GetHashCode() + this.Z.GetHashCode());
 		}
 
-		public override string ToString()
-		{
-			return string.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
-		}
+		// Constants //-------------------------------------------------------//
 
-		public static bool operator ==(Point3 a, Point3 b)
-		{
-			return a.Equals(b);
-		}
+		/// <summary>
+		/// Defines a Point3 with all of its components set to zero.
+		/// </summary>
+		static Point3 zero;
 
-		public static bool operator !=(Point3 a, Point3 b)
-		{
-			if (a.X == b.X)
-			{
-				if (a.Y == b.Y)
-				{
-					return (a.Z != b.Z);
-				}
-			}
-			return true;
-		}
+		/// <summary>
+		/// Defines a Point3 with all of its components set to one.
+		/// </summary>
+		static Point3 one;
 
+		/// <summary>
+		/// Defines the unit Point3 for the X-axis.
+		/// </summary>
+		static Point3 unitX;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Y-axis.
+		/// </summary>
+		static Point3 unitY;
+
+		/// <summary>
+		/// Defines the unit Point3 for the Z-axis.
+		/// </summary>
+		static Point3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		static Point3 up;
+
+		/// <summary>
+		/// Defines a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		static Point3 down;
+
+		/// <summary>
+		/// Defines a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Point3 right;
+
+		/// <summary>
+		/// Defines a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		static Point3 left;
+
+		/// <summary>
+		/// Defines a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Point3 forward;
+
+		/// <summary>
+		/// Defines a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Point3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Point3()
 		{
 			zero = new Point3();
@@ -5089,99 +7837,351 @@ namespace Sungiant.Abacus.Int64Precision
 			backward = new Point3(0, 0, 1);
 		}
 
-		public static Point3 operator +(Point3 value)
+		/// <summary>
+		/// Returns a Point3 with all of its components set to zero.
+		/// </summary>
+		public static Point3 Zero
 		{
-			Point3 point = Point3.Zero;
-			point.X = +value.X;
-			point.Y = +value.Y;
-			point.Z = +value.Z;
-			return point;
+			get { return zero; }
 		}
 
-		public static Point3 operator -(Point3 value)
+		/// <summary>
+		/// Returns a Point3 with all of its components set to one.
+		/// </summary>
+		public static Point3 One
 		{
-			Point3 point = Point3.Zero;
-			point.X = -value.X;
-			point.Y = -value.Y;
-			point.Z = -value.Z;
-			return point;
+			get { return one; }
 		}
 
-		public static Point3 operator +(Point3 value1, Point3 value2)
+		/// <summary>
+		/// Returns the unit Point3 for the X-axis.
+		/// </summary>
+		public static Point3 UnitX
 		{
-			Point3 point = Point3.Zero;
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Y-axis.
+		/// </summary>
+		public static Point3 UnitY
+		{
+			get { return unitY; }
+		}
+
+		/// <summary>
+		/// Returns the unit Point3 for the Z-axis.
+		/// </summary>
+		public static Point3 UnitZ
+		{
+			get { return unitZ; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating up (0, 1, 0).
+		/// </summary>
+		public static Point3 Up
+		{
+			get { return up; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating down (0, −1, 0).
+		/// </summary>
+		public static Point3 Down
+		{
+			get { return down; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Point3 Right
+		{
+			get { return right; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Point3 Left
+		{
+			get { return left; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Point3 Forward
+		{
+			get { return forward; }
+		}
+
+		/// <summary>
+		/// Returns a unit Point3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Point3 Backward
+		{
+			get { return backward; }
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point3) {
+				flag = this.Equals ((Point3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Point3>
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// Point3 object.
+		/// </summary>
+		public Boolean Equals (Point3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point3 value1, Point3 value2)
+		{
+			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point3 value1, Point3 value2)
+		{
+			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
+				return !(value1.Z == value2.Z);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point3 objects.
+		/// </summary>
+		public static void Add (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point3 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point3 operator + (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X + value2.X;
 			point.Y = value1.Y + value2.Y;
 			point.Z = value1.Z + value2.Z;
 			return point;
 		}
 
-		public static Point3 operator -(Point3 value1, Point3 value2)
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects.
+		/// </summary>
+		public static void Subtract (ref Point3 value1, ref Point3 value2, out Point3 result)
 		{
-			Point3 point = Point3.Zero;
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X - value2.X;
 			point.Y = value1.Y - value2.Y;
 			point.Z = value1.Z - value2.Z;
 			return point;
 		}
 
-		public static Point3 operator *(Point3 value1, Point3 value2)
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point3 object.
+		/// </summary>
+		public static void Negate (ref Point3 value, out Point3 result)
 		{
-			Point3 point = Point3.Zero;
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point3 object using the (-X) operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value)
+		{
+			Point3 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			point.Z = -value.Z;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int64
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, Int64 scaleFactor, out Point3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X * value2.X;
 			point.Y = value1.Y * value2.Y;
 			point.Z = value1.Z * value2.Z;
 			return point;
 		}
 
-		public static Point3 operator *(Point3 value, int scaleFactor)
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a Int64
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value, Int64 scaleFactor)
 		{
-			Point3 point = Point3.Zero;
+			Point3 point;
 			point.X = value.X * scaleFactor;
 			point.Y = value.Y * scaleFactor;
 			point.Z = value.Z * scaleFactor;
 			return point;
 		}
 
-		public static Point3 operator *(int scaleFactor, Point3 value)
+		/// <summary>
+		/// Performs multiplication of a Int64 precision scaling factor 
+		/// and aPoint3 object using the (x*Y) operator.
+		/// </summary>
+		public static Point3 operator * (Int64 scaleFactor, Point3 value)
 		{
-			Point3 point = Point3.Zero;
+			Point3 point;
 			point.X = value.X * scaleFactor;
 			point.Y = value.Y * scaleFactor;
 			point.Z = value.Z * scaleFactor;
 			return point;
 		}
 
-		public static Point3 operator /(Point3 value1, Point3 value2)
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point3 objects.
+		/// </summary>
+		public static void Divide (ref Point3 value1, ref Point3 value2, out Point3 result)
 		{
-			Point3 point = Point3.Zero;
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a Int64 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Point3 value1, Int64 value2, out Point3 result)
+		{
+			Int64 one = 1;
+			Int64 num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point3 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value1, Point3 value2)
+		{
+			Point3 point;
 			point.X = value1.X / value2.X;
 			point.Y = value1.Y / value2.Y;
 			point.Z = value1.Z / value2.Z;
 			return point;
 		}
 
-		public static Point3 operator /(Point3 value, int divider)
+		/// <summary>
+		/// Performs division of a Point3 object and a Int64 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value, Int64 divider)
 		{
-			Point3 point = Point3.Zero;
-			point.X = value.X / divider;
-			point.Y = value.Y / divider;
-			point.Z = value.Z / divider;
+			Point3 point;
+			Int64 one = 1;
+
+			Int64 num = one / divider;
+			point.X = value.X * num;
+			point.Y = value.Y * num;
+			point.Z = value.Z * num;
 			return point;
 		}
+		
 	}
+
 }
 
 
 namespace Sungiant.Abacus.SinglePrecision
 {
-	public static class GaussianElimination
+	/// <summary>
+	/// todo
+	/// </summary>
+	internal class GjkDistance
 	{
-
-	}
-	public class GjkDistance
-	{
-		public GjkDistance ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal GjkDistance ()
 		{
 			for (Int32 i = 0; i < 0x10; i++)
 			{
@@ -5189,7 +8189,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			}
 		}
 
-		public Boolean AddSupportPoint (ref Vector3 newPoint)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Boolean AddSupportPoint (ref Vector3 newPoint)
 		{
 			Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
@@ -5203,7 +8206,10 @@ namespace Sungiant.Abacus.SinglePrecision
 
 				this.edges [num2] [index] = vector;
 				this.edges [index] [num2] = -vector;
-				this.edgeLengthSq [index] [num2] = this.edgeLengthSq [num2] [index] = vector.LengthSquared ();
+
+				this.edgeLengthSq [index] [num2] = 
+					this.edgeLengthSq [num2] [index] = 
+						vector.LengthSquared ();
 			}
 
 			this.UpdateDeterminant (index);
@@ -5211,7 +8217,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			return this.UpdateSimplex (index);
 		}
 
-		public void Reset ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal void Reset ()
 		{
 			Single zero = 0;
 
@@ -5219,32 +8228,97 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.maxLengthSq = zero;
 		}
 
-		public Vector3 ClosestPoint
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Vector3 ClosestPoint
 		{
 			get { return this.closestPoint; }
 		}
-		
-		public Boolean FullSimplex
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Boolean FullSimplex
 		{
 			get { return (this.simplexBits == 15); }
 		}
 		
-		public Single MaxLengthSquared
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Single MaxLengthSquared
 		{
 			get { return this.maxLengthSq; }
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 closestPoint;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Single[][] det = new Single[0x10][];
-		Single[][] edgeLengthSq = new Single[][] { new Single[4], new Single[4], new Single[4], new Single[4] };
-		Vector3[][] edges = new Vector3[][] { new Vector3[4], new Vector3[4], new Vector3[4], new Vector3[4] };
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		Single[][] edgeLengthSq = 
+			new Single[][] 
+			{ 
+				new Single[4], 
+				new Single[4], 
+				new Single[4], 
+				new Single[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
+		Vector3[][] edges = 
+			new Vector3[][] 
+			{ 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
 		Single maxLengthSq;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Int32 simplexBits;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3[] y = new Vector3[4];
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Single[] yLengthSq = new Single[4];
 
-		static Int32[] BitsToIndices = new Int32[] { 0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 };
+		/// <summary>
+		/// todo
+		/// </summary>
+		static Int32[] BitsToIndices = 
+			new Int32[] 
+			{ 
+				0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
+				4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+			};
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 ComputeClosestPoint ()
 		{
 			Single fzero; RealMaths.Zero(out fzero);
@@ -5262,12 +8336,16 @@ namespace Sungiant.Abacus.SinglePrecision
 				num3 += num4;
 				zero += (Vector3)(this.y [index] * num4);
 
-				this.maxLengthSq = RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
+				this.maxLengthSq = 
+				RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
 			}
 
 			return (Vector3)(zero / num3);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean IsSatisfiesRule (Int32 xBits, Int32 yBits)
 		{
 			Single fzero; RealMaths.Zero(out fzero);
@@ -5293,6 +8371,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			return true;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		void UpdateDeterminant (Int32 xmIdx)
 		{
 			Single fone; RealMaths.One(out fone);
@@ -5309,8 +8390,11 @@ namespace Sungiant.Abacus.SinglePrecision
 				Int32 num12 = ((int)1) << num;
 				Int32 num6 = num12 | index;
 
-				this.det [num6] [num] = Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
-				this.det [num6] [xmIdx] = Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
+				this.det [num6] [num] = 
+					Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
+
+				this.det [num6] [xmIdx] = 
+					Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
 				Int32 num11 = num14;
 
@@ -5387,6 +8471,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean UpdateSimplex (Int32 newIndex)
 		{
 			Int32 yBits = this.simplexBits | (((Int32)1) << newIndex);
@@ -5418,1336 +8505,122 @@ namespace Sungiant.Abacus.SinglePrecision
 			return flag;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Single Dot (ref Vector3 a, ref Vector3 b)
 		{
 			return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
 		}
 	}
-
+	/// <summary>
+	/// Single precision Matrix44.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct BoundingBox 
-		: IEquatable<BoundingBox>
-	{
-		public const int CornerCount = 8;
-		public Vector3 Min;
-		public Vector3 Max;
-
-		public Vector3[] GetCorners ()
-		{
-			return new Vector3[] { new Vector3 (this.Min.X, this.Max.Y, this.Max.Z), new Vector3 (this.Max.X, this.Max.Y, this.Max.Z), new Vector3 (this.Max.X, this.Min.Y, this.Max.Z), new Vector3 (this.Min.X, this.Min.Y, this.Max.Z), new Vector3 (this.Min.X, this.Max.Y, this.Min.Z), new Vector3 (this.Max.X, this.Max.Y, this.Min.Z), new Vector3 (this.Max.X, this.Min.Y, this.Min.Z), new Vector3 (this.Min.X, this.Min.Y, this.Min.Z) };
-		}
-
-		public BoundingBox (Vector3 min, Vector3 max)
-		{
-			this.Min = min;
-			this.Max = max;
-		}
-
-		public Boolean Equals (BoundingBox other)
-		{
-			return ((this.Min == other.Min) && (this.Max == other.Max));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is BoundingBox) {
-				flag = this.Equals ((BoundingBox)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Min.GetHashCode () + this.Max.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Min:{0} Max:{1}}}", new Object[] { this.Min.ToString (), this.Max.ToString () });
-		}
-
-		public static void CreateMerged (ref BoundingBox original, ref BoundingBox additional, out BoundingBox result)
-		{
-			Vector3 vector;
-			Vector3 vector2;
-			Vector3.Min (ref original.Min, ref additional.Min, out vector2);
-			Vector3.Max (ref original.Max, ref additional.Max, out vector);
-			result.Min = vector2;
-			result.Max = vector;
-		}
-
-		public static void CreateFromSphere (ref BoundingSphere sphere, out BoundingBox result)
-		{
-			result.Min.X = sphere.Center.X - sphere.Radius;
-			result.Min.Y = sphere.Center.Y - sphere.Radius;
-			result.Min.Z = sphere.Center.Z - sphere.Radius;
-			result.Max.X = sphere.Center.X + sphere.Radius;
-			result.Max.Y = sphere.Center.Y + sphere.Radius;
-			result.Max.Z = sphere.Center.Z + sphere.Radius;
-		}
-
-		public static BoundingBox CreateFromPoints (IEnumerable<Vector3> points)
-		{
-			if (points == null) {
-				throw new ArgumentNullException ();
-			}
-			Boolean flag = false;
-			Vector3 vector3 = new Vector3 (Single.MaxValue);
-			Vector3 vector2 = new Vector3 (Single.MinValue);
-			foreach (Vector3 vector in points) {
-				Vector3 vector4 = vector;
-				Vector3.Min (ref vector3, ref vector4, out vector3);
-				Vector3.Max (ref vector2, ref vector4, out vector2);
-				flag = true;
-			}
-			if (!flag) {
-				throw new ArgumentException ("BoundingBoxZeroPoints");
-			}
-			return new BoundingBox (vector3, vector2);
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			if ((this.Max.X < box.Min.X) || (this.Min.X > box.Max.X)) {
-				return false;
-			}
-			if ((this.Max.Y < box.Min.Y) || (this.Min.Y > box.Max.Y)) {
-				return false;
-			}
-			return ((this.Max.Z >= box.Min.Z) && (this.Min.Z <= box.Max.Z));
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			Single zero = 0;
-
-			Vector3 vector;
-			Vector3 vector2;
-			vector2.X = (plane.Normal.X >= zero) ? this.Min.X : this.Max.X;
-			vector2.Y = (plane.Normal.Y >= zero) ? this.Min.Y : this.Max.Y;
-			vector2.Z = (plane.Normal.Z >= zero) ? this.Min.Z : this.Max.Z;
-			vector.X = (plane.Normal.X >= zero) ? this.Max.X : this.Min.X;
-			vector.Y = (plane.Normal.Y >= zero) ? this.Max.Y : this.Min.Y;
-			vector.Z = (plane.Normal.Z >= zero) ? this.Max.Z : this.Min.Z;
-			Single num = ((plane.Normal.X * vector2.X) + (plane.Normal.Y * vector2.Y)) + (plane.Normal.Z * vector2.Z);
-			if ((num + plane.D) > zero) {
-				return PlaneIntersectionType.Front;
-			}
-			num = ((plane.Normal.X * vector.X) + (plane.Normal.Y * vector.Y)) + (plane.Normal.Z * vector.Z);
-			if ((num + plane.D) < zero) {
-				return PlaneIntersectionType.Back;
-			}
-			return PlaneIntersectionType.Intersecting;
-		}
-
-		public Single? Intersects (ref Ray ray)
-		{
-			Single epsilon; RealMaths.Epsilon(out epsilon);
-
-			Single zero = 0;
-			Single one = 1;
-
-			Single num = zero;
-			Single maxValue = Single.MaxValue;
-			if (RealMaths.Abs (ray.Direction.X) < epsilon) {
-				if ((ray.Position.X < this.Min.X) || (ray.Position.X > this.Max.X)) {
-					return null;
-				}
-			} else {
-				Single num11 = one / ray.Direction.X;
-				Single num8 = (this.Min.X - ray.Position.X) * num11;
-				Single num7 = (this.Max.X - ray.Position.X) * num11;
-				if (num8 > num7) {
-					Single num14 = num8;
-					num8 = num7;
-					num7 = num14;
-				}
-				num = RealMaths.Max (num8, num);
-				maxValue = RealMaths.Min (num7, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			if (RealMaths.Abs (ray.Direction.Y) < epsilon) {
-				if ((ray.Position.Y < this.Min.Y) || (ray.Position.Y > this.Max.Y)) {
-					return null;
-				}
-			} else {
-				Single num10 = one / ray.Direction.Y;
-				Single num6 = (this.Min.Y - ray.Position.Y) * num10;
-				Single num5 = (this.Max.Y - ray.Position.Y) * num10;
-				if (num6 > num5) {
-					Single num13 = num6;
-					num6 = num5;
-					num5 = num13;
-				}
-				num = RealMaths.Max (num6, num);
-				maxValue = RealMaths.Min (num5, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			
-
-			if (RealMaths.Abs (ray.Direction.Z) < epsilon) {
-				if ((ray.Position.Z < this.Min.Z) || (ray.Position.Z > this.Max.Z)) {
-					return null;
-				}
-			} else {
-				Single num9 = one / ray.Direction.Z;
-				Single num4 = (this.Min.Z - ray.Position.Z) * num9;
-				Single num3 = (this.Max.Z - ray.Position.Z) * num9;
-				if (num4 > num3) {
-					Single num12 = num4;
-					num4 = num3;
-					num3 = num12;
-				}
-				num = RealMaths.Max (num4, num);
-				maxValue = RealMaths.Min (num3, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			return new Single? (num);
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Single num;
-			Vector3 vector;
-			Vector3.Clamp (ref sphere.Center, ref this.Min, ref this.Max, out vector);
-			Vector3.DistanceSquared (ref sphere.Center, ref vector, out num);
-			return (num <= (sphere.Radius * sphere.Radius));
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			if ((this.Max.X < box.Min.X) || (this.Min.X > box.Max.X)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((this.Max.Y < box.Min.Y) || (this.Min.Y > box.Max.Y)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((this.Max.Z < box.Min.Z) || (this.Min.Z > box.Max.Z)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((((this.Min.X <= box.Min.X) && (box.Max.X <= this.Max.X)) && ((this.Min.Y <= box.Min.Y) && (box.Max.Y <= this.Max.Y))) && ((this.Min.Z <= box.Min.Z) && (box.Max.Z <= this.Max.Z))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			if (!frustum.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-
-			for (Int32 i = 0; i < frustum.cornerArray.Length; ++i) {
-				Vector3 vector = frustum.cornerArray[i];
-				if (this.Contains (ref vector) == ContainmentType.Disjoint) {
-					return ContainmentType.Intersects;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			if ((((this.Min.X <= point.X) && (point.X <= this.Max.X)) && ((this.Min.Y <= point.Y) && (point.Y <= this.Max.Y))) && ((this.Min.Z <= point.Z) && (point.Z <= this.Max.Z))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Disjoint;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Single num2;
-			Vector3 vector;
-			Vector3.Clamp (ref sphere.Center, ref this.Min, ref this.Max, out vector);
-			Vector3.DistanceSquared (ref sphere.Center, ref vector, out num2);
-			Single radius = sphere.Radius;
-			if (num2 > (radius * radius)) {
-				return ContainmentType.Disjoint;
-			}
-			if (((((this.Min.X + radius) <= sphere.Center.X) && (sphere.Center.X <= (this.Max.X - radius))) && (((this.Max.X - this.Min.X) > radius) && ((this.Min.Y + radius) <= sphere.Center.Y))) && (((sphere.Center.Y <= (this.Max.Y - radius)) && ((this.Max.Y - this.Min.Y) > radius)) && ((((this.Min.Z + radius) <= sphere.Center.Z) && (sphere.Center.Z <= (this.Max.Z - radius))) && ((this.Max.X - this.Min.X) > radius)))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Single zero = 0;
-
-			result.X = (v.X >= zero) ? this.Max.X : this.Min.X;
-			result.Y = (v.Y >= zero) ? this.Max.Y : this.Min.Y;
-			result.Z = (v.Z >= zero) ? this.Max.Z : this.Min.Z;
-		}
-
-		public static Boolean operator == (BoundingBox a, BoundingBox b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (BoundingBox a, BoundingBox b)
-		{
-			if (!(a.Min != b.Min)) {
-				return (a.Max != b.Max);
-			}
-			return true;
-		}
-	}
-	public class BoundingFrustum 
-		: IEquatable<BoundingFrustum>
-	{
-		const int BottomPlaneIndex = 5;
-
-		internal Vector3[] cornerArray;
-
-		public const int CornerCount = 8;
-
-		const int FarPlaneIndex = 1;
-
-		GjkDistance gjk;
-
-		const int LeftPlaneIndex = 2;
-
-		Matrix44 matrix;
-
-		const int NearPlaneIndex = 0;
-
-		const int NumPlanes = 6;
-
-		Plane[] planes;
-
-		const int RightPlaneIndex = 3;
-
-		const int TopPlaneIndex = 4;
-
-		BoundingFrustum ()
-		{
-			this.planes = new Plane[6];
-			this.cornerArray = new Vector3[8];
-		}
-
-		public BoundingFrustum (Matrix44 value)
-		{
-			this.planes = new Plane[6];
-			this.cornerArray = new Vector3[8];
-			this.SetMatrix (ref value);
-		}
-
-		static Vector3 ComputeIntersection (ref Plane plane, ref Ray ray)
-		{
-			Single planeNormDotRayPos;
-			Single planeNormDotRayDir;
-
-			Vector3.Dot (ref plane.Normal, ref ray.Position, out planeNormDotRayPos);
-			Vector3.Dot (ref plane.Normal, ref ray.Direction, out planeNormDotRayDir);
-
-			Single num = (-plane.D - planeNormDotRayPos) / planeNormDotRayDir;
-
-			return (ray.Position + (ray.Direction * num));
-		}
-
-		static Ray ComputeIntersectionLine (ref Plane p1, ref Plane p2)
-		{
-			Ray ray = new Ray ();
-
-			Vector3.Cross (ref p1.Normal, ref p2.Normal, out ray.Direction);
-
-			Single num = ray.Direction.LengthSquared ();
-
-			Vector3 a = (-p1.D * p2.Normal) + (p2.D * p1.Normal);
-
-			Vector3 cross;
-
-			Vector3.Cross (ref a, ref ray.Direction, out cross);
-
-			ray.Position =  cross / num;
-
-			return ray;
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			Boolean flag = false;
-			for(Int32 i = 0; i < this.planes.Length; ++i)
-			{
-				Plane plane = this.planes[i];
-				switch (box.Intersects (ref plane)) {
-				case PlaneIntersectionType.Front:
-					return ContainmentType.Disjoint;
-
-				case PlaneIntersectionType.Intersecting:
-					flag = true;
-					break;
-				}
-			}
-			if (!flag) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-			ContainmentType disjoint = ContainmentType.Disjoint;
-			if (this.Intersects (ref frustum)) {
-				disjoint = ContainmentType.Contains;
-				for (int i = 0; i < this.cornerArray.Length; i++) {
-					if (this.Contains (ref frustum.cornerArray [i]) == ContainmentType.Disjoint) {
-						return ContainmentType.Intersects;
-					}
-				}
-			}
-			return disjoint;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Vector3 center = sphere.Center;
-			Single radius = sphere.Radius;
-			int num2 = 0;
-			foreach (Plane plane in this.planes) {
-				Single num5 = ((plane.Normal.X * center.X) + (plane.Normal.Y * center.Y)) + (plane.Normal.Z * center.Z);
-				Single num3 = num5 + plane.D;
-				if (num3 > radius) {
-					return ContainmentType.Disjoint;
-				}
-				if (num3 < -radius) {
-					num2++;
-				}
-			}
-			if (num2 != 6) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			Single epsilon; RealMaths.FromString("0.00001", out epsilon);
-
-			foreach (Plane plane in this.planes) {
-				Single num2 = (((plane.Normal.X * point.X) + (plane.Normal.Y * point.Y)) + (plane.Normal.Z * point.Z)) + plane.D;
-				if (num2 > epsilon) {
-					return ContainmentType.Disjoint;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public Boolean Equals (BoundingFrustum other)
-		{
-			if (other == null) {
-				return false;
-			}
-			return (this.matrix == other.matrix);
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			BoundingFrustum frustum = obj as BoundingFrustum;
-			if (frustum != null) {
-				flag = this.matrix == frustum.matrix;
-			}
-			return flag;
-		}
-
-		public Vector3[] GetCorners ()
-		{
-			return (Vector3[])this.cornerArray.Clone ();
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return this.matrix.GetHashCode ();
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			Boolean flag;
-			this.Intersects (ref box, out flag);
-			return flag;
-		}
-
-		void Intersects (ref BoundingBox box, out Boolean result)
-		{
-			Single epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Single zero = 0;
-			Single four = 4;
-
-			Vector3 closestPoint;
-			Vector3 vector2;
-			Vector3 vector3;
-			Vector3 vector4;
-			Vector3 vector5;
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref box.Min, out closestPoint);
-			if (closestPoint.LengthSquared () < epsilon) {
-				Vector3.Subtract (ref this.cornerArray [0], ref box.Max, out closestPoint);
-			}
-			Single maxValue = Single.MaxValue;
-			Single num3 = zero;
-			result = false;
-		Label_006D:
-			vector5.X = -closestPoint.X;
-			vector5.Y = -closestPoint.Y;
-			vector5.Z = -closestPoint.Z;
-			this.SupportMapping (ref vector5, out vector4);
-			box.SupportMapping (ref closestPoint, out vector3);
-			Vector3.Subtract (ref vector4, ref vector3, out vector2);
-			Single num4 = ((closestPoint.X * vector2.X) + (closestPoint.Y * vector2.Y)) + (closestPoint.Z * vector2.Z);
-			if (num4 <= zero) {
-				this.gjk.AddSupportPoint (ref vector2);
-				closestPoint = this.gjk.ClosestPoint;
-				Single num2 = maxValue;
-				maxValue = closestPoint.LengthSquared ();
-				if ((num2 - maxValue) > (epsilon * num2)) {
-					num3 = four * epsilon * this.gjk.MaxLengthSquared;
-					if (!this.gjk.FullSimplex && (maxValue >= num3)) {
-						goto Label_006D;
-					}
-					result = true;
-				}
-			}
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			Single epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Single zero = 0;
-			Single four = 4;
-
-			Vector3 closestPoint;
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref frustum.cornerArray [0], out closestPoint);
-			if (closestPoint.LengthSquared () < epsilon) {
-				Vector3.Subtract (ref this.cornerArray [0], ref frustum.cornerArray [1], out closestPoint);
-			}
-			Single maxValue = Single.MaxValue;
-			Single num3 = zero;
-			do {
-				Vector3 vector2;
-				Vector3 vector3;
-				Vector3 vector4;
-				Vector3 vector5;
-				vector5.X = -closestPoint.X;
-				vector5.Y = -closestPoint.Y;
-				vector5.Z = -closestPoint.Z;
-				this.SupportMapping (ref vector5, out vector4);
-				frustum.SupportMapping (ref closestPoint, out vector3);
-				Vector3.Subtract (ref vector4, ref vector3, out vector2);
-				Single num4 = ((closestPoint.X * vector2.X) + (closestPoint.Y * vector2.Y)) + (closestPoint.Z * vector2.Z);
-				if (num4 > zero) {
-					return false;
-				}
-				this.gjk.AddSupportPoint (ref vector2);
-				closestPoint = this.gjk.ClosestPoint;
-				Single num2 = maxValue;
-				maxValue = closestPoint.LengthSquared ();
-				num3 = four * epsilon * this.gjk.MaxLengthSquared;
-				if ((num2 - maxValue) <= (epsilon * num2)) {
-					return false;
-				}
-			} while (!this.gjk.FullSimplex && (maxValue >= num3));
-			return true;
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Boolean flag;
-			this.Intersects (ref sphere, out flag);
-			return flag;
-		}
-
-		void Intersects (ref BoundingSphere sphere, out Boolean result)
-		{
-			Single zero = 0;
-			Single epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Single four = 4;
-
-			Vector3 unitX;
-			Vector3 vector2;
-			Vector3 vector3;
-			Vector3 vector4;
-			Vector3 vector5;
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref sphere.Center, out unitX);
-			if (unitX.LengthSquared () < epsilon) {
-				unitX = Vector3.UnitX;
-			}
-			Single maxValue = Single.MaxValue;
-			Single num3 = zero;
-			result = false;
-		Label_005A:
-			vector5.X = -unitX.X;
-			vector5.Y = -unitX.Y;
-			vector5.Z = -unitX.Z;
-			this.SupportMapping (ref vector5, out vector4);
-			sphere.SupportMapping (ref unitX, out vector3);
-			Vector3.Subtract (ref vector4, ref vector3, out vector2);
-			Single num4 = ((unitX.X * vector2.X) + (unitX.Y * vector2.Y)) + (unitX.Z * vector2.Z);
-			if (num4 <= zero) {
-				this.gjk.AddSupportPoint (ref vector2);
-				unitX = this.gjk.ClosestPoint;
-				Single num2 = maxValue;
-				maxValue = unitX.LengthSquared ();
-				if ((num2 - maxValue) > (epsilon * num2)) {
-					num3 = four * epsilon * this.gjk.MaxLengthSquared;
-					if (!this.gjk.FullSimplex && (maxValue >= num3)) {
-						goto Label_005A;
-					}
-					result = true;
-				}
-			}
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			Single zero = 0;
-
-			int num = 0;
-			for (int i = 0; i < 8; i++) {
-				Single num3;
-				Vector3.Dot (ref this.cornerArray [i], ref plane.Normal, out num3);
-				if ((num3 + plane.D) > zero) {
-					num |= 1;
-				} else {
-					num |= 2;
-				}
-				if (num == 3) {
-					return PlaneIntersectionType.Intersecting;
-				}
-			}
-			if (num != 1) {
-				return PlaneIntersectionType.Back;
-			}
-			return PlaneIntersectionType.Front;
-		}
-
-		public Single? Intersects (ref Ray ray)
-		{
-			Single? nullable;
-			this.Intersects (ref ray, out nullable);
-			return nullable;
-		}
-
-		void Intersects (ref Ray ray, out Single? result)
-		{
-			Single epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Single zero = 0;
-
-			ContainmentType type = this.Contains (ref ray.Position);
-			if (type == ContainmentType.Contains) {
-				result = zero;
-			} else {
-				Single minValue = Single.MinValue;
-				Single maxValue = Single.MaxValue;
-				result = zero;
-				foreach (Plane plane in this.planes) {
-					Single num3;
-					Single num6;
-					Vector3 normal = plane.Normal;
-					Vector3.Dot (ref ray.Direction, ref normal, out num6);
-					Vector3.Dot (ref ray.Position, ref normal, out num3);
-					num3 += plane.D;
-					if (RealMaths.Abs (num6) < epsilon) {
-						if (num3 > zero) {
-							return;
-						}
-					} else {
-						Single num = -num3 / num6;
-						if (num6 < zero) {
-							if (num > maxValue) {
-								return;
-							}
-							if (num > minValue) {
-								minValue = num;
-							}
-						} else {
-							if (num < minValue) {
-								return;
-							}
-							if (num < maxValue) {
-								maxValue = num;
-							}
-						}
-					}
-				}
-				Single num7 = (minValue >= zero) ? minValue : maxValue;
-				if (num7 >= zero) {
-					result = new Single? (num7);
-				}
-			}
-		}
-
-		public static Boolean operator == (BoundingFrustum a, BoundingFrustum b)
-		{
-			return Object.Equals (a, b);
-		}
-
-		public static Boolean operator != (BoundingFrustum a, BoundingFrustum b)
-		{
-			return !Object.Equals (a, b);
-		}
-
-		void SetMatrix (ref Matrix44 value)
-		{
-			this.matrix = value;
-
-			this.planes [2].Normal.X = -value.M14 - value.M11;
-			this.planes [2].Normal.Y = -value.M24 - value.M21;
-			this.planes [2].Normal.Z = -value.M34 - value.M31;
-			this.planes [2].D = -value.M44 - value.M41;
-
-			this.planes [3].Normal.X = -value.M14 + value.M11;
-			this.planes [3].Normal.Y = -value.M24 + value.M21;
-			this.planes [3].Normal.Z = -value.M34 + value.M31;
-			this.planes [3].D = -value.M44 + value.M41;
-
-			this.planes [4].Normal.X = -value.M14 + value.M12;
-			this.planes [4].Normal.Y = -value.M24 + value.M22;
-			this.planes [4].Normal.Z = -value.M34 + value.M32;
-			this.planes [4].D = -value.M44 + value.M42;
-
-			this.planes [5].Normal.X = -value.M14 - value.M12;
-			this.planes [5].Normal.Y = -value.M24 - value.M22;
-			this.planes [5].Normal.Z = -value.M34 - value.M32;
-			this.planes [5].D = -value.M44 - value.M42;
-
-			this.planes [0].Normal.X = -value.M13;
-			this.planes [0].Normal.Y = -value.M23;
-			this.planes [0].Normal.Z = -value.M33;
-			this.planes [0].D = -value.M43;
-
-			this.planes [1].Normal.X = -value.M14 + value.M13;
-			this.planes [1].Normal.Y = -value.M24 + value.M23;
-			this.planes [1].Normal.Z = -value.M34 + value.M33;
-			this.planes [1].D = -value.M44 + value.M43;
-
-			for (int i = 0; i < 6; i++) {
-				Single num2 = this.planes [i].Normal.Length ();
-				this.planes [i].Normal = (Vector3)(this.planes [i].Normal / num2);
-				this.planes [i].D /= num2;
-			}
-
-			Ray ray = ComputeIntersectionLine (ref this.planes [0], ref this.planes [2]);
-
-			this.cornerArray [0] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [3] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [3], ref this.planes [0]);
-
-			this.cornerArray [1] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [2] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [2], ref this.planes [1]);
-
-			this.cornerArray [4] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [7] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [1], ref this.planes [3]);
-
-			this.cornerArray [5] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [6] = ComputeIntersection (ref this.planes [5], ref ray);
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Single num3;
-
-			int index = 0;
-
-			Vector3.Dot (ref this.cornerArray [0], ref v, out num3);
-
-			for (int i = 1; i < this.cornerArray.Length; i++)
-			{
-				Single num2;
-
-				Vector3.Dot (ref this.cornerArray [i], ref v, out num2);
-
-				if (num2 > num3)
-				{
-					index = i;
-					num3 = num2;
-				}
-			}
-
-			result = this.cornerArray [index];
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Near:{0} Far:{1} Left:{2} Right:{3} Top:{4} Bottom:{5}}}", new Object[] { this.Near.ToString (), this.Far.ToString (), this.Left.ToString (), this.Right.ToString (), this.Top.ToString (), this.Bottom.ToString () });
-		}
-
-		// Properties
-		public Plane Bottom
-		{
-			get
-			{
-				return this.planes [5];
-			}
-		}
-
-		public Plane Far {
-			get {
-				return this.planes [1];
-			}
-		}
-
-		public Plane Left {
-			get {
-				return this.planes [2];
-			}
-		}
-
-		public Matrix44 Matrix {
-			get {
-				return this.matrix;
-			}
-			set {
-				this.SetMatrix (ref value);
-			}
-		}
-
-		public Plane Near {
-			get {
-				return this.planes [0];
-			}
-		}
-
-		public Plane Right {
-			get {
-				return this.planes [3];
-			}
-		}
-
-		public Plane Top {
-			get {
-				return this.planes [4];
-			}
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public struct BoundingSphere 
-		: IEquatable<BoundingSphere>
-	{
-		public Vector3 Center;
-		public Single Radius;
-
-		public BoundingSphere (Vector3 center, Single radius)
-		{
-			Single zero = 0;
-
-			if (radius < zero) {
-				throw new ArgumentException ("NegativeRadius");
-			}
-			this.Center = center;
-			this.Radius = radius;
-		}
-
-		public Boolean Equals (BoundingSphere other)
-		{
-			return ((this.Center == other.Center) && (this.Radius == other.Radius));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is BoundingSphere) {
-				flag = this.Equals ((BoundingSphere)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Center.GetHashCode () + this.Radius.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Center:{0} Radius:{1}}}", new Object[] { this.Center.ToString (), this.Radius.ToString () });
-		}
-
-		public static void CreateMerged (ref BoundingSphere original, ref BoundingSphere additional, out BoundingSphere result)
-		{
-			Single half; RealMaths.Half(out half);
-			Single one = 1;
-			Vector3 vector2;
-			Vector3.Subtract (ref additional.Center, ref original.Center, out vector2);
-			Single num = vector2.Length ();
-			Single radius = original.Radius;
-			Single num2 = additional.Radius;
-			if ((radius + num2) >= num) {
-				if ((radius - num2) >= num) {
-					result = original;
-					return;
-				}
-				if ((num2 - radius) >= num) {
-					result = additional;
-					return;
-				}
-			}
-			Vector3 vector = (Vector3)(vector2 * (one / num));
-			Single num5 = RealMaths.Min (-radius, num - num2);
-			Single num4 = (RealMaths.Max (radius, num + num2) - num5) * half;
-			result.Center = original.Center + ((Vector3)(vector * (num4 + num5)));
-			result.Radius = num4;
-		}
-
-		public static void CreateFromBoundingBox (ref BoundingBox box, out BoundingSphere result)
-		{
-			Single half; RealMaths.Half(out half);
-			Single num;
-			Vector3.Lerp (ref box.Min, ref box.Max, half, out result.Center);
-			Vector3.Distance (ref box.Min, ref box.Max, out num);
-			result.Radius = num * half;
-		}
-
-		public static void CreateFromPoints (IEnumerable<Vector3> points, out BoundingSphere sphere)
-		{	
-			Single half; RealMaths.Half(out half);
-			Single one = 1;
-
-			Single num;
-			Single num2;
-			Vector3 vector2;
-			Single num4;
-			Single num5;
-			
-			Vector3 vector5;
-			Vector3 vector6;
-			Vector3 vector7;
-			Vector3 vector8;
-			Vector3 vector9;
-			if (points == null) {
-				throw new ArgumentNullException ("points");
-			}
-			IEnumerator<Vector3> enumerator = points.GetEnumerator ();
-			if (!enumerator.MoveNext ()) {
-				throw new ArgumentException ("BoundingSphereZeroPoints");
-			}
-			Vector3 vector4 = vector5 = vector6 = vector7 = vector8 = vector9 = enumerator.Current;
-			foreach (Vector3 vector in points) {
-				if (vector.X < vector4.X) {
-					vector4 = vector;
-				}
-				if (vector.X > vector5.X) {
-					vector5 = vector;
-				}
-				if (vector.Y < vector6.Y) {
-					vector6 = vector;
-				}
-				if (vector.Y > vector7.Y) {
-					vector7 = vector;
-				}
-				if (vector.Z < vector8.Z) {
-					vector8 = vector;
-				}
-				if (vector.Z > vector9.Z) {
-					vector9 = vector;
-				}
-			}
-			Vector3.Distance (ref vector5, ref vector4, out num5);
-			Vector3.Distance (ref vector7, ref vector6, out num4);
-			Vector3.Distance (ref vector9, ref vector8, out num2);
-			if (num5 > num4) {
-				if (num5 > num2) {
-					Vector3.Lerp (ref vector5, ref vector4, half, out vector2);
-					num = num5 * half;
-				} else {
-					Vector3.Lerp (ref vector9, ref vector8, half, out vector2);
-					num = num2 * half;
-				}
-			} else if (num4 > num2) {
-				Vector3.Lerp (ref vector7, ref vector6, half, out vector2);
-				num = num4 * half;
-			} else {
-				Vector3.Lerp (ref vector9, ref vector8, half, out vector2);
-				num = num2 * half;
-			}
-			foreach (Vector3 vector10 in points) {
-				Vector3 vector3;
-				vector3.X = vector10.X - vector2.X;
-				vector3.Y = vector10.Y - vector2.Y;
-				vector3.Z = vector10.Z - vector2.Z;
-				Single num3 = vector3.Length ();
-				if (num3 > num) {
-					num = (num + num3) * half;
-					vector2 += (Vector3)((one - (num / num3)) * vector3);
-				}
-			}
-			sphere.Center = vector2;
-			sphere.Radius = num;
-		}
-
-		public static void CreateFromFrustum (ref BoundingFrustum frustum, out BoundingSphere sphere)
-		{
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-
-			CreateFromPoints (frustum.cornerArray, out sphere);
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			Single num;
-			Vector3 vector;
-			Vector3.Clamp (ref this.Center, ref box.Min, ref box.Max, out vector);
-			Vector3.DistanceSquared (ref this.Center, ref vector, out num);
-			return (num <= (this.Radius * this.Radius));
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			return plane.Intersects (ref this);
-		}
-
-		public Single? Intersects (ref Ray ray)
-		{
-			return ray.Intersects (ref this);
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Single two = 2;
-
-			Single num3;
-			Vector3.DistanceSquared (ref this.Center, ref sphere.Center, out num3);
-			Single radius = this.Radius;
-			Single num = sphere.Radius;
-			if ((((radius * radius) + ((two * radius) * num)) + (num * num)) <= num3) {
-				return false;
-			}
-			return true;
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			Vector3 vector;
-			if (!box.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-			Single num = this.Radius * this.Radius;
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			if (!frustum.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-			Single num2 = this.Radius * this.Radius;
-			foreach (Vector3 vector2 in frustum.cornerArray) {
-				Vector3 vector;
-				vector.X = vector2.X - this.Center.X;
-				vector.Y = vector2.Y - this.Center.Y;
-				vector.Z = vector2.Z - this.Center.Z;
-				if (vector.LengthSquared () > num2) {
-					return ContainmentType.Intersects;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			Single temp;
-			Vector3.DistanceSquared (ref point, ref this.Center, out temp);
-
-			if (temp >= (this.Radius * this.Radius))
-			{
-				return ContainmentType.Disjoint;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Single num3;
-			Vector3.Distance (ref this.Center, ref sphere.Center, out num3);
-			Single radius = this.Radius;
-			Single num = sphere.Radius;
-			if ((radius + num) < num3) {
-				return ContainmentType.Disjoint;
-			}
-			if ((radius - num) < num3) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Single num2 = v.Length ();
-			Single num = this.Radius / num2;
-			result.X = this.Center.X + (v.X * num);
-			result.Y = this.Center.Y + (v.Y * num);
-			result.Z = this.Center.Z + (v.Z * num);
-		}
-
-		public BoundingSphere Transform (Matrix44 matrix)
-		{
-			BoundingSphere sphere = new BoundingSphere ();
-			Vector3.Transform (ref this.Center, ref matrix, out sphere.Center);
-			Single num4 = ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13);
-			Single num3 = ((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23);
-			Single num2 = ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33);
-			Single num = RealMaths.Max (num4, RealMaths.Max (num3, num2));
-			sphere.Radius = this.Radius * (RealMaths.Sqrt (num));
-			return sphere;
-		}
-
-		public void Transform (ref Matrix44 matrix, out BoundingSphere result)
-		{
-			Vector3.Transform (ref this.Center, ref matrix, out result.Center);
-			Single num4 = ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13);
-			Single num3 = ((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23);
-			Single num2 = ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33);
-			Single num = RealMaths.Max (num4, RealMaths.Max (num3, num2));
-			result.Radius = this.Radius * (RealMaths.Sqrt (num));
-		}
-
-		public static Boolean operator == (BoundingSphere a, BoundingSphere b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (BoundingSphere a, BoundingSphere b)
-		{
-			if (!(a.Center != b.Center)) {
-				return !(a.Radius == b.Radius);
-			}
-			return true;
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Matrix44 
+	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
-		// Row 0
+		/// <summary>
+		/// Gets or sets (Row 1, Column 1) of the Matrix44.
+		/// </summary>
 		public Single M11;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 2) of the Matrix44.
+		/// </summary>
 		public Single M12;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 3) of the Matrix44.
+		/// </summary>
 		public Single M13;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 4) of the Matrix44.
+		/// </summary>
 		public Single M14;
 
-		// Row 1
+		/// <summary>
+		/// Gets or sets (Row 2, Column 1) of the Matrix44.
+		/// </summary>
 		public Single M21;
+
+		/// <summary>
+		/// Gets or sets (Row 2, Column 2) of the Matrix44.
+		/// </summary>
 		public Single M22;
+
+		/// <summary>
+		/// Gets or sets (ow 2, Column 3) of the Matrix44.
+		/// </summary>
 		public Single M23;
+
+		/// <summary>
+		/// Gets or sets (Row 2, Column 4) of the Matrix44.
+		/// </summary>
 		public Single M24;
 
-		// Row 2
+		/// <summary>
+		/// Row 3, Column 1) of the Matrix44.
+		/// </summary>
 		public Single M31;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 2) of the Matrix44.
+		/// </summary>
 		public Single M32;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 3) of the Matrix44.
+		/// </summary>
 		public Single M33;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 4) of the Matrix44.
+		/// </summary>
 		public Single M34;
 
-		// Row 3
+		/// <summary>
+		/// Gets or sets (Row 4, Column 1) of the Matrix44.
+		/// </summary>
 		public Single M41; // translation.x
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 2) of the Matrix44.
+		/// </summary>
 		public Single M42; // translation.y
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 3) of the Matrix44.
+		/// </summary>
 		public Single M43; // translation.z
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 4) of the Matrix44.
+		/// </summary>
 		public Single M44;
 		
-		public Vector3 Up {
-			get {
-				Vector3 vector;
-				vector.X = this.M21;
-				vector.Y = this.M22;
-				vector.Z = this.M23;
-				return vector;
-			}
-			set {
-				this.M21 = value.X;
-				this.M22 = value.Y;
-				this.M23 = value.Z;
-			}
-		}
-
-		public Vector3 Down {
-			get {
-				Vector3 vector;
-				vector.X = -this.M21;
-				vector.Y = -this.M22;
-				vector.Z = -this.M23;
-				return vector;
-			}
-			set {
-				this.M21 = -value.X;
-				this.M22 = -value.Y;
-				this.M23 = -value.Z;
-			}
-		}
-
-		public Vector3 Right {
-			get {
-				Vector3 vector;
-				vector.X = this.M11;
-				vector.Y = this.M12;
-				vector.Z = this.M13;
-				return vector;
-			}
-			set {
-				this.M11 = value.X;
-				this.M12 = value.Y;
-				this.M13 = value.Z;
-			}
-		}
-
-		public Vector3 Left {
-			get {
-				Vector3 vector;
-				vector.X = -this.M11;
-				vector.Y = -this.M12;
-				vector.Z = -this.M13;
-				return vector;
-			}
-			set {
-				this.M11 = -value.X;
-				this.M12 = -value.Y;
-				this.M13 = -value.Z;
-			}
-		}
-
-		public Vector3 Forward {
-			get {
-				Vector3 vector;
-				vector.X = -this.M31;
-				vector.Y = -this.M32;
-				vector.Z = -this.M33;
-				return vector;
-			}
-			set {
-				this.M31 = -value.X;
-				this.M32 = -value.Y;
-				this.M33 = -value.Z;
-			}
-		}
-
-		public Vector3 Backward {
-			get {
-				Vector3 vector;
-				vector.X = this.M31;
-				vector.Y = this.M32;
-				vector.Z = this.M33;
-				return vector;
-			}
-			set {
-				this.M31 = value.X;
-				this.M32 = value.Y;
-				this.M33 = value.Z;
-			}
-		}
-
-		public Vector3 Translation {
-			get {
-				Vector3 vector;
-				vector.X = this.M41;
-				vector.Y = this.M42;
-				vector.Z = this.M43;
-				return vector;
-			}
-			set {
-				this.M41 = value.X;
-				this.M42 = value.Y;
-				this.M43 = value.Z;
-			}
-		}
-
-		public Matrix44 (Single m11, Single m12, Single m13, Single m14, Single m21, Single m22, Single m23, Single m24, Single m31, Single m32, Single m33, Single m34, Single m41, Single m42, Single m43, Single m44)
+		/// <summary>
+		/// Initilises a new instance of Matrix44 from sixteen Single 
+		/// values representing the matrix, in row major order, respectively.
+		/// </summary>
+		public Matrix44 (
+			Single m11, 
+			Single m12, 
+			Single m13, 
+			Single m14, 
+			Single m21, 
+			Single m22, 
+			Single m23, 
+			Single m24, 
+			Single m31, 
+			Single m32, 
+			Single m33, 
+			Single m34, 
+			Single m41, 
+			Single m42, 
+			Single m43, 
+			Single m44)
 		{
 			this.M11 = m11;
 			this.M12 = m12;
@@ -6767,51 +8640,255 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.M44 = m44;
 		}
 
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
-			return ("{ " + string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", new Object[] { this.M11.ToString (), this.M12.ToString (), this.M13.ToString (), this.M14.ToString () }) + string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", new Object[] { this.M21.ToString (), this.M22.ToString (), this.M23.ToString (), this.M24.ToString () }) + string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", new Object[] { this.M31.ToString (), this.M32.ToString (), this.M33.ToString (), this.M34.ToString () }) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", new Object[] { this.M41.ToString (), this.M42.ToString (), this.M43.ToString (), this.M44.ToString () }) + "}");
+			return 
+				(
+					"{ " + 
+					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M11.ToString (), 
+							this.M12.ToString (), 
+							this.M13.ToString (), 
+							this.M14.ToString () 
+						}
+					) + 
+					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M21.ToString (), 
+							this.M22.ToString (), 
+							this.M23.ToString (), 
+							this.M24.ToString () 
+							}
+					) + 
+					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M31.ToString (), 
+							this.M32.ToString (), 
+							this.M33.ToString (), 
+							this.M34.ToString () 
+						}
+					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
+					new Object[] 
+					{ 
+						this.M41.ToString (), 
+						this.M42.ToString (), 
+						this.M43.ToString (), 
+						this.M44.ToString () 
+					}
+					) + 
+					"}"
+				);
 		}
 
-		public Boolean Equals (Matrix44 other)
-		{
-			return ((((((this.M11 == other.M11) && (this.M22 == other.M22)) && ((this.M33 == other.M33) && (this.M44 == other.M44))) && (((this.M12 == other.M12) && (this.M13 == other.M13)) && ((this.M14 == other.M14) && (this.M21 == other.M21)))) && ((((this.M23 == other.M23) && (this.M24 == other.M24)) && ((this.M31 == other.M31) && (this.M32 == other.M32))) && (((this.M34 == other.M34) && (this.M41 == other.M41)) && (this.M42 == other.M42)))) && (this.M43 == other.M43));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Matrix44)
-			{
-				flag = this.Equals ((Matrix44)obj);
-			}
-			return flag;
-		}
-
+		/// <summary>
+		/// Gets the hash code of the Matrix44 object.
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return (((((((((((((((this.M11.GetHashCode () + this.M12.GetHashCode ()) + this.M13.GetHashCode ()) + this.M14.GetHashCode ()) + this.M21.GetHashCode ()) + this.M22.GetHashCode ()) + this.M23.GetHashCode ()) + this.M24.GetHashCode ()) + this.M31.GetHashCode ()) + this.M32.GetHashCode ()) + this.M33.GetHashCode ()) + this.M34.GetHashCode ()) + this.M41.GetHashCode ()) + this.M42.GetHashCode ()) + this.M43.GetHashCode ()) + this.M44.GetHashCode ());
+			return 
+				(((((((((((((((
+					this.M11.GetHashCode () + 
+					this.M12.GetHashCode ()) + 
+					this.M13.GetHashCode ()) + 
+					this.M14.GetHashCode ()) + 
+					this.M21.GetHashCode ()) + 
+					this.M22.GetHashCode ()) + 
+					this.M23.GetHashCode ()) + 
+					this.M24.GetHashCode ()) + 
+					this.M31.GetHashCode ()) + 
+					this.M32.GetHashCode ()) + 
+					this.M33.GetHashCode ()) + 
+					this.M34.GetHashCode ()) + 
+					this.M41.GetHashCode ()) + 
+					this.M42.GetHashCode ()) + 
+					this.M43.GetHashCode ()) + 
+					this.M44.GetHashCode ());
 		}
 
-		#region Constants
-
-		static Matrix44 identity;
-
-		static Matrix44 ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Up 
 		{
-			Single zero = 0;
-			Single one = 1;
-			identity = new Matrix44 (one, zero, zero, zero, zero, one, zero, zero, zero, zero, one, zero, zero, zero, zero, one);
-		}
-
-		public static Matrix44 Identity {
-			get {
-				return identity;
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M21;
+				vector.Y = this.M22;
+				vector.Z = this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = value.X;
+				this.M22 = value.Y;
+				this.M23 = value.Z;
 			}
 		}
-		
-		#endregion
-		#region Create
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Down 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = -this.M21;
+				vector.Y = -this.M22;
+				vector.Z = -this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = -value.X;
+				this.M22 = -value.Y;
+				this.M23 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Right 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M11;
+				vector.Y = this.M12;
+				vector.Z = this.M13;
+				return vector;
+			}
+			set 
+			{
+				this.M11 = value.X;
+				this.M12 = value.Y;
+				this.M13 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Left
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M11;
+				vector.Y = -this.M12;
+				vector.Z = -this.M13;
+				return vector;
+			}
+			set
+			{
+				this.M11 = -value.X;
+				this.M12 = -value.Y;
+				this.M13 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Forward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M31;
+				vector.Y = -this.M32;
+				vector.Z = -this.M33;
+				return vector;
+			}
+			set 
+			{
+				this.M31 = -value.X;
+				this.M32 = -value.Y;
+				this.M33 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Backward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = this.M31;
+				vector.Y = this.M32;
+				vector.Z = this.M33;
+				return vector;
+			}
+			set
+			{
+				this.M31 = value.X;
+				this.M32 = value.Y;
+				this.M33 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Translation
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M41;
+				vector.Y = this.M42;
+				vector.Z = this.M43;
+				return vector;
+			}
+			set
+			{
+				this.M41 = value.X;
+				this.M42 = value.Y;
+				this.M43 = value.Z;
+			}
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines the identity matrix.
+		/// </summary>
+		static Matrix44 identity;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Matrix44 ()
+		{
+			identity = new Matrix44 (
+				1, 0, 0, 0, 
+				0, 1, 0, 0, 
+				0, 0, 1, 0, 
+				0, 0, 0, 1);
+		}
+
+		/// <summary>
+		/// Returns the identity matrix.
+		/// </summary>
+		public static Matrix44 Identity 
+		{
+			get { return identity; }
+		}
+		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (ref Vector3 position, out Matrix44 result)
 		{
 			result.M11 = 1;
@@ -6832,6 +8909,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (Single xPosition, Single yPosition, Single zPosition, out Matrix44 result)
 		{	
 			result.M11 = 1;
@@ -6852,7 +8932,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 		
-		// Creates a scaling matrix based on x, y, z.
+		/// <summary>
+		/// Creates a scaling matrix based on x, y, z.
+		/// </summary>
 		public static void CreateScale (Single xScale, Single yScale, Single zScale, out Matrix44 result)
 		{
 			result.M11 = xScale;
@@ -6873,7 +8955,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 
-		// Creates a scaling matrix based on a vector.
+		/// <summary>
+		/// Creates a scaling matrix based on a vector.
+		/// </summary>
 		public static void CreateScale (ref Vector3 scales, out Matrix44 result)
 		{
 			result.M11 = scales.X;
@@ -6894,7 +8978,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 
-		// Create a scaling matrix consistant along each axis
+		/// <summary>
+		/// Create a scaling matrix consistant along each axis
+		/// </summary>
 		public static void CreateScale (Single scale, out Matrix44 result)
 		{
 			result.M11 = scale;
@@ -6915,10 +9001,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationX (Single radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Single cos = RealMaths.Cos (radians);
 			Single sin = RealMaths.Sin (radians);
 
@@ -6940,10 +9027,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationY (Single radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Single cos = RealMaths.Cos (radians);
 			Single sin = RealMaths.Sin (radians);
 
@@ -6964,11 +9052,12 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = 0;
 			result.M44 = 1;
 		}
-		
+
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationZ (Single radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Single cos = RealMaths.Cos (radians);
 			Single sin = RealMaths.Sin (radians);
 
@@ -6990,6 +9079,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, Single angle, out Matrix44 result)
 		{
 			Single one = 1;
@@ -7030,6 +9122,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = one;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
 		{
 			if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
@@ -7055,6 +9150,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			Vector3 backward = -forward;
@@ -7063,7 +9161,7 @@ namespace Sungiant.Abacus.SinglePrecision
 
 			Vector3.Cross (ref up, ref backward, out right);
 
-			right.Normalise();
+			Vector3.Normalise(ref right, out right);
 
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
@@ -7072,6 +9170,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = position.Z;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			if(!forward.IsUnit() || !up.IsUnit() )
@@ -7107,6 +9208,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
 		{
 			if(!quaternion.IsUnit())
@@ -7151,42 +9255,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = one;
 		}
 
-
-
-		// todo: remove when we dont need this for the tests
-		internal static void CreateFromQuaternionOld (ref Quaternion quaternion, out Matrix44 result)
-		{
-			Single zero = 0;
-			Single one; RealMaths.One(out one);
-			Single two = 2;
-
-			Single num9 = quaternion.X * quaternion.X;
-			Single num8 = quaternion.Y * quaternion.Y;
-			Single num7 = quaternion.Z * quaternion.Z;
-			Single num6 = quaternion.X * quaternion.Y;
-			Single num5 = quaternion.Z * quaternion.W;
-			Single num4 = quaternion.Z * quaternion.X;
-			Single num3 = quaternion.Y * quaternion.W;
-			Single num2 = quaternion.Y * quaternion.Z;
-			Single num = quaternion.X * quaternion.W;
-			result.M11 = one - (two * (num8 + num7));
-			result.M12 = two * (num6 + num5);
-			result.M13 = two * (num4 - num3);
-			result.M14 = zero;
-			result.M21 = two * (num6 - num5);
-			result.M22 = one - (two * (num7 + num9));
-			result.M23 = two * (num2 + num);
-			result.M24 = zero;
-			result.M31 = two * (num4 + num3);
-			result.M32 = two * (num2 - num);
-			result.M33 = one - (two * (num8 + num9));
-			result.M34 = zero;
-			result.M41 = zero;
-			result.M42 = zero;
-			result.M43 = zero;
-			result.M44 = one;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (Single yaw, Single pitch, Single roll, out Matrix44 result)
 		{
 			Quaternion quaternion;
@@ -7196,32 +9267,21 @@ namespace Sungiant.Abacus.SinglePrecision
 			CreateFromQuaternion (ref quaternion, out result);
 		}
 
-
-
-
-
-
-
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		// FROM XNA
-		// --------
-		// Creates a cylindrical billboard that rotates around a specified axis.
-		// This method computes the facing direction of the billboard from the object position and camera position. 
-		// When the object and camera positions are too close, the matrix will not be accurate. 
-		// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Creates a cylindrical billboard that rotates around a specified axis.
+		/// This method computes the facing direction of the billboard from the object position and camera position. 
+		/// When the object and camera positions are too close, the matrix will not be accurate. 
+		/// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		/// </summary>
 		public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
 		{
 			Single zero = 0;
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 
 			Vector3 vector;
 			Vector3 vector2;
@@ -7238,7 +9298,9 @@ namespace Sungiant.Abacus.SinglePrecision
 				Vector3.Multiply (ref vector, (Single)(one / (RealMaths.Sqrt (num))), out vector);
 			}
 			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
-			vector3.Normalise ();
+
+			Vector3.Normalise (ref vector3, out vector3);
+
 			Vector3.Cross (ref vector, ref vector3, out vector2);
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -7257,11 +9319,25 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = ObjectPosition.Z;
 			result.M44 = one;
 		}
-		
-		public static void CreateConstrainedBillboard (ref Vector3 objectPosition, ref Vector3 cameraPosition, ref Vector3 rotateAxis, Vector3? cameraForwardVector, Vector3? objectForwardVector, out Matrix44 result)
+
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static void CreateConstrainedBillboard (
+			ref Vector3 objectPosition, 
+			ref Vector3 cameraPosition, 
+			ref Vector3 rotateAxis, 
+			Vector3? cameraForwardVector, 
+			Vector3? objectForwardVector, 
+			out Matrix44 result)
 		{
 			Single zero = 0;
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 
 			Single num;
 			Vector3 vector;
@@ -7296,14 +9372,14 @@ namespace Sungiant.Abacus.SinglePrecision
 					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
 				}
 				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			} else {
 				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref vector4, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			}
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -7323,12 +9399,24 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
-		public static void CreatePerspectiveFieldOfView (Single fieldOfView, Single aspectRatio, Single nearPlaneDistance, Single farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveFieldOfView (
+			Single fieldOfView, 
+			Single aspectRatio, 
+			Single nearPlaneDistance, 
+			Single farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Single zero = 0;
 			Single half; RealMaths.Half(out half);
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 			Single pi; RealMaths.Pi(out pi);
 
 			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
@@ -7356,11 +9444,23 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
-		public static void CreatePerspective (Single width, Single height, Single nearPlaneDistance, Single farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspective (
+			Single width, 
+			Single height, 
+			Single nearPlaneDistance, 
+			Single farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Single zero = 0;
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 			Single two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -7383,12 +9483,25 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
-		public static void CreatePerspectiveOffCenter (Single left, Single right, Single bottom, Single top, Single nearPlaneDistance, Single farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveOffCenter (
+			Single left, 
+			Single right, 
+			Single bottom, 
+			Single top, 
+			Single nearPlaneDistance, 
+			Single farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Single zero = 0;
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 			Single two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -7412,11 +9525,23 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M41 = result.M42 = result.M44 = zero;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
-		public static void CreateOrthographic (Single width, Single height, Single zNearPlane, Single zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographic (
+			Single width, 
+			Single height, 
+			Single zNearPlane, 
+			Single zFarPlane, 
+			out Matrix44 result)
 		{
 			Single zero = 0;
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 			Single two = 2;
 
 			result.M11 = two / width;
@@ -7430,11 +9555,25 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
-		public static void CreateOrthographicOffCenter (Single left, Single right, Single bottom, Single top, Single zNearPlane, Single zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographicOffCenter (
+			Single left, 
+			Single right, 
+			Single bottom, 
+			Single top, 
+			Single zNearPlane, 
+			Single zFarPlane, 
+			out Matrix44 result)
 		{
 			Single zero = 0;
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 			Single two = 2;
 
 			result.M11 = two / (right - left);
@@ -7449,11 +9588,22 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = one;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-		public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+		/// </summary>
+		public static void CreateLookAt (
+			ref Vector3 cameraPosition, 
+			ref Vector3 cameraTarget, 
+			ref Vector3 cameraUpVector, 
+			out Matrix44 result)
 		{
 			Single zero = 0;
-			Single one; RealMaths.One(out one);
+			Single one = 1;
 
 			Vector3 targetToPosition = cameraPosition - cameraTarget;
 
@@ -7487,134 +9637,44 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = one;
 		}
 
-		
-	
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205364(v=VS.85).aspx
-		public static void CreateShadow (ref Vector3 lightDirection, ref Plane plane, out Matrix44 result)
-		{
-			Single zero = 0;
-			
-			Plane plane2;
-			Plane.Normalise (ref plane, out plane2);
-			Single num = ((plane2.Normal.X * lightDirection.X) + (plane2.Normal.Y * lightDirection.Y)) + (plane2.Normal.Z * lightDirection.Z);
-			Single num5 = -plane2.Normal.X;
-			Single num4 = -plane2.Normal.Y;
-			Single num3 = -plane2.Normal.Z;
-			Single num2 = -plane2.D;
-			result.M11 = (num5 * lightDirection.X) + num;
-			result.M21 = num4 * lightDirection.X;
-			result.M31 = num3 * lightDirection.X;
-			result.M41 = num2 * lightDirection.X;
-			result.M12 = num5 * lightDirection.Y;
-			result.M22 = (num4 * lightDirection.Y) + num;
-			result.M32 = num3 * lightDirection.Y;
-			result.M42 = num2 * lightDirection.Y;
-			result.M13 = num5 * lightDirection.Z;
-			result.M23 = num4 * lightDirection.Z;
-			result.M33 = (num3 * lightDirection.Z) + num;
-			result.M43 = num2 * lightDirection.Z;
-			result.M14 = zero;
-			result.M24 = zero;
-			result.M34 = zero;
-			result.M44 = num;
-		}
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205356(v=VS.85).aspx
-		public static void CreateReflection (ref Plane value, out Matrix44 result)
-		{
-			Single zero = 0;
-			Single one; RealMaths.One(out one);
-			Single two = 2;
-
-			Plane plane;
-			
-			Plane.Normalise (ref value, out plane);
-			
-			value.Normalise ();
-			
-			Single x = plane.Normal.X;
-			Single y = plane.Normal.Y;
-			Single z = plane.Normal.Z;
-			
-			Single num3 = -two * x;
-			Single num2 = -two * y;
-			Single num = -two * z;
-			
-			result.M11 = (num3 * x) + one;
-			result.M12 = num2 * x;
-			result.M13 = num * x;
-			result.M14 = zero;
-			result.M21 = num3 * y;
-			result.M22 = (num2 * y) + one;
-			result.M23 = num * y;
-			result.M24 = zero;
-			result.M31 = num3 * z;
-			result.M32 = num2 * z;
-			result.M33 = (num * z) + one;
-			result.M34 = zero;
-			result.M41 = num3 * plane.D;
-			result.M42 = num2 * plane.D;
-			result.M43 = num * plane.D;
-			result.M44 = one;
-		}
-		
-		#endregion
-		#region Maths
-
-		//----------------------------------------------------------------------
-		// Transpose
-		//
-		public void Transpose()
-		{
-			Single temp = this.M12;
-			this.M12 = this.M21;
-			this.M21 = temp;
-
-			temp = this.M13;
-			this.M13 = this.M31;
-			this.M31 = temp;
-
-			temp = this.M14;
-			this.M14 = this.M41;
-			this.M41 = temp;
-
-			temp = this.M23;
-			this.M23 = this.M32;
-			this.M32 = temp;
-
-			temp = this.M24;
-			this.M24 = this.M42;
-			this.M42 = temp;
-
-			temp =  this.M34;
-			this.M34 = this.M43;
-			this.M43 = temp;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Transpose (ref Matrix44 input, out Matrix44 output)
 		{
-		    output.M11 = input.M11;
-			output.M12 = input.M21;
-			output.M13 = input.M31;
-			output.M14 = input.M41;
-			output.M21 = input.M12;
+			output.M11 = input.M11;
 			output.M22 = input.M22;
-			output.M23 = input.M32;
-			output.M24 = input.M42;
-			output.M31 = input.M13;
-			output.M32 = input.M23;
 			output.M33 = input.M33;
-			output.M34 = input.M43;
-			output.M41 = input.M14;
-			output.M42 = input.M24;
-			output.M43 = input.M34;
 			output.M44 = input.M44;
+
+			Single temp = input.M12;
+			output.M12 = input.M21;
+			output.M21 = temp;
+
+			temp = input.M13;
+			output.M13 = input.M31;
+			output.M31 = temp;
+
+			temp = input.M14;
+			output.M14 = input.M41;
+			output.M41 = temp;
+
+			temp = input.M23;
+			output.M23 = input.M32;
+			output.M32 = temp;
+
+			temp = input.M24;
+			output.M24 = input.M42;
+			output.M42 = temp;
+
+			temp =  input.M34;
+			output.M34 = input.M43;
+			output.M43 = temp;
 		}
 
-		//----------------------------------------------------------------------
-		// Decompose
-		// ref: Essential Mathemathics For Games & Interactive Applications
+		/// <summary>
+		/// Essential Mathemathics For Games & Interactive Applications
+		/// </summary>
 		public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
 		{
 			translation.X = M41;
@@ -7637,17 +9697,17 @@ namespace Sungiant.Abacus.SinglePrecision
 				return false;
 			}
 
-			a.Normalise();
-			b.Normalise();
-			c.Normalise();
+			Vector3.Normalise(ref a, out a);
+			Vector3.Normalise(ref b, out b);
+			Vector3.Normalise(ref c, out c);
 
 			Vector3 right = new Vector3(a.X, b.X, c.X);
 			Vector3 up = new Vector3(a.Y, b.Y, c.Y);
 			Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
 
-			right.Normalise();
-			up.Normalise();
-			backward.Normalise();
+			Vector3.Normalise(ref right, out right);
+			Vector3.Normalise(ref up, out up);
+			Vector3.Normalise(ref backward, out backward);
 
 			Matrix44 rotMat;
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
@@ -7657,19 +9717,14 @@ namespace Sungiant.Abacus.SinglePrecision
 			return true;
 		}
 
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		//----------------------------------------------------------------------
-		// Determinant
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Single Determinant ()
 		{
 			Single num22 = this.M11;
@@ -7699,9 +9754,14 @@ namespace Sungiant.Abacus.SinglePrecision
 			return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
 		}
 		
-		//----------------------------------------------------------------------
-		// Invert
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Invert (ref Matrix44 matrix, out Matrix44 result)
 		{
 			Single one = 1;
@@ -7762,10 +9822,14 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
 		}
 
-
-		//----------------------------------------------------------------------
-		// Transform - Transforms a Matrix by applying a Quaternion rotation.
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Transforms a Matrix by applying a Quaternion rotation.
+		/// </summary>
 		public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
 		{
 			Single one = 1;
@@ -7839,223 +9903,96 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = num23;
 			result.M44 = num22;
 		}
-		
-		#endregion
-		#region Operators
-		
-		public static Matrix44 operator - (Matrix44 matrix1)
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
 		{
-			Matrix44 matrix;
-			matrix.M11 = -matrix1.M11;
-			matrix.M12 = -matrix1.M12;
-			matrix.M13 = -matrix1.M13;
-			matrix.M14 = -matrix1.M14;
-			matrix.M21 = -matrix1.M21;
-			matrix.M22 = -matrix1.M22;
-			matrix.M23 = -matrix1.M23;
-			matrix.M24 = -matrix1.M24;
-			matrix.M31 = -matrix1.M31;
-			matrix.M32 = -matrix1.M32;
-			matrix.M33 = -matrix1.M33;
-			matrix.M34 = -matrix1.M34;
-			matrix.M41 = -matrix1.M41;
-			matrix.M42 = -matrix1.M42;
-			matrix.M43 = -matrix1.M43;
-			matrix.M44 = -matrix1.M44;
-			return matrix;
+			Boolean flag = false;
+
+			if (obj is Matrix44)
+			{
+				flag = this.Equals ((Matrix44) obj);
+			}
+			
+			return flag;
 		}
-		
+
+		#region IEquatable<Matrix44>
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// Matrix44 object.
+		/// </summary>
+		public Boolean Equals (Matrix44 other)
+		{
+			return 
+				(this.M11 == other.M11) && 
+				(this.M22 == other.M22) && 
+				(this.M33 == other.M33) && 
+				(this.M44 == other.M44) && 
+				(this.M12 == other.M12) && 
+				(this.M13 == other.M13) && 
+				(this.M14 == other.M14) && 
+				(this.M21 == other.M21) && 
+				(this.M23 == other.M23) && 
+				(this.M24 == other.M24) && 
+				(this.M31 == other.M31) && 
+				(this.M32 == other.M32) && 
+				(this.M34 == other.M34) && 
+				(this.M41 == other.M41) && 
+				(this.M42 == other.M42) && 
+				(this.M43 == other.M43);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			return ((((((matrix1.M11 == matrix2.M11) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M44 == matrix2.M44))) && (((matrix1.M12 == matrix2.M12) && (matrix1.M13 == matrix2.M13)) && ((matrix1.M14 == matrix2.M14) && (matrix1.M21 == matrix2.M21)))) && ((((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)) && ((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32))) && (((matrix1.M34 == matrix2.M34) && (matrix1.M41 == matrix2.M41)) && (matrix1.M42 == matrix2.M42)))) && (matrix1.M43 == matrix2.M43));
 		}
 		
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			if (((((matrix1.M11 == matrix2.M11) && (matrix1.M12 == matrix2.M12)) && ((matrix1.M13 == matrix2.M13) && (matrix1.M14 == matrix2.M14))) && (((matrix1.M21 == matrix2.M21) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)))) && ((((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M34 == matrix2.M34))) && (((matrix1.M41 == matrix2.M41) && (matrix1.M42 == matrix2.M42)) && (matrix1.M43 == matrix2.M43)))) {
+			if ((matrix1.M11 == matrix2.M11) && 
+				(matrix1.M12 == matrix2.M12) && 
+				(matrix1.M13 == matrix2.M13) && 
+				(matrix1.M14 == matrix2.M14) && 
+				(matrix1.M21 == matrix2.M21) && 
+				(matrix1.M22 == matrix2.M22) && 
+				(matrix1.M23 == matrix2.M23) && 
+				(matrix1.M24 == matrix2.M24) && 
+				(matrix1.M31 == matrix2.M31) && 
+				(matrix1.M32 == matrix2.M32) && 
+				(matrix1.M33 == matrix2.M33) && 
+				(matrix1.M34 == matrix2.M34) && 
+				(matrix1.M41 == matrix2.M41) && 
+				(matrix1.M42 == matrix2.M42) && 
+				(matrix1.M43 == matrix2.M43))
+			{
 				return !(matrix1.M44 == matrix2.M44);
 			}
+
 			return true;
 		}
-		
-		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 + matrix2.M11;
-			matrix.M12 = matrix1.M12 + matrix2.M12;
-			matrix.M13 = matrix1.M13 + matrix2.M13;
-			matrix.M14 = matrix1.M14 + matrix2.M14;
-			matrix.M21 = matrix1.M21 + matrix2.M21;
-			matrix.M22 = matrix1.M22 + matrix2.M22;
-			matrix.M23 = matrix1.M23 + matrix2.M23;
-			matrix.M24 = matrix1.M24 + matrix2.M24;
-			matrix.M31 = matrix1.M31 + matrix2.M31;
-			matrix.M32 = matrix1.M32 + matrix2.M32;
-			matrix.M33 = matrix1.M33 + matrix2.M33;
-			matrix.M34 = matrix1.M34 + matrix2.M34;
-			matrix.M41 = matrix1.M41 + matrix2.M41;
-			matrix.M42 = matrix1.M42 + matrix2.M42;
-			matrix.M43 = matrix1.M43 + matrix2.M43;
-			matrix.M44 = matrix1.M44 + matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 - matrix2.M11;
-			matrix.M12 = matrix1.M12 - matrix2.M12;
-			matrix.M13 = matrix1.M13 - matrix2.M13;
-			matrix.M14 = matrix1.M14 - matrix2.M14;
-			matrix.M21 = matrix1.M21 - matrix2.M21;
-			matrix.M22 = matrix1.M22 - matrix2.M22;
-			matrix.M23 = matrix1.M23 - matrix2.M23;
-			matrix.M24 = matrix1.M24 - matrix2.M24;
-			matrix.M31 = matrix1.M31 - matrix2.M31;
-			matrix.M32 = matrix1.M32 - matrix2.M32;
-			matrix.M33 = matrix1.M33 - matrix2.M33;
-			matrix.M34 = matrix1.M34 - matrix2.M34;
-			matrix.M41 = matrix1.M41 - matrix2.M41;
-			matrix.M42 = matrix1.M42 - matrix2.M42;
-			matrix.M43 = matrix1.M43 - matrix2.M43;
-			matrix.M44 = matrix1.M44 - matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			matrix.M12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			matrix.M13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			matrix.M14 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			matrix.M21 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			matrix.M22 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			matrix.M23 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			matrix.M24 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			matrix.M31 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			matrix.M32 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			matrix.M33 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			matrix.M34 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			matrix.M41 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			matrix.M42 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			matrix.M43 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			matrix.M44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			return matrix;
-		}
-		
-		public static Matrix44 operator * (Matrix44 matrix, Single scaleFactor)
-		{
-			Matrix44 matrix2;
-			Single num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-		
-		public static Matrix44 operator * (Single scaleFactor, Matrix44 matrix)
-		{
-			Matrix44 matrix2;
-			Single num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-		
-		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 / matrix2.M11;
-			matrix.M12 = matrix1.M12 / matrix2.M12;
-			matrix.M13 = matrix1.M13 / matrix2.M13;
-			matrix.M14 = matrix1.M14 / matrix2.M14;
-			matrix.M21 = matrix1.M21 / matrix2.M21;
-			matrix.M22 = matrix1.M22 / matrix2.M22;
-			matrix.M23 = matrix1.M23 / matrix2.M23;
-			matrix.M24 = matrix1.M24 / matrix2.M24;
-			matrix.M31 = matrix1.M31 / matrix2.M31;
-			matrix.M32 = matrix1.M32 / matrix2.M32;
-			matrix.M33 = matrix1.M33 / matrix2.M33;
-			matrix.M34 = matrix1.M34 / matrix2.M34;
-			matrix.M41 = matrix1.M41 / matrix2.M41;
-			matrix.M42 = matrix1.M42 / matrix2.M42;
-			matrix.M43 = matrix1.M43 / matrix2.M43;
-			matrix.M44 = matrix1.M44 / matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator / (Matrix44 matrix1, Single divider)
-		{
-			Matrix44 matrix;
-			Single one = 1;
-			Single num = one / divider;
-			matrix.M11 = matrix1.M11 * num;
-			matrix.M12 = matrix1.M12 * num;
-			matrix.M13 = matrix1.M13 * num;
-			matrix.M14 = matrix1.M14 * num;
-			matrix.M21 = matrix1.M21 * num;
-			matrix.M22 = matrix1.M22 * num;
-			matrix.M23 = matrix1.M23 * num;
-			matrix.M24 = matrix1.M24 * num;
-			matrix.M31 = matrix1.M31 * num;
-			matrix.M32 = matrix1.M32 * num;
-			matrix.M33 = matrix1.M33 * num;
-			matrix.M34 = matrix1.M34 * num;
-			matrix.M41 = matrix1.M41 * num;
-			matrix.M42 = matrix1.M42 * num;
-			matrix.M43 = matrix1.M43 * num;
-			matrix.M44 = matrix1.M44 * num;
-			return matrix;
-		}
-		
-		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
-		{
-			result.M11 = -matrix.M11;
-			result.M12 = -matrix.M12;
-			result.M13 = -matrix.M13;
-			result.M14 = -matrix.M14;
-			result.M21 = -matrix.M21;
-			result.M22 = -matrix.M22;
-			result.M23 = -matrix.M23;
-			result.M24 = -matrix.M24;
-			result.M31 = -matrix.M31;
-			result.M32 = -matrix.M32;
-			result.M33 = -matrix.M33;
-			result.M34 = -matrix.M34;
-			result.M41 = -matrix.M41;
-			result.M42 = -matrix.M42;
-			result.M43 = -matrix.M43;
-			result.M44 = -matrix.M44;
-		}
-		
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Matrix44 objects.
+		/// </summary>
 		public static void Add (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + matrix2.M11;
@@ -8075,7 +10012,37 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = matrix1.M43 + matrix2.M43;
 			result.M44 = matrix1.M44 + matrix2.M44;
 		}
-		
+
+		/// <summary>
+		/// Performs addition of two Matrix44 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 + matrix2.M11;
+			result.M12 = matrix1.M12 + matrix2.M12;
+			result.M13 = matrix1.M13 + matrix2.M13;
+			result.M14 = matrix1.M14 + matrix2.M14;
+			result.M21 = matrix1.M21 + matrix2.M21;
+			result.M22 = matrix1.M22 + matrix2.M22;
+			result.M23 = matrix1.M23 + matrix2.M23;
+			result.M24 = matrix1.M24 + matrix2.M24;
+			result.M31 = matrix1.M31 + matrix2.M31;
+			result.M32 = matrix1.M32 + matrix2.M32;
+			result.M33 = matrix1.M33 + matrix2.M33;
+			result.M34 = matrix1.M34 + matrix2.M34;
+			result.M41 = matrix1.M41 + matrix2.M41;
+			result.M42 = matrix1.M42 + matrix2.M42;
+			result.M43 = matrix1.M43 + matrix2.M43;
+			result.M44 = matrix1.M44 + matrix2.M44;
+			return result;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects.
+		/// </summary>
 		public static void Subtract (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 - matrix2.M11;
@@ -8095,64 +10062,375 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = matrix1.M43 - matrix2.M43;
 			result.M44 = matrix1.M44 - matrix2.M44;
 		}
-		
-		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			Single num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			Single num15 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			Single num14 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			Single num13 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			Single num12 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			Single num11 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			Single num10 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			Single num9 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			Single num8 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			Single num7 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			Single num6 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			Single num5 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			Single num4 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			Single num3 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			Single num2 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			Single num = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			result.M11 = num16;
-			result.M12 = num15;
-			result.M13 = num14;
-			result.M14 = num13;
-			result.M21 = num12;
-			result.M22 = num11;
-			result.M23 = num10;
-			result.M24 = num9;
-			result.M31 = num8;
-			result.M32 = num7;
-			result.M33 = num6;
-			result.M34 = num5;
-			result.M41 = num4;
-			result.M42 = num3;
-			result.M43 = num2;
-			result.M44 = num;
+			Matrix44 result;
+			result.M11 = matrix1.M11 - matrix2.M11;
+			result.M12 = matrix1.M12 - matrix2.M12;
+			result.M13 = matrix1.M13 - matrix2.M13;
+			result.M14 = matrix1.M14 - matrix2.M14;
+			result.M21 = matrix1.M21 - matrix2.M21;
+			result.M22 = matrix1.M22 - matrix2.M22;
+			result.M23 = matrix1.M23 - matrix2.M23;
+			result.M24 = matrix1.M24 - matrix2.M24;
+			result.M31 = matrix1.M31 - matrix2.M31;
+			result.M32 = matrix1.M32 - matrix2.M32;
+			result.M33 = matrix1.M33 - matrix2.M33;
+			result.M34 = matrix1.M34 - matrix2.M34;
+			result.M41 = matrix1.M41 - matrix2.M41;
+			result.M42 = matrix1.M42 - matrix2.M42;
+			result.M43 = matrix1.M43 - matrix2.M43;
+			result.M44 = matrix1.M44 - matrix2.M44;
+			return result;
 		}
 
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Matrix44 object.
+		/// </summary>
+		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
+		{
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+		}
+
+		/// <summary>
+		/// Performs negation of a Matrix44 object using the (-X) operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix)
+		{
+			Matrix44 result;
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+			return result;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects.
+		/// </summary>
+		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+		{	
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Single
+		/// precision scaling factor.
+		/// </summary>
 		public static void Multiply (ref Matrix44 matrix1, Single scaleFactor, out Matrix44 result)
 		{
-			Single num = scaleFactor;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
 		}
 
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Single
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Single scaleFactor)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aMatrix44 object using the (x*Y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Single scaleFactor, Matrix44 matrix1)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Matrix44 objects.
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 / matrix2.M11;
@@ -8172,35 +10450,90 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = matrix1.M43 / matrix2.M43;
 			result.M44 = matrix1.M44 / matrix2.M44;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Single precision
+		/// scaling factor.
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, Single divider, out Matrix44 result)
 		{
-			Single one = 1;
-
-			Single num = one / divider;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
 		}
 
-		#endregion
-		#region Utilities
+		/// <summary>
+		/// Performs division of two Matrix44 objects using the (X/Y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
 
-		// beware, doing this might not produce what you expect.  you likely
-		// want to lerp between quaternions.
+			result.M11 = matrix1.M11 / matrix2.M11;
+			result.M12 = matrix1.M12 / matrix2.M12;
+			result.M13 = matrix1.M13 / matrix2.M13;
+			result.M14 = matrix1.M14 / matrix2.M14;
+			result.M21 = matrix1.M21 / matrix2.M21;
+			result.M22 = matrix1.M22 / matrix2.M22;
+			result.M23 = matrix1.M23 / matrix2.M23;
+			result.M24 = matrix1.M24 / matrix2.M24;
+			result.M31 = matrix1.M31 / matrix2.M31;
+			result.M32 = matrix1.M32 / matrix2.M32;
+			result.M33 = matrix1.M33 / matrix2.M33;
+			result.M34 = matrix1.M34 / matrix2.M34;
+			result.M41 = matrix1.M41 / matrix2.M41;
+			result.M42 = matrix1.M42 / matrix2.M42;
+			result.M43 = matrix1.M43 / matrix2.M43;
+			result.M44 = matrix1.M44 / matrix2.M44;
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Single precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Single divider)
+		{
+			Matrix44 result;
+
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
+
+			return result;
+		}
+
+		/// <summary>
+		/// beware, doing this might not produce what you expect.  you likely
+		/// want to lerp between quaternions.
+		/// </summary>
 		public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Single amount, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
@@ -8220,374 +10553,39 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M43 = matrix1.M43 + ((matrix2.M43 - matrix1.M43) * amount);
 			result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
 		}
-		
-		#endregion
-		
-	}
 
+			}
+
+	/// <summary>
+	/// Single precision Quaternion.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct Plane 
-		: IEquatable<Plane>
-	{
-		public Vector3 Normal;
-		public Single D;
-
-		public Plane (Single a, Single b, Single c, Single d)
-		{
-			this.Normal.X = a;
-			this.Normal.Y = b;
-			this.Normal.Z = c;
-			this.D = d;
-		}
-
-		public Plane (Vector3 normal, Single d)
-		{
-			this.Normal = normal;
-			this.D = d;
-		}
-
-		public Plane (Vector4 value)
-		{
-			this.Normal.X = value.X;
-			this.Normal.Y = value.Y;
-			this.Normal.Z = value.Z;
-			this.D = value.W;
-		}
-
-		public Plane (Vector3 point1, Vector3 point2, Vector3 point3)
-		{
-			Single one = 1;
-
-			Single num10 = point2.X - point1.X;
-			Single num9 = point2.Y - point1.Y;
-			Single num8 = point2.Z - point1.Z;
-			Single num7 = point3.X - point1.X;
-			Single num6 = point3.Y - point1.Y;
-			Single num5 = point3.Z - point1.Z;
-			Single num4 = (num9 * num5) - (num8 * num6);
-			Single num3 = (num8 * num7) - (num10 * num5);
-			Single num2 = (num10 * num6) - (num9 * num7);
-			Single num11 = ((num4 * num4) + (num3 * num3)) + (num2 * num2);
-			Single num = one / RealMaths.Sqrt (num11);
-			this.Normal.X = num4 * num;
-			this.Normal.Y = num3 * num;
-			this.Normal.Z = num2 * num;
-			this.D = -(((this.Normal.X * point1.X) + (this.Normal.Y * point1.Y)) + (this.Normal.Z * point1.Z));
-		}
-
-		public Boolean Equals (Plane other)
-		{
-			return ((((this.Normal.X == other.Normal.X) && (this.Normal.Y == other.Normal.Y)) && (this.Normal.Z == other.Normal.Z)) && (this.D == other.D));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Plane) {
-				flag = this.Equals ((Plane)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Normal.GetHashCode () + this.D.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Normal:{0} D:{1}}}", new Object[] { this.Normal.ToString (), this.D.ToString () });
-		}
-
-		public void Normalise ()
-		{
-			Single one = 1;
-			Single somethingWicked; RealMaths.FromString("0.0000001192093", out somethingWicked);
-
-			Single num2 = ((this.Normal.X * this.Normal.X) + (this.Normal.Y * this.Normal.Y)) + (this.Normal.Z * this.Normal.Z);
-			if (RealMaths.Abs (num2 - one) >= somethingWicked) {
-				Single num = one / RealMaths.Sqrt (num2);
-				this.Normal.X *= num;
-				this.Normal.Y *= num;
-				this.Normal.Z *= num;
-				this.D *= num;
-			}
-		}
-
-		public static void Normalise (ref Plane value, out Plane result)
-		{
-			Single one = 1;
-			Single somethingWicked; RealMaths.FromString("0.0000001192093", out somethingWicked);
-
-			Single num2 = ((value.Normal.X * value.Normal.X) + (value.Normal.Y * value.Normal.Y)) + (value.Normal.Z * value.Normal.Z);
-			if (RealMaths.Abs (num2 - one) < somethingWicked) {
-				result.Normal = value.Normal;
-				result.D = value.D;
-			} else {
-				Single num = one / RealMaths.Sqrt (num2);
-				result.Normal.X = value.Normal.X * num;
-				result.Normal.Y = value.Normal.Y * num;
-				result.Normal.Z = value.Normal.Z * num;
-				result.D = value.D * num;
-			}
-		}
-
-		public static void Transform (ref Plane plane, ref Matrix44 matrix, out Plane result)
-		{
-			Matrix44 matrix2;
-			Matrix44.Invert (ref matrix, out matrix2);
-			Single x = plane.Normal.X;
-			Single y = plane.Normal.Y;
-			Single z = plane.Normal.Z;
-			Single d = plane.D;
-			result.Normal.X = (((x * matrix2.M11) + (y * matrix2.M12)) + (z * matrix2.M13)) + (d * matrix2.M14);
-			result.Normal.Y = (((x * matrix2.M21) + (y * matrix2.M22)) + (z * matrix2.M23)) + (d * matrix2.M24);
-			result.Normal.Z = (((x * matrix2.M31) + (y * matrix2.M32)) + (z * matrix2.M33)) + (d * matrix2.M34);
-			result.D = (((x * matrix2.M41) + (y * matrix2.M42)) + (z * matrix2.M43)) + (d * matrix2.M44);
-		}
-
-
-		public static void Transform (ref Plane plane, ref Quaternion rotation, out Plane result)
-		{
-			Single one = 1;
-
-			Single num15 = rotation.X + rotation.X;
-			Single num5 = rotation.Y + rotation.Y;
-			Single num = rotation.Z + rotation.Z;
-			Single num14 = rotation.W * num15;
-			Single num13 = rotation.W * num5;
-			Single num12 = rotation.W * num;
-			Single num11 = rotation.X * num15;
-			Single num10 = rotation.X * num5;
-			Single num9 = rotation.X * num;
-			Single num8 = rotation.Y * num5;
-			Single num7 = rotation.Y * num;
-			Single num6 = rotation.Z * num;
-			Single num24 = (one - num8) - num6;
-			Single num23 = num10 - num12;
-			Single num22 = num9 + num13;
-			Single num21 = num10 + num12;
-			Single num20 = (one - num11) - num6;
-			Single num19 = num7 - num14;
-			Single num18 = num9 - num13;
-			Single num17 = num7 + num14;
-			Single num16 = (one - num11) - num8;
-			Single x = plane.Normal.X;
-			Single y = plane.Normal.Y;
-			Single z = plane.Normal.Z;
-			result.Normal.X = ((x * num24) + (y * num23)) + (z * num22);
-			result.Normal.Y = ((x * num21) + (y * num20)) + (z * num19);
-			result.Normal.Z = ((x * num18) + (y * num17)) + (z * num16);
-			result.D = plane.D;
-		}
-		
-
-
-		public Single Dot(ref Vector4 value)
-		{
-			return (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + (this.D * value.W);
-		}
-
-		public Single DotCoordinate (ref Vector3 value)
-		{
-			return (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + this.D;
-		}
-
-		public Single DotNormal (ref Vector3 value)
-		{
-			return ((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z);
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingBox box)
-		{
-			Single zero = 0;
-
-			Vector3 vector;
-			Vector3 vector2;
-			vector2.X = (this.Normal.X >= zero) ? box.Min.X : box.Max.X;
-			vector2.Y = (this.Normal.Y >= zero) ? box.Min.Y : box.Max.Y;
-			vector2.Z = (this.Normal.Z >= zero) ? box.Min.Z : box.Max.Z;
-			vector.X = (this.Normal.X >= zero) ? box.Max.X : box.Min.X;
-			vector.Y = (this.Normal.Y >= zero) ? box.Max.Y : box.Min.Y;
-			vector.Z = (this.Normal.Z >= zero) ? box.Max.Z : box.Min.Z;
-			Single num = ((this.Normal.X * vector2.X) + (this.Normal.Y * vector2.Y)) + (this.Normal.Z * vector2.Z);
-			if ((num + this.D) > zero) {
-				return PlaneIntersectionType.Front;
-			} else {
-				num = ((this.Normal.X * vector.X) + (this.Normal.Y * vector.Y)) + (this.Normal.Z * vector.Z);
-				if ((num + this.D) < zero) {
-					return PlaneIntersectionType.Back;
-				} else {
-					return PlaneIntersectionType.Intersecting;
-				}
-			}
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingSphere sphere)
-		{
-			Single num2 = ((sphere.Center.X * this.Normal.X) + (sphere.Center.Y * this.Normal.Y)) + (sphere.Center.Z * this.Normal.Z);
-			Single num = num2 + this.D;
-			if (num > sphere.Radius) {
-				return PlaneIntersectionType.Front;
-			} else if (num < -sphere.Radius) {
-				return PlaneIntersectionType.Back;
-			} else {
-				return PlaneIntersectionType.Intersecting;
-			}
-		}
-
-		public static Boolean operator == (Plane lhs, Plane rhs)
-		{
-			return lhs.Equals (rhs);
-		}
-
-		public static Boolean operator != (Plane lhs, Plane rhs)
-		{
-			if (((lhs.Normal.X == rhs.Normal.X) && (lhs.Normal.Y == rhs.Normal.Y)) && (lhs.Normal.Z == rhs.Normal.Z)) {
-				return !(lhs.D == rhs.D);
-			}
-			return true;
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public struct Quad
-		: IEquatable<Quad>
-	{
-		public Vector3 A
-		{
-			get
-			{
-				return tri1.A;
-			}
-			set
-			{
-				tri1.A = value;
-			}
-		}
-
-		public Vector3 B
-		{
-			get
-			{
-				return tri1.B;
-			}
-			set
-			{
-				tri1.B = value;
-				tri2.B = value;
-			}
-		}
-
-		public Vector3 C
-		{
-			get
-			{
-				return tri2.C;
-			}
-			set
-			{
-				tri1.C = value;
-				tri2.C = value;
-			}
-		}
-
-		public Vector3 D
-		{
-			get
-			{
-				return tri2.A;
-			}
-			set
-			{
-				tri1.A = value;
-				tri2.A = value;
-			}
-		}
-
-		Triangle tri1;
-		Triangle tri2;
-
-		public Quad (Vector3 a, Vector3 b, Vector3 c, Vector3 d)
-		{
-			this.tri1 = new Triangle(a, b, c);
-			this.tri2 = new Triangle(d, b, c);
-		}
-
-		// Determines whether or not this Quad is equal in value to another Quad
-		public Boolean Equals (Quad other)
-		{
-			if (this.A.X != other.A.X) return false;
-			if (this.A.Y != other.A.Y) return false;
-			if (this.A.Z != other.A.Z) return false;
-
-			if (this.B.X != other.B.X) return false;
-			if (this.B.Y != other.B.Y) return false;
-			if (this.B.Z != other.B.Z) return false;
-
-			if (this.C.X != other.C.X) return false;
-			if (this.C.Y != other.C.Y) return false;
-			if (this.C.Z != other.C.Z) return false;
-			
-			if (this.D.X != other.D.X) return false;
-			if (this.D.Y != other.D.Y) return false;
-			if (this.D.Z != other.D.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this Quad is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Quad)
-			{
-				// Ok, it is a Quad, so just use the method above to compare.
-				return this.Equals ((Quad) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode () + this.D.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{A:{0} B:{1} C:{2} D:{3}}}", this.A, this.B, this.C, this.D);
-		}
-
-		public static Boolean operator == (Quad a, Quad b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Quad a, Quad b)
-		{
-			return !a.Equals(b);
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Quaternion 
+	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Single X;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Single Y;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Single Z;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Single W;
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (Single x, Single y, Single z, Single w)
 		{
 			this.X = x;
@@ -8596,6 +10594,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (Vector3 vectorPart, Single scalarPart)
 		{
 			this.X = vectorPart.X;
@@ -8604,43 +10605,42 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = scalarPart;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
 		}
 
-		public Boolean Equals (Quaternion other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-
-			Boolean flag = false;
-			if (obj is Quaternion)
-			{
-				flag = this.Equals ((Quaternion)obj);
-			}
-			return flag;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Single LengthSquared ()
 		{
 			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Single Length ()
 		{
 			Single num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Normalise ()
 		{
 			Single one = 1;
@@ -8652,6 +10652,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W *= num;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Single one = 1;
@@ -8659,6 +10662,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Conjugate ()
 		{
 			this.X = -this.X;
@@ -8666,28 +10672,32 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.Z = -this.Z;
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
+		/// <summary>
+		/// Defines the identity quaternion.
+		/// </summary>
 		static Quaternion identity;
-		
-		public static Quaternion Identity
-		{
-			get
-			{
-				return identity;
-			}
-		}
 
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Quaternion ()
 		{
-			Single temp_one; RealMaths.One(out temp_one);
-			Single temp_zero; RealMaths.Zero(out temp_zero);
-			identity = new Quaternion (temp_zero, temp_zero, temp_zero, temp_one);
+			identity = new Quaternion (0, 0, 0, 1);
 		}
-		
-		#endregion
-		#region Create
 
+		/// <summary>
+		/// Returns the identity Quaternion.
+		/// </summary>
+		public static Quaternion Identity
+		{
+			get { return identity; }
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, Single angle, out Quaternion result)
 		{
 			Single half; RealMaths.Half(out half);
@@ -8702,7 +10712,10 @@ namespace Sungiant.Abacus.SinglePrecision
 
 			result.W = cos;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (Single yaw, Single pitch, Single roll, out Quaternion result)
 		{
 			Single half; RealMaths.Half(out half);
@@ -8726,7 +10739,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
 			result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
 		{
 			Single zero = 0;
@@ -8772,10 +10788,9 @@ namespace Sungiant.Abacus.SinglePrecision
 				result.W = (matrix.M12 - matrix.M21) * num2;
 			}
 		}
-		
-		#endregion
-		#region Maths
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Conjugate (ref Quaternion value, out Quaternion result)
 		{
 			result.X = -value.X;
@@ -8784,246 +10799,435 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = value.W;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Inverse (ref Quaternion quaternion, out Quaternion result)
 		{
 			Single one = 1;
-			Single num2 = ( ( (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) ) + 
-			                (quaternion.Z * quaternion.Z) ) + (quaternion.W * quaternion.W);
+			Single a =
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+			    (quaternion.Z * quaternion.Z) + 
+			    (quaternion.W * quaternion.W);
 
-			Single num = one / num2;
+			Single b = one / a;
 
-			result.X = -quaternion.X * num;
-			result.Y = -quaternion.Y * num;
-			result.Z = -quaternion.Z * num;
-			result.W = quaternion.W * num;
+			result.X = -quaternion.X * b;
+			result.Y = -quaternion.Y * b;
+			result.Z = -quaternion.Z * b;
+			result.W =  quaternion.W * b;
 		}
 		
-		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Single result)
 		{
-			result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + 
-			          (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+			result = 
+				(quaternion1.X * quaternion2.X) + 
+				(quaternion1.Y * quaternion2.Y) + 
+			    (quaternion1.Z * quaternion2.Z) + 
+			    (quaternion1.W * quaternion2.W);
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Concatenate (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
 			Single x = value2.X;
 			Single y = value2.Y;
 			Single z = value2.Z;
 			Single w = value2.W;
-			Single num4 = value1.X;
-			Single num3 = value1.Y;
-			Single num2 = value1.Z;
-			Single num = value1.W;
-			Single num12 = (y * num2) - (z * num3);
-			Single num11 = (z * num4) - (x * num2);
-			Single num10 = (x * num3) - (y * num4);
-			Single num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
+
+			Single a = value1.X;
+			Single b = value1.Y;
+			Single c = value1.Z;
+			Single d = value1.W;
+
+			Single e = (y * c) - (z * b);
+			Single f = (z * a) - (x * c);
+			Single g = (x * b) - (y * a);
+			Single h = ((x * a) + (y * b)) + (z * c);
+
+			result.X = (x * d) + (a * w) + e;
+			result.Y = (y * d) + (b * w) + f;
+			result.Z = (z * d) + (c * w) + g;
+			result.W = (w * d) - h;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Normalise (ref Quaternion quaternion, out Quaternion result)
 		{
 			Single one = 1;
 
-			Single num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-			Single num = one / RealMaths.Sqrt (num2);
-			result.X = quaternion.X * num;
-			result.Y = quaternion.Y * num;
-			result.Z = quaternion.Z * num;
-			result.W = quaternion.W * num;
-		}
-		
-		#endregion
-		#region Operators
+			Single a = 
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+				(quaternion.Z * quaternion.Z) + 
+				(quaternion.W * quaternion.W);
 
-		public static Quaternion operator - (Quaternion quaternion)
+			Single b = one / RealMaths.Sqrt (a);
+
+			result.X = quaternion.X * b;
+			result.Y = quaternion.Y * b;
+			result.Z = quaternion.Z * b;
+			result.W = quaternion.W * b;
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
 		{
-			Quaternion quaternion2;
-			quaternion2.X = -quaternion.X;
-			quaternion2.Y = -quaternion.Y;
-			quaternion2.Z = -quaternion.Z;
-			quaternion2.W = -quaternion.W;
-			return quaternion2;
+			Boolean flag = false;
+			
+			if (obj is Quaternion)
+			{
+				flag = this.Equals ((Quaternion) obj);
+			}
+
+			return flag;
+		}
+
+		#region IEquatable<Quaternion>
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// Quaternion object.
+		/// </summary>
+		public Boolean Equals (Quaternion other)
+		{
+			return 
+				(this.X == other.X) && 
+				(this.Y == other.Y) && 
+				(this.Z == other.Z) && 
+				(this.W == other.W);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Quaternion value1, Quaternion value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
 		}
 		
-		public static Boolean operator == (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Quaternion value1, Quaternion value2)
 		{
-			return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
-		}
-		
-		public static Boolean operator != (Quaternion quaternion1, Quaternion quaternion2)
-		{
-			if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
-				return !(quaternion1.W == quaternion2.W);
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
 			}
 			return true;
 		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects.
+		/// </summary>
+		public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects using the (X+Y) operator. 
+		/// </summary>
+		public static Quaternion operator + (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X + value2.X;
+			quat.Y = value1.Y + value2.Y;
+			quat.Z = value1.Z + value2.Z;
+			quat.W = value1.W + value2.W;
+			return quat;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects.
+		/// </summary>
+		public static void Subtract (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X - value2.X;
+			quat.Y = value1.Y - value2.Y;
+			quat.Z = value1.Z - value2.Z;
+			quat.W = value1.W - value2.W;
+			return quat;
+		}
+
+		// Negation Operators //----------------------------------------------//
 		
-		public static Quaternion operator + (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs negation of a Quaternion object.
+		/// </summary>
+		public static void Negate (ref Quaternion value, out Quaternion result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Quaternion object using the (-X) operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value)
+		{
+			Quaternion quat;
+			quat.X = -value.X;
+			quat.Y = -value.Y;
+			quat.Z = -value.Z;
+			quat.W = -value.W;
+			return quat;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			Single x1 = value1.X;
+			Single y1 = value1.Y;
+			Single z1 = value1.Z;
+			Single w1 = value1.W;
+
+			Single x2 = value2.X;
+			Single y2 = value2.Y;
+			Single z2 = value2.Z;
+			Single w2 = value2.W;
+
+			Single a = (y1 * z2) - (z1 * y2);
+			Single b = (z1 * x2) - (x1 * z2);
+			Single c = (x1 * y2) - (y1 * x2);
+			Single d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			result.X = ((x1 * w2) + (x2 * w1)) + a;
+			result.Y = ((y1 * w2) + (y2 * w1)) + b;
+			result.Z = ((z1 * w2) + (z2 * w1)) + c;
+			result.W = (w1 * w2) - d;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Single
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, Single scaleFactor, out Quaternion result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Quaternion value2)
 		{
 			Quaternion quaternion;
-			quaternion.X = quaternion1.X + quaternion2.X;
-			quaternion.Y = quaternion1.Y + quaternion2.Y;
-			quaternion.Z = quaternion1.Z + quaternion2.Z;
-			quaternion.W = quaternion1.W + quaternion2.W;
+			
+			Single x1 = value1.X;
+			Single y1 = value1.Y;
+			Single z1 = value1.Z;
+			Single w1 = value1.W;
+
+			Single x2 = value2.X;
+			Single y2 = value2.Y;
+			Single z2 = value2.Z;
+			Single w2 = value2.W;
+
+			Single a = (y1 * z2) - (z1 * y2);
+			Single b = (z1 * x2) - (x1 * z2);
+			Single c = (x1 * y2) - (y1 * x2);
+			Single d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			quaternion.X = ((x1 * w2) + (x2 * w1)) + a;
+			quaternion.Y = ((y1 * w2) + (y2 * w1)) + b;
+			quaternion.Z = ((z1 * w2) + (z2 * w1)) + c;
+			quaternion.W = (w1 * w2) - d;
+
 			return quaternion;
 		}
 		
-		public static Quaternion operator - (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Single
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Single scaleFactor)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X - quaternion2.X;
-			quaternion.Y = quaternion1.Y - quaternion2.Y;
-			quaternion.Z = quaternion1.Z - quaternion2.Z;
-			quaternion.W = quaternion1.W - quaternion2.W;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
-		public static Quaternion operator * (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aQuaternion object using the (x*Y) operator.
+		/// </summary>
+		public static Quaternion operator * (Single scaleFactor, Quaternion value1)
 		{
-			Quaternion quaternion;
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num4 = quaternion2.X;
-			Single num3 = quaternion2.Y;
-			Single num2 = quaternion2.Z;
-			Single num = quaternion2.W;
-			Single num12 = (y * num2) - (z * num3);
-			Single num11 = (z * num4) - (x * num2);
-			Single num10 = (x * num3) - (y * num4);
-			Single num9 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num12;
-			quaternion.Y = ((y * num) + (num3 * w)) + num11;
-			quaternion.Z = ((z * num) + (num2 * w)) + num10;
-			quaternion.W = (w * num) - num9;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
-		public static Quaternion operator * (Quaternion quaternion1, Single scaleFactor)
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Quaternion objects.
+		/// </summary>
+		public static void Divide (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X * scaleFactor;
-			quaternion.Y = quaternion1.Y * scaleFactor;
-			quaternion.Z = quaternion1.Z * scaleFactor;
-			quaternion.W = quaternion1.W * scaleFactor;
-			return quaternion;
+			Single one = 1;
+
+			Single x = value1.X;
+			Single y = value1.Y;
+			Single z = value1.Z;
+			Single w = value1.W;
+
+			Single a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Single b = one / a;
+
+			Single c = -value2.X * b;
+			Single d = -value2.Y * b;
+			Single e = -value2.Z * b;
+			Single f = value2.W * b;
+
+			Single g = (y * e) - (z * d);
+			Single h = (z * c) - (x * e);
+			Single i = (x * d) - (y * c);
+			Single j = ((x * c) + (y * d)) + (z * e);
+
+			result.X = ((x * f) + (c * w)) + g;
+			result.Y = ((y * f) + (d * w)) + h;
+			result.Z = ((z * f) + (e * w)) + i;
+			result.W = (w * f) - j;
 		}
-		
-		public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
+
+		/// <summary>
+		/// Performs division of a Quaternion object and a Single precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Quaternion value1, Single divider, out Quaternion result)
+		{
+			Single one = 1;
+			Single a = one / divider;
+
+			result.X = value1.X * a;
+			result.Y = value1.Y * a;
+			result.Z = value1.Z * a;
+			result.W = value1.W * a;
+		}
+
+		/// <summary>
+		/// Performs division of two Quaternion objects using the (X/Y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Quaternion value2)
 		{
 			Single one = 1;
 
 			Quaternion quaternion;
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Single num5 = one / num14;
-			Single num4 = -quaternion2.X * num5;
-			Single num3 = -quaternion2.Y * num5;
-			Single num2 = -quaternion2.Z * num5;
-			Single num = quaternion2.W * num5;
-			Single num13 = (y * num2) - (z * num3);
-			Single num12 = (z * num4) - (x * num2);
-			Single num11 = (x * num3) - (y * num4);
-			Single num10 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num13;
-			quaternion.Y = ((y * num) + (num3 * w)) + num12;
-			quaternion.Z = ((z * num) + (num2 * w)) + num11;
-			quaternion.W = (w * num) - num10;
+
+			Single x = value1.X;
+			Single y = value1.Y;
+			Single z = value1.Z;
+			Single w = value1.W;
+
+			Single a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Single b = one / a;
+
+			Single c = -value2.X * b;
+			Single d = -value2.Y * b;
+			Single e = -value2.Z * b;
+			Single f =  value2.W * b;
+
+			Single g = (y * e) - (z * d);
+			Single h = (z * c) - (x * e);
+			Single i = (x * d) - (y * c);
+			Single j = (x * c) + (y * d) + (z * e);
+
+			quaternion.X = (x * f) + (c * w) + g;
+			quaternion.Y = (y * f) + (d * w) + h;
+			quaternion.Z = (z * f) + (e * w) + i;
+			quaternion.W = (w * f) - j;
+
 			return quaternion;
 		}
-
-
-
 		
-		public static void Negate (ref Quaternion quaternion, out Quaternion result)
-		{
-			result.X = -quaternion.X;
-			result.Y = -quaternion.Y;
-			result.Z = -quaternion.Z;
-			result.W = -quaternion.W;
-		}
-
-		public static void Add (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X + quaternion2.X;
-			result.Y = quaternion1.Y + quaternion2.Y;
-			result.Z = quaternion1.Z + quaternion2.Z;
-			result.W = quaternion1.W + quaternion2.W;
-		}
-		
-		public static void Subtract (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X - quaternion2.X;
-			result.Y = quaternion1.Y - quaternion2.Y;
-			result.Z = quaternion1.Z - quaternion2.Z;
-			result.W = quaternion1.W - quaternion2.W;
-		}
-
-		public static void Multiply (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num4 = quaternion2.X;
-			Single num3 = quaternion2.Y;
-			Single num2 = quaternion2.Z;
-			Single num = quaternion2.W;
-			Single num12 = (y * num2) - (z * num3);
-			Single num11 = (z * num4) - (x * num2);
-			Single num10 = (x * num3) - (y * num4);
-			Single num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
-		}
-
-		public static void Multiply (ref Quaternion quaternion1, Single scaleFactor, out Quaternion result)
-		{
-			result.X = quaternion1.X * scaleFactor;
-			result.Y = quaternion1.Y * scaleFactor;
-			result.Z = quaternion1.Z * scaleFactor;
-			result.W = quaternion1.W * scaleFactor;
-		}
-		
-		public static void Divide (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+		/// <summary>
+		/// Performs division of a Quaternion object and a Single precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Single divider)
 		{
 			Single one = 1;
 
-			Single x = quaternion1.X;
-			Single y = quaternion1.Y;
-			Single z = quaternion1.Z;
-			Single w = quaternion1.W;
-			Single num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Single num5 = one / num14;
-			Single num4 = -quaternion2.X * num5;
-			Single num3 = -quaternion2.Y * num5;
-			Single num2 = -quaternion2.Z * num5;
-			Single num = quaternion2.W * num5;
-			Single num13 = (y * num2) - (z * num3);
-			Single num12 = (z * num4) - (x * num2);
-			Single num11 = (x * num3) - (y * num4);
-			Single num10 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num13;
-			result.Y = ((y * num) + (num3 * w)) + num12;
-			result.Z = ((z * num) + (num2 * w)) + num11;
-			result.W = (w * num) - num10;
-		}
-		
-		#endregion
-		#region Utilities
+			Quaternion quat;
 
+			Single num = one / divider;
+
+			quat.X = value1.X * num;
+			quat.Y = value1.Y * num;
+			quat.Z = value1.Z * num;
+			quat.W = value1.W * num;
+
+			return quat;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Single amount, out Quaternion result)
 		{
 			Single zero = 0;
@@ -9058,6 +11262,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Single amount, out Quaternion result)
 		{
 			Single zero = 0;
@@ -9084,778 +11291,308 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z *= num3;
 			result.W *= num3;
 		}
-		
-		#endregion
 
-	}	[StructLayout (LayoutKind.Sequential)]
-	public struct Ray 
-		: IEquatable<Ray>
-	{
-		// The starting position of this ray
-		public Vector3 Position;
-		
-		// Normalised vector that defines the direction of this ray
-		public Vector3 Direction;
-
-		public Ray (Vector3 position, Vector3 direction)
-		{
-			this.Position = position;
-			this.Direction = direction;
-		}
-
-		// Determines whether or not this ray is equal in value to another ray
-		public Boolean Equals (Ray other)
-		{
-			// Check position
-			if (this.Position.X != other.Position.X) return false;
-			if (this.Position.Y != other.Position.Y) return false;
-			if (this.Position.Z != other.Position.Z) return false;
-
-			// Check direction
-			if (this.Direction.X != other.Direction.X) return false;
-			if (this.Direction.Y != other.Direction.Y) return false;
-			if (this.Direction.Z != other.Direction.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this ray is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Ray)
-			{
-				// Ok, it is a Ray, so just use the method above to compare.
-				return this.Equals ((Ray) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Position.GetHashCode () + this.Direction.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Position:{0} Direction:{1}}}", this.Position, this.Direction);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given box.  Returns null if there is no
-		// intersection.
-		public Single? Intersects (ref BoundingBox box)
-		{
-			return box.Intersects (ref this);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given frustum.  Returns null if there is no
-		// intersection.
-		public Single? Intersects (ref BoundingFrustum frustum)
-		{
-			if (frustum == null)
-			{
-				throw new ArgumentNullException ();
-			}
-
-			return frustum.Intersects (ref this);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given plane.  Returns null if there is no
-		// intersection.
-		public Single? Intersects (ref Plane plane)
-		{
-			Single zero = 0;
-
-			Single nearZero; RealMaths.FromString("0.00001", out nearZero);
-
-			Single num2 = ((plane.Normal.X * this.Direction.X) + (plane.Normal.Y * this.Direction.Y)) + (plane.Normal.Z * this.Direction.Z);
-			
-			if (RealMaths.Abs (num2) < nearZero)
-			{
-				return null;
-			}
-			
-			Single num3 = ((plane.Normal.X * this.Position.X) + (plane.Normal.Y * this.Position.Y)) + (plane.Normal.Z * this.Position.Z);
-
-			Single num = (-plane.D - num3) / num2;
-			
-			if (num < zero)
-			{
-				if (num < -nearZero)
-				{
-					return null;
-				}
-
-				num = zero;
-			}
-
-			return new Single? (num);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given sphere.  Returns null if there is no
-		// intersection.
-		public Single? Intersects (ref BoundingSphere sphere)
-		{
-			Single zero = 0;
-
-			Single initialXOffset = sphere.Center.X - this.Position.X;
-
-			Single initialYOffset = sphere.Center.Y - this.Position.Y;
-			
-			Single initialZOffset = sphere.Center.Z - this.Position.Z;
-			
-			Single num7 = ((initialXOffset * initialXOffset) + (initialYOffset * initialYOffset)) + (initialZOffset * initialZOffset);
-
-			Single num2 = sphere.Radius * sphere.Radius;
-
-			if (num7 <= num2)
-			{
-				return zero;
-			}
-
-			Single num = ((initialXOffset * this.Direction.X) + (initialYOffset * this.Direction.Y)) + (initialZOffset * this.Direction.Z);
-			if (num < zero)
-			{
-				return null;
-			}
-			
-			Single num6 = num7 - (num * num);
-			if (num6 > num2)
-			{
-				return null;
-			}
-			
-			Single num8 = RealMaths.Sqrt ((num2 - num6));
-
-			return new Single? (num - num8);
-		}
-
-		public static Boolean operator == (Ray a, Ray b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Ray a, Ray b)
-		{
-			return !a.Equals(b);
-		}
-	}
+	}	/// <summary>
+	/// Single precision Vector2.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct Triangle
-		: IEquatable<Triangle>
-	{
-		public Vector3 A;
-		public Vector3 B;
-		public Vector3 C;
-
-		public Triangle (Vector3 a, Vector3 b, Vector3 c)
-		{
-			this.A = a;
-			this.B = b;
-			this.C = c;
-		}
-
-		// Determines whether or not this Triangle is equal in value to another Triangle
-		public Boolean Equals (Triangle other)
-		{
-			if (this.A.X != other.A.X) return false;
-			if (this.A.Y != other.A.Y) return false;
-			if (this.A.Z != other.A.Z) return false;
-
-			if (this.B.X != other.B.X) return false;
-			if (this.B.Y != other.B.Y) return false;
-			if (this.B.Z != other.B.Z) return false;
-
-			if (this.C.X != other.C.X) return false;
-			if (this.C.Y != other.C.Y) return false;
-			if (this.C.Z != other.C.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this Triangle is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Triangle)
-			{
-				// Ok, it is a Triangle, so just use the method above to compare.
-				return this.Equals ((Triangle) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{A:{0} B:{1} C:{2}}}", this.A, this.B, this.C);
-		}
-
-		public static Boolean operator == (Triangle a, Triangle b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Triangle a, Triangle b)
-		{
-			return !a.Equals(b);
-		}
-
-		public static Boolean IsPointInTriangleangle( ref Vector3 point, ref Triangle triangle )
-		{
-			Vector3 aToB = triangle.B - triangle.A;
-			Vector3 bToC = triangle.C - triangle.B;
-
-			Vector3 n; Vector3.Cross(ref aToB, ref bToC, out n);
-
-			Vector3 aToPoint = point - triangle.A;
-
-			Vector3 wTest; Vector3.Cross(ref aToB, ref aToPoint, out wTest);
-
-			Single zero = 0;
-
-			Single dot; Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			Vector3 bToPoint = point - triangle.B;
-
-			Vector3.Cross(ref bToC, ref bToPoint, out wTest);
-
-			Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			Vector3 cToA = triangle.A - triangle.C;
-
-			Vector3 cToPoint = point - triangle.C;
-
-			Vector3.Cross(ref cToA, ref cToPoint, out wTest);
-
-			Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			return true;
-		}
-
-		// Determines whether or not a triangle is degenerate ( all points lay on the same line in space ).
-		public Boolean IsDegenerate()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		// Get's the Barycentric coordinates of a point inside a Triangle.
-		public static void BarycentricCoordinates( ref Vector3 point, ref Triangle triangle, out Vector3 barycentricCoordinates )
-		{
-			if( triangle.IsDegenerate() )
-			{
-				throw new System.ArgumentException("Input Triangle is degenerate, this is not supported.");
-			}
-
-			Vector3 aToB = triangle.B - triangle.A;
-			Vector3 aToC = triangle.C - triangle.A;
-			Vector3 aToPoint = point - triangle.A;
-
-			// compute cross product to get area of parallelograms
-			Vector3 cross1; Vector3.Cross(ref aToB, ref aToPoint, out cross1);
-			Vector3 cross2; Vector3.Cross(ref aToC, ref aToPoint, out cross2);
-			Vector3 cross3; Vector3.Cross(ref aToB, ref aToC, out cross3);
-	
-			// compute barycentric coordinates as ratios of areas
-
-			Single one = 1;
-
-			Single denom = one / cross3.Length();
-			barycentricCoordinates.X = cross2.Length() * denom;
-			barycentricCoordinates.Y = cross1.Length() * denom;
-			barycentricCoordinates.Z = one - barycentricCoordinates.X - barycentricCoordinates.Y;
-		}
-		/*
-
-		// Triangleangle Intersect
-		// ------------------
-		// Returns true if triangles P0P1P2 and Q0Q1Q2 intersect
-		// Assumes triangle is not degenerate
-		//
-		// This is not the algorithm presented in the text.  Instead, it is based on a 
-		// recent article by Guigue and Devillers in the July 2003 issue Journal of 
-		// Graphics Tools.  As it is faster than the ERIT algorithm, under ordinary 
-		// circumstances it would have been discussed in the text, but it arrived too late.  
-		//
-		// More information and the original source code can be found at
-		// http://www.acm.org/jgt/papers/GuigueDevillers03/
-		//
-		// A nearly identical algorithm was in the same issue of JGT, by Shen Heng and 
-		// Tang.  See http://www.acm.org/jgt/papers/ShenHengTang03/ for source code.
-		//
-		// Yes, this is complicated.  Did you think testing triangles would be easy?
-		//
-		static Boolean TriangleangleIntersect( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
-		{
-			// test P against Q's plane
-			Vector3 normalQ = Vector3.Cross( Q1 - Q0, Q2 - Q0 );
-
-			Single testP0 = Vector3.Dot( normalQ, P0 - Q0 );
-			Single testP1 = Vector3.Dot( normalQ, P1 - Q0 );
-			Single testP2 = Vector3.Dot( normalQ, P2 - Q0 );
-  
-			// P doesn't intersect Q's plane
-			if ( testP0 * testP1 > AbacusHelper.Epsilon && testP0*testP2 > AbacusHelper.Epsilon )
-				return false;
-
-			// test Q against P's plane
-			Vector3 normalP = Vector3.Cross( P1 - P0, P2 - P0 );
-
-			Single testQ0 = Vector3.Dot( normalP, Q0 - P0 );
-			Single testQ1 = Vector3.Dot( normalP, Q1 - P0 );
-			Single testQ2 = Vector3.Dot( normalP, Q2 - P0 );
-  
-			// Q doesn't intersect P's plane
-			if (testQ0*testQ1 > AbacusHelper.Epsilon && testQ0*testQ2 > AbacusHelper.Epsilon )
-				return false;
-	
-			// now we rearrange P's vertices such that the lone vertex (the one that lies
-			// in its own half-space of Q) is first.  We also permute the other
-			// triangle's vertices so that P0 will "see" them in counterclockwise order
-
-			// Once reordered, we pass the vertices down to a helper function which will
-			// reorder Q's vertices, and then test
-
-			// P0 in Q's positive half-space
-			if (testP0 > AbacusHelper.Epsilon) 
-			{
-				// P1 in Q's positive half-space (so P2 is lone vertex)
-				if (testP1 > AbacusHelper.Epsilon) 
-					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-				// P2 in Q's positive half-space (so P1 is lone vertex)
-				else if (testP2 > AbacusHelper.Epsilon) 
-					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);	
-				// P0 is lone vertex
-				else 
-					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-			} 
-			// P0 in Q's negative half-space
-			else if (testP0 < -AbacusHelper.Epsilon) 
-			{
-				// P1 in Q's negative half-space (so P2 is lone vertex)
-				if (testP1 < -AbacusHelper.Epsilon) 
-					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				// P2 in Q's negative half-space (so P1 is lone vertex)
-				else if (testP2 < -AbacusHelper.Epsilon) 
-					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				// P0 is lone vertex
-				else 
-					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-			} 
-			// P0 on Q's plane
-			else 
-			{
-				// P1 in Q's negative half-space 
-				if (testP1 < -AbacusHelper.Epsilon) 
-				{
-					// P2 in Q's negative half-space (P0 is lone vertex)
-					if (testP2 < -AbacusHelper.Epsilon) 
-						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-					// P2 in positive half-space or on plane (P1 is lone vertex)
-					else 
-						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-				}
-				// P1 in Q's positive half-space 
-				else if (testP1 > AbacusHelper.Epsilon) 
-				{
-					// P2 in Q's positive half-space (P0 is lone vertex)
-					if (testP2 > AbacusHelper.Epsilon) 
-						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-					// P2 in negative half-space or on plane (P1 is lone vertex)
-					else 
-						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				}
-				// P1 lies on Q's plane too
-				else  
-				{
-					// P2 in Q's positive half-space (P2 is lone vertex)
-					if (testP2 > AbacusHelper.Epsilon) 
-						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-					// P2 in Q's negative half-space (P2 is lone vertex)
-					// note different ordering for Q vertices
-					else if (testP2 < -AbacusHelper.Epsilon) 
-						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-					// all three points lie on Q's plane, default to 2D test
-					else 
-						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
-				}
-			}
-		}
-
-
-
-		// Adjust Q
-		// --------
-		// Helper for TriangleangleIntersect()
-		//
-		// Now we rearrange Q's vertices such that the lone vertex (the one that lies
-		// in its own half-space of P) is first.  We also permute the other
-		// triangle's vertices so that Q0 will "see" them in counterclockwise order
-		//
-		// Once reordered, we pass the vertices down to a helper function which will
-		// actually test for intersection on the common line between the two planes
-		//
-		static Boolean AdjustQ( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2,
-			Single testQ0, Single testQ1, Single testQ2,
-			ref Vector3 normalP )
-		{
-
-			// Q0 in P's positive half-space
-			if (testQ0 > AbacusHelper.Epsilon) 
-			{ 
-				// Q1 in P's positive half-space (so Q2 is lone vertex)
-				if (testQ1 > AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
-				// Q2 in P's positive half-space (so Q1 is lone vertex)
-				else if (testQ2 > AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
-				// Q0 is lone vertex
-				else 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
-			}
-			// Q0 in P's negative half-space
-			else if (testQ0 < -AbacusHelper.Epsilon) 
-			{ 
-				// Q1 in P's negative half-space (so Q2 is lone vertex)
-				if (testQ1 < -AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
-				// Q2 in P's negative half-space (so Q1 is lone vertex)
-				else if (testQ2 < -AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
-				// Q0 is lone vertex
-				else 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
-			}
-			// Q0 on P's plane
-			else 
-			{ 
-				// Q1 in P's negative half-space 
-				if (testQ1 < -AbacusHelper.Epsilon) 
-				{ 
-					// Q2 in P's negative half-space (Q0 is lone vertex)
-					if (testQ2 < -AbacusHelper.Epsilon)  
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
-					// Q2 in positive half-space or on plane (P1 is lone vertex)
-					else 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
-				}
-				// Q1 in P's positive half-space 
-				else if (testQ1 > AbacusHelper.Epsilon) 
-				{ 
-					// Q2 in P's positive half-space (Q0 is lone vertex)
-					if (testQ2 > AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
-					// Q2 in negative half-space or on plane (P1 is lone vertex)
-					else  
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
-				}
-				// Q1 lies on P's plane too
-				else 
-				{
-					// Q2 in P's positive half-space (Q2 is lone vertex)
-					if (testQ2 > AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
-					// Q2 in P's negative half-space (Q2 is lone vertex)
-					// note different ordering for Q vertices
-					else if (testQ2 < -AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
-					// all three points lie on P's plane, default to 2D test
-					else 
-						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
-				}
-			}
-		}
-
-
-
-		// Test Line Overlap
-		// -----------------
-		// Helper for TriangleangleIntersect()
-		//
-		// This tests whether the rearranged triangles overlap, by checking the intervals
-		// where their edges cross the common line between the two planes.  If the 
-		// interval for P is [i,j] and Q is [k,l], then there is intersection if the
-		// intervals overlap.  Previous algorithms computed these intervals directly, 
-		// this tests implictly by using two "plane tests."
-		//
-		static Boolean TestLineOverlap( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
-		{
-			// get "plane normal"
-			Vector3 normal = Vector3.Cross( P1 - P0, Q0 - P0);
-
-			// fails test, no intersection
-			if ( Vector3.Dot(normal, Q1 - P0 ) > AbacusHelper.Epsilon )
-				return false;
-  
-			// get "plane normal"
-			normal = Vector3.Cross( P2 - P0, Q2 - P0 );
-
-			// fails test, no intersection
-			if ( Vector3.Dot( normal, Q0 - P0 ) > AbacusHelper.Epsilon )
-				return false;
-
-			// intersection!
-			return true;
-		}
-
-
-
-		// Coplanar Triangleangle Intersect
-		// ---------------------------
-		// Helper for TriangleangleIntersect()
-		//
-		// This projects the two triangles down to 2D, maintaining the largest area by
-		// dropping the dimension where the normal points the farthest.
-		//
-		static Boolean CoplanarTriangleangleIntersect( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2, 
-			ref Vector3 planeNormal )
-		{
-			Vector3 absNormal = new Vector3( 
-				System.Math.Abs(planeNormal.X), 
-				System.Math.Abs(planeNormal.Y), 
-				System.Math.Abs(planeNormal.Z) );
-
-			Vector2 projP0, projP1, projP2;
-			Vector2 projQ0, projQ1, projQ2;
-
-			// if x is direction of largest magnitude
-			if ( absNormal.X > absNormal.Y && absNormal.X >= absNormal.Z )
-			{
-				projP0 = new Vector2( P0.Y, P0.Z );
-				projP1 = new Vector2( P1.Y, P1.Z );
-				projP2 = new Vector2( P2.Y, P2.Z );
-				projQ0 = new Vector2( Q0.Y, Q0.Z );
-				projQ1 = new Vector2( Q1.Y, Q1.Z );
-				projQ2 = new Vector2( Q2.Y, Q2.Z );
-			}
-			// if y is direction of largest magnitude
-			else if ( absNormal.Y > absNormal.X && absNormal.Y >= absNormal.Z )
-			{
-				projP0 = new Vector2( P0.X, P0.Z );
-				projP1 = new Vector2( P1.X, P1.Z );
-				projP2 = new Vector2( P2.X, P2.Z );
-				projQ0 = new Vector2( Q0.X, Q0.Z );
-				projQ1 = new Vector2( Q1.X, Q1.Z );
-				projQ2 = new Vector2( Q2.X, Q2.Z );
-			}
-			// z is the direction of largest magnitude
-			else
-			{
-				projP0 = new Vector2( P0.X, P0.Y );
-				projP1 = new Vector2( P1.X, P1.Y );
-				projP2 = new Vector2( P2.X, P2.Y );
-				projQ0 = new Vector2( Q0.X, Q0.Y );
-				projQ1 = new Vector2( Q1.X, Q1.Y );
-				projQ2 = new Vector2( Q2.X, Q2.Y );
-			}
-
-			return TriangleangleIntersect( ref projP0, ref projP1, ref projP2, ref projQ0, ref projQ1, ref projQ2 );
-		}
-
-
-
-		// Triangleangle Intersect
-		// ------------------
-		// Returns true if ray intersects triangle.
-		//
-		static Boolean TriangleangleIntersect( 
-			ref Single t, //perhaps this should be out 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Ray ray )
-		{
-			// test ray direction against triangle
-			Vector3 e1 = P1 - P0;
-			Vector3 e2 = P2 - P0;
-			Vector3 p = Vector3.Cross( ray.Direction, e2 );
-			Single a = Vector3.Dot( e1, p );
-
-			// if result zero, no intersection or infinite intersections
-			// (ray parallel to triangle plane)
-			if ( AbacusHelper.IsZero(a) )
-				return false;
-
-			// compute denominator
-			Single f = 1.0f/a;
-
-			// compute barycentric coordinates
-			Vector3 s = ray.Position - P0;
-			Single u = f * Vector3.Dot( s, p );
-
-			// ray falls outside triangle
-			if (u < 0.0f || u > 1.0f) 
-				return false;
-
-			Vector3 q = Vector3.Cross( s, e1 );
-			Single v = f * Vector3.Dot( ray.Direction, q );
-
-			// ray falls outside triangle
-			if (v < 0.0f || u+v > 1.0f) 
-				return false;
-
-			// compute line parameter
-			t = f * Vector3.Dot( e2, q );
-
-			return (t >= 0.0f);
-		}
-
-		
-		//
-		// @ TriangleangleClassify()
-		// Returns signed distance between plane and triangle
-		//
-		static Single TriangleangleClassify( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Plane plane )
-		{
-			Single test0 = plane.Test( P0 );
-			Single test1 = plane.Test( P1 );
-
-			// if two points lie on opposite sides of plane, intersect
-			if (test0*test1 < 0.0f)
-				return 0.0f;
-
-			Single test2 = plane.Test( P2 );
-
-			// if two points lie on opposite sides of plane, intersect
-			if (test0*test2 < 0.0f)
-				return 0.0f;
-			if (test1*test2 < 0.0f)
-				return 0.0f;
-
-			// no intersection, return signed distance
-			if ( test0 < 0.0f )
-			{
-				if ( test0 < test1 )
-				{
-					if ( test1 < test2 )
-						return test2;
-					else
-						return test1;
-				}
-				else if (test0 < test2)
-				{
-					return test2;
-				}
-				else
-				{   
-					return test0;
-				}
-			}
-			else
-			{
-				if ( test0 > test1 )
-				{
-					if ( test1 > test2 )
-						return test2;
-					else
-						return test1;
-				}
-				else if (test0 > test2)
-				{
-					return test2;
-				}
-				else
-				{   
-					return test0;
-				}
-			}
-		}
-
-		*/
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector2
+	public struct Vector2
 		: IEquatable<Vector2>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector2.
+		/// </summary>
 		public Single X;
-		public Single Y;
-		
-		public Vector2 (Int32 x, Int32 y)
-		{
-			this.X = (Single) x;
-			this.Y = (Single) y;
-		}
 
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector2.
+		/// </summary>
+		public Single Y;
+
+		/// <summary>
+		/// Initilises a new instance of Vector2 from two Single values 
+		/// representing X and Y respectively.
+		/// </summary>
 		public Vector2 (Single x, Single y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public void Set (Single x, Single y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
-
-		public Vector2 (Single value)
-		{
-			this.X = this.Y = value;
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector2.
+		/// </summary>
 		public Single Length ()
 		{
 			Single num = (this.X * this.X) + (this.Y * this.Y);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector2 squared.
+		/// </summary>
 		public Single LengthSquared ()
 		{
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
-		public void Normalise ()
-		{
-			Single num2 = (this.X * this.X) + (this.Y * this.Y);
-
-			Single one = 1;
-			Single num = one / (RealMaths.Sqrt (num2));
-			this.X *= num;
-			this.Y *= num;
-		}
-
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector2 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (this.X.GetHashCode () + this.Y.GetHashCode ());
+		}
+
+		/// <summary>
+		/// Detemines whether or not the Vector2 is of unit length.
+		/// </summary>
+		public Boolean IsUnit()
+		{
+			Single one = 1;
+			return RealMaths.IsZero(one - X*X - Y*Y);
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		readonly static Vector2 zero;
+
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		readonly static Vector2 one;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the X-axis.
+		/// </summary>
+		readonly static Vector2 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Y-axis.
+		/// </summary>
+		readonly static Vector2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Vector2 ()
+		{
+			zero = 		new Vector2 ();
+			one = 		new Vector2 (1, 1);
+
+			unitX = 	new Vector2 (1, 0);
+			unitY = 	new Vector2 (0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to zero.
+		/// </summary>
+		public static Vector2 Zero
+		{
+			get { return zero; }
+		}
+		
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to one.
+		/// </summary>
+		public static Vector2 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the X-axis.
+		/// </summary>
+		public static Vector2 UnitX
+		{
+			get { return unitX; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Y-axis.
+		/// </summary>
+		public static Vector2 UnitY
+		{
+			get { return unitY; }
+		}
+
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
+		public static void Distance (
+			ref Vector2 value1, ref Vector2 value2, out Single result)
+		{
+			Single a = value1.X - value2.X;
+			Single b = value1.Y - value2.Y;
+			
+			Single c = (a * a) + (b * b);
+
+			result = RealMaths.Sqrt (c);
+		}
+
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
+		public static void DistanceSquared (
+			ref Vector2 value1, ref Vector2 value2, out Single result)
+		{
+			Single a = value1.X - value2.X;
+			Single b = value1.Y - value2.Y;
+			
+			result = (a * a) + (b * b);
+		}
+
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
+		public static void Dot (
+			ref Vector2 value1, ref Vector2 value2, out Single result)
+		{
+			result = (value1.X * value2.X) + (value1.Y * value2.Y);
+		}
+
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
+		public static void Normalise (ref Vector2 value, out Vector2 result)
+		{
+			Single lengthSquared = 
+				(value.X * value.X) + (value.Y * value.Y);
+
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			if( lengthSquared <= epsilon || 
+				Single.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Single one = 1;
+			Single multiplier = one / RealMaths.Sqrt (lengthSquared);
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+
+		}
+
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
+		public static void Reflect (
+			ref Vector2 vector, ref Vector2 normal, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			// dot = vector . normal 
+			//     = |vector| * [normal] * cosθ
+			//     = |vector| * cosθ
+			//     = adjacent
+			Single dot;
+			Dot(ref vector, ref normal, out dot);
+
+			Single twoDot = dot * 2;
+
+			// Starting vector minus twice the length of the adjcent projected 
+			// along the normal.
+			result = vector - (twoDot * normal);
+		}
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
+		{
+			Single a = 
+				((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+				matrix.M41;
+
+			Single b = 
+				((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+				matrix.M42;
+			
+			result.X = a;
+			result.Y = b;
+		}
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+		{
+			Single one = 1;
+
+			Single a = rotation.X + rotation.X;
+			Single b = rotation.Y + rotation.Y;
+			Single c = rotation.Z + rotation.Z;
+			Single d = rotation.W * c;
+			Single e = rotation.X * a;
+			Single f = rotation.X * b;
+			Single g = rotation.Y * b;
+			Single h = rotation.Z * c;
+			Single i = (value.X * ((one - g) - h)) + (value.Y * (f - d));
+			Single j = (value.X * (f + d)) + (value.Y * ((one - e) - h));
+
+			result.X = i;
+			result.Y = j;
+		}
+		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix.
+		/// </summary>
+		public static void TransformNormal (
+			ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Single a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+			Single b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+			
+			result.X = a;
+			result.Y = b;
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// object.
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -9864,166 +11601,33 @@ namespace Sungiant.Abacus.SinglePrecision
 			}
 			return flag;
 		}
-		
-		public override Int32 GetHashCode ()
-		{
-			return (this.X.GetHashCode () + this.Y.GetHashCode ());
-		}
-
-		public Boolean IsUnit()
-		{
-			Single one = 1;
-
-			return RealMaths.IsZero(one - X*X - Y*Y);
-		}
 
 		#region IEquatable<Vector2>
+
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// Vector2 object.
+		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
 			return ((this.X == other.X) && (this.Y == other.Y));
 		}
+
 		#endregion
 
-		#region Constants
-
-		static Vector2 zero;
-		static Vector2 one;
-		static Vector2 unitX;
-		static Vector2 unitY;
-
-		static Vector2 ()
-		{
-			Single temp_one; RealMaths.One(out temp_one);
-			Single temp_zero; RealMaths.Zero(out temp_zero);
-
-			zero = new Vector2 ();
-			one = new Vector2 (temp_one, temp_one);
-			unitX = new Vector2 (temp_one, temp_zero);
-			unitY = new Vector2 (temp_zero, temp_one);
-		}
-
-		public static Vector2 Zero
-		{
-			get { return zero; }
-		}
-		
-		public static Vector2 One
-		{
-			get { return one; }
-		}
-		
-		public static Vector2 UnitX
-		{
-			get { return unitX; }
-		}
-		
-		public static Vector2 UnitY
-		{
-			get { return unitY; }
-		}
-		
-		#endregion
-		#region Maths
-
-		public static void Distance (ref Vector2 value1, ref Vector2 value2, out Single result)
-		{
-			Single num2 = value1.X - value2.X;
-			Single num = value1.Y - value2.Y;
-			Single num3 = (num2 * num2) + (num * num);
-			result = RealMaths.Sqrt (num3);
-		}
-
-		public static void DistanceSquared (ref Vector2 value1, ref Vector2 value2, out Single result)
-		{
-			Single num2 = value1.X - value2.X;
-			Single num = value1.Y - value2.Y;
-			result = (num2 * num2) + (num * num);
-		}
-
-		public static void Dot (ref Vector2 value1, ref Vector2 value2, out Single result)
-		{
-			result = (value1.X * value2.X) + (value1.Y * value2.Y);
-		}
-
-		public static void PerpDot (ref Vector2 value1, ref Vector2 value2, out Single result)
-		{
-			result = (value1.X * value2.Y - value1.Y * value2.X);
-		}
-
-		public static void Perpendicular (ref Vector2 value, out Vector2 result)
-		{
-			result = new Vector2 (-value.X, value.Y);
-		}
-
-		public static void Normalise (ref Vector2 value, out Vector2 result)
-		{
-			Single one = 1;
-
-			Single num2 = (value.X * value.X) + (value.Y * value.Y);
-			Single num = one / (RealMaths.Sqrt (num2));
-			result.X = value.X * num;
-			result.Y = value.Y * num;
-		}
-
-		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
-		{
-			Single two = 2;
-
-			Single num = (vector.X * normal.X) + (vector.Y * normal.Y);
-			result.X = vector.X - ((two * num) * normal.X);
-			result.Y = vector.Y - ((two * num) * normal.Y);
-		}
-		
-		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
-		{
-			Single num2 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-			Single num = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
-		{
-			Single num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-			Single num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
-		{
-			Single one = 1;
-
-			Single num10 = rotation.X + rotation.X;
-			Single num5 = rotation.Y + rotation.Y;
-			Single num4 = rotation.Z + rotation.Z;
-			Single num3 = rotation.W * num4;
-			Single num9 = rotation.X * num10;
-			Single num2 = rotation.X * num5;
-			Single num8 = rotation.Y * num5;
-			Single num = rotation.Z * num4;
-			Single num7 = (value.X * ((one - num8) - num)) + (value.Y * (num2 - num3));
-			Single num6 = (value.X * (num2 + num3)) + (value.Y * ((one - num9) - num));
-			result.X = num7;
-			result.Y = num6;
-		}
-		
-		#endregion
-		#region Operators
-
-		public static Vector2 operator - (Vector2 value)
-		{
-			Vector2 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			return vector;
-		}
-		
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
 			return ((value1.X == value2.X) && (value1.Y == value2.Y));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
 			if (value1.X == value2.X) {
@@ -10032,6 +11636,21 @@ namespace Sungiant.Abacus.SinglePrecision
 			return true;
 		}
 
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector2 objects.
+		/// </summary>
+		public static void Add (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector2 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -10040,6 +11659,23 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects.
+		/// </summary>
+		public static void Subtract (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -10048,23 +11684,71 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 
-		public static Vector2 operator * (Vector2 value1, Vector2 value2)
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Vector2 object.
+		/// </summary>
+		public static void Negate (ref Vector2 value, out Vector2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector2 object using the (-X) operator.
+		/// </summary>
+		public static Vector2 operator - (Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			return vector;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects.
+		/// </summary>
+		public static void Multiply (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a Single
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (
+			ref Vector2 value, Single scaleFactor, out Vector2 result)
+		{
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
 			vector.X = value1.X * value2.X;
 			vector.Y = value1.Y * value2.Y;
 			return vector;
 		}
-		
-		public static Vector2 operator * (Vector2 value, Single scaleFactor)
-		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
-		}
-		
-		public static Vector2 operator * (Single scaleFactor, Vector2 value)
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a Single
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Vector2 value, Single scaleFactor)
 		{
 			Vector2 vector;
 			vector.X = value.X * scaleFactor;
@@ -10072,6 +11756,47 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 
+		/// <summary>
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aVector2 object using the (x*Y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Single scaleFactor, Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector2 objects.
+		/// </summary>
+		public static void Divide (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector2 object and a Single precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (
+			ref Vector2 value1, Single divider, out Vector2 result)
+		{
+			Single one = 1;
+			Single num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector2 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -10079,7 +11804,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Y = value1.Y / value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector2 object and a Single precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Single divider)
 		{
 			Vector2 vector;
@@ -10090,173 +11819,234 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 		
-		public static void Negate (ref Vector2 value, out Vector2 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-		}
+		// Splines //---------------------------------------------------------//
 
-		public static void Add (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-		}
-
-		public static void Subtract (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-		}
-
-		public static void Multiply (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-		}
-		
-		public static void Multiply (ref Vector2 value1, Single scaleFactor, out Vector2 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-		}
-
-		public static void Divide (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-		}
-
-		public static void Divide (ref Vector2 value1, Single divider, out Vector2 result)
-		{
-			Single one = 1;
-			Single num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-		}
-		
-		#endregion
-		#region Splines
-
-		public static void Barycentric (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, Single amount1, Single amount2, out Vector2 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-		}
-
-		public static void SmoothStep (ref Vector2 value1, ref Vector2 value2, Single amount, out Vector2 result)
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
+		public static void SmoothStep (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Single amount, 
+			out Vector2 result)
 		{
 			Single zero = 0;
 			Single one = 1;
 			Single two = 2;
 			Single three = 3;
 
-			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			amount = (amount * amount) * (three - (two * amount));
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 		
-		public static void CatmullRom (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, Single amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
+		public static void CatmullRom (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			ref Vector2 d, 
+			Single amount, 
+			out Vector2 result)
 		{
+			Single zero = 0;
+			Single one = 1;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Single half; RealMaths.Half(out half);
 			Single two = 2;
 			Single three = 3;
 			Single four = 4;
 			Single five = 5;
 
-			Single num = amount * amount;
-			Single num2 = amount * num;
-			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+			Single temp = amount * amount;
+			Single temp2 = amount * temp;
+
+			result.X = 
+				half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
+				(((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
+				temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
+				temp2));
+			
+			result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
+				(((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
+				temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
+				temp2));
 		}
 
-		public static void Hermite (ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2, Single amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
+		public static void Hermite (
+			ref Vector2 a, 
+			ref Vector2 tangent1, 
+			ref Vector2 b, 
+			ref Vector2 tangent2, 
+			Single amount, 
+			out Vector2 result)
 		{
+			Single zero = 0;
 			Single one = 1;
 			Single two = 2;
 			Single three = 3;
 
-			Single num = amount * amount;
-			Single num2 = amount * num;
-			Single num6 = ((two * num2) - (three * num)) + one;
-			Single num5 = (-two * num2) + (three * num);
-			Single num4 = (num2 - (two * num)) + amount;
-			Single num3 = num2 - num;
-			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
-		}
-		
-		#endregion
-		#region Utilities
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
-		public static void Min (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
+			// Make sure that the tangents have been normalised.
+			if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Single temp = amount * amount;
+			Single temp2 = amount * temp;
+			Single temp6 = ((two * temp2) - (three * temp)) + one;
+			Single temp5 = (-two * temp2) + (three * temp);
+			Single temp4 = (temp2 - (two * temp)) + amount;
+			Single temp3 = temp2 - temp;
+
+			result.X = 
+				(((a.X * temp6) + (b.X * temp5)) + 
+				(tangent1.X * temp4)) + (tangent2.X * temp3);
+
+			result.Y = 
+				(((a.Y * temp6) + (b.Y * temp5)) + 
+				(tangent1.Y * temp4)) + (tangent2.Y * temp3);
 		}
 
-		public static void Max (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		// Utilities //-------------------------------------------------------//
+
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
 		}
 
-		public static void Clamp (ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
-			Single x = value1.X;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+		}
+
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector2 a, 
+			ref Vector2 min, 
+			ref Vector2 max, 
+			out Vector2 result)
+		{
+			Single x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Single y = value1.Y;
+			
+			Single y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
+
 			result.X = x;
 			result.Y = y;
 		}
-		
-		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Single amount, out Vector2 result)
+
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Single amount, 
+			out Vector2 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+			Single zero = 0;
+			Single one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
-		
-		#endregion
 
 	}
+
+	/// <summary>
+	/// Single precision Vector3.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector3 
+	public struct Vector3 
 		: IEquatable<Vector3>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector3.
+		/// </summary>
 		public Single X;
+
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector3.
+		/// </summary>
 		public Single Y;
+
+		/// <summary>
+		/// Gets or sets the Z-component of the Vector3.
+		/// </summary>
 		public Single Z;
 
-		public Vector2 XY
-		{
-			get
-			{
-				return new Vector2(X, Y);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector3 from three Single values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Vector3 (Single x, Single y, Single z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public Vector3 (Single value)
-		{
-			this.X = this.Y = this.Z = value;
-		}
 		
+		/// <summary>
+		/// Initilises a new instance of Vector3 from one Vector2 value
+		/// representing X and Y and one Single value representing Z.
+		/// </summary>
 		public Vector3 (Vector2 value, Single z)
 		{
 			this.X = value.X;
@@ -10264,169 +12054,239 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.Z = z;
 		}
 
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
-		}
-
-		public Boolean Equals (Vector3 other)
-		{
-			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector3) {
-				flag = this.Equals ((Vector3)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector3.
+		/// </summary>
 		public Single Length ()
 		{
-			Single num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			Single num = (this.X * this.X) + 
+				              (this.Y * this.Y) + 
+			                  (this.Z * this.Z);
+
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector3 squared.
+		/// </summary>
 		public Single LengthSquared ()
 		{
-			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+			return
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z);
 		}
 
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Single one = 1;
-			Single num2 = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			Single num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector3 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode ()
+				);
+		}
+
+		/// <summary>
+		/// Detemines whether or not the Vector3 is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Single one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector3 _zero;
-		static Vector3 _one;
-		static Vector3 _half;
-		static Vector3 _unitX;
-		static Vector3 _unitY;
-		static Vector3 _unitZ;
-		static Vector3 _up;
-		static Vector3 _down;
-		static Vector3 _right;
-		static Vector3 _left;
-		static Vector3 _forward;
-		static Vector3 _backward;
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to zero.
+		/// </summary>
+		static Vector3 zero;
 
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to one.
+		/// </summary>
+		static Vector3 one;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the X-axis.
+		/// </summary>
+		static Vector3 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the Y-axis.
+		/// </summary>
+		static Vector3 unitY;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the Z-axis.
+		/// </summary>
+		static Vector3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating up (0, 1, 0).
+		/// </summary>
+		static Vector3 up;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating down (0, −1, 0).
+		/// </summary>
+		static Vector3 down;
+
+		/// <summary>
+		/// Defines a unit Vector3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Vector3 right;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating left (−1, 0, 0).
+		/// </summary>
+		static Vector3 left;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Vector3 forward;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Vector3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector3 ()
 		{
-			Single temp_one; RealMaths.One(out temp_one);
-			Single temp_half; RealMaths.Half(out temp_half);
-			Single temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector3 ();
+			one = 		new Vector3 ( 1,  1,  1);
 
-			_zero = new Vector3 ();
-			_one = new Vector3 (temp_one, temp_one, temp_one);
-			_half = new Vector3(temp_half, temp_half, temp_half);
-			_unitX = new Vector3 (temp_one, temp_zero, temp_zero);
-			_unitY = new Vector3 (temp_zero, temp_one, temp_zero);
-			_unitZ = new Vector3 (temp_zero, temp_zero, temp_one);
-			_up = new Vector3 (temp_zero, temp_one, temp_zero);
-			_down = new Vector3 (temp_zero, -temp_one, temp_zero);
-			_right = new Vector3 (temp_one, temp_zero, temp_zero);
-			_left = new Vector3 (-temp_one, temp_zero, temp_zero);
-			_forward = new Vector3 (temp_zero, temp_zero, -temp_one);
-			_backward = new Vector3 (temp_zero, temp_zero, temp_one);
-		}
-		
-		public static Vector3 Zero {
-			get {
-				return _zero;
-			}
-		}
-		
-		public static Vector3 One {
-			get {
-				return _one;
-			}
-		}
-		
-		public static Vector3 Half {
-			get {
-				return _half;
-			}
-		}
-		
-		public static Vector3 UnitX {
-			get {
-				return _unitX;
-			}
-		}
-		
-		public static Vector3 UnitY {
-			get {
-				return _unitY;
-			}
-		}
-		
-		public static Vector3 UnitZ {
-			get {
-				return _unitZ;
-			}
-		}
-		
-		public static Vector3 Up {
-			get {
-				return _up;
-			}
-		}
-		
-		public static Vector3 Down {
-			get {
-				return _down;
-			}
-		}
-		
-		public static Vector3 Right {
-			get {
-				return _right;
-			}
-		}
-		
-		public static Vector3 Left {
-			get {
-				return _left;
-			}
-		}
-		
-		public static Vector3 Forward {
-			get {
-				return _forward;
-			}
-		}
-		
-		public static Vector3 Backward {
-			get {
-				return _backward;
-			}
-		}
-		
-		#endregion
-		#region Maths
+			unitX = 	new Vector3 ( 1,  0,  0);
+			unitY = 	new Vector3 ( 0,  1,  0);
+			unitZ = 	new Vector3 ( 0,  0,  1);
 
+			up = 		new Vector3 ( 0,  1,  0);
+			down = 		new Vector3 ( 0, -1,  0);
+			right = 	new Vector3 ( 1,  0,  0);
+			left = 		new Vector3 (-1,  0,  0);
+			forward = 	new Vector3 ( 0,  0, -1);
+			backward = 	new Vector3 ( 0,  0,  1);
+		}
+		
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to zero.
+		/// </summary>
+		public static Vector3 Zero
+		{
+			get { return zero; }
+		}
+		
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to one.
+		/// </summary>
+		public static Vector3 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector3 for the X-axis.
+		/// </summary>
+		public static Vector3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Vector3 for the Y-axis.
+		/// </summary>
+		public static Vector3 UnitY
+		{
+			get { return unitY; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector3 for the Z-axis.
+		/// </summary>
+		public static Vector3 UnitZ
+		{
+			get { return unitZ; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating up (0, 1, 0).
+		/// </summary>
+		public static Vector3 Up
+		{
+			get { return up; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating down (0, −1, 0).
+		/// </summary>
+		public static Vector3 Down
+		{
+			get { return down; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Vector3 Right
+		{
+			get { return right; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Vector3 Left
+		{
+			get { return left; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Vector3 Forward
+		{
+			get { return forward; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Vector3 Backward
+		{
+			get { return backward; }
+		}
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector3 value1, ref Vector3 value2, out Single result)
 		{
 			Single num3 = value1.X - value2.X;
@@ -10435,7 +12295,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single num4 = ((num3 * num3) + (num2 * num2)) + (num * num);
 			result = RealMaths.Sqrt (num4);
 		}
-		
+
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector3 value1, ref Vector3 value2, out Single result)
 		{
 			Single num3 = value1.X - value2.X;
@@ -10444,11 +12307,24 @@ namespace Sungiant.Abacus.SinglePrecision
 			result = ((num3 * num3) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out Single result)
 		{
 			result = ((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z);
 		}
 
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
 			Single one = 1;
@@ -10460,6 +12336,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = value.Z * num;
 		}
 
+		/// <summary>
+		/// Calculates the cross product of two vectors.
+		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
 			Single num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -10470,6 +12349,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = num;
 		}
 
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
 		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
 			Single two = 2;
@@ -10480,6 +12363,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = vector.Z - ((two * num) * normal.Z);
 		}
 
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector3 result)
 		{
 			Single num3 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -10490,16 +12376,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = num;
 		}
 		
-		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
-		{
-			Single num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-			Single num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-			Single num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
-		}
-		
+		/// <summary>
+		/// Transforms a vector by a specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector3 result)
 		{
 			Single one = 1;
@@ -10523,23 +12402,60 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = num13;
 		}
 		
-		#endregion
-		#region Operators
-
-		public static Vector3 operator - (Vector3 value)
+		/// <summary>
+		/// Transforms a normalised Vector3 by a Matrix44.
+		/// </summary>
+		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
 		{
-			Vector3 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			vector.Z = -value.Z;
-			return vector;
+			Single num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+			Single num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+			Single num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+			result.X = num3;
+			result.Y = num2;
+			result.Z = num;
 		}
 		
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector3) {
+				flag = this.Equals ((Vector3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Vector3>
+
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// Vector3 object.
+		/// </summary>
+		public Boolean Equals (Vector3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector3 value1, Vector3 value2)
 		{
 			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector3 value1, Vector3 value2)
 		{
 			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
@@ -10547,7 +12463,22 @@ namespace Sungiant.Abacus.SinglePrecision
 			}
 			return true;
 		}
-		
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects.
+		/// </summary>
+		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector3 operator + (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -10556,7 +12487,24 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Z = value1.Z + value2.Z;
 			return vector;
 		}
-		
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects.
+		/// </summary>
+		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector3 operator - (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -10565,7 +12513,59 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Z = value1.Z - value2.Z;
 			return vector;
 		}
+
+
+		// Negation Operators //----------------------------------------------//
 		
+		/// <summary>
+		/// Performs negation of a Vector3 object.
+		/// </summary>
+		public static void Negate (ref Vector3 value, out Vector3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector3 object using the (-X) operator.
+		/// </summary>
+		public static Vector3 operator - (Vector3 value)
+		{
+			Vector3 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			vector.Z = -value.Z;
+			return vector;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a Single
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, Single scaleFactor, out Vector3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -10574,7 +12574,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Z = value1.Z * value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a Single
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value, Single scaleFactor)
 		{
 			Vector3 vector;
@@ -10583,7 +12587,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aVector3 object using the (x*Y) operator.
+		/// </summary>
 		public static Vector3 operator * (Single scaleFactor, Vector3 value)
 		{
 			Vector3 vector;
@@ -10592,7 +12600,35 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector3 objects.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a Single precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, Single value2, out Vector3 result)
+		{
+			Single one = 1;
+			Single num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector3 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -10601,7 +12637,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Z = value1.Z / value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a Single precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value, Single divider)
 		{
 			Vector3 vector;
@@ -10613,68 +12653,12 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.Z = value.Z * num;
 			return vector;
 		}
-
-		public static void Negate (ref Vector3 value, out Vector3 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-			result.Z = -value.Z;
-		}
-
-		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-			result.Z = value1.Z + value2.Z;
-		}
-
-		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-			result.Z = value1.Z - value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-			result.Z = value1.Z * value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, Single scaleFactor, out Vector3 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-			result.Z = value1.Z * scaleFactor;
-		}
-
-		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-			result.Z = value1.Z / value2.Z;
-		}
-
-		public static void Divide (ref Vector3 value1, Single value2, out Vector3 result)
-		{
-			Single one = 1;
-			Single num = one / value2;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-			result.Z = value1.Z * num;
-		}
 		
-		#endregion
-		#region Splines
+		// Splines //---------------------------------------------------------//
 
-		public static void Barycentric (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, Single amount1, Single amount2, out Vector3 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
-		}
-	
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
 		public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, Single amount, out Vector3 result)
 		{
 			Single zero = 0;
@@ -10689,6 +12673,16 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
 		}
 
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
 		public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, Single amount, out Vector3 result)
 		{
 			Single half; RealMaths.Half(out half);
@@ -10704,6 +12698,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
 		}
 
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
 		public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, Single amount, out Vector3 result)
 		{
 			Single one = 1;
@@ -10720,33 +12717,53 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
 			result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
 		}
-		
-		#endregion
-		#region Utilities
 
-		public static void Min (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		// Utilities //-------------------------------------------------------//
+
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
 		}
 
-		public static void Max (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
 		}
 		
-		public static void Clamp (ref Vector3 value1, ref Vector3 min, ref Vector3 max, out Vector3 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector3 a,
+			ref Vector3 min,
+			ref Vector3 max,
+			out Vector3 result)
 		{
-			Single x = value1.X;
+			Single x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Single y = value1.Y;
+			Single y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Single z = value1.Z;
+			Single z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
 			result.X = x;
@@ -10754,42 +12771,57 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = z;
 		}
 
-		public static void Lerp (ref Vector3 value1, ref Vector3 value2, Single amount, out Vector3 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector3 a,
+			ref Vector3 b,
+			Single amount,
+			out Vector3 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
 		}
-		
-		#endregion
-
 	}
+
+	/// <summary>
+	/// Single precision Vector4.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector4 
+	public struct Vector4 
 		: IEquatable<Vector4>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector4.
+		/// </summary>
 		public Single X;
+
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector4.
+		/// </summary>
 		public Single Y;
+
+		/// <summary>
+		/// Gets or sets the Z-component of the Vector4.
+		/// </summary>
 		public Single Z;
+
+		/// <summary>
+		/// Gets or sets the W-component of the Vector4.
+		/// </summary>
 		public Single W;
 
-		public Vector3 XYZ
-		{
-			get
-			{
-				return new Vector3(X, Y, Z);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-				this.Z = value.Z;
-			}
-		}
-
-
-
-		public Vector4 (Single x, Single y, Single z, Single w)
+		/// <summary>
+		/// Initilises a new instance of Vector4 from four Single values 
+		/// representing X, Y, Z and W respectively.
+		/// </summary>
+		public Vector4 (
+			Single x, 
+			Single y, 
+			Single z, 
+			Single w)
 		{
 			this.X = x;
 			this.Y = y;
@@ -10797,6 +12829,11 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector2 value
+		/// representing X and Y and two Single values representing Z and
+		/// W respectively.
+		/// </summary>
 		public Vector4 (Vector2 value, Single z, Single w)
 		{
 			this.X = value.X;
@@ -10805,6 +12842,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector3 value
+		/// representing X, Y and Z and one Single value representing W.
+		/// </summary>
 		public Vector4 (Vector3 value, Single w)
 		{
 			this.X = value.X;
@@ -10813,129 +12854,169 @@ namespace Sungiant.Abacus.SinglePrecision
 			this.W = w;
 		}
 
-		public Vector4 (Single value)
-		{
-			this.X = this.Y = this.Z = this.W = value;
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
-		}
-
-		public Boolean Equals (Vector4 other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector4) {
-				flag = this.Equals ((Vector4)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector4.
+		/// </summary>
 		public Single Length ()
 		{
-			Single num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
+			Single num = (this.X * this.X) + 
+							  (this.Y * this.Y) + 
+							  (this.Z * this.Z) + 
+							  (this.W * this.W);
+			
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector4 squared.
+		/// </summary>
 		public Single LengthSquared ()
 		{
-			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
+			return 
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z) + 
+				(this.W * this.W);
 		}
 
-
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Single one = 1;
-			Single num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-			Single num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
-			this.W *= num;
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2} W:{3}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString (), 
+					this.W.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector4 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode () + 
+				this.W.GetHashCode ()
+				);
+		}
 
-
+		/// <summary>
+		/// Detemines whether or not the Vector4 is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Single one = 1;
-
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector4 _zero;
-		static Vector4 _one;
-		static Vector4 _unitX;
-		static Vector4 _unitY;
-		static Vector4 _unitZ;
-		static Vector4 _unitW;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		static Vector4 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		static Vector4 one;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the X-axis.
+		/// </summary>
+		static Vector4 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Y-axis.
+		/// </summary>
+		static Vector4 unitY;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Z-axis.
+		/// </summary>
+		static Vector4 unitZ;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the W-axis.
+		/// </summary>
+		static Vector4 unitW;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector4 ()
 		{
-			Single temp_one; RealMaths.One(out temp_one);
-			Single temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector4 ();
+			one = 		new Vector4 (1, 1, 1, 1);
 
-			_zero = new Vector4 ();
-			_one = new Vector4 (temp_one, temp_one, temp_one, temp_one);
-			_unitX = new Vector4 (temp_one, temp_zero, temp_zero, temp_zero);
-			_unitY = new Vector4 (temp_zero, temp_one, temp_zero, temp_zero);
-			_unitZ = new Vector4 (temp_zero, temp_zero, temp_one, temp_zero);
-			_unitW = new Vector4 (temp_zero, temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector4 (1, 0, 0, 0);
+			unitY = 	new Vector4 (0, 1, 0, 0);
+			unitZ = 	new Vector4 (0, 0, 1, 0);
+			unitW = 	new Vector4 (0, 0, 0, 1);
 		}
 
-		public static Vector4 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to zero.
+		/// </summary>
+		public static Vector4 Zero
+		{
+			get { return zero; }
 		}
-		
-		public static Vector4 One {
-			get {
-				return _one;
-			}
-		}
-		
-		public static Vector4 UnitX {
-			get {
-				return _unitX;
-			}
-		}
-		
-		public static Vector4 UnitY {
-			get {
-				return _unitY;
-			}
-		}
-		
-		public static Vector4 UnitZ {
-			get {
-				return _unitZ;
-			}
-		}
-		
-		public static Vector4 UnitW {
-			get {
-				return _unitW;
-			}
-		}
-		
-		#endregion
-		#region Maths
 
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to one.
+		/// </summary>
+		public static Vector4 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the X-axis.
+		/// </summary>
+		public static Vector4 UnitX
+		{
+			get { return unitX; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Y-axis.
+		/// </summary>
+		public static Vector4 UnitY
+		{
+			get { return unitY; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Z-axis.
+		/// </summary>
+		public static Vector4 UnitZ
+		{
+			get { return unitZ; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the W-axis.
+		/// </summary>
+		public static Vector4 UnitW
+		{
+			get { return unitW; }
+		}
+		
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector4 value1, ref Vector4 value2, out Single result)
 		{
 			Single num4 = value1.X - value2.X;
@@ -10946,6 +13027,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result = RealMaths.Sqrt (num5);
 		}
 
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector4 value1, ref Vector4 value2, out Single result)
 		{
 			Single num4 = value1.X - value2.X;
@@ -10955,11 +13039,24 @@ namespace Sungiant.Abacus.SinglePrecision
 			result = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out Single result)
 		{
 			result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
 		}
-
+		
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
 			Single one = 1;
@@ -10971,6 +13068,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = vector.W * num;
 		}
 
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			Single num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
@@ -10982,7 +13082,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			Single num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -10994,7 +13097,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector4 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
 		{
 			Single num4 = (((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31)) + (vector.W * matrix.M41);
@@ -11007,7 +13113,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = num;
 		}
 		
-		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Single one = 1;
@@ -11032,6 +13140,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Single one = 1;
@@ -11056,6 +13167,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector4 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector4 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Single one = 1;
@@ -11080,9 +13194,124 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = value.W;
 		}
 		
-		#endregion
-		#region Operators
+		// Equality Operators //----------------------------------------------//
 
+		/// <summary>
+		/// Determines whether or not this Vector4 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector4) {
+				flag = this.Equals ((Vector4)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Vector4>
+
+		/// <summary>
+		/// Determines whether or not this Vector4 object is equal to another
+		/// Vector4 object.
+		/// </summary>
+		public Boolean Equals (Vector4 other)
+		{
+			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Vector4 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Vector4 value1, Vector4 value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
+		}
+		
+		/// <summary>
+		/// Determines whether or not two Vector4 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Vector4 value1, Vector4 value2)
+		{
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector4 objects.
+		/// </summary>
+		public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector4 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Vector4 operator + (Vector4 value1, Vector4 value2)
+		{
+			Vector4 vector;
+			vector.X = value1.X + value2.X;
+			vector.Y = value1.Y + value2.Y;
+			vector.Z = value1.Z + value2.Z;
+			vector.W = value1.W + value2.W;
+			return vector;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector4 objects.
+		/// </summary>
+		public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector4 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Vector4 operator - (Vector4 value1, Vector4 value2)
+		{
+			Vector4 vector;
+			vector.X = value1.X - value2.X;
+			vector.Y = value1.Y - value2.Y;
+			vector.Z = value1.Z - value2.Z;
+			vector.W = value1.W - value2.W;
+			return vector;
+		}
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Vector4 object.
+		/// </summary>
+		public static void Negate (ref Vector4 value, out Vector4 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector4 object using the (-X) operator.
+		/// </summary>
 		public static Vector4 operator - (Vector4 value)
 		{
 			Vector4 vector;
@@ -11093,39 +13322,35 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 		
-		public static Boolean operator == (Vector4 value1, Vector4 value2)
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector4 objects.
+		/// </summary>
+		public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
 		{
-			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+			result.W = value1.W * value2.W;
 		}
-		
-		public static Boolean operator != (Vector4 value1, Vector4 value2)
+
+		/// <summary>
+		/// Performs multiplication of a Vector4 object and a Single
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Vector4 value1, Single scaleFactor, out Vector4 result)
 		{
-			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
-				return !(value1.W == value2.W);
-			}
-			return true;
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
 		}
-		
-		public static Vector4 operator + (Vector4 value1, Vector4 value2)
-		{
-			Vector4 vector;
-			vector.X = value1.X + value2.X;
-			vector.Y = value1.Y + value2.Y;
-			vector.Z = value1.Z + value2.Z;
-			vector.W = value1.W + value2.W;
-			return vector;
-		}
-		
-		public static Vector4 operator - (Vector4 value1, Vector4 value2)
-		{
-			Vector4 vector;
-			vector.X = value1.X - value2.X;
-			vector.Y = value1.Y - value2.Y;
-			vector.Z = value1.Z - value2.Z;
-			vector.W = value1.W - value2.W;
-			return vector;
-		}
-		
+
+		/// <summary>
+		/// Performs muliplication of two Vector4 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector4 operator * (Vector4 value1, Vector4 value2)
 		{
 			Vector4 vector;
@@ -11136,6 +13361,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs multiplication of a Vector4 object and a Single
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector4 operator * (Vector4 value1, Single scaleFactor)
 		{
 			Vector4 vector;
@@ -11146,6 +13375,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs multiplication of a Single precision scaling factor 
+		/// and aVector4 object using the (x*Y) operator.
+		/// </summary>
 		public static Vector4 operator * (Single scaleFactor, Vector4 value1)
 		{
 			Vector4 vector;
@@ -11156,6 +13389,36 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector4 objects.
+		/// </summary>
+		public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+			result.W = value1.W / value2.W;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector4 object and a Single precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Vector4 value1, Single divider, out Vector4 result)
+		{
+			Single one = 1;
+			Single num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+			result.W = value1.W * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector4 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector4 operator / (Vector4 value1, Vector4 value2)
 		{
 			Vector4 vector;
@@ -11166,6 +13429,10 @@ namespace Sungiant.Abacus.SinglePrecision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs division of a Vector4 object and a Single precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector4 operator / (Vector4 value1, Single divider)
 		{
 			Single one = 1;
@@ -11177,76 +13444,12 @@ namespace Sungiant.Abacus.SinglePrecision
 			vector.W = value1.W * num;
 			return vector;
 		}
-		
-		public static void Negate (ref Vector4 value, out Vector4 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-			result.Z = -value.Z;
-			result.W = -value.W;
-		}
 
-		public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-			result.Z = value1.Z + value2.Z;
-			result.W = value1.W + value2.W;
-		}
-		
-		public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-			result.Z = value1.Z - value2.Z;
-			result.W = value1.W - value2.W;
-		}
-		
-		public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-			result.Z = value1.Z * value2.Z;
-			result.W = value1.W * value2.W;
-		}
+		// Splines //---------------------------------------------------------//
 
-		public static void Multiply (ref Vector4 value1, Single scaleFactor, out Vector4 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-			result.Z = value1.Z * scaleFactor;
-			result.W = value1.W * scaleFactor;
-		}
-
-		public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-			result.Z = value1.Z / value2.Z;
-			result.W = value1.W / value2.W;
-		}
-		
-		public static void Divide (ref Vector4 value1, Single divider, out Vector4 result)
-		{
-			Single one = 1;
-			Single num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-			result.Z = value1.Z * num;
-			result.W = value1.W * num;
-		}
-		
-		#endregion
-		#region Splines
-
-		public static void Barycentric (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, Single amount1, Single amount2, out Vector4 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
-			result.W = (value1.W + (amount1 * (value2.W - value1.W))) + (amount2 * (value3.W - value1.W));
-		}
-
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
 		public static void SmoothStep (ref Vector4 value1, ref Vector4 value2, Single amount, out Vector4 result)
 		{
 			Single zero = 0;
@@ -11262,6 +13465,16 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = value1.W + ((value2.W - value1.W) * amount);
 		}
 
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
 		public static void CatmullRom (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, ref Vector4 value4, Single amount, out Vector4 result)
 		{
 			Single half; RealMaths.Half(out half);
@@ -11278,6 +13491,9 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = half * ((((two * value2.W) + ((-value1.W + value3.W) * amount)) + (((((two * value1.W) - (five * value2.W)) + (four * value3.W)) - value4.W) * num)) + ((((-value1.W + (three * value2.W)) - (three * value3.W)) + value4.W) * num2));
 		}
 
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
 		public static void Hermite (ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, Single amount, out Vector4 result)
 		{
 			Single one = 1;
@@ -11295,39 +13511,58 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
 			result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
 		}
-		
-		#endregion
 
-		#region Utilities
+		// Utilities //-------------------------------------------------------//
 
-		public static void Min (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W < value2.W) ? value1.W : value2.W;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+			result.W = (a.W < b.W) ? a.W : b.W;
 		}
 
-		public static void Max (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W > value2.W) ? value1.W : value2.W;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+			result.W = (a.W > b.W) ? a.W : b.W;
 		}
 		
-		public static void Clamp (ref Vector4 value1, ref Vector4 min, ref Vector4 max, out Vector4 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector4 a,
+			ref Vector4 min,
+			ref Vector4 max,
+			out Vector4 result)
 		{
-			Single x = value1.X;
+			Single x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Single y = value1.Y;
+			Single y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Single z = value1.Z;
+			Single z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
-			Single w = value1.W;
+			Single w = a.W;
 			w = (w > max.W) ? max.W : w;
 			w = (w < min.W) ? min.W : w;
 			result.X = x;
@@ -11336,16 +13571,20 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.W = w;
 		}
 		
-		public static void Lerp (ref Vector4 value1, ref Vector4 value2, Single amount, out Vector4 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector4 a,
+			ref Vector4 b,
+			Single amount,
+			out Vector4 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-			result.W = value1.W + ((value2.W - value1.W) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
+			result.W = a.W + ((b.W - a.W) * amount);
 		}
-		
-		#endregion
-
 
 	}
 
@@ -11353,13 +13592,15 @@ namespace Sungiant.Abacus.SinglePrecision
 
 namespace Sungiant.Abacus.DoublePrecision
 {
-	public static class GaussianElimination
+	/// <summary>
+	/// todo
+	/// </summary>
+	internal class GjkDistance
 	{
-
-	}
-	public class GjkDistance
-	{
-		public GjkDistance ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal GjkDistance ()
 		{
 			for (Int32 i = 0; i < 0x10; i++)
 			{
@@ -11367,7 +13608,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			}
 		}
 
-		public Boolean AddSupportPoint (ref Vector3 newPoint)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Boolean AddSupportPoint (ref Vector3 newPoint)
 		{
 			Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
@@ -11381,7 +13625,10 @@ namespace Sungiant.Abacus.DoublePrecision
 
 				this.edges [num2] [index] = vector;
 				this.edges [index] [num2] = -vector;
-				this.edgeLengthSq [index] [num2] = this.edgeLengthSq [num2] [index] = vector.LengthSquared ();
+
+				this.edgeLengthSq [index] [num2] = 
+					this.edgeLengthSq [num2] [index] = 
+						vector.LengthSquared ();
 			}
 
 			this.UpdateDeterminant (index);
@@ -11389,7 +13636,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			return this.UpdateSimplex (index);
 		}
 
-		public void Reset ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal void Reset ()
 		{
 			Double zero = 0;
 
@@ -11397,32 +13647,97 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.maxLengthSq = zero;
 		}
 
-		public Vector3 ClosestPoint
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Vector3 ClosestPoint
 		{
 			get { return this.closestPoint; }
 		}
-		
-		public Boolean FullSimplex
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Boolean FullSimplex
 		{
 			get { return (this.simplexBits == 15); }
 		}
 		
-		public Double MaxLengthSquared
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Double MaxLengthSquared
 		{
 			get { return this.maxLengthSq; }
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 closestPoint;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Double[][] det = new Double[0x10][];
-		Double[][] edgeLengthSq = new Double[][] { new Double[4], new Double[4], new Double[4], new Double[4] };
-		Vector3[][] edges = new Vector3[][] { new Vector3[4], new Vector3[4], new Vector3[4], new Vector3[4] };
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		Double[][] edgeLengthSq = 
+			new Double[][] 
+			{ 
+				new Double[4], 
+				new Double[4], 
+				new Double[4], 
+				new Double[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
+		Vector3[][] edges = 
+			new Vector3[][] 
+			{ 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
 		Double maxLengthSq;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Int32 simplexBits;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3[] y = new Vector3[4];
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Double[] yLengthSq = new Double[4];
 
-		static Int32[] BitsToIndices = new Int32[] { 0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 };
+		/// <summary>
+		/// todo
+		/// </summary>
+		static Int32[] BitsToIndices = 
+			new Int32[] 
+			{ 
+				0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
+				4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+			};
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 ComputeClosestPoint ()
 		{
 			Double fzero; RealMaths.Zero(out fzero);
@@ -11440,12 +13755,16 @@ namespace Sungiant.Abacus.DoublePrecision
 				num3 += num4;
 				zero += (Vector3)(this.y [index] * num4);
 
-				this.maxLengthSq = RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
+				this.maxLengthSq = 
+				RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
 			}
 
 			return (Vector3)(zero / num3);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean IsSatisfiesRule (Int32 xBits, Int32 yBits)
 		{
 			Double fzero; RealMaths.Zero(out fzero);
@@ -11471,6 +13790,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			return true;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		void UpdateDeterminant (Int32 xmIdx)
 		{
 			Double fone; RealMaths.One(out fone);
@@ -11487,8 +13809,11 @@ namespace Sungiant.Abacus.DoublePrecision
 				Int32 num12 = ((int)1) << num;
 				Int32 num6 = num12 | index;
 
-				this.det [num6] [num] = Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
-				this.det [num6] [xmIdx] = Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
+				this.det [num6] [num] = 
+					Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
+
+				this.det [num6] [xmIdx] = 
+					Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
 				Int32 num11 = num14;
 
@@ -11565,6 +13890,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean UpdateSimplex (Int32 newIndex)
 		{
 			Int32 yBits = this.simplexBits | (((Int32)1) << newIndex);
@@ -11596,1336 +13924,122 @@ namespace Sungiant.Abacus.DoublePrecision
 			return flag;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Double Dot (ref Vector3 a, ref Vector3 b)
 		{
 			return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
 		}
 	}
-
+	/// <summary>
+	/// Double precision Matrix44.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct BoundingBox 
-		: IEquatable<BoundingBox>
-	{
-		public const int CornerCount = 8;
-		public Vector3 Min;
-		public Vector3 Max;
-
-		public Vector3[] GetCorners ()
-		{
-			return new Vector3[] { new Vector3 (this.Min.X, this.Max.Y, this.Max.Z), new Vector3 (this.Max.X, this.Max.Y, this.Max.Z), new Vector3 (this.Max.X, this.Min.Y, this.Max.Z), new Vector3 (this.Min.X, this.Min.Y, this.Max.Z), new Vector3 (this.Min.X, this.Max.Y, this.Min.Z), new Vector3 (this.Max.X, this.Max.Y, this.Min.Z), new Vector3 (this.Max.X, this.Min.Y, this.Min.Z), new Vector3 (this.Min.X, this.Min.Y, this.Min.Z) };
-		}
-
-		public BoundingBox (Vector3 min, Vector3 max)
-		{
-			this.Min = min;
-			this.Max = max;
-		}
-
-		public Boolean Equals (BoundingBox other)
-		{
-			return ((this.Min == other.Min) && (this.Max == other.Max));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is BoundingBox) {
-				flag = this.Equals ((BoundingBox)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Min.GetHashCode () + this.Max.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Min:{0} Max:{1}}}", new Object[] { this.Min.ToString (), this.Max.ToString () });
-		}
-
-		public static void CreateMerged (ref BoundingBox original, ref BoundingBox additional, out BoundingBox result)
-		{
-			Vector3 vector;
-			Vector3 vector2;
-			Vector3.Min (ref original.Min, ref additional.Min, out vector2);
-			Vector3.Max (ref original.Max, ref additional.Max, out vector);
-			result.Min = vector2;
-			result.Max = vector;
-		}
-
-		public static void CreateFromSphere (ref BoundingSphere sphere, out BoundingBox result)
-		{
-			result.Min.X = sphere.Center.X - sphere.Radius;
-			result.Min.Y = sphere.Center.Y - sphere.Radius;
-			result.Min.Z = sphere.Center.Z - sphere.Radius;
-			result.Max.X = sphere.Center.X + sphere.Radius;
-			result.Max.Y = sphere.Center.Y + sphere.Radius;
-			result.Max.Z = sphere.Center.Z + sphere.Radius;
-		}
-
-		public static BoundingBox CreateFromPoints (IEnumerable<Vector3> points)
-		{
-			if (points == null) {
-				throw new ArgumentNullException ();
-			}
-			Boolean flag = false;
-			Vector3 vector3 = new Vector3 (Double.MaxValue);
-			Vector3 vector2 = new Vector3 (Double.MinValue);
-			foreach (Vector3 vector in points) {
-				Vector3 vector4 = vector;
-				Vector3.Min (ref vector3, ref vector4, out vector3);
-				Vector3.Max (ref vector2, ref vector4, out vector2);
-				flag = true;
-			}
-			if (!flag) {
-				throw new ArgumentException ("BoundingBoxZeroPoints");
-			}
-			return new BoundingBox (vector3, vector2);
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			if ((this.Max.X < box.Min.X) || (this.Min.X > box.Max.X)) {
-				return false;
-			}
-			if ((this.Max.Y < box.Min.Y) || (this.Min.Y > box.Max.Y)) {
-				return false;
-			}
-			return ((this.Max.Z >= box.Min.Z) && (this.Min.Z <= box.Max.Z));
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			Double zero = 0;
-
-			Vector3 vector;
-			Vector3 vector2;
-			vector2.X = (plane.Normal.X >= zero) ? this.Min.X : this.Max.X;
-			vector2.Y = (plane.Normal.Y >= zero) ? this.Min.Y : this.Max.Y;
-			vector2.Z = (plane.Normal.Z >= zero) ? this.Min.Z : this.Max.Z;
-			vector.X = (plane.Normal.X >= zero) ? this.Max.X : this.Min.X;
-			vector.Y = (plane.Normal.Y >= zero) ? this.Max.Y : this.Min.Y;
-			vector.Z = (plane.Normal.Z >= zero) ? this.Max.Z : this.Min.Z;
-			Double num = ((plane.Normal.X * vector2.X) + (plane.Normal.Y * vector2.Y)) + (plane.Normal.Z * vector2.Z);
-			if ((num + plane.D) > zero) {
-				return PlaneIntersectionType.Front;
-			}
-			num = ((plane.Normal.X * vector.X) + (plane.Normal.Y * vector.Y)) + (plane.Normal.Z * vector.Z);
-			if ((num + plane.D) < zero) {
-				return PlaneIntersectionType.Back;
-			}
-			return PlaneIntersectionType.Intersecting;
-		}
-
-		public Double? Intersects (ref Ray ray)
-		{
-			Double epsilon; RealMaths.Epsilon(out epsilon);
-
-			Double zero = 0;
-			Double one = 1;
-
-			Double num = zero;
-			Double maxValue = Double.MaxValue;
-			if (RealMaths.Abs (ray.Direction.X) < epsilon) {
-				if ((ray.Position.X < this.Min.X) || (ray.Position.X > this.Max.X)) {
-					return null;
-				}
-			} else {
-				Double num11 = one / ray.Direction.X;
-				Double num8 = (this.Min.X - ray.Position.X) * num11;
-				Double num7 = (this.Max.X - ray.Position.X) * num11;
-				if (num8 > num7) {
-					Double num14 = num8;
-					num8 = num7;
-					num7 = num14;
-				}
-				num = RealMaths.Max (num8, num);
-				maxValue = RealMaths.Min (num7, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			if (RealMaths.Abs (ray.Direction.Y) < epsilon) {
-				if ((ray.Position.Y < this.Min.Y) || (ray.Position.Y > this.Max.Y)) {
-					return null;
-				}
-			} else {
-				Double num10 = one / ray.Direction.Y;
-				Double num6 = (this.Min.Y - ray.Position.Y) * num10;
-				Double num5 = (this.Max.Y - ray.Position.Y) * num10;
-				if (num6 > num5) {
-					Double num13 = num6;
-					num6 = num5;
-					num5 = num13;
-				}
-				num = RealMaths.Max (num6, num);
-				maxValue = RealMaths.Min (num5, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			
-
-			if (RealMaths.Abs (ray.Direction.Z) < epsilon) {
-				if ((ray.Position.Z < this.Min.Z) || (ray.Position.Z > this.Max.Z)) {
-					return null;
-				}
-			} else {
-				Double num9 = one / ray.Direction.Z;
-				Double num4 = (this.Min.Z - ray.Position.Z) * num9;
-				Double num3 = (this.Max.Z - ray.Position.Z) * num9;
-				if (num4 > num3) {
-					Double num12 = num4;
-					num4 = num3;
-					num3 = num12;
-				}
-				num = RealMaths.Max (num4, num);
-				maxValue = RealMaths.Min (num3, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			return new Double? (num);
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Double num;
-			Vector3 vector;
-			Vector3.Clamp (ref sphere.Center, ref this.Min, ref this.Max, out vector);
-			Vector3.DistanceSquared (ref sphere.Center, ref vector, out num);
-			return (num <= (sphere.Radius * sphere.Radius));
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			if ((this.Max.X < box.Min.X) || (this.Min.X > box.Max.X)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((this.Max.Y < box.Min.Y) || (this.Min.Y > box.Max.Y)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((this.Max.Z < box.Min.Z) || (this.Min.Z > box.Max.Z)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((((this.Min.X <= box.Min.X) && (box.Max.X <= this.Max.X)) && ((this.Min.Y <= box.Min.Y) && (box.Max.Y <= this.Max.Y))) && ((this.Min.Z <= box.Min.Z) && (box.Max.Z <= this.Max.Z))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			if (!frustum.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-
-			for (Int32 i = 0; i < frustum.cornerArray.Length; ++i) {
-				Vector3 vector = frustum.cornerArray[i];
-				if (this.Contains (ref vector) == ContainmentType.Disjoint) {
-					return ContainmentType.Intersects;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			if ((((this.Min.X <= point.X) && (point.X <= this.Max.X)) && ((this.Min.Y <= point.Y) && (point.Y <= this.Max.Y))) && ((this.Min.Z <= point.Z) && (point.Z <= this.Max.Z))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Disjoint;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Double num2;
-			Vector3 vector;
-			Vector3.Clamp (ref sphere.Center, ref this.Min, ref this.Max, out vector);
-			Vector3.DistanceSquared (ref sphere.Center, ref vector, out num2);
-			Double radius = sphere.Radius;
-			if (num2 > (radius * radius)) {
-				return ContainmentType.Disjoint;
-			}
-			if (((((this.Min.X + radius) <= sphere.Center.X) && (sphere.Center.X <= (this.Max.X - radius))) && (((this.Max.X - this.Min.X) > radius) && ((this.Min.Y + radius) <= sphere.Center.Y))) && (((sphere.Center.Y <= (this.Max.Y - radius)) && ((this.Max.Y - this.Min.Y) > radius)) && ((((this.Min.Z + radius) <= sphere.Center.Z) && (sphere.Center.Z <= (this.Max.Z - radius))) && ((this.Max.X - this.Min.X) > radius)))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Double zero = 0;
-
-			result.X = (v.X >= zero) ? this.Max.X : this.Min.X;
-			result.Y = (v.Y >= zero) ? this.Max.Y : this.Min.Y;
-			result.Z = (v.Z >= zero) ? this.Max.Z : this.Min.Z;
-		}
-
-		public static Boolean operator == (BoundingBox a, BoundingBox b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (BoundingBox a, BoundingBox b)
-		{
-			if (!(a.Min != b.Min)) {
-				return (a.Max != b.Max);
-			}
-			return true;
-		}
-	}
-	public class BoundingFrustum 
-		: IEquatable<BoundingFrustum>
-	{
-		const int BottomPlaneIndex = 5;
-
-		internal Vector3[] cornerArray;
-
-		public const int CornerCount = 8;
-
-		const int FarPlaneIndex = 1;
-
-		GjkDistance gjk;
-
-		const int LeftPlaneIndex = 2;
-
-		Matrix44 matrix;
-
-		const int NearPlaneIndex = 0;
-
-		const int NumPlanes = 6;
-
-		Plane[] planes;
-
-		const int RightPlaneIndex = 3;
-
-		const int TopPlaneIndex = 4;
-
-		BoundingFrustum ()
-		{
-			this.planes = new Plane[6];
-			this.cornerArray = new Vector3[8];
-		}
-
-		public BoundingFrustum (Matrix44 value)
-		{
-			this.planes = new Plane[6];
-			this.cornerArray = new Vector3[8];
-			this.SetMatrix (ref value);
-		}
-
-		static Vector3 ComputeIntersection (ref Plane plane, ref Ray ray)
-		{
-			Double planeNormDotRayPos;
-			Double planeNormDotRayDir;
-
-			Vector3.Dot (ref plane.Normal, ref ray.Position, out planeNormDotRayPos);
-			Vector3.Dot (ref plane.Normal, ref ray.Direction, out planeNormDotRayDir);
-
-			Double num = (-plane.D - planeNormDotRayPos) / planeNormDotRayDir;
-
-			return (ray.Position + (ray.Direction * num));
-		}
-
-		static Ray ComputeIntersectionLine (ref Plane p1, ref Plane p2)
-		{
-			Ray ray = new Ray ();
-
-			Vector3.Cross (ref p1.Normal, ref p2.Normal, out ray.Direction);
-
-			Double num = ray.Direction.LengthSquared ();
-
-			Vector3 a = (-p1.D * p2.Normal) + (p2.D * p1.Normal);
-
-			Vector3 cross;
-
-			Vector3.Cross (ref a, ref ray.Direction, out cross);
-
-			ray.Position =  cross / num;
-
-			return ray;
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			Boolean flag = false;
-			for(Int32 i = 0; i < this.planes.Length; ++i)
-			{
-				Plane plane = this.planes[i];
-				switch (box.Intersects (ref plane)) {
-				case PlaneIntersectionType.Front:
-					return ContainmentType.Disjoint;
-
-				case PlaneIntersectionType.Intersecting:
-					flag = true;
-					break;
-				}
-			}
-			if (!flag) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-			ContainmentType disjoint = ContainmentType.Disjoint;
-			if (this.Intersects (ref frustum)) {
-				disjoint = ContainmentType.Contains;
-				for (int i = 0; i < this.cornerArray.Length; i++) {
-					if (this.Contains (ref frustum.cornerArray [i]) == ContainmentType.Disjoint) {
-						return ContainmentType.Intersects;
-					}
-				}
-			}
-			return disjoint;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Vector3 center = sphere.Center;
-			Double radius = sphere.Radius;
-			int num2 = 0;
-			foreach (Plane plane in this.planes) {
-				Double num5 = ((plane.Normal.X * center.X) + (plane.Normal.Y * center.Y)) + (plane.Normal.Z * center.Z);
-				Double num3 = num5 + plane.D;
-				if (num3 > radius) {
-					return ContainmentType.Disjoint;
-				}
-				if (num3 < -radius) {
-					num2++;
-				}
-			}
-			if (num2 != 6) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			Double epsilon; RealMaths.FromString("0.00001", out epsilon);
-
-			foreach (Plane plane in this.planes) {
-				Double num2 = (((plane.Normal.X * point.X) + (plane.Normal.Y * point.Y)) + (plane.Normal.Z * point.Z)) + plane.D;
-				if (num2 > epsilon) {
-					return ContainmentType.Disjoint;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public Boolean Equals (BoundingFrustum other)
-		{
-			if (other == null) {
-				return false;
-			}
-			return (this.matrix == other.matrix);
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			BoundingFrustum frustum = obj as BoundingFrustum;
-			if (frustum != null) {
-				flag = this.matrix == frustum.matrix;
-			}
-			return flag;
-		}
-
-		public Vector3[] GetCorners ()
-		{
-			return (Vector3[])this.cornerArray.Clone ();
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return this.matrix.GetHashCode ();
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			Boolean flag;
-			this.Intersects (ref box, out flag);
-			return flag;
-		}
-
-		void Intersects (ref BoundingBox box, out Boolean result)
-		{
-			Double epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Double zero = 0;
-			Double four = 4;
-
-			Vector3 closestPoint;
-			Vector3 vector2;
-			Vector3 vector3;
-			Vector3 vector4;
-			Vector3 vector5;
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref box.Min, out closestPoint);
-			if (closestPoint.LengthSquared () < epsilon) {
-				Vector3.Subtract (ref this.cornerArray [0], ref box.Max, out closestPoint);
-			}
-			Double maxValue = Double.MaxValue;
-			Double num3 = zero;
-			result = false;
-		Label_006D:
-			vector5.X = -closestPoint.X;
-			vector5.Y = -closestPoint.Y;
-			vector5.Z = -closestPoint.Z;
-			this.SupportMapping (ref vector5, out vector4);
-			box.SupportMapping (ref closestPoint, out vector3);
-			Vector3.Subtract (ref vector4, ref vector3, out vector2);
-			Double num4 = ((closestPoint.X * vector2.X) + (closestPoint.Y * vector2.Y)) + (closestPoint.Z * vector2.Z);
-			if (num4 <= zero) {
-				this.gjk.AddSupportPoint (ref vector2);
-				closestPoint = this.gjk.ClosestPoint;
-				Double num2 = maxValue;
-				maxValue = closestPoint.LengthSquared ();
-				if ((num2 - maxValue) > (epsilon * num2)) {
-					num3 = four * epsilon * this.gjk.MaxLengthSquared;
-					if (!this.gjk.FullSimplex && (maxValue >= num3)) {
-						goto Label_006D;
-					}
-					result = true;
-				}
-			}
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			Double epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Double zero = 0;
-			Double four = 4;
-
-			Vector3 closestPoint;
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref frustum.cornerArray [0], out closestPoint);
-			if (closestPoint.LengthSquared () < epsilon) {
-				Vector3.Subtract (ref this.cornerArray [0], ref frustum.cornerArray [1], out closestPoint);
-			}
-			Double maxValue = Double.MaxValue;
-			Double num3 = zero;
-			do {
-				Vector3 vector2;
-				Vector3 vector3;
-				Vector3 vector4;
-				Vector3 vector5;
-				vector5.X = -closestPoint.X;
-				vector5.Y = -closestPoint.Y;
-				vector5.Z = -closestPoint.Z;
-				this.SupportMapping (ref vector5, out vector4);
-				frustum.SupportMapping (ref closestPoint, out vector3);
-				Vector3.Subtract (ref vector4, ref vector3, out vector2);
-				Double num4 = ((closestPoint.X * vector2.X) + (closestPoint.Y * vector2.Y)) + (closestPoint.Z * vector2.Z);
-				if (num4 > zero) {
-					return false;
-				}
-				this.gjk.AddSupportPoint (ref vector2);
-				closestPoint = this.gjk.ClosestPoint;
-				Double num2 = maxValue;
-				maxValue = closestPoint.LengthSquared ();
-				num3 = four * epsilon * this.gjk.MaxLengthSquared;
-				if ((num2 - maxValue) <= (epsilon * num2)) {
-					return false;
-				}
-			} while (!this.gjk.FullSimplex && (maxValue >= num3));
-			return true;
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Boolean flag;
-			this.Intersects (ref sphere, out flag);
-			return flag;
-		}
-
-		void Intersects (ref BoundingSphere sphere, out Boolean result)
-		{
-			Double zero = 0;
-			Double epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Double four = 4;
-
-			Vector3 unitX;
-			Vector3 vector2;
-			Vector3 vector3;
-			Vector3 vector4;
-			Vector3 vector5;
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref sphere.Center, out unitX);
-			if (unitX.LengthSquared () < epsilon) {
-				unitX = Vector3.UnitX;
-			}
-			Double maxValue = Double.MaxValue;
-			Double num3 = zero;
-			result = false;
-		Label_005A:
-			vector5.X = -unitX.X;
-			vector5.Y = -unitX.Y;
-			vector5.Z = -unitX.Z;
-			this.SupportMapping (ref vector5, out vector4);
-			sphere.SupportMapping (ref unitX, out vector3);
-			Vector3.Subtract (ref vector4, ref vector3, out vector2);
-			Double num4 = ((unitX.X * vector2.X) + (unitX.Y * vector2.Y)) + (unitX.Z * vector2.Z);
-			if (num4 <= zero) {
-				this.gjk.AddSupportPoint (ref vector2);
-				unitX = this.gjk.ClosestPoint;
-				Double num2 = maxValue;
-				maxValue = unitX.LengthSquared ();
-				if ((num2 - maxValue) > (epsilon * num2)) {
-					num3 = four * epsilon * this.gjk.MaxLengthSquared;
-					if (!this.gjk.FullSimplex && (maxValue >= num3)) {
-						goto Label_005A;
-					}
-					result = true;
-				}
-			}
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			Double zero = 0;
-
-			int num = 0;
-			for (int i = 0; i < 8; i++) {
-				Double num3;
-				Vector3.Dot (ref this.cornerArray [i], ref plane.Normal, out num3);
-				if ((num3 + plane.D) > zero) {
-					num |= 1;
-				} else {
-					num |= 2;
-				}
-				if (num == 3) {
-					return PlaneIntersectionType.Intersecting;
-				}
-			}
-			if (num != 1) {
-				return PlaneIntersectionType.Back;
-			}
-			return PlaneIntersectionType.Front;
-		}
-
-		public Double? Intersects (ref Ray ray)
-		{
-			Double? nullable;
-			this.Intersects (ref ray, out nullable);
-			return nullable;
-		}
-
-		void Intersects (ref Ray ray, out Double? result)
-		{
-			Double epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Double zero = 0;
-
-			ContainmentType type = this.Contains (ref ray.Position);
-			if (type == ContainmentType.Contains) {
-				result = zero;
-			} else {
-				Double minValue = Double.MinValue;
-				Double maxValue = Double.MaxValue;
-				result = zero;
-				foreach (Plane plane in this.planes) {
-					Double num3;
-					Double num6;
-					Vector3 normal = plane.Normal;
-					Vector3.Dot (ref ray.Direction, ref normal, out num6);
-					Vector3.Dot (ref ray.Position, ref normal, out num3);
-					num3 += plane.D;
-					if (RealMaths.Abs (num6) < epsilon) {
-						if (num3 > zero) {
-							return;
-						}
-					} else {
-						Double num = -num3 / num6;
-						if (num6 < zero) {
-							if (num > maxValue) {
-								return;
-							}
-							if (num > minValue) {
-								minValue = num;
-							}
-						} else {
-							if (num < minValue) {
-								return;
-							}
-							if (num < maxValue) {
-								maxValue = num;
-							}
-						}
-					}
-				}
-				Double num7 = (minValue >= zero) ? minValue : maxValue;
-				if (num7 >= zero) {
-					result = new Double? (num7);
-				}
-			}
-		}
-
-		public static Boolean operator == (BoundingFrustum a, BoundingFrustum b)
-		{
-			return Object.Equals (a, b);
-		}
-
-		public static Boolean operator != (BoundingFrustum a, BoundingFrustum b)
-		{
-			return !Object.Equals (a, b);
-		}
-
-		void SetMatrix (ref Matrix44 value)
-		{
-			this.matrix = value;
-
-			this.planes [2].Normal.X = -value.M14 - value.M11;
-			this.planes [2].Normal.Y = -value.M24 - value.M21;
-			this.planes [2].Normal.Z = -value.M34 - value.M31;
-			this.planes [2].D = -value.M44 - value.M41;
-
-			this.planes [3].Normal.X = -value.M14 + value.M11;
-			this.planes [3].Normal.Y = -value.M24 + value.M21;
-			this.planes [3].Normal.Z = -value.M34 + value.M31;
-			this.planes [3].D = -value.M44 + value.M41;
-
-			this.planes [4].Normal.X = -value.M14 + value.M12;
-			this.planes [4].Normal.Y = -value.M24 + value.M22;
-			this.planes [4].Normal.Z = -value.M34 + value.M32;
-			this.planes [4].D = -value.M44 + value.M42;
-
-			this.planes [5].Normal.X = -value.M14 - value.M12;
-			this.planes [5].Normal.Y = -value.M24 - value.M22;
-			this.planes [5].Normal.Z = -value.M34 - value.M32;
-			this.planes [5].D = -value.M44 - value.M42;
-
-			this.planes [0].Normal.X = -value.M13;
-			this.planes [0].Normal.Y = -value.M23;
-			this.planes [0].Normal.Z = -value.M33;
-			this.planes [0].D = -value.M43;
-
-			this.planes [1].Normal.X = -value.M14 + value.M13;
-			this.planes [1].Normal.Y = -value.M24 + value.M23;
-			this.planes [1].Normal.Z = -value.M34 + value.M33;
-			this.planes [1].D = -value.M44 + value.M43;
-
-			for (int i = 0; i < 6; i++) {
-				Double num2 = this.planes [i].Normal.Length ();
-				this.planes [i].Normal = (Vector3)(this.planes [i].Normal / num2);
-				this.planes [i].D /= num2;
-			}
-
-			Ray ray = ComputeIntersectionLine (ref this.planes [0], ref this.planes [2]);
-
-			this.cornerArray [0] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [3] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [3], ref this.planes [0]);
-
-			this.cornerArray [1] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [2] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [2], ref this.planes [1]);
-
-			this.cornerArray [4] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [7] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [1], ref this.planes [3]);
-
-			this.cornerArray [5] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [6] = ComputeIntersection (ref this.planes [5], ref ray);
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Double num3;
-
-			int index = 0;
-
-			Vector3.Dot (ref this.cornerArray [0], ref v, out num3);
-
-			for (int i = 1; i < this.cornerArray.Length; i++)
-			{
-				Double num2;
-
-				Vector3.Dot (ref this.cornerArray [i], ref v, out num2);
-
-				if (num2 > num3)
-				{
-					index = i;
-					num3 = num2;
-				}
-			}
-
-			result = this.cornerArray [index];
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Near:{0} Far:{1} Left:{2} Right:{3} Top:{4} Bottom:{5}}}", new Object[] { this.Near.ToString (), this.Far.ToString (), this.Left.ToString (), this.Right.ToString (), this.Top.ToString (), this.Bottom.ToString () });
-		}
-
-		// Properties
-		public Plane Bottom
-		{
-			get
-			{
-				return this.planes [5];
-			}
-		}
-
-		public Plane Far {
-			get {
-				return this.planes [1];
-			}
-		}
-
-		public Plane Left {
-			get {
-				return this.planes [2];
-			}
-		}
-
-		public Matrix44 Matrix {
-			get {
-				return this.matrix;
-			}
-			set {
-				this.SetMatrix (ref value);
-			}
-		}
-
-		public Plane Near {
-			get {
-				return this.planes [0];
-			}
-		}
-
-		public Plane Right {
-			get {
-				return this.planes [3];
-			}
-		}
-
-		public Plane Top {
-			get {
-				return this.planes [4];
-			}
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public struct BoundingSphere 
-		: IEquatable<BoundingSphere>
-	{
-		public Vector3 Center;
-		public Double Radius;
-
-		public BoundingSphere (Vector3 center, Double radius)
-		{
-			Double zero = 0;
-
-			if (radius < zero) {
-				throw new ArgumentException ("NegativeRadius");
-			}
-			this.Center = center;
-			this.Radius = radius;
-		}
-
-		public Boolean Equals (BoundingSphere other)
-		{
-			return ((this.Center == other.Center) && (this.Radius == other.Radius));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is BoundingSphere) {
-				flag = this.Equals ((BoundingSphere)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Center.GetHashCode () + this.Radius.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Center:{0} Radius:{1}}}", new Object[] { this.Center.ToString (), this.Radius.ToString () });
-		}
-
-		public static void CreateMerged (ref BoundingSphere original, ref BoundingSphere additional, out BoundingSphere result)
-		{
-			Double half; RealMaths.Half(out half);
-			Double one = 1;
-			Vector3 vector2;
-			Vector3.Subtract (ref additional.Center, ref original.Center, out vector2);
-			Double num = vector2.Length ();
-			Double radius = original.Radius;
-			Double num2 = additional.Radius;
-			if ((radius + num2) >= num) {
-				if ((radius - num2) >= num) {
-					result = original;
-					return;
-				}
-				if ((num2 - radius) >= num) {
-					result = additional;
-					return;
-				}
-			}
-			Vector3 vector = (Vector3)(vector2 * (one / num));
-			Double num5 = RealMaths.Min (-radius, num - num2);
-			Double num4 = (RealMaths.Max (radius, num + num2) - num5) * half;
-			result.Center = original.Center + ((Vector3)(vector * (num4 + num5)));
-			result.Radius = num4;
-		}
-
-		public static void CreateFromBoundingBox (ref BoundingBox box, out BoundingSphere result)
-		{
-			Double half; RealMaths.Half(out half);
-			Double num;
-			Vector3.Lerp (ref box.Min, ref box.Max, half, out result.Center);
-			Vector3.Distance (ref box.Min, ref box.Max, out num);
-			result.Radius = num * half;
-		}
-
-		public static void CreateFromPoints (IEnumerable<Vector3> points, out BoundingSphere sphere)
-		{	
-			Double half; RealMaths.Half(out half);
-			Double one = 1;
-
-			Double num;
-			Double num2;
-			Vector3 vector2;
-			Double num4;
-			Double num5;
-			
-			Vector3 vector5;
-			Vector3 vector6;
-			Vector3 vector7;
-			Vector3 vector8;
-			Vector3 vector9;
-			if (points == null) {
-				throw new ArgumentNullException ("points");
-			}
-			IEnumerator<Vector3> enumerator = points.GetEnumerator ();
-			if (!enumerator.MoveNext ()) {
-				throw new ArgumentException ("BoundingSphereZeroPoints");
-			}
-			Vector3 vector4 = vector5 = vector6 = vector7 = vector8 = vector9 = enumerator.Current;
-			foreach (Vector3 vector in points) {
-				if (vector.X < vector4.X) {
-					vector4 = vector;
-				}
-				if (vector.X > vector5.X) {
-					vector5 = vector;
-				}
-				if (vector.Y < vector6.Y) {
-					vector6 = vector;
-				}
-				if (vector.Y > vector7.Y) {
-					vector7 = vector;
-				}
-				if (vector.Z < vector8.Z) {
-					vector8 = vector;
-				}
-				if (vector.Z > vector9.Z) {
-					vector9 = vector;
-				}
-			}
-			Vector3.Distance (ref vector5, ref vector4, out num5);
-			Vector3.Distance (ref vector7, ref vector6, out num4);
-			Vector3.Distance (ref vector9, ref vector8, out num2);
-			if (num5 > num4) {
-				if (num5 > num2) {
-					Vector3.Lerp (ref vector5, ref vector4, half, out vector2);
-					num = num5 * half;
-				} else {
-					Vector3.Lerp (ref vector9, ref vector8, half, out vector2);
-					num = num2 * half;
-				}
-			} else if (num4 > num2) {
-				Vector3.Lerp (ref vector7, ref vector6, half, out vector2);
-				num = num4 * half;
-			} else {
-				Vector3.Lerp (ref vector9, ref vector8, half, out vector2);
-				num = num2 * half;
-			}
-			foreach (Vector3 vector10 in points) {
-				Vector3 vector3;
-				vector3.X = vector10.X - vector2.X;
-				vector3.Y = vector10.Y - vector2.Y;
-				vector3.Z = vector10.Z - vector2.Z;
-				Double num3 = vector3.Length ();
-				if (num3 > num) {
-					num = (num + num3) * half;
-					vector2 += (Vector3)((one - (num / num3)) * vector3);
-				}
-			}
-			sphere.Center = vector2;
-			sphere.Radius = num;
-		}
-
-		public static void CreateFromFrustum (ref BoundingFrustum frustum, out BoundingSphere sphere)
-		{
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-
-			CreateFromPoints (frustum.cornerArray, out sphere);
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			Double num;
-			Vector3 vector;
-			Vector3.Clamp (ref this.Center, ref box.Min, ref box.Max, out vector);
-			Vector3.DistanceSquared (ref this.Center, ref vector, out num);
-			return (num <= (this.Radius * this.Radius));
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			return plane.Intersects (ref this);
-		}
-
-		public Double? Intersects (ref Ray ray)
-		{
-			return ray.Intersects (ref this);
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Double two = 2;
-
-			Double num3;
-			Vector3.DistanceSquared (ref this.Center, ref sphere.Center, out num3);
-			Double radius = this.Radius;
-			Double num = sphere.Radius;
-			if ((((radius * radius) + ((two * radius) * num)) + (num * num)) <= num3) {
-				return false;
-			}
-			return true;
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			Vector3 vector;
-			if (!box.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-			Double num = this.Radius * this.Radius;
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			if (!frustum.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-			Double num2 = this.Radius * this.Radius;
-			foreach (Vector3 vector2 in frustum.cornerArray) {
-				Vector3 vector;
-				vector.X = vector2.X - this.Center.X;
-				vector.Y = vector2.Y - this.Center.Y;
-				vector.Z = vector2.Z - this.Center.Z;
-				if (vector.LengthSquared () > num2) {
-					return ContainmentType.Intersects;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			Double temp;
-			Vector3.DistanceSquared (ref point, ref this.Center, out temp);
-
-			if (temp >= (this.Radius * this.Radius))
-			{
-				return ContainmentType.Disjoint;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Double num3;
-			Vector3.Distance (ref this.Center, ref sphere.Center, out num3);
-			Double radius = this.Radius;
-			Double num = sphere.Radius;
-			if ((radius + num) < num3) {
-				return ContainmentType.Disjoint;
-			}
-			if ((radius - num) < num3) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Double num2 = v.Length ();
-			Double num = this.Radius / num2;
-			result.X = this.Center.X + (v.X * num);
-			result.Y = this.Center.Y + (v.Y * num);
-			result.Z = this.Center.Z + (v.Z * num);
-		}
-
-		public BoundingSphere Transform (Matrix44 matrix)
-		{
-			BoundingSphere sphere = new BoundingSphere ();
-			Vector3.Transform (ref this.Center, ref matrix, out sphere.Center);
-			Double num4 = ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13);
-			Double num3 = ((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23);
-			Double num2 = ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33);
-			Double num = RealMaths.Max (num4, RealMaths.Max (num3, num2));
-			sphere.Radius = this.Radius * (RealMaths.Sqrt (num));
-			return sphere;
-		}
-
-		public void Transform (ref Matrix44 matrix, out BoundingSphere result)
-		{
-			Vector3.Transform (ref this.Center, ref matrix, out result.Center);
-			Double num4 = ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13);
-			Double num3 = ((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23);
-			Double num2 = ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33);
-			Double num = RealMaths.Max (num4, RealMaths.Max (num3, num2));
-			result.Radius = this.Radius * (RealMaths.Sqrt (num));
-		}
-
-		public static Boolean operator == (BoundingSphere a, BoundingSphere b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (BoundingSphere a, BoundingSphere b)
-		{
-			if (!(a.Center != b.Center)) {
-				return !(a.Radius == b.Radius);
-			}
-			return true;
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Matrix44 
+	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
-		// Row 0
+		/// <summary>
+		/// Gets or sets (Row 1, Column 1) of the Matrix44.
+		/// </summary>
 		public Double M11;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 2) of the Matrix44.
+		/// </summary>
 		public Double M12;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 3) of the Matrix44.
+		/// </summary>
 		public Double M13;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 4) of the Matrix44.
+		/// </summary>
 		public Double M14;
 
-		// Row 1
+		/// <summary>
+		/// Gets or sets (Row 2, Column 1) of the Matrix44.
+		/// </summary>
 		public Double M21;
+
+		/// <summary>
+		/// Gets or sets (Row 2, Column 2) of the Matrix44.
+		/// </summary>
 		public Double M22;
+
+		/// <summary>
+		/// Gets or sets (ow 2, Column 3) of the Matrix44.
+		/// </summary>
 		public Double M23;
+
+		/// <summary>
+		/// Gets or sets (Row 2, Column 4) of the Matrix44.
+		/// </summary>
 		public Double M24;
 
-		// Row 2
+		/// <summary>
+		/// Row 3, Column 1) of the Matrix44.
+		/// </summary>
 		public Double M31;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 2) of the Matrix44.
+		/// </summary>
 		public Double M32;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 3) of the Matrix44.
+		/// </summary>
 		public Double M33;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 4) of the Matrix44.
+		/// </summary>
 		public Double M34;
 
-		// Row 3
+		/// <summary>
+		/// Gets or sets (Row 4, Column 1) of the Matrix44.
+		/// </summary>
 		public Double M41; // translation.x
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 2) of the Matrix44.
+		/// </summary>
 		public Double M42; // translation.y
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 3) of the Matrix44.
+		/// </summary>
 		public Double M43; // translation.z
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 4) of the Matrix44.
+		/// </summary>
 		public Double M44;
 		
-		public Vector3 Up {
-			get {
-				Vector3 vector;
-				vector.X = this.M21;
-				vector.Y = this.M22;
-				vector.Z = this.M23;
-				return vector;
-			}
-			set {
-				this.M21 = value.X;
-				this.M22 = value.Y;
-				this.M23 = value.Z;
-			}
-		}
-
-		public Vector3 Down {
-			get {
-				Vector3 vector;
-				vector.X = -this.M21;
-				vector.Y = -this.M22;
-				vector.Z = -this.M23;
-				return vector;
-			}
-			set {
-				this.M21 = -value.X;
-				this.M22 = -value.Y;
-				this.M23 = -value.Z;
-			}
-		}
-
-		public Vector3 Right {
-			get {
-				Vector3 vector;
-				vector.X = this.M11;
-				vector.Y = this.M12;
-				vector.Z = this.M13;
-				return vector;
-			}
-			set {
-				this.M11 = value.X;
-				this.M12 = value.Y;
-				this.M13 = value.Z;
-			}
-		}
-
-		public Vector3 Left {
-			get {
-				Vector3 vector;
-				vector.X = -this.M11;
-				vector.Y = -this.M12;
-				vector.Z = -this.M13;
-				return vector;
-			}
-			set {
-				this.M11 = -value.X;
-				this.M12 = -value.Y;
-				this.M13 = -value.Z;
-			}
-		}
-
-		public Vector3 Forward {
-			get {
-				Vector3 vector;
-				vector.X = -this.M31;
-				vector.Y = -this.M32;
-				vector.Z = -this.M33;
-				return vector;
-			}
-			set {
-				this.M31 = -value.X;
-				this.M32 = -value.Y;
-				this.M33 = -value.Z;
-			}
-		}
-
-		public Vector3 Backward {
-			get {
-				Vector3 vector;
-				vector.X = this.M31;
-				vector.Y = this.M32;
-				vector.Z = this.M33;
-				return vector;
-			}
-			set {
-				this.M31 = value.X;
-				this.M32 = value.Y;
-				this.M33 = value.Z;
-			}
-		}
-
-		public Vector3 Translation {
-			get {
-				Vector3 vector;
-				vector.X = this.M41;
-				vector.Y = this.M42;
-				vector.Z = this.M43;
-				return vector;
-			}
-			set {
-				this.M41 = value.X;
-				this.M42 = value.Y;
-				this.M43 = value.Z;
-			}
-		}
-
-		public Matrix44 (Double m11, Double m12, Double m13, Double m14, Double m21, Double m22, Double m23, Double m24, Double m31, Double m32, Double m33, Double m34, Double m41, Double m42, Double m43, Double m44)
+		/// <summary>
+		/// Initilises a new instance of Matrix44 from sixteen Double 
+		/// values representing the matrix, in row major order, respectively.
+		/// </summary>
+		public Matrix44 (
+			Double m11, 
+			Double m12, 
+			Double m13, 
+			Double m14, 
+			Double m21, 
+			Double m22, 
+			Double m23, 
+			Double m24, 
+			Double m31, 
+			Double m32, 
+			Double m33, 
+			Double m34, 
+			Double m41, 
+			Double m42, 
+			Double m43, 
+			Double m44)
 		{
 			this.M11 = m11;
 			this.M12 = m12;
@@ -12945,51 +14059,255 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.M44 = m44;
 		}
 
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
-			return ("{ " + string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", new Object[] { this.M11.ToString (), this.M12.ToString (), this.M13.ToString (), this.M14.ToString () }) + string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", new Object[] { this.M21.ToString (), this.M22.ToString (), this.M23.ToString (), this.M24.ToString () }) + string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", new Object[] { this.M31.ToString (), this.M32.ToString (), this.M33.ToString (), this.M34.ToString () }) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", new Object[] { this.M41.ToString (), this.M42.ToString (), this.M43.ToString (), this.M44.ToString () }) + "}");
+			return 
+				(
+					"{ " + 
+					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M11.ToString (), 
+							this.M12.ToString (), 
+							this.M13.ToString (), 
+							this.M14.ToString () 
+						}
+					) + 
+					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M21.ToString (), 
+							this.M22.ToString (), 
+							this.M23.ToString (), 
+							this.M24.ToString () 
+							}
+					) + 
+					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M31.ToString (), 
+							this.M32.ToString (), 
+							this.M33.ToString (), 
+							this.M34.ToString () 
+						}
+					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
+					new Object[] 
+					{ 
+						this.M41.ToString (), 
+						this.M42.ToString (), 
+						this.M43.ToString (), 
+						this.M44.ToString () 
+					}
+					) + 
+					"}"
+				);
 		}
 
-		public Boolean Equals (Matrix44 other)
-		{
-			return ((((((this.M11 == other.M11) && (this.M22 == other.M22)) && ((this.M33 == other.M33) && (this.M44 == other.M44))) && (((this.M12 == other.M12) && (this.M13 == other.M13)) && ((this.M14 == other.M14) && (this.M21 == other.M21)))) && ((((this.M23 == other.M23) && (this.M24 == other.M24)) && ((this.M31 == other.M31) && (this.M32 == other.M32))) && (((this.M34 == other.M34) && (this.M41 == other.M41)) && (this.M42 == other.M42)))) && (this.M43 == other.M43));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Matrix44)
-			{
-				flag = this.Equals ((Matrix44)obj);
-			}
-			return flag;
-		}
-
+		/// <summary>
+		/// Gets the hash code of the Matrix44 object.
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return (((((((((((((((this.M11.GetHashCode () + this.M12.GetHashCode ()) + this.M13.GetHashCode ()) + this.M14.GetHashCode ()) + this.M21.GetHashCode ()) + this.M22.GetHashCode ()) + this.M23.GetHashCode ()) + this.M24.GetHashCode ()) + this.M31.GetHashCode ()) + this.M32.GetHashCode ()) + this.M33.GetHashCode ()) + this.M34.GetHashCode ()) + this.M41.GetHashCode ()) + this.M42.GetHashCode ()) + this.M43.GetHashCode ()) + this.M44.GetHashCode ());
+			return 
+				(((((((((((((((
+					this.M11.GetHashCode () + 
+					this.M12.GetHashCode ()) + 
+					this.M13.GetHashCode ()) + 
+					this.M14.GetHashCode ()) + 
+					this.M21.GetHashCode ()) + 
+					this.M22.GetHashCode ()) + 
+					this.M23.GetHashCode ()) + 
+					this.M24.GetHashCode ()) + 
+					this.M31.GetHashCode ()) + 
+					this.M32.GetHashCode ()) + 
+					this.M33.GetHashCode ()) + 
+					this.M34.GetHashCode ()) + 
+					this.M41.GetHashCode ()) + 
+					this.M42.GetHashCode ()) + 
+					this.M43.GetHashCode ()) + 
+					this.M44.GetHashCode ());
 		}
 
-		#region Constants
-
-		static Matrix44 identity;
-
-		static Matrix44 ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Up 
 		{
-			Double zero = 0;
-			Double one = 1;
-			identity = new Matrix44 (one, zero, zero, zero, zero, one, zero, zero, zero, zero, one, zero, zero, zero, zero, one);
-		}
-
-		public static Matrix44 Identity {
-			get {
-				return identity;
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M21;
+				vector.Y = this.M22;
+				vector.Z = this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = value.X;
+				this.M22 = value.Y;
+				this.M23 = value.Z;
 			}
 		}
-		
-		#endregion
-		#region Create
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Down 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = -this.M21;
+				vector.Y = -this.M22;
+				vector.Z = -this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = -value.X;
+				this.M22 = -value.Y;
+				this.M23 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Right 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M11;
+				vector.Y = this.M12;
+				vector.Z = this.M13;
+				return vector;
+			}
+			set 
+			{
+				this.M11 = value.X;
+				this.M12 = value.Y;
+				this.M13 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Left
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M11;
+				vector.Y = -this.M12;
+				vector.Z = -this.M13;
+				return vector;
+			}
+			set
+			{
+				this.M11 = -value.X;
+				this.M12 = -value.Y;
+				this.M13 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Forward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M31;
+				vector.Y = -this.M32;
+				vector.Z = -this.M33;
+				return vector;
+			}
+			set 
+			{
+				this.M31 = -value.X;
+				this.M32 = -value.Y;
+				this.M33 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Backward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = this.M31;
+				vector.Y = this.M32;
+				vector.Z = this.M33;
+				return vector;
+			}
+			set
+			{
+				this.M31 = value.X;
+				this.M32 = value.Y;
+				this.M33 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Translation
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M41;
+				vector.Y = this.M42;
+				vector.Z = this.M43;
+				return vector;
+			}
+			set
+			{
+				this.M41 = value.X;
+				this.M42 = value.Y;
+				this.M43 = value.Z;
+			}
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines the identity matrix.
+		/// </summary>
+		static Matrix44 identity;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Matrix44 ()
+		{
+			identity = new Matrix44 (
+				1, 0, 0, 0, 
+				0, 1, 0, 0, 
+				0, 0, 1, 0, 
+				0, 0, 0, 1);
+		}
+
+		/// <summary>
+		/// Returns the identity matrix.
+		/// </summary>
+		public static Matrix44 Identity 
+		{
+			get { return identity; }
+		}
+		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (ref Vector3 position, out Matrix44 result)
 		{
 			result.M11 = 1;
@@ -13010,6 +14328,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (Double xPosition, Double yPosition, Double zPosition, out Matrix44 result)
 		{	
 			result.M11 = 1;
@@ -13030,7 +14351,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 		
-		// Creates a scaling matrix based on x, y, z.
+		/// <summary>
+		/// Creates a scaling matrix based on x, y, z.
+		/// </summary>
 		public static void CreateScale (Double xScale, Double yScale, Double zScale, out Matrix44 result)
 		{
 			result.M11 = xScale;
@@ -13051,7 +14374,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 
-		// Creates a scaling matrix based on a vector.
+		/// <summary>
+		/// Creates a scaling matrix based on a vector.
+		/// </summary>
 		public static void CreateScale (ref Vector3 scales, out Matrix44 result)
 		{
 			result.M11 = scales.X;
@@ -13072,7 +14397,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 
-		// Create a scaling matrix consistant along each axis
+		/// <summary>
+		/// Create a scaling matrix consistant along each axis
+		/// </summary>
 		public static void CreateScale (Double scale, out Matrix44 result)
 		{
 			result.M11 = scale;
@@ -13093,10 +14420,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationX (Double radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Double cos = RealMaths.Cos (radians);
 			Double sin = RealMaths.Sin (radians);
 
@@ -13118,10 +14446,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationY (Double radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Double cos = RealMaths.Cos (radians);
 			Double sin = RealMaths.Sin (radians);
 
@@ -13142,11 +14471,12 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = 0;
 			result.M44 = 1;
 		}
-		
+
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationZ (Double radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Double cos = RealMaths.Cos (radians);
 			Double sin = RealMaths.Sin (radians);
 
@@ -13168,6 +14498,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, Double angle, out Matrix44 result)
 		{
 			Double one = 1;
@@ -13208,6 +14541,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = one;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
 		{
 			if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
@@ -13233,6 +14569,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			Vector3 backward = -forward;
@@ -13241,7 +14580,7 @@ namespace Sungiant.Abacus.DoublePrecision
 
 			Vector3.Cross (ref up, ref backward, out right);
 
-			right.Normalise();
+			Vector3.Normalise(ref right, out right);
 
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
@@ -13250,6 +14589,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = position.Z;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			if(!forward.IsUnit() || !up.IsUnit() )
@@ -13285,6 +14627,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
 		{
 			if(!quaternion.IsUnit())
@@ -13329,42 +14674,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = one;
 		}
 
-
-
-		// todo: remove when we dont need this for the tests
-		internal static void CreateFromQuaternionOld (ref Quaternion quaternion, out Matrix44 result)
-		{
-			Double zero = 0;
-			Double one; RealMaths.One(out one);
-			Double two = 2;
-
-			Double num9 = quaternion.X * quaternion.X;
-			Double num8 = quaternion.Y * quaternion.Y;
-			Double num7 = quaternion.Z * quaternion.Z;
-			Double num6 = quaternion.X * quaternion.Y;
-			Double num5 = quaternion.Z * quaternion.W;
-			Double num4 = quaternion.Z * quaternion.X;
-			Double num3 = quaternion.Y * quaternion.W;
-			Double num2 = quaternion.Y * quaternion.Z;
-			Double num = quaternion.X * quaternion.W;
-			result.M11 = one - (two * (num8 + num7));
-			result.M12 = two * (num6 + num5);
-			result.M13 = two * (num4 - num3);
-			result.M14 = zero;
-			result.M21 = two * (num6 - num5);
-			result.M22 = one - (two * (num7 + num9));
-			result.M23 = two * (num2 + num);
-			result.M24 = zero;
-			result.M31 = two * (num4 + num3);
-			result.M32 = two * (num2 - num);
-			result.M33 = one - (two * (num8 + num9));
-			result.M34 = zero;
-			result.M41 = zero;
-			result.M42 = zero;
-			result.M43 = zero;
-			result.M44 = one;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (Double yaw, Double pitch, Double roll, out Matrix44 result)
 		{
 			Quaternion quaternion;
@@ -13374,32 +14686,21 @@ namespace Sungiant.Abacus.DoublePrecision
 			CreateFromQuaternion (ref quaternion, out result);
 		}
 
-
-
-
-
-
-
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		// FROM XNA
-		// --------
-		// Creates a cylindrical billboard that rotates around a specified axis.
-		// This method computes the facing direction of the billboard from the object position and camera position. 
-		// When the object and camera positions are too close, the matrix will not be accurate. 
-		// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Creates a cylindrical billboard that rotates around a specified axis.
+		/// This method computes the facing direction of the billboard from the object position and camera position. 
+		/// When the object and camera positions are too close, the matrix will not be accurate. 
+		/// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		/// </summary>
 		public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
 		{
 			Double zero = 0;
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 
 			Vector3 vector;
 			Vector3 vector2;
@@ -13416,7 +14717,9 @@ namespace Sungiant.Abacus.DoublePrecision
 				Vector3.Multiply (ref vector, (Double)(one / (RealMaths.Sqrt (num))), out vector);
 			}
 			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
-			vector3.Normalise ();
+
+			Vector3.Normalise (ref vector3, out vector3);
+
 			Vector3.Cross (ref vector, ref vector3, out vector2);
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -13435,11 +14738,25 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = ObjectPosition.Z;
 			result.M44 = one;
 		}
-		
-		public static void CreateConstrainedBillboard (ref Vector3 objectPosition, ref Vector3 cameraPosition, ref Vector3 rotateAxis, Vector3? cameraForwardVector, Vector3? objectForwardVector, out Matrix44 result)
+
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static void CreateConstrainedBillboard (
+			ref Vector3 objectPosition, 
+			ref Vector3 cameraPosition, 
+			ref Vector3 rotateAxis, 
+			Vector3? cameraForwardVector, 
+			Vector3? objectForwardVector, 
+			out Matrix44 result)
 		{
 			Double zero = 0;
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 
 			Double num;
 			Vector3 vector;
@@ -13474,14 +14791,14 @@ namespace Sungiant.Abacus.DoublePrecision
 					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
 				}
 				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			} else {
 				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref vector4, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			}
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -13501,12 +14818,24 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
-		public static void CreatePerspectiveFieldOfView (Double fieldOfView, Double aspectRatio, Double nearPlaneDistance, Double farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveFieldOfView (
+			Double fieldOfView, 
+			Double aspectRatio, 
+			Double nearPlaneDistance, 
+			Double farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Double zero = 0;
 			Double half; RealMaths.Half(out half);
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 			Double pi; RealMaths.Pi(out pi);
 
 			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
@@ -13534,11 +14863,23 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
-		public static void CreatePerspective (Double width, Double height, Double nearPlaneDistance, Double farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspective (
+			Double width, 
+			Double height, 
+			Double nearPlaneDistance, 
+			Double farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Double zero = 0;
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 			Double two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -13561,12 +14902,25 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
-		public static void CreatePerspectiveOffCenter (Double left, Double right, Double bottom, Double top, Double nearPlaneDistance, Double farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveOffCenter (
+			Double left, 
+			Double right, 
+			Double bottom, 
+			Double top, 
+			Double nearPlaneDistance, 
+			Double farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Double zero = 0;
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 			Double two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -13590,11 +14944,23 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M41 = result.M42 = result.M44 = zero;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
-		public static void CreateOrthographic (Double width, Double height, Double zNearPlane, Double zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographic (
+			Double width, 
+			Double height, 
+			Double zNearPlane, 
+			Double zFarPlane, 
+			out Matrix44 result)
 		{
 			Double zero = 0;
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 			Double two = 2;
 
 			result.M11 = two / width;
@@ -13608,11 +14974,25 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
-		public static void CreateOrthographicOffCenter (Double left, Double right, Double bottom, Double top, Double zNearPlane, Double zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographicOffCenter (
+			Double left, 
+			Double right, 
+			Double bottom, 
+			Double top, 
+			Double zNearPlane, 
+			Double zFarPlane, 
+			out Matrix44 result)
 		{
 			Double zero = 0;
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 			Double two = 2;
 
 			result.M11 = two / (right - left);
@@ -13627,11 +15007,22 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = one;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-		public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+		/// </summary>
+		public static void CreateLookAt (
+			ref Vector3 cameraPosition, 
+			ref Vector3 cameraTarget, 
+			ref Vector3 cameraUpVector, 
+			out Matrix44 result)
 		{
 			Double zero = 0;
-			Double one; RealMaths.One(out one);
+			Double one = 1;
 
 			Vector3 targetToPosition = cameraPosition - cameraTarget;
 
@@ -13665,134 +15056,44 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = one;
 		}
 
-		
-	
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205364(v=VS.85).aspx
-		public static void CreateShadow (ref Vector3 lightDirection, ref Plane plane, out Matrix44 result)
-		{
-			Double zero = 0;
-			
-			Plane plane2;
-			Plane.Normalise (ref plane, out plane2);
-			Double num = ((plane2.Normal.X * lightDirection.X) + (plane2.Normal.Y * lightDirection.Y)) + (plane2.Normal.Z * lightDirection.Z);
-			Double num5 = -plane2.Normal.X;
-			Double num4 = -plane2.Normal.Y;
-			Double num3 = -plane2.Normal.Z;
-			Double num2 = -plane2.D;
-			result.M11 = (num5 * lightDirection.X) + num;
-			result.M21 = num4 * lightDirection.X;
-			result.M31 = num3 * lightDirection.X;
-			result.M41 = num2 * lightDirection.X;
-			result.M12 = num5 * lightDirection.Y;
-			result.M22 = (num4 * lightDirection.Y) + num;
-			result.M32 = num3 * lightDirection.Y;
-			result.M42 = num2 * lightDirection.Y;
-			result.M13 = num5 * lightDirection.Z;
-			result.M23 = num4 * lightDirection.Z;
-			result.M33 = (num3 * lightDirection.Z) + num;
-			result.M43 = num2 * lightDirection.Z;
-			result.M14 = zero;
-			result.M24 = zero;
-			result.M34 = zero;
-			result.M44 = num;
-		}
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205356(v=VS.85).aspx
-		public static void CreateReflection (ref Plane value, out Matrix44 result)
-		{
-			Double zero = 0;
-			Double one; RealMaths.One(out one);
-			Double two = 2;
-
-			Plane plane;
-			
-			Plane.Normalise (ref value, out plane);
-			
-			value.Normalise ();
-			
-			Double x = plane.Normal.X;
-			Double y = plane.Normal.Y;
-			Double z = plane.Normal.Z;
-			
-			Double num3 = -two * x;
-			Double num2 = -two * y;
-			Double num = -two * z;
-			
-			result.M11 = (num3 * x) + one;
-			result.M12 = num2 * x;
-			result.M13 = num * x;
-			result.M14 = zero;
-			result.M21 = num3 * y;
-			result.M22 = (num2 * y) + one;
-			result.M23 = num * y;
-			result.M24 = zero;
-			result.M31 = num3 * z;
-			result.M32 = num2 * z;
-			result.M33 = (num * z) + one;
-			result.M34 = zero;
-			result.M41 = num3 * plane.D;
-			result.M42 = num2 * plane.D;
-			result.M43 = num * plane.D;
-			result.M44 = one;
-		}
-		
-		#endregion
-		#region Maths
-
-		//----------------------------------------------------------------------
-		// Transpose
-		//
-		public void Transpose()
-		{
-			Double temp = this.M12;
-			this.M12 = this.M21;
-			this.M21 = temp;
-
-			temp = this.M13;
-			this.M13 = this.M31;
-			this.M31 = temp;
-
-			temp = this.M14;
-			this.M14 = this.M41;
-			this.M41 = temp;
-
-			temp = this.M23;
-			this.M23 = this.M32;
-			this.M32 = temp;
-
-			temp = this.M24;
-			this.M24 = this.M42;
-			this.M42 = temp;
-
-			temp =  this.M34;
-			this.M34 = this.M43;
-			this.M43 = temp;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Transpose (ref Matrix44 input, out Matrix44 output)
 		{
-		    output.M11 = input.M11;
-			output.M12 = input.M21;
-			output.M13 = input.M31;
-			output.M14 = input.M41;
-			output.M21 = input.M12;
+			output.M11 = input.M11;
 			output.M22 = input.M22;
-			output.M23 = input.M32;
-			output.M24 = input.M42;
-			output.M31 = input.M13;
-			output.M32 = input.M23;
 			output.M33 = input.M33;
-			output.M34 = input.M43;
-			output.M41 = input.M14;
-			output.M42 = input.M24;
-			output.M43 = input.M34;
 			output.M44 = input.M44;
+
+			Double temp = input.M12;
+			output.M12 = input.M21;
+			output.M21 = temp;
+
+			temp = input.M13;
+			output.M13 = input.M31;
+			output.M31 = temp;
+
+			temp = input.M14;
+			output.M14 = input.M41;
+			output.M41 = temp;
+
+			temp = input.M23;
+			output.M23 = input.M32;
+			output.M32 = temp;
+
+			temp = input.M24;
+			output.M24 = input.M42;
+			output.M42 = temp;
+
+			temp =  input.M34;
+			output.M34 = input.M43;
+			output.M43 = temp;
 		}
 
-		//----------------------------------------------------------------------
-		// Decompose
-		// ref: Essential Mathemathics For Games & Interactive Applications
+		/// <summary>
+		/// Essential Mathemathics For Games & Interactive Applications
+		/// </summary>
 		public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
 		{
 			translation.X = M41;
@@ -13815,17 +15116,17 @@ namespace Sungiant.Abacus.DoublePrecision
 				return false;
 			}
 
-			a.Normalise();
-			b.Normalise();
-			c.Normalise();
+			Vector3.Normalise(ref a, out a);
+			Vector3.Normalise(ref b, out b);
+			Vector3.Normalise(ref c, out c);
 
 			Vector3 right = new Vector3(a.X, b.X, c.X);
 			Vector3 up = new Vector3(a.Y, b.Y, c.Y);
 			Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
 
-			right.Normalise();
-			up.Normalise();
-			backward.Normalise();
+			Vector3.Normalise(ref right, out right);
+			Vector3.Normalise(ref up, out up);
+			Vector3.Normalise(ref backward, out backward);
 
 			Matrix44 rotMat;
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
@@ -13835,19 +15136,14 @@ namespace Sungiant.Abacus.DoublePrecision
 			return true;
 		}
 
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		//----------------------------------------------------------------------
-		// Determinant
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Double Determinant ()
 		{
 			Double num22 = this.M11;
@@ -13877,9 +15173,14 @@ namespace Sungiant.Abacus.DoublePrecision
 			return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
 		}
 		
-		//----------------------------------------------------------------------
-		// Invert
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Invert (ref Matrix44 matrix, out Matrix44 result)
 		{
 			Double one = 1;
@@ -13940,10 +15241,14 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
 		}
 
-
-		//----------------------------------------------------------------------
-		// Transform - Transforms a Matrix by applying a Quaternion rotation.
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Transforms a Matrix by applying a Quaternion rotation.
+		/// </summary>
 		public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
 		{
 			Double one = 1;
@@ -14017,223 +15322,96 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = num23;
 			result.M44 = num22;
 		}
-		
-		#endregion
-		#region Operators
-		
-		public static Matrix44 operator - (Matrix44 matrix1)
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
 		{
-			Matrix44 matrix;
-			matrix.M11 = -matrix1.M11;
-			matrix.M12 = -matrix1.M12;
-			matrix.M13 = -matrix1.M13;
-			matrix.M14 = -matrix1.M14;
-			matrix.M21 = -matrix1.M21;
-			matrix.M22 = -matrix1.M22;
-			matrix.M23 = -matrix1.M23;
-			matrix.M24 = -matrix1.M24;
-			matrix.M31 = -matrix1.M31;
-			matrix.M32 = -matrix1.M32;
-			matrix.M33 = -matrix1.M33;
-			matrix.M34 = -matrix1.M34;
-			matrix.M41 = -matrix1.M41;
-			matrix.M42 = -matrix1.M42;
-			matrix.M43 = -matrix1.M43;
-			matrix.M44 = -matrix1.M44;
-			return matrix;
+			Boolean flag = false;
+
+			if (obj is Matrix44)
+			{
+				flag = this.Equals ((Matrix44) obj);
+			}
+			
+			return flag;
 		}
-		
+
+		#region IEquatable<Matrix44>
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// Matrix44 object.
+		/// </summary>
+		public Boolean Equals (Matrix44 other)
+		{
+			return 
+				(this.M11 == other.M11) && 
+				(this.M22 == other.M22) && 
+				(this.M33 == other.M33) && 
+				(this.M44 == other.M44) && 
+				(this.M12 == other.M12) && 
+				(this.M13 == other.M13) && 
+				(this.M14 == other.M14) && 
+				(this.M21 == other.M21) && 
+				(this.M23 == other.M23) && 
+				(this.M24 == other.M24) && 
+				(this.M31 == other.M31) && 
+				(this.M32 == other.M32) && 
+				(this.M34 == other.M34) && 
+				(this.M41 == other.M41) && 
+				(this.M42 == other.M42) && 
+				(this.M43 == other.M43);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			return ((((((matrix1.M11 == matrix2.M11) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M44 == matrix2.M44))) && (((matrix1.M12 == matrix2.M12) && (matrix1.M13 == matrix2.M13)) && ((matrix1.M14 == matrix2.M14) && (matrix1.M21 == matrix2.M21)))) && ((((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)) && ((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32))) && (((matrix1.M34 == matrix2.M34) && (matrix1.M41 == matrix2.M41)) && (matrix1.M42 == matrix2.M42)))) && (matrix1.M43 == matrix2.M43));
 		}
 		
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			if (((((matrix1.M11 == matrix2.M11) && (matrix1.M12 == matrix2.M12)) && ((matrix1.M13 == matrix2.M13) && (matrix1.M14 == matrix2.M14))) && (((matrix1.M21 == matrix2.M21) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)))) && ((((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M34 == matrix2.M34))) && (((matrix1.M41 == matrix2.M41) && (matrix1.M42 == matrix2.M42)) && (matrix1.M43 == matrix2.M43)))) {
+			if ((matrix1.M11 == matrix2.M11) && 
+				(matrix1.M12 == matrix2.M12) && 
+				(matrix1.M13 == matrix2.M13) && 
+				(matrix1.M14 == matrix2.M14) && 
+				(matrix1.M21 == matrix2.M21) && 
+				(matrix1.M22 == matrix2.M22) && 
+				(matrix1.M23 == matrix2.M23) && 
+				(matrix1.M24 == matrix2.M24) && 
+				(matrix1.M31 == matrix2.M31) && 
+				(matrix1.M32 == matrix2.M32) && 
+				(matrix1.M33 == matrix2.M33) && 
+				(matrix1.M34 == matrix2.M34) && 
+				(matrix1.M41 == matrix2.M41) && 
+				(matrix1.M42 == matrix2.M42) && 
+				(matrix1.M43 == matrix2.M43))
+			{
 				return !(matrix1.M44 == matrix2.M44);
 			}
+
 			return true;
 		}
-		
-		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 + matrix2.M11;
-			matrix.M12 = matrix1.M12 + matrix2.M12;
-			matrix.M13 = matrix1.M13 + matrix2.M13;
-			matrix.M14 = matrix1.M14 + matrix2.M14;
-			matrix.M21 = matrix1.M21 + matrix2.M21;
-			matrix.M22 = matrix1.M22 + matrix2.M22;
-			matrix.M23 = matrix1.M23 + matrix2.M23;
-			matrix.M24 = matrix1.M24 + matrix2.M24;
-			matrix.M31 = matrix1.M31 + matrix2.M31;
-			matrix.M32 = matrix1.M32 + matrix2.M32;
-			matrix.M33 = matrix1.M33 + matrix2.M33;
-			matrix.M34 = matrix1.M34 + matrix2.M34;
-			matrix.M41 = matrix1.M41 + matrix2.M41;
-			matrix.M42 = matrix1.M42 + matrix2.M42;
-			matrix.M43 = matrix1.M43 + matrix2.M43;
-			matrix.M44 = matrix1.M44 + matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 - matrix2.M11;
-			matrix.M12 = matrix1.M12 - matrix2.M12;
-			matrix.M13 = matrix1.M13 - matrix2.M13;
-			matrix.M14 = matrix1.M14 - matrix2.M14;
-			matrix.M21 = matrix1.M21 - matrix2.M21;
-			matrix.M22 = matrix1.M22 - matrix2.M22;
-			matrix.M23 = matrix1.M23 - matrix2.M23;
-			matrix.M24 = matrix1.M24 - matrix2.M24;
-			matrix.M31 = matrix1.M31 - matrix2.M31;
-			matrix.M32 = matrix1.M32 - matrix2.M32;
-			matrix.M33 = matrix1.M33 - matrix2.M33;
-			matrix.M34 = matrix1.M34 - matrix2.M34;
-			matrix.M41 = matrix1.M41 - matrix2.M41;
-			matrix.M42 = matrix1.M42 - matrix2.M42;
-			matrix.M43 = matrix1.M43 - matrix2.M43;
-			matrix.M44 = matrix1.M44 - matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			matrix.M12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			matrix.M13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			matrix.M14 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			matrix.M21 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			matrix.M22 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			matrix.M23 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			matrix.M24 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			matrix.M31 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			matrix.M32 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			matrix.M33 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			matrix.M34 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			matrix.M41 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			matrix.M42 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			matrix.M43 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			matrix.M44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			return matrix;
-		}
-		
-		public static Matrix44 operator * (Matrix44 matrix, Double scaleFactor)
-		{
-			Matrix44 matrix2;
-			Double num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-		
-		public static Matrix44 operator * (Double scaleFactor, Matrix44 matrix)
-		{
-			Matrix44 matrix2;
-			Double num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-		
-		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 / matrix2.M11;
-			matrix.M12 = matrix1.M12 / matrix2.M12;
-			matrix.M13 = matrix1.M13 / matrix2.M13;
-			matrix.M14 = matrix1.M14 / matrix2.M14;
-			matrix.M21 = matrix1.M21 / matrix2.M21;
-			matrix.M22 = matrix1.M22 / matrix2.M22;
-			matrix.M23 = matrix1.M23 / matrix2.M23;
-			matrix.M24 = matrix1.M24 / matrix2.M24;
-			matrix.M31 = matrix1.M31 / matrix2.M31;
-			matrix.M32 = matrix1.M32 / matrix2.M32;
-			matrix.M33 = matrix1.M33 / matrix2.M33;
-			matrix.M34 = matrix1.M34 / matrix2.M34;
-			matrix.M41 = matrix1.M41 / matrix2.M41;
-			matrix.M42 = matrix1.M42 / matrix2.M42;
-			matrix.M43 = matrix1.M43 / matrix2.M43;
-			matrix.M44 = matrix1.M44 / matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator / (Matrix44 matrix1, Double divider)
-		{
-			Matrix44 matrix;
-			Double one = 1;
-			Double num = one / divider;
-			matrix.M11 = matrix1.M11 * num;
-			matrix.M12 = matrix1.M12 * num;
-			matrix.M13 = matrix1.M13 * num;
-			matrix.M14 = matrix1.M14 * num;
-			matrix.M21 = matrix1.M21 * num;
-			matrix.M22 = matrix1.M22 * num;
-			matrix.M23 = matrix1.M23 * num;
-			matrix.M24 = matrix1.M24 * num;
-			matrix.M31 = matrix1.M31 * num;
-			matrix.M32 = matrix1.M32 * num;
-			matrix.M33 = matrix1.M33 * num;
-			matrix.M34 = matrix1.M34 * num;
-			matrix.M41 = matrix1.M41 * num;
-			matrix.M42 = matrix1.M42 * num;
-			matrix.M43 = matrix1.M43 * num;
-			matrix.M44 = matrix1.M44 * num;
-			return matrix;
-		}
-		
-		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
-		{
-			result.M11 = -matrix.M11;
-			result.M12 = -matrix.M12;
-			result.M13 = -matrix.M13;
-			result.M14 = -matrix.M14;
-			result.M21 = -matrix.M21;
-			result.M22 = -matrix.M22;
-			result.M23 = -matrix.M23;
-			result.M24 = -matrix.M24;
-			result.M31 = -matrix.M31;
-			result.M32 = -matrix.M32;
-			result.M33 = -matrix.M33;
-			result.M34 = -matrix.M34;
-			result.M41 = -matrix.M41;
-			result.M42 = -matrix.M42;
-			result.M43 = -matrix.M43;
-			result.M44 = -matrix.M44;
-		}
-		
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Matrix44 objects.
+		/// </summary>
 		public static void Add (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + matrix2.M11;
@@ -14253,7 +15431,37 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = matrix1.M43 + matrix2.M43;
 			result.M44 = matrix1.M44 + matrix2.M44;
 		}
-		
+
+		/// <summary>
+		/// Performs addition of two Matrix44 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 + matrix2.M11;
+			result.M12 = matrix1.M12 + matrix2.M12;
+			result.M13 = matrix1.M13 + matrix2.M13;
+			result.M14 = matrix1.M14 + matrix2.M14;
+			result.M21 = matrix1.M21 + matrix2.M21;
+			result.M22 = matrix1.M22 + matrix2.M22;
+			result.M23 = matrix1.M23 + matrix2.M23;
+			result.M24 = matrix1.M24 + matrix2.M24;
+			result.M31 = matrix1.M31 + matrix2.M31;
+			result.M32 = matrix1.M32 + matrix2.M32;
+			result.M33 = matrix1.M33 + matrix2.M33;
+			result.M34 = matrix1.M34 + matrix2.M34;
+			result.M41 = matrix1.M41 + matrix2.M41;
+			result.M42 = matrix1.M42 + matrix2.M42;
+			result.M43 = matrix1.M43 + matrix2.M43;
+			result.M44 = matrix1.M44 + matrix2.M44;
+			return result;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects.
+		/// </summary>
 		public static void Subtract (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 - matrix2.M11;
@@ -14273,64 +15481,375 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = matrix1.M43 - matrix2.M43;
 			result.M44 = matrix1.M44 - matrix2.M44;
 		}
-		
-		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			Double num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			Double num15 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			Double num14 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			Double num13 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			Double num12 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			Double num11 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			Double num10 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			Double num9 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			Double num8 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			Double num7 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			Double num6 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			Double num5 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			Double num4 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			Double num3 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			Double num2 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			Double num = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			result.M11 = num16;
-			result.M12 = num15;
-			result.M13 = num14;
-			result.M14 = num13;
-			result.M21 = num12;
-			result.M22 = num11;
-			result.M23 = num10;
-			result.M24 = num9;
-			result.M31 = num8;
-			result.M32 = num7;
-			result.M33 = num6;
-			result.M34 = num5;
-			result.M41 = num4;
-			result.M42 = num3;
-			result.M43 = num2;
-			result.M44 = num;
+			Matrix44 result;
+			result.M11 = matrix1.M11 - matrix2.M11;
+			result.M12 = matrix1.M12 - matrix2.M12;
+			result.M13 = matrix1.M13 - matrix2.M13;
+			result.M14 = matrix1.M14 - matrix2.M14;
+			result.M21 = matrix1.M21 - matrix2.M21;
+			result.M22 = matrix1.M22 - matrix2.M22;
+			result.M23 = matrix1.M23 - matrix2.M23;
+			result.M24 = matrix1.M24 - matrix2.M24;
+			result.M31 = matrix1.M31 - matrix2.M31;
+			result.M32 = matrix1.M32 - matrix2.M32;
+			result.M33 = matrix1.M33 - matrix2.M33;
+			result.M34 = matrix1.M34 - matrix2.M34;
+			result.M41 = matrix1.M41 - matrix2.M41;
+			result.M42 = matrix1.M42 - matrix2.M42;
+			result.M43 = matrix1.M43 - matrix2.M43;
+			result.M44 = matrix1.M44 - matrix2.M44;
+			return result;
 		}
 
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Matrix44 object.
+		/// </summary>
+		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
+		{
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+		}
+
+		/// <summary>
+		/// Performs negation of a Matrix44 object using the (-X) operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix)
+		{
+			Matrix44 result;
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+			return result;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects.
+		/// </summary>
+		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+		{	
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Double
+		/// precision scaling factor.
+		/// </summary>
 		public static void Multiply (ref Matrix44 matrix1, Double scaleFactor, out Matrix44 result)
 		{
-			Double num = scaleFactor;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
 		}
 
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Double
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Double scaleFactor)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aMatrix44 object using the (x*Y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Double scaleFactor, Matrix44 matrix1)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Matrix44 objects.
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 / matrix2.M11;
@@ -14350,35 +15869,90 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = matrix1.M43 / matrix2.M43;
 			result.M44 = matrix1.M44 / matrix2.M44;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Double precision
+		/// scaling factor.
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, Double divider, out Matrix44 result)
 		{
-			Double one = 1;
-
-			Double num = one / divider;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
 		}
 
-		#endregion
-		#region Utilities
+		/// <summary>
+		/// Performs division of two Matrix44 objects using the (X/Y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
 
-		// beware, doing this might not produce what you expect.  you likely
-		// want to lerp between quaternions.
+			result.M11 = matrix1.M11 / matrix2.M11;
+			result.M12 = matrix1.M12 / matrix2.M12;
+			result.M13 = matrix1.M13 / matrix2.M13;
+			result.M14 = matrix1.M14 / matrix2.M14;
+			result.M21 = matrix1.M21 / matrix2.M21;
+			result.M22 = matrix1.M22 / matrix2.M22;
+			result.M23 = matrix1.M23 / matrix2.M23;
+			result.M24 = matrix1.M24 / matrix2.M24;
+			result.M31 = matrix1.M31 / matrix2.M31;
+			result.M32 = matrix1.M32 / matrix2.M32;
+			result.M33 = matrix1.M33 / matrix2.M33;
+			result.M34 = matrix1.M34 / matrix2.M34;
+			result.M41 = matrix1.M41 / matrix2.M41;
+			result.M42 = matrix1.M42 / matrix2.M42;
+			result.M43 = matrix1.M43 / matrix2.M43;
+			result.M44 = matrix1.M44 / matrix2.M44;
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Double precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Double divider)
+		{
+			Matrix44 result;
+
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
+
+			return result;
+		}
+
+		/// <summary>
+		/// beware, doing this might not produce what you expect.  you likely
+		/// want to lerp between quaternions.
+		/// </summary>
 		public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Double amount, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
@@ -14398,374 +15972,39 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M43 = matrix1.M43 + ((matrix2.M43 - matrix1.M43) * amount);
 			result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
 		}
-		
-		#endregion
-		
-	}
 
+			}
+
+	/// <summary>
+	/// Double precision Quaternion.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct Plane 
-		: IEquatable<Plane>
-	{
-		public Vector3 Normal;
-		public Double D;
-
-		public Plane (Double a, Double b, Double c, Double d)
-		{
-			this.Normal.X = a;
-			this.Normal.Y = b;
-			this.Normal.Z = c;
-			this.D = d;
-		}
-
-		public Plane (Vector3 normal, Double d)
-		{
-			this.Normal = normal;
-			this.D = d;
-		}
-
-		public Plane (Vector4 value)
-		{
-			this.Normal.X = value.X;
-			this.Normal.Y = value.Y;
-			this.Normal.Z = value.Z;
-			this.D = value.W;
-		}
-
-		public Plane (Vector3 point1, Vector3 point2, Vector3 point3)
-		{
-			Double one = 1;
-
-			Double num10 = point2.X - point1.X;
-			Double num9 = point2.Y - point1.Y;
-			Double num8 = point2.Z - point1.Z;
-			Double num7 = point3.X - point1.X;
-			Double num6 = point3.Y - point1.Y;
-			Double num5 = point3.Z - point1.Z;
-			Double num4 = (num9 * num5) - (num8 * num6);
-			Double num3 = (num8 * num7) - (num10 * num5);
-			Double num2 = (num10 * num6) - (num9 * num7);
-			Double num11 = ((num4 * num4) + (num3 * num3)) + (num2 * num2);
-			Double num = one / RealMaths.Sqrt (num11);
-			this.Normal.X = num4 * num;
-			this.Normal.Y = num3 * num;
-			this.Normal.Z = num2 * num;
-			this.D = -(((this.Normal.X * point1.X) + (this.Normal.Y * point1.Y)) + (this.Normal.Z * point1.Z));
-		}
-
-		public Boolean Equals (Plane other)
-		{
-			return ((((this.Normal.X == other.Normal.X) && (this.Normal.Y == other.Normal.Y)) && (this.Normal.Z == other.Normal.Z)) && (this.D == other.D));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Plane) {
-				flag = this.Equals ((Plane)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Normal.GetHashCode () + this.D.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Normal:{0} D:{1}}}", new Object[] { this.Normal.ToString (), this.D.ToString () });
-		}
-
-		public void Normalise ()
-		{
-			Double one = 1;
-			Double somethingWicked; RealMaths.FromString("0.0000001192093", out somethingWicked);
-
-			Double num2 = ((this.Normal.X * this.Normal.X) + (this.Normal.Y * this.Normal.Y)) + (this.Normal.Z * this.Normal.Z);
-			if (RealMaths.Abs (num2 - one) >= somethingWicked) {
-				Double num = one / RealMaths.Sqrt (num2);
-				this.Normal.X *= num;
-				this.Normal.Y *= num;
-				this.Normal.Z *= num;
-				this.D *= num;
-			}
-		}
-
-		public static void Normalise (ref Plane value, out Plane result)
-		{
-			Double one = 1;
-			Double somethingWicked; RealMaths.FromString("0.0000001192093", out somethingWicked);
-
-			Double num2 = ((value.Normal.X * value.Normal.X) + (value.Normal.Y * value.Normal.Y)) + (value.Normal.Z * value.Normal.Z);
-			if (RealMaths.Abs (num2 - one) < somethingWicked) {
-				result.Normal = value.Normal;
-				result.D = value.D;
-			} else {
-				Double num = one / RealMaths.Sqrt (num2);
-				result.Normal.X = value.Normal.X * num;
-				result.Normal.Y = value.Normal.Y * num;
-				result.Normal.Z = value.Normal.Z * num;
-				result.D = value.D * num;
-			}
-		}
-
-		public static void Transform (ref Plane plane, ref Matrix44 matrix, out Plane result)
-		{
-			Matrix44 matrix2;
-			Matrix44.Invert (ref matrix, out matrix2);
-			Double x = plane.Normal.X;
-			Double y = plane.Normal.Y;
-			Double z = plane.Normal.Z;
-			Double d = plane.D;
-			result.Normal.X = (((x * matrix2.M11) + (y * matrix2.M12)) + (z * matrix2.M13)) + (d * matrix2.M14);
-			result.Normal.Y = (((x * matrix2.M21) + (y * matrix2.M22)) + (z * matrix2.M23)) + (d * matrix2.M24);
-			result.Normal.Z = (((x * matrix2.M31) + (y * matrix2.M32)) + (z * matrix2.M33)) + (d * matrix2.M34);
-			result.D = (((x * matrix2.M41) + (y * matrix2.M42)) + (z * matrix2.M43)) + (d * matrix2.M44);
-		}
-
-
-		public static void Transform (ref Plane plane, ref Quaternion rotation, out Plane result)
-		{
-			Double one = 1;
-
-			Double num15 = rotation.X + rotation.X;
-			Double num5 = rotation.Y + rotation.Y;
-			Double num = rotation.Z + rotation.Z;
-			Double num14 = rotation.W * num15;
-			Double num13 = rotation.W * num5;
-			Double num12 = rotation.W * num;
-			Double num11 = rotation.X * num15;
-			Double num10 = rotation.X * num5;
-			Double num9 = rotation.X * num;
-			Double num8 = rotation.Y * num5;
-			Double num7 = rotation.Y * num;
-			Double num6 = rotation.Z * num;
-			Double num24 = (one - num8) - num6;
-			Double num23 = num10 - num12;
-			Double num22 = num9 + num13;
-			Double num21 = num10 + num12;
-			Double num20 = (one - num11) - num6;
-			Double num19 = num7 - num14;
-			Double num18 = num9 - num13;
-			Double num17 = num7 + num14;
-			Double num16 = (one - num11) - num8;
-			Double x = plane.Normal.X;
-			Double y = plane.Normal.Y;
-			Double z = plane.Normal.Z;
-			result.Normal.X = ((x * num24) + (y * num23)) + (z * num22);
-			result.Normal.Y = ((x * num21) + (y * num20)) + (z * num19);
-			result.Normal.Z = ((x * num18) + (y * num17)) + (z * num16);
-			result.D = plane.D;
-		}
-		
-
-
-		public Double Dot(ref Vector4 value)
-		{
-			return (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + (this.D * value.W);
-		}
-
-		public Double DotCoordinate (ref Vector3 value)
-		{
-			return (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + this.D;
-		}
-
-		public Double DotNormal (ref Vector3 value)
-		{
-			return ((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z);
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingBox box)
-		{
-			Double zero = 0;
-
-			Vector3 vector;
-			Vector3 vector2;
-			vector2.X = (this.Normal.X >= zero) ? box.Min.X : box.Max.X;
-			vector2.Y = (this.Normal.Y >= zero) ? box.Min.Y : box.Max.Y;
-			vector2.Z = (this.Normal.Z >= zero) ? box.Min.Z : box.Max.Z;
-			vector.X = (this.Normal.X >= zero) ? box.Max.X : box.Min.X;
-			vector.Y = (this.Normal.Y >= zero) ? box.Max.Y : box.Min.Y;
-			vector.Z = (this.Normal.Z >= zero) ? box.Max.Z : box.Min.Z;
-			Double num = ((this.Normal.X * vector2.X) + (this.Normal.Y * vector2.Y)) + (this.Normal.Z * vector2.Z);
-			if ((num + this.D) > zero) {
-				return PlaneIntersectionType.Front;
-			} else {
-				num = ((this.Normal.X * vector.X) + (this.Normal.Y * vector.Y)) + (this.Normal.Z * vector.Z);
-				if ((num + this.D) < zero) {
-					return PlaneIntersectionType.Back;
-				} else {
-					return PlaneIntersectionType.Intersecting;
-				}
-			}
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingSphere sphere)
-		{
-			Double num2 = ((sphere.Center.X * this.Normal.X) + (sphere.Center.Y * this.Normal.Y)) + (sphere.Center.Z * this.Normal.Z);
-			Double num = num2 + this.D;
-			if (num > sphere.Radius) {
-				return PlaneIntersectionType.Front;
-			} else if (num < -sphere.Radius) {
-				return PlaneIntersectionType.Back;
-			} else {
-				return PlaneIntersectionType.Intersecting;
-			}
-		}
-
-		public static Boolean operator == (Plane lhs, Plane rhs)
-		{
-			return lhs.Equals (rhs);
-		}
-
-		public static Boolean operator != (Plane lhs, Plane rhs)
-		{
-			if (((lhs.Normal.X == rhs.Normal.X) && (lhs.Normal.Y == rhs.Normal.Y)) && (lhs.Normal.Z == rhs.Normal.Z)) {
-				return !(lhs.D == rhs.D);
-			}
-			return true;
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public struct Quad
-		: IEquatable<Quad>
-	{
-		public Vector3 A
-		{
-			get
-			{
-				return tri1.A;
-			}
-			set
-			{
-				tri1.A = value;
-			}
-		}
-
-		public Vector3 B
-		{
-			get
-			{
-				return tri1.B;
-			}
-			set
-			{
-				tri1.B = value;
-				tri2.B = value;
-			}
-		}
-
-		public Vector3 C
-		{
-			get
-			{
-				return tri2.C;
-			}
-			set
-			{
-				tri1.C = value;
-				tri2.C = value;
-			}
-		}
-
-		public Vector3 D
-		{
-			get
-			{
-				return tri2.A;
-			}
-			set
-			{
-				tri1.A = value;
-				tri2.A = value;
-			}
-		}
-
-		Triangle tri1;
-		Triangle tri2;
-
-		public Quad (Vector3 a, Vector3 b, Vector3 c, Vector3 d)
-		{
-			this.tri1 = new Triangle(a, b, c);
-			this.tri2 = new Triangle(d, b, c);
-		}
-
-		// Determines whether or not this Quad is equal in value to another Quad
-		public Boolean Equals (Quad other)
-		{
-			if (this.A.X != other.A.X) return false;
-			if (this.A.Y != other.A.Y) return false;
-			if (this.A.Z != other.A.Z) return false;
-
-			if (this.B.X != other.B.X) return false;
-			if (this.B.Y != other.B.Y) return false;
-			if (this.B.Z != other.B.Z) return false;
-
-			if (this.C.X != other.C.X) return false;
-			if (this.C.Y != other.C.Y) return false;
-			if (this.C.Z != other.C.Z) return false;
-			
-			if (this.D.X != other.D.X) return false;
-			if (this.D.Y != other.D.Y) return false;
-			if (this.D.Z != other.D.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this Quad is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Quad)
-			{
-				// Ok, it is a Quad, so just use the method above to compare.
-				return this.Equals ((Quad) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode () + this.D.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{A:{0} B:{1} C:{2} D:{3}}}", this.A, this.B, this.C, this.D);
-		}
-
-		public static Boolean operator == (Quad a, Quad b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Quad a, Quad b)
-		{
-			return !a.Equals(b);
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Quaternion 
+	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Double X;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Double Y;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Double Z;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Double W;
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (Double x, Double y, Double z, Double w)
 		{
 			this.X = x;
@@ -14774,6 +16013,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (Vector3 vectorPart, Double scalarPart)
 		{
 			this.X = vectorPart.X;
@@ -14782,43 +16024,42 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = scalarPart;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
 		}
 
-		public Boolean Equals (Quaternion other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-
-			Boolean flag = false;
-			if (obj is Quaternion)
-			{
-				flag = this.Equals ((Quaternion)obj);
-			}
-			return flag;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Double LengthSquared ()
 		{
 			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Double Length ()
 		{
 			Double num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Normalise ()
 		{
 			Double one = 1;
@@ -14830,6 +16071,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W *= num;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Double one = 1;
@@ -14837,6 +16081,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Conjugate ()
 		{
 			this.X = -this.X;
@@ -14844,28 +16091,32 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.Z = -this.Z;
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
+		/// <summary>
+		/// Defines the identity quaternion.
+		/// </summary>
 		static Quaternion identity;
-		
-		public static Quaternion Identity
-		{
-			get
-			{
-				return identity;
-			}
-		}
 
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Quaternion ()
 		{
-			Double temp_one; RealMaths.One(out temp_one);
-			Double temp_zero; RealMaths.Zero(out temp_zero);
-			identity = new Quaternion (temp_zero, temp_zero, temp_zero, temp_one);
+			identity = new Quaternion (0, 0, 0, 1);
 		}
-		
-		#endregion
-		#region Create
 
+		/// <summary>
+		/// Returns the identity Quaternion.
+		/// </summary>
+		public static Quaternion Identity
+		{
+			get { return identity; }
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, Double angle, out Quaternion result)
 		{
 			Double half; RealMaths.Half(out half);
@@ -14880,7 +16131,10 @@ namespace Sungiant.Abacus.DoublePrecision
 
 			result.W = cos;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (Double yaw, Double pitch, Double roll, out Quaternion result)
 		{
 			Double half; RealMaths.Half(out half);
@@ -14904,7 +16158,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
 			result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
 		{
 			Double zero = 0;
@@ -14950,10 +16207,9 @@ namespace Sungiant.Abacus.DoublePrecision
 				result.W = (matrix.M12 - matrix.M21) * num2;
 			}
 		}
-		
-		#endregion
-		#region Maths
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Conjugate (ref Quaternion value, out Quaternion result)
 		{
 			result.X = -value.X;
@@ -14962,246 +16218,435 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = value.W;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Inverse (ref Quaternion quaternion, out Quaternion result)
 		{
 			Double one = 1;
-			Double num2 = ( ( (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) ) + 
-			                (quaternion.Z * quaternion.Z) ) + (quaternion.W * quaternion.W);
+			Double a =
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+			    (quaternion.Z * quaternion.Z) + 
+			    (quaternion.W * quaternion.W);
 
-			Double num = one / num2;
+			Double b = one / a;
 
-			result.X = -quaternion.X * num;
-			result.Y = -quaternion.Y * num;
-			result.Z = -quaternion.Z * num;
-			result.W = quaternion.W * num;
+			result.X = -quaternion.X * b;
+			result.Y = -quaternion.Y * b;
+			result.Z = -quaternion.Z * b;
+			result.W =  quaternion.W * b;
 		}
 		
-		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Double result)
 		{
-			result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + 
-			          (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+			result = 
+				(quaternion1.X * quaternion2.X) + 
+				(quaternion1.Y * quaternion2.Y) + 
+			    (quaternion1.Z * quaternion2.Z) + 
+			    (quaternion1.W * quaternion2.W);
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Concatenate (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
 			Double x = value2.X;
 			Double y = value2.Y;
 			Double z = value2.Z;
 			Double w = value2.W;
-			Double num4 = value1.X;
-			Double num3 = value1.Y;
-			Double num2 = value1.Z;
-			Double num = value1.W;
-			Double num12 = (y * num2) - (z * num3);
-			Double num11 = (z * num4) - (x * num2);
-			Double num10 = (x * num3) - (y * num4);
-			Double num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
+
+			Double a = value1.X;
+			Double b = value1.Y;
+			Double c = value1.Z;
+			Double d = value1.W;
+
+			Double e = (y * c) - (z * b);
+			Double f = (z * a) - (x * c);
+			Double g = (x * b) - (y * a);
+			Double h = ((x * a) + (y * b)) + (z * c);
+
+			result.X = (x * d) + (a * w) + e;
+			result.Y = (y * d) + (b * w) + f;
+			result.Z = (z * d) + (c * w) + g;
+			result.W = (w * d) - h;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Normalise (ref Quaternion quaternion, out Quaternion result)
 		{
 			Double one = 1;
 
-			Double num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-			Double num = one / RealMaths.Sqrt (num2);
-			result.X = quaternion.X * num;
-			result.Y = quaternion.Y * num;
-			result.Z = quaternion.Z * num;
-			result.W = quaternion.W * num;
-		}
-		
-		#endregion
-		#region Operators
+			Double a = 
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+				(quaternion.Z * quaternion.Z) + 
+				(quaternion.W * quaternion.W);
 
-		public static Quaternion operator - (Quaternion quaternion)
+			Double b = one / RealMaths.Sqrt (a);
+
+			result.X = quaternion.X * b;
+			result.Y = quaternion.Y * b;
+			result.Z = quaternion.Z * b;
+			result.W = quaternion.W * b;
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
 		{
-			Quaternion quaternion2;
-			quaternion2.X = -quaternion.X;
-			quaternion2.Y = -quaternion.Y;
-			quaternion2.Z = -quaternion.Z;
-			quaternion2.W = -quaternion.W;
-			return quaternion2;
+			Boolean flag = false;
+			
+			if (obj is Quaternion)
+			{
+				flag = this.Equals ((Quaternion) obj);
+			}
+
+			return flag;
+		}
+
+		#region IEquatable<Quaternion>
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// Quaternion object.
+		/// </summary>
+		public Boolean Equals (Quaternion other)
+		{
+			return 
+				(this.X == other.X) && 
+				(this.Y == other.Y) && 
+				(this.Z == other.Z) && 
+				(this.W == other.W);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Quaternion value1, Quaternion value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
 		}
 		
-		public static Boolean operator == (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Quaternion value1, Quaternion value2)
 		{
-			return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
-		}
-		
-		public static Boolean operator != (Quaternion quaternion1, Quaternion quaternion2)
-		{
-			if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
-				return !(quaternion1.W == quaternion2.W);
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
 			}
 			return true;
 		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects.
+		/// </summary>
+		public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects using the (X+Y) operator. 
+		/// </summary>
+		public static Quaternion operator + (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X + value2.X;
+			quat.Y = value1.Y + value2.Y;
+			quat.Z = value1.Z + value2.Z;
+			quat.W = value1.W + value2.W;
+			return quat;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects.
+		/// </summary>
+		public static void Subtract (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X - value2.X;
+			quat.Y = value1.Y - value2.Y;
+			quat.Z = value1.Z - value2.Z;
+			quat.W = value1.W - value2.W;
+			return quat;
+		}
+
+		// Negation Operators //----------------------------------------------//
 		
-		public static Quaternion operator + (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs negation of a Quaternion object.
+		/// </summary>
+		public static void Negate (ref Quaternion value, out Quaternion result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Quaternion object using the (-X) operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value)
+		{
+			Quaternion quat;
+			quat.X = -value.X;
+			quat.Y = -value.Y;
+			quat.Z = -value.Z;
+			quat.W = -value.W;
+			return quat;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			Double x1 = value1.X;
+			Double y1 = value1.Y;
+			Double z1 = value1.Z;
+			Double w1 = value1.W;
+
+			Double x2 = value2.X;
+			Double y2 = value2.Y;
+			Double z2 = value2.Z;
+			Double w2 = value2.W;
+
+			Double a = (y1 * z2) - (z1 * y2);
+			Double b = (z1 * x2) - (x1 * z2);
+			Double c = (x1 * y2) - (y1 * x2);
+			Double d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			result.X = ((x1 * w2) + (x2 * w1)) + a;
+			result.Y = ((y1 * w2) + (y2 * w1)) + b;
+			result.Z = ((z1 * w2) + (z2 * w1)) + c;
+			result.W = (w1 * w2) - d;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Double
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, Double scaleFactor, out Quaternion result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Quaternion value2)
 		{
 			Quaternion quaternion;
-			quaternion.X = quaternion1.X + quaternion2.X;
-			quaternion.Y = quaternion1.Y + quaternion2.Y;
-			quaternion.Z = quaternion1.Z + quaternion2.Z;
-			quaternion.W = quaternion1.W + quaternion2.W;
+			
+			Double x1 = value1.X;
+			Double y1 = value1.Y;
+			Double z1 = value1.Z;
+			Double w1 = value1.W;
+
+			Double x2 = value2.X;
+			Double y2 = value2.Y;
+			Double z2 = value2.Z;
+			Double w2 = value2.W;
+
+			Double a = (y1 * z2) - (z1 * y2);
+			Double b = (z1 * x2) - (x1 * z2);
+			Double c = (x1 * y2) - (y1 * x2);
+			Double d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			quaternion.X = ((x1 * w2) + (x2 * w1)) + a;
+			quaternion.Y = ((y1 * w2) + (y2 * w1)) + b;
+			quaternion.Z = ((z1 * w2) + (z2 * w1)) + c;
+			quaternion.W = (w1 * w2) - d;
+
 			return quaternion;
 		}
 		
-		public static Quaternion operator - (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Double
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Double scaleFactor)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X - quaternion2.X;
-			quaternion.Y = quaternion1.Y - quaternion2.Y;
-			quaternion.Z = quaternion1.Z - quaternion2.Z;
-			quaternion.W = quaternion1.W - quaternion2.W;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
-		public static Quaternion operator * (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aQuaternion object using the (x*Y) operator.
+		/// </summary>
+		public static Quaternion operator * (Double scaleFactor, Quaternion value1)
 		{
-			Quaternion quaternion;
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num4 = quaternion2.X;
-			Double num3 = quaternion2.Y;
-			Double num2 = quaternion2.Z;
-			Double num = quaternion2.W;
-			Double num12 = (y * num2) - (z * num3);
-			Double num11 = (z * num4) - (x * num2);
-			Double num10 = (x * num3) - (y * num4);
-			Double num9 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num12;
-			quaternion.Y = ((y * num) + (num3 * w)) + num11;
-			quaternion.Z = ((z * num) + (num2 * w)) + num10;
-			quaternion.W = (w * num) - num9;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
-		public static Quaternion operator * (Quaternion quaternion1, Double scaleFactor)
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Quaternion objects.
+		/// </summary>
+		public static void Divide (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X * scaleFactor;
-			quaternion.Y = quaternion1.Y * scaleFactor;
-			quaternion.Z = quaternion1.Z * scaleFactor;
-			quaternion.W = quaternion1.W * scaleFactor;
-			return quaternion;
+			Double one = 1;
+
+			Double x = value1.X;
+			Double y = value1.Y;
+			Double z = value1.Z;
+			Double w = value1.W;
+
+			Double a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Double b = one / a;
+
+			Double c = -value2.X * b;
+			Double d = -value2.Y * b;
+			Double e = -value2.Z * b;
+			Double f = value2.W * b;
+
+			Double g = (y * e) - (z * d);
+			Double h = (z * c) - (x * e);
+			Double i = (x * d) - (y * c);
+			Double j = ((x * c) + (y * d)) + (z * e);
+
+			result.X = ((x * f) + (c * w)) + g;
+			result.Y = ((y * f) + (d * w)) + h;
+			result.Z = ((z * f) + (e * w)) + i;
+			result.W = (w * f) - j;
 		}
-		
-		public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
+
+		/// <summary>
+		/// Performs division of a Quaternion object and a Double precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Quaternion value1, Double divider, out Quaternion result)
+		{
+			Double one = 1;
+			Double a = one / divider;
+
+			result.X = value1.X * a;
+			result.Y = value1.Y * a;
+			result.Z = value1.Z * a;
+			result.W = value1.W * a;
+		}
+
+		/// <summary>
+		/// Performs division of two Quaternion objects using the (X/Y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Quaternion value2)
 		{
 			Double one = 1;
 
 			Quaternion quaternion;
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Double num5 = one / num14;
-			Double num4 = -quaternion2.X * num5;
-			Double num3 = -quaternion2.Y * num5;
-			Double num2 = -quaternion2.Z * num5;
-			Double num = quaternion2.W * num5;
-			Double num13 = (y * num2) - (z * num3);
-			Double num12 = (z * num4) - (x * num2);
-			Double num11 = (x * num3) - (y * num4);
-			Double num10 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num13;
-			quaternion.Y = ((y * num) + (num3 * w)) + num12;
-			quaternion.Z = ((z * num) + (num2 * w)) + num11;
-			quaternion.W = (w * num) - num10;
+
+			Double x = value1.X;
+			Double y = value1.Y;
+			Double z = value1.Z;
+			Double w = value1.W;
+
+			Double a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Double b = one / a;
+
+			Double c = -value2.X * b;
+			Double d = -value2.Y * b;
+			Double e = -value2.Z * b;
+			Double f =  value2.W * b;
+
+			Double g = (y * e) - (z * d);
+			Double h = (z * c) - (x * e);
+			Double i = (x * d) - (y * c);
+			Double j = (x * c) + (y * d) + (z * e);
+
+			quaternion.X = (x * f) + (c * w) + g;
+			quaternion.Y = (y * f) + (d * w) + h;
+			quaternion.Z = (z * f) + (e * w) + i;
+			quaternion.W = (w * f) - j;
+
 			return quaternion;
 		}
-
-
-
 		
-		public static void Negate (ref Quaternion quaternion, out Quaternion result)
-		{
-			result.X = -quaternion.X;
-			result.Y = -quaternion.Y;
-			result.Z = -quaternion.Z;
-			result.W = -quaternion.W;
-		}
-
-		public static void Add (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X + quaternion2.X;
-			result.Y = quaternion1.Y + quaternion2.Y;
-			result.Z = quaternion1.Z + quaternion2.Z;
-			result.W = quaternion1.W + quaternion2.W;
-		}
-		
-		public static void Subtract (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X - quaternion2.X;
-			result.Y = quaternion1.Y - quaternion2.Y;
-			result.Z = quaternion1.Z - quaternion2.Z;
-			result.W = quaternion1.W - quaternion2.W;
-		}
-
-		public static void Multiply (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num4 = quaternion2.X;
-			Double num3 = quaternion2.Y;
-			Double num2 = quaternion2.Z;
-			Double num = quaternion2.W;
-			Double num12 = (y * num2) - (z * num3);
-			Double num11 = (z * num4) - (x * num2);
-			Double num10 = (x * num3) - (y * num4);
-			Double num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
-		}
-
-		public static void Multiply (ref Quaternion quaternion1, Double scaleFactor, out Quaternion result)
-		{
-			result.X = quaternion1.X * scaleFactor;
-			result.Y = quaternion1.Y * scaleFactor;
-			result.Z = quaternion1.Z * scaleFactor;
-			result.W = quaternion1.W * scaleFactor;
-		}
-		
-		public static void Divide (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+		/// <summary>
+		/// Performs division of a Quaternion object and a Double precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Double divider)
 		{
 			Double one = 1;
 
-			Double x = quaternion1.X;
-			Double y = quaternion1.Y;
-			Double z = quaternion1.Z;
-			Double w = quaternion1.W;
-			Double num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Double num5 = one / num14;
-			Double num4 = -quaternion2.X * num5;
-			Double num3 = -quaternion2.Y * num5;
-			Double num2 = -quaternion2.Z * num5;
-			Double num = quaternion2.W * num5;
-			Double num13 = (y * num2) - (z * num3);
-			Double num12 = (z * num4) - (x * num2);
-			Double num11 = (x * num3) - (y * num4);
-			Double num10 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num13;
-			result.Y = ((y * num) + (num3 * w)) + num12;
-			result.Z = ((z * num) + (num2 * w)) + num11;
-			result.W = (w * num) - num10;
-		}
-		
-		#endregion
-		#region Utilities
+			Quaternion quat;
 
+			Double num = one / divider;
+
+			quat.X = value1.X * num;
+			quat.Y = value1.Y * num;
+			quat.Z = value1.Z * num;
+			quat.W = value1.W * num;
+
+			return quat;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Double amount, out Quaternion result)
 		{
 			Double zero = 0;
@@ -15236,6 +16681,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Double amount, out Quaternion result)
 		{
 			Double zero = 0;
@@ -15262,778 +16710,308 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z *= num3;
 			result.W *= num3;
 		}
-		
-		#endregion
 
-	}	[StructLayout (LayoutKind.Sequential)]
-	public struct Ray 
-		: IEquatable<Ray>
-	{
-		// The starting position of this ray
-		public Vector3 Position;
-		
-		// Normalised vector that defines the direction of this ray
-		public Vector3 Direction;
-
-		public Ray (Vector3 position, Vector3 direction)
-		{
-			this.Position = position;
-			this.Direction = direction;
-		}
-
-		// Determines whether or not this ray is equal in value to another ray
-		public Boolean Equals (Ray other)
-		{
-			// Check position
-			if (this.Position.X != other.Position.X) return false;
-			if (this.Position.Y != other.Position.Y) return false;
-			if (this.Position.Z != other.Position.Z) return false;
-
-			// Check direction
-			if (this.Direction.X != other.Direction.X) return false;
-			if (this.Direction.Y != other.Direction.Y) return false;
-			if (this.Direction.Z != other.Direction.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this ray is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Ray)
-			{
-				// Ok, it is a Ray, so just use the method above to compare.
-				return this.Equals ((Ray) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Position.GetHashCode () + this.Direction.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Position:{0} Direction:{1}}}", this.Position, this.Direction);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given box.  Returns null if there is no
-		// intersection.
-		public Double? Intersects (ref BoundingBox box)
-		{
-			return box.Intersects (ref this);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given frustum.  Returns null if there is no
-		// intersection.
-		public Double? Intersects (ref BoundingFrustum frustum)
-		{
-			if (frustum == null)
-			{
-				throw new ArgumentNullException ();
-			}
-
-			return frustum.Intersects (ref this);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given plane.  Returns null if there is no
-		// intersection.
-		public Double? Intersects (ref Plane plane)
-		{
-			Double zero = 0;
-
-			Double nearZero; RealMaths.FromString("0.00001", out nearZero);
-
-			Double num2 = ((plane.Normal.X * this.Direction.X) + (plane.Normal.Y * this.Direction.Y)) + (plane.Normal.Z * this.Direction.Z);
-			
-			if (RealMaths.Abs (num2) < nearZero)
-			{
-				return null;
-			}
-			
-			Double num3 = ((plane.Normal.X * this.Position.X) + (plane.Normal.Y * this.Position.Y)) + (plane.Normal.Z * this.Position.Z);
-
-			Double num = (-plane.D - num3) / num2;
-			
-			if (num < zero)
-			{
-				if (num < -nearZero)
-				{
-					return null;
-				}
-
-				num = zero;
-			}
-
-			return new Double? (num);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given sphere.  Returns null if there is no
-		// intersection.
-		public Double? Intersects (ref BoundingSphere sphere)
-		{
-			Double zero = 0;
-
-			Double initialXOffset = sphere.Center.X - this.Position.X;
-
-			Double initialYOffset = sphere.Center.Y - this.Position.Y;
-			
-			Double initialZOffset = sphere.Center.Z - this.Position.Z;
-			
-			Double num7 = ((initialXOffset * initialXOffset) + (initialYOffset * initialYOffset)) + (initialZOffset * initialZOffset);
-
-			Double num2 = sphere.Radius * sphere.Radius;
-
-			if (num7 <= num2)
-			{
-				return zero;
-			}
-
-			Double num = ((initialXOffset * this.Direction.X) + (initialYOffset * this.Direction.Y)) + (initialZOffset * this.Direction.Z);
-			if (num < zero)
-			{
-				return null;
-			}
-			
-			Double num6 = num7 - (num * num);
-			if (num6 > num2)
-			{
-				return null;
-			}
-			
-			Double num8 = RealMaths.Sqrt ((num2 - num6));
-
-			return new Double? (num - num8);
-		}
-
-		public static Boolean operator == (Ray a, Ray b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Ray a, Ray b)
-		{
-			return !a.Equals(b);
-		}
-	}
+	}	/// <summary>
+	/// Double precision Vector2.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct Triangle
-		: IEquatable<Triangle>
-	{
-		public Vector3 A;
-		public Vector3 B;
-		public Vector3 C;
-
-		public Triangle (Vector3 a, Vector3 b, Vector3 c)
-		{
-			this.A = a;
-			this.B = b;
-			this.C = c;
-		}
-
-		// Determines whether or not this Triangle is equal in value to another Triangle
-		public Boolean Equals (Triangle other)
-		{
-			if (this.A.X != other.A.X) return false;
-			if (this.A.Y != other.A.Y) return false;
-			if (this.A.Z != other.A.Z) return false;
-
-			if (this.B.X != other.B.X) return false;
-			if (this.B.Y != other.B.Y) return false;
-			if (this.B.Z != other.B.Z) return false;
-
-			if (this.C.X != other.C.X) return false;
-			if (this.C.Y != other.C.Y) return false;
-			if (this.C.Z != other.C.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this Triangle is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Triangle)
-			{
-				// Ok, it is a Triangle, so just use the method above to compare.
-				return this.Equals ((Triangle) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{A:{0} B:{1} C:{2}}}", this.A, this.B, this.C);
-		}
-
-		public static Boolean operator == (Triangle a, Triangle b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Triangle a, Triangle b)
-		{
-			return !a.Equals(b);
-		}
-
-		public static Boolean IsPointInTriangleangle( ref Vector3 point, ref Triangle triangle )
-		{
-			Vector3 aToB = triangle.B - triangle.A;
-			Vector3 bToC = triangle.C - triangle.B;
-
-			Vector3 n; Vector3.Cross(ref aToB, ref bToC, out n);
-
-			Vector3 aToPoint = point - triangle.A;
-
-			Vector3 wTest; Vector3.Cross(ref aToB, ref aToPoint, out wTest);
-
-			Double zero = 0;
-
-			Double dot; Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			Vector3 bToPoint = point - triangle.B;
-
-			Vector3.Cross(ref bToC, ref bToPoint, out wTest);
-
-			Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			Vector3 cToA = triangle.A - triangle.C;
-
-			Vector3 cToPoint = point - triangle.C;
-
-			Vector3.Cross(ref cToA, ref cToPoint, out wTest);
-
-			Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			return true;
-		}
-
-		// Determines whether or not a triangle is degenerate ( all points lay on the same line in space ).
-		public Boolean IsDegenerate()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		// Get's the Barycentric coordinates of a point inside a Triangle.
-		public static void BarycentricCoordinates( ref Vector3 point, ref Triangle triangle, out Vector3 barycentricCoordinates )
-		{
-			if( triangle.IsDegenerate() )
-			{
-				throw new System.ArgumentException("Input Triangle is degenerate, this is not supported.");
-			}
-
-			Vector3 aToB = triangle.B - triangle.A;
-			Vector3 aToC = triangle.C - triangle.A;
-			Vector3 aToPoint = point - triangle.A;
-
-			// compute cross product to get area of parallelograms
-			Vector3 cross1; Vector3.Cross(ref aToB, ref aToPoint, out cross1);
-			Vector3 cross2; Vector3.Cross(ref aToC, ref aToPoint, out cross2);
-			Vector3 cross3; Vector3.Cross(ref aToB, ref aToC, out cross3);
-	
-			// compute barycentric coordinates as ratios of areas
-
-			Double one = 1;
-
-			Double denom = one / cross3.Length();
-			barycentricCoordinates.X = cross2.Length() * denom;
-			barycentricCoordinates.Y = cross1.Length() * denom;
-			barycentricCoordinates.Z = one - barycentricCoordinates.X - barycentricCoordinates.Y;
-		}
-		/*
-
-		// Triangleangle Intersect
-		// ------------------
-		// Returns true if triangles P0P1P2 and Q0Q1Q2 intersect
-		// Assumes triangle is not degenerate
-		//
-		// This is not the algorithm presented in the text.  Instead, it is based on a 
-		// recent article by Guigue and Devillers in the July 2003 issue Journal of 
-		// Graphics Tools.  As it is faster than the ERIT algorithm, under ordinary 
-		// circumstances it would have been discussed in the text, but it arrived too late.  
-		//
-		// More information and the original source code can be found at
-		// http://www.acm.org/jgt/papers/GuigueDevillers03/
-		//
-		// A nearly identical algorithm was in the same issue of JGT, by Shen Heng and 
-		// Tang.  See http://www.acm.org/jgt/papers/ShenHengTang03/ for source code.
-		//
-		// Yes, this is complicated.  Did you think testing triangles would be easy?
-		//
-		static Boolean TriangleangleIntersect( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
-		{
-			// test P against Q's plane
-			Vector3 normalQ = Vector3.Cross( Q1 - Q0, Q2 - Q0 );
-
-			Single testP0 = Vector3.Dot( normalQ, P0 - Q0 );
-			Single testP1 = Vector3.Dot( normalQ, P1 - Q0 );
-			Single testP2 = Vector3.Dot( normalQ, P2 - Q0 );
-  
-			// P doesn't intersect Q's plane
-			if ( testP0 * testP1 > AbacusHelper.Epsilon && testP0*testP2 > AbacusHelper.Epsilon )
-				return false;
-
-			// test Q against P's plane
-			Vector3 normalP = Vector3.Cross( P1 - P0, P2 - P0 );
-
-			Single testQ0 = Vector3.Dot( normalP, Q0 - P0 );
-			Single testQ1 = Vector3.Dot( normalP, Q1 - P0 );
-			Single testQ2 = Vector3.Dot( normalP, Q2 - P0 );
-  
-			// Q doesn't intersect P's plane
-			if (testQ0*testQ1 > AbacusHelper.Epsilon && testQ0*testQ2 > AbacusHelper.Epsilon )
-				return false;
-	
-			// now we rearrange P's vertices such that the lone vertex (the one that lies
-			// in its own half-space of Q) is first.  We also permute the other
-			// triangle's vertices so that P0 will "see" them in counterclockwise order
-
-			// Once reordered, we pass the vertices down to a helper function which will
-			// reorder Q's vertices, and then test
-
-			// P0 in Q's positive half-space
-			if (testP0 > AbacusHelper.Epsilon) 
-			{
-				// P1 in Q's positive half-space (so P2 is lone vertex)
-				if (testP1 > AbacusHelper.Epsilon) 
-					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-				// P2 in Q's positive half-space (so P1 is lone vertex)
-				else if (testP2 > AbacusHelper.Epsilon) 
-					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);	
-				// P0 is lone vertex
-				else 
-					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-			} 
-			// P0 in Q's negative half-space
-			else if (testP0 < -AbacusHelper.Epsilon) 
-			{
-				// P1 in Q's negative half-space (so P2 is lone vertex)
-				if (testP1 < -AbacusHelper.Epsilon) 
-					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				// P2 in Q's negative half-space (so P1 is lone vertex)
-				else if (testP2 < -AbacusHelper.Epsilon) 
-					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				// P0 is lone vertex
-				else 
-					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-			} 
-			// P0 on Q's plane
-			else 
-			{
-				// P1 in Q's negative half-space 
-				if (testP1 < -AbacusHelper.Epsilon) 
-				{
-					// P2 in Q's negative half-space (P0 is lone vertex)
-					if (testP2 < -AbacusHelper.Epsilon) 
-						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-					// P2 in positive half-space or on plane (P1 is lone vertex)
-					else 
-						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-				}
-				// P1 in Q's positive half-space 
-				else if (testP1 > AbacusHelper.Epsilon) 
-				{
-					// P2 in Q's positive half-space (P0 is lone vertex)
-					if (testP2 > AbacusHelper.Epsilon) 
-						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-					// P2 in negative half-space or on plane (P1 is lone vertex)
-					else 
-						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				}
-				// P1 lies on Q's plane too
-				else  
-				{
-					// P2 in Q's positive half-space (P2 is lone vertex)
-					if (testP2 > AbacusHelper.Epsilon) 
-						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-					// P2 in Q's negative half-space (P2 is lone vertex)
-					// note different ordering for Q vertices
-					else if (testP2 < -AbacusHelper.Epsilon) 
-						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-					// all three points lie on Q's plane, default to 2D test
-					else 
-						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
-				}
-			}
-		}
-
-
-
-		// Adjust Q
-		// --------
-		// Helper for TriangleangleIntersect()
-		//
-		// Now we rearrange Q's vertices such that the lone vertex (the one that lies
-		// in its own half-space of P) is first.  We also permute the other
-		// triangle's vertices so that Q0 will "see" them in counterclockwise order
-		//
-		// Once reordered, we pass the vertices down to a helper function which will
-		// actually test for intersection on the common line between the two planes
-		//
-		static Boolean AdjustQ( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2,
-			Single testQ0, Single testQ1, Single testQ2,
-			ref Vector3 normalP )
-		{
-
-			// Q0 in P's positive half-space
-			if (testQ0 > AbacusHelper.Epsilon) 
-			{ 
-				// Q1 in P's positive half-space (so Q2 is lone vertex)
-				if (testQ1 > AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
-				// Q2 in P's positive half-space (so Q1 is lone vertex)
-				else if (testQ2 > AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
-				// Q0 is lone vertex
-				else 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
-			}
-			// Q0 in P's negative half-space
-			else if (testQ0 < -AbacusHelper.Epsilon) 
-			{ 
-				// Q1 in P's negative half-space (so Q2 is lone vertex)
-				if (testQ1 < -AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
-				// Q2 in P's negative half-space (so Q1 is lone vertex)
-				else if (testQ2 < -AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
-				// Q0 is lone vertex
-				else 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
-			}
-			// Q0 on P's plane
-			else 
-			{ 
-				// Q1 in P's negative half-space 
-				if (testQ1 < -AbacusHelper.Epsilon) 
-				{ 
-					// Q2 in P's negative half-space (Q0 is lone vertex)
-					if (testQ2 < -AbacusHelper.Epsilon)  
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
-					// Q2 in positive half-space or on plane (P1 is lone vertex)
-					else 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
-				}
-				// Q1 in P's positive half-space 
-				else if (testQ1 > AbacusHelper.Epsilon) 
-				{ 
-					// Q2 in P's positive half-space (Q0 is lone vertex)
-					if (testQ2 > AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
-					// Q2 in negative half-space or on plane (P1 is lone vertex)
-					else  
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
-				}
-				// Q1 lies on P's plane too
-				else 
-				{
-					// Q2 in P's positive half-space (Q2 is lone vertex)
-					if (testQ2 > AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
-					// Q2 in P's negative half-space (Q2 is lone vertex)
-					// note different ordering for Q vertices
-					else if (testQ2 < -AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
-					// all three points lie on P's plane, default to 2D test
-					else 
-						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
-				}
-			}
-		}
-
-
-
-		// Test Line Overlap
-		// -----------------
-		// Helper for TriangleangleIntersect()
-		//
-		// This tests whether the rearranged triangles overlap, by checking the intervals
-		// where their edges cross the common line between the two planes.  If the 
-		// interval for P is [i,j] and Q is [k,l], then there is intersection if the
-		// intervals overlap.  Previous algorithms computed these intervals directly, 
-		// this tests implictly by using two "plane tests."
-		//
-		static Boolean TestLineOverlap( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
-		{
-			// get "plane normal"
-			Vector3 normal = Vector3.Cross( P1 - P0, Q0 - P0);
-
-			// fails test, no intersection
-			if ( Vector3.Dot(normal, Q1 - P0 ) > AbacusHelper.Epsilon )
-				return false;
-  
-			// get "plane normal"
-			normal = Vector3.Cross( P2 - P0, Q2 - P0 );
-
-			// fails test, no intersection
-			if ( Vector3.Dot( normal, Q0 - P0 ) > AbacusHelper.Epsilon )
-				return false;
-
-			// intersection!
-			return true;
-		}
-
-
-
-		// Coplanar Triangleangle Intersect
-		// ---------------------------
-		// Helper for TriangleangleIntersect()
-		//
-		// This projects the two triangles down to 2D, maintaining the largest area by
-		// dropping the dimension where the normal points the farthest.
-		//
-		static Boolean CoplanarTriangleangleIntersect( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2, 
-			ref Vector3 planeNormal )
-		{
-			Vector3 absNormal = new Vector3( 
-				System.Math.Abs(planeNormal.X), 
-				System.Math.Abs(planeNormal.Y), 
-				System.Math.Abs(planeNormal.Z) );
-
-			Vector2 projP0, projP1, projP2;
-			Vector2 projQ0, projQ1, projQ2;
-
-			// if x is direction of largest magnitude
-			if ( absNormal.X > absNormal.Y && absNormal.X >= absNormal.Z )
-			{
-				projP0 = new Vector2( P0.Y, P0.Z );
-				projP1 = new Vector2( P1.Y, P1.Z );
-				projP2 = new Vector2( P2.Y, P2.Z );
-				projQ0 = new Vector2( Q0.Y, Q0.Z );
-				projQ1 = new Vector2( Q1.Y, Q1.Z );
-				projQ2 = new Vector2( Q2.Y, Q2.Z );
-			}
-			// if y is direction of largest magnitude
-			else if ( absNormal.Y > absNormal.X && absNormal.Y >= absNormal.Z )
-			{
-				projP0 = new Vector2( P0.X, P0.Z );
-				projP1 = new Vector2( P1.X, P1.Z );
-				projP2 = new Vector2( P2.X, P2.Z );
-				projQ0 = new Vector2( Q0.X, Q0.Z );
-				projQ1 = new Vector2( Q1.X, Q1.Z );
-				projQ2 = new Vector2( Q2.X, Q2.Z );
-			}
-			// z is the direction of largest magnitude
-			else
-			{
-				projP0 = new Vector2( P0.X, P0.Y );
-				projP1 = new Vector2( P1.X, P1.Y );
-				projP2 = new Vector2( P2.X, P2.Y );
-				projQ0 = new Vector2( Q0.X, Q0.Y );
-				projQ1 = new Vector2( Q1.X, Q1.Y );
-				projQ2 = new Vector2( Q2.X, Q2.Y );
-			}
-
-			return TriangleangleIntersect( ref projP0, ref projP1, ref projP2, ref projQ0, ref projQ1, ref projQ2 );
-		}
-
-
-
-		// Triangleangle Intersect
-		// ------------------
-		// Returns true if ray intersects triangle.
-		//
-		static Boolean TriangleangleIntersect( 
-			ref Single t, //perhaps this should be out 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Ray ray )
-		{
-			// test ray direction against triangle
-			Vector3 e1 = P1 - P0;
-			Vector3 e2 = P2 - P0;
-			Vector3 p = Vector3.Cross( ray.Direction, e2 );
-			Single a = Vector3.Dot( e1, p );
-
-			// if result zero, no intersection or infinite intersections
-			// (ray parallel to triangle plane)
-			if ( AbacusHelper.IsZero(a) )
-				return false;
-
-			// compute denominator
-			Single f = 1.0f/a;
-
-			// compute barycentric coordinates
-			Vector3 s = ray.Position - P0;
-			Single u = f * Vector3.Dot( s, p );
-
-			// ray falls outside triangle
-			if (u < 0.0f || u > 1.0f) 
-				return false;
-
-			Vector3 q = Vector3.Cross( s, e1 );
-			Single v = f * Vector3.Dot( ray.Direction, q );
-
-			// ray falls outside triangle
-			if (v < 0.0f || u+v > 1.0f) 
-				return false;
-
-			// compute line parameter
-			t = f * Vector3.Dot( e2, q );
-
-			return (t >= 0.0f);
-		}
-
-		
-		//
-		// @ TriangleangleClassify()
-		// Returns signed distance between plane and triangle
-		//
-		static Single TriangleangleClassify( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Plane plane )
-		{
-			Single test0 = plane.Test( P0 );
-			Single test1 = plane.Test( P1 );
-
-			// if two points lie on opposite sides of plane, intersect
-			if (test0*test1 < 0.0f)
-				return 0.0f;
-
-			Single test2 = plane.Test( P2 );
-
-			// if two points lie on opposite sides of plane, intersect
-			if (test0*test2 < 0.0f)
-				return 0.0f;
-			if (test1*test2 < 0.0f)
-				return 0.0f;
-
-			// no intersection, return signed distance
-			if ( test0 < 0.0f )
-			{
-				if ( test0 < test1 )
-				{
-					if ( test1 < test2 )
-						return test2;
-					else
-						return test1;
-				}
-				else if (test0 < test2)
-				{
-					return test2;
-				}
-				else
-				{   
-					return test0;
-				}
-			}
-			else
-			{
-				if ( test0 > test1 )
-				{
-					if ( test1 > test2 )
-						return test2;
-					else
-						return test1;
-				}
-				else if (test0 > test2)
-				{
-					return test2;
-				}
-				else
-				{   
-					return test0;
-				}
-			}
-		}
-
-		*/
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector2
+	public struct Vector2
 		: IEquatable<Vector2>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector2.
+		/// </summary>
 		public Double X;
-		public Double Y;
-		
-		public Vector2 (Int32 x, Int32 y)
-		{
-			this.X = (Double) x;
-			this.Y = (Double) y;
-		}
 
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector2.
+		/// </summary>
+		public Double Y;
+
+		/// <summary>
+		/// Initilises a new instance of Vector2 from two Double values 
+		/// representing X and Y respectively.
+		/// </summary>
 		public Vector2 (Double x, Double y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public void Set (Double x, Double y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
-
-		public Vector2 (Double value)
-		{
-			this.X = this.Y = value;
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector2.
+		/// </summary>
 		public Double Length ()
 		{
 			Double num = (this.X * this.X) + (this.Y * this.Y);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector2 squared.
+		/// </summary>
 		public Double LengthSquared ()
 		{
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
-		public void Normalise ()
-		{
-			Double num2 = (this.X * this.X) + (this.Y * this.Y);
-
-			Double one = 1;
-			Double num = one / (RealMaths.Sqrt (num2));
-			this.X *= num;
-			this.Y *= num;
-		}
-
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector2 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (this.X.GetHashCode () + this.Y.GetHashCode ());
+		}
+
+		/// <summary>
+		/// Detemines whether or not the Vector2 is of unit length.
+		/// </summary>
+		public Boolean IsUnit()
+		{
+			Double one = 1;
+			return RealMaths.IsZero(one - X*X - Y*Y);
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		readonly static Vector2 zero;
+
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		readonly static Vector2 one;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the X-axis.
+		/// </summary>
+		readonly static Vector2 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Y-axis.
+		/// </summary>
+		readonly static Vector2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Vector2 ()
+		{
+			zero = 		new Vector2 ();
+			one = 		new Vector2 (1, 1);
+
+			unitX = 	new Vector2 (1, 0);
+			unitY = 	new Vector2 (0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to zero.
+		/// </summary>
+		public static Vector2 Zero
+		{
+			get { return zero; }
+		}
+		
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to one.
+		/// </summary>
+		public static Vector2 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the X-axis.
+		/// </summary>
+		public static Vector2 UnitX
+		{
+			get { return unitX; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Y-axis.
+		/// </summary>
+		public static Vector2 UnitY
+		{
+			get { return unitY; }
+		}
+
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
+		public static void Distance (
+			ref Vector2 value1, ref Vector2 value2, out Double result)
+		{
+			Double a = value1.X - value2.X;
+			Double b = value1.Y - value2.Y;
+			
+			Double c = (a * a) + (b * b);
+
+			result = RealMaths.Sqrt (c);
+		}
+
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
+		public static void DistanceSquared (
+			ref Vector2 value1, ref Vector2 value2, out Double result)
+		{
+			Double a = value1.X - value2.X;
+			Double b = value1.Y - value2.Y;
+			
+			result = (a * a) + (b * b);
+		}
+
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
+		public static void Dot (
+			ref Vector2 value1, ref Vector2 value2, out Double result)
+		{
+			result = (value1.X * value2.X) + (value1.Y * value2.Y);
+		}
+
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
+		public static void Normalise (ref Vector2 value, out Vector2 result)
+		{
+			Double lengthSquared = 
+				(value.X * value.X) + (value.Y * value.Y);
+
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			if( lengthSquared <= epsilon || 
+				Double.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Double one = 1;
+			Double multiplier = one / RealMaths.Sqrt (lengthSquared);
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+
+		}
+
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
+		public static void Reflect (
+			ref Vector2 vector, ref Vector2 normal, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			// dot = vector . normal 
+			//     = |vector| * [normal] * cosθ
+			//     = |vector| * cosθ
+			//     = adjacent
+			Double dot;
+			Dot(ref vector, ref normal, out dot);
+
+			Double twoDot = dot * 2;
+
+			// Starting vector minus twice the length of the adjcent projected 
+			// along the normal.
+			result = vector - (twoDot * normal);
+		}
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
+		{
+			Double a = 
+				((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+				matrix.M41;
+
+			Double b = 
+				((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+				matrix.M42;
+			
+			result.X = a;
+			result.Y = b;
+		}
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+		{
+			Double one = 1;
+
+			Double a = rotation.X + rotation.X;
+			Double b = rotation.Y + rotation.Y;
+			Double c = rotation.Z + rotation.Z;
+			Double d = rotation.W * c;
+			Double e = rotation.X * a;
+			Double f = rotation.X * b;
+			Double g = rotation.Y * b;
+			Double h = rotation.Z * c;
+			Double i = (value.X * ((one - g) - h)) + (value.Y * (f - d));
+			Double j = (value.X * (f + d)) + (value.Y * ((one - e) - h));
+
+			result.X = i;
+			result.Y = j;
+		}
+		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix.
+		/// </summary>
+		public static void TransformNormal (
+			ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Double a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+			Double b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+			
+			result.X = a;
+			result.Y = b;
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// object.
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -16042,166 +17020,33 @@ namespace Sungiant.Abacus.DoublePrecision
 			}
 			return flag;
 		}
-		
-		public override Int32 GetHashCode ()
-		{
-			return (this.X.GetHashCode () + this.Y.GetHashCode ());
-		}
-
-		public Boolean IsUnit()
-		{
-			Double one = 1;
-
-			return RealMaths.IsZero(one - X*X - Y*Y);
-		}
 
 		#region IEquatable<Vector2>
+
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// Vector2 object.
+		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
 			return ((this.X == other.X) && (this.Y == other.Y));
 		}
+
 		#endregion
 
-		#region Constants
-
-		static Vector2 zero;
-		static Vector2 one;
-		static Vector2 unitX;
-		static Vector2 unitY;
-
-		static Vector2 ()
-		{
-			Double temp_one; RealMaths.One(out temp_one);
-			Double temp_zero; RealMaths.Zero(out temp_zero);
-
-			zero = new Vector2 ();
-			one = new Vector2 (temp_one, temp_one);
-			unitX = new Vector2 (temp_one, temp_zero);
-			unitY = new Vector2 (temp_zero, temp_one);
-		}
-
-		public static Vector2 Zero
-		{
-			get { return zero; }
-		}
-		
-		public static Vector2 One
-		{
-			get { return one; }
-		}
-		
-		public static Vector2 UnitX
-		{
-			get { return unitX; }
-		}
-		
-		public static Vector2 UnitY
-		{
-			get { return unitY; }
-		}
-		
-		#endregion
-		#region Maths
-
-		public static void Distance (ref Vector2 value1, ref Vector2 value2, out Double result)
-		{
-			Double num2 = value1.X - value2.X;
-			Double num = value1.Y - value2.Y;
-			Double num3 = (num2 * num2) + (num * num);
-			result = RealMaths.Sqrt (num3);
-		}
-
-		public static void DistanceSquared (ref Vector2 value1, ref Vector2 value2, out Double result)
-		{
-			Double num2 = value1.X - value2.X;
-			Double num = value1.Y - value2.Y;
-			result = (num2 * num2) + (num * num);
-		}
-
-		public static void Dot (ref Vector2 value1, ref Vector2 value2, out Double result)
-		{
-			result = (value1.X * value2.X) + (value1.Y * value2.Y);
-		}
-
-		public static void PerpDot (ref Vector2 value1, ref Vector2 value2, out Double result)
-		{
-			result = (value1.X * value2.Y - value1.Y * value2.X);
-		}
-
-		public static void Perpendicular (ref Vector2 value, out Vector2 result)
-		{
-			result = new Vector2 (-value.X, value.Y);
-		}
-
-		public static void Normalise (ref Vector2 value, out Vector2 result)
-		{
-			Double one = 1;
-
-			Double num2 = (value.X * value.X) + (value.Y * value.Y);
-			Double num = one / (RealMaths.Sqrt (num2));
-			result.X = value.X * num;
-			result.Y = value.Y * num;
-		}
-
-		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
-		{
-			Double two = 2;
-
-			Double num = (vector.X * normal.X) + (vector.Y * normal.Y);
-			result.X = vector.X - ((two * num) * normal.X);
-			result.Y = vector.Y - ((two * num) * normal.Y);
-		}
-		
-		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
-		{
-			Double num2 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-			Double num = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
-		{
-			Double num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-			Double num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
-		{
-			Double one = 1;
-
-			Double num10 = rotation.X + rotation.X;
-			Double num5 = rotation.Y + rotation.Y;
-			Double num4 = rotation.Z + rotation.Z;
-			Double num3 = rotation.W * num4;
-			Double num9 = rotation.X * num10;
-			Double num2 = rotation.X * num5;
-			Double num8 = rotation.Y * num5;
-			Double num = rotation.Z * num4;
-			Double num7 = (value.X * ((one - num8) - num)) + (value.Y * (num2 - num3));
-			Double num6 = (value.X * (num2 + num3)) + (value.Y * ((one - num9) - num));
-			result.X = num7;
-			result.Y = num6;
-		}
-		
-		#endregion
-		#region Operators
-
-		public static Vector2 operator - (Vector2 value)
-		{
-			Vector2 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			return vector;
-		}
-		
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
 			return ((value1.X == value2.X) && (value1.Y == value2.Y));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
 			if (value1.X == value2.X) {
@@ -16210,6 +17055,21 @@ namespace Sungiant.Abacus.DoublePrecision
 			return true;
 		}
 
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector2 objects.
+		/// </summary>
+		public static void Add (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector2 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -16218,6 +17078,23 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects.
+		/// </summary>
+		public static void Subtract (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -16226,23 +17103,71 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 
-		public static Vector2 operator * (Vector2 value1, Vector2 value2)
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Vector2 object.
+		/// </summary>
+		public static void Negate (ref Vector2 value, out Vector2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector2 object using the (-X) operator.
+		/// </summary>
+		public static Vector2 operator - (Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			return vector;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects.
+		/// </summary>
+		public static void Multiply (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a Double
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (
+			ref Vector2 value, Double scaleFactor, out Vector2 result)
+		{
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
 			vector.X = value1.X * value2.X;
 			vector.Y = value1.Y * value2.Y;
 			return vector;
 		}
-		
-		public static Vector2 operator * (Vector2 value, Double scaleFactor)
-		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
-		}
-		
-		public static Vector2 operator * (Double scaleFactor, Vector2 value)
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a Double
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Vector2 value, Double scaleFactor)
 		{
 			Vector2 vector;
 			vector.X = value.X * scaleFactor;
@@ -16250,6 +17175,47 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 
+		/// <summary>
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aVector2 object using the (x*Y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Double scaleFactor, Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector2 objects.
+		/// </summary>
+		public static void Divide (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector2 object and a Double precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (
+			ref Vector2 value1, Double divider, out Vector2 result)
+		{
+			Double one = 1;
+			Double num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector2 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -16257,7 +17223,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Y = value1.Y / value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector2 object and a Double precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Double divider)
 		{
 			Vector2 vector;
@@ -16268,173 +17238,234 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 		
-		public static void Negate (ref Vector2 value, out Vector2 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-		}
+		// Splines //---------------------------------------------------------//
 
-		public static void Add (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-		}
-
-		public static void Subtract (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-		}
-
-		public static void Multiply (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-		}
-		
-		public static void Multiply (ref Vector2 value1, Double scaleFactor, out Vector2 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-		}
-
-		public static void Divide (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-		}
-
-		public static void Divide (ref Vector2 value1, Double divider, out Vector2 result)
-		{
-			Double one = 1;
-			Double num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-		}
-		
-		#endregion
-		#region Splines
-
-		public static void Barycentric (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, Double amount1, Double amount2, out Vector2 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-		}
-
-		public static void SmoothStep (ref Vector2 value1, ref Vector2 value2, Double amount, out Vector2 result)
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
+		public static void SmoothStep (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Double amount, 
+			out Vector2 result)
 		{
 			Double zero = 0;
 			Double one = 1;
 			Double two = 2;
 			Double three = 3;
 
-			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			amount = (amount * amount) * (three - (two * amount));
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 		
-		public static void CatmullRom (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, Double amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
+		public static void CatmullRom (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			ref Vector2 d, 
+			Double amount, 
+			out Vector2 result)
 		{
+			Double zero = 0;
+			Double one = 1;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Double half; RealMaths.Half(out half);
 			Double two = 2;
 			Double three = 3;
 			Double four = 4;
 			Double five = 5;
 
-			Double num = amount * amount;
-			Double num2 = amount * num;
-			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+			Double temp = amount * amount;
+			Double temp2 = amount * temp;
+
+			result.X = 
+				half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
+				(((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
+				temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
+				temp2));
+			
+			result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
+				(((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
+				temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
+				temp2));
 		}
 
-		public static void Hermite (ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2, Double amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
+		public static void Hermite (
+			ref Vector2 a, 
+			ref Vector2 tangent1, 
+			ref Vector2 b, 
+			ref Vector2 tangent2, 
+			Double amount, 
+			out Vector2 result)
 		{
+			Double zero = 0;
 			Double one = 1;
 			Double two = 2;
 			Double three = 3;
 
-			Double num = amount * amount;
-			Double num2 = amount * num;
-			Double num6 = ((two * num2) - (three * num)) + one;
-			Double num5 = (-two * num2) + (three * num);
-			Double num4 = (num2 - (two * num)) + amount;
-			Double num3 = num2 - num;
-			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
-		}
-		
-		#endregion
-		#region Utilities
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
-		public static void Min (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
+			// Make sure that the tangents have been normalised.
+			if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Double temp = amount * amount;
+			Double temp2 = amount * temp;
+			Double temp6 = ((two * temp2) - (three * temp)) + one;
+			Double temp5 = (-two * temp2) + (three * temp);
+			Double temp4 = (temp2 - (two * temp)) + amount;
+			Double temp3 = temp2 - temp;
+
+			result.X = 
+				(((a.X * temp6) + (b.X * temp5)) + 
+				(tangent1.X * temp4)) + (tangent2.X * temp3);
+
+			result.Y = 
+				(((a.Y * temp6) + (b.Y * temp5)) + 
+				(tangent1.Y * temp4)) + (tangent2.Y * temp3);
 		}
 
-		public static void Max (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		// Utilities //-------------------------------------------------------//
+
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
 		}
 
-		public static void Clamp (ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
-			Double x = value1.X;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+		}
+
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector2 a, 
+			ref Vector2 min, 
+			ref Vector2 max, 
+			out Vector2 result)
+		{
+			Double x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Double y = value1.Y;
+			
+			Double y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
+
 			result.X = x;
 			result.Y = y;
 		}
-		
-		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Double amount, out Vector2 result)
+
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Double amount, 
+			out Vector2 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+			Double zero = 0;
+			Double one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
-		
-		#endregion
 
 	}
+
+	/// <summary>
+	/// Double precision Vector3.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector3 
+	public struct Vector3 
 		: IEquatable<Vector3>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector3.
+		/// </summary>
 		public Double X;
+
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector3.
+		/// </summary>
 		public Double Y;
+
+		/// <summary>
+		/// Gets or sets the Z-component of the Vector3.
+		/// </summary>
 		public Double Z;
 
-		public Vector2 XY
-		{
-			get
-			{
-				return new Vector2(X, Y);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector3 from three Double values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Vector3 (Double x, Double y, Double z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public Vector3 (Double value)
-		{
-			this.X = this.Y = this.Z = value;
-		}
 		
+		/// <summary>
+		/// Initilises a new instance of Vector3 from one Vector2 value
+		/// representing X and Y and one Double value representing Z.
+		/// </summary>
 		public Vector3 (Vector2 value, Double z)
 		{
 			this.X = value.X;
@@ -16442,169 +17473,239 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.Z = z;
 		}
 
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
-		}
-
-		public Boolean Equals (Vector3 other)
-		{
-			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector3) {
-				flag = this.Equals ((Vector3)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector3.
+		/// </summary>
 		public Double Length ()
 		{
-			Double num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			Double num = (this.X * this.X) + 
+				              (this.Y * this.Y) + 
+			                  (this.Z * this.Z);
+
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector3 squared.
+		/// </summary>
 		public Double LengthSquared ()
 		{
-			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+			return
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z);
 		}
 
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Double one = 1;
-			Double num2 = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			Double num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector3 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode ()
+				);
+		}
+
+		/// <summary>
+		/// Detemines whether or not the Vector3 is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Double one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector3 _zero;
-		static Vector3 _one;
-		static Vector3 _half;
-		static Vector3 _unitX;
-		static Vector3 _unitY;
-		static Vector3 _unitZ;
-		static Vector3 _up;
-		static Vector3 _down;
-		static Vector3 _right;
-		static Vector3 _left;
-		static Vector3 _forward;
-		static Vector3 _backward;
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to zero.
+		/// </summary>
+		static Vector3 zero;
 
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to one.
+		/// </summary>
+		static Vector3 one;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the X-axis.
+		/// </summary>
+		static Vector3 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the Y-axis.
+		/// </summary>
+		static Vector3 unitY;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the Z-axis.
+		/// </summary>
+		static Vector3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating up (0, 1, 0).
+		/// </summary>
+		static Vector3 up;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating down (0, −1, 0).
+		/// </summary>
+		static Vector3 down;
+
+		/// <summary>
+		/// Defines a unit Vector3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Vector3 right;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating left (−1, 0, 0).
+		/// </summary>
+		static Vector3 left;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Vector3 forward;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Vector3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector3 ()
 		{
-			Double temp_one; RealMaths.One(out temp_one);
-			Double temp_half; RealMaths.Half(out temp_half);
-			Double temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector3 ();
+			one = 		new Vector3 ( 1,  1,  1);
 
-			_zero = new Vector3 ();
-			_one = new Vector3 (temp_one, temp_one, temp_one);
-			_half = new Vector3(temp_half, temp_half, temp_half);
-			_unitX = new Vector3 (temp_one, temp_zero, temp_zero);
-			_unitY = new Vector3 (temp_zero, temp_one, temp_zero);
-			_unitZ = new Vector3 (temp_zero, temp_zero, temp_one);
-			_up = new Vector3 (temp_zero, temp_one, temp_zero);
-			_down = new Vector3 (temp_zero, -temp_one, temp_zero);
-			_right = new Vector3 (temp_one, temp_zero, temp_zero);
-			_left = new Vector3 (-temp_one, temp_zero, temp_zero);
-			_forward = new Vector3 (temp_zero, temp_zero, -temp_one);
-			_backward = new Vector3 (temp_zero, temp_zero, temp_one);
-		}
-		
-		public static Vector3 Zero {
-			get {
-				return _zero;
-			}
-		}
-		
-		public static Vector3 One {
-			get {
-				return _one;
-			}
-		}
-		
-		public static Vector3 Half {
-			get {
-				return _half;
-			}
-		}
-		
-		public static Vector3 UnitX {
-			get {
-				return _unitX;
-			}
-		}
-		
-		public static Vector3 UnitY {
-			get {
-				return _unitY;
-			}
-		}
-		
-		public static Vector3 UnitZ {
-			get {
-				return _unitZ;
-			}
-		}
-		
-		public static Vector3 Up {
-			get {
-				return _up;
-			}
-		}
-		
-		public static Vector3 Down {
-			get {
-				return _down;
-			}
-		}
-		
-		public static Vector3 Right {
-			get {
-				return _right;
-			}
-		}
-		
-		public static Vector3 Left {
-			get {
-				return _left;
-			}
-		}
-		
-		public static Vector3 Forward {
-			get {
-				return _forward;
-			}
-		}
-		
-		public static Vector3 Backward {
-			get {
-				return _backward;
-			}
-		}
-		
-		#endregion
-		#region Maths
+			unitX = 	new Vector3 ( 1,  0,  0);
+			unitY = 	new Vector3 ( 0,  1,  0);
+			unitZ = 	new Vector3 ( 0,  0,  1);
 
+			up = 		new Vector3 ( 0,  1,  0);
+			down = 		new Vector3 ( 0, -1,  0);
+			right = 	new Vector3 ( 1,  0,  0);
+			left = 		new Vector3 (-1,  0,  0);
+			forward = 	new Vector3 ( 0,  0, -1);
+			backward = 	new Vector3 ( 0,  0,  1);
+		}
+		
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to zero.
+		/// </summary>
+		public static Vector3 Zero
+		{
+			get { return zero; }
+		}
+		
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to one.
+		/// </summary>
+		public static Vector3 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector3 for the X-axis.
+		/// </summary>
+		public static Vector3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Vector3 for the Y-axis.
+		/// </summary>
+		public static Vector3 UnitY
+		{
+			get { return unitY; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector3 for the Z-axis.
+		/// </summary>
+		public static Vector3 UnitZ
+		{
+			get { return unitZ; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating up (0, 1, 0).
+		/// </summary>
+		public static Vector3 Up
+		{
+			get { return up; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating down (0, −1, 0).
+		/// </summary>
+		public static Vector3 Down
+		{
+			get { return down; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Vector3 Right
+		{
+			get { return right; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Vector3 Left
+		{
+			get { return left; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Vector3 Forward
+		{
+			get { return forward; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Vector3 Backward
+		{
+			get { return backward; }
+		}
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector3 value1, ref Vector3 value2, out Double result)
 		{
 			Double num3 = value1.X - value2.X;
@@ -16613,7 +17714,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double num4 = ((num3 * num3) + (num2 * num2)) + (num * num);
 			result = RealMaths.Sqrt (num4);
 		}
-		
+
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector3 value1, ref Vector3 value2, out Double result)
 		{
 			Double num3 = value1.X - value2.X;
@@ -16622,11 +17726,24 @@ namespace Sungiant.Abacus.DoublePrecision
 			result = ((num3 * num3) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out Double result)
 		{
 			result = ((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z);
 		}
 
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
 			Double one = 1;
@@ -16638,6 +17755,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = value.Z * num;
 		}
 
+		/// <summary>
+		/// Calculates the cross product of two vectors.
+		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
 			Double num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -16648,6 +17768,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = num;
 		}
 
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
 		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
 			Double two = 2;
@@ -16658,6 +17782,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = vector.Z - ((two * num) * normal.Z);
 		}
 
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector3 result)
 		{
 			Double num3 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -16668,16 +17795,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = num;
 		}
 		
-		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
-		{
-			Double num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-			Double num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-			Double num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
-		}
-		
+		/// <summary>
+		/// Transforms a vector by a specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector3 result)
 		{
 			Double one = 1;
@@ -16701,23 +17821,60 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = num13;
 		}
 		
-		#endregion
-		#region Operators
-
-		public static Vector3 operator - (Vector3 value)
+		/// <summary>
+		/// Transforms a normalised Vector3 by a Matrix44.
+		/// </summary>
+		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
 		{
-			Vector3 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			vector.Z = -value.Z;
-			return vector;
+			Double num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+			Double num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+			Double num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+			result.X = num3;
+			result.Y = num2;
+			result.Z = num;
 		}
 		
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector3) {
+				flag = this.Equals ((Vector3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Vector3>
+
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// Vector3 object.
+		/// </summary>
+		public Boolean Equals (Vector3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector3 value1, Vector3 value2)
 		{
 			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector3 value1, Vector3 value2)
 		{
 			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
@@ -16725,7 +17882,22 @@ namespace Sungiant.Abacus.DoublePrecision
 			}
 			return true;
 		}
-		
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects.
+		/// </summary>
+		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector3 operator + (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -16734,7 +17906,24 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Z = value1.Z + value2.Z;
 			return vector;
 		}
-		
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects.
+		/// </summary>
+		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector3 operator - (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -16743,7 +17932,59 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Z = value1.Z - value2.Z;
 			return vector;
 		}
+
+
+		// Negation Operators //----------------------------------------------//
 		
+		/// <summary>
+		/// Performs negation of a Vector3 object.
+		/// </summary>
+		public static void Negate (ref Vector3 value, out Vector3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector3 object using the (-X) operator.
+		/// </summary>
+		public static Vector3 operator - (Vector3 value)
+		{
+			Vector3 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			vector.Z = -value.Z;
+			return vector;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a Double
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, Double scaleFactor, out Vector3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -16752,7 +17993,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Z = value1.Z * value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a Double
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value, Double scaleFactor)
 		{
 			Vector3 vector;
@@ -16761,7 +18006,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aVector3 object using the (x*Y) operator.
+		/// </summary>
 		public static Vector3 operator * (Double scaleFactor, Vector3 value)
 		{
 			Vector3 vector;
@@ -16770,7 +18019,35 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector3 objects.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a Double precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, Double value2, out Vector3 result)
+		{
+			Double one = 1;
+			Double num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector3 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -16779,7 +18056,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Z = value1.Z / value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a Double precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value, Double divider)
 		{
 			Vector3 vector;
@@ -16791,68 +18072,12 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.Z = value.Z * num;
 			return vector;
 		}
-
-		public static void Negate (ref Vector3 value, out Vector3 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-			result.Z = -value.Z;
-		}
-
-		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-			result.Z = value1.Z + value2.Z;
-		}
-
-		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-			result.Z = value1.Z - value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-			result.Z = value1.Z * value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, Double scaleFactor, out Vector3 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-			result.Z = value1.Z * scaleFactor;
-		}
-
-		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-			result.Z = value1.Z / value2.Z;
-		}
-
-		public static void Divide (ref Vector3 value1, Double value2, out Vector3 result)
-		{
-			Double one = 1;
-			Double num = one / value2;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-			result.Z = value1.Z * num;
-		}
 		
-		#endregion
-		#region Splines
+		// Splines //---------------------------------------------------------//
 
-		public static void Barycentric (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, Double amount1, Double amount2, out Vector3 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
-		}
-	
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
 		public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, Double amount, out Vector3 result)
 		{
 			Double zero = 0;
@@ -16867,6 +18092,16 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
 		}
 
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
 		public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, Double amount, out Vector3 result)
 		{
 			Double half; RealMaths.Half(out half);
@@ -16882,6 +18117,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
 		}
 
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
 		public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, Double amount, out Vector3 result)
 		{
 			Double one = 1;
@@ -16898,33 +18136,53 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
 			result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
 		}
-		
-		#endregion
-		#region Utilities
 
-		public static void Min (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		// Utilities //-------------------------------------------------------//
+
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
 		}
 
-		public static void Max (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
 		}
 		
-		public static void Clamp (ref Vector3 value1, ref Vector3 min, ref Vector3 max, out Vector3 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector3 a,
+			ref Vector3 min,
+			ref Vector3 max,
+			out Vector3 result)
 		{
-			Double x = value1.X;
+			Double x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Double y = value1.Y;
+			Double y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Double z = value1.Z;
+			Double z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
 			result.X = x;
@@ -16932,42 +18190,57 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = z;
 		}
 
-		public static void Lerp (ref Vector3 value1, ref Vector3 value2, Double amount, out Vector3 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector3 a,
+			ref Vector3 b,
+			Double amount,
+			out Vector3 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
 		}
-		
-		#endregion
-
 	}
+
+	/// <summary>
+	/// Double precision Vector4.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector4 
+	public struct Vector4 
 		: IEquatable<Vector4>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector4.
+		/// </summary>
 		public Double X;
+
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector4.
+		/// </summary>
 		public Double Y;
+
+		/// <summary>
+		/// Gets or sets the Z-component of the Vector4.
+		/// </summary>
 		public Double Z;
+
+		/// <summary>
+		/// Gets or sets the W-component of the Vector4.
+		/// </summary>
 		public Double W;
 
-		public Vector3 XYZ
-		{
-			get
-			{
-				return new Vector3(X, Y, Z);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-				this.Z = value.Z;
-			}
-		}
-
-
-
-		public Vector4 (Double x, Double y, Double z, Double w)
+		/// <summary>
+		/// Initilises a new instance of Vector4 from four Double values 
+		/// representing X, Y, Z and W respectively.
+		/// </summary>
+		public Vector4 (
+			Double x, 
+			Double y, 
+			Double z, 
+			Double w)
 		{
 			this.X = x;
 			this.Y = y;
@@ -16975,6 +18248,11 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector2 value
+		/// representing X and Y and two Double values representing Z and
+		/// W respectively.
+		/// </summary>
 		public Vector4 (Vector2 value, Double z, Double w)
 		{
 			this.X = value.X;
@@ -16983,6 +18261,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector3 value
+		/// representing X, Y and Z and one Double value representing W.
+		/// </summary>
 		public Vector4 (Vector3 value, Double w)
 		{
 			this.X = value.X;
@@ -16991,129 +18273,169 @@ namespace Sungiant.Abacus.DoublePrecision
 			this.W = w;
 		}
 
-		public Vector4 (Double value)
-		{
-			this.X = this.Y = this.Z = this.W = value;
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
-		}
-
-		public Boolean Equals (Vector4 other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector4) {
-				flag = this.Equals ((Vector4)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector4.
+		/// </summary>
 		public Double Length ()
 		{
-			Double num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
+			Double num = (this.X * this.X) + 
+							  (this.Y * this.Y) + 
+							  (this.Z * this.Z) + 
+							  (this.W * this.W);
+			
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector4 squared.
+		/// </summary>
 		public Double LengthSquared ()
 		{
-			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
+			return 
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z) + 
+				(this.W * this.W);
 		}
 
-
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Double one = 1;
-			Double num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-			Double num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
-			this.W *= num;
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2} W:{3}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString (), 
+					this.W.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector4 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode () + 
+				this.W.GetHashCode ()
+				);
+		}
 
-
+		/// <summary>
+		/// Detemines whether or not the Vector4 is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Double one = 1;
-
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector4 _zero;
-		static Vector4 _one;
-		static Vector4 _unitX;
-		static Vector4 _unitY;
-		static Vector4 _unitZ;
-		static Vector4 _unitW;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		static Vector4 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		static Vector4 one;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the X-axis.
+		/// </summary>
+		static Vector4 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Y-axis.
+		/// </summary>
+		static Vector4 unitY;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Z-axis.
+		/// </summary>
+		static Vector4 unitZ;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the W-axis.
+		/// </summary>
+		static Vector4 unitW;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector4 ()
 		{
-			Double temp_one; RealMaths.One(out temp_one);
-			Double temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector4 ();
+			one = 		new Vector4 (1, 1, 1, 1);
 
-			_zero = new Vector4 ();
-			_one = new Vector4 (temp_one, temp_one, temp_one, temp_one);
-			_unitX = new Vector4 (temp_one, temp_zero, temp_zero, temp_zero);
-			_unitY = new Vector4 (temp_zero, temp_one, temp_zero, temp_zero);
-			_unitZ = new Vector4 (temp_zero, temp_zero, temp_one, temp_zero);
-			_unitW = new Vector4 (temp_zero, temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector4 (1, 0, 0, 0);
+			unitY = 	new Vector4 (0, 1, 0, 0);
+			unitZ = 	new Vector4 (0, 0, 1, 0);
+			unitW = 	new Vector4 (0, 0, 0, 1);
 		}
 
-		public static Vector4 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to zero.
+		/// </summary>
+		public static Vector4 Zero
+		{
+			get { return zero; }
 		}
-		
-		public static Vector4 One {
-			get {
-				return _one;
-			}
-		}
-		
-		public static Vector4 UnitX {
-			get {
-				return _unitX;
-			}
-		}
-		
-		public static Vector4 UnitY {
-			get {
-				return _unitY;
-			}
-		}
-		
-		public static Vector4 UnitZ {
-			get {
-				return _unitZ;
-			}
-		}
-		
-		public static Vector4 UnitW {
-			get {
-				return _unitW;
-			}
-		}
-		
-		#endregion
-		#region Maths
 
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to one.
+		/// </summary>
+		public static Vector4 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the X-axis.
+		/// </summary>
+		public static Vector4 UnitX
+		{
+			get { return unitX; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Y-axis.
+		/// </summary>
+		public static Vector4 UnitY
+		{
+			get { return unitY; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Z-axis.
+		/// </summary>
+		public static Vector4 UnitZ
+		{
+			get { return unitZ; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the W-axis.
+		/// </summary>
+		public static Vector4 UnitW
+		{
+			get { return unitW; }
+		}
+		
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector4 value1, ref Vector4 value2, out Double result)
 		{
 			Double num4 = value1.X - value2.X;
@@ -17124,6 +18446,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result = RealMaths.Sqrt (num5);
 		}
 
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector4 value1, ref Vector4 value2, out Double result)
 		{
 			Double num4 = value1.X - value2.X;
@@ -17133,11 +18458,24 @@ namespace Sungiant.Abacus.DoublePrecision
 			result = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out Double result)
 		{
 			result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
 		}
-
+		
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
 			Double one = 1;
@@ -17149,6 +18487,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = vector.W * num;
 		}
 
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			Double num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
@@ -17160,7 +18501,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			Double num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -17172,7 +18516,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector4 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
 		{
 			Double num4 = (((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31)) + (vector.W * matrix.M41);
@@ -17185,7 +18532,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = num;
 		}
 		
-		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Double one = 1;
@@ -17210,6 +18559,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Double one = 1;
@@ -17234,6 +18586,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector4 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector4 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Double one = 1;
@@ -17258,9 +18613,124 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = value.W;
 		}
 		
-		#endregion
-		#region Operators
+		// Equality Operators //----------------------------------------------//
 
+		/// <summary>
+		/// Determines whether or not this Vector4 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector4) {
+				flag = this.Equals ((Vector4)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Vector4>
+
+		/// <summary>
+		/// Determines whether or not this Vector4 object is equal to another
+		/// Vector4 object.
+		/// </summary>
+		public Boolean Equals (Vector4 other)
+		{
+			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Vector4 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Vector4 value1, Vector4 value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
+		}
+		
+		/// <summary>
+		/// Determines whether or not two Vector4 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Vector4 value1, Vector4 value2)
+		{
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector4 objects.
+		/// </summary>
+		public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector4 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Vector4 operator + (Vector4 value1, Vector4 value2)
+		{
+			Vector4 vector;
+			vector.X = value1.X + value2.X;
+			vector.Y = value1.Y + value2.Y;
+			vector.Z = value1.Z + value2.Z;
+			vector.W = value1.W + value2.W;
+			return vector;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector4 objects.
+		/// </summary>
+		public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector4 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Vector4 operator - (Vector4 value1, Vector4 value2)
+		{
+			Vector4 vector;
+			vector.X = value1.X - value2.X;
+			vector.Y = value1.Y - value2.Y;
+			vector.Z = value1.Z - value2.Z;
+			vector.W = value1.W - value2.W;
+			return vector;
+		}
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Vector4 object.
+		/// </summary>
+		public static void Negate (ref Vector4 value, out Vector4 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector4 object using the (-X) operator.
+		/// </summary>
 		public static Vector4 operator - (Vector4 value)
 		{
 			Vector4 vector;
@@ -17271,39 +18741,35 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 		
-		public static Boolean operator == (Vector4 value1, Vector4 value2)
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector4 objects.
+		/// </summary>
+		public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
 		{
-			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+			result.W = value1.W * value2.W;
 		}
-		
-		public static Boolean operator != (Vector4 value1, Vector4 value2)
+
+		/// <summary>
+		/// Performs multiplication of a Vector4 object and a Double
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Vector4 value1, Double scaleFactor, out Vector4 result)
 		{
-			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
-				return !(value1.W == value2.W);
-			}
-			return true;
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
 		}
-		
-		public static Vector4 operator + (Vector4 value1, Vector4 value2)
-		{
-			Vector4 vector;
-			vector.X = value1.X + value2.X;
-			vector.Y = value1.Y + value2.Y;
-			vector.Z = value1.Z + value2.Z;
-			vector.W = value1.W + value2.W;
-			return vector;
-		}
-		
-		public static Vector4 operator - (Vector4 value1, Vector4 value2)
-		{
-			Vector4 vector;
-			vector.X = value1.X - value2.X;
-			vector.Y = value1.Y - value2.Y;
-			vector.Z = value1.Z - value2.Z;
-			vector.W = value1.W - value2.W;
-			return vector;
-		}
-		
+
+		/// <summary>
+		/// Performs muliplication of two Vector4 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector4 operator * (Vector4 value1, Vector4 value2)
 		{
 			Vector4 vector;
@@ -17314,6 +18780,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs multiplication of a Vector4 object and a Double
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector4 operator * (Vector4 value1, Double scaleFactor)
 		{
 			Vector4 vector;
@@ -17324,6 +18794,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs multiplication of a Double precision scaling factor 
+		/// and aVector4 object using the (x*Y) operator.
+		/// </summary>
 		public static Vector4 operator * (Double scaleFactor, Vector4 value1)
 		{
 			Vector4 vector;
@@ -17334,6 +18808,36 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector4 objects.
+		/// </summary>
+		public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+			result.W = value1.W / value2.W;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector4 object and a Double precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Vector4 value1, Double divider, out Vector4 result)
+		{
+			Double one = 1;
+			Double num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+			result.W = value1.W * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector4 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector4 operator / (Vector4 value1, Vector4 value2)
 		{
 			Vector4 vector;
@@ -17344,6 +18848,10 @@ namespace Sungiant.Abacus.DoublePrecision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs division of a Vector4 object and a Double precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector4 operator / (Vector4 value1, Double divider)
 		{
 			Double one = 1;
@@ -17355,76 +18863,12 @@ namespace Sungiant.Abacus.DoublePrecision
 			vector.W = value1.W * num;
 			return vector;
 		}
-		
-		public static void Negate (ref Vector4 value, out Vector4 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-			result.Z = -value.Z;
-			result.W = -value.W;
-		}
 
-		public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-			result.Z = value1.Z + value2.Z;
-			result.W = value1.W + value2.W;
-		}
-		
-		public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-			result.Z = value1.Z - value2.Z;
-			result.W = value1.W - value2.W;
-		}
-		
-		public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-			result.Z = value1.Z * value2.Z;
-			result.W = value1.W * value2.W;
-		}
+		// Splines //---------------------------------------------------------//
 
-		public static void Multiply (ref Vector4 value1, Double scaleFactor, out Vector4 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-			result.Z = value1.Z * scaleFactor;
-			result.W = value1.W * scaleFactor;
-		}
-
-		public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-			result.Z = value1.Z / value2.Z;
-			result.W = value1.W / value2.W;
-		}
-		
-		public static void Divide (ref Vector4 value1, Double divider, out Vector4 result)
-		{
-			Double one = 1;
-			Double num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-			result.Z = value1.Z * num;
-			result.W = value1.W * num;
-		}
-		
-		#endregion
-		#region Splines
-
-		public static void Barycentric (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, Double amount1, Double amount2, out Vector4 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
-			result.W = (value1.W + (amount1 * (value2.W - value1.W))) + (amount2 * (value3.W - value1.W));
-		}
-
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
 		public static void SmoothStep (ref Vector4 value1, ref Vector4 value2, Double amount, out Vector4 result)
 		{
 			Double zero = 0;
@@ -17440,6 +18884,16 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = value1.W + ((value2.W - value1.W) * amount);
 		}
 
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
 		public static void CatmullRom (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, ref Vector4 value4, Double amount, out Vector4 result)
 		{
 			Double half; RealMaths.Half(out half);
@@ -17456,6 +18910,9 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = half * ((((two * value2.W) + ((-value1.W + value3.W) * amount)) + (((((two * value1.W) - (five * value2.W)) + (four * value3.W)) - value4.W) * num)) + ((((-value1.W + (three * value2.W)) - (three * value3.W)) + value4.W) * num2));
 		}
 
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
 		public static void Hermite (ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, Double amount, out Vector4 result)
 		{
 			Double one = 1;
@@ -17473,39 +18930,58 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
 			result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
 		}
-		
-		#endregion
 
-		#region Utilities
+		// Utilities //-------------------------------------------------------//
 
-		public static void Min (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W < value2.W) ? value1.W : value2.W;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+			result.W = (a.W < b.W) ? a.W : b.W;
 		}
 
-		public static void Max (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W > value2.W) ? value1.W : value2.W;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+			result.W = (a.W > b.W) ? a.W : b.W;
 		}
 		
-		public static void Clamp (ref Vector4 value1, ref Vector4 min, ref Vector4 max, out Vector4 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector4 a,
+			ref Vector4 min,
+			ref Vector4 max,
+			out Vector4 result)
 		{
-			Double x = value1.X;
+			Double x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Double y = value1.Y;
+			Double y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Double z = value1.Z;
+			Double z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
-			Double w = value1.W;
+			Double w = a.W;
 			w = (w > max.W) ? max.W : w;
 			w = (w < min.W) ? min.W : w;
 			result.X = x;
@@ -17514,16 +18990,20 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.W = w;
 		}
 		
-		public static void Lerp (ref Vector4 value1, ref Vector4 value2, Double amount, out Vector4 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector4 a,
+			ref Vector4 b,
+			Double amount,
+			out Vector4 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-			result.W = value1.W + ((value2.W - value1.W) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
+			result.W = a.W + ((b.W - a.W) * amount);
 		}
-		
-		#endregion
-
 
 	}
 
@@ -17531,13 +19011,15 @@ namespace Sungiant.Abacus.DoublePrecision
 
 namespace Sungiant.Abacus.Fixed32Precision
 {
-	public static class GaussianElimination
+	/// <summary>
+	/// todo
+	/// </summary>
+	internal class GjkDistance
 	{
-
-	}
-	public class GjkDistance
-	{
-		public GjkDistance ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal GjkDistance ()
 		{
 			for (Int32 i = 0; i < 0x10; i++)
 			{
@@ -17545,7 +19027,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			}
 		}
 
-		public Boolean AddSupportPoint (ref Vector3 newPoint)
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Boolean AddSupportPoint (ref Vector3 newPoint)
 		{
 			Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
@@ -17559,7 +19044,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 
 				this.edges [num2] [index] = vector;
 				this.edges [index] [num2] = -vector;
-				this.edgeLengthSq [index] [num2] = this.edgeLengthSq [num2] [index] = vector.LengthSquared ();
+
+				this.edgeLengthSq [index] [num2] = 
+					this.edgeLengthSq [num2] [index] = 
+						vector.LengthSquared ();
 			}
 
 			this.UpdateDeterminant (index);
@@ -17567,7 +19055,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return this.UpdateSimplex (index);
 		}
 
-		public void Reset ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal void Reset ()
 		{
 			Fixed32 zero = 0;
 
@@ -17575,32 +19066,97 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.maxLengthSq = zero;
 		}
 
-		public Vector3 ClosestPoint
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Vector3 ClosestPoint
 		{
 			get { return this.closestPoint; }
 		}
-		
-		public Boolean FullSimplex
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Boolean FullSimplex
 		{
 			get { return (this.simplexBits == 15); }
 		}
 		
-		public Fixed32 MaxLengthSquared
+		/// <summary>
+		/// todo
+		/// </summary>
+		internal Fixed32 MaxLengthSquared
 		{
 			get { return this.maxLengthSq; }
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 closestPoint;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Fixed32[][] det = new Fixed32[0x10][];
-		Fixed32[][] edgeLengthSq = new Fixed32[][] { new Fixed32[4], new Fixed32[4], new Fixed32[4], new Fixed32[4] };
-		Vector3[][] edges = new Vector3[][] { new Vector3[4], new Vector3[4], new Vector3[4], new Vector3[4] };
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		Fixed32[][] edgeLengthSq = 
+			new Fixed32[][] 
+			{ 
+				new Fixed32[4], 
+				new Fixed32[4], 
+				new Fixed32[4], 
+				new Fixed32[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
+		Vector3[][] edges = 
+			new Vector3[][] 
+			{ 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4], 
+				new Vector3[4] 
+			};
+		
+		/// <summary>
+		/// todo
+		/// </summary>
 		Fixed32 maxLengthSq;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Int32 simplexBits;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3[] y = new Vector3[4];
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		Fixed32[] yLengthSq = new Fixed32[4];
 
-		static Int32[] BitsToIndices = new Int32[] { 0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 };
+		/// <summary>
+		/// todo
+		/// </summary>
+		static Int32[] BitsToIndices = 
+			new Int32[] 
+			{ 
+				0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
+				4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+			};
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Vector3 ComputeClosestPoint ()
 		{
 			Fixed32 fzero; RealMaths.Zero(out fzero);
@@ -17618,12 +19174,16 @@ namespace Sungiant.Abacus.Fixed32Precision
 				num3 += num4;
 				zero += (Vector3)(this.y [index] * num4);
 
-				this.maxLengthSq = RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
+				this.maxLengthSq = 
+				RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
 			}
 
 			return (Vector3)(zero / num3);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean IsSatisfiesRule (Int32 xBits, Int32 yBits)
 		{
 			Fixed32 fzero; RealMaths.Zero(out fzero);
@@ -17649,6 +19209,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return true;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		void UpdateDeterminant (Int32 xmIdx)
 		{
 			Fixed32 fone; RealMaths.One(out fone);
@@ -17665,8 +19228,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 				Int32 num12 = ((int)1) << num;
 				Int32 num6 = num12 | index;
 
-				this.det [num6] [num] = Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
-				this.det [num6] [xmIdx] = Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
+				this.det [num6] [num] = 
+					Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
+
+				this.det [num6] [xmIdx] = 
+					Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
 				Int32 num11 = num14;
 
@@ -17743,6 +19309,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			}
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		Boolean UpdateSimplex (Int32 newIndex)
 		{
 			Int32 yBits = this.simplexBits | (((Int32)1) << newIndex);
@@ -17774,1336 +19343,122 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return flag;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		static Fixed32 Dot (ref Vector3 a, ref Vector3 b)
 		{
 			return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
 		}
 	}
-
+	/// <summary>
+	/// Fixed32 precision Matrix44.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct BoundingBox 
-		: IEquatable<BoundingBox>
-	{
-		public const int CornerCount = 8;
-		public Vector3 Min;
-		public Vector3 Max;
-
-		public Vector3[] GetCorners ()
-		{
-			return new Vector3[] { new Vector3 (this.Min.X, this.Max.Y, this.Max.Z), new Vector3 (this.Max.X, this.Max.Y, this.Max.Z), new Vector3 (this.Max.X, this.Min.Y, this.Max.Z), new Vector3 (this.Min.X, this.Min.Y, this.Max.Z), new Vector3 (this.Min.X, this.Max.Y, this.Min.Z), new Vector3 (this.Max.X, this.Max.Y, this.Min.Z), new Vector3 (this.Max.X, this.Min.Y, this.Min.Z), new Vector3 (this.Min.X, this.Min.Y, this.Min.Z) };
-		}
-
-		public BoundingBox (Vector3 min, Vector3 max)
-		{
-			this.Min = min;
-			this.Max = max;
-		}
-
-		public Boolean Equals (BoundingBox other)
-		{
-			return ((this.Min == other.Min) && (this.Max == other.Max));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is BoundingBox) {
-				flag = this.Equals ((BoundingBox)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Min.GetHashCode () + this.Max.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Min:{0} Max:{1}}}", new Object[] { this.Min.ToString (), this.Max.ToString () });
-		}
-
-		public static void CreateMerged (ref BoundingBox original, ref BoundingBox additional, out BoundingBox result)
-		{
-			Vector3 vector;
-			Vector3 vector2;
-			Vector3.Min (ref original.Min, ref additional.Min, out vector2);
-			Vector3.Max (ref original.Max, ref additional.Max, out vector);
-			result.Min = vector2;
-			result.Max = vector;
-		}
-
-		public static void CreateFromSphere (ref BoundingSphere sphere, out BoundingBox result)
-		{
-			result.Min.X = sphere.Center.X - sphere.Radius;
-			result.Min.Y = sphere.Center.Y - sphere.Radius;
-			result.Min.Z = sphere.Center.Z - sphere.Radius;
-			result.Max.X = sphere.Center.X + sphere.Radius;
-			result.Max.Y = sphere.Center.Y + sphere.Radius;
-			result.Max.Z = sphere.Center.Z + sphere.Radius;
-		}
-
-		public static BoundingBox CreateFromPoints (IEnumerable<Vector3> points)
-		{
-			if (points == null) {
-				throw new ArgumentNullException ();
-			}
-			Boolean flag = false;
-			Vector3 vector3 = new Vector3 (Fixed32.MaxValue);
-			Vector3 vector2 = new Vector3 (Fixed32.MinValue);
-			foreach (Vector3 vector in points) {
-				Vector3 vector4 = vector;
-				Vector3.Min (ref vector3, ref vector4, out vector3);
-				Vector3.Max (ref vector2, ref vector4, out vector2);
-				flag = true;
-			}
-			if (!flag) {
-				throw new ArgumentException ("BoundingBoxZeroPoints");
-			}
-			return new BoundingBox (vector3, vector2);
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			if ((this.Max.X < box.Min.X) || (this.Min.X > box.Max.X)) {
-				return false;
-			}
-			if ((this.Max.Y < box.Min.Y) || (this.Min.Y > box.Max.Y)) {
-				return false;
-			}
-			return ((this.Max.Z >= box.Min.Z) && (this.Min.Z <= box.Max.Z));
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			Fixed32 zero = 0;
-
-			Vector3 vector;
-			Vector3 vector2;
-			vector2.X = (plane.Normal.X >= zero) ? this.Min.X : this.Max.X;
-			vector2.Y = (plane.Normal.Y >= zero) ? this.Min.Y : this.Max.Y;
-			vector2.Z = (plane.Normal.Z >= zero) ? this.Min.Z : this.Max.Z;
-			vector.X = (plane.Normal.X >= zero) ? this.Max.X : this.Min.X;
-			vector.Y = (plane.Normal.Y >= zero) ? this.Max.Y : this.Min.Y;
-			vector.Z = (plane.Normal.Z >= zero) ? this.Max.Z : this.Min.Z;
-			Fixed32 num = ((plane.Normal.X * vector2.X) + (plane.Normal.Y * vector2.Y)) + (plane.Normal.Z * vector2.Z);
-			if ((num + plane.D) > zero) {
-				return PlaneIntersectionType.Front;
-			}
-			num = ((plane.Normal.X * vector.X) + (plane.Normal.Y * vector.Y)) + (plane.Normal.Z * vector.Z);
-			if ((num + plane.D) < zero) {
-				return PlaneIntersectionType.Back;
-			}
-			return PlaneIntersectionType.Intersecting;
-		}
-
-		public Fixed32? Intersects (ref Ray ray)
-		{
-			Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
-
-			Fixed32 zero = 0;
-			Fixed32 one = 1;
-
-			Fixed32 num = zero;
-			Fixed32 maxValue = Fixed32.MaxValue;
-			if (RealMaths.Abs (ray.Direction.X) < epsilon) {
-				if ((ray.Position.X < this.Min.X) || (ray.Position.X > this.Max.X)) {
-					return null;
-				}
-			} else {
-				Fixed32 num11 = one / ray.Direction.X;
-				Fixed32 num8 = (this.Min.X - ray.Position.X) * num11;
-				Fixed32 num7 = (this.Max.X - ray.Position.X) * num11;
-				if (num8 > num7) {
-					Fixed32 num14 = num8;
-					num8 = num7;
-					num7 = num14;
-				}
-				num = RealMaths.Max (num8, num);
-				maxValue = RealMaths.Min (num7, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			if (RealMaths.Abs (ray.Direction.Y) < epsilon) {
-				if ((ray.Position.Y < this.Min.Y) || (ray.Position.Y > this.Max.Y)) {
-					return null;
-				}
-			} else {
-				Fixed32 num10 = one / ray.Direction.Y;
-				Fixed32 num6 = (this.Min.Y - ray.Position.Y) * num10;
-				Fixed32 num5 = (this.Max.Y - ray.Position.Y) * num10;
-				if (num6 > num5) {
-					Fixed32 num13 = num6;
-					num6 = num5;
-					num5 = num13;
-				}
-				num = RealMaths.Max (num6, num);
-				maxValue = RealMaths.Min (num5, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			
-
-			if (RealMaths.Abs (ray.Direction.Z) < epsilon) {
-				if ((ray.Position.Z < this.Min.Z) || (ray.Position.Z > this.Max.Z)) {
-					return null;
-				}
-			} else {
-				Fixed32 num9 = one / ray.Direction.Z;
-				Fixed32 num4 = (this.Min.Z - ray.Position.Z) * num9;
-				Fixed32 num3 = (this.Max.Z - ray.Position.Z) * num9;
-				if (num4 > num3) {
-					Fixed32 num12 = num4;
-					num4 = num3;
-					num3 = num12;
-				}
-				num = RealMaths.Max (num4, num);
-				maxValue = RealMaths.Min (num3, maxValue);
-				if (num > maxValue) {
-					return null;
-				}
-			}
-			return new Fixed32? (num);
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Fixed32 num;
-			Vector3 vector;
-			Vector3.Clamp (ref sphere.Center, ref this.Min, ref this.Max, out vector);
-			Vector3.DistanceSquared (ref sphere.Center, ref vector, out num);
-			return (num <= (sphere.Radius * sphere.Radius));
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			if ((this.Max.X < box.Min.X) || (this.Min.X > box.Max.X)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((this.Max.Y < box.Min.Y) || (this.Min.Y > box.Max.Y)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((this.Max.Z < box.Min.Z) || (this.Min.Z > box.Max.Z)) {
-				return ContainmentType.Disjoint;
-			}
-			if ((((this.Min.X <= box.Min.X) && (box.Max.X <= this.Max.X)) && ((this.Min.Y <= box.Min.Y) && (box.Max.Y <= this.Max.Y))) && ((this.Min.Z <= box.Min.Z) && (box.Max.Z <= this.Max.Z))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			if (!frustum.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-
-			for (Int32 i = 0; i < frustum.cornerArray.Length; ++i) {
-				Vector3 vector = frustum.cornerArray[i];
-				if (this.Contains (ref vector) == ContainmentType.Disjoint) {
-					return ContainmentType.Intersects;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			if ((((this.Min.X <= point.X) && (point.X <= this.Max.X)) && ((this.Min.Y <= point.Y) && (point.Y <= this.Max.Y))) && ((this.Min.Z <= point.Z) && (point.Z <= this.Max.Z))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Disjoint;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Fixed32 num2;
-			Vector3 vector;
-			Vector3.Clamp (ref sphere.Center, ref this.Min, ref this.Max, out vector);
-			Vector3.DistanceSquared (ref sphere.Center, ref vector, out num2);
-			Fixed32 radius = sphere.Radius;
-			if (num2 > (radius * radius)) {
-				return ContainmentType.Disjoint;
-			}
-			if (((((this.Min.X + radius) <= sphere.Center.X) && (sphere.Center.X <= (this.Max.X - radius))) && (((this.Max.X - this.Min.X) > radius) && ((this.Min.Y + radius) <= sphere.Center.Y))) && (((sphere.Center.Y <= (this.Max.Y - radius)) && ((this.Max.Y - this.Min.Y) > radius)) && ((((this.Min.Z + radius) <= sphere.Center.Z) && (sphere.Center.Z <= (this.Max.Z - radius))) && ((this.Max.X - this.Min.X) > radius)))) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Fixed32 zero = 0;
-
-			result.X = (v.X >= zero) ? this.Max.X : this.Min.X;
-			result.Y = (v.Y >= zero) ? this.Max.Y : this.Min.Y;
-			result.Z = (v.Z >= zero) ? this.Max.Z : this.Min.Z;
-		}
-
-		public static Boolean operator == (BoundingBox a, BoundingBox b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (BoundingBox a, BoundingBox b)
-		{
-			if (!(a.Min != b.Min)) {
-				return (a.Max != b.Max);
-			}
-			return true;
-		}
-	}
-	public class BoundingFrustum 
-		: IEquatable<BoundingFrustum>
-	{
-		const int BottomPlaneIndex = 5;
-
-		internal Vector3[] cornerArray;
-
-		public const int CornerCount = 8;
-
-		const int FarPlaneIndex = 1;
-
-		GjkDistance gjk;
-
-		const int LeftPlaneIndex = 2;
-
-		Matrix44 matrix;
-
-		const int NearPlaneIndex = 0;
-
-		const int NumPlanes = 6;
-
-		Plane[] planes;
-
-		const int RightPlaneIndex = 3;
-
-		const int TopPlaneIndex = 4;
-
-		BoundingFrustum ()
-		{
-			this.planes = new Plane[6];
-			this.cornerArray = new Vector3[8];
-		}
-
-		public BoundingFrustum (Matrix44 value)
-		{
-			this.planes = new Plane[6];
-			this.cornerArray = new Vector3[8];
-			this.SetMatrix (ref value);
-		}
-
-		static Vector3 ComputeIntersection (ref Plane plane, ref Ray ray)
-		{
-			Fixed32 planeNormDotRayPos;
-			Fixed32 planeNormDotRayDir;
-
-			Vector3.Dot (ref plane.Normal, ref ray.Position, out planeNormDotRayPos);
-			Vector3.Dot (ref plane.Normal, ref ray.Direction, out planeNormDotRayDir);
-
-			Fixed32 num = (-plane.D - planeNormDotRayPos) / planeNormDotRayDir;
-
-			return (ray.Position + (ray.Direction * num));
-		}
-
-		static Ray ComputeIntersectionLine (ref Plane p1, ref Plane p2)
-		{
-			Ray ray = new Ray ();
-
-			Vector3.Cross (ref p1.Normal, ref p2.Normal, out ray.Direction);
-
-			Fixed32 num = ray.Direction.LengthSquared ();
-
-			Vector3 a = (-p1.D * p2.Normal) + (p2.D * p1.Normal);
-
-			Vector3 cross;
-
-			Vector3.Cross (ref a, ref ray.Direction, out cross);
-
-			ray.Position =  cross / num;
-
-			return ray;
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			Boolean flag = false;
-			for(Int32 i = 0; i < this.planes.Length; ++i)
-			{
-				Plane plane = this.planes[i];
-				switch (box.Intersects (ref plane)) {
-				case PlaneIntersectionType.Front:
-					return ContainmentType.Disjoint;
-
-				case PlaneIntersectionType.Intersecting:
-					flag = true;
-					break;
-				}
-			}
-			if (!flag) {
-				return ContainmentType.Contains;
-			}
-			return ContainmentType.Intersects;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-			ContainmentType disjoint = ContainmentType.Disjoint;
-			if (this.Intersects (ref frustum)) {
-				disjoint = ContainmentType.Contains;
-				for (int i = 0; i < this.cornerArray.Length; i++) {
-					if (this.Contains (ref frustum.cornerArray [i]) == ContainmentType.Disjoint) {
-						return ContainmentType.Intersects;
-					}
-				}
-			}
-			return disjoint;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Vector3 center = sphere.Center;
-			Fixed32 radius = sphere.Radius;
-			int num2 = 0;
-			foreach (Plane plane in this.planes) {
-				Fixed32 num5 = ((plane.Normal.X * center.X) + (plane.Normal.Y * center.Y)) + (plane.Normal.Z * center.Z);
-				Fixed32 num3 = num5 + plane.D;
-				if (num3 > radius) {
-					return ContainmentType.Disjoint;
-				}
-				if (num3 < -radius) {
-					num2++;
-				}
-			}
-			if (num2 != 6) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			Fixed32 epsilon; RealMaths.FromString("0.00001", out epsilon);
-
-			foreach (Plane plane in this.planes) {
-				Fixed32 num2 = (((plane.Normal.X * point.X) + (plane.Normal.Y * point.Y)) + (plane.Normal.Z * point.Z)) + plane.D;
-				if (num2 > epsilon) {
-					return ContainmentType.Disjoint;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public Boolean Equals (BoundingFrustum other)
-		{
-			if (other == null) {
-				return false;
-			}
-			return (this.matrix == other.matrix);
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			BoundingFrustum frustum = obj as BoundingFrustum;
-			if (frustum != null) {
-				flag = this.matrix == frustum.matrix;
-			}
-			return flag;
-		}
-
-		public Vector3[] GetCorners ()
-		{
-			return (Vector3[])this.cornerArray.Clone ();
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return this.matrix.GetHashCode ();
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			Boolean flag;
-			this.Intersects (ref box, out flag);
-			return flag;
-		}
-
-		void Intersects (ref BoundingBox box, out Boolean result)
-		{
-			Fixed32 epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Fixed32 zero = 0;
-			Fixed32 four = 4;
-
-			Vector3 closestPoint;
-			Vector3 vector2;
-			Vector3 vector3;
-			Vector3 vector4;
-			Vector3 vector5;
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref box.Min, out closestPoint);
-			if (closestPoint.LengthSquared () < epsilon) {
-				Vector3.Subtract (ref this.cornerArray [0], ref box.Max, out closestPoint);
-			}
-			Fixed32 maxValue = Fixed32.MaxValue;
-			Fixed32 num3 = zero;
-			result = false;
-		Label_006D:
-			vector5.X = -closestPoint.X;
-			vector5.Y = -closestPoint.Y;
-			vector5.Z = -closestPoint.Z;
-			this.SupportMapping (ref vector5, out vector4);
-			box.SupportMapping (ref closestPoint, out vector3);
-			Vector3.Subtract (ref vector4, ref vector3, out vector2);
-			Fixed32 num4 = ((closestPoint.X * vector2.X) + (closestPoint.Y * vector2.Y)) + (closestPoint.Z * vector2.Z);
-			if (num4 <= zero) {
-				this.gjk.AddSupportPoint (ref vector2);
-				closestPoint = this.gjk.ClosestPoint;
-				Fixed32 num2 = maxValue;
-				maxValue = closestPoint.LengthSquared ();
-				if ((num2 - maxValue) > (epsilon * num2)) {
-					num3 = four * epsilon * this.gjk.MaxLengthSquared;
-					if (!this.gjk.FullSimplex && (maxValue >= num3)) {
-						goto Label_006D;
-					}
-					result = true;
-				}
-			}
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			Fixed32 epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Fixed32 zero = 0;
-			Fixed32 four = 4;
-
-			Vector3 closestPoint;
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref frustum.cornerArray [0], out closestPoint);
-			if (closestPoint.LengthSquared () < epsilon) {
-				Vector3.Subtract (ref this.cornerArray [0], ref frustum.cornerArray [1], out closestPoint);
-			}
-			Fixed32 maxValue = Fixed32.MaxValue;
-			Fixed32 num3 = zero;
-			do {
-				Vector3 vector2;
-				Vector3 vector3;
-				Vector3 vector4;
-				Vector3 vector5;
-				vector5.X = -closestPoint.X;
-				vector5.Y = -closestPoint.Y;
-				vector5.Z = -closestPoint.Z;
-				this.SupportMapping (ref vector5, out vector4);
-				frustum.SupportMapping (ref closestPoint, out vector3);
-				Vector3.Subtract (ref vector4, ref vector3, out vector2);
-				Fixed32 num4 = ((closestPoint.X * vector2.X) + (closestPoint.Y * vector2.Y)) + (closestPoint.Z * vector2.Z);
-				if (num4 > zero) {
-					return false;
-				}
-				this.gjk.AddSupportPoint (ref vector2);
-				closestPoint = this.gjk.ClosestPoint;
-				Fixed32 num2 = maxValue;
-				maxValue = closestPoint.LengthSquared ();
-				num3 = four * epsilon * this.gjk.MaxLengthSquared;
-				if ((num2 - maxValue) <= (epsilon * num2)) {
-					return false;
-				}
-			} while (!this.gjk.FullSimplex && (maxValue >= num3));
-			return true;
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Boolean flag;
-			this.Intersects (ref sphere, out flag);
-			return flag;
-		}
-
-		void Intersects (ref BoundingSphere sphere, out Boolean result)
-		{
-			Fixed32 zero = 0;
-			Fixed32 epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Fixed32 four = 4;
-
-			Vector3 unitX;
-			Vector3 vector2;
-			Vector3 vector3;
-			Vector3 vector4;
-			Vector3 vector5;
-			if (this.gjk == null) {
-				this.gjk = new GjkDistance ();
-			}
-			this.gjk.Reset ();
-			Vector3.Subtract (ref this.cornerArray [0], ref sphere.Center, out unitX);
-			if (unitX.LengthSquared () < epsilon) {
-				unitX = Vector3.UnitX;
-			}
-			Fixed32 maxValue = Fixed32.MaxValue;
-			Fixed32 num3 = zero;
-			result = false;
-		Label_005A:
-			vector5.X = -unitX.X;
-			vector5.Y = -unitX.Y;
-			vector5.Z = -unitX.Z;
-			this.SupportMapping (ref vector5, out vector4);
-			sphere.SupportMapping (ref unitX, out vector3);
-			Vector3.Subtract (ref vector4, ref vector3, out vector2);
-			Fixed32 num4 = ((unitX.X * vector2.X) + (unitX.Y * vector2.Y)) + (unitX.Z * vector2.Z);
-			if (num4 <= zero) {
-				this.gjk.AddSupportPoint (ref vector2);
-				unitX = this.gjk.ClosestPoint;
-				Fixed32 num2 = maxValue;
-				maxValue = unitX.LengthSquared ();
-				if ((num2 - maxValue) > (epsilon * num2)) {
-					num3 = four * epsilon * this.gjk.MaxLengthSquared;
-					if (!this.gjk.FullSimplex && (maxValue >= num3)) {
-						goto Label_005A;
-					}
-					result = true;
-				}
-			}
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			Fixed32 zero = 0;
-
-			int num = 0;
-			for (int i = 0; i < 8; i++) {
-				Fixed32 num3;
-				Vector3.Dot (ref this.cornerArray [i], ref plane.Normal, out num3);
-				if ((num3 + plane.D) > zero) {
-					num |= 1;
-				} else {
-					num |= 2;
-				}
-				if (num == 3) {
-					return PlaneIntersectionType.Intersecting;
-				}
-			}
-			if (num != 1) {
-				return PlaneIntersectionType.Back;
-			}
-			return PlaneIntersectionType.Front;
-		}
-
-		public Fixed32? Intersects (ref Ray ray)
-		{
-			Fixed32? nullable;
-			this.Intersects (ref ray, out nullable);
-			return nullable;
-		}
-
-		void Intersects (ref Ray ray, out Fixed32? result)
-		{
-			Fixed32 epsilon; RealMaths.FromString("0.00001", out epsilon);
-			Fixed32 zero = 0;
-
-			ContainmentType type = this.Contains (ref ray.Position);
-			if (type == ContainmentType.Contains) {
-				result = zero;
-			} else {
-				Fixed32 minValue = Fixed32.MinValue;
-				Fixed32 maxValue = Fixed32.MaxValue;
-				result = zero;
-				foreach (Plane plane in this.planes) {
-					Fixed32 num3;
-					Fixed32 num6;
-					Vector3 normal = plane.Normal;
-					Vector3.Dot (ref ray.Direction, ref normal, out num6);
-					Vector3.Dot (ref ray.Position, ref normal, out num3);
-					num3 += plane.D;
-					if (RealMaths.Abs (num6) < epsilon) {
-						if (num3 > zero) {
-							return;
-						}
-					} else {
-						Fixed32 num = -num3 / num6;
-						if (num6 < zero) {
-							if (num > maxValue) {
-								return;
-							}
-							if (num > minValue) {
-								minValue = num;
-							}
-						} else {
-							if (num < minValue) {
-								return;
-							}
-							if (num < maxValue) {
-								maxValue = num;
-							}
-						}
-					}
-				}
-				Fixed32 num7 = (minValue >= zero) ? minValue : maxValue;
-				if (num7 >= zero) {
-					result = new Fixed32? (num7);
-				}
-			}
-		}
-
-		public static Boolean operator == (BoundingFrustum a, BoundingFrustum b)
-		{
-			return Object.Equals (a, b);
-		}
-
-		public static Boolean operator != (BoundingFrustum a, BoundingFrustum b)
-		{
-			return !Object.Equals (a, b);
-		}
-
-		void SetMatrix (ref Matrix44 value)
-		{
-			this.matrix = value;
-
-			this.planes [2].Normal.X = -value.M14 - value.M11;
-			this.planes [2].Normal.Y = -value.M24 - value.M21;
-			this.planes [2].Normal.Z = -value.M34 - value.M31;
-			this.planes [2].D = -value.M44 - value.M41;
-
-			this.planes [3].Normal.X = -value.M14 + value.M11;
-			this.planes [3].Normal.Y = -value.M24 + value.M21;
-			this.planes [3].Normal.Z = -value.M34 + value.M31;
-			this.planes [3].D = -value.M44 + value.M41;
-
-			this.planes [4].Normal.X = -value.M14 + value.M12;
-			this.planes [4].Normal.Y = -value.M24 + value.M22;
-			this.planes [4].Normal.Z = -value.M34 + value.M32;
-			this.planes [4].D = -value.M44 + value.M42;
-
-			this.planes [5].Normal.X = -value.M14 - value.M12;
-			this.planes [5].Normal.Y = -value.M24 - value.M22;
-			this.planes [5].Normal.Z = -value.M34 - value.M32;
-			this.planes [5].D = -value.M44 - value.M42;
-
-			this.planes [0].Normal.X = -value.M13;
-			this.planes [0].Normal.Y = -value.M23;
-			this.planes [0].Normal.Z = -value.M33;
-			this.planes [0].D = -value.M43;
-
-			this.planes [1].Normal.X = -value.M14 + value.M13;
-			this.planes [1].Normal.Y = -value.M24 + value.M23;
-			this.planes [1].Normal.Z = -value.M34 + value.M33;
-			this.planes [1].D = -value.M44 + value.M43;
-
-			for (int i = 0; i < 6; i++) {
-				Fixed32 num2 = this.planes [i].Normal.Length ();
-				this.planes [i].Normal = (Vector3)(this.planes [i].Normal / num2);
-				this.planes [i].D /= num2;
-			}
-
-			Ray ray = ComputeIntersectionLine (ref this.planes [0], ref this.planes [2]);
-
-			this.cornerArray [0] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [3] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [3], ref this.planes [0]);
-
-			this.cornerArray [1] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [2] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [2], ref this.planes [1]);
-
-			this.cornerArray [4] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [7] = ComputeIntersection (ref this.planes [5], ref ray);
-
-			ray = ComputeIntersectionLine (ref this.planes [1], ref this.planes [3]);
-
-			this.cornerArray [5] = ComputeIntersection (ref this.planes [4], ref ray);
-			this.cornerArray [6] = ComputeIntersection (ref this.planes [5], ref ray);
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Fixed32 num3;
-
-			int index = 0;
-
-			Vector3.Dot (ref this.cornerArray [0], ref v, out num3);
-
-			for (int i = 1; i < this.cornerArray.Length; i++)
-			{
-				Fixed32 num2;
-
-				Vector3.Dot (ref this.cornerArray [i], ref v, out num2);
-
-				if (num2 > num3)
-				{
-					index = i;
-					num3 = num2;
-				}
-			}
-
-			result = this.cornerArray [index];
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Near:{0} Far:{1} Left:{2} Right:{3} Top:{4} Bottom:{5}}}", new Object[] { this.Near.ToString (), this.Far.ToString (), this.Left.ToString (), this.Right.ToString (), this.Top.ToString (), this.Bottom.ToString () });
-		}
-
-		// Properties
-		public Plane Bottom
-		{
-			get
-			{
-				return this.planes [5];
-			}
-		}
-
-		public Plane Far {
-			get {
-				return this.planes [1];
-			}
-		}
-
-		public Plane Left {
-			get {
-				return this.planes [2];
-			}
-		}
-
-		public Matrix44 Matrix {
-			get {
-				return this.matrix;
-			}
-			set {
-				this.SetMatrix (ref value);
-			}
-		}
-
-		public Plane Near {
-			get {
-				return this.planes [0];
-			}
-		}
-
-		public Plane Right {
-			get {
-				return this.planes [3];
-			}
-		}
-
-		public Plane Top {
-			get {
-				return this.planes [4];
-			}
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public struct BoundingSphere 
-		: IEquatable<BoundingSphere>
-	{
-		public Vector3 Center;
-		public Fixed32 Radius;
-
-		public BoundingSphere (Vector3 center, Fixed32 radius)
-		{
-			Fixed32 zero = 0;
-
-			if (radius < zero) {
-				throw new ArgumentException ("NegativeRadius");
-			}
-			this.Center = center;
-			this.Radius = radius;
-		}
-
-		public Boolean Equals (BoundingSphere other)
-		{
-			return ((this.Center == other.Center) && (this.Radius == other.Radius));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is BoundingSphere) {
-				flag = this.Equals ((BoundingSphere)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Center.GetHashCode () + this.Radius.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Center:{0} Radius:{1}}}", new Object[] { this.Center.ToString (), this.Radius.ToString () });
-		}
-
-		public static void CreateMerged (ref BoundingSphere original, ref BoundingSphere additional, out BoundingSphere result)
-		{
-			Fixed32 half; RealMaths.Half(out half);
-			Fixed32 one = 1;
-			Vector3 vector2;
-			Vector3.Subtract (ref additional.Center, ref original.Center, out vector2);
-			Fixed32 num = vector2.Length ();
-			Fixed32 radius = original.Radius;
-			Fixed32 num2 = additional.Radius;
-			if ((radius + num2) >= num) {
-				if ((radius - num2) >= num) {
-					result = original;
-					return;
-				}
-				if ((num2 - radius) >= num) {
-					result = additional;
-					return;
-				}
-			}
-			Vector3 vector = (Vector3)(vector2 * (one / num));
-			Fixed32 num5 = RealMaths.Min (-radius, num - num2);
-			Fixed32 num4 = (RealMaths.Max (radius, num + num2) - num5) * half;
-			result.Center = original.Center + ((Vector3)(vector * (num4 + num5)));
-			result.Radius = num4;
-		}
-
-		public static void CreateFromBoundingBox (ref BoundingBox box, out BoundingSphere result)
-		{
-			Fixed32 half; RealMaths.Half(out half);
-			Fixed32 num;
-			Vector3.Lerp (ref box.Min, ref box.Max, half, out result.Center);
-			Vector3.Distance (ref box.Min, ref box.Max, out num);
-			result.Radius = num * half;
-		}
-
-		public static void CreateFromPoints (IEnumerable<Vector3> points, out BoundingSphere sphere)
-		{	
-			Fixed32 half; RealMaths.Half(out half);
-			Fixed32 one = 1;
-
-			Fixed32 num;
-			Fixed32 num2;
-			Vector3 vector2;
-			Fixed32 num4;
-			Fixed32 num5;
-			
-			Vector3 vector5;
-			Vector3 vector6;
-			Vector3 vector7;
-			Vector3 vector8;
-			Vector3 vector9;
-			if (points == null) {
-				throw new ArgumentNullException ("points");
-			}
-			IEnumerator<Vector3> enumerator = points.GetEnumerator ();
-			if (!enumerator.MoveNext ()) {
-				throw new ArgumentException ("BoundingSphereZeroPoints");
-			}
-			Vector3 vector4 = vector5 = vector6 = vector7 = vector8 = vector9 = enumerator.Current;
-			foreach (Vector3 vector in points) {
-				if (vector.X < vector4.X) {
-					vector4 = vector;
-				}
-				if (vector.X > vector5.X) {
-					vector5 = vector;
-				}
-				if (vector.Y < vector6.Y) {
-					vector6 = vector;
-				}
-				if (vector.Y > vector7.Y) {
-					vector7 = vector;
-				}
-				if (vector.Z < vector8.Z) {
-					vector8 = vector;
-				}
-				if (vector.Z > vector9.Z) {
-					vector9 = vector;
-				}
-			}
-			Vector3.Distance (ref vector5, ref vector4, out num5);
-			Vector3.Distance (ref vector7, ref vector6, out num4);
-			Vector3.Distance (ref vector9, ref vector8, out num2);
-			if (num5 > num4) {
-				if (num5 > num2) {
-					Vector3.Lerp (ref vector5, ref vector4, half, out vector2);
-					num = num5 * half;
-				} else {
-					Vector3.Lerp (ref vector9, ref vector8, half, out vector2);
-					num = num2 * half;
-				}
-			} else if (num4 > num2) {
-				Vector3.Lerp (ref vector7, ref vector6, half, out vector2);
-				num = num4 * half;
-			} else {
-				Vector3.Lerp (ref vector9, ref vector8, half, out vector2);
-				num = num2 * half;
-			}
-			foreach (Vector3 vector10 in points) {
-				Vector3 vector3;
-				vector3.X = vector10.X - vector2.X;
-				vector3.Y = vector10.Y - vector2.Y;
-				vector3.Z = vector10.Z - vector2.Z;
-				Fixed32 num3 = vector3.Length ();
-				if (num3 > num) {
-					num = (num + num3) * half;
-					vector2 += (Vector3)((one - (num / num3)) * vector3);
-				}
-			}
-			sphere.Center = vector2;
-			sphere.Radius = num;
-		}
-
-		public static void CreateFromFrustum (ref BoundingFrustum frustum, out BoundingSphere sphere)
-		{
-			if (frustum == null) {
-				throw new ArgumentNullException ("frustum");
-			}
-
-			CreateFromPoints (frustum.cornerArray, out sphere);
-		}
-
-		public Boolean Intersects (ref BoundingBox box)
-		{
-			Fixed32 num;
-			Vector3 vector;
-			Vector3.Clamp (ref this.Center, ref box.Min, ref box.Max, out vector);
-			Vector3.DistanceSquared (ref this.Center, ref vector, out num);
-			return (num <= (this.Radius * this.Radius));
-		}
-
-		public Boolean Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref Plane plane)
-		{
-			return plane.Intersects (ref this);
-		}
-
-		public Fixed32? Intersects (ref Ray ray)
-		{
-			return ray.Intersects (ref this);
-		}
-
-		public Boolean Intersects (ref BoundingSphere sphere)
-		{
-			Fixed32 two = 2;
-
-			Fixed32 num3;
-			Vector3.DistanceSquared (ref this.Center, ref sphere.Center, out num3);
-			Fixed32 radius = this.Radius;
-			Fixed32 num = sphere.Radius;
-			if ((((radius * radius) + ((two * radius) * num)) + (num * num)) <= num3) {
-				return false;
-			}
-			return true;
-		}
-
-		public ContainmentType Contains (ref BoundingBox box)
-		{
-			Vector3 vector;
-			if (!box.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-			Fixed32 num = this.Radius * this.Radius;
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Max.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Max.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Max.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			vector.X = this.Center.X - box.Min.X;
-			vector.Y = this.Center.Y - box.Min.Y;
-			vector.Z = this.Center.Z - box.Min.Z;
-			if (vector.LengthSquared () > num) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			if (!frustum.Intersects (ref this)) {
-				return ContainmentType.Disjoint;
-			}
-			Fixed32 num2 = this.Radius * this.Radius;
-			foreach (Vector3 vector2 in frustum.cornerArray) {
-				Vector3 vector;
-				vector.X = vector2.X - this.Center.X;
-				vector.Y = vector2.Y - this.Center.Y;
-				vector.Z = vector2.Z - this.Center.Z;
-				if (vector.LengthSquared () > num2) {
-					return ContainmentType.Intersects;
-				}
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref Vector3 point)
-		{
-			Fixed32 temp;
-			Vector3.DistanceSquared (ref point, ref this.Center, out temp);
-
-			if (temp >= (this.Radius * this.Radius))
-			{
-				return ContainmentType.Disjoint;
-			}
-			return ContainmentType.Contains;
-		}
-
-		public ContainmentType Contains (ref BoundingSphere sphere)
-		{
-			Fixed32 num3;
-			Vector3.Distance (ref this.Center, ref sphere.Center, out num3);
-			Fixed32 radius = this.Radius;
-			Fixed32 num = sphere.Radius;
-			if ((radius + num) < num3) {
-				return ContainmentType.Disjoint;
-			}
-			if ((radius - num) < num3) {
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
-		}
-
-		internal void SupportMapping (ref Vector3 v, out Vector3 result)
-		{
-			Fixed32 num2 = v.Length ();
-			Fixed32 num = this.Radius / num2;
-			result.X = this.Center.X + (v.X * num);
-			result.Y = this.Center.Y + (v.Y * num);
-			result.Z = this.Center.Z + (v.Z * num);
-		}
-
-		public BoundingSphere Transform (Matrix44 matrix)
-		{
-			BoundingSphere sphere = new BoundingSphere ();
-			Vector3.Transform (ref this.Center, ref matrix, out sphere.Center);
-			Fixed32 num4 = ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13);
-			Fixed32 num3 = ((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23);
-			Fixed32 num2 = ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33);
-			Fixed32 num = RealMaths.Max (num4, RealMaths.Max (num3, num2));
-			sphere.Radius = this.Radius * (RealMaths.Sqrt (num));
-			return sphere;
-		}
-
-		public void Transform (ref Matrix44 matrix, out BoundingSphere result)
-		{
-			Vector3.Transform (ref this.Center, ref matrix, out result.Center);
-			Fixed32 num4 = ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13);
-			Fixed32 num3 = ((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23);
-			Fixed32 num2 = ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33);
-			Fixed32 num = RealMaths.Max (num4, RealMaths.Max (num3, num2));
-			result.Radius = this.Radius * (RealMaths.Sqrt (num));
-		}
-
-		public static Boolean operator == (BoundingSphere a, BoundingSphere b)
-		{
-			return a.Equals (b);
-		}
-
-		public static Boolean operator != (BoundingSphere a, BoundingSphere b)
-		{
-			if (!(a.Center != b.Center)) {
-				return !(a.Radius == b.Radius);
-			}
-			return true;
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Matrix44 
+	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
-		// Row 0
+		/// <summary>
+		/// Gets or sets (Row 1, Column 1) of the Matrix44.
+		/// </summary>
 		public Fixed32 M11;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 2) of the Matrix44.
+		/// </summary>
 		public Fixed32 M12;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 3) of the Matrix44.
+		/// </summary>
 		public Fixed32 M13;
+
+		/// <summary>
+		/// Gets or sets (Row 1, Column 4) of the Matrix44.
+		/// </summary>
 		public Fixed32 M14;
 
-		// Row 1
+		/// <summary>
+		/// Gets or sets (Row 2, Column 1) of the Matrix44.
+		/// </summary>
 		public Fixed32 M21;
+
+		/// <summary>
+		/// Gets or sets (Row 2, Column 2) of the Matrix44.
+		/// </summary>
 		public Fixed32 M22;
+
+		/// <summary>
+		/// Gets or sets (ow 2, Column 3) of the Matrix44.
+		/// </summary>
 		public Fixed32 M23;
+
+		/// <summary>
+		/// Gets or sets (Row 2, Column 4) of the Matrix44.
+		/// </summary>
 		public Fixed32 M24;
 
-		// Row 2
+		/// <summary>
+		/// Row 3, Column 1) of the Matrix44.
+		/// </summary>
 		public Fixed32 M31;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 2) of the Matrix44.
+		/// </summary>
 		public Fixed32 M32;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 3) of the Matrix44.
+		/// </summary>
 		public Fixed32 M33;
+
+		/// <summary>
+		/// Gets or sets (Row 3, Column 4) of the Matrix44.
+		/// </summary>
 		public Fixed32 M34;
 
-		// Row 3
+		/// <summary>
+		/// Gets or sets (Row 4, Column 1) of the Matrix44.
+		/// </summary>
 		public Fixed32 M41; // translation.x
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 2) of the Matrix44.
+		/// </summary>
 		public Fixed32 M42; // translation.y
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 3) of the Matrix44.
+		/// </summary>
 		public Fixed32 M43; // translation.z
+
+		/// <summary>
+		/// Gets or sets (Row 4, Column 4) of the Matrix44.
+		/// </summary>
 		public Fixed32 M44;
 		
-		public Vector3 Up {
-			get {
-				Vector3 vector;
-				vector.X = this.M21;
-				vector.Y = this.M22;
-				vector.Z = this.M23;
-				return vector;
-			}
-			set {
-				this.M21 = value.X;
-				this.M22 = value.Y;
-				this.M23 = value.Z;
-			}
-		}
-
-		public Vector3 Down {
-			get {
-				Vector3 vector;
-				vector.X = -this.M21;
-				vector.Y = -this.M22;
-				vector.Z = -this.M23;
-				return vector;
-			}
-			set {
-				this.M21 = -value.X;
-				this.M22 = -value.Y;
-				this.M23 = -value.Z;
-			}
-		}
-
-		public Vector3 Right {
-			get {
-				Vector3 vector;
-				vector.X = this.M11;
-				vector.Y = this.M12;
-				vector.Z = this.M13;
-				return vector;
-			}
-			set {
-				this.M11 = value.X;
-				this.M12 = value.Y;
-				this.M13 = value.Z;
-			}
-		}
-
-		public Vector3 Left {
-			get {
-				Vector3 vector;
-				vector.X = -this.M11;
-				vector.Y = -this.M12;
-				vector.Z = -this.M13;
-				return vector;
-			}
-			set {
-				this.M11 = -value.X;
-				this.M12 = -value.Y;
-				this.M13 = -value.Z;
-			}
-		}
-
-		public Vector3 Forward {
-			get {
-				Vector3 vector;
-				vector.X = -this.M31;
-				vector.Y = -this.M32;
-				vector.Z = -this.M33;
-				return vector;
-			}
-			set {
-				this.M31 = -value.X;
-				this.M32 = -value.Y;
-				this.M33 = -value.Z;
-			}
-		}
-
-		public Vector3 Backward {
-			get {
-				Vector3 vector;
-				vector.X = this.M31;
-				vector.Y = this.M32;
-				vector.Z = this.M33;
-				return vector;
-			}
-			set {
-				this.M31 = value.X;
-				this.M32 = value.Y;
-				this.M33 = value.Z;
-			}
-		}
-
-		public Vector3 Translation {
-			get {
-				Vector3 vector;
-				vector.X = this.M41;
-				vector.Y = this.M42;
-				vector.Z = this.M43;
-				return vector;
-			}
-			set {
-				this.M41 = value.X;
-				this.M42 = value.Y;
-				this.M43 = value.Z;
-			}
-		}
-
-		public Matrix44 (Fixed32 m11, Fixed32 m12, Fixed32 m13, Fixed32 m14, Fixed32 m21, Fixed32 m22, Fixed32 m23, Fixed32 m24, Fixed32 m31, Fixed32 m32, Fixed32 m33, Fixed32 m34, Fixed32 m41, Fixed32 m42, Fixed32 m43, Fixed32 m44)
+		/// <summary>
+		/// Initilises a new instance of Matrix44 from sixteen Fixed32 
+		/// values representing the matrix, in row major order, respectively.
+		/// </summary>
+		public Matrix44 (
+			Fixed32 m11, 
+			Fixed32 m12, 
+			Fixed32 m13, 
+			Fixed32 m14, 
+			Fixed32 m21, 
+			Fixed32 m22, 
+			Fixed32 m23, 
+			Fixed32 m24, 
+			Fixed32 m31, 
+			Fixed32 m32, 
+			Fixed32 m33, 
+			Fixed32 m34, 
+			Fixed32 m41, 
+			Fixed32 m42, 
+			Fixed32 m43, 
+			Fixed32 m44)
 		{
 			this.M11 = m11;
 			this.M12 = m12;
@@ -19123,51 +19478,255 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.M44 = m44;
 		}
 
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
-			return ("{ " + string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", new Object[] { this.M11.ToString (), this.M12.ToString (), this.M13.ToString (), this.M14.ToString () }) + string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", new Object[] { this.M21.ToString (), this.M22.ToString (), this.M23.ToString (), this.M24.ToString () }) + string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", new Object[] { this.M31.ToString (), this.M32.ToString (), this.M33.ToString (), this.M34.ToString () }) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", new Object[] { this.M41.ToString (), this.M42.ToString (), this.M43.ToString (), this.M44.ToString () }) + "}");
+			return 
+				(
+					"{ " + 
+					string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M11.ToString (), 
+							this.M12.ToString (), 
+							this.M13.ToString (), 
+							this.M14.ToString () 
+						}
+					) + 
+					string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M21.ToString (), 
+							this.M22.ToString (), 
+							this.M23.ToString (), 
+							this.M24.ToString () 
+							}
+					) + 
+					string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
+						new Object[] 
+						{ 
+							this.M31.ToString (), 
+							this.M32.ToString (), 
+							this.M33.ToString (), 
+							this.M34.ToString () 
+						}
+					) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
+					new Object[] 
+					{ 
+						this.M41.ToString (), 
+						this.M42.ToString (), 
+						this.M43.ToString (), 
+						this.M44.ToString () 
+					}
+					) + 
+					"}"
+				);
 		}
 
-		public Boolean Equals (Matrix44 other)
-		{
-			return ((((((this.M11 == other.M11) && (this.M22 == other.M22)) && ((this.M33 == other.M33) && (this.M44 == other.M44))) && (((this.M12 == other.M12) && (this.M13 == other.M13)) && ((this.M14 == other.M14) && (this.M21 == other.M21)))) && ((((this.M23 == other.M23) && (this.M24 == other.M24)) && ((this.M31 == other.M31) && (this.M32 == other.M32))) && (((this.M34 == other.M34) && (this.M41 == other.M41)) && (this.M42 == other.M42)))) && (this.M43 == other.M43));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Matrix44)
-			{
-				flag = this.Equals ((Matrix44)obj);
-			}
-			return flag;
-		}
-
+		/// <summary>
+		/// Gets the hash code of the Matrix44 object.
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
-			return (((((((((((((((this.M11.GetHashCode () + this.M12.GetHashCode ()) + this.M13.GetHashCode ()) + this.M14.GetHashCode ()) + this.M21.GetHashCode ()) + this.M22.GetHashCode ()) + this.M23.GetHashCode ()) + this.M24.GetHashCode ()) + this.M31.GetHashCode ()) + this.M32.GetHashCode ()) + this.M33.GetHashCode ()) + this.M34.GetHashCode ()) + this.M41.GetHashCode ()) + this.M42.GetHashCode ()) + this.M43.GetHashCode ()) + this.M44.GetHashCode ());
+			return 
+				(((((((((((((((
+					this.M11.GetHashCode () + 
+					this.M12.GetHashCode ()) + 
+					this.M13.GetHashCode ()) + 
+					this.M14.GetHashCode ()) + 
+					this.M21.GetHashCode ()) + 
+					this.M22.GetHashCode ()) + 
+					this.M23.GetHashCode ()) + 
+					this.M24.GetHashCode ()) + 
+					this.M31.GetHashCode ()) + 
+					this.M32.GetHashCode ()) + 
+					this.M33.GetHashCode ()) + 
+					this.M34.GetHashCode ()) + 
+					this.M41.GetHashCode ()) + 
+					this.M42.GetHashCode ()) + 
+					this.M43.GetHashCode ()) + 
+					this.M44.GetHashCode ());
 		}
 
-		#region Constants
-
-		static Matrix44 identity;
-
-		static Matrix44 ()
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Up 
 		{
-			Fixed32 zero = 0;
-			Fixed32 one = 1;
-			identity = new Matrix44 (one, zero, zero, zero, zero, one, zero, zero, zero, zero, one, zero, zero, zero, zero, one);
-		}
-
-		public static Matrix44 Identity {
-			get {
-				return identity;
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M21;
+				vector.Y = this.M22;
+				vector.Z = this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = value.X;
+				this.M22 = value.Y;
+				this.M23 = value.Z;
 			}
 		}
-		
-		#endregion
-		#region Create
 
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Down 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = -this.M21;
+				vector.Y = -this.M22;
+				vector.Z = -this.M23;
+				return vector;
+			}
+			set 
+			{
+				this.M21 = -value.X;
+				this.M22 = -value.Y;
+				this.M23 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Right 
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M11;
+				vector.Y = this.M12;
+				vector.Z = this.M13;
+				return vector;
+			}
+			set 
+			{
+				this.M11 = value.X;
+				this.M12 = value.Y;
+				this.M13 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Left
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M11;
+				vector.Y = -this.M12;
+				vector.Z = -this.M13;
+				return vector;
+			}
+			set
+			{
+				this.M11 = -value.X;
+				this.M12 = -value.Y;
+				this.M13 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Forward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = -this.M31;
+				vector.Y = -this.M32;
+				vector.Z = -this.M33;
+				return vector;
+			}
+			set 
+			{
+				this.M31 = -value.X;
+				this.M32 = -value.Y;
+				this.M33 = -value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Backward
+		{
+			get
+			{
+				Vector3 vector;
+				vector.X = this.M31;
+				vector.Y = this.M32;
+				vector.Z = this.M33;
+				return vector;
+			}
+			set
+			{
+				this.M31 = value.X;
+				this.M32 = value.Y;
+				this.M33 = value.Z;
+			}
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
+		public Vector3 Translation
+		{
+			get 
+			{
+				Vector3 vector;
+				vector.X = this.M41;
+				vector.Y = this.M42;
+				vector.Z = this.M43;
+				return vector;
+			}
+			set
+			{
+				this.M41 = value.X;
+				this.M42 = value.Y;
+				this.M43 = value.Z;
+			}
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines the identity matrix.
+		/// </summary>
+		static Matrix44 identity;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Matrix44 ()
+		{
+			identity = new Matrix44 (
+				1, 0, 0, 0, 
+				0, 1, 0, 0, 
+				0, 0, 1, 0, 
+				0, 0, 0, 1);
+		}
+
+		/// <summary>
+		/// Returns the identity matrix.
+		/// </summary>
+		public static Matrix44 Identity 
+		{
+			get { return identity; }
+		}
+		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (ref Vector3 position, out Matrix44 result)
 		{
 			result.M11 = 1;
@@ -19188,6 +19747,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateTranslation (Fixed32 xPosition, Fixed32 yPosition, Fixed32 zPosition, out Matrix44 result)
 		{	
 			result.M11 = 1;
@@ -19208,7 +19770,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 		
-		// Creates a scaling matrix based on x, y, z.
+		/// <summary>
+		/// Creates a scaling matrix based on x, y, z.
+		/// </summary>
 		public static void CreateScale (Fixed32 xScale, Fixed32 yScale, Fixed32 zScale, out Matrix44 result)
 		{
 			result.M11 = xScale;
@@ -19229,7 +19793,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 
-		// Creates a scaling matrix based on a vector.
+		/// <summary>
+		/// Creates a scaling matrix based on a vector.
+		/// </summary>
 		public static void CreateScale (ref Vector3 scales, out Matrix44 result)
 		{
 			result.M11 = scales.X;
@@ -19250,7 +19816,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 
-		// Create a scaling matrix consistant along each axis
+		/// <summary>
+		/// Create a scaling matrix consistant along each axis
+		/// </summary>
 		public static void CreateScale (Fixed32 scale, out Matrix44 result)
 		{
 			result.M11 = scale;
@@ -19271,10 +19839,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationX (Fixed32 radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Fixed32 cos = RealMaths.Cos (radians);
 			Fixed32 sin = RealMaths.Sin (radians);
 
@@ -19296,10 +19865,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationY (Fixed32 radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Fixed32 cos = RealMaths.Cos (radians);
 			Fixed32 sin = RealMaths.Sin (radians);
 
@@ -19320,11 +19890,12 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = 0;
 			result.M44 = 1;
 		}
-		
+
+		/// <summary>
+		/// http://en.wikipedia.org/wiki/Rotation_matrix
+		/// </summary>
 		public static void CreateRotationZ (Fixed32 radians, out Matrix44 result)
 		{
-			// http://en.wikipedia.org/wiki/Rotation_matrix
-
 			Fixed32 cos = RealMaths.Cos (radians);
 			Fixed32 sin = RealMaths.Sin (radians);
 
@@ -19346,6 +19917,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, Fixed32 angle, out Matrix44 result)
 		{
 			Fixed32 one = 1;
@@ -19386,6 +19960,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = one;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
 		{
 			if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
@@ -19411,6 +19988,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			Vector3 backward = -forward;
@@ -19419,7 +19999,7 @@ namespace Sungiant.Abacus.Fixed32Precision
 
 			Vector3.Cross (ref up, ref backward, out right);
 
-			right.Normalise();
+			Vector3.Normalise(ref right, out right);
 
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
@@ -19428,6 +20008,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = position.Z;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
 		{
 			if(!forward.IsUnit() || !up.IsUnit() )
@@ -19463,6 +20046,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = 1;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
 		{
 			if(!quaternion.IsUnit())
@@ -19507,42 +20093,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = one;
 		}
 
-
-
-		// todo: remove when we dont need this for the tests
-		internal static void CreateFromQuaternionOld (ref Quaternion quaternion, out Matrix44 result)
-		{
-			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
-			Fixed32 two = 2;
-
-			Fixed32 num9 = quaternion.X * quaternion.X;
-			Fixed32 num8 = quaternion.Y * quaternion.Y;
-			Fixed32 num7 = quaternion.Z * quaternion.Z;
-			Fixed32 num6 = quaternion.X * quaternion.Y;
-			Fixed32 num5 = quaternion.Z * quaternion.W;
-			Fixed32 num4 = quaternion.Z * quaternion.X;
-			Fixed32 num3 = quaternion.Y * quaternion.W;
-			Fixed32 num2 = quaternion.Y * quaternion.Z;
-			Fixed32 num = quaternion.X * quaternion.W;
-			result.M11 = one - (two * (num8 + num7));
-			result.M12 = two * (num6 + num5);
-			result.M13 = two * (num4 - num3);
-			result.M14 = zero;
-			result.M21 = two * (num6 - num5);
-			result.M22 = one - (two * (num7 + num9));
-			result.M23 = two * (num2 + num);
-			result.M24 = zero;
-			result.M31 = two * (num4 + num3);
-			result.M32 = two * (num2 - num);
-			result.M33 = one - (two * (num8 + num9));
-			result.M34 = zero;
-			result.M41 = zero;
-			result.M42 = zero;
-			result.M43 = zero;
-			result.M44 = one;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (Fixed32 yaw, Fixed32 pitch, Fixed32 roll, out Matrix44 result)
 		{
 			Quaternion quaternion;
@@ -19552,32 +20105,21 @@ namespace Sungiant.Abacus.Fixed32Precision
 			CreateFromQuaternion (ref quaternion, out result);
 		}
 
-
-
-
-
-
-
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		// FROM XNA
-		// --------
-		// Creates a cylindrical billboard that rotates around a specified axis.
-		// This method computes the facing direction of the billboard from the object position and camera position. 
-		// When the object and camera positions are too close, the matrix will not be accurate. 
-		// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Creates a cylindrical billboard that rotates around a specified axis.
+		/// This method computes the facing direction of the billboard from the object position and camera position. 
+		/// When the object and camera positions are too close, the matrix will not be accurate. 
+		/// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+		/// </summary>
 		public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
 		{
 			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 
 			Vector3 vector;
 			Vector3 vector2;
@@ -19594,7 +20136,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 				Vector3.Multiply (ref vector, (Fixed32)(one / (RealMaths.Sqrt (num))), out vector);
 			}
 			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
-			vector3.Normalise ();
+
+			Vector3.Normalise (ref vector3, out vector3);
+
 			Vector3.Cross (ref vector, ref vector3, out vector2);
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -19613,11 +20157,25 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = ObjectPosition.Z;
 			result.M44 = one;
 		}
-		
-		public static void CreateConstrainedBillboard (ref Vector3 objectPosition, ref Vector3 cameraPosition, ref Vector3 rotateAxis, Vector3? cameraForwardVector, Vector3? objectForwardVector, out Matrix44 result)
+
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
+		public static void CreateConstrainedBillboard (
+			ref Vector3 objectPosition, 
+			ref Vector3 cameraPosition, 
+			ref Vector3 rotateAxis, 
+			Vector3? cameraForwardVector, 
+			Vector3? objectForwardVector, 
+			out Matrix44 result)
 		{
 			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 
 			Fixed32 num;
 			Vector3 vector;
@@ -19652,14 +20210,14 @@ namespace Sungiant.Abacus.Fixed32Precision
 					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
 				}
 				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			} else {
 				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				vector3.Normalise ();
+				Vector3.Normalise (ref vector3, out vector3);
 				Vector3.Cross (ref vector3, ref vector4, out vector);
-				vector.Normalise ();
+				Vector3.Normalise (ref vector, out vector);
 			}
 			result.M11 = vector3.X;
 			result.M12 = vector3.Y;
@@ -19679,12 +20237,24 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
-		public static void CreatePerspectiveFieldOfView (Fixed32 fieldOfView, Fixed32 aspectRatio, Fixed32 nearPlaneDistance, Fixed32 farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveFieldOfView (
+			Fixed32 fieldOfView, 
+			Fixed32 aspectRatio, 
+			Fixed32 nearPlaneDistance, 
+			Fixed32 farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Fixed32 zero = 0;
 			Fixed32 half; RealMaths.Half(out half);
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 			Fixed32 pi; RealMaths.Pi(out pi);
 
 			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
@@ -19712,11 +20282,23 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
-		public static void CreatePerspective (Fixed32 width, Fixed32 height, Fixed32 nearPlaneDistance, Fixed32 farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspective (
+			Fixed32 width, 
+			Fixed32 height, 
+			Fixed32 nearPlaneDistance, 
+			Fixed32 farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 			Fixed32 two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -19739,12 +20321,25 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		}
 
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
-		public static void CreatePerspectiveOffCenter (Fixed32 left, Fixed32 right, Fixed32 bottom, Fixed32 top, Fixed32 nearPlaneDistance, Fixed32 farPlaneDistance, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+		/// </summary>
+		public static void CreatePerspectiveOffCenter (
+			Fixed32 left, 
+			Fixed32 right, 
+			Fixed32 bottom, 
+			Fixed32 top, 
+			Fixed32 nearPlaneDistance, 
+			Fixed32 farPlaneDistance, 
+			out Matrix44 result)
 		{
 			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 			Fixed32 two = 2;
 
 			if (nearPlaneDistance <= zero) {
@@ -19768,11 +20363,23 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M41 = result.M42 = result.M44 = zero;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
-		public static void CreateOrthographic (Fixed32 width, Fixed32 height, Fixed32 zNearPlane, Fixed32 zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographic (
+			Fixed32 width, 
+			Fixed32 height, 
+			Fixed32 zNearPlane, 
+			Fixed32 zFarPlane, 
+			out Matrix44 result)
 		{
 			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 			Fixed32 two = 2;
 
 			result.M11 = two / width;
@@ -19786,11 +20393,25 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = one;
 		}
 
-		// ref: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
-		public static void CreateOrthographicOffCenter (Fixed32 left, Fixed32 right, Fixed32 bottom, Fixed32 top, Fixed32 zNearPlane, Fixed32 zFarPlane, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+		/// </summary>
+		public static void CreateOrthographicOffCenter (
+			Fixed32 left, 
+			Fixed32 right, 
+			Fixed32 bottom, 
+			Fixed32 top, 
+			Fixed32 zNearPlane, 
+			Fixed32 zFarPlane, 
+			out Matrix44 result)
 		{
 			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 			Fixed32 two = 2;
 
 			result.M11 = two / (right - left);
@@ -19805,11 +20426,22 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = one;
 		}
 		
-		// ref: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-		public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 result)
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+		/// </summary>
+		public static void CreateLookAt (
+			ref Vector3 cameraPosition, 
+			ref Vector3 cameraTarget, 
+			ref Vector3 cameraUpVector, 
+			out Matrix44 result)
 		{
 			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
+			Fixed32 one = 1;
 
 			Vector3 targetToPosition = cameraPosition - cameraTarget;
 
@@ -19843,134 +20475,44 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = one;
 		}
 
-		
-	
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205364(v=VS.85).aspx
-		public static void CreateShadow (ref Vector3 lightDirection, ref Plane plane, out Matrix44 result)
-		{
-			Fixed32 zero = 0;
-			
-			Plane plane2;
-			Plane.Normalise (ref plane, out plane2);
-			Fixed32 num = ((plane2.Normal.X * lightDirection.X) + (plane2.Normal.Y * lightDirection.Y)) + (plane2.Normal.Z * lightDirection.Z);
-			Fixed32 num5 = -plane2.Normal.X;
-			Fixed32 num4 = -plane2.Normal.Y;
-			Fixed32 num3 = -plane2.Normal.Z;
-			Fixed32 num2 = -plane2.D;
-			result.M11 = (num5 * lightDirection.X) + num;
-			result.M21 = num4 * lightDirection.X;
-			result.M31 = num3 * lightDirection.X;
-			result.M41 = num2 * lightDirection.X;
-			result.M12 = num5 * lightDirection.Y;
-			result.M22 = (num4 * lightDirection.Y) + num;
-			result.M32 = num3 * lightDirection.Y;
-			result.M42 = num2 * lightDirection.Y;
-			result.M13 = num5 * lightDirection.Z;
-			result.M23 = num4 * lightDirection.Z;
-			result.M33 = (num3 * lightDirection.Z) + num;
-			result.M43 = num2 * lightDirection.Z;
-			result.M14 = zero;
-			result.M24 = zero;
-			result.M34 = zero;
-			result.M44 = num;
-		}
-
-		// ref: http://msdn.microsoft.com/en-us/library/bb205356(v=VS.85).aspx
-		public static void CreateReflection (ref Plane value, out Matrix44 result)
-		{
-			Fixed32 zero = 0;
-			Fixed32 one; RealMaths.One(out one);
-			Fixed32 two = 2;
-
-			Plane plane;
-			
-			Plane.Normalise (ref value, out plane);
-			
-			value.Normalise ();
-			
-			Fixed32 x = plane.Normal.X;
-			Fixed32 y = plane.Normal.Y;
-			Fixed32 z = plane.Normal.Z;
-			
-			Fixed32 num3 = -two * x;
-			Fixed32 num2 = -two * y;
-			Fixed32 num = -two * z;
-			
-			result.M11 = (num3 * x) + one;
-			result.M12 = num2 * x;
-			result.M13 = num * x;
-			result.M14 = zero;
-			result.M21 = num3 * y;
-			result.M22 = (num2 * y) + one;
-			result.M23 = num * y;
-			result.M24 = zero;
-			result.M31 = num3 * z;
-			result.M32 = num2 * z;
-			result.M33 = (num * z) + one;
-			result.M34 = zero;
-			result.M41 = num3 * plane.D;
-			result.M42 = num2 * plane.D;
-			result.M43 = num * plane.D;
-			result.M44 = one;
-		}
-		
-		#endregion
-		#region Maths
-
-		//----------------------------------------------------------------------
-		// Transpose
-		//
-		public void Transpose()
-		{
-			Fixed32 temp = this.M12;
-			this.M12 = this.M21;
-			this.M21 = temp;
-
-			temp = this.M13;
-			this.M13 = this.M31;
-			this.M31 = temp;
-
-			temp = this.M14;
-			this.M14 = this.M41;
-			this.M41 = temp;
-
-			temp = this.M23;
-			this.M23 = this.M32;
-			this.M32 = temp;
-
-			temp = this.M24;
-			this.M24 = this.M42;
-			this.M42 = temp;
-
-			temp =  this.M34;
-			this.M34 = this.M43;
-			this.M43 = temp;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Transpose (ref Matrix44 input, out Matrix44 output)
 		{
-		    output.M11 = input.M11;
-			output.M12 = input.M21;
-			output.M13 = input.M31;
-			output.M14 = input.M41;
-			output.M21 = input.M12;
+			output.M11 = input.M11;
 			output.M22 = input.M22;
-			output.M23 = input.M32;
-			output.M24 = input.M42;
-			output.M31 = input.M13;
-			output.M32 = input.M23;
 			output.M33 = input.M33;
-			output.M34 = input.M43;
-			output.M41 = input.M14;
-			output.M42 = input.M24;
-			output.M43 = input.M34;
 			output.M44 = input.M44;
+
+			Fixed32 temp = input.M12;
+			output.M12 = input.M21;
+			output.M21 = temp;
+
+			temp = input.M13;
+			output.M13 = input.M31;
+			output.M31 = temp;
+
+			temp = input.M14;
+			output.M14 = input.M41;
+			output.M41 = temp;
+
+			temp = input.M23;
+			output.M23 = input.M32;
+			output.M32 = temp;
+
+			temp = input.M24;
+			output.M24 = input.M42;
+			output.M42 = temp;
+
+			temp =  input.M34;
+			output.M34 = input.M43;
+			output.M43 = temp;
 		}
 
-		//----------------------------------------------------------------------
-		// Decompose
-		// ref: Essential Mathemathics For Games & Interactive Applications
+		/// <summary>
+		/// Essential Mathemathics For Games & Interactive Applications
+		/// </summary>
 		public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
 		{
 			translation.X = M41;
@@ -19993,17 +20535,17 @@ namespace Sungiant.Abacus.Fixed32Precision
 				return false;
 			}
 
-			a.Normalise();
-			b.Normalise();
-			c.Normalise();
+			Vector3.Normalise(ref a, out a);
+			Vector3.Normalise(ref b, out b);
+			Vector3.Normalise(ref c, out c);
 
 			Vector3 right = new Vector3(a.X, b.X, c.X);
 			Vector3 up = new Vector3(a.Y, b.Y, c.Y);
 			Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
 
-			right.Normalise();
-			up.Normalise();
-			backward.Normalise();
+			Vector3.Normalise(ref right, out right);
+			Vector3.Normalise(ref up, out up);
+			Vector3.Normalise(ref backward, out backward);
 
 			Matrix44 rotMat;
 			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
@@ -20013,19 +20555,14 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return true;
 		}
 
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-		// TODO: REVIEW FROM HERE ONWARDS
-		/////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
-
-
-		//----------------------------------------------------------------------
-		// Determinant
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Fixed32 Determinant ()
 		{
 			Fixed32 num22 = this.M11;
@@ -20055,9 +20592,14 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
 		}
 		
-		//----------------------------------------------------------------------
-		// Invert
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Invert (ref Matrix44 matrix, out Matrix44 result)
 		{
 			Fixed32 one = 1;
@@ -20118,10 +20660,14 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
 		}
 
-
-		//----------------------------------------------------------------------
-		// Transform - Transforms a Matrix by applying a Quaternion rotation.
-		//
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		// TODO: FROM XNA, NEEDS REVIEW
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Transforms a Matrix by applying a Quaternion rotation.
+		/// </summary>
 		public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
 		{
 			Fixed32 one = 1;
@@ -20195,223 +20741,96 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = num23;
 			result.M44 = num22;
 		}
-		
-		#endregion
-		#region Operators
-		
-		public static Matrix44 operator - (Matrix44 matrix1)
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
 		{
-			Matrix44 matrix;
-			matrix.M11 = -matrix1.M11;
-			matrix.M12 = -matrix1.M12;
-			matrix.M13 = -matrix1.M13;
-			matrix.M14 = -matrix1.M14;
-			matrix.M21 = -matrix1.M21;
-			matrix.M22 = -matrix1.M22;
-			matrix.M23 = -matrix1.M23;
-			matrix.M24 = -matrix1.M24;
-			matrix.M31 = -matrix1.M31;
-			matrix.M32 = -matrix1.M32;
-			matrix.M33 = -matrix1.M33;
-			matrix.M34 = -matrix1.M34;
-			matrix.M41 = -matrix1.M41;
-			matrix.M42 = -matrix1.M42;
-			matrix.M43 = -matrix1.M43;
-			matrix.M44 = -matrix1.M44;
-			return matrix;
+			Boolean flag = false;
+
+			if (obj is Matrix44)
+			{
+				flag = this.Equals ((Matrix44) obj);
+			}
+			
+			return flag;
 		}
-		
+
+		#region IEquatable<Matrix44>
+
+		/// <summary>
+		/// Determines whether or not this Matrix44 object is equal to another
+		/// Matrix44 object.
+		/// </summary>
+		public Boolean Equals (Matrix44 other)
+		{
+			return 
+				(this.M11 == other.M11) && 
+				(this.M22 == other.M22) && 
+				(this.M33 == other.M33) && 
+				(this.M44 == other.M44) && 
+				(this.M12 == other.M12) && 
+				(this.M13 == other.M13) && 
+				(this.M14 == other.M14) && 
+				(this.M21 == other.M21) && 
+				(this.M23 == other.M23) && 
+				(this.M24 == other.M24) && 
+				(this.M31 == other.M31) && 
+				(this.M32 == other.M32) && 
+				(this.M34 == other.M34) && 
+				(this.M41 == other.M41) && 
+				(this.M42 == other.M42) && 
+				(this.M43 == other.M43);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Matrix44 matrix1, Matrix44 matrix2)
 		{
 			return ((((((matrix1.M11 == matrix2.M11) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M44 == matrix2.M44))) && (((matrix1.M12 == matrix2.M12) && (matrix1.M13 == matrix2.M13)) && ((matrix1.M14 == matrix2.M14) && (matrix1.M21 == matrix2.M21)))) && ((((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)) && ((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32))) && (((matrix1.M34 == matrix2.M34) && (matrix1.M41 == matrix2.M41)) && (matrix1.M42 == matrix2.M42)))) && (matrix1.M43 == matrix2.M43));
 		}
 		
+		/// <summary>
+		/// Determines whether or not two Matrix44 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			if (((((matrix1.M11 == matrix2.M11) && (matrix1.M12 == matrix2.M12)) && ((matrix1.M13 == matrix2.M13) && (matrix1.M14 == matrix2.M14))) && (((matrix1.M21 == matrix2.M21) && (matrix1.M22 == matrix2.M22)) && ((matrix1.M23 == matrix2.M23) && (matrix1.M24 == matrix2.M24)))) && ((((matrix1.M31 == matrix2.M31) && (matrix1.M32 == matrix2.M32)) && ((matrix1.M33 == matrix2.M33) && (matrix1.M34 == matrix2.M34))) && (((matrix1.M41 == matrix2.M41) && (matrix1.M42 == matrix2.M42)) && (matrix1.M43 == matrix2.M43)))) {
+			if ((matrix1.M11 == matrix2.M11) && 
+				(matrix1.M12 == matrix2.M12) && 
+				(matrix1.M13 == matrix2.M13) && 
+				(matrix1.M14 == matrix2.M14) && 
+				(matrix1.M21 == matrix2.M21) && 
+				(matrix1.M22 == matrix2.M22) && 
+				(matrix1.M23 == matrix2.M23) && 
+				(matrix1.M24 == matrix2.M24) && 
+				(matrix1.M31 == matrix2.M31) && 
+				(matrix1.M32 == matrix2.M32) && 
+				(matrix1.M33 == matrix2.M33) && 
+				(matrix1.M34 == matrix2.M34) && 
+				(matrix1.M41 == matrix2.M41) && 
+				(matrix1.M42 == matrix2.M42) && 
+				(matrix1.M43 == matrix2.M43))
+			{
 				return !(matrix1.M44 == matrix2.M44);
 			}
+
 			return true;
 		}
-		
-		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 + matrix2.M11;
-			matrix.M12 = matrix1.M12 + matrix2.M12;
-			matrix.M13 = matrix1.M13 + matrix2.M13;
-			matrix.M14 = matrix1.M14 + matrix2.M14;
-			matrix.M21 = matrix1.M21 + matrix2.M21;
-			matrix.M22 = matrix1.M22 + matrix2.M22;
-			matrix.M23 = matrix1.M23 + matrix2.M23;
-			matrix.M24 = matrix1.M24 + matrix2.M24;
-			matrix.M31 = matrix1.M31 + matrix2.M31;
-			matrix.M32 = matrix1.M32 + matrix2.M32;
-			matrix.M33 = matrix1.M33 + matrix2.M33;
-			matrix.M34 = matrix1.M34 + matrix2.M34;
-			matrix.M41 = matrix1.M41 + matrix2.M41;
-			matrix.M42 = matrix1.M42 + matrix2.M42;
-			matrix.M43 = matrix1.M43 + matrix2.M43;
-			matrix.M44 = matrix1.M44 + matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 - matrix2.M11;
-			matrix.M12 = matrix1.M12 - matrix2.M12;
-			matrix.M13 = matrix1.M13 - matrix2.M13;
-			matrix.M14 = matrix1.M14 - matrix2.M14;
-			matrix.M21 = matrix1.M21 - matrix2.M21;
-			matrix.M22 = matrix1.M22 - matrix2.M22;
-			matrix.M23 = matrix1.M23 - matrix2.M23;
-			matrix.M24 = matrix1.M24 - matrix2.M24;
-			matrix.M31 = matrix1.M31 - matrix2.M31;
-			matrix.M32 = matrix1.M32 - matrix2.M32;
-			matrix.M33 = matrix1.M33 - matrix2.M33;
-			matrix.M34 = matrix1.M34 - matrix2.M34;
-			matrix.M41 = matrix1.M41 - matrix2.M41;
-			matrix.M42 = matrix1.M42 - matrix2.M42;
-			matrix.M43 = matrix1.M43 - matrix2.M43;
-			matrix.M44 = matrix1.M44 - matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			matrix.M12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			matrix.M13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			matrix.M14 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			matrix.M21 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			matrix.M22 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			matrix.M23 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			matrix.M24 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			matrix.M31 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			matrix.M32 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			matrix.M33 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			matrix.M34 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			matrix.M41 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			matrix.M42 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			matrix.M43 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			matrix.M44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			return matrix;
-		}
-		
-		public static Matrix44 operator * (Matrix44 matrix, Fixed32 scaleFactor)
-		{
-			Matrix44 matrix2;
-			Fixed32 num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-		
-		public static Matrix44 operator * (Fixed32 scaleFactor, Matrix44 matrix)
-		{
-			Matrix44 matrix2;
-			Fixed32 num = scaleFactor;
-			matrix2.M11 = matrix.M11 * num;
-			matrix2.M12 = matrix.M12 * num;
-			matrix2.M13 = matrix.M13 * num;
-			matrix2.M14 = matrix.M14 * num;
-			matrix2.M21 = matrix.M21 * num;
-			matrix2.M22 = matrix.M22 * num;
-			matrix2.M23 = matrix.M23 * num;
-			matrix2.M24 = matrix.M24 * num;
-			matrix2.M31 = matrix.M31 * num;
-			matrix2.M32 = matrix.M32 * num;
-			matrix2.M33 = matrix.M33 * num;
-			matrix2.M34 = matrix.M34 * num;
-			matrix2.M41 = matrix.M41 * num;
-			matrix2.M42 = matrix.M42 * num;
-			matrix2.M43 = matrix.M43 * num;
-			matrix2.M44 = matrix.M44 * num;
-			return matrix2;
-		}
-		
-		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-		{
-			Matrix44 matrix;
-			matrix.M11 = matrix1.M11 / matrix2.M11;
-			matrix.M12 = matrix1.M12 / matrix2.M12;
-			matrix.M13 = matrix1.M13 / matrix2.M13;
-			matrix.M14 = matrix1.M14 / matrix2.M14;
-			matrix.M21 = matrix1.M21 / matrix2.M21;
-			matrix.M22 = matrix1.M22 / matrix2.M22;
-			matrix.M23 = matrix1.M23 / matrix2.M23;
-			matrix.M24 = matrix1.M24 / matrix2.M24;
-			matrix.M31 = matrix1.M31 / matrix2.M31;
-			matrix.M32 = matrix1.M32 / matrix2.M32;
-			matrix.M33 = matrix1.M33 / matrix2.M33;
-			matrix.M34 = matrix1.M34 / matrix2.M34;
-			matrix.M41 = matrix1.M41 / matrix2.M41;
-			matrix.M42 = matrix1.M42 / matrix2.M42;
-			matrix.M43 = matrix1.M43 / matrix2.M43;
-			matrix.M44 = matrix1.M44 / matrix2.M44;
-			return matrix;
-		}
-		
-		public static Matrix44 operator / (Matrix44 matrix1, Fixed32 divider)
-		{
-			Matrix44 matrix;
-			Fixed32 one = 1;
-			Fixed32 num = one / divider;
-			matrix.M11 = matrix1.M11 * num;
-			matrix.M12 = matrix1.M12 * num;
-			matrix.M13 = matrix1.M13 * num;
-			matrix.M14 = matrix1.M14 * num;
-			matrix.M21 = matrix1.M21 * num;
-			matrix.M22 = matrix1.M22 * num;
-			matrix.M23 = matrix1.M23 * num;
-			matrix.M24 = matrix1.M24 * num;
-			matrix.M31 = matrix1.M31 * num;
-			matrix.M32 = matrix1.M32 * num;
-			matrix.M33 = matrix1.M33 * num;
-			matrix.M34 = matrix1.M34 * num;
-			matrix.M41 = matrix1.M41 * num;
-			matrix.M42 = matrix1.M42 * num;
-			matrix.M43 = matrix1.M43 * num;
-			matrix.M44 = matrix1.M44 * num;
-			return matrix;
-		}
-		
-		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
-		{
-			result.M11 = -matrix.M11;
-			result.M12 = -matrix.M12;
-			result.M13 = -matrix.M13;
-			result.M14 = -matrix.M14;
-			result.M21 = -matrix.M21;
-			result.M22 = -matrix.M22;
-			result.M23 = -matrix.M23;
-			result.M24 = -matrix.M24;
-			result.M31 = -matrix.M31;
-			result.M32 = -matrix.M32;
-			result.M33 = -matrix.M33;
-			result.M34 = -matrix.M34;
-			result.M41 = -matrix.M41;
-			result.M42 = -matrix.M42;
-			result.M43 = -matrix.M43;
-			result.M44 = -matrix.M44;
-		}
-		
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Matrix44 objects.
+		/// </summary>
 		public static void Add (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + matrix2.M11;
@@ -20431,7 +20850,37 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = matrix1.M43 + matrix2.M43;
 			result.M44 = matrix1.M44 + matrix2.M44;
 		}
-		
+
+		/// <summary>
+		/// Performs addition of two Matrix44 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 + matrix2.M11;
+			result.M12 = matrix1.M12 + matrix2.M12;
+			result.M13 = matrix1.M13 + matrix2.M13;
+			result.M14 = matrix1.M14 + matrix2.M14;
+			result.M21 = matrix1.M21 + matrix2.M21;
+			result.M22 = matrix1.M22 + matrix2.M22;
+			result.M23 = matrix1.M23 + matrix2.M23;
+			result.M24 = matrix1.M24 + matrix2.M24;
+			result.M31 = matrix1.M31 + matrix2.M31;
+			result.M32 = matrix1.M32 + matrix2.M32;
+			result.M33 = matrix1.M33 + matrix2.M33;
+			result.M34 = matrix1.M34 + matrix2.M34;
+			result.M41 = matrix1.M41 + matrix2.M41;
+			result.M42 = matrix1.M42 + matrix2.M42;
+			result.M43 = matrix1.M43 + matrix2.M43;
+			result.M44 = matrix1.M44 + matrix2.M44;
+			return result;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects.
+		/// </summary>
 		public static void Subtract (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 - matrix2.M11;
@@ -20451,64 +20900,375 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = matrix1.M43 - matrix2.M43;
 			result.M44 = matrix1.M44 - matrix2.M44;
 		}
-		
-		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+
+		/// <summary>
+		/// Performs subtraction of two Matrix44 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
 		{
-			Fixed32 num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-			Fixed32 num15 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-			Fixed32 num14 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-			Fixed32 num13 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-			Fixed32 num12 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-			Fixed32 num11 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-			Fixed32 num10 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-			Fixed32 num9 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-			Fixed32 num8 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-			Fixed32 num7 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-			Fixed32 num6 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-			Fixed32 num5 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-			Fixed32 num4 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-			Fixed32 num3 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-			Fixed32 num2 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-			Fixed32 num = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
-			result.M11 = num16;
-			result.M12 = num15;
-			result.M13 = num14;
-			result.M14 = num13;
-			result.M21 = num12;
-			result.M22 = num11;
-			result.M23 = num10;
-			result.M24 = num9;
-			result.M31 = num8;
-			result.M32 = num7;
-			result.M33 = num6;
-			result.M34 = num5;
-			result.M41 = num4;
-			result.M42 = num3;
-			result.M43 = num2;
-			result.M44 = num;
+			Matrix44 result;
+			result.M11 = matrix1.M11 - matrix2.M11;
+			result.M12 = matrix1.M12 - matrix2.M12;
+			result.M13 = matrix1.M13 - matrix2.M13;
+			result.M14 = matrix1.M14 - matrix2.M14;
+			result.M21 = matrix1.M21 - matrix2.M21;
+			result.M22 = matrix1.M22 - matrix2.M22;
+			result.M23 = matrix1.M23 - matrix2.M23;
+			result.M24 = matrix1.M24 - matrix2.M24;
+			result.M31 = matrix1.M31 - matrix2.M31;
+			result.M32 = matrix1.M32 - matrix2.M32;
+			result.M33 = matrix1.M33 - matrix2.M33;
+			result.M34 = matrix1.M34 - matrix2.M34;
+			result.M41 = matrix1.M41 - matrix2.M41;
+			result.M42 = matrix1.M42 - matrix2.M42;
+			result.M43 = matrix1.M43 - matrix2.M43;
+			result.M44 = matrix1.M44 - matrix2.M44;
+			return result;
 		}
 
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Matrix44 object.
+		/// </summary>
+		public static void Negate (ref Matrix44 matrix, out Matrix44 result)
+		{
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+		}
+
+		/// <summary>
+		/// Performs negation of a Matrix44 object using the (-X) operator.
+		/// </summary>
+		public static Matrix44 operator - (Matrix44 matrix)
+		{
+			Matrix44 result;
+			result.M11 = -matrix.M11;
+			result.M12 = -matrix.M12;
+			result.M13 = -matrix.M13;
+			result.M14 = -matrix.M14;
+			result.M21 = -matrix.M21;
+			result.M22 = -matrix.M22;
+			result.M23 = -matrix.M23;
+			result.M24 = -matrix.M24;
+			result.M31 = -matrix.M31;
+			result.M32 = -matrix.M32;
+			result.M33 = -matrix.M33;
+			result.M34 = -matrix.M34;
+			result.M41 = -matrix.M41;
+			result.M42 = -matrix.M42;
+			result.M43 = -matrix.M43;
+			result.M44 = -matrix.M44;
+			return result;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects.
+		/// </summary>
+		public static void Multiply (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
+		{	
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Fixed32
+		/// precision scaling factor.
+		/// </summary>
 		public static void Multiply (ref Matrix44 matrix1, Fixed32 scaleFactor, out Matrix44 result)
 		{
-			Fixed32 num = scaleFactor;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
 		}
 
+		/// <summary>
+		/// Performs muliplication of two Matrix44 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
+			
+			result.M11 = 
+				(matrix1.M11 * matrix2.M11) + 
+				(matrix1.M12 * matrix2.M21) + 
+				(matrix1.M13 * matrix2.M31) + 
+				(matrix1.M14 * matrix2.M41);
+
+			result.M12 =
+				(matrix1.M11 * matrix2.M12) + 
+				(matrix1.M12 * matrix2.M22) + 
+				(matrix1.M13 * matrix2.M32) + 
+				(matrix1.M14 * matrix2.M42);
+
+			result.M13 = 
+				(matrix1.M11 * matrix2.M13) + 
+				(matrix1.M12 * matrix2.M23) + 
+				(matrix1.M13 * matrix2.M33) + 
+				(matrix1.M14 * matrix2.M43);
+
+			result.M14 = 
+				(matrix1.M11 * matrix2.M14) + 
+				(matrix1.M12 * matrix2.M24) + 
+				(matrix1.M13 * matrix2.M34) + 
+				(matrix1.M14 * matrix2.M44);
+
+			result.M21 = 
+				(matrix1.M21 * matrix2.M11) + 
+				(matrix1.M22 * matrix2.M21) + 
+				(matrix1.M23 * matrix2.M31) + 
+				(matrix1.M24 * matrix2.M41);
+
+			result.M22 = 
+				(matrix1.M21 * matrix2.M12) + 
+				(matrix1.M22 * matrix2.M22) + 
+				(matrix1.M23 * matrix2.M32) + 
+				(matrix1.M24 * matrix2.M42);
+
+			result.M23 = 
+				(matrix1.M21 * matrix2.M13) + 
+				(matrix1.M22 * matrix2.M23) + 
+				(matrix1.M23 * matrix2.M33) + 
+				(matrix1.M24 * matrix2.M43);
+
+			result.M24 = 
+				(matrix1.M21 * matrix2.M14) + 
+				(matrix1.M22 * matrix2.M24) + 
+				(matrix1.M23 * matrix2.M34) + 
+				(matrix1.M24 * matrix2.M44);
+
+			result.M31 = 
+				(matrix1.M31 * matrix2.M11) + 
+				(matrix1.M32 * matrix2.M21) + 
+				(matrix1.M33 * matrix2.M31) + 
+				(matrix1.M34 * matrix2.M41);
+
+			result.M32 = 
+				(matrix1.M31 * matrix2.M12) + 
+				(matrix1.M32 * matrix2.M22) + 
+				(matrix1.M33 * matrix2.M32) + 
+				(matrix1.M34 * matrix2.M42);
+
+			result.M33 = 
+				(matrix1.M31 * matrix2.M13) + 
+				(matrix1.M32 * matrix2.M23) + 
+				(matrix1.M33 * matrix2.M33) + 
+				(matrix1.M34 * matrix2.M43);
+
+			result.M34 = 
+				(matrix1.M31 * matrix2.M14) + 
+				(matrix1.M32 * matrix2.M24) + 
+				(matrix1.M33 * matrix2.M34) + 
+				(matrix1.M34 * matrix2.M44);
+
+			result.M41 = 
+				(matrix1.M41 * matrix2.M11) + 
+				(matrix1.M42 * matrix2.M21) + 
+				(matrix1.M43 * matrix2.M31) + 
+				(matrix1.M44 * matrix2.M41);
+
+			result.M42 = 
+				(matrix1.M41 * matrix2.M12) + 
+				(matrix1.M42 * matrix2.M22) + 
+				(matrix1.M43 * matrix2.M32) + 
+				(matrix1.M44 * matrix2.M42);
+
+			result.M43 = 
+				(matrix1.M41 * matrix2.M13) + 
+				(matrix1.M42 * matrix2.M23) + 
+				(matrix1.M43 * matrix2.M33) + 
+				(matrix1.M44 * matrix2.M43);
+
+			result.M44 = 
+				(matrix1.M41 * matrix2.M14) + 
+				(matrix1.M42 * matrix2.M24) + 
+				(matrix1.M43 * matrix2.M34) + 
+				(matrix1.M44 * matrix2.M44);
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Matrix44 object and a Fixed32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Matrix44 matrix1, Fixed32 scaleFactor)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs multiplication of a Fixed32 precision scaling factor 
+		/// and aMatrix44 object using the (x*Y) operator.
+		/// </summary>
+		public static Matrix44 operator * (Fixed32 scaleFactor, Matrix44 matrix1)
+		{
+			Matrix44 result;
+			result.M11 = matrix1.M11 * scaleFactor;
+			result.M12 = matrix1.M12 * scaleFactor;
+			result.M13 = matrix1.M13 * scaleFactor;
+			result.M14 = matrix1.M14 * scaleFactor;
+			result.M21 = matrix1.M21 * scaleFactor;
+			result.M22 = matrix1.M22 * scaleFactor;
+			result.M23 = matrix1.M23 * scaleFactor;
+			result.M24 = matrix1.M24 * scaleFactor;
+			result.M31 = matrix1.M31 * scaleFactor;
+			result.M32 = matrix1.M32 * scaleFactor;
+			result.M33 = matrix1.M33 * scaleFactor;
+			result.M34 = matrix1.M34 * scaleFactor;
+			result.M41 = matrix1.M41 * scaleFactor;
+			result.M42 = matrix1.M42 * scaleFactor;
+			result.M43 = matrix1.M43 * scaleFactor;
+			result.M44 = matrix1.M44 * scaleFactor;
+			return result;
+		}
+		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Matrix44 objects.
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, ref Matrix44 matrix2, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 / matrix2.M11;
@@ -20528,35 +21288,90 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = matrix1.M43 / matrix2.M43;
 			result.M44 = matrix1.M44 / matrix2.M44;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Fixed32 precision
+		/// scaling factor.
+		/// </summary>
 		public static void Divide (ref Matrix44 matrix1, Fixed32 divider, out Matrix44 result)
 		{
-			Fixed32 one = 1;
-
-			Fixed32 num = one / divider;
-			result.M11 = matrix1.M11 * num;
-			result.M12 = matrix1.M12 * num;
-			result.M13 = matrix1.M13 * num;
-			result.M14 = matrix1.M14 * num;
-			result.M21 = matrix1.M21 * num;
-			result.M22 = matrix1.M22 * num;
-			result.M23 = matrix1.M23 * num;
-			result.M24 = matrix1.M24 * num;
-			result.M31 = matrix1.M31 * num;
-			result.M32 = matrix1.M32 * num;
-			result.M33 = matrix1.M33 * num;
-			result.M34 = matrix1.M34 * num;
-			result.M41 = matrix1.M41 * num;
-			result.M42 = matrix1.M42 * num;
-			result.M43 = matrix1.M43 * num;
-			result.M44 = matrix1.M44 * num;
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
 		}
 
-		#endregion
-		#region Utilities
+		/// <summary>
+		/// Performs division of two Matrix44 objects using the (X/Y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
+		{
+			Matrix44 result;
 
-		// beware, doing this might not produce what you expect.  you likely
-		// want to lerp between quaternions.
+			result.M11 = matrix1.M11 / matrix2.M11;
+			result.M12 = matrix1.M12 / matrix2.M12;
+			result.M13 = matrix1.M13 / matrix2.M13;
+			result.M14 = matrix1.M14 / matrix2.M14;
+			result.M21 = matrix1.M21 / matrix2.M21;
+			result.M22 = matrix1.M22 / matrix2.M22;
+			result.M23 = matrix1.M23 / matrix2.M23;
+			result.M24 = matrix1.M24 / matrix2.M24;
+			result.M31 = matrix1.M31 / matrix2.M31;
+			result.M32 = matrix1.M32 / matrix2.M32;
+			result.M33 = matrix1.M33 / matrix2.M33;
+			result.M34 = matrix1.M34 / matrix2.M34;
+			result.M41 = matrix1.M41 / matrix2.M41;
+			result.M42 = matrix1.M42 / matrix2.M42;
+			result.M43 = matrix1.M43 / matrix2.M43;
+			result.M44 = matrix1.M44 / matrix2.M44;
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Performs division of a Matrix44 object and a Fixed32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Matrix44 operator / (Matrix44 matrix1, Fixed32 divider)
+		{
+			Matrix44 result;
+
+			result.M11 = matrix1.M11 / divider;
+			result.M12 = matrix1.M12 / divider;
+			result.M13 = matrix1.M13 / divider;
+			result.M14 = matrix1.M14 / divider;
+			result.M21 = matrix1.M21 / divider;
+			result.M22 = matrix1.M22 / divider;
+			result.M23 = matrix1.M23 / divider;
+			result.M24 = matrix1.M24 / divider;
+			result.M31 = matrix1.M31 / divider;
+			result.M32 = matrix1.M32 / divider;
+			result.M33 = matrix1.M33 / divider;
+			result.M34 = matrix1.M34 / divider;
+			result.M41 = matrix1.M41 / divider;
+			result.M42 = matrix1.M42 / divider;
+			result.M43 = matrix1.M43 / divider;
+			result.M44 = matrix1.M44 / divider;
+
+			return result;
+		}
+
+		/// <summary>
+		/// beware, doing this might not produce what you expect.  you likely
+		/// want to lerp between quaternions.
+		/// </summary>
 		public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Fixed32 amount, out Matrix44 result)
 		{
 			result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
@@ -20576,374 +21391,39 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M43 = matrix1.M43 + ((matrix2.M43 - matrix1.M43) * amount);
 			result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
 		}
-		
-		#endregion
-		
-	}
 
+			}
+
+	/// <summary>
+	/// Fixed32 precision Quaternion.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct Plane 
-		: IEquatable<Plane>
-	{
-		public Vector3 Normal;
-		public Fixed32 D;
-
-		public Plane (Fixed32 a, Fixed32 b, Fixed32 c, Fixed32 d)
-		{
-			this.Normal.X = a;
-			this.Normal.Y = b;
-			this.Normal.Z = c;
-			this.D = d;
-		}
-
-		public Plane (Vector3 normal, Fixed32 d)
-		{
-			this.Normal = normal;
-			this.D = d;
-		}
-
-		public Plane (Vector4 value)
-		{
-			this.Normal.X = value.X;
-			this.Normal.Y = value.Y;
-			this.Normal.Z = value.Z;
-			this.D = value.W;
-		}
-
-		public Plane (Vector3 point1, Vector3 point2, Vector3 point3)
-		{
-			Fixed32 one = 1;
-
-			Fixed32 num10 = point2.X - point1.X;
-			Fixed32 num9 = point2.Y - point1.Y;
-			Fixed32 num8 = point2.Z - point1.Z;
-			Fixed32 num7 = point3.X - point1.X;
-			Fixed32 num6 = point3.Y - point1.Y;
-			Fixed32 num5 = point3.Z - point1.Z;
-			Fixed32 num4 = (num9 * num5) - (num8 * num6);
-			Fixed32 num3 = (num8 * num7) - (num10 * num5);
-			Fixed32 num2 = (num10 * num6) - (num9 * num7);
-			Fixed32 num11 = ((num4 * num4) + (num3 * num3)) + (num2 * num2);
-			Fixed32 num = one / RealMaths.Sqrt (num11);
-			this.Normal.X = num4 * num;
-			this.Normal.Y = num3 * num;
-			this.Normal.Z = num2 * num;
-			this.D = -(((this.Normal.X * point1.X) + (this.Normal.Y * point1.Y)) + (this.Normal.Z * point1.Z));
-		}
-
-		public Boolean Equals (Plane other)
-		{
-			return ((((this.Normal.X == other.Normal.X) && (this.Normal.Y == other.Normal.Y)) && (this.Normal.Z == other.Normal.Z)) && (this.D == other.D));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Plane) {
-				flag = this.Equals ((Plane)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Normal.GetHashCode () + this.D.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Normal:{0} D:{1}}}", new Object[] { this.Normal.ToString (), this.D.ToString () });
-		}
-
-		public void Normalise ()
-		{
-			Fixed32 one = 1;
-			Fixed32 somethingWicked; RealMaths.FromString("0.0000001192093", out somethingWicked);
-
-			Fixed32 num2 = ((this.Normal.X * this.Normal.X) + (this.Normal.Y * this.Normal.Y)) + (this.Normal.Z * this.Normal.Z);
-			if (RealMaths.Abs (num2 - one) >= somethingWicked) {
-				Fixed32 num = one / RealMaths.Sqrt (num2);
-				this.Normal.X *= num;
-				this.Normal.Y *= num;
-				this.Normal.Z *= num;
-				this.D *= num;
-			}
-		}
-
-		public static void Normalise (ref Plane value, out Plane result)
-		{
-			Fixed32 one = 1;
-			Fixed32 somethingWicked; RealMaths.FromString("0.0000001192093", out somethingWicked);
-
-			Fixed32 num2 = ((value.Normal.X * value.Normal.X) + (value.Normal.Y * value.Normal.Y)) + (value.Normal.Z * value.Normal.Z);
-			if (RealMaths.Abs (num2 - one) < somethingWicked) {
-				result.Normal = value.Normal;
-				result.D = value.D;
-			} else {
-				Fixed32 num = one / RealMaths.Sqrt (num2);
-				result.Normal.X = value.Normal.X * num;
-				result.Normal.Y = value.Normal.Y * num;
-				result.Normal.Z = value.Normal.Z * num;
-				result.D = value.D * num;
-			}
-		}
-
-		public static void Transform (ref Plane plane, ref Matrix44 matrix, out Plane result)
-		{
-			Matrix44 matrix2;
-			Matrix44.Invert (ref matrix, out matrix2);
-			Fixed32 x = plane.Normal.X;
-			Fixed32 y = plane.Normal.Y;
-			Fixed32 z = plane.Normal.Z;
-			Fixed32 d = plane.D;
-			result.Normal.X = (((x * matrix2.M11) + (y * matrix2.M12)) + (z * matrix2.M13)) + (d * matrix2.M14);
-			result.Normal.Y = (((x * matrix2.M21) + (y * matrix2.M22)) + (z * matrix2.M23)) + (d * matrix2.M24);
-			result.Normal.Z = (((x * matrix2.M31) + (y * matrix2.M32)) + (z * matrix2.M33)) + (d * matrix2.M34);
-			result.D = (((x * matrix2.M41) + (y * matrix2.M42)) + (z * matrix2.M43)) + (d * matrix2.M44);
-		}
-
-
-		public static void Transform (ref Plane plane, ref Quaternion rotation, out Plane result)
-		{
-			Fixed32 one = 1;
-
-			Fixed32 num15 = rotation.X + rotation.X;
-			Fixed32 num5 = rotation.Y + rotation.Y;
-			Fixed32 num = rotation.Z + rotation.Z;
-			Fixed32 num14 = rotation.W * num15;
-			Fixed32 num13 = rotation.W * num5;
-			Fixed32 num12 = rotation.W * num;
-			Fixed32 num11 = rotation.X * num15;
-			Fixed32 num10 = rotation.X * num5;
-			Fixed32 num9 = rotation.X * num;
-			Fixed32 num8 = rotation.Y * num5;
-			Fixed32 num7 = rotation.Y * num;
-			Fixed32 num6 = rotation.Z * num;
-			Fixed32 num24 = (one - num8) - num6;
-			Fixed32 num23 = num10 - num12;
-			Fixed32 num22 = num9 + num13;
-			Fixed32 num21 = num10 + num12;
-			Fixed32 num20 = (one - num11) - num6;
-			Fixed32 num19 = num7 - num14;
-			Fixed32 num18 = num9 - num13;
-			Fixed32 num17 = num7 + num14;
-			Fixed32 num16 = (one - num11) - num8;
-			Fixed32 x = plane.Normal.X;
-			Fixed32 y = plane.Normal.Y;
-			Fixed32 z = plane.Normal.Z;
-			result.Normal.X = ((x * num24) + (y * num23)) + (z * num22);
-			result.Normal.Y = ((x * num21) + (y * num20)) + (z * num19);
-			result.Normal.Z = ((x * num18) + (y * num17)) + (z * num16);
-			result.D = plane.D;
-		}
-		
-
-
-		public Fixed32 Dot(ref Vector4 value)
-		{
-			return (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + (this.D * value.W);
-		}
-
-		public Fixed32 DotCoordinate (ref Vector3 value)
-		{
-			return (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + this.D;
-		}
-
-		public Fixed32 DotNormal (ref Vector3 value)
-		{
-			return ((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z);
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingBox box)
-		{
-			Fixed32 zero = 0;
-
-			Vector3 vector;
-			Vector3 vector2;
-			vector2.X = (this.Normal.X >= zero) ? box.Min.X : box.Max.X;
-			vector2.Y = (this.Normal.Y >= zero) ? box.Min.Y : box.Max.Y;
-			vector2.Z = (this.Normal.Z >= zero) ? box.Min.Z : box.Max.Z;
-			vector.X = (this.Normal.X >= zero) ? box.Max.X : box.Min.X;
-			vector.Y = (this.Normal.Y >= zero) ? box.Max.Y : box.Min.Y;
-			vector.Z = (this.Normal.Z >= zero) ? box.Max.Z : box.Min.Z;
-			Fixed32 num = ((this.Normal.X * vector2.X) + (this.Normal.Y * vector2.Y)) + (this.Normal.Z * vector2.Z);
-			if ((num + this.D) > zero) {
-				return PlaneIntersectionType.Front;
-			} else {
-				num = ((this.Normal.X * vector.X) + (this.Normal.Y * vector.Y)) + (this.Normal.Z * vector.Z);
-				if ((num + this.D) < zero) {
-					return PlaneIntersectionType.Back;
-				} else {
-					return PlaneIntersectionType.Intersecting;
-				}
-			}
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingFrustum frustum)
-		{
-			if (null == frustum) {
-				throw new ArgumentNullException ("frustum - NullNotAllowed");
-			}
-			return frustum.Intersects (ref this);
-		}
-
-		public PlaneIntersectionType Intersects (ref BoundingSphere sphere)
-		{
-			Fixed32 num2 = ((sphere.Center.X * this.Normal.X) + (sphere.Center.Y * this.Normal.Y)) + (sphere.Center.Z * this.Normal.Z);
-			Fixed32 num = num2 + this.D;
-			if (num > sphere.Radius) {
-				return PlaneIntersectionType.Front;
-			} else if (num < -sphere.Radius) {
-				return PlaneIntersectionType.Back;
-			} else {
-				return PlaneIntersectionType.Intersecting;
-			}
-		}
-
-		public static Boolean operator == (Plane lhs, Plane rhs)
-		{
-			return lhs.Equals (rhs);
-		}
-
-		public static Boolean operator != (Plane lhs, Plane rhs)
-		{
-			if (((lhs.Normal.X == rhs.Normal.X) && (lhs.Normal.Y == rhs.Normal.Y)) && (lhs.Normal.Z == rhs.Normal.Z)) {
-				return !(lhs.D == rhs.D);
-			}
-			return true;
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public struct Quad
-		: IEquatable<Quad>
-	{
-		public Vector3 A
-		{
-			get
-			{
-				return tri1.A;
-			}
-			set
-			{
-				tri1.A = value;
-			}
-		}
-
-		public Vector3 B
-		{
-			get
-			{
-				return tri1.B;
-			}
-			set
-			{
-				tri1.B = value;
-				tri2.B = value;
-			}
-		}
-
-		public Vector3 C
-		{
-			get
-			{
-				return tri2.C;
-			}
-			set
-			{
-				tri1.C = value;
-				tri2.C = value;
-			}
-		}
-
-		public Vector3 D
-		{
-			get
-			{
-				return tri2.A;
-			}
-			set
-			{
-				tri1.A = value;
-				tri2.A = value;
-			}
-		}
-
-		Triangle tri1;
-		Triangle tri2;
-
-		public Quad (Vector3 a, Vector3 b, Vector3 c, Vector3 d)
-		{
-			this.tri1 = new Triangle(a, b, c);
-			this.tri2 = new Triangle(d, b, c);
-		}
-
-		// Determines whether or not this Quad is equal in value to another Quad
-		public Boolean Equals (Quad other)
-		{
-			if (this.A.X != other.A.X) return false;
-			if (this.A.Y != other.A.Y) return false;
-			if (this.A.Z != other.A.Z) return false;
-
-			if (this.B.X != other.B.X) return false;
-			if (this.B.Y != other.B.Y) return false;
-			if (this.B.Z != other.B.Z) return false;
-
-			if (this.C.X != other.C.X) return false;
-			if (this.C.Y != other.C.Y) return false;
-			if (this.C.Z != other.C.Z) return false;
-			
-			if (this.D.X != other.D.X) return false;
-			if (this.D.Y != other.D.Y) return false;
-			if (this.D.Z != other.D.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this Quad is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Quad)
-			{
-				// Ok, it is a Quad, so just use the method above to compare.
-				return this.Equals ((Quad) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode () + this.D.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{A:{0} B:{1} C:{2} D:{3}}}", this.A, this.B, this.C, this.D);
-		}
-
-		public static Boolean operator == (Quad a, Quad b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Quad a, Quad b)
-		{
-			return !a.Equals(b);
-		}
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Quaternion 
+	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Fixed32 X;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Fixed32 Y;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Fixed32 Z;
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Fixed32 W;
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (Fixed32 x, Fixed32 y, Fixed32 z, Fixed32 w)
 		{
 			this.X = x;
@@ -20952,6 +21432,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Quaternion (Vector3 vectorPart, Fixed32 scalarPart)
 		{
 			this.X = vectorPart.X;
@@ -20960,43 +21443,42 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.W = scalarPart;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override String ToString ()
 		{
 			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
 		}
 
-		public Boolean Equals (Quaternion other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-
-			Boolean flag = false;
-			if (obj is Quaternion)
-			{
-				flag = this.Equals ((Quaternion)obj);
-			}
-			return flag;
-		}
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public override Int32 GetHashCode ()
 		{
 			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Fixed32 LengthSquared ()
 		{
 			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Fixed32 Length ()
 		{
 			Fixed32 num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Normalise ()
 		{
 			Fixed32 one = 1;
@@ -21008,6 +21490,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.W *= num;
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Fixed32 one = 1;
@@ -21015,6 +21500,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public void Conjugate ()
 		{
 			this.X = -this.X;
@@ -21022,28 +21510,32 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.Z = -this.Z;
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
+		/// <summary>
+		/// Defines the identity quaternion.
+		/// </summary>
 		static Quaternion identity;
-		
-		public static Quaternion Identity
-		{
-			get
-			{
-				return identity;
-			}
-		}
 
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Quaternion ()
 		{
-			Fixed32 temp_one; RealMaths.One(out temp_one);
-			Fixed32 temp_zero; RealMaths.Zero(out temp_zero);
-			identity = new Quaternion (temp_zero, temp_zero, temp_zero, temp_one);
+			identity = new Quaternion (0, 0, 0, 1);
 		}
-		
-		#endregion
-		#region Create
 
+		/// <summary>
+		/// Returns the identity Quaternion.
+		/// </summary>
+		public static Quaternion Identity
+		{
+			get { return identity; }
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromAxisAngle (ref Vector3 axis, Fixed32 angle, out Quaternion result)
 		{
 			Fixed32 half; RealMaths.Half(out half);
@@ -21058,7 +21550,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 
 			result.W = cos;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromYawPitchRoll (Fixed32 yaw, Fixed32 pitch, Fixed32 roll, out Quaternion result)
 		{
 			Fixed32 half; RealMaths.Half(out half);
@@ -21082,7 +21577,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
 			result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
 		{
 			Fixed32 zero = 0;
@@ -21128,10 +21626,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 				result.W = (matrix.M12 - matrix.M21) * num2;
 			}
 		}
-		
-		#endregion
-		#region Maths
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Conjugate (ref Quaternion value, out Quaternion result)
 		{
 			result.X = -value.X;
@@ -21140,246 +21637,435 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = value.W;
 		}
 		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Inverse (ref Quaternion quaternion, out Quaternion result)
 		{
 			Fixed32 one = 1;
-			Fixed32 num2 = ( ( (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) ) + 
-			                (quaternion.Z * quaternion.Z) ) + (quaternion.W * quaternion.W);
+			Fixed32 a =
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+			    (quaternion.Z * quaternion.Z) + 
+			    (quaternion.W * quaternion.W);
 
-			Fixed32 num = one / num2;
+			Fixed32 b = one / a;
 
-			result.X = -quaternion.X * num;
-			result.Y = -quaternion.Y * num;
-			result.Z = -quaternion.Z * num;
-			result.W = quaternion.W * num;
+			result.X = -quaternion.X * b;
+			result.Y = -quaternion.Y * b;
+			result.Z = -quaternion.Z * b;
+			result.W =  quaternion.W * b;
 		}
 		
-		
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Fixed32 result)
 		{
-			result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + 
-			          (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+			result = 
+				(quaternion1.X * quaternion2.X) + 
+				(quaternion1.Y * quaternion2.Y) + 
+			    (quaternion1.Z * quaternion2.Z) + 
+			    (quaternion1.W * quaternion2.W);
 		}
 
-
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Concatenate (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
 			Fixed32 x = value2.X;
 			Fixed32 y = value2.Y;
 			Fixed32 z = value2.Z;
 			Fixed32 w = value2.W;
-			Fixed32 num4 = value1.X;
-			Fixed32 num3 = value1.Y;
-			Fixed32 num2 = value1.Z;
-			Fixed32 num = value1.W;
-			Fixed32 num12 = (y * num2) - (z * num3);
-			Fixed32 num11 = (z * num4) - (x * num2);
-			Fixed32 num10 = (x * num3) - (y * num4);
-			Fixed32 num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
+
+			Fixed32 a = value1.X;
+			Fixed32 b = value1.Y;
+			Fixed32 c = value1.Z;
+			Fixed32 d = value1.W;
+
+			Fixed32 e = (y * c) - (z * b);
+			Fixed32 f = (z * a) - (x * c);
+			Fixed32 g = (x * b) - (y * a);
+			Fixed32 h = ((x * a) + (y * b)) + (z * c);
+
+			result.X = (x * d) + (a * w) + e;
+			result.Y = (y * d) + (b * w) + f;
+			result.Z = (z * d) + (c * w) + g;
+			result.W = (w * d) - h;
 		}
-		
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Normalise (ref Quaternion quaternion, out Quaternion result)
 		{
 			Fixed32 one = 1;
 
-			Fixed32 num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-			Fixed32 num = one / RealMaths.Sqrt (num2);
-			result.X = quaternion.X * num;
-			result.Y = quaternion.Y * num;
-			result.Z = quaternion.Z * num;
-			result.W = quaternion.W * num;
-		}
-		
-		#endregion
-		#region Operators
+			Fixed32 a = 
+				(quaternion.X * quaternion.X) + 
+				(quaternion.Y * quaternion.Y) + 
+				(quaternion.Z * quaternion.Z) + 
+				(quaternion.W * quaternion.W);
 
-		public static Quaternion operator - (Quaternion quaternion)
+			Fixed32 b = one / RealMaths.Sqrt (a);
+
+			result.X = quaternion.X * b;
+			result.Y = quaternion.Y * b;
+			result.Z = quaternion.Z * b;
+			result.W = quaternion.W * b;
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// object
+		/// </summary>
+		public override Boolean Equals (Object obj)
 		{
-			Quaternion quaternion2;
-			quaternion2.X = -quaternion.X;
-			quaternion2.Y = -quaternion.Y;
-			quaternion2.Z = -quaternion.Z;
-			quaternion2.W = -quaternion.W;
-			return quaternion2;
+			Boolean flag = false;
+			
+			if (obj is Quaternion)
+			{
+				flag = this.Equals ((Quaternion) obj);
+			}
+
+			return flag;
+		}
+
+		#region IEquatable<Quaternion>
+
+		/// <summary>
+		/// Determines whether or not this Quaternion object is equal to another
+		/// Quaternion object.
+		/// </summary>
+		public Boolean Equals (Quaternion other)
+		{
+			return 
+				(this.X == other.X) && 
+				(this.Y == other.Y) && 
+				(this.Z == other.Z) && 
+				(this.W == other.W);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Quaternion value1, Quaternion value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
 		}
 		
-		public static Boolean operator == (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Determines whether or not two Quaternion objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Quaternion value1, Quaternion value2)
 		{
-			return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
-		}
-		
-		public static Boolean operator != (Quaternion quaternion1, Quaternion quaternion2)
-		{
-			if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
-				return !(quaternion1.W == quaternion2.W);
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
 			}
 			return true;
 		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects.
+		/// </summary>
+		public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Quaternion objects using the (X+Y) operator. 
+		/// </summary>
+		public static Quaternion operator + (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X + value2.X;
+			quat.Y = value1.Y + value2.Y;
+			quat.Z = value1.Z + value2.Z;
+			quat.W = value1.W + value2.W;
+			return quat;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects.
+		/// </summary>
+		public static void Subtract (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Quaternion objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value1, Quaternion value2)
+		{
+			Quaternion quat;
+			quat.X = value1.X - value2.X;
+			quat.Y = value1.Y - value2.Y;
+			quat.Z = value1.Z - value2.Z;
+			quat.W = value1.W - value2.W;
+			return quat;
+		}
+
+		// Negation Operators //----------------------------------------------//
 		
-		public static Quaternion operator + (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs negation of a Quaternion object.
+		/// </summary>
+		public static void Negate (ref Quaternion value, out Quaternion result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Quaternion object using the (-X) operator.
+		/// </summary>
+		public static Quaternion operator - (Quaternion value)
+		{
+			Quaternion quat;
+			quat.X = -value.X;
+			quat.Y = -value.Y;
+			quat.Z = -value.Z;
+			quat.W = -value.W;
+			return quat;
+		}
+		
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+		{
+			Fixed32 x1 = value1.X;
+			Fixed32 y1 = value1.Y;
+			Fixed32 z1 = value1.Z;
+			Fixed32 w1 = value1.W;
+
+			Fixed32 x2 = value2.X;
+			Fixed32 y2 = value2.Y;
+			Fixed32 z2 = value2.Z;
+			Fixed32 w2 = value2.W;
+
+			Fixed32 a = (y1 * z2) - (z1 * y2);
+			Fixed32 b = (z1 * x2) - (x1 * z2);
+			Fixed32 c = (x1 * y2) - (y1 * x2);
+			Fixed32 d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			result.X = ((x1 * w2) + (x2 * w1)) + a;
+			result.Y = ((y1 * w2) + (y2 * w1)) + b;
+			result.Z = ((z1 * w2) + (z2 * w1)) + c;
+			result.W = (w1 * w2) - d;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Fixed32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Quaternion value1, Fixed32 scaleFactor, out Quaternion result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Quaternion objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Quaternion value2)
 		{
 			Quaternion quaternion;
-			quaternion.X = quaternion1.X + quaternion2.X;
-			quaternion.Y = quaternion1.Y + quaternion2.Y;
-			quaternion.Z = quaternion1.Z + quaternion2.Z;
-			quaternion.W = quaternion1.W + quaternion2.W;
+			
+			Fixed32 x1 = value1.X;
+			Fixed32 y1 = value1.Y;
+			Fixed32 z1 = value1.Z;
+			Fixed32 w1 = value1.W;
+
+			Fixed32 x2 = value2.X;
+			Fixed32 y2 = value2.Y;
+			Fixed32 z2 = value2.Z;
+			Fixed32 w2 = value2.W;
+
+			Fixed32 a = (y1 * z2) - (z1 * y2);
+			Fixed32 b = (z1 * x2) - (x1 * z2);
+			Fixed32 c = (x1 * y2) - (y1 * x2);
+			Fixed32 d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+
+			quaternion.X = ((x1 * w2) + (x2 * w1)) + a;
+			quaternion.Y = ((y1 * w2) + (y2 * w1)) + b;
+			quaternion.Z = ((z1 * w2) + (z2 * w1)) + c;
+			quaternion.W = (w1 * w2) - d;
+
 			return quaternion;
 		}
 		
-		public static Quaternion operator - (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs multiplication of a Quaternion object and a Fixed32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Quaternion operator * (Quaternion value1, Fixed32 scaleFactor)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X - quaternion2.X;
-			quaternion.Y = quaternion1.Y - quaternion2.Y;
-			quaternion.Z = quaternion1.Z - quaternion2.Z;
-			quaternion.W = quaternion1.W - quaternion2.W;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
-		public static Quaternion operator * (Quaternion quaternion1, Quaternion quaternion2)
+		/// <summary>
+		/// Performs multiplication of a Fixed32 precision scaling factor 
+		/// and aQuaternion object using the (x*Y) operator.
+		/// </summary>
+		public static Quaternion operator * (Fixed32 scaleFactor, Quaternion value1)
 		{
-			Quaternion quaternion;
-			Fixed32 x = quaternion1.X;
-			Fixed32 y = quaternion1.Y;
-			Fixed32 z = quaternion1.Z;
-			Fixed32 w = quaternion1.W;
-			Fixed32 num4 = quaternion2.X;
-			Fixed32 num3 = quaternion2.Y;
-			Fixed32 num2 = quaternion2.Z;
-			Fixed32 num = quaternion2.W;
-			Fixed32 num12 = (y * num2) - (z * num3);
-			Fixed32 num11 = (z * num4) - (x * num2);
-			Fixed32 num10 = (x * num3) - (y * num4);
-			Fixed32 num9 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num12;
-			quaternion.Y = ((y * num) + (num3 * w)) + num11;
-			quaternion.Z = ((z * num) + (num2 * w)) + num10;
-			quaternion.W = (w * num) - num9;
-			return quaternion;
+			Quaternion quat;
+			quat.X = value1.X * scaleFactor;
+			quat.Y = value1.Y * scaleFactor;
+			quat.Z = value1.Z * scaleFactor;
+			quat.W = value1.W * scaleFactor;
+			return quat;
 		}
 		
-		public static Quaternion operator * (Quaternion quaternion1, Fixed32 scaleFactor)
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Quaternion objects.
+		/// </summary>
+		public static void Divide (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
 		{
-			Quaternion quaternion;
-			quaternion.X = quaternion1.X * scaleFactor;
-			quaternion.Y = quaternion1.Y * scaleFactor;
-			quaternion.Z = quaternion1.Z * scaleFactor;
-			quaternion.W = quaternion1.W * scaleFactor;
-			return quaternion;
+			Fixed32 one = 1;
+
+			Fixed32 x = value1.X;
+			Fixed32 y = value1.Y;
+			Fixed32 z = value1.Z;
+			Fixed32 w = value1.W;
+
+			Fixed32 a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Fixed32 b = one / a;
+
+			Fixed32 c = -value2.X * b;
+			Fixed32 d = -value2.Y * b;
+			Fixed32 e = -value2.Z * b;
+			Fixed32 f = value2.W * b;
+
+			Fixed32 g = (y * e) - (z * d);
+			Fixed32 h = (z * c) - (x * e);
+			Fixed32 i = (x * d) - (y * c);
+			Fixed32 j = ((x * c) + (y * d)) + (z * e);
+
+			result.X = ((x * f) + (c * w)) + g;
+			result.Y = ((y * f) + (d * w)) + h;
+			result.Z = ((z * f) + (e * w)) + i;
+			result.W = (w * f) - j;
 		}
-		
-		public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
+
+		/// <summary>
+		/// Performs division of a Quaternion object and a Fixed32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Quaternion value1, Fixed32 divider, out Quaternion result)
+		{
+			Fixed32 one = 1;
+			Fixed32 a = one / divider;
+
+			result.X = value1.X * a;
+			result.Y = value1.Y * a;
+			result.Z = value1.Z * a;
+			result.W = value1.W * a;
+		}
+
+		/// <summary>
+		/// Performs division of two Quaternion objects using the (X/Y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Quaternion value2)
 		{
 			Fixed32 one = 1;
 
 			Quaternion quaternion;
-			Fixed32 x = quaternion1.X;
-			Fixed32 y = quaternion1.Y;
-			Fixed32 z = quaternion1.Z;
-			Fixed32 w = quaternion1.W;
-			Fixed32 num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Fixed32 num5 = one / num14;
-			Fixed32 num4 = -quaternion2.X * num5;
-			Fixed32 num3 = -quaternion2.Y * num5;
-			Fixed32 num2 = -quaternion2.Z * num5;
-			Fixed32 num = quaternion2.W * num5;
-			Fixed32 num13 = (y * num2) - (z * num3);
-			Fixed32 num12 = (z * num4) - (x * num2);
-			Fixed32 num11 = (x * num3) - (y * num4);
-			Fixed32 num10 = ((x * num4) + (y * num3)) + (z * num2);
-			quaternion.X = ((x * num) + (num4 * w)) + num13;
-			quaternion.Y = ((y * num) + (num3 * w)) + num12;
-			quaternion.Z = ((z * num) + (num2 * w)) + num11;
-			quaternion.W = (w * num) - num10;
+
+			Fixed32 x = value1.X;
+			Fixed32 y = value1.Y;
+			Fixed32 z = value1.Z;
+			Fixed32 w = value1.W;
+
+			Fixed32 a = 
+				(value2.X * value2.X) + 
+				(value2.Y * value2.Y) +
+				(value2.Z * value2.Z) + 
+				(value2.W * value2.W);
+
+			Fixed32 b = one / a;
+
+			Fixed32 c = -value2.X * b;
+			Fixed32 d = -value2.Y * b;
+			Fixed32 e = -value2.Z * b;
+			Fixed32 f =  value2.W * b;
+
+			Fixed32 g = (y * e) - (z * d);
+			Fixed32 h = (z * c) - (x * e);
+			Fixed32 i = (x * d) - (y * c);
+			Fixed32 j = (x * c) + (y * d) + (z * e);
+
+			quaternion.X = (x * f) + (c * w) + g;
+			quaternion.Y = (y * f) + (d * w) + h;
+			quaternion.Z = (z * f) + (e * w) + i;
+			quaternion.W = (w * f) - j;
+
 			return quaternion;
 		}
-
-
-
 		
-		public static void Negate (ref Quaternion quaternion, out Quaternion result)
-		{
-			result.X = -quaternion.X;
-			result.Y = -quaternion.Y;
-			result.Z = -quaternion.Z;
-			result.W = -quaternion.W;
-		}
-
-		public static void Add (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X + quaternion2.X;
-			result.Y = quaternion1.Y + quaternion2.Y;
-			result.Z = quaternion1.Z + quaternion2.Z;
-			result.W = quaternion1.W + quaternion2.W;
-		}
-		
-		public static void Subtract (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			result.X = quaternion1.X - quaternion2.X;
-			result.Y = quaternion1.Y - quaternion2.Y;
-			result.Z = quaternion1.Z - quaternion2.Z;
-			result.W = quaternion1.W - quaternion2.W;
-		}
-
-		public static void Multiply (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
-		{
-			Fixed32 x = quaternion1.X;
-			Fixed32 y = quaternion1.Y;
-			Fixed32 z = quaternion1.Z;
-			Fixed32 w = quaternion1.W;
-			Fixed32 num4 = quaternion2.X;
-			Fixed32 num3 = quaternion2.Y;
-			Fixed32 num2 = quaternion2.Z;
-			Fixed32 num = quaternion2.W;
-			Fixed32 num12 = (y * num2) - (z * num3);
-			Fixed32 num11 = (z * num4) - (x * num2);
-			Fixed32 num10 = (x * num3) - (y * num4);
-			Fixed32 num9 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num12;
-			result.Y = ((y * num) + (num3 * w)) + num11;
-			result.Z = ((z * num) + (num2 * w)) + num10;
-			result.W = (w * num) - num9;
-		}
-
-		public static void Multiply (ref Quaternion quaternion1, Fixed32 scaleFactor, out Quaternion result)
-		{
-			result.X = quaternion1.X * scaleFactor;
-			result.Y = quaternion1.Y * scaleFactor;
-			result.Z = quaternion1.Z * scaleFactor;
-			result.W = quaternion1.W * scaleFactor;
-		}
-		
-		public static void Divide (ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+		/// <summary>
+		/// Performs division of a Quaternion object and a Fixed32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Quaternion operator / (Quaternion value1, Fixed32 divider)
 		{
 			Fixed32 one = 1;
 
-			Fixed32 x = quaternion1.X;
-			Fixed32 y = quaternion1.Y;
-			Fixed32 z = quaternion1.Z;
-			Fixed32 w = quaternion1.W;
-			Fixed32 num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-			Fixed32 num5 = one / num14;
-			Fixed32 num4 = -quaternion2.X * num5;
-			Fixed32 num3 = -quaternion2.Y * num5;
-			Fixed32 num2 = -quaternion2.Z * num5;
-			Fixed32 num = quaternion2.W * num5;
-			Fixed32 num13 = (y * num2) - (z * num3);
-			Fixed32 num12 = (z * num4) - (x * num2);
-			Fixed32 num11 = (x * num3) - (y * num4);
-			Fixed32 num10 = ((x * num4) + (y * num3)) + (z * num2);
-			result.X = ((x * num) + (num4 * w)) + num13;
-			result.Y = ((y * num) + (num3 * w)) + num12;
-			result.Z = ((z * num) + (num2 * w)) + num11;
-			result.W = (w * num) - num10;
-		}
-		
-		#endregion
-		#region Utilities
+			Quaternion quat;
 
+			Fixed32 num = one / divider;
+
+			quat.X = value1.X * num;
+			quat.Y = value1.Y * num;
+			quat.Z = value1.Z * num;
+			quat.W = value1.W * num;
+
+			return quat;
+		}
+
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Fixed32 amount, out Quaternion result)
 		{
 			Fixed32 zero = 0;
@@ -21414,6 +22100,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
 		}
 
+		/// <summary>
+		/// todo
+		/// </summary>
 		public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Fixed32 amount, out Quaternion result)
 		{
 			Fixed32 zero = 0;
@@ -21440,778 +22129,308 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z *= num3;
 			result.W *= num3;
 		}
-		
-		#endregion
 
-	}	[StructLayout (LayoutKind.Sequential)]
-	public struct Ray 
-		: IEquatable<Ray>
-	{
-		// The starting position of this ray
-		public Vector3 Position;
-		
-		// Normalised vector that defines the direction of this ray
-		public Vector3 Direction;
-
-		public Ray (Vector3 position, Vector3 direction)
-		{
-			this.Position = position;
-			this.Direction = direction;
-		}
-
-		// Determines whether or not this ray is equal in value to another ray
-		public Boolean Equals (Ray other)
-		{
-			// Check position
-			if (this.Position.X != other.Position.X) return false;
-			if (this.Position.Y != other.Position.Y) return false;
-			if (this.Position.Z != other.Position.Z) return false;
-
-			// Check direction
-			if (this.Direction.X != other.Direction.X) return false;
-			if (this.Direction.Y != other.Direction.Y) return false;
-			if (this.Direction.Z != other.Direction.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this ray is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Ray)
-			{
-				// Ok, it is a Ray, so just use the method above to compare.
-				return this.Equals ((Ray) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.Position.GetHashCode () + this.Direction.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{Position:{0} Direction:{1}}}", this.Position, this.Direction);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given box.  Returns null if there is no
-		// intersection.
-		public Fixed32? Intersects (ref BoundingBox box)
-		{
-			return box.Intersects (ref this);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given frustum.  Returns null if there is no
-		// intersection.
-		public Fixed32? Intersects (ref BoundingFrustum frustum)
-		{
-			if (frustum == null)
-			{
-				throw new ArgumentNullException ();
-			}
-
-			return frustum.Intersects (ref this);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given plane.  Returns null if there is no
-		// intersection.
-		public Fixed32? Intersects (ref Plane plane)
-		{
-			Fixed32 zero = 0;
-
-			Fixed32 nearZero; RealMaths.FromString("0.00001", out nearZero);
-
-			Fixed32 num2 = ((plane.Normal.X * this.Direction.X) + (plane.Normal.Y * this.Direction.Y)) + (plane.Normal.Z * this.Direction.Z);
-			
-			if (RealMaths.Abs (num2) < nearZero)
-			{
-				return null;
-			}
-			
-			Fixed32 num3 = ((plane.Normal.X * this.Position.X) + (plane.Normal.Y * this.Position.Y)) + (plane.Normal.Z * this.Position.Z);
-
-			Fixed32 num = (-plane.D - num3) / num2;
-			
-			if (num < zero)
-			{
-				if (num < -nearZero)
-				{
-					return null;
-				}
-
-				num = zero;
-			}
-
-			return new Fixed32? (num);
-		}
-
-		// At what distance from it's starting position does this ray
-		// intersect the given sphere.  Returns null if there is no
-		// intersection.
-		public Fixed32? Intersects (ref BoundingSphere sphere)
-		{
-			Fixed32 zero = 0;
-
-			Fixed32 initialXOffset = sphere.Center.X - this.Position.X;
-
-			Fixed32 initialYOffset = sphere.Center.Y - this.Position.Y;
-			
-			Fixed32 initialZOffset = sphere.Center.Z - this.Position.Z;
-			
-			Fixed32 num7 = ((initialXOffset * initialXOffset) + (initialYOffset * initialYOffset)) + (initialZOffset * initialZOffset);
-
-			Fixed32 num2 = sphere.Radius * sphere.Radius;
-
-			if (num7 <= num2)
-			{
-				return zero;
-			}
-
-			Fixed32 num = ((initialXOffset * this.Direction.X) + (initialYOffset * this.Direction.Y)) + (initialZOffset * this.Direction.Z);
-			if (num < zero)
-			{
-				return null;
-			}
-			
-			Fixed32 num6 = num7 - (num * num);
-			if (num6 > num2)
-			{
-				return null;
-			}
-			
-			Fixed32 num8 = RealMaths.Sqrt ((num2 - num6));
-
-			return new Fixed32? (num - num8);
-		}
-
-		public static Boolean operator == (Ray a, Ray b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Ray a, Ray b)
-		{
-			return !a.Equals(b);
-		}
-	}
+	}	/// <summary>
+	/// Fixed32 precision Vector2.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public struct Triangle
-		: IEquatable<Triangle>
-	{
-		public Vector3 A;
-		public Vector3 B;
-		public Vector3 C;
-
-		public Triangle (Vector3 a, Vector3 b, Vector3 c)
-		{
-			this.A = a;
-			this.B = b;
-			this.C = c;
-		}
-
-		// Determines whether or not this Triangle is equal in value to another Triangle
-		public Boolean Equals (Triangle other)
-		{
-			if (this.A.X != other.A.X) return false;
-			if (this.A.Y != other.A.Y) return false;
-			if (this.A.Z != other.A.Z) return false;
-
-			if (this.B.X != other.B.X) return false;
-			if (this.B.Y != other.B.Y) return false;
-			if (this.B.Z != other.B.Z) return false;
-
-			if (this.C.X != other.C.X) return false;
-			if (this.C.Y != other.C.Y) return false;
-			if (this.C.Z != other.C.Z) return false;
-
-			// They match!
-			return true;
-		}
-
-		// Determines whether or not this Triangle is equal in value to another System.Object
-		public override Boolean Equals (Object obj)
-		{
-			if (obj == null) return false;
-
-			if (obj is Triangle)
-			{
-				// Ok, it is a Triangle, so just use the method above to compare.
-				return this.Equals ((Triangle) obj);
-			}
-
-			return false;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (this.A.GetHashCode () + this.B.GetHashCode () + this.C.GetHashCode ());
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{A:{0} B:{1} C:{2}}}", this.A, this.B, this.C);
-		}
-
-		public static Boolean operator == (Triangle a, Triangle b)
-		{
-			return a.Equals(b);
-		}
-
-		public static Boolean operator != (Triangle a, Triangle b)
-		{
-			return !a.Equals(b);
-		}
-
-		public static Boolean IsPointInTriangleangle( ref Vector3 point, ref Triangle triangle )
-		{
-			Vector3 aToB = triangle.B - triangle.A;
-			Vector3 bToC = triangle.C - triangle.B;
-
-			Vector3 n; Vector3.Cross(ref aToB, ref bToC, out n);
-
-			Vector3 aToPoint = point - triangle.A;
-
-			Vector3 wTest; Vector3.Cross(ref aToB, ref aToPoint, out wTest);
-
-			Fixed32 zero = 0;
-
-			Fixed32 dot; Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			Vector3 bToPoint = point - triangle.B;
-
-			Vector3.Cross(ref bToC, ref bToPoint, out wTest);
-
-			Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			Vector3 cToA = triangle.A - triangle.C;
-
-			Vector3 cToPoint = point - triangle.C;
-
-			Vector3.Cross(ref cToA, ref cToPoint, out wTest);
-
-			Vector3.Dot(ref wTest, ref n, out dot);
-
-			if ( dot < zero )
-			{
-				return false;
-			}
-
-			return true;
-		}
-
-		// Determines whether or not a triangle is degenerate ( all points lay on the same line in space ).
-		public Boolean IsDegenerate()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		// Get's the Barycentric coordinates of a point inside a Triangle.
-		public static void BarycentricCoordinates( ref Vector3 point, ref Triangle triangle, out Vector3 barycentricCoordinates )
-		{
-			if( triangle.IsDegenerate() )
-			{
-				throw new System.ArgumentException("Input Triangle is degenerate, this is not supported.");
-			}
-
-			Vector3 aToB = triangle.B - triangle.A;
-			Vector3 aToC = triangle.C - triangle.A;
-			Vector3 aToPoint = point - triangle.A;
-
-			// compute cross product to get area of parallelograms
-			Vector3 cross1; Vector3.Cross(ref aToB, ref aToPoint, out cross1);
-			Vector3 cross2; Vector3.Cross(ref aToC, ref aToPoint, out cross2);
-			Vector3 cross3; Vector3.Cross(ref aToB, ref aToC, out cross3);
-	
-			// compute barycentric coordinates as ratios of areas
-
-			Fixed32 one = 1;
-
-			Fixed32 denom = one / cross3.Length();
-			barycentricCoordinates.X = cross2.Length() * denom;
-			barycentricCoordinates.Y = cross1.Length() * denom;
-			barycentricCoordinates.Z = one - barycentricCoordinates.X - barycentricCoordinates.Y;
-		}
-		/*
-
-		// Triangleangle Intersect
-		// ------------------
-		// Returns true if triangles P0P1P2 and Q0Q1Q2 intersect
-		// Assumes triangle is not degenerate
-		//
-		// This is not the algorithm presented in the text.  Instead, it is based on a 
-		// recent article by Guigue and Devillers in the July 2003 issue Journal of 
-		// Graphics Tools.  As it is faster than the ERIT algorithm, under ordinary 
-		// circumstances it would have been discussed in the text, but it arrived too late.  
-		//
-		// More information and the original source code can be found at
-		// http://www.acm.org/jgt/papers/GuigueDevillers03/
-		//
-		// A nearly identical algorithm was in the same issue of JGT, by Shen Heng and 
-		// Tang.  See http://www.acm.org/jgt/papers/ShenHengTang03/ for source code.
-		//
-		// Yes, this is complicated.  Did you think testing triangles would be easy?
-		//
-		static Boolean TriangleangleIntersect( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
-		{
-			// test P against Q's plane
-			Vector3 normalQ = Vector3.Cross( Q1 - Q0, Q2 - Q0 );
-
-			Single testP0 = Vector3.Dot( normalQ, P0 - Q0 );
-			Single testP1 = Vector3.Dot( normalQ, P1 - Q0 );
-			Single testP2 = Vector3.Dot( normalQ, P2 - Q0 );
-  
-			// P doesn't intersect Q's plane
-			if ( testP0 * testP1 > AbacusHelper.Epsilon && testP0*testP2 > AbacusHelper.Epsilon )
-				return false;
-
-			// test Q against P's plane
-			Vector3 normalP = Vector3.Cross( P1 - P0, P2 - P0 );
-
-			Single testQ0 = Vector3.Dot( normalP, Q0 - P0 );
-			Single testQ1 = Vector3.Dot( normalP, Q1 - P0 );
-			Single testQ2 = Vector3.Dot( normalP, Q2 - P0 );
-  
-			// Q doesn't intersect P's plane
-			if (testQ0*testQ1 > AbacusHelper.Epsilon && testQ0*testQ2 > AbacusHelper.Epsilon )
-				return false;
-	
-			// now we rearrange P's vertices such that the lone vertex (the one that lies
-			// in its own half-space of Q) is first.  We also permute the other
-			// triangle's vertices so that P0 will "see" them in counterclockwise order
-
-			// Once reordered, we pass the vertices down to a helper function which will
-			// reorder Q's vertices, and then test
-
-			// P0 in Q's positive half-space
-			if (testP0 > AbacusHelper.Epsilon) 
-			{
-				// P1 in Q's positive half-space (so P2 is lone vertex)
-				if (testP1 > AbacusHelper.Epsilon) 
-					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-				// P2 in Q's positive half-space (so P1 is lone vertex)
-				else if (testP2 > AbacusHelper.Epsilon) 
-					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);	
-				// P0 is lone vertex
-				else 
-					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-			} 
-			// P0 in Q's negative half-space
-			else if (testP0 < -AbacusHelper.Epsilon) 
-			{
-				// P1 in Q's negative half-space (so P2 is lone vertex)
-				if (testP1 < -AbacusHelper.Epsilon) 
-					return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				// P2 in Q's negative half-space (so P1 is lone vertex)
-				else if (testP2 < -AbacusHelper.Epsilon) 
-					return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				// P0 is lone vertex
-				else 
-					return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-			} 
-			// P0 on Q's plane
-			else 
-			{
-				// P1 in Q's negative half-space 
-				if (testP1 < -AbacusHelper.Epsilon) 
-				{
-					// P2 in Q's negative half-space (P0 is lone vertex)
-					if (testP2 < -AbacusHelper.Epsilon) 
-						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-					// P2 in positive half-space or on plane (P1 is lone vertex)
-					else 
-						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-				}
-				// P1 in Q's positive half-space 
-				else if (testP1 > AbacusHelper.Epsilon) 
-				{
-					// P2 in Q's positive half-space (P0 is lone vertex)
-					if (testP2 > AbacusHelper.Epsilon) 
-						return AdjustQ(ref P0, ref P1, ref P2, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-					// P2 in negative half-space or on plane (P1 is lone vertex)
-					else 
-						return AdjustQ(ref P1, ref P2, ref P0, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-				}
-				// P1 lies on Q's plane too
-				else  
-				{
-					// P2 in Q's positive half-space (P2 is lone vertex)
-					if (testP2 > AbacusHelper.Epsilon) 
-						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q1, ref Q2, testQ0, testQ1, testQ2, ref normalP);
-					// P2 in Q's negative half-space (P2 is lone vertex)
-					// note different ordering for Q vertices
-					else if (testP2 < -AbacusHelper.Epsilon) 
-						return AdjustQ(ref P2, ref P0, ref P1, ref Q0, ref Q2, ref Q1, testQ0, testQ2, testQ1, ref normalP);
-					// all three points lie on Q's plane, default to 2D test
-					else 
-						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
-				}
-			}
-		}
-
-
-
-		// Adjust Q
-		// --------
-		// Helper for TriangleangleIntersect()
-		//
-		// Now we rearrange Q's vertices such that the lone vertex (the one that lies
-		// in its own half-space of P) is first.  We also permute the other
-		// triangle's vertices so that Q0 will "see" them in counterclockwise order
-		//
-		// Once reordered, we pass the vertices down to a helper function which will
-		// actually test for intersection on the common line between the two planes
-		//
-		static Boolean AdjustQ( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2,
-			Single testQ0, Single testQ1, Single testQ2,
-			ref Vector3 normalP )
-		{
-
-			// Q0 in P's positive half-space
-			if (testQ0 > AbacusHelper.Epsilon) 
-			{ 
-				// Q1 in P's positive half-space (so Q2 is lone vertex)
-				if (testQ1 > AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
-				// Q2 in P's positive half-space (so Q1 is lone vertex)
-				else if (testQ2 > AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
-				// Q0 is lone vertex
-				else 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
-			}
-			// Q0 in P's negative half-space
-			else if (testQ0 < -AbacusHelper.Epsilon) 
-			{ 
-				// Q1 in P's negative half-space (so Q2 is lone vertex)
-				if (testQ1 < -AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
-				// Q2 in P's negative half-space (so Q1 is lone vertex)
-				else if (testQ2 < -AbacusHelper.Epsilon) 
-					return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
-				// Q0 is lone vertex
-				else 
-					return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
-			}
-			// Q0 on P's plane
-			else 
-			{ 
-				// Q1 in P's negative half-space 
-				if (testQ1 < -AbacusHelper.Epsilon) 
-				{ 
-					// Q2 in P's negative half-space (Q0 is lone vertex)
-					if (testQ2 < -AbacusHelper.Epsilon)  
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2);
-					// Q2 in positive half-space or on plane (P1 is lone vertex)
-					else 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q1, ref Q2, ref Q0);
-				}
-				// Q1 in P's positive half-space 
-				else if (testQ1 > AbacusHelper.Epsilon) 
-				{ 
-					// Q2 in P's positive half-space (Q0 is lone vertex)
-					if (testQ2 > AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q0, ref Q1, ref Q2);
-					// Q2 in negative half-space or on plane (P1 is lone vertex)
-					else  
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q1, ref Q2, ref Q0);
-				}
-				// Q1 lies on P's plane too
-				else 
-				{
-					// Q2 in P's positive half-space (Q2 is lone vertex)
-					if (testQ2 > AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P1, ref P2, ref Q2, ref Q0, ref Q1);
-					// Q2 in P's negative half-space (Q2 is lone vertex)
-					// note different ordering for Q vertices
-					else if (testQ2 < -AbacusHelper.Epsilon) 
-						return TestLineOverlap(ref P0, ref P2, ref P1, ref Q2, ref Q0, ref Q1);
-					// all three points lie on P's plane, default to 2D test
-					else 
-						return CoplanarTriangleangleIntersect(ref P0, ref P1, ref P2, ref Q0, ref Q1, ref Q2, ref normalP);
-				}
-			}
-		}
-
-
-
-		// Test Line Overlap
-		// -----------------
-		// Helper for TriangleangleIntersect()
-		//
-		// This tests whether the rearranged triangles overlap, by checking the intervals
-		// where their edges cross the common line between the two planes.  If the 
-		// interval for P is [i,j] and Q is [k,l], then there is intersection if the
-		// intervals overlap.  Previous algorithms computed these intervals directly, 
-		// this tests implictly by using two "plane tests."
-		//
-		static Boolean TestLineOverlap( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2 )
-		{
-			// get "plane normal"
-			Vector3 normal = Vector3.Cross( P1 - P0, Q0 - P0);
-
-			// fails test, no intersection
-			if ( Vector3.Dot(normal, Q1 - P0 ) > AbacusHelper.Epsilon )
-				return false;
-  
-			// get "plane normal"
-			normal = Vector3.Cross( P2 - P0, Q2 - P0 );
-
-			// fails test, no intersection
-			if ( Vector3.Dot( normal, Q0 - P0 ) > AbacusHelper.Epsilon )
-				return false;
-
-			// intersection!
-			return true;
-		}
-
-
-
-		// Coplanar Triangleangle Intersect
-		// ---------------------------
-		// Helper for TriangleangleIntersect()
-		//
-		// This projects the two triangles down to 2D, maintaining the largest area by
-		// dropping the dimension where the normal points the farthest.
-		//
-		static Boolean CoplanarTriangleangleIntersect( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Vector3 Q0, ref Vector3 Q1, ref Vector3 Q2, 
-			ref Vector3 planeNormal )
-		{
-			Vector3 absNormal = new Vector3( 
-				System.Math.Abs(planeNormal.X), 
-				System.Math.Abs(planeNormal.Y), 
-				System.Math.Abs(planeNormal.Z) );
-
-			Vector2 projP0, projP1, projP2;
-			Vector2 projQ0, projQ1, projQ2;
-
-			// if x is direction of largest magnitude
-			if ( absNormal.X > absNormal.Y && absNormal.X >= absNormal.Z )
-			{
-				projP0 = new Vector2( P0.Y, P0.Z );
-				projP1 = new Vector2( P1.Y, P1.Z );
-				projP2 = new Vector2( P2.Y, P2.Z );
-				projQ0 = new Vector2( Q0.Y, Q0.Z );
-				projQ1 = new Vector2( Q1.Y, Q1.Z );
-				projQ2 = new Vector2( Q2.Y, Q2.Z );
-			}
-			// if y is direction of largest magnitude
-			else if ( absNormal.Y > absNormal.X && absNormal.Y >= absNormal.Z )
-			{
-				projP0 = new Vector2( P0.X, P0.Z );
-				projP1 = new Vector2( P1.X, P1.Z );
-				projP2 = new Vector2( P2.X, P2.Z );
-				projQ0 = new Vector2( Q0.X, Q0.Z );
-				projQ1 = new Vector2( Q1.X, Q1.Z );
-				projQ2 = new Vector2( Q2.X, Q2.Z );
-			}
-			// z is the direction of largest magnitude
-			else
-			{
-				projP0 = new Vector2( P0.X, P0.Y );
-				projP1 = new Vector2( P1.X, P1.Y );
-				projP2 = new Vector2( P2.X, P2.Y );
-				projQ0 = new Vector2( Q0.X, Q0.Y );
-				projQ1 = new Vector2( Q1.X, Q1.Y );
-				projQ2 = new Vector2( Q2.X, Q2.Y );
-			}
-
-			return TriangleangleIntersect( ref projP0, ref projP1, ref projP2, ref projQ0, ref projQ1, ref projQ2 );
-		}
-
-
-
-		// Triangleangle Intersect
-		// ------------------
-		// Returns true if ray intersects triangle.
-		//
-		static Boolean TriangleangleIntersect( 
-			ref Single t, //perhaps this should be out 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Ray ray )
-		{
-			// test ray direction against triangle
-			Vector3 e1 = P1 - P0;
-			Vector3 e2 = P2 - P0;
-			Vector3 p = Vector3.Cross( ray.Direction, e2 );
-			Single a = Vector3.Dot( e1, p );
-
-			// if result zero, no intersection or infinite intersections
-			// (ray parallel to triangle plane)
-			if ( AbacusHelper.IsZero(a) )
-				return false;
-
-			// compute denominator
-			Single f = 1.0f/a;
-
-			// compute barycentric coordinates
-			Vector3 s = ray.Position - P0;
-			Single u = f * Vector3.Dot( s, p );
-
-			// ray falls outside triangle
-			if (u < 0.0f || u > 1.0f) 
-				return false;
-
-			Vector3 q = Vector3.Cross( s, e1 );
-			Single v = f * Vector3.Dot( ray.Direction, q );
-
-			// ray falls outside triangle
-			if (v < 0.0f || u+v > 1.0f) 
-				return false;
-
-			// compute line parameter
-			t = f * Vector3.Dot( e2, q );
-
-			return (t >= 0.0f);
-		}
-
-		
-		//
-		// @ TriangleangleClassify()
-		// Returns signed distance between plane and triangle
-		//
-		static Single TriangleangleClassify( 
-			ref Vector3 P0, ref Vector3 P1, ref Vector3 P2, 
-			ref Plane plane )
-		{
-			Single test0 = plane.Test( P0 );
-			Single test1 = plane.Test( P1 );
-
-			// if two points lie on opposite sides of plane, intersect
-			if (test0*test1 < 0.0f)
-				return 0.0f;
-
-			Single test2 = plane.Test( P2 );
-
-			// if two points lie on opposite sides of plane, intersect
-			if (test0*test2 < 0.0f)
-				return 0.0f;
-			if (test1*test2 < 0.0f)
-				return 0.0f;
-
-			// no intersection, return signed distance
-			if ( test0 < 0.0f )
-			{
-				if ( test0 < test1 )
-				{
-					if ( test1 < test2 )
-						return test2;
-					else
-						return test1;
-				}
-				else if (test0 < test2)
-				{
-					return test2;
-				}
-				else
-				{   
-					return test0;
-				}
-			}
-			else
-			{
-				if ( test0 > test1 )
-				{
-					if ( test1 > test2 )
-						return test2;
-					else
-						return test1;
-				}
-				else if (test0 > test2)
-				{
-					return test2;
-				}
-				else
-				{   
-					return test0;
-				}
-			}
-		}
-
-		*/
-	}
-	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector2
+	public struct Vector2
 		: IEquatable<Vector2>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector2.
+		/// </summary>
 		public Fixed32 X;
-		public Fixed32 Y;
-		
-		public Vector2 (Int32 x, Int32 y)
-		{
-			this.X = (Fixed32) x;
-			this.Y = (Fixed32) y;
-		}
 
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector2.
+		/// </summary>
+		public Fixed32 Y;
+
+		/// <summary>
+		/// Initilises a new instance of Vector2 from two Fixed32 values 
+		/// representing X and Y respectively.
+		/// </summary>
 		public Vector2 (Fixed32 x, Fixed32 y)
 		{
 			this.X = x;
 			this.Y = y;
 		}
 
-		public void Set (Fixed32 x, Fixed32 y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
-
-		public Vector2 (Fixed32 value)
-		{
-			this.X = this.Y = value;
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector2.
+		/// </summary>
 		public Fixed32 Length ()
 		{
 			Fixed32 num = (this.X * this.X) + (this.Y * this.Y);
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector2 squared.
+		/// </summary>
 		public Fixed32 LengthSquared ()
 		{
 			return ((this.X * this.X) + (this.Y * this.Y));
 		}
 
-		public void Normalise ()
-		{
-			Fixed32 num2 = (this.X * this.X) + (this.Y * this.Y);
-
-			Fixed32 one = 1;
-			Fixed32 num = one / (RealMaths.Sqrt (num2));
-			this.X *= num;
-			this.Y *= num;
-		}
-
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
 		public override String ToString ()
 		{
-			return string.Format ("{{X:{0} Y:{1}}}", new Object[] { this.X.ToString (), this.Y.ToString () });
+			return string.Format (
+				"{{X:{0} Y:{1}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector2 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (this.X.GetHashCode () + this.Y.GetHashCode ());
+		}
+
+		/// <summary>
+		/// Detemines whether or not the Vector2 is of unit length.
+		/// </summary>
+		public Boolean IsUnit()
+		{
+			Fixed32 one = 1;
+			return RealMaths.IsZero(one - X*X - Y*Y);
+		}
+
+		// Constants //-------------------------------------------------------//
+
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		readonly static Vector2 zero;
+
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		readonly static Vector2 one;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the X-axis.
+		/// </summary>
+		readonly static Vector2 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Y-axis.
+		/// </summary>
+		readonly static Vector2 unitY;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
+		static Vector2 ()
+		{
+			zero = 		new Vector2 ();
+			one = 		new Vector2 (1, 1);
+
+			unitX = 	new Vector2 (1, 0);
+			unitY = 	new Vector2 (0, 1);
+		}
+
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to zero.
+		/// </summary>
+		public static Vector2 Zero
+		{
+			get { return zero; }
+		}
+		
+		/// <summary>
+		/// Returns a Vector2 with all of its components set to one.
+		/// </summary>
+		public static Vector2 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the X-axis.
+		/// </summary>
+		public static Vector2 UnitX
+		{
+			get { return unitX; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Y-axis.
+		/// </summary>
+		public static Vector2 UnitY
+		{
+			get { return unitY; }
+		}
+
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
+		public static void Distance (
+			ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
+		{
+			Fixed32 a = value1.X - value2.X;
+			Fixed32 b = value1.Y - value2.Y;
+			
+			Fixed32 c = (a * a) + (b * b);
+
+			result = RealMaths.Sqrt (c);
+		}
+
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
+		public static void DistanceSquared (
+			ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
+		{
+			Fixed32 a = value1.X - value2.X;
+			Fixed32 b = value1.Y - value2.Y;
+			
+			result = (a * a) + (b * b);
+		}
+
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
+		public static void Dot (
+			ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
+		{
+			result = (value1.X * value2.X) + (value1.Y * value2.Y);
+		}
+
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
+		public static void Normalise (ref Vector2 value, out Vector2 result)
+		{
+			Fixed32 lengthSquared = 
+				(value.X * value.X) + (value.Y * value.Y);
+
+			Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
+
+			if( lengthSquared <= epsilon || 
+				Fixed32.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Fixed32 one = 1;
+			Fixed32 multiplier = one / RealMaths.Sqrt (lengthSquared);
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+
+		}
+
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
+		public static void Reflect (
+			ref Vector2 vector, ref Vector2 normal, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			// dot = vector . normal 
+			//     = |vector| * [normal] * cosθ
+			//     = |vector| * cosθ
+			//     = adjacent
+			Fixed32 dot;
+			Dot(ref vector, ref normal, out dot);
+
+			Fixed32 twoDot = dot * 2;
+
+			// Starting vector minus twice the length of the adjcent projected 
+			// along the normal.
+			result = vector - (twoDot * normal);
+		}
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
+		{
+			Fixed32 a = 
+				((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+				matrix.M41;
+
+			Fixed32 b = 
+				((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+				matrix.M42;
+			
+			result.X = a;
+			result.Y = b;
+		}
+
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
+		public static void Transform (
+			ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+		{
+			Fixed32 one = 1;
+
+			Fixed32 a = rotation.X + rotation.X;
+			Fixed32 b = rotation.Y + rotation.Y;
+			Fixed32 c = rotation.Z + rotation.Z;
+			Fixed32 d = rotation.W * c;
+			Fixed32 e = rotation.X * a;
+			Fixed32 f = rotation.X * b;
+			Fixed32 g = rotation.Y * b;
+			Fixed32 h = rotation.Z * c;
+			Fixed32 i = (value.X * ((one - g) - h)) + (value.Y * (f - d));
+			Fixed32 j = (value.X * (f + d)) + (value.Y * ((one - e) - h));
+
+			result.X = i;
+			result.Y = j;
+		}
+		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix.
+		/// </summary>
+		public static void TransformNormal (
+			ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Fixed32 a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+			Fixed32 b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+			
+			result.X = a;
+			result.Y = b;
+		}
+
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// object.
+		/// </summary>
 		public override Boolean Equals (Object obj)
 		{
 			Boolean flag = false;
@@ -22220,166 +22439,33 @@ namespace Sungiant.Abacus.Fixed32Precision
 			}
 			return flag;
 		}
-		
-		public override Int32 GetHashCode ()
-		{
-			return (this.X.GetHashCode () + this.Y.GetHashCode ());
-		}
-
-		public Boolean IsUnit()
-		{
-			Fixed32 one = 1;
-
-			return RealMaths.IsZero(one - X*X - Y*Y);
-		}
 
 		#region IEquatable<Vector2>
+
+		/// <summary>
+		/// Determines whether or not this Vector2 object is equal to another
+		/// Vector2 object.
+		/// </summary>
 		public Boolean Equals (Vector2 other)
 		{
 			return ((this.X == other.X) && (this.Y == other.Y));
 		}
+
 		#endregion
 
-		#region Constants
-
-		static Vector2 zero;
-		static Vector2 one;
-		static Vector2 unitX;
-		static Vector2 unitY;
-
-		static Vector2 ()
-		{
-			Fixed32 temp_one; RealMaths.One(out temp_one);
-			Fixed32 temp_zero; RealMaths.Zero(out temp_zero);
-
-			zero = new Vector2 ();
-			one = new Vector2 (temp_one, temp_one);
-			unitX = new Vector2 (temp_one, temp_zero);
-			unitY = new Vector2 (temp_zero, temp_one);
-		}
-
-		public static Vector2 Zero
-		{
-			get { return zero; }
-		}
-		
-		public static Vector2 One
-		{
-			get { return one; }
-		}
-		
-		public static Vector2 UnitX
-		{
-			get { return unitX; }
-		}
-		
-		public static Vector2 UnitY
-		{
-			get { return unitY; }
-		}
-		
-		#endregion
-		#region Maths
-
-		public static void Distance (ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
-		{
-			Fixed32 num2 = value1.X - value2.X;
-			Fixed32 num = value1.Y - value2.Y;
-			Fixed32 num3 = (num2 * num2) + (num * num);
-			result = RealMaths.Sqrt (num3);
-		}
-
-		public static void DistanceSquared (ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
-		{
-			Fixed32 num2 = value1.X - value2.X;
-			Fixed32 num = value1.Y - value2.Y;
-			result = (num2 * num2) + (num * num);
-		}
-
-		public static void Dot (ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
-		{
-			result = (value1.X * value2.X) + (value1.Y * value2.Y);
-		}
-
-		public static void PerpDot (ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
-		{
-			result = (value1.X * value2.Y - value1.Y * value2.X);
-		}
-
-		public static void Perpendicular (ref Vector2 value, out Vector2 result)
-		{
-			result = new Vector2 (-value.X, value.Y);
-		}
-
-		public static void Normalise (ref Vector2 value, out Vector2 result)
-		{
-			Fixed32 one = 1;
-
-			Fixed32 num2 = (value.X * value.X) + (value.Y * value.Y);
-			Fixed32 num = one / (RealMaths.Sqrt (num2));
-			result.X = value.X * num;
-			result.Y = value.Y * num;
-		}
-
-		public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result)
-		{
-			Fixed32 two = 2;
-
-			Fixed32 num = (vector.X * normal.X) + (vector.Y * normal.Y);
-			result.X = vector.X - ((two * num) * normal.X);
-			result.Y = vector.Y - ((two * num) * normal.Y);
-		}
-		
-		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
-		{
-			Fixed32 num2 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-			Fixed32 num = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		public static void TransformNormal (ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
-		{
-			Fixed32 num2 = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-			Fixed32 num = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-			result.X = num2;
-			result.Y = num;
-		}
-		
-		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector2 result)
-		{
-			Fixed32 one = 1;
-
-			Fixed32 num10 = rotation.X + rotation.X;
-			Fixed32 num5 = rotation.Y + rotation.Y;
-			Fixed32 num4 = rotation.Z + rotation.Z;
-			Fixed32 num3 = rotation.W * num4;
-			Fixed32 num9 = rotation.X * num10;
-			Fixed32 num2 = rotation.X * num5;
-			Fixed32 num8 = rotation.Y * num5;
-			Fixed32 num = rotation.Z * num4;
-			Fixed32 num7 = (value.X * ((one - num8) - num)) + (value.Y * (num2 - num3));
-			Fixed32 num6 = (value.X * (num2 + num3)) + (value.Y * ((one - num9) - num));
-			result.X = num7;
-			result.Y = num6;
-		}
-		
-		#endregion
-		#region Operators
-
-		public static Vector2 operator - (Vector2 value)
-		{
-			Vector2 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			return vector;
-		}
-		
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector2 value1, Vector2 value2)
 		{
 			return ((value1.X == value2.X) && (value1.Y == value2.Y));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector2 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector2 value1, Vector2 value2)
 		{
 			if (value1.X == value2.X) {
@@ -22388,6 +22474,21 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return true;
 		}
 
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector2 objects.
+		/// </summary>
+		public static void Add (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector2 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector2 operator + (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -22396,6 +22497,23 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects.
+		/// </summary>
+		public static void Subtract (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector2 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector2 operator - (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -22404,23 +22522,71 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 
-		public static Vector2 operator * (Vector2 value1, Vector2 value2)
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Vector2 object.
+		/// </summary>
+		public static void Negate (ref Vector2 value, out Vector2 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector2 object using the (-X) operator.
+		/// </summary>
+		public static Vector2 operator - (Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			return vector;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects.
+		/// </summary>
+		public static void Multiply (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a Fixed32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (
+			ref Vector2 value, Fixed32 scaleFactor, out Vector2 result)
+		{
+			result.X = value.X * scaleFactor;
+			result.Y = value.Y * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Vector2 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
 			vector.X = value1.X * value2.X;
 			vector.Y = value1.Y * value2.Y;
 			return vector;
 		}
-		
-		public static Vector2 operator * (Vector2 value, Fixed32 scaleFactor)
-		{
-			Vector2 vector;
-			vector.X = value.X * scaleFactor;
-			vector.Y = value.Y * scaleFactor;
-			return vector;
-		}
-		
-		public static Vector2 operator * (Fixed32 scaleFactor, Vector2 value)
+
+		/// <summary>
+		/// Performs multiplication of a Vector2 object and a Fixed32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Vector2 value, Fixed32 scaleFactor)
 		{
 			Vector2 vector;
 			vector.X = value.X * scaleFactor;
@@ -22428,6 +22594,47 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 
+		/// <summary>
+		/// Performs multiplication of a Fixed32 precision scaling factor 
+		/// and aVector2 object using the (x*Y) operator.
+		/// </summary>
+		public static Vector2 operator * (
+			Fixed32 scaleFactor, Vector2 value)
+		{
+			Vector2 vector;
+			vector.X = value.X * scaleFactor;
+			vector.Y = value.Y * scaleFactor;
+			return vector;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector2 objects.
+		/// </summary>
+		public static void Divide (
+			ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector2 object and a Fixed32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (
+			ref Vector2 value1, Fixed32 divider, out Vector2 result)
+		{
+			Fixed32 one = 1;
+			Fixed32 num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector2 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Vector2 value2)
 		{
 			Vector2 vector;
@@ -22435,7 +22642,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Y = value1.Y / value2.Y;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector2 object and a Fixed32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector2 operator / (Vector2 value1, Fixed32 divider)
 		{
 			Vector2 vector;
@@ -22446,173 +22657,234 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 		
-		public static void Negate (ref Vector2 value, out Vector2 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-		}
+		// Splines //---------------------------------------------------------//
 
-		public static void Add (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-		}
-
-		public static void Subtract (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-		}
-
-		public static void Multiply (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-		}
-		
-		public static void Multiply (ref Vector2 value1, Fixed32 scaleFactor, out Vector2 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-		}
-
-		public static void Divide (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-		}
-
-		public static void Divide (ref Vector2 value1, Fixed32 divider, out Vector2 result)
-		{
-			Fixed32 one = 1;
-			Fixed32 num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-		}
-		
-		#endregion
-		#region Splines
-
-		public static void Barycentric (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, Fixed32 amount1, Fixed32 amount2, out Vector2 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-		}
-
-		public static void SmoothStep (ref Vector2 value1, ref Vector2 value2, Fixed32 amount, out Vector2 result)
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
+		public static void SmoothStep (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Fixed32 amount, 
+			out Vector2 result)
 		{
 			Fixed32 zero = 0;
 			Fixed32 one = 1;
 			Fixed32 two = 2;
 			Fixed32 three = 3;
 
-			amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			amount = (amount * amount) * (three - (two * amount));
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
 		
-		public static void CatmullRom (ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, Fixed32 amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
+		public static void CatmullRom (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			ref Vector2 c, 
+			ref Vector2 d, 
+			Fixed32 amount, 
+			out Vector2 result)
 		{
+			Fixed32 zero = 0;
+			Fixed32 one = 1;
+
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Fixed32 half; RealMaths.Half(out half);
 			Fixed32 two = 2;
 			Fixed32 three = 3;
 			Fixed32 four = 4;
 			Fixed32 five = 5;
 
-			Fixed32 num = amount * amount;
-			Fixed32 num2 = amount * num;
-			result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-			result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
+			Fixed32 temp = amount * amount;
+			Fixed32 temp2 = amount * temp;
+
+			result.X = 
+				half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
+				(((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
+				temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
+				temp2));
+			
+			result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
+				(((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
+				temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
+				temp2));
 		}
 
-		public static void Hermite (ref Vector2 value1, ref Vector2 tangent1, ref Vector2 value2, ref Vector2 tangent2, Fixed32 amount, out Vector2 result)
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
+		public static void Hermite (
+			ref Vector2 a, 
+			ref Vector2 tangent1, 
+			ref Vector2 b, 
+			ref Vector2 tangent2, 
+			Fixed32 amount, 
+			out Vector2 result)
 		{
+			Fixed32 zero = 0;
 			Fixed32 one = 1;
 			Fixed32 two = 2;
 			Fixed32 three = 3;
 
-			Fixed32 num = amount * amount;
-			Fixed32 num2 = amount * num;
-			Fixed32 num6 = ((two * num2) - (three * num)) + one;
-			Fixed32 num5 = (-two * num2) + (three * num);
-			Fixed32 num4 = (num2 - (two * num)) + amount;
-			Fixed32 num3 = num2 - num;
-			result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
-		}
-		
-		#endregion
-		#region Utilities
+			// Make sure that the weighting value is within the supported range.
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
-		public static void Min (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
-		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
+			// Make sure that the tangents have been normalised.
+			if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Fixed32 temp = amount * amount;
+			Fixed32 temp2 = amount * temp;
+			Fixed32 temp6 = ((two * temp2) - (three * temp)) + one;
+			Fixed32 temp5 = (-two * temp2) + (three * temp);
+			Fixed32 temp4 = (temp2 - (two * temp)) + amount;
+			Fixed32 temp3 = temp2 - temp;
+
+			result.X = 
+				(((a.X * temp6) + (b.X * temp5)) + 
+				(tangent1.X * temp4)) + (tangent2.X * temp3);
+
+			result.Y = 
+				(((a.Y * temp6) + (b.Y * temp5)) + 
+				(tangent1.Y * temp4)) + (tangent2.Y * temp3);
 		}
 
-		public static void Max (ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+		// Utilities //-------------------------------------------------------//
+
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
 		}
 
-		public static void Clamp (ref Vector2 value1, ref Vector2 min, ref Vector2 max, out Vector2 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			out Vector2 result)
 		{
-			Fixed32 x = value1.X;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+		}
+
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector2 a, 
+			ref Vector2 min, 
+			ref Vector2 max, 
+			out Vector2 result)
+		{
+			Fixed32 x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Fixed32 y = value1.Y;
+			
+			Fixed32 y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
+
 			result.X = x;
 			result.Y = y;
 		}
-		
-		public static void Lerp (ref Vector2 value1, ref Vector2 value2, Fixed32 amount, out Vector2 result)
+
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector2 a, 
+			ref Vector2 b, 
+			Fixed32 amount, 
+			out Vector2 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
+			Fixed32 zero = 0;
+			Fixed32 one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
 		}
-		
-		#endregion
 
 	}
+
+	/// <summary>
+	/// Fixed32 precision Vector3.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector3 
+	public struct Vector3 
 		: IEquatable<Vector3>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector3.
+		/// </summary>
 		public Fixed32 X;
+
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector3.
+		/// </summary>
 		public Fixed32 Y;
+
+		/// <summary>
+		/// Gets or sets the Z-component of the Vector3.
+		/// </summary>
 		public Fixed32 Z;
 
-		public Vector2 XY
-		{
-			get
-			{
-				return new Vector2(X, Y);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-			}
-		}
-
-
-
+		/// <summary>
+		/// Initilises a new instance of Vector3 from three Fixed32 values 
+		/// representing X, Y and Z respectively.
+		/// </summary>
 		public Vector3 (Fixed32 x, Fixed32 y, Fixed32 z)
 		{
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
 		}
-
-		public Vector3 (Fixed32 value)
-		{
-			this.X = this.Y = this.Z = value;
-		}
 		
+		/// <summary>
+		/// Initilises a new instance of Vector3 from one Vector2 value
+		/// representing X and Y and one Fixed32 value representing Z.
+		/// </summary>
 		public Vector3 (Vector2 value, Fixed32 z)
 		{
 			this.X = value.X;
@@ -22620,169 +22892,239 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.Z = z;
 		}
 
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString () });
-		}
-
-		public Boolean Equals (Vector3 other)
-		{
-			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector3) {
-				flag = this.Equals ((Vector3)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return ((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector3.
+		/// </summary>
 		public Fixed32 Length ()
 		{
-			Fixed32 num = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
+			Fixed32 num = (this.X * this.X) + 
+				              (this.Y * this.Y) + 
+			                  (this.Z * this.Z);
+
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector3 squared.
+		/// </summary>
 		public Fixed32 LengthSquared ()
 		{
-			return (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z));
+			return
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z);
 		}
 
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Fixed32 one = 1;
-			Fixed32 num2 = ((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z);
-			Fixed32 num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector3 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode ()
+				);
+		}
+
+		/// <summary>
+		/// Detemines whether or not the Vector3 is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Fixed32 one = 1;
-
 			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector3 _zero;
-		static Vector3 _one;
-		static Vector3 _half;
-		static Vector3 _unitX;
-		static Vector3 _unitY;
-		static Vector3 _unitZ;
-		static Vector3 _up;
-		static Vector3 _down;
-		static Vector3 _right;
-		static Vector3 _left;
-		static Vector3 _forward;
-		static Vector3 _backward;
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to zero.
+		/// </summary>
+		static Vector3 zero;
 
+		/// <summary>
+		/// Defines a Vector3 with all of its components set to one.
+		/// </summary>
+		static Vector3 one;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the X-axis.
+		/// </summary>
+		static Vector3 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the Y-axis.
+		/// </summary>
+		static Vector3 unitY;
+
+		/// <summary>
+		/// Defines the unit Vector3 for the Z-axis.
+		/// </summary>
+		static Vector3 unitZ;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating up (0, 1, 0).
+		/// </summary>
+		static Vector3 up;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating down (0, −1, 0).
+		/// </summary>
+		static Vector3 down;
+
+		/// <summary>
+		/// Defines a unit Vector3 pointing to the right (1, 0, 0).
+		/// </summary>
+		static Vector3 right;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating left (−1, 0, 0).
+		/// </summary>
+		static Vector3 left;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		static Vector3 forward;
+
+		/// <summary>
+		/// Defines a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		static Vector3 backward;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector3 ()
 		{
-			Fixed32 temp_one; RealMaths.One(out temp_one);
-			Fixed32 temp_half; RealMaths.Half(out temp_half);
-			Fixed32 temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector3 ();
+			one = 		new Vector3 ( 1,  1,  1);
 
-			_zero = new Vector3 ();
-			_one = new Vector3 (temp_one, temp_one, temp_one);
-			_half = new Vector3(temp_half, temp_half, temp_half);
-			_unitX = new Vector3 (temp_one, temp_zero, temp_zero);
-			_unitY = new Vector3 (temp_zero, temp_one, temp_zero);
-			_unitZ = new Vector3 (temp_zero, temp_zero, temp_one);
-			_up = new Vector3 (temp_zero, temp_one, temp_zero);
-			_down = new Vector3 (temp_zero, -temp_one, temp_zero);
-			_right = new Vector3 (temp_one, temp_zero, temp_zero);
-			_left = new Vector3 (-temp_one, temp_zero, temp_zero);
-			_forward = new Vector3 (temp_zero, temp_zero, -temp_one);
-			_backward = new Vector3 (temp_zero, temp_zero, temp_one);
-		}
-		
-		public static Vector3 Zero {
-			get {
-				return _zero;
-			}
-		}
-		
-		public static Vector3 One {
-			get {
-				return _one;
-			}
-		}
-		
-		public static Vector3 Half {
-			get {
-				return _half;
-			}
-		}
-		
-		public static Vector3 UnitX {
-			get {
-				return _unitX;
-			}
-		}
-		
-		public static Vector3 UnitY {
-			get {
-				return _unitY;
-			}
-		}
-		
-		public static Vector3 UnitZ {
-			get {
-				return _unitZ;
-			}
-		}
-		
-		public static Vector3 Up {
-			get {
-				return _up;
-			}
-		}
-		
-		public static Vector3 Down {
-			get {
-				return _down;
-			}
-		}
-		
-		public static Vector3 Right {
-			get {
-				return _right;
-			}
-		}
-		
-		public static Vector3 Left {
-			get {
-				return _left;
-			}
-		}
-		
-		public static Vector3 Forward {
-			get {
-				return _forward;
-			}
-		}
-		
-		public static Vector3 Backward {
-			get {
-				return _backward;
-			}
-		}
-		
-		#endregion
-		#region Maths
+			unitX = 	new Vector3 ( 1,  0,  0);
+			unitY = 	new Vector3 ( 0,  1,  0);
+			unitZ = 	new Vector3 ( 0,  0,  1);
 
+			up = 		new Vector3 ( 0,  1,  0);
+			down = 		new Vector3 ( 0, -1,  0);
+			right = 	new Vector3 ( 1,  0,  0);
+			left = 		new Vector3 (-1,  0,  0);
+			forward = 	new Vector3 ( 0,  0, -1);
+			backward = 	new Vector3 ( 0,  0,  1);
+		}
+		
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to zero.
+		/// </summary>
+		public static Vector3 Zero
+		{
+			get { return zero; }
+		}
+		
+		/// <summary>
+		/// Returns a Vector3 with all of its components set to one.
+		/// </summary>
+		public static Vector3 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector3 for the X-axis.
+		/// </summary>
+		public static Vector3 UnitX
+		{
+			get { return unitX; }
+		}
+
+		/// <summary>
+		/// Returns the unit Vector3 for the Y-axis.
+		/// </summary>
+		public static Vector3 UnitY
+		{
+			get { return unitY; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector3 for the Z-axis.
+		/// </summary>
+		public static Vector3 UnitZ
+		{
+			get { return unitZ; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating up (0, 1, 0).
+		/// </summary>
+		public static Vector3 Up
+		{
+			get { return up; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating down (0, −1, 0).
+		/// </summary>
+		public static Vector3 Down
+		{
+			get { return down; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 pointing to the right (1, 0, 0).
+		/// </summary>
+		public static Vector3 Right
+		{
+			get { return right; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating left (−1, 0, 0).
+		/// </summary>
+		public static Vector3 Left
+		{
+			get { return left; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating forward in a right-handed 
+		/// coordinate system (0, 0, -1).
+		/// </summary>
+		public static Vector3 Forward
+		{
+			get { return forward; }
+		}
+		
+		/// <summary>
+		/// Returns a unit Vector3 designating backward in a right-handed 
+		/// coordinate system (0, 0, 1).
+		/// </summary>
+		public static Vector3 Backward
+		{
+			get { return backward; }
+		}
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector3 value1, ref Vector3 value2, out Fixed32 result)
 		{
 			Fixed32 num3 = value1.X - value2.X;
@@ -22791,7 +23133,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			Fixed32 num4 = ((num3 * num3) + (num2 * num2)) + (num * num);
 			result = RealMaths.Sqrt (num4);
 		}
-		
+
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector3 value1, ref Vector3 value2, out Fixed32 result)
 		{
 			Fixed32 num3 = value1.X - value2.X;
@@ -22800,11 +23145,24 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result = ((num3 * num3) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out Fixed32 result)
 		{
 			result = ((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z);
 		}
 
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
 			Fixed32 one = 1;
@@ -22816,6 +23174,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = value.Z * num;
 		}
 
+		/// <summary>
+		/// Calculates the cross product of two vectors.
+		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
 			Fixed32 num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -22826,6 +23187,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = num;
 		}
 
+		/// <summary>
+		/// Returns the value of an incident vector reflected across the a 
+		/// specified normal vector.
+		/// </summary>
 		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
 			Fixed32 two = 2;
@@ -22836,6 +23201,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = vector.Z - ((two * num) * normal.Z);
 		}
 
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector3 result)
 		{
 			Fixed32 num3 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -22846,16 +23214,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = num;
 		}
 		
-		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
-		{
-			Fixed32 num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-			Fixed32 num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-			Fixed32 num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
-		}
-		
+		/// <summary>
+		/// Transforms a vector by a specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector3 result)
 		{
 			Fixed32 one = 1;
@@ -22879,23 +23240,60 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = num13;
 		}
 		
-		#endregion
-		#region Operators
-
-		public static Vector3 operator - (Vector3 value)
+		/// <summary>
+		/// Transforms a normalised Vector3 by a Matrix44.
+		/// </summary>
+		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
 		{
-			Vector3 vector;
-			vector.X = -value.X;
-			vector.Y = -value.Y;
-			vector.Z = -value.Z;
-			return vector;
+			Fixed32 num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+			Fixed32 num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+			Fixed32 num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+			result.X = num3;
+			result.Y = num2;
+			result.Z = num;
 		}
 		
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector3) {
+				flag = this.Equals ((Vector3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Vector3>
+
+		/// <summary>
+		/// Determines whether or not this Vector3 object is equal to another
+		/// Vector3 object.
+		/// </summary>
+		public Boolean Equals (Vector3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
 		public static Boolean operator == (Vector3 value1, Vector3 value2)
 		{
 			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
 		}
-		
+
+		/// <summary>
+		/// Determines whether or not two Vector3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
 		public static Boolean operator != (Vector3 value1, Vector3 value2)
 		{
 			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
@@ -22903,7 +23301,22 @@ namespace Sungiant.Abacus.Fixed32Precision
 			}
 			return true;
 		}
-		
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects.
+		/// </summary>
+		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector3 objects using the (X+Y) operator. 
+		/// </summary>
 		public static Vector3 operator + (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -22912,7 +23325,24 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Z = value1.Z + value2.Z;
 			return vector;
 		}
-		
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects.
+		/// </summary>
+		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
 		public static Vector3 operator - (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -22921,7 +23351,59 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Z = value1.Z - value2.Z;
 			return vector;
 		}
+
+
+		// Negation Operators //----------------------------------------------//
 		
+		/// <summary>
+		/// Performs negation of a Vector3 object.
+		/// </summary>
+		public static void Negate (ref Vector3 value, out Vector3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector3 object using the (-X) operator.
+		/// </summary>
+		public static Vector3 operator - (Vector3 value)
+		{
+			Vector3 vector;
+			vector.X = -value.X;
+			vector.Y = -value.Y;
+			vector.Z = -value.Z;
+			return vector;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a Fixed32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Vector3 value1, Fixed32 scaleFactor, out Vector3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Vector3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -22930,7 +23412,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Z = value1.Z * value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Vector3 object and a Fixed32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector3 operator * (Vector3 value, Fixed32 scaleFactor)
 		{
 			Vector3 vector;
@@ -22939,7 +23425,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs multiplication of a Fixed32 precision scaling factor 
+		/// and aVector3 object using the (x*Y) operator.
+		/// </summary>
 		public static Vector3 operator * (Fixed32 scaleFactor, Vector3 value)
 		{
 			Vector3 vector;
@@ -22948,7 +23438,35 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Z = value.Z * scaleFactor;
 			return vector;
 		}
-		
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector3 objects.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a Fixed32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Vector3 value1, Fixed32 value2, out Vector3 result)
+		{
+			Fixed32 one = 1;
+			Fixed32 num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector3 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value1, Vector3 value2)
 		{
 			Vector3 vector;
@@ -22957,7 +23475,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Z = value1.Z / value2.Z;
 			return vector;
 		}
-		
+
+		/// <summary>
+		/// Performs division of a Vector3 object and a Fixed32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector3 operator / (Vector3 value, Fixed32 divider)
 		{
 			Vector3 vector;
@@ -22969,68 +23491,12 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.Z = value.Z * num;
 			return vector;
 		}
-
-		public static void Negate (ref Vector3 value, out Vector3 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-			result.Z = -value.Z;
-		}
-
-		public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-			result.Z = value1.Z + value2.Z;
-		}
-
-		public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-			result.Z = value1.Z - value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-			result.Z = value1.Z * value2.Z;
-		}
-
-		public static void Multiply (ref Vector3 value1, Fixed32 scaleFactor, out Vector3 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-			result.Z = value1.Z * scaleFactor;
-		}
-
-		public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-			result.Z = value1.Z / value2.Z;
-		}
-
-		public static void Divide (ref Vector3 value1, Fixed32 value2, out Vector3 result)
-		{
-			Fixed32 one = 1;
-			Fixed32 num = one / value2;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-			result.Z = value1.Z * num;
-		}
 		
-		#endregion
-		#region Splines
+		// Splines //---------------------------------------------------------//
 
-		public static void Barycentric (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, Fixed32 amount1, Fixed32 amount2, out Vector3 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
-		}
-	
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
 		public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, Fixed32 amount, out Vector3 result)
 		{
 			Fixed32 zero = 0;
@@ -23045,6 +23511,16 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
 		}
 
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
 		public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, Fixed32 amount, out Vector3 result)
 		{
 			Fixed32 half; RealMaths.Half(out half);
@@ -23060,6 +23536,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
 		}
 
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
 		public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, Fixed32 amount, out Vector3 result)
 		{
 			Fixed32 one = 1;
@@ -23076,33 +23555,53 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
 			result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
 		}
-		
-		#endregion
-		#region Utilities
 
-		public static void Min (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		// Utilities //-------------------------------------------------------//
+
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
 		}
 
-		public static void Max (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector3 a,
+			ref Vector3 b,
+			out Vector3 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
 		}
 		
-		public static void Clamp (ref Vector3 value1, ref Vector3 min, ref Vector3 max, out Vector3 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector3 a,
+			ref Vector3 min,
+			ref Vector3 max,
+			out Vector3 result)
 		{
-			Fixed32 x = value1.X;
+			Fixed32 x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Fixed32 y = value1.Y;
+			Fixed32 y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Fixed32 z = value1.Z;
+			Fixed32 z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
 			result.X = x;
@@ -23110,42 +23609,57 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = z;
 		}
 
-		public static void Lerp (ref Vector3 value1, ref Vector3 value2, Fixed32 amount, out Vector3 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector3 a,
+			ref Vector3 b,
+			Fixed32 amount,
+			out Vector3 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
 		}
-		
-		#endregion
-
 	}
+
+	/// <summary>
+	/// Fixed32 precision Vector4.
+	/// </summary>
 	[StructLayout (LayoutKind.Sequential)]
-	public partial struct Vector4 
+	public struct Vector4 
 		: IEquatable<Vector4>
 	{
+		/// <summary>
+		/// Gets or sets the X-component of the Vector4.
+		/// </summary>
 		public Fixed32 X;
+
+		/// <summary>
+		/// Gets or sets the Y-component of the Vector4.
+		/// </summary>
 		public Fixed32 Y;
+
+		/// <summary>
+		/// Gets or sets the Z-component of the Vector4.
+		/// </summary>
 		public Fixed32 Z;
+
+		/// <summary>
+		/// Gets or sets the W-component of the Vector4.
+		/// </summary>
 		public Fixed32 W;
 
-		public Vector3 XYZ
-		{
-			get
-			{
-				return new Vector3(X, Y, Z);
-			}
-			set
-			{
-				this.X = value.X;
-				this.Y = value.Y;
-				this.Z = value.Z;
-			}
-		}
-
-
-
-		public Vector4 (Fixed32 x, Fixed32 y, Fixed32 z, Fixed32 w)
+		/// <summary>
+		/// Initilises a new instance of Vector4 from four Fixed32 values 
+		/// representing X, Y, Z and W respectively.
+		/// </summary>
+		public Vector4 (
+			Fixed32 x, 
+			Fixed32 y, 
+			Fixed32 z, 
+			Fixed32 w)
 		{
 			this.X = x;
 			this.Y = y;
@@ -23153,6 +23667,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector2 value
+		/// representing X and Y and two Fixed32 values representing Z and
+		/// W respectively.
+		/// </summary>
 		public Vector4 (Vector2 value, Fixed32 z, Fixed32 w)
 		{
 			this.X = value.X;
@@ -23161,6 +23680,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.W = w;
 		}
 
+		/// <summary>
+		/// Initilises a new instance of Vector4 from one Vector3 value
+		/// representing X, Y and Z and one Fixed32 value representing W.
+		/// </summary>
 		public Vector4 (Vector3 value, Fixed32 w)
 		{
 			this.X = value.X;
@@ -23169,129 +23692,169 @@ namespace Sungiant.Abacus.Fixed32Precision
 			this.W = w;
 		}
 
-		public Vector4 (Fixed32 value)
-		{
-			this.X = this.Y = this.Z = this.W = value;
-		}
-
-		public override String ToString ()
-		{
-			return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
-		}
-
-		public Boolean Equals (Vector4 other)
-		{
-			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-		}
-
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Vector4) {
-				flag = this.Equals ((Vector4)obj);
-			}
-			return flag;
-		}
-
-		public override Int32 GetHashCode ()
-		{
-			return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
-		}
-
+		/// <summary>
+		/// Calculates the length of the Vector4.
+		/// </summary>
 		public Fixed32 Length ()
 		{
-			Fixed32 num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
+			Fixed32 num = (this.X * this.X) + 
+							  (this.Y * this.Y) + 
+							  (this.Z * this.Z) + 
+							  (this.W * this.W);
+			
 			return RealMaths.Sqrt (num);
 		}
 
+		/// <summary>
+		/// Calculates the length of the Vector4 squared.
+		/// </summary>
 		public Fixed32 LengthSquared ()
 		{
-			return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
+			return 
+				(this.X * this.X) + 
+				(this.Y * this.Y) + 
+				(this.Z * this.Z) + 
+				(this.W * this.W);
 		}
 
-
-
-		public void Normalise ()
+		/// <summary>
+		/// Retrieves a string representation of the current object.
+		/// </summary>
+		public override String ToString ()
 		{
-			Fixed32 one = 1;
-			Fixed32 num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-			Fixed32 num = one / RealMaths.Sqrt (num2);
-			this.X *= num;
-			this.Y *= num;
-			this.Z *= num;
-			this.W *= num;
+			return string.Format (
+				"{{X:{0} Y:{1} Z:{2} W:{3}}}", 
+				new Object[] 
+				{ 
+					this.X.ToString (), 
+					this.Y.ToString (), 
+					this.Z.ToString (), 
+					this.W.ToString () 
+				}
+				);
 		}
 
+		/// <summary>
+		/// Gets the hash code of the Vector4 object.
+		/// </summary>
+		public override Int32 GetHashCode ()
+		{
+			return (
+				this.X.GetHashCode () + 
+				this.Y.GetHashCode () + 
+				this.Z.GetHashCode () + 
+				this.W.GetHashCode ()
+				);
+		}
 
-
+		/// <summary>
+		/// Detemines whether or not the Vector4 is of unit length.
+		/// </summary>
 		public Boolean IsUnit()
 		{
 			Fixed32 one = 1;
-
 			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
 		}
 
-		#region Constants
+		// Constants //-------------------------------------------------------//
 
-		static Vector4 _zero;
-		static Vector4 _one;
-		static Vector4 _unitX;
-		static Vector4 _unitY;
-		static Vector4 _unitZ;
-		static Vector4 _unitW;
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to zero.
+		/// </summary>
+		static Vector4 zero;
 
+		/// <summary>
+		/// Defines a Vector2 with all of its components set to one.
+		/// </summary>
+		static Vector4 one;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the X-axis.
+		/// </summary>
+		static Vector4 unitX;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Y-axis.
+		/// </summary>
+		static Vector4 unitY;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the Z-axis.
+		/// </summary>
+		static Vector4 unitZ;
+
+		/// <summary>
+		/// Defines the unit Vector2 for the W-axis.
+		/// </summary>
+		static Vector4 unitW;
+
+		/// <summary>
+		/// Static constructor used to initilise static constants.
+		/// </summary>
 		static Vector4 ()
 		{
-			Fixed32 temp_one; RealMaths.One(out temp_one);
-			Fixed32 temp_zero; RealMaths.Zero(out temp_zero);
+			zero = 		new Vector4 ();
+			one = 		new Vector4 (1, 1, 1, 1);
 
-			_zero = new Vector4 ();
-			_one = new Vector4 (temp_one, temp_one, temp_one, temp_one);
-			_unitX = new Vector4 (temp_one, temp_zero, temp_zero, temp_zero);
-			_unitY = new Vector4 (temp_zero, temp_one, temp_zero, temp_zero);
-			_unitZ = new Vector4 (temp_zero, temp_zero, temp_one, temp_zero);
-			_unitW = new Vector4 (temp_zero, temp_zero, temp_zero, temp_one);
+			unitX = 	new Vector4 (1, 0, 0, 0);
+			unitY = 	new Vector4 (0, 1, 0, 0);
+			unitZ = 	new Vector4 (0, 0, 1, 0);
+			unitW = 	new Vector4 (0, 0, 0, 1);
 		}
 
-		public static Vector4 Zero {
-			get {
-				return _zero;
-			}
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to zero.
+		/// </summary>
+		public static Vector4 Zero
+		{
+			get { return zero; }
 		}
-		
-		public static Vector4 One {
-			get {
-				return _one;
-			}
-		}
-		
-		public static Vector4 UnitX {
-			get {
-				return _unitX;
-			}
-		}
-		
-		public static Vector4 UnitY {
-			get {
-				return _unitY;
-			}
-		}
-		
-		public static Vector4 UnitZ {
-			get {
-				return _unitZ;
-			}
-		}
-		
-		public static Vector4 UnitW {
-			get {
-				return _unitW;
-			}
-		}
-		
-		#endregion
-		#region Maths
 
+		/// <summary>
+		/// Returns a Vector4 with all of its components set to one.
+		/// </summary>
+		public static Vector4 One
+		{
+			get { return one; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the X-axis.
+		/// </summary>
+		public static Vector4 UnitX
+		{
+			get { return unitX; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Y-axis.
+		/// </summary>
+		public static Vector4 UnitY
+		{
+			get { return unitY; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the Z-axis.
+		/// </summary>
+		public static Vector4 UnitZ
+		{
+			get { return unitZ; }
+		}
+		
+		/// <summary>
+		/// Returns the unit Vector2 for the W-axis.
+		/// </summary>
+		public static Vector4 UnitW
+		{
+			get { return unitW; }
+		}
+		
+		// Maths //-----------------------------------------------------------//
+
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector4 value1, ref Vector4 value2, out Fixed32 result)
 		{
 			Fixed32 num4 = value1.X - value2.X;
@@ -23302,6 +23865,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result = RealMaths.Sqrt (num5);
 		}
 
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector4 value1, ref Vector4 value2, out Fixed32 result)
 		{
 			Fixed32 num4 = value1.X - value2.X;
@@ -23311,11 +23877,24 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out Fixed32 result)
 		{
 			result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
 		}
-
+		
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
 			Fixed32 one = 1;
@@ -23327,6 +23906,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = vector.W * num;
 		}
 
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			Fixed32 num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
@@ -23338,7 +23920,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			Fixed32 num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -23350,7 +23935,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector4 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
 		{
 			Fixed32 num4 = (((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31)) + (vector.W * matrix.M41);
@@ -23363,7 +23951,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = num;
 		}
 		
-		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Fixed32 one = 1;
@@ -23388,6 +23978,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Fixed32 one = 1;
@@ -23412,6 +24005,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector4 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector4 value, ref Quaternion rotation, out Vector4 result)
 		{
 			Fixed32 one = 1;
@@ -23436,9 +24032,124 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = value.W;
 		}
 		
-		#endregion
-		#region Operators
+		// Equality Operators //----------------------------------------------//
 
+		/// <summary>
+		/// Determines whether or not this Vector4 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Vector4) {
+				flag = this.Equals ((Vector4)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Vector4>
+
+		/// <summary>
+		/// Determines whether or not this Vector4 object is equal to another
+		/// Vector4 object.
+		/// </summary>
+		public Boolean Equals (Vector4 other)
+		{
+			return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Vector4 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Vector4 value1, Vector4 value2)
+		{
+			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
+		}
+		
+		/// <summary>
+		/// Determines whether or not two Vector4 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Vector4 value1, Vector4 value2)
+		{
+			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
+				return !(value1.W == value2.W);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Vector4 objects.
+		/// </summary>
+		public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+			result.W = value1.W + value2.W;
+		}
+
+		/// <summary>
+		/// Performs addition of two Vector4 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Vector4 operator + (Vector4 value1, Vector4 value2)
+		{
+			Vector4 vector;
+			vector.X = value1.X + value2.X;
+			vector.Y = value1.Y + value2.Y;
+			vector.Z = value1.Z + value2.Z;
+			vector.W = value1.W + value2.W;
+			return vector;
+		}
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Vector4 objects.
+		/// </summary>
+		public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+			result.W = value1.W - value2.W;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Vector4 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Vector4 operator - (Vector4 value1, Vector4 value2)
+		{
+			Vector4 vector;
+			vector.X = value1.X - value2.X;
+			vector.Y = value1.Y - value2.Y;
+			vector.Z = value1.Z - value2.Z;
+			vector.W = value1.W - value2.W;
+			return vector;
+		}
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Vector4 object.
+		/// </summary>
+		public static void Negate (ref Vector4 value, out Vector4 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+			result.W = -value.W;
+		}
+
+		/// <summary>
+		/// Performs negation of a Vector4 object using the (-X) operator.
+		/// </summary>
 		public static Vector4 operator - (Vector4 value)
 		{
 			Vector4 vector;
@@ -23449,39 +24160,35 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 		
-		public static Boolean operator == (Vector4 value1, Vector4 value2)
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Vector4 objects.
+		/// </summary>
+		public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
 		{
-			return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+			result.W = value1.W * value2.W;
 		}
-		
-		public static Boolean operator != (Vector4 value1, Vector4 value2)
+
+		/// <summary>
+		/// Performs multiplication of a Vector4 object and a Fixed32
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Vector4 value1, Fixed32 scaleFactor, out Vector4 result)
 		{
-			if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
-				return !(value1.W == value2.W);
-			}
-			return true;
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+			result.W = value1.W * scaleFactor;
 		}
-		
-		public static Vector4 operator + (Vector4 value1, Vector4 value2)
-		{
-			Vector4 vector;
-			vector.X = value1.X + value2.X;
-			vector.Y = value1.Y + value2.Y;
-			vector.Z = value1.Z + value2.Z;
-			vector.W = value1.W + value2.W;
-			return vector;
-		}
-		
-		public static Vector4 operator - (Vector4 value1, Vector4 value2)
-		{
-			Vector4 vector;
-			vector.X = value1.X - value2.X;
-			vector.Y = value1.Y - value2.Y;
-			vector.Z = value1.Z - value2.Z;
-			vector.W = value1.W - value2.W;
-			return vector;
-		}
-		
+
+		/// <summary>
+		/// Performs muliplication of two Vector4 objects using the (X*Y)
+		/// operator.
+		/// </summary>
 		public static Vector4 operator * (Vector4 value1, Vector4 value2)
 		{
 			Vector4 vector;
@@ -23492,6 +24199,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs multiplication of a Vector4 object and a Fixed32
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
 		public static Vector4 operator * (Vector4 value1, Fixed32 scaleFactor)
 		{
 			Vector4 vector;
@@ -23502,6 +24213,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs multiplication of a Fixed32 precision scaling factor 
+		/// and aVector4 object using the (x*Y) operator.
+		/// </summary>
 		public static Vector4 operator * (Fixed32 scaleFactor, Vector4 value1)
 		{
 			Vector4 vector;
@@ -23512,6 +24227,36 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 		
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Vector4 objects.
+		/// </summary>
+		public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+			result.W = value1.W / value2.W;
+		}
+
+		/// <summary>
+		/// Performs division of a Vector4 object and a Fixed32 precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Vector4 value1, Fixed32 divider, out Vector4 result)
+		{
+			Fixed32 one = 1;
+			Fixed32 num = one / divider;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+			result.W = value1.W * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Vector4 objects using the (X/Y) operator.
+		/// </summary>
 		public static Vector4 operator / (Vector4 value1, Vector4 value2)
 		{
 			Vector4 vector;
@@ -23522,6 +24267,10 @@ namespace Sungiant.Abacus.Fixed32Precision
 			return vector;
 		}
 		
+		/// <summary>
+		/// Performs division of a Vector4 object and a Fixed32 precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
 		public static Vector4 operator / (Vector4 value1, Fixed32 divider)
 		{
 			Fixed32 one = 1;
@@ -23533,76 +24282,12 @@ namespace Sungiant.Abacus.Fixed32Precision
 			vector.W = value1.W * num;
 			return vector;
 		}
-		
-		public static void Negate (ref Vector4 value, out Vector4 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-			result.Z = -value.Z;
-			result.W = -value.W;
-		}
 
-		public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-			result.Z = value1.Z + value2.Z;
-			result.W = value1.W + value2.W;
-		}
-		
-		public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-			result.Z = value1.Z - value2.Z;
-			result.W = value1.W - value2.W;
-		}
-		
-		public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-			result.Z = value1.Z * value2.Z;
-			result.W = value1.W * value2.W;
-		}
+		// Splines //---------------------------------------------------------//
 
-		public static void Multiply (ref Vector4 value1, Fixed32 scaleFactor, out Vector4 result)
-		{
-			result.X = value1.X * scaleFactor;
-			result.Y = value1.Y * scaleFactor;
-			result.Z = value1.Z * scaleFactor;
-			result.W = value1.W * scaleFactor;
-		}
-
-		public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-			result.Z = value1.Z / value2.Z;
-			result.W = value1.W / value2.W;
-		}
-		
-		public static void Divide (ref Vector4 value1, Fixed32 divider, out Vector4 result)
-		{
-			Fixed32 one = 1;
-			Fixed32 num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-			result.Z = value1.Z * num;
-			result.W = value1.W * num;
-		}
-		
-		#endregion
-		#region Splines
-
-		public static void Barycentric (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, Fixed32 amount1, Fixed32 amount2, out Vector4 result)
-		{
-			result.X = (value1.X + (amount1 * (value2.X - value1.X))) + (amount2 * (value3.X - value1.X));
-			result.Y = (value1.Y + (amount1 * (value2.Y - value1.Y))) + (amount2 * (value3.Y - value1.Y));
-			result.Z = (value1.Z + (amount1 * (value2.Z - value1.Z))) + (amount2 * (value3.Z - value1.Z));
-			result.W = (value1.W + (amount1 * (value2.W - value1.W))) + (amount2 * (value3.W - value1.W));
-		}
-
+		/// <summary>
+		/// Interpolates between two values using a cubic equation.
+		/// </summary>
 		public static void SmoothStep (ref Vector4 value1, ref Vector4 value2, Fixed32 amount, out Vector4 result)
 		{
 			Fixed32 zero = 0;
@@ -23618,6 +24303,16 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = value1.W + ((value2.W - value1.W) * amount);
 		}
 
+		/// <summary>
+		/// Performs a Catmull-Rom interpolation using the specified positions.
+		/// Features:
+		/// - The spline passes through all of the control points.
+		/// - The spline is C^1 continuous, meaning that there are no 
+		///   discontinuities in the tangent direction and magnitude.
+		/// - The spline is not C^2 continuous.  The second derivative is 
+		///   linearly interpolated within each segment, causing the curvature 
+		///   to vary linearly over the length of the segment.
+		/// </summary>
 		public static void CatmullRom (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, ref Vector4 value4, Fixed32 amount, out Vector4 result)
 		{
 			Fixed32 half; RealMaths.Half(out half);
@@ -23634,6 +24329,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = half * ((((two * value2.W) + ((-value1.W + value3.W) * amount)) + (((((two * value1.W) - (five * value2.W)) + (four * value3.W)) - value4.W) * num)) + ((((-value1.W + (three * value2.W)) - (three * value3.W)) + value4.W) * num2));
 		}
 
+		/// <summary>
+		/// Performs a Hermite spline interpolation.
+		/// </summary>
 		public static void Hermite (ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, Fixed32 amount, out Vector4 result)
 		{
 			Fixed32 one = 1;
@@ -23651,39 +24349,58 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
 			result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
 		}
-		
-		#endregion
 
-		#region Utilities
+		// Utilities //-------------------------------------------------------//
 
-		public static void Min (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the lowest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Min (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X < value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W < value2.W) ? value1.W : value2.W;
+			result.X = (a.X < b.X) ? a.X : b.X;
+			result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+			result.W = (a.W < b.W) ? a.W : b.W;
 		}
 
-		public static void Max (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+		/// <summary>
+		/// Returns a vector that contains the highest value from each matching 
+		/// pair of components.
+		/// </summary>
+		public static void Max (
+			ref Vector4 a,
+			ref Vector4 b,
+			out Vector4 result)
 		{
-			result.X = (value1.X > value2.X) ? value1.X : value2.X;
-			result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-			result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
-			result.W = (value1.W > value2.W) ? value1.W : value2.W;
+			result.X = (a.X > b.X) ? a.X : b.X;
+			result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+			result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+			result.W = (a.W > b.W) ? a.W : b.W;
 		}
 		
-		public static void Clamp (ref Vector4 value1, ref Vector4 min, ref Vector4 max, out Vector4 result)
+		/// <summary>
+		/// Restricts a value to be within a specified range.
+		/// </summary>
+		public static void Clamp (
+			ref Vector4 a,
+			ref Vector4 min,
+			ref Vector4 max,
+			out Vector4 result)
 		{
-			Fixed32 x = value1.X;
+			Fixed32 x = a.X;
 			x = (x > max.X) ? max.X : x;
 			x = (x < min.X) ? min.X : x;
-			Fixed32 y = value1.Y;
+			Fixed32 y = a.Y;
 			y = (y > max.Y) ? max.Y : y;
 			y = (y < min.Y) ? min.Y : y;
-			Fixed32 z = value1.Z;
+			Fixed32 z = a.Z;
 			z = (z > max.Z) ? max.Z : z;
 			z = (z < min.Z) ? min.Z : z;
-			Fixed32 w = value1.W;
+			Fixed32 w = a.W;
 			w = (w > max.W) ? max.W : w;
 			w = (w < min.W) ? min.W : w;
 			result.X = x;
@@ -23692,16 +24409,20 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.W = w;
 		}
 		
-		public static void Lerp (ref Vector4 value1, ref Vector4 value2, Fixed32 amount, out Vector4 result)
+		/// <summary>
+		/// Performs a linear interpolation between two vectors.
+		/// </summary>
+		public static void Lerp (
+			ref Vector4 a,
+			ref Vector4 b,
+			Fixed32 amount,
+			out Vector4 result)
 		{
-			result.X = value1.X + ((value2.X - value1.X) * amount);
-			result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-			result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-			result.W = value1.W + ((value2.W - value1.W) * amount);
+			result.X = a.X + ((b.X - a.X) * amount);
+			result.Y = a.Y + ((b.Y - a.Y) * amount);
+			result.Z = a.Z + ((b.Z - a.Z) * amount);
+			result.W = a.W + ((b.W - a.W) * amount);
 		}
-		
-		#endregion
-
 
 	}
 

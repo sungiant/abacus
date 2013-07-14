@@ -1,5 +1,8 @@
-﻿		#region Maths
+﻿		// Maths //-----------------------------------------------------------//
 
+		/// <summary>
+		/// Calculates the distance between two vectors.
+		/// </summary>
 		public static void Distance (ref Vector4 value1, ref Vector4 value2, out <#= type #> result)
 		{
 			<#= type #> num4 = value1.X - value2.X;
@@ -10,6 +13,9 @@
 			result = RealMaths.Sqrt (num5);
 		}
 
+		/// <summary>
+		/// Calculates the distance between two vectors squared.
+		/// </summary>
 		public static void DistanceSquared (ref Vector4 value1, ref Vector4 value2, out <#= type #> result)
 		{
 			<#= type #> num4 = value1.X - value2.X;
@@ -19,11 +25,24 @@
 			result = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
 		}
 
+		/// <summary>
+		/// Calculates the dot product of two vectors. If the two vectors are 
+		/// unit vectors, the dot product returns a floating point value between
+		/// -1 and 1 that can be used to determine some properties of the angle 
+		/// between two vectors. For example, it can show whether the vectors 
+		/// are orthogonal, parallel, or have an acute or obtuse angle between 
+		/// them.
+		/// </summary>
 		public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out <#= type #> result)
 		{
 			result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
 		}
-
+		
+		/// <summary>
+		/// Creates a unit vector from the specified vector. The result is a 
+		/// vector one unit in length pointing in the same direction as the 
+		/// original vector.
+		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
 			<#= type #> one = 1;
@@ -35,6 +54,9 @@
 			result.W = vector.W * num;
 		}
 
+		/// <summary>
+		/// Transforms a Vector2 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			<#= type #> num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
@@ -46,7 +68,10 @@
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector3 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
 		{
 			<#= type #> num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
@@ -58,7 +83,10 @@
 			result.Z = num2;
 			result.W = num;
 		}
-		
+
+		/// <summary>
+		/// Transforms a Vector4 by the specified Matrix44.
+		/// </summary>
 		public static void Transform (ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
 		{
 			<#= type #> num4 = (((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31)) + (vector.W * matrix.M41);
@@ -71,7 +99,9 @@
 			result.W = num;
 		}
 		
-		
+		/// <summary>
+		/// Transforms a Vector2 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
 		{
 			<#= type #> one = 1;
@@ -96,6 +126,9 @@
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector3 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
 		{
 			<#= type #> one = 1;
@@ -120,6 +153,9 @@
 			result.W = one;
 		}
 		
+		/// <summary>
+		/// Transforms a Vector4 by the specified Quaternion.
+		/// </summary>
 		public static void Transform (ref Vector4 value, ref Quaternion rotation, out Vector4 result)
 		{
 			<#= type #> one = 1;
@@ -144,4 +180,3 @@
 			result.W = value.W;
 		}
 		
-		#endregion

@@ -1,0 +1,80 @@
+	/// <summary>
+	/// 
+	/// </summary>
+	[TestFixture]
+	public class QuaternionTests
+	{
+<#@ include file="Quaternion.TestHelpers.t4"#>
+
+		// Test: StructLayout //----------------------------------------------//
+
+		/// <summary>
+		/// This test makes sure that the struct layout has been defined
+		/// correctly.
+		/// </summary>
+		[Test]
+		public void Test_StructLayout_i ()
+		{
+			Type t = typeof(Quaternion);
+
+			Assert.That(
+				t.StructLayoutAttribute.Value, 
+				Is.EqualTo(LayoutKind.Sequential));
+		}
+
+		/// <summary>
+		/// This test makes sure that when examining the memory addresses of the 
+		/// X, Y, Z and W member variables of a number of randomly generated 
+		/// Quaterion objects the results are as expected. 
+		/// </summary>
+		[Test]
+		public unsafe void Test_StructLayout_ii ()
+		{
+			for( Int32 i = 0; i < 100; ++ i)
+			{
+				Quaternion quat = GetNextRandomQuaternion();
+
+				GCHandle h_quat = GCHandle.Alloc(quat, GCHandleType.Pinned);
+
+		        IntPtr quatAddress = h_quat.AddrOfPinnedObject();
+
+		        <#= type #>[] data = new <#= type #>[4];
+
+		        // nb: when Fixed32 and Half are moved back into the main
+		        //     dev branch there will be need for an extension method for
+		        //     Marshal that will perform the copy for those types. 
+		        MarshalHelper.Copy(quatAddress, data, 0, 4);
+		        Assert.That(data[0], Is.EqualTo(quat.X));
+		        Assert.That(data[1], Is.EqualTo(quat.Y));
+		        Assert.That(data[2], Is.EqualTo(quat.Z));
+		        Assert.That(data[3], Is.EqualTo(quat.W));
+				
+		        h_quat.Free();
+			}
+		}
+
+		[Test]
+		public void Test_Constructors ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_ToString ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+		[Test]
+		public void TestMemberFn_GetHashCode ()
+		{
+			Assert.That(true, Is.EqualTo(false));
+		}
+
+<#@ include file="Quaternion.Constants.Tests.t4"#>
+<#@ include file="Quaternion.Create.Tests.t4"#>
+<#@ include file="Quaternion.Maths.Tests.t4"#>
+<#@ include file="Quaternion.Operators.Tests.t4"#>
+<#@ include file="Quaternion.Utilities.Tests.t4"#>
+	}
+	

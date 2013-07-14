@@ -29,8 +29,11 @@
 		static readonly Fixed32 Tau = Pi * new Fixed32(2);
 
 		public static readonly Fixed32 Epsilon = CreateFromRaw(1);
-		public static readonly Fixed32 MaxValue = CreateFromRaw(Int32.MaxValue);
-		public static readonly Fixed32 MinValue = CreateFromRaw(Int32.MinValue);
+		public static readonly Fixed32 MaxValue = CreateFromRaw(Int32.MaxValue - 2);
+		public static readonly Fixed32 MinValue = CreateFromRaw(Int32.MinValue + 1);
+		public static readonly Fixed32 PositiveInfinity = CreateFromRaw(Int32.MaxValue - 1);
+		public static readonly Fixed32 NegativeInfinity = CreateFromRaw(Int32.MinValue);
+		public static readonly Fixed32 NaN = CreateFromRaw(Int32.MaxValue);
 
 		#endregion
 

@@ -45,13 +45,75 @@ using System.Collections.Generic;
 
 namespace Sungiant.Abacus
 {
-<#@ include file="ContainmentType.t4"#>
-<#@ include file="PlaneIntersectionType.t4"#>
 <#@ include file="IPackedReal.t4"#>
 <#@ include file="IPackedValue.t4"#>
 <#@ include file="PackUtils.t4"#>
 <#@ include file="Fixed.t4"#>
 <#@ include file="RealMaths.t4"#>
+
+	/// <summary>
+	/// todo
+	/// </summary>
+	internal static class MarshalHelper
+	{
+		// Copies data from an unmanaged memory pointer to a managed 32-bit signed integer array.
+		internal static void Copy( IntPtr source, Int32[] destination, Int32 startIndex, Int32 length )
+		{
+			Marshal.Copy(source, destination, startIndex, length);
+		}	
+
+		// Copies data from an unmanaged memory pointer to a managed 64-bit signed integer array.
+		internal static void Copy( IntPtr source, Int64[] destination, Int32 startIndex, Int32 length )
+		{
+			Marshal.Copy(source, destination, startIndex, length);
+		}
+
+		// Copies data from an unmanaged memory pointer to a managed single-precision floating-point number array.
+		internal static void Copy( IntPtr source, Single[] destination, Int32 startIndex, Int32 length )
+		{
+			Marshal.Copy(source, destination, startIndex, length);
+		}
+
+		// Copies data from an unmanaged memory pointer to a managed double-precision floating-point number array.
+		internal static void Copy( IntPtr source, Double[] destination, Int32 startIndex, Int32 length )
+		{
+			Marshal.Copy(source, destination, startIndex, length);
+		}
+
+		// Copies data from an unmanaged memory pointer to a managed fixed32-precision fixed-point number array.
+		internal static void Copy( IntPtr source, Fixed32[] destination, Int32 startIndex, Int32 length )
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	/// <summary>
+	/// todo
+	/// </summary>
+	public static class RandomExtensions
+	{
+		/// <summary>
+		/// Returns a random Single between 0.0 & 1.0
+		/// </summary>
+		public static Single NextSingle(this System.Random r)
+		{
+			return (Single) r.NextDouble();
+		}
+
+		/// <summary>
+		/// Returns a random Fixed32 between 0.0 & 1.0
+		/// </summary>
+		public static Fixed32 NextFixed32(this System.Random r)
+		{
+			Fixed32 max = 1;
+			Fixed32 min = 0;
+
+			Int32 randomInt32 = r.Next(min.RawValue, max.RawValue);
+
+			return Fixed32.CreateFromRaw(randomInt32);
+		}
+	}
+
 }
 
 namespace Sungiant.Abacus.Packed
@@ -86,18 +148,9 @@ namespace Sungiant.Abacus.<#= type #>Precision
 <# foreach( var type in GetRealTypes() ) { #>
 namespace Sungiant.Abacus.<#= type #>Precision
 {
-<#@ include file="Precision/Real/GaussianElimination.t4"#>
 <#@ include file="Precision/Real/GjkDistance.t4"#>
-
-<#@ include file="Precision/Real/BoundingBox.t4"#>
-<#@ include file="Precision/Real/BoundingFrustum.t4"#>
-<#@ include file="Precision/Real/BoundingSphere.t4"#>
 <#@ include file="Precision/Real/Matrix44.t4"#>
-<#@ include file="Precision/Real/Plane.t4"#>
-<#@ include file="Precision/Real/Quad.t4"#>
 <#@ include file="Precision/Real/Quaternion.t4"#>
-<#@ include file="Precision/Real/Ray.t4"#>
-<#@ include file="Precision/Real/Triangle.t4"#>
 <#@ include file="Precision/Real/Vector2.t4"#>
 <#@ include file="Precision/Real/Vector3.t4"#>
 <#@ include file="Precision/Real/Vector4.t4"#>

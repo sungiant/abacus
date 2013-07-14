@@ -1,8 +1,16 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// Tests the Rgba64 packed data type.
+    /// </summary>
+    [TestFixture]
     public class Rgba64Tests
     {
+        /// <summary>
+        /// Iterates over a random selection of values within the range of
+        /// possible Rgba64 values and makes sure that unpacking them and 
+        /// then re-packing that result yeilds the original packed value.
+        /// </summary>
         [Test]
-        public static void TestRandomValues()
+        public void TestRandomValues_i()
         {
             var rand = new System.Random();
             var buff = new Byte[8];
@@ -26,4 +34,7 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
+
+<#  GeneratePackedTestsCommon("Rgba64", "UInt64", "packedRgba", "realRgba", 4); #>
     }
+

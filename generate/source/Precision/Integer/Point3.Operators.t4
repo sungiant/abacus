@@ -1,0 +1,239 @@
+		// Equality Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// object.
+		/// </summary>
+		public override Boolean Equals (Object obj)
+		{
+			Boolean flag = false;
+			if (obj is Point3) {
+				flag = this.Equals ((Point3)obj);
+			}
+			return flag;
+		}
+
+		#region IEquatable<Point3>
+
+		/// <summary>
+		/// Determines whether or not this Point3 object is equal to another
+		/// Point3 object.
+		/// </summary>
+		public Boolean Equals (Point3 other)
+		{
+			return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are equal using the
+		/// (X==Y) operator.
+		/// </summary>
+		public static Boolean operator == (Point3 value1, Point3 value2)
+		{
+			return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
+		}
+
+		/// <summary>
+		/// Determines whether or not two Point3 objects are not equal using
+		/// the (X!=Y) operator.
+		/// </summary>
+		public static Boolean operator != (Point3 value1, Point3 value2)
+		{
+			if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
+				return !(value1.Z == value2.Z);
+			}
+			return true;
+		}
+
+		// Addition Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs addition of two Point3 objects.
+		/// </summary>
+		public static void Add (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X + value2.X;
+			result.Y = value1.Y + value2.Y;
+			result.Z = value1.Z + value2.Z;
+		}
+
+		/// <summary>
+		/// Performs addition of two Point3 objects using the (X+Y) operator. 
+		/// </summary>
+		public static Point3 operator + (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X + value2.X;
+			point.Y = value1.Y + value2.Y;
+			point.Z = value1.Z + value2.Z;
+			return point;
+		}
+
+
+		// Subtraction Operators //-------------------------------------------//
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects.
+		/// </summary>
+		public static void Subtract (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X - value2.X;
+			result.Y = value1.Y - value2.Y;
+			result.Z = value1.Z - value2.Z;
+		}
+
+		/// <summary>
+		/// Performs subtraction of two Point3 objects using the (X-Y) 
+		/// operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X - value2.X;
+			point.Y = value1.Y - value2.Y;
+			point.Z = value1.Z - value2.Z;
+			return point;
+		}
+
+
+		// Negation Operators //----------------------------------------------//
+		
+		/// <summary>
+		/// Performs negation of a Point3 object.
+		/// </summary>
+		public static void Negate (ref Point3 value, out Point3 result)
+		{
+			result.X = -value.X;
+			result.Y = -value.Y;
+			result.Z = -value.Z;
+		}
+
+		/// <summary>
+		/// Performs negation of a Point3 object using the (-X) operator.
+		/// </summary>
+		public static Point3 operator - (Point3 value)
+		{
+			Point3 point;
+			point.X = -value.X;
+			point.Y = -value.Y;
+			point.Z = -value.Z;
+			return point;
+		}
+
+		// Multiplication Operators //----------------------------------------//
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X * value2.X;
+			result.Y = value1.Y * value2.Y;
+			result.Z = value1.Z * value2.Z;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a <#= type #>
+		/// precision scaling factor.
+		/// </summary>
+		public static void Multiply (ref Point3 value1, <#= type #> scaleFactor, out Point3 result)
+		{
+			result.X = value1.X * scaleFactor;
+			result.Y = value1.Y * scaleFactor;
+			result.Z = value1.Z * scaleFactor;
+		}
+
+		/// <summary>
+		/// Performs muliplication of two Point3 objects using the (X*Y)
+		/// operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X * value2.X;
+			point.Y = value1.Y * value2.Y;
+			point.Z = value1.Z * value2.Z;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a Point3 object and a <#= type #>
+		/// precision scaling factor using the (X*y) operator.
+		/// </summary>
+		public static Point3 operator * (Point3 value, <#= type #> scaleFactor)
+		{
+			Point3 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			point.Z = value.Z * scaleFactor;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs multiplication of a <#= type #> precision scaling factor 
+		/// and aPoint3 object using the (x*Y) operator.
+		/// </summary>
+		public static Point3 operator * (<#= type #> scaleFactor, Point3 value)
+		{
+			Point3 point;
+			point.X = value.X * scaleFactor;
+			point.Y = value.Y * scaleFactor;
+			point.Z = value.Z * scaleFactor;
+			return point;
+		}
+
+		// Division Operators //----------------------------------------------//
+
+		/// <summary>
+		/// Performs division of two Point3 objects.
+		/// </summary>
+		public static void Divide (ref Point3 value1, ref Point3 value2, out Point3 result)
+		{
+			result.X = value1.X / value2.X;
+			result.Y = value1.Y / value2.Y;
+			result.Z = value1.Z / value2.Z;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a <#= type #> precision
+		/// scaling factor.
+		/// </summary>
+		public static void Divide (ref Point3 value1, <#= type #> value2, out Point3 result)
+		{
+			<#= type #> one = 1;
+			<#= type #> num = one / value2;
+			result.X = value1.X * num;
+			result.Y = value1.Y * num;
+			result.Z = value1.Z * num;
+		}
+
+		/// <summary>
+		/// Performs division of two Point3 objects using the (X/Y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value1, Point3 value2)
+		{
+			Point3 point;
+			point.X = value1.X / value2.X;
+			point.Y = value1.Y / value2.Y;
+			point.Z = value1.Z / value2.Z;
+			return point;
+		}
+
+		/// <summary>
+		/// Performs division of a Point3 object and a <#= type #> precision
+		/// scaling factor using the (X/y) operator.
+		/// </summary>
+		public static Point3 operator / (Point3 value, <#= type #> divider)
+		{
+			Point3 point;
+			<#= type #> one = 1;
+
+			<#= type #> num = one / divider;
+			point.X = value.X * num;
+			point.Y = value.Y * num;
+			point.Z = value.Z * num;
+			return point;
+		}
+		

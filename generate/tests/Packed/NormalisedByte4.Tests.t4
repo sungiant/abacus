@@ -1,8 +1,16 @@
-﻿    [TestFixture]
+﻿    /// <summary>
+    /// Tests the NormalisedByte4 packed data type.
+    /// </summary>
+    [TestFixture]
     public class NormalisedByte4Tests
     {
+        /// <summary>
+        /// Iterates over a random selection of values within the range of
+        /// possible NormalisedByte4 values and makes sure that unpacking them and 
+        /// then re-packing that result yeilds the original packed value.
+        /// </summary>
         [Test]
-        public static void TestRandomValues()
+        public void TestRandomValues_i()
         {
             var rand = new System.Random();
             var buff = new Byte[4];
@@ -25,4 +33,7 @@
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
+
+<#  GeneratePackedTestsCommon("NormalisedByte4", "UInt32", "packedXyzw", "realXyzw", 4); #>
     }
+
