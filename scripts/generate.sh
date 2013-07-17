@@ -3,11 +3,11 @@
 startPath=`pwd`
 
 # Generate Abacus.cs
-cd ../generate/source
+cd ../generate/Abacus
 mono-t4 Abacus.tt -o ../../source/Abacus.cs
 cd $startPath
 
 # Generate Tests.cs
-cd ../generate/tests
-mono-t4 Tests.tt -o ../../source/Tests.cs
+cd ../generate/Abacus.Tests
+mono-t4 Abacus.Tests.tt -o ../../source/Abacus.Tests.cs
 cd $startPath
