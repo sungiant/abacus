@@ -1,7 +1,7 @@
 ﻿	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct NormalisedByte2 
 		: IPackedValue<UInt16>
 		, IEquatable<NormalisedByte2>

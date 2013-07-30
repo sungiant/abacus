@@ -1,7 +1,7 @@
 ﻿	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public partial struct Rgba32 
 		: IPackedValue<UInt32>
 		, IEquatable<Rgba32>

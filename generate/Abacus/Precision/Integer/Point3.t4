@@ -1,7 +1,7 @@
 ﻿	/// <summary>
 	/// Represents a <#= type #> precision point on a 3D integer grid.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Point3 
 		: IEquatable<Point3>
 	{

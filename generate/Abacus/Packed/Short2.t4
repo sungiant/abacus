@@ -1,7 +1,7 @@
 ﻿	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Short2 
 		: IPackedValue<UInt32>
 		, IEquatable<Short2>

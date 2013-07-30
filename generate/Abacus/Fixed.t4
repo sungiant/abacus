@@ -27,7 +27,7 @@
 	/// Q numbers are a ratio of two integers: the numerator is kept in storage, 
 	/// the denominator is equal to 2^n.
 	/// 
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential), Serializable]
 	public struct Fixed32
 		: IFormattable
 		, IComparable<Fixed32>

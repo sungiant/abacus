@@ -321,7 +321,7 @@ namespace Sungiant.Abacus
 	/// Q numbers are a ratio of two integers: the numerator is kept in storage, 
 	/// the denominator is equal to 2^n.
 	/// 
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential), Serializable]
 	public struct Fixed32
 		: IFormattable
 		, IComparable<Fixed32>
@@ -1785,7 +1785,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential), Serializable]
 	public struct Alpha_8
 		: IPackedValue<Byte>
 		, IEquatable<Alpha_8>
@@ -1999,7 +1999,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Bgr_5_6_5 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgr_5_6_5>
@@ -2216,7 +2216,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Bgra16 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgra16>
@@ -2435,7 +2435,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Bgra_5_5_5_1 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgra_5_5_5_1>
@@ -2654,7 +2654,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Byte4 
 		: IPackedValue<UInt32>
 		, IEquatable<Byte4>
@@ -2872,7 +2872,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct NormalisedByte2 
 		: IPackedValue<UInt16>
 		, IEquatable<NormalisedByte2>
@@ -3087,7 +3087,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct NormalisedByte4 
 		: IPackedValue<UInt32>
 		, IEquatable<NormalisedByte4>
@@ -3306,7 +3306,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct NormalisedShort2 
 		: IPackedValue<UInt32>
 		, IEquatable<NormalisedShort2>
@@ -3521,7 +3521,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct NormalisedShort4 
 		: IPackedValue<UInt64>
 		, IEquatable<NormalisedShort4>
@@ -3740,7 +3740,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Rg32 
 		: IPackedValue<UInt32>
 		, IEquatable<Rg32>
@@ -3955,7 +3955,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public partial struct Rgba32 
 		: IPackedValue<UInt32>
 		, IEquatable<Rgba32>
@@ -5713,7 +5713,7 @@ namespace Sungiant.Abacus.Packed
 		}
 	}
 
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Rgba64 
 		: IPackedValue<UInt64>
 		, IEquatable<Rgba64>
@@ -5921,7 +5921,7 @@ namespace Sungiant.Abacus.Packed
 	}
 	
 	// 2 bit alpha
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Rgba_10_10_10_2 
 		: IPackedValue<UInt32>
 		, IEquatable<Rgba_10_10_10_2>
@@ -6132,7 +6132,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Short2 
 		: IPackedValue<UInt32>
 		, IEquatable<Short2>
@@ -6347,7 +6347,7 @@ namespace Sungiant.Abacus.Packed
 	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Short4 
 		: IPackedValue<UInt64>
 		, IEquatable<Short4>
@@ -6571,7 +6571,7 @@ namespace Sungiant.Abacus.Int32Precision
 	/// <summary>
 	/// Represents a Int32 precision point on a 2D integer grid.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Point2 
 		: IEquatable<Point2>
 	{
@@ -6913,7 +6913,7 @@ namespace Sungiant.Abacus.Int32Precision
 	/// <summary>
 	/// Represents a Int32 precision point on a 3D integer grid.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Point3 
 		: IEquatable<Point3>
 	{
@@ -7385,7 +7385,7 @@ namespace Sungiant.Abacus.Int64Precision
 	/// <summary>
 	/// Represents a Int64 precision point on a 2D integer grid.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Point2 
 		: IEquatable<Point2>
 	{
@@ -7727,7 +7727,7 @@ namespace Sungiant.Abacus.Int64Precision
 	/// <summary>
 	/// Represents a Int64 precision point on a 3D integer grid.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Point3 
 		: IEquatable<Point3>
 	{
@@ -8540,7 +8540,7 @@ namespace Sungiant.Abacus.SinglePrecision
 	/// <summary>
 	/// Single precision Matrix44.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
@@ -10583,7 +10583,7 @@ namespace Sungiant.Abacus.SinglePrecision
 	/// <summary>
 	/// Single precision Quaternion.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
@@ -11319,7 +11319,7 @@ namespace Sungiant.Abacus.SinglePrecision
 	}	/// <summary>
 	/// Single precision Vector2.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector2
 		: IEquatable<Vector2>
 	{
@@ -12037,7 +12037,7 @@ namespace Sungiant.Abacus.SinglePrecision
 	/// <summary>
 	/// Single precision Vector3.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector3 
 		: IEquatable<Vector3>
 	{
@@ -12813,7 +12813,7 @@ namespace Sungiant.Abacus.SinglePrecision
 	/// <summary>
 	/// Single precision Vector4.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector4 
 		: IEquatable<Vector4>
 	{
@@ -13959,7 +13959,7 @@ namespace Sungiant.Abacus.DoublePrecision
 	/// <summary>
 	/// Double precision Matrix44.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
@@ -16002,7 +16002,7 @@ namespace Sungiant.Abacus.DoublePrecision
 	/// <summary>
 	/// Double precision Quaternion.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
@@ -16738,7 +16738,7 @@ namespace Sungiant.Abacus.DoublePrecision
 	}	/// <summary>
 	/// Double precision Vector2.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector2
 		: IEquatable<Vector2>
 	{
@@ -17456,7 +17456,7 @@ namespace Sungiant.Abacus.DoublePrecision
 	/// <summary>
 	/// Double precision Vector3.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector3 
 		: IEquatable<Vector3>
 	{
@@ -18232,7 +18232,7 @@ namespace Sungiant.Abacus.DoublePrecision
 	/// <summary>
 	/// Double precision Vector4.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector4 
 		: IEquatable<Vector4>
 	{
@@ -19378,7 +19378,7 @@ namespace Sungiant.Abacus.Fixed32Precision
 	/// <summary>
 	/// Fixed32 precision Matrix44.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Matrix44 
 		: IEquatable<Matrix44>
 	{
@@ -21421,7 +21421,7 @@ namespace Sungiant.Abacus.Fixed32Precision
 	/// <summary>
 	/// Fixed32 precision Quaternion.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Quaternion 
 		: IEquatable<Quaternion>
 	{
@@ -22157,7 +22157,7 @@ namespace Sungiant.Abacus.Fixed32Precision
 	}	/// <summary>
 	/// Fixed32 precision Vector2.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector2
 		: IEquatable<Vector2>
 	{
@@ -22875,7 +22875,7 @@ namespace Sungiant.Abacus.Fixed32Precision
 	/// <summary>
 	/// Fixed32 precision Vector3.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector3 
 		: IEquatable<Vector3>
 	{
@@ -23651,7 +23651,7 @@ namespace Sungiant.Abacus.Fixed32Precision
 	/// <summary>
 	/// Fixed32 precision Vector4.
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Vector4 
 		: IEquatable<Vector4>
 	{

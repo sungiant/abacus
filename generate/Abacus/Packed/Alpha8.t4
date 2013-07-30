@@ -1,7 +1,7 @@
 ﻿	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential), Serializable]
 	public struct Alpha_8
 		: IPackedValue<Byte>
 		, IEquatable<Alpha_8>

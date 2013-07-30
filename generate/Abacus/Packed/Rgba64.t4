@@ -1,4 +1,4 @@
-﻿	[StructLayout (LayoutKind.Sequential)]
+﻿	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Rgba64 
 		: IPackedValue<UInt64>
 		, IEquatable<Rgba64>

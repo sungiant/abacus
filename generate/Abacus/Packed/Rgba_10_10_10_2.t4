@@ -1,5 +1,5 @@
 ﻿	// 2 bit alpha
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Rgba_10_10_10_2 
 		: IPackedValue<UInt32>
 		, IEquatable<Rgba_10_10_10_2>

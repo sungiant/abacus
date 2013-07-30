@@ -1,7 +1,7 @@
 ﻿	/// <summary>
 	/// todo
 	/// </summary>
-	[StructLayout (LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential), Serializable]
 	public struct Bgra_5_5_5_1 
 		: IPackedValue<UInt16>
 		, IEquatable<Bgra_5_5_5_1>
