@@ -1,48 +1,11 @@
-# abacus
+![Abacus](/misc/logo128.png)
 
-3D Maths Library for the CLI.
+Abacus is a 3D maths library for the [CLI](http://en.wikipedia.org/wiki/Common_Language_Infrastructure), built with a primary focus on performance and efficiency.  Abacus is ideal for use developing real-time 3D applications and deterministic network simulations.
 
-## Core Data Types
+Abacus supports similar features to the mathematical portions of the XNA framework, however, Abacus is written to support more than just single precision floating point calculations.  Abacus currently supports Single, Double and Fixed32 precision real number calculations, with plans to add more types soon.
 
-+ Fixed
+The source code for Abacus can be easily included in any C# project, simply copy and compile[Abacus.cs](https://raw.github.com/sungiant/abacus/development/source/Abacus.cs) along with the rest of you code.
 
-## Real Arithmetic (Fixed, Single, Double)
+Abacus's documentation can be found [here](https://github.com/sungiant/abacus/wiki).
 
-+ Matrix44
-+ Quaternion
-+ Vector2
-+ Vector3
-+ Vector4
-+ Ray
-+ Plane
-+ Bounding Sphere
-+ Bounding Box
-+ Bounding Frustum
-
-## Integer Arithmetic (Int32, Int64)
-
-+ Point2
-+ Point3
-+ Rectangle
-
-## Packed Data Format
-
-+ Alpha8
-+ Bgr565
-+ Bgra4444
-+ Bgra5551
-+ Byte4
-+ HalfSingle
-+ HalfVector2
-+ HalfVector4
-+ Hsba10886
-+ NormalisedByte2
-+ NormalisedByte4
-+ NormalisedShort2
-+ NormalisedShort4
-+ Rg32
-+ Rgba
-+ Rgba1010102
-+ Rgba64
-+ Short2
-+ Short4
+Finally, please visit my [homepage](http://www.sungiant.co/#!/Projects) for information about my other software products.
