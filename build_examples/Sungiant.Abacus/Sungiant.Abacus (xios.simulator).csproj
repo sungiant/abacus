@@ -8,7 +8,7 @@
     <ProjectGuid>{DE5491E6-4DF9-4AAA-9985-E7CD86905D42}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>s
-        <RootNamespace>Sungiant.Abacus</RootNamespace><AssemblyName>Sungiant.Abacus_xios.simulator</AssemblyName></PropertyGroup>
+        <RootNamespace>Sungiant.Abacus</RootNamespace></PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
@@ -22,6 +22,7 @@
     <MtouchI18n />
     <MtouchArch>ARMv7</MtouchArch>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AssemblyName>Sungiant.Abacus_xios.simulator</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -33,6 +34,19 @@
     <MtouchLink>None</MtouchLink>
     <DefineConstants>XIOS;</DefineConstants>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AssemblyName>Sungiant.Abacus_xios.simulator</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|mono40' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\mono40\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <AssemblyName>SungiantAbacusxiossimulator</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|mono40' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\mono40\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <AssemblyName>SungiantAbacusxiossimulator</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
