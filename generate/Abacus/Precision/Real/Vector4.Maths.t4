@@ -45,13 +45,23 @@
 		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
+			<#= type #> lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
+
+			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
+			
+			if( lengthSquared <= epsilon || 
+				<#= type #>.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			<#= type #> one = 1;
-			<#= type #> num2 = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
-			<#= type #> num = one / (RealMaths.Sqrt (num2));
-			result.X = vector.X * num;
-			result.Y = vector.Y * num;
-			result.Z = vector.Z * num;
-			result.W = vector.W * num;
+			<#= type #> multiplier = one / (RealMaths.Sqrt (lengthSquared));
+
+			result.X = vector.X * multiplier;
+			result.Y = vector.Y * multiplier;
+			result.Z = vector.Z * multiplier;
+			result.W = vector.W * multiplier;
 		}
 
 		/// <summary>

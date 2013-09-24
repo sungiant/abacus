@@ -12351,13 +12351,22 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
-			Single one = 1;
+			Single lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
 
-			Single num2 = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
-			Single num = one / RealMaths.Sqrt (num2);
-			result.X = value.X * num;
-			result.Y = value.Y * num;
-			result.Z = value.Z * num;
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+
+			if( lengthSquared <= epsilon || 
+				Single.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Single one = 1;
+			Single multiplier = one / RealMaths.Sqrt (lengthSquared);
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+			result.Z = value.Z * multiplier;
 		}
 
 		/// <summary>
@@ -12377,11 +12386,18 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// Returns the value of an incident vector reflected across the a 
 		/// specified normal vector.
 		/// </summary>
-		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
+		public static void Reflect (
+			ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Single two = 2;
 
 			Single num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
+			
 			result.X = vector.X - ((two * num) * normal.X);
 			result.Y = vector.Y - ((two * num) * normal.Y);
 			result.Z = vector.Z - ((two * num) * normal.Z);
@@ -12431,6 +12447,11 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Single num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
 			Single num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
 			Single num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
@@ -12804,6 +12825,13 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single amount,
 			out Vector3 result)
 		{
+			Single zero = 0;
+			Single one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = a.X + ((b.X - a.X) * amount);
 			result.Y = a.Y + ((b.Y - a.Y) * amount);
 			result.Z = a.Z + ((b.Z - a.Z) * amount);
@@ -13083,13 +13111,23 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
+			Single lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
+
+			Single epsilon; RealMaths.Epsilon(out epsilon);
+			
+			if( lengthSquared <= epsilon || 
+				Single.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Single one = 1;
-			Single num2 = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
-			Single num = one / (RealMaths.Sqrt (num2));
-			result.X = vector.X * num;
-			result.Y = vector.Y * num;
-			result.Z = vector.Z * num;
-			result.W = vector.W * num;
+			Single multiplier = one / (RealMaths.Sqrt (lengthSquared));
+
+			result.X = vector.X * multiplier;
+			result.Y = vector.Y * multiplier;
+			result.Z = vector.Z * multiplier;
+			result.W = vector.W * multiplier;
 		}
 
 		/// <summary>
@@ -13604,6 +13642,13 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single amount,
 			out Vector4 result)
 		{
+			Single zero = 0;
+			Single one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = a.X + ((b.X - a.X) * amount);
 			result.Y = a.Y + ((b.Y - a.Y) * amount);
 			result.Z = a.Z + ((b.Z - a.Z) * amount);
@@ -17770,13 +17815,22 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
-			Double one = 1;
+			Double lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
 
-			Double num2 = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
-			Double num = one / RealMaths.Sqrt (num2);
-			result.X = value.X * num;
-			result.Y = value.Y * num;
-			result.Z = value.Z * num;
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+
+			if( lengthSquared <= epsilon || 
+				Double.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Double one = 1;
+			Double multiplier = one / RealMaths.Sqrt (lengthSquared);
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+			result.Z = value.Z * multiplier;
 		}
 
 		/// <summary>
@@ -17796,11 +17850,18 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// Returns the value of an incident vector reflected across the a 
 		/// specified normal vector.
 		/// </summary>
-		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
+		public static void Reflect (
+			ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Double two = 2;
 
 			Double num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
+			
 			result.X = vector.X - ((two * num) * normal.X);
 			result.Y = vector.Y - ((two * num) * normal.Y);
 			result.Z = vector.Z - ((two * num) * normal.Z);
@@ -17850,6 +17911,11 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Double num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
 			Double num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
 			Double num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
@@ -18223,6 +18289,13 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double amount,
 			out Vector3 result)
 		{
+			Double zero = 0;
+			Double one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = a.X + ((b.X - a.X) * amount);
 			result.Y = a.Y + ((b.Y - a.Y) * amount);
 			result.Z = a.Z + ((b.Z - a.Z) * amount);
@@ -18502,13 +18575,23 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
+			Double lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
+
+			Double epsilon; RealMaths.Epsilon(out epsilon);
+			
+			if( lengthSquared <= epsilon || 
+				Double.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Double one = 1;
-			Double num2 = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
-			Double num = one / (RealMaths.Sqrt (num2));
-			result.X = vector.X * num;
-			result.Y = vector.Y * num;
-			result.Z = vector.Z * num;
-			result.W = vector.W * num;
+			Double multiplier = one / (RealMaths.Sqrt (lengthSquared));
+
+			result.X = vector.X * multiplier;
+			result.Y = vector.Y * multiplier;
+			result.Z = vector.Z * multiplier;
+			result.W = vector.W * multiplier;
 		}
 
 		/// <summary>
@@ -19023,6 +19106,13 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double amount,
 			out Vector4 result)
 		{
+			Double zero = 0;
+			Double one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = a.X + ((b.X - a.X) * amount);
 			result.Y = a.Y + ((b.Y - a.Y) * amount);
 			result.Z = a.Z + ((b.Z - a.Z) * amount);
@@ -23189,13 +23279,22 @@ namespace Sungiant.Abacus.Fixed32Precision
 		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
-			Fixed32 one = 1;
+			Fixed32 lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
 
-			Fixed32 num2 = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
-			Fixed32 num = one / RealMaths.Sqrt (num2);
-			result.X = value.X * num;
-			result.Y = value.Y * num;
-			result.Z = value.Z * num;
+			Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
+
+			if( lengthSquared <= epsilon || 
+				Fixed32.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Fixed32 one = 1;
+			Fixed32 multiplier = one / RealMaths.Sqrt (lengthSquared);
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+			result.Z = value.Z * multiplier;
 		}
 
 		/// <summary>
@@ -23215,11 +23314,18 @@ namespace Sungiant.Abacus.Fixed32Precision
 		/// Returns the value of an incident vector reflected across the a 
 		/// specified normal vector.
 		/// </summary>
-		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
+		public static void Reflect (
+			ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Fixed32 two = 2;
 
 			Fixed32 num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
+			
 			result.X = vector.X - ((two * num) * normal.X);
 			result.Y = vector.Y - ((two * num) * normal.Y);
 			result.Z = vector.Z - ((two * num) * normal.Z);
@@ -23269,6 +23375,11 @@ namespace Sungiant.Abacus.Fixed32Precision
 		/// </summary>
 		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Fixed32 num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
 			Fixed32 num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
 			Fixed32 num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
@@ -23642,6 +23753,13 @@ namespace Sungiant.Abacus.Fixed32Precision
 			Fixed32 amount,
 			out Vector3 result)
 		{
+			Fixed32 zero = 0;
+			Fixed32 one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = a.X + ((b.X - a.X) * amount);
 			result.Y = a.Y + ((b.Y - a.Y) * amount);
 			result.Z = a.Z + ((b.Z - a.Z) * amount);
@@ -23921,13 +24039,23 @@ namespace Sungiant.Abacus.Fixed32Precision
 		/// </summary>
 		public static void Normalise (ref Vector4 vector, out Vector4 result)
 		{
+			Fixed32 lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
+
+			Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
+			
+			if( lengthSquared <= epsilon || 
+				Fixed32.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			Fixed32 one = 1;
-			Fixed32 num2 = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
-			Fixed32 num = one / (RealMaths.Sqrt (num2));
-			result.X = vector.X * num;
-			result.Y = vector.Y * num;
-			result.Z = vector.Z * num;
-			result.W = vector.W * num;
+			Fixed32 multiplier = one / (RealMaths.Sqrt (lengthSquared));
+
+			result.X = vector.X * multiplier;
+			result.Y = vector.Y * multiplier;
+			result.Z = vector.Z * multiplier;
+			result.W = vector.W * multiplier;
 		}
 
 		/// <summary>
@@ -24442,6 +24570,13 @@ namespace Sungiant.Abacus.Fixed32Precision
 			Fixed32 amount,
 			out Vector4 result)
 		{
+			Fixed32 zero = 0;
+			Fixed32 one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = a.X + ((b.X - a.X) * amount);
 			result.Y = a.Y + ((b.Y - a.Y) * amount);
 			result.Z = a.Z + ((b.Z - a.Z) * amount);

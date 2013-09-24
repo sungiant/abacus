@@ -43,13 +43,22 @@
 		/// </summary>
 		public static void Normalise (ref Vector3 value, out Vector3 result)
 		{
-			<#= type #> one = 1;
+			<#= type #> lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
 
-			<#= type #> num2 = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
-			<#= type #> num = one / RealMaths.Sqrt (num2);
-			result.X = value.X * num;
-			result.Y = value.Y * num;
-			result.Z = value.Z * num;
+			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
+
+			if( lengthSquared <= epsilon || 
+				<#= type #>.IsInfinity(lengthSquared) )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			<#= type #> one = 1;
+			<#= type #> multiplier = one / RealMaths.Sqrt (lengthSquared);
+
+			result.X = value.X * multiplier;
+			result.Y = value.Y * multiplier;
+			result.Z = value.Z * multiplier;
 		}
 
 		/// <summary>
@@ -69,11 +78,18 @@
 		/// Returns the value of an incident vector reflected across the a 
 		/// specified normal vector.
 		/// </summary>
-		public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result)
+		public static void Reflect (
+			ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			<#= type #> two = 2;
 
 			<#= type #> num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
+			
 			result.X = vector.X - ((two * num) * normal.X);
 			result.Y = vector.Y - ((two * num) * normal.Y);
 			result.Z = vector.Z - ((two * num) * normal.Z);
@@ -123,6 +139,11 @@
 		/// </summary>
 		public static void TransformNormal (ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
 		{
+			if( !normal.IsUnit() )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			<#= type #> num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
 			<#= type #> num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
 			<#= type #> num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);

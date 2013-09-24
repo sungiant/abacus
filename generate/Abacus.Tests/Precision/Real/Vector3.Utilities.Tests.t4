@@ -14,9 +14,9 @@
 				Vector3 result;
 				Vector3.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z < b.Z ? a.Z : b.Z ));
 			}
 		}
 
@@ -36,8 +36,9 @@
 				Vector3 result;
 				Vector3.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z > b.Z ? a.Z : b.Z ));
 			}
 		}
 

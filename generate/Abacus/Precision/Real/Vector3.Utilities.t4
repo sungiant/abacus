@@ -60,6 +60,13 @@
 			<#= type #> amount,
 			out Vector3 result)
 		{
+			<#= type #> zero = 0;
+			<#= type #> one = 1;
+			if( amount < zero || amount > one )
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+			
 			result.X = a.X + ((b.X - a.X) * amount);
 			result.Y = a.Y + ((b.Y - a.Y) * amount);
 			result.Z = a.Z + ((b.Z - a.Z) * amount);

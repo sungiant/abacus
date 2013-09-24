@@ -13502,9 +13502,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector3 result;
 				Vector3.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z < b.Z ? a.Z : b.Z ));
 			}
 		}
 
@@ -13524,8 +13524,9 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector3 result;
 				Vector3.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z > b.Z ? a.Z : b.Z ));
 			}
 		}
 
@@ -15386,8 +15387,10 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector4 result;
 				Vector4.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z < b.Z ? a.Z : b.Z ));
+				Assert.That(result.W, Is.EqualTo(a.W < b.W ? a.W : b.W ));
 			}
 		}
 
@@ -15407,8 +15410,10 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 				Vector4 result;
 				Vector4.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z > b.Z ? a.Z : b.Z ));
+				Assert.That(result.W, Is.EqualTo(a.W > b.W ? a.W : b.W ));
 			}
 		}
 
@@ -21075,9 +21080,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector3 result;
 				Vector3.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z < b.Z ? a.Z : b.Z ));
 			}
 		}
 
@@ -21097,8 +21102,9 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector3 result;
 				Vector3.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z > b.Z ? a.Z : b.Z ));
 			}
 		}
 
@@ -22959,8 +22965,10 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector4 result;
 				Vector4.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z < b.Z ? a.Z : b.Z ));
+				Assert.That(result.W, Is.EqualTo(a.W < b.W ? a.W : b.W ));
 			}
 		}
 
@@ -22980,8 +22988,10 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 				Vector4 result;
 				Vector4.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z > b.Z ? a.Z : b.Z ));
+				Assert.That(result.W, Is.EqualTo(a.W > b.W ? a.W : b.W ));
 			}
 		}
 
@@ -28648,9 +28658,9 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 				Vector3 result;
 				Vector3.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z < b.Z ? a.Z : b.Z ));
 			}
 		}
 
@@ -28670,8 +28680,9 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 				Vector3 result;
 				Vector3.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z > b.Z ? a.Z : b.Z ));
 			}
 		}
 
@@ -30532,8 +30543,10 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 				Vector4 result;
 				Vector4.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z < b.Z ? a.Z : b.Z ));
+				Assert.That(result.W, Is.EqualTo(a.W < b.W ? a.W : b.W ));
 			}
 		}
 
@@ -30553,8 +30566,10 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 				Vector4 result;
 				Vector4.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(1));
-				Assert.That(result.Y, Is.EqualTo(1));
+				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+				Assert.That(result.Z, Is.EqualTo(a.Z > b.Z ? a.Z : b.Z ));
+				Assert.That(result.W, Is.EqualTo(a.W > b.W ? a.W : b.W ));
 			}
 		}
 
