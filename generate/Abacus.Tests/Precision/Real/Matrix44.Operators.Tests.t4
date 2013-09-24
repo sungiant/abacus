@@ -381,20 +381,49 @@
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
-			<#= type #> r = -27;
-			<#= type #> s = 36;
-			<#= type #> t = 9;
-			<#= type #> u = -54;
+			var a = new Matrix44();
+			a.M11 = -27;
+			a.M12 = 36;
+			a.M13 = 9;
+			a.M14 = -54;
+			
+			a.M21 = 36;
+			a.M22 = 3;
+			a.M23 = 9;
+			a.M24 = 9;
+			
+			a.M31 = 9;
+			a.M32 = 9;
+			a.M33 = -36;
+			a.M34 = 6;
+			
+			a.M41 = -24;
+			a.M42 = 9;
+			a.M43 = 36;
+			a.M44 = -12;
 
-			<#= type #> x = 3;
-			<#= type #> y = 6;
-			<#= type #> z = -9;
+			var b = new Matrix44();
+			b.M11 = 3402;
+			b.M12 = -1269;
+			b.M13 = -2187;
+			b.M14 = 2484;
+			
+			b.M21 = -999;
+			b.M22 = 1467;
+			b.M23 = 351;
+			b.M24 = -1971;
+			
+			b.M31 = -387;
+			b.M32 = 81;
+			b.M33 = 1674;
+			b.M34 = -693;
+			
+			b.M41 = 1584;
+			b.M42 = -621;
+			b.M43 = -1863;
+			b.M44 = 1737;
 
-			var a = new Matrix44(x, y, x, y, r, s, t, u, r, s, t, u, r, s, t, u);
-			var b = new Matrix44(z, y, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-			var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-
-			this.TestMultiplication(a, b, c);
+			this.TestMultiplication(a, a, b);
 		}
 
 		/// <summary>

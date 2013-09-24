@@ -1192,7 +1192,7 @@ namespace Sungiant.Abacus
 		/// </summary>
 		public static void Epsilon(out Double value) { value = 1.0e-6; }
 
-		public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.000001"); }
+		public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
 
 		/// <summary>
 		/// todo
@@ -9245,6 +9245,7 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single zero = 0;
 			Single one = 1;
 
+
 			Single xs = quaternion.X + quaternion.X;   
 			Single ys = quaternion.Y + quaternion.Y;
 			Single zs = quaternion.Z + quaternion.Z;
@@ -9423,11 +9424,6 @@ namespace Sungiant.Abacus.SinglePrecision
 			result.M44 = one;
 		}
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
 		/// <summary>
 		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
 		/// </summary>
@@ -9443,30 +9439,67 @@ namespace Sungiant.Abacus.SinglePrecision
 			Single one = 1;
 			Single pi; RealMaths.Pi(out pi);
 
-			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
+			if ((fieldOfView <= zero) || (fieldOfView >= pi))
+			{
 				throw new ArgumentOutOfRangeException ("fieldOfView");
 			}
-			if (nearPlaneDistance <= zero) {
+
+			if (nearPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			if (farPlaneDistance <= zero) {
+
+			if (farPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("farPlaneDistance");
 			}
-			if (nearPlaneDistance >= farPlaneDistance) {
+
+			if (nearPlaneDistance >= farPlaneDistance)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			Single num = one / (RealMaths.Tan ((fieldOfView * half)));
-			Single num9 = num / aspectRatio;
-			result.M11 = num9;
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = num;
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M31 = result.M32 = zero;
-			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+
+			//
+			// xScale     0          0              0
+			// 0        yScale       0              0
+			// 0        0        zf/(zn-zf)        -1
+			// 0        0        zn*zf/(zn-zf)      0
+			//
+			// where:
+			//
+			// yScale = cot(fovY/2)
+			//     
+			// xScale = yScale / aspect ratio
+			//
+
+			// yScale = cot(fovY/2)
+			Single yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+			// xScale = yScale / aspect ratio
+			Single xScale = yScale / aspectRatio;
+
+			result.M11 = xScale;
+			result.M12 = zero;
+			result.M13 = zero;
+			result.M14 = zero;
+			
+			result.M21 = zero;
+			result.M22 = yScale;
+			result.M23 = zero;
+			result.M24 = zero;
+
+			result.M31 = zero;
+			result.M32 = zero;
+			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
 			result.M34 = -one;
-			result.M41 = result.M42 = result.M44 = zero;
-			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+
+			result.M41 = zero;
+			result.M42 = zero;
+			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+			result.M44 = zero;
 		}
+
+
 
 		////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////
@@ -12374,12 +12407,9 @@ namespace Sungiant.Abacus.SinglePrecision
 		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
-			Single num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
-			Single num2 = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
-			Single num = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
+			result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
+			result.Y = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
+			result.Z = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
 		}
 
 		/// <summary>
@@ -14709,6 +14739,7 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double zero = 0;
 			Double one = 1;
 
+
 			Double xs = quaternion.X + quaternion.X;   
 			Double ys = quaternion.Y + quaternion.Y;
 			Double zs = quaternion.Z + quaternion.Z;
@@ -14887,11 +14918,6 @@ namespace Sungiant.Abacus.DoublePrecision
 			result.M44 = one;
 		}
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
 		/// <summary>
 		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
 		/// </summary>
@@ -14907,30 +14933,67 @@ namespace Sungiant.Abacus.DoublePrecision
 			Double one = 1;
 			Double pi; RealMaths.Pi(out pi);
 
-			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
+			if ((fieldOfView <= zero) || (fieldOfView >= pi))
+			{
 				throw new ArgumentOutOfRangeException ("fieldOfView");
 			}
-			if (nearPlaneDistance <= zero) {
+
+			if (nearPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			if (farPlaneDistance <= zero) {
+
+			if (farPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("farPlaneDistance");
 			}
-			if (nearPlaneDistance >= farPlaneDistance) {
+
+			if (nearPlaneDistance >= farPlaneDistance)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			Double num = one / (RealMaths.Tan ((fieldOfView * half)));
-			Double num9 = num / aspectRatio;
-			result.M11 = num9;
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = num;
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M31 = result.M32 = zero;
-			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+
+			//
+			// xScale     0          0              0
+			// 0        yScale       0              0
+			// 0        0        zf/(zn-zf)        -1
+			// 0        0        zn*zf/(zn-zf)      0
+			//
+			// where:
+			//
+			// yScale = cot(fovY/2)
+			//     
+			// xScale = yScale / aspect ratio
+			//
+
+			// yScale = cot(fovY/2)
+			Double yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+			// xScale = yScale / aspect ratio
+			Double xScale = yScale / aspectRatio;
+
+			result.M11 = xScale;
+			result.M12 = zero;
+			result.M13 = zero;
+			result.M14 = zero;
+			
+			result.M21 = zero;
+			result.M22 = yScale;
+			result.M23 = zero;
+			result.M24 = zero;
+
+			result.M31 = zero;
+			result.M32 = zero;
+			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
 			result.M34 = -one;
-			result.M41 = result.M42 = result.M44 = zero;
-			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+
+			result.M41 = zero;
+			result.M42 = zero;
+			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+			result.M44 = zero;
 		}
+
+
 
 		////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////
@@ -17838,12 +17901,9 @@ namespace Sungiant.Abacus.DoublePrecision
 		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
-			Double num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
-			Double num2 = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
-			Double num = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
+			result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
+			result.Y = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
+			result.Z = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
 		}
 
 		/// <summary>
@@ -20173,6 +20233,7 @@ namespace Sungiant.Abacus.Fixed32Precision
 			Fixed32 zero = 0;
 			Fixed32 one = 1;
 
+
 			Fixed32 xs = quaternion.X + quaternion.X;   
 			Fixed32 ys = quaternion.Y + quaternion.Y;
 			Fixed32 zs = quaternion.Z + quaternion.Z;
@@ -20351,11 +20412,6 @@ namespace Sungiant.Abacus.Fixed32Precision
 			result.M44 = one;
 		}
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
 		/// <summary>
 		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
 		/// </summary>
@@ -20371,30 +20427,67 @@ namespace Sungiant.Abacus.Fixed32Precision
 			Fixed32 one = 1;
 			Fixed32 pi; RealMaths.Pi(out pi);
 
-			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
+			if ((fieldOfView <= zero) || (fieldOfView >= pi))
+			{
 				throw new ArgumentOutOfRangeException ("fieldOfView");
 			}
-			if (nearPlaneDistance <= zero) {
+
+			if (nearPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			if (farPlaneDistance <= zero) {
+
+			if (farPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("farPlaneDistance");
 			}
-			if (nearPlaneDistance >= farPlaneDistance) {
+
+			if (nearPlaneDistance >= farPlaneDistance)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			Fixed32 num = one / (RealMaths.Tan ((fieldOfView * half)));
-			Fixed32 num9 = num / aspectRatio;
-			result.M11 = num9;
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = num;
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M31 = result.M32 = zero;
-			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+
+			//
+			// xScale     0          0              0
+			// 0        yScale       0              0
+			// 0        0        zf/(zn-zf)        -1
+			// 0        0        zn*zf/(zn-zf)      0
+			//
+			// where:
+			//
+			// yScale = cot(fovY/2)
+			//     
+			// xScale = yScale / aspect ratio
+			//
+
+			// yScale = cot(fovY/2)
+			Fixed32 yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+			// xScale = yScale / aspect ratio
+			Fixed32 xScale = yScale / aspectRatio;
+
+			result.M11 = xScale;
+			result.M12 = zero;
+			result.M13 = zero;
+			result.M14 = zero;
+			
+			result.M21 = zero;
+			result.M22 = yScale;
+			result.M23 = zero;
+			result.M24 = zero;
+
+			result.M31 = zero;
+			result.M32 = zero;
+			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
 			result.M34 = -one;
-			result.M41 = result.M42 = result.M44 = zero;
-			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+
+			result.M41 = zero;
+			result.M42 = zero;
+			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+			result.M44 = zero;
 		}
+
+
 
 		////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////
@@ -23302,12 +23395,9 @@ namespace Sungiant.Abacus.Fixed32Precision
 		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
-			Fixed32 num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
-			Fixed32 num2 = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
-			Fixed32 num = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
+			result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
+			result.Y = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
+			result.Z = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
 		}
 
 		/// <summary>

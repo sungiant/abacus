@@ -8000,7 +8000,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Matrix44.
 		/// </summary>
-		static Matrix44 GetNextRandomMatrix44 ()
+		internal static Matrix44 GetNextRandomMatrix44 ()
 		{
 			Single a = GetNextRandomSingle();
 			Single b = GetNextRandomSingle();
@@ -8025,7 +8025,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two Matrix44s are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+		internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
 		{
 			Single tolerance; RealMaths.TestTolerance(out tolerance);
 
@@ -8222,7 +8222,62 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestStaticFn_CreateFromQuaternion_i ()
 		{
-			throw new NotImplementedException();
+			Single yaw; RealMaths.Pi(out yaw); yaw /= (Single) 4;
+			Single pitch; RealMaths.Pi(out pitch); pitch /= (Single) (-8);
+			Single roll; RealMaths.Pi(out roll); roll /= (Single) 2;
+
+			Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
+			q.Normalise();
+			Console.WriteLine(q);
+
+			Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
+			Console.WriteLine(m);
+
+			Matrix44 expected = new Matrix44 ();
+			expected.M11 = Single.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+			expected.M12 = Single.Parse("0.9238795");
+			expected.M13 = Single.Parse("-0.270598");
+			expected.M14 = 0;
+			expected.M21 = Single.Parse("-0.7071067");
+			expected.M22 = Single.Parse("6.705523E-08");
+			expected.M23 = Single.Parse("0.7071067");
+			expected.M24 = 0;
+			expected.M31 = Single.Parse("0.6532815");
+			expected.M32 = Single.Parse("0.3826834");
+			expected.M33 = Single.Parse("0.6532815");
+			expected.M34 = 0;
+			expected.M41 = 0;
+			expected.M42 = 0;
+			expected.M43 = 0;
+			expected.M44 = 1;
+
+
+			AssertEqualWithinReason(m, expected);
+
+		}
+
+		/// <summary>
+		/// Assert that, for a number of examples, a random quaternion can be 
+		/// selected, converted to a Matrix44 then converted back to the same
+		/// quaternion (assuming that the conversion back is correct).
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CreateFromQuaternion_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Quaternion q = QuaternionTests.GetNextRandomQuaternion();
+				Quaternion.Normalise(ref q, out q);
+
+				Matrix44 m;
+				Matrix44.CreateFromQuaternion(ref q, out m);
+
+				Quaternion q2;
+				Quaternion.CreateFromRotationMatrix(ref m, out q2);
+
+				Console.WriteLine( q.ToString() + " - " + q2.ToString());
+				QuaternionTests.AssertEqualWithinReason(q, q2);
+			}
 		}
 
 		/// <summary>
@@ -8778,20 +8833,49 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
-			Single r = -27;
-			Single s = 36;
-			Single t = 9;
-			Single u = -54;
+			var a = new Matrix44();
+			a.M11 = -27;
+			a.M12 = 36;
+			a.M13 = 9;
+			a.M14 = -54;
+			
+			a.M21 = 36;
+			a.M22 = 3;
+			a.M23 = 9;
+			a.M24 = 9;
+			
+			a.M31 = 9;
+			a.M32 = 9;
+			a.M33 = -36;
+			a.M34 = 6;
+			
+			a.M41 = -24;
+			a.M42 = 9;
+			a.M43 = 36;
+			a.M44 = -12;
 
-			Single x = 3;
-			Single y = 6;
-			Single z = -9;
+			var b = new Matrix44();
+			b.M11 = 3402;
+			b.M12 = -1269;
+			b.M13 = -2187;
+			b.M14 = 2484;
+			
+			b.M21 = -999;
+			b.M22 = 1467;
+			b.M23 = 351;
+			b.M24 = -1971;
+			
+			b.M31 = -387;
+			b.M32 = 81;
+			b.M33 = 1674;
+			b.M34 = -693;
+			
+			b.M41 = 1584;
+			b.M42 = -621;
+			b.M43 = -1863;
+			b.M44 = 1737;
 
-			var a = new Matrix44(x, y, x, y, r, s, t, u, r, s, t, u, r, s, t, u);
-			var b = new Matrix44(z, y, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-			var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-
-			this.TestMultiplication(a, b, c);
+			this.TestMultiplication(a, a, b);
 		}
 
 		/// <summary>
@@ -8985,7 +9069,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Quaternion.
 		/// </summary>
-		static Quaternion GetNextRandomQuaternion ()
+		internal static Quaternion GetNextRandomQuaternion ()
 		{
 			Single a = GetNextRandomSingle();
 			Single b = GetNextRandomSingle();
@@ -8998,7 +9082,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two Quaternions are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Quaternion a, Quaternion b)
+		internal static void AssertEqualWithinReason (Quaternion a, Quaternion b)
 		{
 			Single tolerance; RealMaths.TestTolerance(out tolerance);
 
@@ -15578,7 +15662,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Matrix44.
 		/// </summary>
-		static Matrix44 GetNextRandomMatrix44 ()
+		internal static Matrix44 GetNextRandomMatrix44 ()
 		{
 			Double a = GetNextRandomDouble();
 			Double b = GetNextRandomDouble();
@@ -15603,7 +15687,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two Matrix44s are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+		internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
 		{
 			Double tolerance; RealMaths.TestTolerance(out tolerance);
 
@@ -15800,7 +15884,62 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestStaticFn_CreateFromQuaternion_i ()
 		{
-			throw new NotImplementedException();
+			Double yaw; RealMaths.Pi(out yaw); yaw /= (Double) 4;
+			Double pitch; RealMaths.Pi(out pitch); pitch /= (Double) (-8);
+			Double roll; RealMaths.Pi(out roll); roll /= (Double) 2;
+
+			Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
+			q.Normalise();
+			Console.WriteLine(q);
+
+			Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
+			Console.WriteLine(m);
+
+			Matrix44 expected = new Matrix44 ();
+			expected.M11 = Double.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+			expected.M12 = Double.Parse("0.9238795");
+			expected.M13 = Double.Parse("-0.270598");
+			expected.M14 = 0;
+			expected.M21 = Double.Parse("-0.7071067");
+			expected.M22 = Double.Parse("6.705523E-08");
+			expected.M23 = Double.Parse("0.7071067");
+			expected.M24 = 0;
+			expected.M31 = Double.Parse("0.6532815");
+			expected.M32 = Double.Parse("0.3826834");
+			expected.M33 = Double.Parse("0.6532815");
+			expected.M34 = 0;
+			expected.M41 = 0;
+			expected.M42 = 0;
+			expected.M43 = 0;
+			expected.M44 = 1;
+
+
+			AssertEqualWithinReason(m, expected);
+
+		}
+
+		/// <summary>
+		/// Assert that, for a number of examples, a random quaternion can be 
+		/// selected, converted to a Matrix44 then converted back to the same
+		/// quaternion (assuming that the conversion back is correct).
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CreateFromQuaternion_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Quaternion q = QuaternionTests.GetNextRandomQuaternion();
+				Quaternion.Normalise(ref q, out q);
+
+				Matrix44 m;
+				Matrix44.CreateFromQuaternion(ref q, out m);
+
+				Quaternion q2;
+				Quaternion.CreateFromRotationMatrix(ref m, out q2);
+
+				Console.WriteLine( q.ToString() + " - " + q2.ToString());
+				QuaternionTests.AssertEqualWithinReason(q, q2);
+			}
 		}
 
 		/// <summary>
@@ -16356,20 +16495,49 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
-			Double r = -27;
-			Double s = 36;
-			Double t = 9;
-			Double u = -54;
+			var a = new Matrix44();
+			a.M11 = -27;
+			a.M12 = 36;
+			a.M13 = 9;
+			a.M14 = -54;
+			
+			a.M21 = 36;
+			a.M22 = 3;
+			a.M23 = 9;
+			a.M24 = 9;
+			
+			a.M31 = 9;
+			a.M32 = 9;
+			a.M33 = -36;
+			a.M34 = 6;
+			
+			a.M41 = -24;
+			a.M42 = 9;
+			a.M43 = 36;
+			a.M44 = -12;
 
-			Double x = 3;
-			Double y = 6;
-			Double z = -9;
+			var b = new Matrix44();
+			b.M11 = 3402;
+			b.M12 = -1269;
+			b.M13 = -2187;
+			b.M14 = 2484;
+			
+			b.M21 = -999;
+			b.M22 = 1467;
+			b.M23 = 351;
+			b.M24 = -1971;
+			
+			b.M31 = -387;
+			b.M32 = 81;
+			b.M33 = 1674;
+			b.M34 = -693;
+			
+			b.M41 = 1584;
+			b.M42 = -621;
+			b.M43 = -1863;
+			b.M44 = 1737;
 
-			var a = new Matrix44(x, y, x, y, r, s, t, u, r, s, t, u, r, s, t, u);
-			var b = new Matrix44(z, y, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-			var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-
-			this.TestMultiplication(a, b, c);
+			this.TestMultiplication(a, a, b);
 		}
 
 		/// <summary>
@@ -16563,7 +16731,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Quaternion.
 		/// </summary>
-		static Quaternion GetNextRandomQuaternion ()
+		internal static Quaternion GetNextRandomQuaternion ()
 		{
 			Double a = GetNextRandomDouble();
 			Double b = GetNextRandomDouble();
@@ -16576,7 +16744,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two Quaternions are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Quaternion a, Quaternion b)
+		internal static void AssertEqualWithinReason (Quaternion a, Quaternion b)
 		{
 			Double tolerance; RealMaths.TestTolerance(out tolerance);
 
@@ -23156,7 +23324,7 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Matrix44.
 		/// </summary>
-		static Matrix44 GetNextRandomMatrix44 ()
+		internal static Matrix44 GetNextRandomMatrix44 ()
 		{
 			Fixed32 a = GetNextRandomFixed32();
 			Fixed32 b = GetNextRandomFixed32();
@@ -23181,7 +23349,7 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two Matrix44s are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+		internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
 		{
 			Fixed32 tolerance; RealMaths.TestTolerance(out tolerance);
 
@@ -23378,7 +23546,62 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 		[Test]
 		public void TestStaticFn_CreateFromQuaternion_i ()
 		{
-			throw new NotImplementedException();
+			Fixed32 yaw; RealMaths.Pi(out yaw); yaw /= (Fixed32) 4;
+			Fixed32 pitch; RealMaths.Pi(out pitch); pitch /= (Fixed32) (-8);
+			Fixed32 roll; RealMaths.Pi(out roll); roll /= (Fixed32) 2;
+
+			Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
+			q.Normalise();
+			Console.WriteLine(q);
+
+			Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
+			Console.WriteLine(m);
+
+			Matrix44 expected = new Matrix44 ();
+			expected.M11 = Fixed32.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+			expected.M12 = Fixed32.Parse("0.9238795");
+			expected.M13 = Fixed32.Parse("-0.270598");
+			expected.M14 = 0;
+			expected.M21 = Fixed32.Parse("-0.7071067");
+			expected.M22 = Fixed32.Parse("6.705523E-08");
+			expected.M23 = Fixed32.Parse("0.7071067");
+			expected.M24 = 0;
+			expected.M31 = Fixed32.Parse("0.6532815");
+			expected.M32 = Fixed32.Parse("0.3826834");
+			expected.M33 = Fixed32.Parse("0.6532815");
+			expected.M34 = 0;
+			expected.M41 = 0;
+			expected.M42 = 0;
+			expected.M43 = 0;
+			expected.M44 = 1;
+
+
+			AssertEqualWithinReason(m, expected);
+
+		}
+
+		/// <summary>
+		/// Assert that, for a number of examples, a random quaternion can be 
+		/// selected, converted to a Matrix44 then converted back to the same
+		/// quaternion (assuming that the conversion back is correct).
+		/// </summary>
+		[Test]
+		public void TestStaticFn_CreateFromQuaternion_ii ()
+		{
+			for(Int32 i = 0; i < 100; ++i)
+			{
+				Quaternion q = QuaternionTests.GetNextRandomQuaternion();
+				Quaternion.Normalise(ref q, out q);
+
+				Matrix44 m;
+				Matrix44.CreateFromQuaternion(ref q, out m);
+
+				Quaternion q2;
+				Quaternion.CreateFromRotationMatrix(ref m, out q2);
+
+				Console.WriteLine( q.ToString() + " - " + q2.ToString());
+				QuaternionTests.AssertEqualWithinReason(q, q2);
+			}
 		}
 
 		/// <summary>
@@ -23934,20 +24157,49 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 		[Test]
 		public void TestOperator_Multiplication_i ()
 		{
-			Fixed32 r = -27;
-			Fixed32 s = 36;
-			Fixed32 t = 9;
-			Fixed32 u = -54;
+			var a = new Matrix44();
+			a.M11 = -27;
+			a.M12 = 36;
+			a.M13 = 9;
+			a.M14 = -54;
+			
+			a.M21 = 36;
+			a.M22 = 3;
+			a.M23 = 9;
+			a.M24 = 9;
+			
+			a.M31 = 9;
+			a.M32 = 9;
+			a.M33 = -36;
+			a.M34 = 6;
+			
+			a.M41 = -24;
+			a.M42 = 9;
+			a.M43 = 36;
+			a.M44 = -12;
 
-			Fixed32 x = 3;
-			Fixed32 y = 6;
-			Fixed32 z = -9;
+			var b = new Matrix44();
+			b.M11 = 3402;
+			b.M12 = -1269;
+			b.M13 = -2187;
+			b.M14 = 2484;
+			
+			b.M21 = -999;
+			b.M22 = 1467;
+			b.M23 = 351;
+			b.M24 = -1971;
+			
+			b.M31 = -387;
+			b.M32 = 81;
+			b.M33 = 1674;
+			b.M34 = -693;
+			
+			b.M41 = 1584;
+			b.M42 = -621;
+			b.M43 = -1863;
+			b.M44 = 1737;
 
-			var a = new Matrix44(x, y, x, y, r, s, t, u, r, s, t, u, r, s, t, u);
-			var b = new Matrix44(z, y, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-			var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-
-			this.TestMultiplication(a, b, c);
+			this.TestMultiplication(a, a, b);
 		}
 
 		/// <summary>
@@ -24141,7 +24393,7 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 		/// <summary>
 		/// Helper function for getting the next random Quaternion.
 		/// </summary>
-		static Quaternion GetNextRandomQuaternion ()
+		internal static Quaternion GetNextRandomQuaternion ()
 		{
 			Fixed32 a = GetNextRandomFixed32();
 			Fixed32 b = GetNextRandomFixed32();
@@ -24154,7 +24406,7 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
 		/// <summary>
 		/// Helper to encapsulate asserting that two Quaternions are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Quaternion a, Quaternion b)
+		internal static void AssertEqualWithinReason (Quaternion a, Quaternion b)
 		{
 			Fixed32 tolerance; RealMaths.TestTolerance(out tolerance);
 

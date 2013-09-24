@@ -36,7 +36,7 @@
 		/// <summary>
 		/// Helper function for getting the next random Quaternion.
 		/// </summary>
-		static Quaternion GetNextRandomQuaternion ()
+		internal static Quaternion GetNextRandomQuaternion ()
 		{
 			<#= type #> a = GetNextRandom<#= type #>();
 			<#= type #> b = GetNextRandom<#= type #>();
@@ -49,7 +49,7 @@
 		/// <summary>
 		/// Helper to encapsulate asserting that two Quaternions are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Quaternion a, Quaternion b)
+		internal static void AssertEqualWithinReason (Quaternion a, Quaternion b)
 		{
 			<#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
 

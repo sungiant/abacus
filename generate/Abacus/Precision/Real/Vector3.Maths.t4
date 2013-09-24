@@ -1,4 +1,4 @@
-﻿		// Maths //-----------------------------------------------------------//
+		// Maths //-----------------------------------------------------------//
 
 		/// <summary>
 		/// Calculates the distance between two vectors.
@@ -66,12 +66,9 @@
 		/// </summary>
 		public static void Cross (ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
 		{
-			<#= type #> num3 = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
-			<#= type #> num2 = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
-			<#= type #> num = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
-			result.X = num3;
-			result.Y = num2;
-			result.Z = num;
+			result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
+			result.Y = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
+			result.Z = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
 		}
 
 		/// <summary>

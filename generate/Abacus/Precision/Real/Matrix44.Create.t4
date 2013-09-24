@@ -333,6 +333,7 @@
 			<#= type #> zero = 0;
 			<#= type #> one = 1;
 
+
 			<#= type #> xs = quaternion.X + quaternion.X;   
 			<#= type #> ys = quaternion.Y + quaternion.Y;
 			<#= type #> zs = quaternion.Z + quaternion.Z;
@@ -511,11 +512,6 @@
 			result.M44 = one;
 		}
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
 		/// <summary>
 		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
 		/// </summary>
@@ -531,30 +527,67 @@
 			<#= type #> one = 1;
 			<#= type #> pi; RealMaths.Pi(out pi);
 
-			if ((fieldOfView <= zero) || (fieldOfView >= pi)) {
+			if ((fieldOfView <= zero) || (fieldOfView >= pi))
+			{
 				throw new ArgumentOutOfRangeException ("fieldOfView");
 			}
-			if (nearPlaneDistance <= zero) {
+
+			if (nearPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			if (farPlaneDistance <= zero) {
+
+			if (farPlaneDistance <= zero)
+			{
 				throw new ArgumentOutOfRangeException ("farPlaneDistance");
 			}
-			if (nearPlaneDistance >= farPlaneDistance) {
+
+			if (nearPlaneDistance >= farPlaneDistance)
+			{
 				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
 			}
-			<#= type #> num = one / (RealMaths.Tan ((fieldOfView * half)));
-			<#= type #> num9 = num / aspectRatio;
-			result.M11 = num9;
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = num;
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M31 = result.M32 = zero;
-			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+
+			//
+			// xScale     0          0              0
+			// 0        yScale       0              0
+			// 0        0        zf/(zn-zf)        -1
+			// 0        0        zn*zf/(zn-zf)      0
+			//
+			// where:
+			//
+			// yScale = cot(fovY/2)
+			//     
+			// xScale = yScale / aspect ratio
+			//
+
+			// yScale = cot(fovY/2)
+			<#= type #> yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+			// xScale = yScale / aspect ratio
+			<#= type #> xScale = yScale / aspectRatio;
+
+			result.M11 = xScale;
+			result.M12 = zero;
+			result.M13 = zero;
+			result.M14 = zero;
+			
+			result.M21 = zero;
+			result.M22 = yScale;
+			result.M23 = zero;
+			result.M24 = zero;
+
+			result.M31 = zero;
+			result.M32 = zero;
+			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
 			result.M34 = -one;
-			result.M41 = result.M42 = result.M44 = zero;
-			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+
+			result.M41 = zero;
+			result.M42 = zero;
+			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+			result.M44 = zero;
 		}
+
+
 
 		////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////

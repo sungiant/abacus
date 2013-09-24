@@ -36,7 +36,7 @@
 		/// <summary>
 		/// Helper function for getting the next random Matrix44.
 		/// </summary>
-		static Matrix44 GetNextRandomMatrix44 ()
+		internal static Matrix44 GetNextRandomMatrix44 ()
 		{
 			<#= type #> a = GetNextRandom<#= type #>();
 			<#= type #> b = GetNextRandom<#= type #>();
@@ -61,7 +61,7 @@
 		/// <summary>
 		/// Helper to encapsulate asserting that two Matrix44s are equal.
 		/// </summary>
-		static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+		internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
 		{
 			<#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
 
