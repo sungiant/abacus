@@ -1,39 +1,39 @@
-﻿	/// <summary>
-	/// todo
-	/// </summary>
-	[StructLayout (LayoutKind.Sequential), Serializable]
-	public struct NormalisedByte2 
-		: IPackedValue<UInt16>
-		, IEquatable<NormalisedByte2>
-		, IPackedReal2
-	{
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override String ToString ()
-		{
-			return this.packedValue.ToString ("X4", CultureInfo.InvariantCulture);
-		}
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct NormalisedByte2 
+        : IPackedValue<UInt16>
+        , IEquatable<NormalisedByte2>
+        , IPackedReal2
+    {
+        /// <summary>
+        /// todo
+        /// </summary>
+        public override String ToString ()
+        {
+            return this.packedValue.ToString ("X4", CultureInfo.InvariantCulture);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Pack(ref SinglePrecision.Vector2 realXy, out UInt16 packedXy)
-		{
-			UInt32 x = PackUtils.PackSignedNormalised(0xff, realXy.X);
-			UInt32 y = PackUtils.PackSignedNormalised(0xff, realXy.Y) << 8;
-			packedXy = (UInt16)(x | y);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(ref SinglePrecision.Vector2 realXy, out UInt16 packedXy)
+        {
+            UInt32 x = PackUtils.PackSignedNormalised(0xff, realXy.X);
+            UInt32 y = PackUtils.PackSignedNormalised(0xff, realXy.Y) << 8;
+            packedXy = (UInt16)(x | y);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Unpack(UInt16 packedXy, out SinglePrecision.Vector2 realXy)
-		{
-			realXy.X = PackUtils.UnpackSignedNormalised (0xff, packedXy);
-			realXy.Y = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXy >> 8));
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(UInt16 packedXy, out SinglePrecision.Vector2 realXy)
+        {
+            realXy.X = PackUtils.UnpackSignedNormalised (0xff, packedXy);
+            realXy.Y = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXy >> 8));
+        }
 
 <#  GeneratePackedCommon("NormalisedByte2", "UInt16", "packedXy", "realXy", 2); #>
-	}
+    }
 

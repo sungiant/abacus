@@ -1,55 +1,55 @@
-		// Test Static Fn: Conjugate //---------------------------------------//
+        // Test Static Fn: Conjugate //---------------------------------------//
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Conjugate_i ()
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Conjugate_i ()
+        {
+            throw new NotImplementedException();
+        }
 
-		// Test Static Fn: Inverse //-----------------------------------------//
+        // Test Static Fn: Inverse //-----------------------------------------//
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Inverse_i ()
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Inverse_i ()
+        {
+            throw new NotImplementedException();
+        }
 
-		// Test Static Fn: Distance //----------------------------------------//
+        // Test Static Fn: Distance //----------------------------------------//
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Dot_i ()
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Dot_i ()
+        {
+            throw new NotImplementedException();
+        }
 
-		// Test Static Fn: Concatenate //-------------------------------------//
+        // Test Static Fn: Concatenate //-------------------------------------//
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Concatenate_i ()
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Concatenate_i ()
+        {
+            throw new NotImplementedException();
+        }
 
-		// Test Static Fn: Normalise //---------------------------------------//
+        // Test Static Fn: Normalise //---------------------------------------//
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Normalise_i ()
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Normalise_i ()
+        {
+            throw new NotImplementedException();
+        }
 

@@ -1,28 +1,28 @@
-﻿		#region IComparable
-		
-		public int CompareTo(Fixed32 other)
-		{
-			return numerator.CompareTo(other.numerator);
-		}
+﻿        #region IComparable
+        
+        public int CompareTo(Fixed32 other)
+        {
+            return numerator.CompareTo(other.numerator);
+        }
 
-		public int CompareTo(object value)
-		{
-			if (value == null)
-				return 1;
+        public int CompareTo(object value)
+        {
+            if (value == null)
+                return 1;
 
-			if (!(value is Sungiant.Abacus.Fixed32))
-				throw new ArgumentException("Value is not a Sungiant.Abacus.Fixed32.");
+            if (!(value is Sungiant.Abacus.Fixed32))
+                throw new ArgumentException("Value is not a Sungiant.Abacus.Fixed32.");
 
-			Fixed32 fv = (Fixed32)value;
+            Fixed32 fv = (Fixed32)value;
 
-			if (this == fv)
-				return 0;
-			else if (this > fv)
-				return 1;
-			else
-				return -1;
+            if (this == fv)
+                return 0;
+            else if (this > fv)
+                return 1;
+            else
+                return -1;
 
-		}
+        }
 
-		#endregion
+        #endregion
 

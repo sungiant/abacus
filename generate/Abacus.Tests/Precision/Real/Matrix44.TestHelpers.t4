@@ -1,85 +1,85 @@
-		/// <summary>
-		/// The random number generator used for testing.
-		/// </summary>
-		static readonly System.Random rand;
+        /// <summary>
+        /// The random number generator used for testing.
+        /// </summary>
+        static readonly System.Random rand;
 
-		/// <summary>
-		/// Static constructor used to ensure that the random number generator
-		/// always gets initilised with the same seed, making the tests
-		/// behave in a deterministic manner.
-		/// </summary>
-		static Matrix44Tests ()
-		{
-			rand = new System.Random(0);
-		}
+        /// <summary>
+        /// Static constructor used to ensure that the random number generator
+        /// always gets initilised with the same seed, making the tests
+        /// behave in a deterministic manner.
+        /// </summary>
+        static Matrix44Tests ()
+        {
+            rand = new System.Random(0);
+        }
 
-		/// <summary>
-		/// Helper function for getting the next random <#= type #> value.
-		/// </summary>
-		static <#= type #> GetNextRandom<#= type #> ()
-		{
-			<#= type #> randomValue = rand.Next<#= type #>();
+        /// <summary>
+        /// Helper function for getting the next random <#= type #> value.
+        /// </summary>
+        static <#= type #> GetNextRandom<#= type #> ()
+        {
+            <#= type #> randomValue = rand.Next<#= type #>();
 
-			<#= type #> zero = 0;
-			<#= type #> multiplier = 1000;
+            <#= type #> zero = 0;
+            <#= type #> multiplier = 1000;
 
-			randomValue *= multiplier;
+            randomValue *= multiplier;
 
-			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
 
-			if( randomBoolean )
-				randomValue = zero - randomValue;
+            if( randomBoolean )
+                randomValue = zero - randomValue;
 
-			return randomValue;
-		}
+            return randomValue;
+        }
 
-		/// <summary>
-		/// Helper function for getting the next random Matrix44.
-		/// </summary>
-		internal static Matrix44 GetNextRandomMatrix44 ()
-		{
-			<#= type #> a = GetNextRandom<#= type #>();
-			<#= type #> b = GetNextRandom<#= type #>();
-			<#= type #> c = GetNextRandom<#= type #>();
-			<#= type #> d = GetNextRandom<#= type #>();
-			<#= type #> e = GetNextRandom<#= type #>();
-			<#= type #> f = GetNextRandom<#= type #>();
-			<#= type #> g = GetNextRandom<#= type #>();
-			<#= type #> h = GetNextRandom<#= type #>();
-			<#= type #> i = GetNextRandom<#= type #>();
-			<#= type #> j = GetNextRandom<#= type #>();
-			<#= type #> k = GetNextRandom<#= type #>();
-			<#= type #> l = GetNextRandom<#= type #>();
-			<#= type #> m = GetNextRandom<#= type #>();
-			<#= type #> n = GetNextRandom<#= type #>();
-			<#= type #> o = GetNextRandom<#= type #>();
-			<#= type #> p = GetNextRandom<#= type #>();
+        /// <summary>
+        /// Helper function for getting the next random Matrix44.
+        /// </summary>
+        internal static Matrix44 GetNextRandomMatrix44 ()
+        {
+            <#= type #> a = GetNextRandom<#= type #>();
+            <#= type #> b = GetNextRandom<#= type #>();
+            <#= type #> c = GetNextRandom<#= type #>();
+            <#= type #> d = GetNextRandom<#= type #>();
+            <#= type #> e = GetNextRandom<#= type #>();
+            <#= type #> f = GetNextRandom<#= type #>();
+            <#= type #> g = GetNextRandom<#= type #>();
+            <#= type #> h = GetNextRandom<#= type #>();
+            <#= type #> i = GetNextRandom<#= type #>();
+            <#= type #> j = GetNextRandom<#= type #>();
+            <#= type #> k = GetNextRandom<#= type #>();
+            <#= type #> l = GetNextRandom<#= type #>();
+            <#= type #> m = GetNextRandom<#= type #>();
+            <#= type #> n = GetNextRandom<#= type #>();
+            <#= type #> o = GetNextRandom<#= type #>();
+            <#= type #> p = GetNextRandom<#= type #>();
 
-			return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-		}
+            return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+        }
 
-		/// <summary>
-		/// Helper to encapsulate asserting that two Matrix44s are equal.
-		/// </summary>
-		internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
-		{
-			<#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
+        /// <summary>
+        /// Helper to encapsulate asserting that two Matrix44s are equal.
+        /// </summary>
+        internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+        {
+            <#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
 
-			Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
-			Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
-			Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
-			Assert.That(a.M14, Is.EqualTo(b.M14).Within(tolerance));
-			Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
-			Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
-			Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
-			Assert.That(a.M24, Is.EqualTo(b.M24).Within(tolerance));
-			Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
-			Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
-			Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
-			Assert.That(a.M34, Is.EqualTo(b.M34).Within(tolerance));
-			Assert.That(a.M41, Is.EqualTo(b.M41).Within(tolerance));
-			Assert.That(a.M42, Is.EqualTo(b.M42).Within(tolerance));
-			Assert.That(a.M43, Is.EqualTo(b.M43).Within(tolerance));
-			Assert.That(a.M44, Is.EqualTo(b.M44).Within(tolerance));
-		}
-		
+            Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
+            Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
+            Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
+            Assert.That(a.M14, Is.EqualTo(b.M14).Within(tolerance));
+            Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
+            Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
+            Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
+            Assert.That(a.M24, Is.EqualTo(b.M24).Within(tolerance));
+            Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
+            Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
+            Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
+            Assert.That(a.M34, Is.EqualTo(b.M34).Within(tolerance));
+            Assert.That(a.M41, Is.EqualTo(b.M41).Within(tolerance));
+            Assert.That(a.M42, Is.EqualTo(b.M42).Within(tolerance));
+            Assert.That(a.M43, Is.EqualTo(b.M43).Within(tolerance));
+            Assert.That(a.M44, Is.EqualTo(b.M44).Within(tolerance));
+        }
+        

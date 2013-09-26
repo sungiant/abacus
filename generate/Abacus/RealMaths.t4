@@ -3,445 +3,445 @@
     /// signatures across all supported precisions.  The idea being
     /// the more you use this, the more you will be able to write 
     /// code once and easily change the precision later.
-	/// </summary>
-	public static class RealMaths
-	{
+    /// </summary>
+    public static class RealMaths
+    {
 <# foreach( var realType in GetRealTypes() ) { #>
-		/// <summary>
-		/// Assigns a <#= realType #> precision real number representing
-		/// zero to the output value.
-		/// </summary>
-		public static void Zero(out <#= realType #> value) { value = 0; }
+        /// <summary>
+        /// Assigns a <#= realType #> precision real number representing
+        /// zero to the output value.
+        /// </summary>
+        public static void Zero(out <#= realType #> value) { value = 0; }
 
 <# } #>
-		/// <summary>
-		/// Assigns a Single precision real number representing half to the
-		/// output value.
-		/// </summary>
-		public static void Half(out Single value) { value = 0.5f; }
+        /// <summary>
+        /// Assigns a Single precision real number representing half to the
+        /// output value.
+        /// </summary>
+        public static void Half(out Single value) { value = 0.5f; }
 
-		/// <summary>
-		/// Assigns a Double precision real number representing half to the
-		/// output value.
-		/// </summary>
-		public static void Half(out Double value) { value = 0.5; }
+        /// <summary>
+        /// Assigns a Double precision real number representing half to the
+        /// output value.
+        /// </summary>
+        public static void Half(out Double value) { value = 0.5; }
 
-		/// <summary>
-		/// Assigns a Fixed32 precision real number representing half to the
-		/// output value.
-		/// </summary>
-		public static void Half(out Fixed32 value) { value = Fixed32.Parse("0.5"); }
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing half to the
+        /// output value.
+        /// </summary>
+        public static void Half(out Fixed32 value) { value = Fixed32.Parse("0.5"); }
 
 <# foreach( var realType in GetRealTypes() ) { #>
-		/// <summary>
-		/// Assigns a <#= realType #> precision real number representing
-		/// one to the output value.
-		/// </summary>
-		public static void One(out <#= realType #> value) { value = 1; }
+        /// <summary>
+        /// Assigns a <#= realType #> precision real number representing
+        /// one to the output value.
+        /// </summary>
+        public static void One(out <#= realType #> value) { value = 1; }
 
 <# } #>
 
-		/// <summary>
-		/// Assigns a Single precision real number representing the mathematical
-		/// constant E, Euler's number, to the output value.
-		/// </summary>
-		public static void E(out Single value) { value = 2.71828183f; }
+        /// <summary>
+        /// Assigns a Single precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E(out Single value) { value = 2.71828183f; }
 
-		/// <summary>
-		/// Assigns a Double precision real number representing the mathematical
-		/// constant E, Euler's number, to the output value.
-		/// </summary>
-		public static void E(out Double value) { value = 2.71828182845904523536028747135266249775724709369995; }
+        /// <summary>
+        /// Assigns a Double precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E(out Double value) { value = 2.71828182845904523536028747135266249775724709369995; }
 
-		/// <summary>
-		/// Assigns a Fixed32 precision real number representing the mathematical
-		/// constant E, Euler's number, to the output value.
-		/// </summary>
-		public static void E(out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E(out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
 
-		/// <summary>
-		/// Assigns a Single precision real number representing the common 
-		/// logarithm of the mathematical constant E to the output value.
-		/// </summary>
-		public static void Log10E(out Single value) { value = 0.4342944821f; }
+        /// <summary>
+        /// Assigns a Single precision real number representing the common 
+        /// logarithm of the mathematical constant E to the output value.
+        /// </summary>
+        public static void Log10E(out Single value) { value = 0.4342944821f; }
 
-		/// <summary>
-		/// Assigns a Double precision real number representing the binary 
-		/// logarithm of the mathematical constant E to the output value.
-		/// </summary>
-		public static void Log10E(out Double value) { value = 0.4342945; }
+        /// <summary>
+        /// Assigns a Double precision real number representing the binary 
+        /// logarithm of the mathematical constant E to the output value.
+        /// </summary>
+        public static void Log10E(out Double value) { value = 0.4342945; }
 
-		/// <summary>
-		/// Assigns a Fixed32 precision real number representing the binary 
-		/// logarithm of the mathematical constant E to the output value.
-		/// </summary>
-		public static void Log10E(out Fixed32 value) { value = Fixed32.Parse("0.4342945"); }
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the binary 
+        /// logarithm of the mathematical constant E to the output value.
+        /// </summary>
+        public static void Log10E(out Fixed32 value) { value = Fixed32.Parse("0.4342945"); }
 
-		/// <summary>
-		/// Assigns a Single precision real number representing the binary 
-		/// logarithm of the mathematical constant E to the output value.
-		/// </summary>
-		public static void Log2E(out Single value) { value = 1.442695f; }
+        /// <summary>
+        /// Assigns a Single precision real number representing the binary 
+        /// logarithm of the mathematical constant E to the output value.
+        /// </summary>
+        public static void Log2E(out Single value) { value = 1.442695f; }
 
-		/// <summary>
-		/// Assigns a Double precision real number representing the binary 
-		/// logarithm of the mathematical constant E to the output value.
-		/// </summary>
-		public static void Log2E(out Double value) { value = 1.442695; }
+        /// <summary>
+        /// Assigns a Double precision real number representing the binary 
+        /// logarithm of the mathematical constant E to the output value.
+        /// </summary>
+        public static void Log2E(out Double value) { value = 1.442695; }
 
-		/// <summary>
-		/// Assigns a Fixed32 precision real number representing the binary 
-		/// logarithm of the mathematical constant E to the output value.
-		/// </summary>
-		public static void Log2E(out Fixed32 value) { value = Fixed32.Parse("1.442695"); }
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the binary 
+        /// logarithm of the mathematical constant E to the output value.
+        /// </summary>
+        public static void Log2E(out Fixed32 value) { value = Fixed32.Parse("1.442695"); }
 
-		/// <summary>
-		/// Assigns a Single precision real number representing the 
-		/// mathematical constant π to the output value.
-		/// </summary>
-		public static void Pi(out Single value) { value = 3.1415926536f; }
+        /// <summary>
+        /// Assigns a Single precision real number representing the 
+        /// mathematical constant π to the output value.
+        /// </summary>
+        public static void Pi(out Single value) { value = 3.1415926536f; }
 
-		/// <summary>
-		/// Assigns a Double precision real number representing the 
-		/// mathematical constant π to the output value.
-		/// </summary>
-		public static void Pi(out Double value) { value = 3.14159265358979323846264338327950288; }
+        /// <summary>
+        /// Assigns a Double precision real number representing the 
+        /// mathematical constant π to the output value.
+        /// </summary>
+        public static void Pi(out Double value) { value = 3.14159265358979323846264338327950288; }
 
-		/// <summary>
-		/// Assigns a Fixed32 precision real number representing the 
-		/// mathematical constant π to the output value.
-		/// </summary>
-		public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the 
+        /// mathematical constant π to the output value.
+        /// </summary>
+        public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
 
-		/// <summary>
-		/// Assigns a Single precision real number representing the 
-		/// mathematical constant 2π to the output value.
-		/// </summary>
-		public static void Tau(out Single value) { value = 6.283185f; }
+        /// <summary>
+        /// Assigns a Single precision real number representing the 
+        /// mathematical constant 2π to the output value.
+        /// </summary>
+        public static void Tau(out Single value) { value = 6.283185f; }
 
-		/// <summary>
-		/// Assigns a Double precision real number representing the 
-		/// mathematical constant 2π to the output value.
-		/// </summary>
-		public static void Tau(out Double value) { value = 6.283185; }
+        /// <summary>
+        /// Assigns a Double precision real number representing the 
+        /// mathematical constant 2π to the output value.
+        /// </summary>
+        public static void Tau(out Double value) { value = 6.283185; }
 
-		/// <summary>
-		/// Assigns a Fixed32 precision real number representing the 
-		/// mathematical constant 2π to the output value.
-		/// </summary>
-		public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the 
+        /// mathematical constant 2π to the output value.
+        /// </summary>
+        public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Epsilon(out Single value) { value = 1.0e-6f; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Epsilon(out Single value) { value = 1.0e-6f; }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Epsilon(out Double value) { value = 1.0e-6; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Epsilon(out Double value) { value = 1.0e-6; }
 
-		public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
+        public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Root2(out Single value) { value = 1.41421f; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Root2(out Single value) { value = 1.41421f; }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Root2(out Double value) { value = 1.41421; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Root2(out Double value) { value = 1.41421; }
 
-		public static void Root2(out Fixed32 value) { value = Fixed32.Parse("1.41421"); }
+        public static void Root2(out Fixed32 value) { value = Fixed32.Parse("1.41421"); }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Root3(out Single value) { value = 1.73205f; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Root3(out Single value) { value = 1.73205f; }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Root3(out Double value) { value = 1.73205; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Root3(out Double value) { value = 1.73205; }
 
-		public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.73205"); }
+        public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.73205"); }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		internal static void TestTolerance(out Single value) { value = 1.0e-4f; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal static void TestTolerance(out Single value) { value = 1.0e-4f; }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		internal static void TestTolerance(out Double value) { value = 1.0e-7; }
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal static void TestTolerance(out Double value) { value = 1.0e-7; }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		internal static void TestTolerance(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal static void TestTolerance(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single Sqrt(Single input)
-		{
-			Single output = (Single)Math.Sqrt(input);
-			return output;
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Sqrt(Single input)
+        {
+            Single output = (Single)Math.Sqrt(input);
+            return output;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double Sqrt(Double input)
-		{
-			return Math.Sqrt(input);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Sqrt(Double input)
+        {
+            return Math.Sqrt(input);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 Sqrt(Fixed32 input)
-		{
-			return Fixed32.Sqrt(input);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Sqrt(Fixed32 input)
+        {
+            return Fixed32.Sqrt(input);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single Square(Single input)
-		{
-			return input * input;
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Square(Single input)
+        {
+            return input * input;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double Square(Double input)
-		{
-			return input * input;
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Square(Double input)
+        {
+            return input * input;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 Square(Fixed32 input)
-		{
-			return Fixed32.Square(input);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Square(Fixed32 input)
+        {
+            return Fixed32.Square(input);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single Sin(Single input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Sin(Single input)
+        {
             return (Single) Math.Sin((Single) input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double Sin(Double input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Sin(Double input)
+        {
             return Math.Sin(input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 Sin(Fixed32 input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Sin(Fixed32 input)
+        {
             return Fixed32.Sin(input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single Cos(Single input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Cos(Single input)
+        {
             return (Single)Math.Cos((Single)input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double Cos(Double input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Cos(Double input)
+        {
             return Math.Cos(input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 Cos(Fixed32 input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Cos(Fixed32 input)
+        {
             return Fixed32.Cos(input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single Tan(Single input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Tan(Single input)
+        {
             return (Single)Math.Tan((Single)input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double Tan(Double input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Tan(Double input)
+        {
             return Math.Tan(input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 Tan(Fixed32 input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Tan(Fixed32 input)
+        {
             return Fixed32.Tan(input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single Abs(Single input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Abs(Single input)
+        {
             return (Single)Math.Abs((Single)input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double Abs(Double input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Abs(Double input)
+        {
             return Math.Abs(input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 Abs(Fixed32 input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Abs(Fixed32 input)
+        {
             if (input < new Fixed32(0))
             {
                 return input * new Fixed32(-1);
             }
 
             return input;
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single ArcSin(Single input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcSin(Single input)
+        {
             return (Single)Math.Asin((Single)input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double ArcSin(Double input)
-		{
-			throw new System.NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcSin(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 ArcSin(Fixed32 input)
-		{
-			throw new System.NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcSin(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single ArcCos(Single input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcCos(Single input)
+        {
             return (Single)Math.Acos((Single)input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double ArcCos(Double input)
-		{
-			throw new System.NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcCos(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 ArcCos(Fixed32 input)
-		{
-			throw new System.NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcCos(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Single ArcTan(Single input)
-		{
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcTan(Single input)
+        {
             return (Single)Math.Atan((Single)input);
-		}
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Double ArcTan(Double input)
-		{
-			throw new System.NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcTan(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Fixed32 ArcTan(Fixed32 input)
-		{
-			throw new System.NotImplementedException();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcTan(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
 
 <# foreach( var realType in GetRealTypes() ) { #>
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static <#= realType #> ToRadians(<#= realType #> input)
-		{
-			<#= realType #> tau; Tau(out tau);
-			return input * tau / ((<#= realType #>)360);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static <#= realType #> ToRadians(<#= realType #> input)
+        {
+            <#= realType #> tau; Tau(out tau);
+            return input * tau / ((<#= realType #>)360);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static <#= realType #> ToDegrees(<#= realType #> input)
-		{
-			<#= realType #> tau; Tau(out tau);
-			return input / tau * ((<#= realType #>)360);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static <#= realType #> ToDegrees(<#= realType #> input)
+        {
+            <#= realType #> tau; Tau(out tau);
+            return input / tau * ((<#= realType #>)360);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
+        /// <summary>
+        /// todo
+        /// </summary>
         public static void FromFraction(Int32 numerator, Int32 denominator, out <#= realType #> value)
         {
             value = (<#= realType #>) numerator / (<#= realType #>) denominator;
         }
 
-		/// <summary>
-		/// todo
-		/// </summary>
+        /// <summary>
+        /// todo
+        /// </summary>
         public static void FromString(String str, out <#= realType #> value)
         {
             <#= realType #>.TryParse(str, out value);
         }
 
-		/// <summary>
-		/// todo
-		/// </summary>
+        /// <summary>
+        /// todo
+        /// </summary>
         public static Boolean IsZero(<#= realType #> value)
         {
             <#= realType #> ep;
@@ -449,34 +449,34 @@
             return Abs(value) < ep;
         }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static <#= realType #> Min(<#= realType #> a, <#= realType #> b)
-		{
-			return a < b ? a : b;
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static <#= realType #> Min(<#= realType #> a, <#= realType #> b)
+        {
+            return a < b ? a : b;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static <#= realType #> Max(<#= realType #> a, <#= realType #> b)
-		{
-			return a > b ? a : b;
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static <#= realType #> Max(<#= realType #> a, <#= realType #> b)
+        {
+            return a > b ? a : b;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Boolean WithinEpsilon(<#= realType #> a, <#= realType #> b)
-		{
-			<#= realType #> num = a - b;
-			return ((-<#= realType #>.Epsilon <= num) && (num <= <#= realType #>.Epsilon));
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Boolean WithinEpsilon(<#= realType #> a, <#= realType #> b)
+        {
+            <#= realType #> num = a - b;
+            return ((-<#= realType #>.Epsilon <= num) && (num <= <#= realType #>.Epsilon));
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
+        /// <summary>
+        /// todo
+        /// </summary>
         public static Int32 Sign(<#= realType #> value)
         {
             if (value > 0)
@@ -492,4 +492,4 @@
         }
 
 <# } #>
-	}
+    }

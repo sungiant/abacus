@@ -1,57 +1,57 @@
-﻿	/// <summary>
-	/// 
-	/// </summary>
-	[TestFixture]
-	public class Matrix44Tests
-	{
+﻿    /// <summary>
+    /// 
+    /// </summary>
+    [TestFixture]
+    public class Matrix44Tests
+    {
 <#@ include file="Matrix44.TestHelpers.t4"#>
 
-		/// <summary>
-		/// This test makes sure that the struct layout has been defined
-		/// correctly.
-		/// </summary>
-		[Test]
-		public void Test_StructLayout_i ()
-		{
-			Type t = typeof(Matrix44);
+        /// <summary>
+        /// This test makes sure that the struct layout has been defined
+        /// correctly.
+        /// </summary>
+        [Test]
+        public void Test_StructLayout_i ()
+        {
+            Type t = typeof(Matrix44);
 
-			Assert.That(
-				t.StructLayoutAttribute.Value, 
-				Is.EqualTo(LayoutKind.Sequential));
-		}
+            Assert.That(
+                t.StructLayoutAttribute.Value, 
+                Is.EqualTo(LayoutKind.Sequential));
+        }
 
-		/// <summary>
-		/// This test makes sure that when examining the memory addresses of the 
-		/// member variables of a number of randomly generated Matrix44
-		/// objects the results are as expected. 
-		/// </summary>
-		[Test]
-		public unsafe void Test_StructLayout_ii ()
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// This test makes sure that when examining the memory addresses of the 
+        /// member variables of a number of randomly generated Matrix44
+        /// objects the results are as expected. 
+        /// </summary>
+        [Test]
+        public unsafe void Test_StructLayout_ii ()
+        {
+            throw new NotImplementedException();
+        }
 
-		[Test]
-		public void Test_Constructors ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
-		
-		[Test]
-		public void TestMemberFn_ToString ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+        [Test]
+        public void Test_Constructors ()
+        {
+            Assert.That(true, Is.EqualTo(false));
+        }
+        
+        [Test]
+        public void TestMemberFn_ToString ()
+        {
+            Assert.That(true, Is.EqualTo(false));
+        }
 
-		[Test]
-		public void TestMemberFn_GetHashCode ()
-		{
-			Assert.That(true, Is.EqualTo(false));
-		}
+        [Test]
+        public void TestMemberFn_GetHashCode ()
+        {
+            Assert.That(true, Is.EqualTo(false));
+        }
 
 <#@ include file="Matrix44.Constants.Tests.t4"#>
 <#@ include file="Matrix44.Create.Tests.t4"#>
 <#@ include file="Matrix44.Maths.Tests.t4"#>
 <#@ include file="Matrix44.Operators.Tests.t4"#>
 <#@ include file="Matrix44.Utilities.Tests.t4"#>
-	}
+    }

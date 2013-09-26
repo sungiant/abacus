@@ -51,68 +51,68 @@ namespace Sungiant.Abacus
 <#@ include file="Fixed.t4"#>
 <#@ include file="RealMaths.t4"#>
 
-	/// <summary>
-	/// todo
-	/// </summary>
-	internal static class MarshalHelper
-	{
-		// Copies data from an unmanaged memory pointer to a managed 32-bit signed integer array.
-		internal static void Copy( IntPtr source, Int32[] destination, Int32 startIndex, Int32 length )
-		{
-			Marshal.Copy(source, destination, startIndex, length);
-		}	
+    /// <summary>
+    /// todo
+    /// </summary>
+    internal static class MarshalHelper
+    {
+        // Copies data from an unmanaged memory pointer to a managed 32-bit signed integer array.
+        internal static void Copy( IntPtr source, Int32[] destination, Int32 startIndex, Int32 length )
+        {
+            Marshal.Copy(source, destination, startIndex, length);
+        }   
 
-		// Copies data from an unmanaged memory pointer to a managed 64-bit signed integer array.
-		internal static void Copy( IntPtr source, Int64[] destination, Int32 startIndex, Int32 length )
-		{
-			Marshal.Copy(source, destination, startIndex, length);
-		}
+        // Copies data from an unmanaged memory pointer to a managed 64-bit signed integer array.
+        internal static void Copy( IntPtr source, Int64[] destination, Int32 startIndex, Int32 length )
+        {
+            Marshal.Copy(source, destination, startIndex, length);
+        }
 
-		// Copies data from an unmanaged memory pointer to a managed single-precision floating-point number array.
-		internal static void Copy( IntPtr source, Single[] destination, Int32 startIndex, Int32 length )
-		{
-			Marshal.Copy(source, destination, startIndex, length);
-		}
+        // Copies data from an unmanaged memory pointer to a managed single-precision floating-point number array.
+        internal static void Copy( IntPtr source, Single[] destination, Int32 startIndex, Int32 length )
+        {
+            Marshal.Copy(source, destination, startIndex, length);
+        }
 
-		// Copies data from an unmanaged memory pointer to a managed double-precision floating-point number array.
-		internal static void Copy( IntPtr source, Double[] destination, Int32 startIndex, Int32 length )
-		{
-			Marshal.Copy(source, destination, startIndex, length);
-		}
+        // Copies data from an unmanaged memory pointer to a managed double-precision floating-point number array.
+        internal static void Copy( IntPtr source, Double[] destination, Int32 startIndex, Int32 length )
+        {
+            Marshal.Copy(source, destination, startIndex, length);
+        }
 
-		// Copies data from an unmanaged memory pointer to a managed fixed32-precision fixed-point number array.
-		internal static void Copy( IntPtr source, Fixed32[] destination, Int32 startIndex, Int32 length )
-		{
-			throw new NotImplementedException();
-		}
-	}
+        // Copies data from an unmanaged memory pointer to a managed fixed32-precision fixed-point number array.
+        internal static void Copy( IntPtr source, Fixed32[] destination, Int32 startIndex, Int32 length )
+        {
+            throw new NotImplementedException();
+        }
+    }
 
-	/// <summary>
-	/// todo
-	/// </summary>
-	public static class RandomExtensions
-	{
-		/// <summary>
-		/// Returns a random Single between 0.0 & 1.0
-		/// </summary>
-		public static Single NextSingle(this System.Random r)
-		{
-			return (Single) r.NextDouble();
-		}
+    /// <summary>
+    /// todo
+    /// </summary>
+    public static class RandomExtensions
+    {
+        /// <summary>
+        /// Returns a random Single between 0.0 & 1.0
+        /// </summary>
+        public static Single NextSingle(this System.Random r)
+        {
+            return (Single) r.NextDouble();
+        }
 
-		/// <summary>
-		/// Returns a random Fixed32 between 0.0 & 1.0
-		/// </summary>
-		public static Fixed32 NextFixed32(this System.Random r)
-		{
-			Fixed32 max = 1;
-			Fixed32 min = 0;
+        /// <summary>
+        /// Returns a random Fixed32 between 0.0 & 1.0
+        /// </summary>
+        public static Fixed32 NextFixed32(this System.Random r)
+        {
+            Fixed32 max = 1;
+            Fixed32 min = 0;
 
-			Int32 randomInt32 = r.Next(min.RawValue, max.RawValue);
+            Int32 randomInt32 = r.Next(min.RawValue, max.RawValue);
 
-			return Fixed32.CreateFromRaw(randomInt32);
-		}
-	}
+            return Fixed32.CreateFromRaw(randomInt32);
+        }
+    }
 
 }
 

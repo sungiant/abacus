@@ -1,11 +1,11 @@
-﻿	/// <summary>
-	/// T is the type that the value is packed into
-	/// </summary>
-	public interface IPackedValue<T>
-	{
-		/// <summary>
-		/// todo
-		/// </summary>
-		T PackedValue { get; set; }
-	}
+﻿    /// <summary>
+    /// T is the type that the value is packed into
+    /// </summary>
+    public interface IPackedValue<T>
+    {
+        /// <summary>
+        /// todo
+        /// </summary>
+        T PackedValue { get; set; }
+    }
 

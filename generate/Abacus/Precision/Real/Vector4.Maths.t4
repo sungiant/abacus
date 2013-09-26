@@ -1,192 +1,192 @@
-﻿		// Maths //-----------------------------------------------------------//
+﻿        // Maths //-----------------------------------------------------------//
 
-		/// <summary>
-		/// Calculates the distance between two vectors.
-		/// </summary>
-		public static void Distance (ref Vector4 value1, ref Vector4 value2, out <#= type #> result)
-		{
-			<#= type #> num4 = value1.X - value2.X;
-			<#= type #> num3 = value1.Y - value2.Y;
-			<#= type #> num2 = value1.Z - value2.Z;
-			<#= type #> num = value1.W - value2.W;
-			<#= type #> num5 = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
-			result = RealMaths.Sqrt (num5);
-		}
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static void Distance (ref Vector4 value1, ref Vector4 value2, out <#= type #> result)
+        {
+            <#= type #> num4 = value1.X - value2.X;
+            <#= type #> num3 = value1.Y - value2.Y;
+            <#= type #> num2 = value1.Z - value2.Z;
+            <#= type #> num = value1.W - value2.W;
+            <#= type #> num5 = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
+            result = RealMaths.Sqrt (num5);
+        }
 
-		/// <summary>
-		/// Calculates the distance between two vectors squared.
-		/// </summary>
-		public static void DistanceSquared (ref Vector4 value1, ref Vector4 value2, out <#= type #> result)
-		{
-			<#= type #> num4 = value1.X - value2.X;
-			<#= type #> num3 = value1.Y - value2.Y;
-			<#= type #> num2 = value1.Z - value2.Z;
-			<#= type #> num = value1.W - value2.W;
-			result = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
-		}
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static void DistanceSquared (ref Vector4 value1, ref Vector4 value2, out <#= type #> result)
+        {
+            <#= type #> num4 = value1.X - value2.X;
+            <#= type #> num3 = value1.Y - value2.Y;
+            <#= type #> num2 = value1.Z - value2.Z;
+            <#= type #> num = value1.W - value2.W;
+            result = (((num4 * num4) + (num3 * num3)) + (num2 * num2)) + (num * num);
+        }
 
-		/// <summary>
-		/// Calculates the dot product of two vectors. If the two vectors are 
-		/// unit vectors, the dot product returns a floating point value between
-		/// -1 and 1 that can be used to determine some properties of the angle 
-		/// between two vectors. For example, it can show whether the vectors 
-		/// are orthogonal, parallel, or have an acute or obtuse angle between 
-		/// them.
-		/// </summary>
-		public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out <#= type #> result)
-		{
-			result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
-		}
-		
-		/// <summary>
-		/// Creates a unit vector from the specified vector. The result is a 
-		/// vector one unit in length pointing in the same direction as the 
-		/// original vector.
-		/// </summary>
-		public static void Normalise (ref Vector4 vector, out Vector4 result)
-		{
-			<#= type #> lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// unit vectors, the dot product returns a floating point value between
+        /// -1 and 1 that can be used to determine some properties of the angle 
+        /// between two vectors. For example, it can show whether the vectors 
+        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// them.
+        /// </summary>
+        public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out <#= type #> result)
+        {
+            result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
+        }
+        
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a 
+        /// vector one unit in length pointing in the same direction as the 
+        /// original vector.
+        /// </summary>
+        public static void Normalise (ref Vector4 vector, out Vector4 result)
+        {
+            <#= type #> lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
 
-			<#= type #> epsilon; RealMaths.Epsilon(out epsilon);
-			
-			if( lengthSquared <= epsilon || 
-				<#= type #>.IsInfinity(lengthSquared) )
-			{
-				throw new ArgumentOutOfRangeException();
-			}
+            <#= type #> epsilon; RealMaths.Epsilon(out epsilon);
+            
+            if( lengthSquared <= epsilon || 
+                <#= type #>.IsInfinity(lengthSquared) )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
 
-			<#= type #> one = 1;
-			<#= type #> multiplier = one / (RealMaths.Sqrt (lengthSquared));
+            <#= type #> one = 1;
+            <#= type #> multiplier = one / (RealMaths.Sqrt (lengthSquared));
 
-			result.X = vector.X * multiplier;
-			result.Y = vector.Y * multiplier;
-			result.Z = vector.Z * multiplier;
-			result.W = vector.W * multiplier;
-		}
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
+            result.W = vector.W * multiplier;
+        }
 
-		/// <summary>
-		/// Transforms a Vector2 by the specified Matrix44.
-		/// </summary>
-		public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
-		{
-			<#= type #> num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-			<#= type #> num3 = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-			<#= type #> num2 = ((position.X * matrix.M13) + (position.Y * matrix.M23)) + matrix.M43;
-			<#= type #> num = ((position.X * matrix.M14) + (position.Y * matrix.M24)) + matrix.M44;
-			result.X = num4;
-			result.Y = num3;
-			result.Z = num2;
-			result.W = num;
-		}
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix44.
+        /// </summary>
+        public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
+        {
+            <#= type #> num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
+            <#= type #> num3 = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
+            <#= type #> num2 = ((position.X * matrix.M13) + (position.Y * matrix.M23)) + matrix.M43;
+            <#= type #> num = ((position.X * matrix.M14) + (position.Y * matrix.M24)) + matrix.M44;
+            result.X = num4;
+            result.Y = num3;
+            result.Z = num2;
+            result.W = num;
+        }
 
-		/// <summary>
-		/// Transforms a Vector3 by the specified Matrix44.
-		/// </summary>
-		public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
-		{
-			<#= type #> num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
-			<#= type #> num3 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
-			<#= type #> num2 = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
-			<#= type #> num = (((position.X * matrix.M14) + (position.Y * matrix.M24)) + (position.Z * matrix.M34)) + matrix.M44;
-			result.X = num4;
-			result.Y = num3;
-			result.Z = num2;
-			result.W = num;
-		}
+        /// <summary>
+        /// Transforms a Vector3 by the specified Matrix44.
+        /// </summary>
+        public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
+        {
+            <#= type #> num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
+            <#= type #> num3 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
+            <#= type #> num2 = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
+            <#= type #> num = (((position.X * matrix.M14) + (position.Y * matrix.M24)) + (position.Z * matrix.M34)) + matrix.M44;
+            result.X = num4;
+            result.Y = num3;
+            result.Z = num2;
+            result.W = num;
+        }
 
-		/// <summary>
-		/// Transforms a Vector4 by the specified Matrix44.
-		/// </summary>
-		public static void Transform (ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
-		{
-			<#= type #> num4 = (((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31)) + (vector.W * matrix.M41);
-			<#= type #> num3 = (((vector.X * matrix.M12) + (vector.Y * matrix.M22)) + (vector.Z * matrix.M32)) + (vector.W * matrix.M42);
-			<#= type #> num2 = (((vector.X * matrix.M13) + (vector.Y * matrix.M23)) + (vector.Z * matrix.M33)) + (vector.W * matrix.M43);
-			<#= type #> num = (((vector.X * matrix.M14) + (vector.Y * matrix.M24)) + (vector.Z * matrix.M34)) + (vector.W * matrix.M44);
-			result.X = num4;
-			result.Y = num3;
-			result.Z = num2;
-			result.W = num;
-		}
-		
-		/// <summary>
-		/// Transforms a Vector2 by the specified Quaternion.
-		/// </summary>
-		public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
-		{
-			<#= type #> one = 1;
-			<#= type #> num6 = rotation.X + rotation.X;
-			<#= type #> num2 = rotation.Y + rotation.Y;
-			<#= type #> num = rotation.Z + rotation.Z;
-			<#= type #> num15 = rotation.W * num6;
-			<#= type #> num14 = rotation.W * num2;
-			<#= type #> num5 = rotation.W * num;
-			<#= type #> num13 = rotation.X * num6;
-			<#= type #> num4 = rotation.X * num2;
-			<#= type #> num12 = rotation.X * num;
-			<#= type #> num11 = rotation.Y * num2;
-			<#= type #> num10 = rotation.Y * num;
-			<#= type #> num3 = rotation.Z * num;
-			<#= type #> num9 = (value.X * ((one - num11) - num3)) + (value.Y * (num4 - num5));
-			<#= type #> num8 = (value.X * (num4 + num5)) + (value.Y * ((one - num13) - num3));
-			<#= type #> num7 = (value.X * (num12 - num14)) + (value.Y * (num10 + num15));
-			result.X = num9;
-			result.Y = num8;
-			result.Z = num7;
-			result.W = one;
-		}
-		
-		/// <summary>
-		/// Transforms a Vector3 by the specified Quaternion.
-		/// </summary>
-		public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
-		{
-			<#= type #> one = 1;
-			<#= type #> num12 = rotation.X + rotation.X;
-			<#= type #> num2 = rotation.Y + rotation.Y;
-			<#= type #> num = rotation.Z + rotation.Z;
-			<#= type #> num11 = rotation.W * num12;
-			<#= type #> num10 = rotation.W * num2;
-			<#= type #> num9 = rotation.W * num;
-			<#= type #> num8 = rotation.X * num12;
-			<#= type #> num7 = rotation.X * num2;
-			<#= type #> num6 = rotation.X * num;
-			<#= type #> num5 = rotation.Y * num2;
-			<#= type #> num4 = rotation.Y * num;
-			<#= type #> num3 = rotation.Z * num;
-			<#= type #> num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
-			<#= type #> num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
-			<#= type #> num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-			result.X = num15;
-			result.Y = num14;
-			result.Z = num13;
-			result.W = one;
-		}
-		
-		/// <summary>
-		/// Transforms a Vector4 by the specified Quaternion.
-		/// </summary>
-		public static void Transform (ref Vector4 value, ref Quaternion rotation, out Vector4 result)
-		{
-			<#= type #> one = 1;
-			<#= type #> num12 = rotation.X + rotation.X;
-			<#= type #> num2 = rotation.Y + rotation.Y;
-			<#= type #> num = rotation.Z + rotation.Z;
-			<#= type #> num11 = rotation.W * num12;
-			<#= type #> num10 = rotation.W * num2;
-			<#= type #> num9 = rotation.W * num;
-			<#= type #> num8 = rotation.X * num12;
-			<#= type #> num7 = rotation.X * num2;
-			<#= type #> num6 = rotation.X * num;
-			<#= type #> num5 = rotation.Y * num2;
-			<#= type #> num4 = rotation.Y * num;
-			<#= type #> num3 = rotation.Z * num;
-			<#= type #> num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
-			<#= type #> num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
-			<#= type #> num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-			result.X = num15;
-			result.Y = num14;
-			result.Z = num13;
-			result.W = value.W;
-		}
-		
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix44.
+        /// </summary>
+        public static void Transform (ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
+        {
+            <#= type #> num4 = (((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31)) + (vector.W * matrix.M41);
+            <#= type #> num3 = (((vector.X * matrix.M12) + (vector.Y * matrix.M22)) + (vector.Z * matrix.M32)) + (vector.W * matrix.M42);
+            <#= type #> num2 = (((vector.X * matrix.M13) + (vector.Y * matrix.M23)) + (vector.Z * matrix.M33)) + (vector.W * matrix.M43);
+            <#= type #> num = (((vector.X * matrix.M14) + (vector.Y * matrix.M24)) + (vector.Z * matrix.M34)) + (vector.W * matrix.M44);
+            result.X = num4;
+            result.Y = num3;
+            result.Z = num2;
+            result.W = num;
+        }
+        
+        /// <summary>
+        /// Transforms a Vector2 by the specified Quaternion.
+        /// </summary>
+        public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
+        {
+            <#= type #> one = 1;
+            <#= type #> num6 = rotation.X + rotation.X;
+            <#= type #> num2 = rotation.Y + rotation.Y;
+            <#= type #> num = rotation.Z + rotation.Z;
+            <#= type #> num15 = rotation.W * num6;
+            <#= type #> num14 = rotation.W * num2;
+            <#= type #> num5 = rotation.W * num;
+            <#= type #> num13 = rotation.X * num6;
+            <#= type #> num4 = rotation.X * num2;
+            <#= type #> num12 = rotation.X * num;
+            <#= type #> num11 = rotation.Y * num2;
+            <#= type #> num10 = rotation.Y * num;
+            <#= type #> num3 = rotation.Z * num;
+            <#= type #> num9 = (value.X * ((one - num11) - num3)) + (value.Y * (num4 - num5));
+            <#= type #> num8 = (value.X * (num4 + num5)) + (value.Y * ((one - num13) - num3));
+            <#= type #> num7 = (value.X * (num12 - num14)) + (value.Y * (num10 + num15));
+            result.X = num9;
+            result.Y = num8;
+            result.Z = num7;
+            result.W = one;
+        }
+        
+        /// <summary>
+        /// Transforms a Vector3 by the specified Quaternion.
+        /// </summary>
+        public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
+        {
+            <#= type #> one = 1;
+            <#= type #> num12 = rotation.X + rotation.X;
+            <#= type #> num2 = rotation.Y + rotation.Y;
+            <#= type #> num = rotation.Z + rotation.Z;
+            <#= type #> num11 = rotation.W * num12;
+            <#= type #> num10 = rotation.W * num2;
+            <#= type #> num9 = rotation.W * num;
+            <#= type #> num8 = rotation.X * num12;
+            <#= type #> num7 = rotation.X * num2;
+            <#= type #> num6 = rotation.X * num;
+            <#= type #> num5 = rotation.Y * num2;
+            <#= type #> num4 = rotation.Y * num;
+            <#= type #> num3 = rotation.Z * num;
+            <#= type #> num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
+            <#= type #> num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
+            <#= type #> num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
+            result.X = num15;
+            result.Y = num14;
+            result.Z = num13;
+            result.W = one;
+        }
+        
+        /// <summary>
+        /// Transforms a Vector4 by the specified Quaternion.
+        /// </summary>
+        public static void Transform (ref Vector4 value, ref Quaternion rotation, out Vector4 result)
+        {
+            <#= type #> one = 1;
+            <#= type #> num12 = rotation.X + rotation.X;
+            <#= type #> num2 = rotation.Y + rotation.Y;
+            <#= type #> num = rotation.Z + rotation.Z;
+            <#= type #> num11 = rotation.W * num12;
+            <#= type #> num10 = rotation.W * num2;
+            <#= type #> num9 = rotation.W * num;
+            <#= type #> num8 = rotation.X * num12;
+            <#= type #> num7 = rotation.X * num2;
+            <#= type #> num6 = rotation.X * num;
+            <#= type #> num5 = rotation.Y * num2;
+            <#= type #> num4 = rotation.Y * num;
+            <#= type #> num3 = rotation.Z * num;
+            <#= type #> num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
+            <#= type #> num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
+            <#= type #> num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
+            result.X = num15;
+            result.Y = num14;
+            result.Z = num13;
+            result.W = value.W;
+        }
+        

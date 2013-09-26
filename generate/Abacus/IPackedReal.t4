@@ -1,74 +1,74 @@
-﻿	/// <summary>
-	/// 
-	/// </summary>
-	public interface IPackedReal
-	{
+﻿    /// <summary>
+    /// 
+    /// </summary>
+    public interface IPackedReal
+    {
 <# foreach( var type in GetRealTypes() ) { #>
 
-		/// <summary>
-		/// 
-		/// </summary>
-		void PackFrom(<#= type #> input);
+        /// <summary>
+        /// 
+        /// </summary>
+        void PackFrom(<#= type #> input);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		void UnpackTo(out <#= type #> output);
+        /// <summary>
+        /// 
+        /// </summary>
+        void UnpackTo(out <#= type #> output);
 <# } #>
-	}
+    }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public interface IPackedReal2
-	{
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IPackedReal2
+    {
 <# foreach( var type in GetRealTypes() ) { #>
 
-		/// <summary>
-		/// 
-		/// </summary>
-		void PackFrom(ref <#= type #>Precision.Vector2 input);
+        /// <summary>
+        /// 
+        /// </summary>
+        void PackFrom(ref <#= type #>Precision.Vector2 input);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		void UnpackTo(out <#= type #>Precision.Vector2 output);
+        /// <summary>
+        /// 
+        /// </summary>
+        void UnpackTo(out <#= type #>Precision.Vector2 output);
 <# } #>
-	}
+    }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public interface IPackedReal3
-	{
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IPackedReal3
+    {
 <# foreach( var type in GetRealTypes() ) { #>
-		/// <summary>
-		/// 
-		/// </summary>
-		void PackFrom(ref <#= type #>Precision.Vector3 input);
+        /// <summary>
+        /// 
+        /// </summary>
+        void PackFrom(ref <#= type #>Precision.Vector3 input);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		void UnpackTo(out <#= type #>Precision.Vector3 output);
+        /// <summary>
+        /// 
+        /// </summary>
+        void UnpackTo(out <#= type #>Precision.Vector3 output);
 <# } #>
-	}
+    }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public interface IPackedReal4
-	{
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IPackedReal4
+    {
 <# foreach( var type in GetRealTypes() ) { #>
-		/// <summary>
-		/// 
-		/// </summary>
-		void PackFrom(ref <#= type #>Precision.Vector4 input);
+        /// <summary>
+        /// 
+        /// </summary>
+        void PackFrom(ref <#= type #>Precision.Vector4 input);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		void UnpackTo(out <#= type #>Precision.Vector4 output);
+        /// <summary>
+        /// 
+        /// </summary>
+        void UnpackTo(out <#= type #>Precision.Vector4 output);
 <# } #>
-	}
+    }
 

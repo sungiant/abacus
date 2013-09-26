@@ -1,267 +1,267 @@
-﻿		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Transpose (ref Matrix44 input, out Matrix44 output)
-		{
-			output.M11 = input.M11;
-			output.M22 = input.M22;
-			output.M33 = input.M33;
-			output.M44 = input.M44;
+﻿        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Transpose (ref Matrix44 input, out Matrix44 output)
+        {
+            output.M11 = input.M11;
+            output.M22 = input.M22;
+            output.M33 = input.M33;
+            output.M44 = input.M44;
 
-			<#= type #> temp = input.M12;
-			output.M12 = input.M21;
-			output.M21 = temp;
+            <#= type #> temp = input.M12;
+            output.M12 = input.M21;
+            output.M21 = temp;
 
-			temp = input.M13;
-			output.M13 = input.M31;
-			output.M31 = temp;
+            temp = input.M13;
+            output.M13 = input.M31;
+            output.M31 = temp;
 
-			temp = input.M14;
-			output.M14 = input.M41;
-			output.M41 = temp;
+            temp = input.M14;
+            output.M14 = input.M41;
+            output.M41 = temp;
 
-			temp = input.M23;
-			output.M23 = input.M32;
-			output.M32 = temp;
+            temp = input.M23;
+            output.M23 = input.M32;
+            output.M32 = temp;
 
-			temp = input.M24;
-			output.M24 = input.M42;
-			output.M42 = temp;
+            temp = input.M24;
+            output.M24 = input.M42;
+            output.M42 = temp;
 
-			temp =  input.M34;
-			output.M34 = input.M43;
-			output.M43 = temp;
-		}
+            temp =  input.M34;
+            output.M34 = input.M43;
+            output.M43 = temp;
+        }
 
-		/// <summary>
-		/// Essential Mathemathics For Games & Interactive Applications
-		/// </summary>
-		public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
-		{
-			translation.X = M41;
+        /// <summary>
+        /// Essential Mathemathics For Games & Interactive Applications
+        /// </summary>
+        public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
+        {
+            translation.X = M41;
             translation.Y = M42;
             translation.Z = M43;
 
-			Vector3 a = new Vector3(M11, M21, M31);
-			Vector3 b = new Vector3(M12, M22, M32);
-			Vector3 c = new Vector3(M13, M23, M33);
+            Vector3 a = new Vector3(M11, M21, M31);
+            Vector3 b = new Vector3(M12, M22, M32);
+            Vector3 c = new Vector3(M13, M23, M33);
 
-			scale.X = a.Length();
-			scale.Y = b.Length();
-			scale.Z = c.Length();
+            scale.X = a.Length();
+            scale.Y = b.Length();
+            scale.Z = c.Length();
 
-			if ( RealMaths.IsZero(scale.X) || 
-				 RealMaths.IsZero(scale.Y) || 
-				 RealMaths.IsZero(scale.Z) )
+            if ( RealMaths.IsZero(scale.X) || 
+                 RealMaths.IsZero(scale.Y) || 
+                 RealMaths.IsZero(scale.Z) )
             {
-				rotation = Quaternion.Identity;
-				return false;
-			}
+                rotation = Quaternion.Identity;
+                return false;
+            }
 
-			Vector3.Normalise(ref a, out a);
-			Vector3.Normalise(ref b, out b);
-			Vector3.Normalise(ref c, out c);
+            Vector3.Normalise(ref a, out a);
+            Vector3.Normalise(ref b, out b);
+            Vector3.Normalise(ref c, out c);
 
-			Vector3 right = new Vector3(a.X, b.X, c.X);
-			Vector3 up = new Vector3(a.Y, b.Y, c.Y);
-			Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
+            Vector3 right = new Vector3(a.X, b.X, c.X);
+            Vector3 up = new Vector3(a.Y, b.Y, c.Y);
+            Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
 
-			Vector3.Normalise(ref right, out right);
-			Vector3.Normalise(ref up, out up);
-			Vector3.Normalise(ref backward, out backward);
+            Vector3.Normalise(ref right, out right);
+            Vector3.Normalise(ref up, out up);
+            Vector3.Normalise(ref backward, out backward);
 
-			Matrix44 rotMat;
-			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
+            Matrix44 rotMat;
+            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
 
-			Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
+            Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 
-			return true;
-		}
+            return true;
+        }
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// todo
-		/// </summary>
-		public <#= type #> Determinant ()
-		{
-			<#= type #> num22 = this.M11;
-			<#= type #> num21 = this.M12;
-			<#= type #> num20 = this.M13;
-			<#= type #> num19 = this.M14;
-			<#= type #> num12 = this.M21;
-			<#= type #> num11 = this.M22;
-			<#= type #> num10 = this.M23;
-			<#= type #> num9 = this.M24;
-			<#= type #> num8 = this.M31;
-			<#= type #> num7 = this.M32;
-			<#= type #> num6 = this.M33;
-			<#= type #> num5 = this.M34;
-			<#= type #> num4 = this.M41;
-			<#= type #> num3 = this.M42;
-			<#= type #> num2 = this.M43;
-			<#= type #> num = this.M44;
-			
-			<#= type #> num18 = (num6 * num) - (num5 * num2);
-			<#= type #> num17 = (num7 * num) - (num5 * num3);
-			<#= type #> num16 = (num7 * num2) - (num6 * num3);
-			<#= type #> num15 = (num8 * num) - (num5 * num4);
-			<#= type #> num14 = (num8 * num2) - (num6 * num4);
-			<#= type #> num13 = (num8 * num3) - (num7 * num4);
-			
-			return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
-		}
-		
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Invert (ref Matrix44 matrix, out Matrix44 result)
-		{
-			<#= type #> one = 1;
-			<#= type #> num5 = matrix.M11;
-			<#= type #> num4 = matrix.M12;
-			<#= type #> num3 = matrix.M13;
-			<#= type #> num2 = matrix.M14;
-			<#= type #> num9 = matrix.M21;
-			<#= type #> num8 = matrix.M22;
-			<#= type #> num7 = matrix.M23;
-			<#= type #> num6 = matrix.M24;
-			<#= type #> num17 = matrix.M31;
-			<#= type #> num16 = matrix.M32;
-			<#= type #> num15 = matrix.M33;
-			<#= type #> num14 = matrix.M34;
-			<#= type #> num13 = matrix.M41;
-			<#= type #> num12 = matrix.M42;
-			<#= type #> num11 = matrix.M43;
-			<#= type #> num10 = matrix.M44;
-			<#= type #> num23 = (num15 * num10) - (num14 * num11);
-			<#= type #> num22 = (num16 * num10) - (num14 * num12);
-			<#= type #> num21 = (num16 * num11) - (num15 * num12);
-			<#= type #> num20 = (num17 * num10) - (num14 * num13);
-			<#= type #> num19 = (num17 * num11) - (num15 * num13);
-			<#= type #> num18 = (num17 * num12) - (num16 * num13);
-			<#= type #> num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
-			<#= type #> num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
-			<#= type #> num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
-			<#= type #> num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
-			<#= type #> num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
-			result.M11 = num39 * num;
-			result.M21 = num38 * num;
-			result.M31 = num37 * num;
-			result.M41 = num36 * num;
-			result.M12 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
-			result.M22 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
-			result.M32 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
-			result.M42 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
-			<#= type #> num35 = (num7 * num10) - (num6 * num11);
-			<#= type #> num34 = (num8 * num10) - (num6 * num12);
-			<#= type #> num33 = (num8 * num11) - (num7 * num12);
-			<#= type #> num32 = (num9 * num10) - (num6 * num13);
-			<#= type #> num31 = (num9 * num11) - (num7 * num13);
-			<#= type #> num30 = (num9 * num12) - (num8 * num13);
-			result.M13 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
-			result.M23 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
-			result.M33 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
-			result.M43 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
-			<#= type #> num29 = (num7 * num14) - (num6 * num15);
-			<#= type #> num28 = (num8 * num14) - (num6 * num16);
-			<#= type #> num27 = (num8 * num15) - (num7 * num16);
-			<#= type #> num26 = (num9 * num14) - (num6 * num17);
-			<#= type #> num25 = (num9 * num15) - (num7 * num17);
-			<#= type #> num24 = (num9 * num16) - (num8 * num17);
-			result.M14 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
-			result.M24 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
-			result.M34 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
-			result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
-		}
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public <#= type #> Determinant ()
+        {
+            <#= type #> num22 = this.M11;
+            <#= type #> num21 = this.M12;
+            <#= type #> num20 = this.M13;
+            <#= type #> num19 = this.M14;
+            <#= type #> num12 = this.M21;
+            <#= type #> num11 = this.M22;
+            <#= type #> num10 = this.M23;
+            <#= type #> num9 = this.M24;
+            <#= type #> num8 = this.M31;
+            <#= type #> num7 = this.M32;
+            <#= type #> num6 = this.M33;
+            <#= type #> num5 = this.M34;
+            <#= type #> num4 = this.M41;
+            <#= type #> num3 = this.M42;
+            <#= type #> num2 = this.M43;
+            <#= type #> num = this.M44;
+            
+            <#= type #> num18 = (num6 * num) - (num5 * num2);
+            <#= type #> num17 = (num7 * num) - (num5 * num3);
+            <#= type #> num16 = (num7 * num2) - (num6 * num3);
+            <#= type #> num15 = (num8 * num) - (num5 * num4);
+            <#= type #> num14 = (num8 * num2) - (num6 * num4);
+            <#= type #> num13 = (num8 * num3) - (num7 * num4);
+            
+            return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+        }
+        
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Invert (ref Matrix44 matrix, out Matrix44 result)
+        {
+            <#= type #> one = 1;
+            <#= type #> num5 = matrix.M11;
+            <#= type #> num4 = matrix.M12;
+            <#= type #> num3 = matrix.M13;
+            <#= type #> num2 = matrix.M14;
+            <#= type #> num9 = matrix.M21;
+            <#= type #> num8 = matrix.M22;
+            <#= type #> num7 = matrix.M23;
+            <#= type #> num6 = matrix.M24;
+            <#= type #> num17 = matrix.M31;
+            <#= type #> num16 = matrix.M32;
+            <#= type #> num15 = matrix.M33;
+            <#= type #> num14 = matrix.M34;
+            <#= type #> num13 = matrix.M41;
+            <#= type #> num12 = matrix.M42;
+            <#= type #> num11 = matrix.M43;
+            <#= type #> num10 = matrix.M44;
+            <#= type #> num23 = (num15 * num10) - (num14 * num11);
+            <#= type #> num22 = (num16 * num10) - (num14 * num12);
+            <#= type #> num21 = (num16 * num11) - (num15 * num12);
+            <#= type #> num20 = (num17 * num10) - (num14 * num13);
+            <#= type #> num19 = (num17 * num11) - (num15 * num13);
+            <#= type #> num18 = (num17 * num12) - (num16 * num13);
+            <#= type #> num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
+            <#= type #> num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
+            <#= type #> num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
+            <#= type #> num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
+            <#= type #> num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+            result.M11 = num39 * num;
+            result.M21 = num38 * num;
+            result.M31 = num37 * num;
+            result.M41 = num36 * num;
+            result.M12 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
+            result.M22 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
+            result.M32 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
+            result.M42 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
+            <#= type #> num35 = (num7 * num10) - (num6 * num11);
+            <#= type #> num34 = (num8 * num10) - (num6 * num12);
+            <#= type #> num33 = (num8 * num11) - (num7 * num12);
+            <#= type #> num32 = (num9 * num10) - (num6 * num13);
+            <#= type #> num31 = (num9 * num11) - (num7 * num13);
+            <#= type #> num30 = (num9 * num12) - (num8 * num13);
+            result.M13 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
+            result.M23 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
+            result.M33 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
+            result.M43 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
+            <#= type #> num29 = (num7 * num14) - (num6 * num15);
+            <#= type #> num28 = (num8 * num14) - (num6 * num16);
+            <#= type #> num27 = (num8 * num15) - (num7 * num16);
+            <#= type #> num26 = (num9 * num14) - (num6 * num17);
+            <#= type #> num25 = (num9 * num15) - (num7 * num17);
+            <#= type #> num24 = (num9 * num16) - (num8 * num17);
+            result.M14 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
+            result.M24 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
+            result.M34 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
+            result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+        }
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// Transforms a Matrix by applying a Quaternion rotation.
-		/// </summary>
-		public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
-		{
-			<#= type #> one = 1;
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Transforms a Matrix by applying a Quaternion rotation.
+        /// </summary>
+        public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
+        {
+            <#= type #> one = 1;
 
-			<#= type #> num21 = rotation.X + rotation.X;
-			<#= type #> num11 = rotation.Y + rotation.Y;
-			<#= type #> num10 = rotation.Z + rotation.Z;
-			
-			<#= type #> num20 = rotation.W * num21;
-			<#= type #> num19 = rotation.W * num11;
-			<#= type #> num18 = rotation.W * num10;
-			<#= type #> num17 = rotation.X * num21;
-			<#= type #> num16 = rotation.X * num11;
-			<#= type #> num15 = rotation.X * num10;
-			<#= type #> num14 = rotation.Y * num11;
-			<#= type #> num13 = rotation.Y * num10;
-			<#= type #> num12 = rotation.Z * num10;
-			
-			<#= type #> num9 = (one - num14) - num12;
-			
-			<#= type #> num8 = num16 - num18;
-			<#= type #> num7 = num15 + num19;
-			<#= type #> num6 = num16 + num18;
-			
-			<#= type #> num5 = (one - num17) - num12;
-			
-			<#= type #> num4 = num13 - num20;
-			<#= type #> num3 = num15 - num19;
-			<#= type #> num2 = num13 + num20;
-			
-			<#= type #> num = (one - num17) - num14;
-			
-			<#= type #> num37 = ((value.M11 * num9) + (value.M12 * num8)) + (value.M13 * num7);
-			<#= type #> num36 = ((value.M11 * num6) + (value.M12 * num5)) + (value.M13 * num4);
-			<#= type #> num35 = ((value.M11 * num3) + (value.M12 * num2)) + (value.M13 * num);
-			
-			<#= type #> num34 = value.M14;
-			
-			<#= type #> num33 = ((value.M21 * num9) + (value.M22 * num8)) + (value.M23 * num7);
-			<#= type #> num32 = ((value.M21 * num6) + (value.M22 * num5)) + (value.M23 * num4);
-			<#= type #> num31 = ((value.M21 * num3) + (value.M22 * num2)) + (value.M23 * num);
-			
-			<#= type #> num30 = value.M24;
-			
-			<#= type #> num29 = ((value.M31 * num9) + (value.M32 * num8)) + (value.M33 * num7);
-			<#= type #> num28 = ((value.M31 * num6) + (value.M32 * num5)) + (value.M33 * num4);
-			<#= type #> num27 = ((value.M31 * num3) + (value.M32 * num2)) + (value.M33 * num);
-			
-			<#= type #> num26 = value.M34;
-			
-			<#= type #> num25 = ((value.M41 * num9) + (value.M42 * num8)) + (value.M43 * num7);
-			<#= type #> num24 = ((value.M41 * num6) + (value.M42 * num5)) + (value.M43 * num4);
-			<#= type #> num23 = ((value.M41 * num3) + (value.M42 * num2)) + (value.M43 * num);
-			
-			<#= type #> num22 = value.M44;
-			
-			result.M11 = num37;
-			result.M12 = num36;
-			result.M13 = num35;
-			result.M14 = num34;
-			result.M21 = num33;
-			result.M22 = num32;
-			result.M23 = num31;
-			result.M24 = num30;
-			result.M31 = num29;
-			result.M32 = num28;
-			result.M33 = num27;
-			result.M34 = num26;
-			result.M41 = num25;
-			result.M42 = num24;
-			result.M43 = num23;
-			result.M44 = num22;
-		}
+            <#= type #> num21 = rotation.X + rotation.X;
+            <#= type #> num11 = rotation.Y + rotation.Y;
+            <#= type #> num10 = rotation.Z + rotation.Z;
+            
+            <#= type #> num20 = rotation.W * num21;
+            <#= type #> num19 = rotation.W * num11;
+            <#= type #> num18 = rotation.W * num10;
+            <#= type #> num17 = rotation.X * num21;
+            <#= type #> num16 = rotation.X * num11;
+            <#= type #> num15 = rotation.X * num10;
+            <#= type #> num14 = rotation.Y * num11;
+            <#= type #> num13 = rotation.Y * num10;
+            <#= type #> num12 = rotation.Z * num10;
+            
+            <#= type #> num9 = (one - num14) - num12;
+            
+            <#= type #> num8 = num16 - num18;
+            <#= type #> num7 = num15 + num19;
+            <#= type #> num6 = num16 + num18;
+            
+            <#= type #> num5 = (one - num17) - num12;
+            
+            <#= type #> num4 = num13 - num20;
+            <#= type #> num3 = num15 - num19;
+            <#= type #> num2 = num13 + num20;
+            
+            <#= type #> num = (one - num17) - num14;
+            
+            <#= type #> num37 = ((value.M11 * num9) + (value.M12 * num8)) + (value.M13 * num7);
+            <#= type #> num36 = ((value.M11 * num6) + (value.M12 * num5)) + (value.M13 * num4);
+            <#= type #> num35 = ((value.M11 * num3) + (value.M12 * num2)) + (value.M13 * num);
+            
+            <#= type #> num34 = value.M14;
+            
+            <#= type #> num33 = ((value.M21 * num9) + (value.M22 * num8)) + (value.M23 * num7);
+            <#= type #> num32 = ((value.M21 * num6) + (value.M22 * num5)) + (value.M23 * num4);
+            <#= type #> num31 = ((value.M21 * num3) + (value.M22 * num2)) + (value.M23 * num);
+            
+            <#= type #> num30 = value.M24;
+            
+            <#= type #> num29 = ((value.M31 * num9) + (value.M32 * num8)) + (value.M33 * num7);
+            <#= type #> num28 = ((value.M31 * num6) + (value.M32 * num5)) + (value.M33 * num4);
+            <#= type #> num27 = ((value.M31 * num3) + (value.M32 * num2)) + (value.M33 * num);
+            
+            <#= type #> num26 = value.M34;
+            
+            <#= type #> num25 = ((value.M41 * num9) + (value.M42 * num8)) + (value.M43 * num7);
+            <#= type #> num24 = ((value.M41 * num6) + (value.M42 * num5)) + (value.M43 * num4);
+            <#= type #> num23 = ((value.M41 * num3) + (value.M42 * num2)) + (value.M43 * num);
+            
+            <#= type #> num22 = value.M44;
+            
+            result.M11 = num37;
+            result.M12 = num36;
+            result.M13 = num35;
+            result.M14 = num34;
+            result.M21 = num33;
+            result.M22 = num32;
+            result.M23 = num31;
+            result.M24 = num30;
+            result.M31 = num29;
+            result.M32 = num28;
+            result.M33 = num27;
+            result.M34 = num26;
+            result.M41 = num25;
+            result.M42 = num24;
+            result.M43 = num23;
+            result.M44 = num22;
+        }
 

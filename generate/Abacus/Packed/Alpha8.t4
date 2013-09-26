@@ -1,36 +1,36 @@
-﻿	/// <summary>
-	/// todo
-	/// </summary>
-	[StructLayout(LayoutKind.Sequential), Serializable]
-	public struct Alpha_8
-		: IPackedValue<Byte>
-		, IEquatable<Alpha_8>
-		, IPackedReal
-	{
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override String ToString()
-		{
-			return this.packedValue.ToString("X2", CultureInfo.InvariantCulture);
-		}
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential), Serializable]
+    public struct Alpha_8
+        : IPackedValue<Byte>
+        , IEquatable<Alpha_8>
+        , IPackedReal
+    {
+        /// <summary>
+        /// todo
+        /// </summary>
+        public override String ToString()
+        {
+            return this.packedValue.ToString("X2", CultureInfo.InvariantCulture);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Pack(Single realAlpha, out Byte packedAlpha)
-		{
-			packedAlpha = (Byte)PackUtils.PackUnsignedNormalisedValue(255f, realAlpha);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(Single realAlpha, out Byte packedAlpha)
+        {
+            packedAlpha = (Byte)PackUtils.PackUnsignedNormalisedValue(255f, realAlpha);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Unpack(Byte packedAlpha, out Single realAlpha)
-		{
-			realAlpha = PackUtils.UnpackUnsignedNormalisedValue(0xff, packedAlpha);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(Byte packedAlpha, out Single realAlpha)
+        {
+            realAlpha = PackUtils.UnpackUnsignedNormalisedValue(0xff, packedAlpha);
+        }
 
 <#  GeneratePackedCommon("Alpha_8", "Byte", "packedAlpha", "realAlpha", 1); #>
-	}
+    }
 

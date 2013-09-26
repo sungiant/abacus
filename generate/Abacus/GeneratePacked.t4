@@ -3,76 +3,76 @@ void GeneratePackedCommon(string type, string packedType, string packedVariableN
 { 
 bool clsCompliant = !( packedType == "UInt32" || packedType == "UInt16" || packedType == "UInt64" ); 
 #>
-		/// <summary>
-		/// todo
-		/// </summary>
-		<#= packedType #> packedValue;
+        /// <summary>
+        /// todo
+        /// </summary>
+        <#= packedType #> packedValue;
 
-		#region IPackedValue
+        #region IPackedValue
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		[CLSCompliant (<#= clsCompliant ? "true" : "false" #>)]
-		public <#= packedType #> PackedValue
-		{
-			get
-			{
-				return this.packedValue;
-			}
-			set
-			{
-				this.packedValue = value;
-			}
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        [CLSCompliant (<#= clsCompliant ? "true" : "false" #>)]
+        public <#= packedType #> PackedValue
+        {
+            get
+            {
+                return this.packedValue;
+            }
+            set
+            {
+                this.packedValue = value;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Int32 GetHashCode()
-		{
-			return this.packedValue.GetHashCode();
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public override Int32 GetHashCode()
+        {
+            return this.packedValue.GetHashCode();
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override Boolean Equals(Object obj)
-		{
-			return ((obj is <#= type #>) && this.Equals((<#= type #>)obj));
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public override Boolean Equals(Object obj)
+        {
+            return ((obj is <#= type #>) && this.Equals((<#= type #>)obj));
+        }
 
-		#region IEquatable<<#= type #>>
+        #region IEquatable<<#= type #>>
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public Boolean Equals(<#= type #> other)
-		{
-			return this.packedValue.Equals(other.packedValue);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Boolean Equals(<#= type #> other)
+        {
+            return this.packedValue.Equals(other.packedValue);
+        }
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Boolean operator ==(<#= type #> a, <#= type #> b)
-		{
-			return a.Equals(b);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Boolean operator ==(<#= type #> a, <#= type #> b)
+        {
+            return a.Equals(b);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static Boolean operator !=(<#= type #> a, <#= type #> b)
-		{
-			return !a.Equals(b);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Boolean operator !=(<#= type #> a, <#= type #> b)
+        {
+            return !a.Equals(b);
+        }
 
-<#+		
+<#+     
 string useRef = numPackedElements > 1 ? "ref " : string.Empty;
 foreach(var realType in GetRealTypes() ) { 
 string targetType = realType;
@@ -81,29 +81,29 @@ if(numPackedElements == 3) targetType += "Precision.Vector3";
 if(numPackedElements == 4) targetType += "Precision.Vector4";
 #>
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public <#= type #>(<#= useRef #><#= targetType #> <#= realVariableName #>)
-		{
-			Pack(<#= useRef #><#= realVariableName #>, out this.packedValue);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public <#= type #>(<#= useRef #><#= targetType #> <#= realVariableName #>)
+        {
+            Pack(<#= useRef #><#= realVariableName #>, out this.packedValue);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public void PackFrom(<#= useRef #><#= targetType #> <#= realVariableName #>)
-		{
-			Pack(<#= useRef #><#= realVariableName #>, out this.packedValue);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void PackFrom(<#= useRef #><#= targetType #> <#= realVariableName #>)
+        {
+            Pack(<#= useRef #><#= realVariableName #>, out this.packedValue);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public void UnpackTo(out <#= targetType #> <#= realVariableName #>)
-		{
-			Unpack(this.packedValue, out <#= realVariableName #>);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void UnpackTo(out <#= targetType #> <#= realVariableName #>)
+        {
+            Unpack(this.packedValue, out <#= realVariableName #>);
+        }
 <#+
 }
 foreach(var realType in GetRealTypes() )
@@ -111,94 +111,94 @@ foreach(var realType in GetRealTypes() )
 if( realType == "Single" ) continue;
 if(numPackedElements == 1){ 
 #>
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Pack(<#= realType #> <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
-		{
-			Single temp = (Single)<#= realVariableName #>;
-			Pack(temp, out <#= packedVariableName #>);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(<#= realType #> <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
+        {
+            Single temp = (Single)<#= realVariableName #>;
+            Pack(temp, out <#= packedVariableName #>);
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #> <#= realVariableName #>)
-		{
-			Single temp;
-			Unpack(<#= packedVariableName #>, out temp);
-			<#= realVariableName #> = (<#= realType #>) temp;
-		}
+        /// <summary>
+        /// 
+        /// </summary>
+        static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #> <#= realVariableName #>)
+        {
+            Single temp;
+            Unpack(<#= packedVariableName #>, out temp);
+            <#= realVariableName #> = (<#= realType #>) temp;
+        }
 
 <#+
 }
 else if(numPackedElements == 2)
 {
 #>
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Pack(ref <#= realType #>Precision.Vector2 <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
-		{
-			SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)<#= realVariableName #>.X, (Single)<#= realVariableName #>.Y);
-			Pack(ref singleVector, out <#= packedVariableName #>);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(ref <#= realType #>Precision.Vector2 <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
+        {
+            SinglePrecision.Vector2 singleVector = new SinglePrecision.Vector2((Single)<#= realVariableName #>.X, (Single)<#= realVariableName #>.Y);
+            Pack(ref singleVector, out <#= packedVariableName #>);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #>Precision.Vector2 <#= realVariableName #>)
-		{
-			SinglePrecision.Vector2 singleVector;
-			Unpack(<#= packedVariableName #>, out singleVector);
-			<#= realVariableName #> = new <#= realType #>Precision.Vector2((<#= realType #>)singleVector.X, (<#= realType #>)singleVector.Y);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #>Precision.Vector2 <#= realVariableName #>)
+        {
+            SinglePrecision.Vector2 singleVector;
+            Unpack(<#= packedVariableName #>, out singleVector);
+            <#= realVariableName #> = new <#= realType #>Precision.Vector2((<#= realType #>)singleVector.X, (<#= realType #>)singleVector.Y);
+        }
 <#+
 }
 else if(numPackedElements == 3)
 {
 #>
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Pack(ref <#= realType #>Precision.Vector3 <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
-		{
-			SinglePrecision.Vector3 singleVector = new SinglePrecision.Vector3((Single)<#= realVariableName #>.X, (Single)<#= realVariableName #>.Y, (Single)<#= realVariableName #>.Z);
-			Pack(ref singleVector, out <#= packedVariableName #>);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(ref <#= realType #>Precision.Vector3 <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
+        {
+            SinglePrecision.Vector3 singleVector = new SinglePrecision.Vector3((Single)<#= realVariableName #>.X, (Single)<#= realVariableName #>.Y, (Single)<#= realVariableName #>.Z);
+            Pack(ref singleVector, out <#= packedVariableName #>);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #>Precision.Vector3 <#= realVariableName #>)
-		{
-			SinglePrecision.Vector3 singleVector;
-			Unpack(<#= packedVariableName #>, out singleVector);
-			<#= realVariableName #> = new <#= realType #>Precision.Vector3((<#= realType #>)singleVector.X, (<#= realType #>)singleVector.Y, (<#= realType #>)singleVector.Z);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #>Precision.Vector3 <#= realVariableName #>)
+        {
+            SinglePrecision.Vector3 singleVector;
+            Unpack(<#= packedVariableName #>, out singleVector);
+            <#= realVariableName #> = new <#= realType #>Precision.Vector3((<#= realType #>)singleVector.X, (<#= realType #>)singleVector.Y, (<#= realType #>)singleVector.Z);
+        }
 <#+
 }
 else if(numPackedElements == 4)
 {
 #>
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Pack(ref <#= realType #>Precision.Vector4 <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
-		{
-			SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)<#= realVariableName #>.X, (Single)<#= realVariableName #>.Y, (Single)<#= realVariableName #>.Z, (Single)<#= realVariableName #>.W);
-			Pack(ref singleVector, out <#= packedVariableName #>);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(ref <#= realType #>Precision.Vector4 <#= realVariableName #>, out <#= packedType #> <#= packedVariableName #>)
+        {
+            SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)<#= realVariableName #>.X, (Single)<#= realVariableName #>.Y, (Single)<#= realVariableName #>.Z, (Single)<#= realVariableName #>.W);
+            Pack(ref singleVector, out <#= packedVariableName #>);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #>Precision.Vector4 <#= realVariableName #>)
-		{
-			SinglePrecision.Vector4 singleVector;
-			Unpack(<#= packedVariableName #>, out singleVector);
-			<#= realVariableName #> = new <#= realType #>Precision.Vector4((<#= realType #>)singleVector.X, (<#= realType #>)singleVector.Y, (<#= realType #>)singleVector.Z, (<#= realType #>)singleVector.W);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(<#= packedType #> <#= packedVariableName #>, out <#= realType #>Precision.Vector4 <#= realVariableName #>)
+        {
+            SinglePrecision.Vector4 singleVector;
+            Unpack(<#= packedVariableName #>, out singleVector);
+            <#= realVariableName #> = new <#= realType #>Precision.Vector4((<#= realType #>)singleVector.X, (<#= realType #>)singleVector.Y, (<#= realType #>)singleVector.Z, (<#= realType #>)singleVector.W);
+        }
 <#+
 }
 }

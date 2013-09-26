@@ -1,64 +1,64 @@
-﻿	/// <summary>
-	/// Represents a <#= type #> precision point on a 3D integer grid.
-	/// </summary>
-	[StructLayout (LayoutKind.Sequential), Serializable]
-	public struct Point3 
-		: IEquatable<Point3>
-	{
-		/// <summary>
-		/// Gets or sets the x-component of the point.
-		/// </summary>
-		public <#= type #> X;
+﻿    /// <summary>
+    /// Represents a <#= type #> precision point on a 3D integer grid.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Point3 
+        : IEquatable<Point3>
+    {
+        /// <summary>
+        /// Gets or sets the x-component of the point.
+        /// </summary>
+        public <#= type #> X;
 
-		/// <summary>
-		/// Gets or sets the y-component of the point.
-		/// </summary>
-		public <#= type #> Y;
+        /// <summary>
+        /// Gets or sets the y-component of the point.
+        /// </summary>
+        public <#= type #> Y;
 
-		/// <summary>
-		/// Gets or sets the z-component of the point.
-		/// </summary>
-		public <#= type #> Z;
+        /// <summary>
+        /// Gets or sets the z-component of the point.
+        /// </summary>
+        public <#= type #> Z;
 
-		/// <summary>
-		/// Initilises a new instance of Point3 from three <#= type #> values 
-		/// representing X, Y and Z respectively.
-		/// </summary>
-		public Point3(<#= type #> x, <#= type #> y, <#= type #> z)
-		{
-			this.X = x;
-			this.Y = y;
-			this.Z = z;
-		}
-		
-		/// <summary>
-		/// Initilises a new instance of Point3 from one Point2 value
-		/// representing X and Y and one <#= type #> value representing Z.
-		/// </summary>
-		public Point3 (Point2 value, <#= type #> z)
-		{
-			this.X = value.X;
-			this.Y = value.Y;
-			this.Z = z;
-		}
+        /// <summary>
+        /// Initilises a new instance of Point3 from three <#= type #> values 
+        /// representing X, Y and Z respectively.
+        /// </summary>
+        public Point3(<#= type #> x, <#= type #> y, <#= type #> z)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+        }
+        
+        /// <summary>
+        /// Initilises a new instance of Point3 from one Point2 value
+        /// representing X and Y and one <#= type #> value representing Z.
+        /// </summary>
+        public Point3 (Point2 value, <#= type #> z)
+        {
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = z;
+        }
 
-		/// <summary>
-		/// Retrieves a string representation of the current object.
-		/// </summary>
-		public override String ToString()
-		{
-			return String.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
-		}
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString()
+        {
+            return String.Format("{{X:{0} Y:{1} Z:{2}}}", this.X, this.Y, this.Z );
+        }
 
-		/// <summary>
-		/// Gets the hash code of the object.
-		/// </summary>
-		public override Int32 GetHashCode()
-		{
-			return (this.X.GetHashCode() + this.Y.GetHashCode() + this.Z.GetHashCode());
-		}
+        /// <summary>
+        /// Gets the hash code of the object.
+        /// </summary>
+        public override Int32 GetHashCode()
+        {
+            return (this.X.GetHashCode() + this.Y.GetHashCode() + this.Z.GetHashCode());
+        }
 
 <#@ include file="Point3.Constants.t4"#>
 <#@ include file="Point3.Operators.t4"#>
-	}
+    }
 

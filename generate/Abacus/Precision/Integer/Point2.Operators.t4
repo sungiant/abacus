@@ -1,232 +1,232 @@
-		// Equality Operators //----------------------------------------------//
+        // Equality Operators //----------------------------------------------//
 
-		/// <summary>
-		/// Determines whether or not this Point2 object is equal to another
-		/// object.
-		/// </summary>
-		public override Boolean Equals (Object obj)
-		{
-			Boolean flag = false;
-			if (obj is Point2) {
-				flag = this.Equals ((Point2)obj);
-			}
-			return flag;
-		}
+        /// <summary>
+        /// Determines whether or not this Point2 object is equal to another
+        /// object.
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            Boolean flag = false;
+            if (obj is Point2) {
+                flag = this.Equals ((Point2)obj);
+            }
+            return flag;
+        }
 
-		#region IEquatable<Point2>
+        #region IEquatable<Point2>
 
-		/// <summary>
-		/// Determines whether or not this Point2 object is equal to another
-		/// Point2 object.
-		/// </summary>
-		public Boolean Equals (Point2 other)
-		{
-			return ((this.X == other.X) && (this.Y == other.Y));
-		}
+        /// <summary>
+        /// Determines whether or not this Point2 object is equal to another
+        /// Point2 object.
+        /// </summary>
+        public Boolean Equals (Point2 other)
+        {
+            return ((this.X == other.X) && (this.Y == other.Y));
+        }
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// Determines whether or not two Point2 objects are equal using the
-		/// (X==Y) operator.
-		/// </summary>
-		public static Boolean operator == (Point2 value1, Point2 value2)
-		{
-			return ((value1.X == value2.X) && (value1.Y == value2.Y));
-		}
+        /// <summary>
+        /// Determines whether or not two Point2 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Point2 value1, Point2 value2)
+        {
+            return ((value1.X == value2.X) && (value1.Y == value2.Y));
+        }
 
-		/// <summary>
-		/// Determines whether or not two Point2 objects are not equal using
-		/// the (X!=Y) operator.
-		/// </summary>
-		public static Boolean operator != (Point2 value1, Point2 value2)
-		{
-			if (value1.X == value2.X) {
-				return !(value1.Y == value2.Y);
-			}
-			return true;
-		}
+        /// <summary>
+        /// Determines whether or not two Point2 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Point2 value1, Point2 value2)
+        {
+            if (value1.X == value2.X) {
+                return !(value1.Y == value2.Y);
+            }
+            return true;
+        }
 
-		// Addition Operators //----------------------------------------------//
+        // Addition Operators //----------------------------------------------//
 
-		/// <summary>
-		/// Performs addition of two Point2 objects.
-		/// </summary>
-		public static void Add (
-			ref Point2 value1, ref Point2 value2, out Point2 result)
-		{
-			result.X = value1.X + value2.X;
-			result.Y = value1.Y + value2.Y;
-		}
+        /// <summary>
+        /// Performs addition of two Point2 objects.
+        /// </summary>
+        public static void Add (
+            ref Point2 value1, ref Point2 value2, out Point2 result)
+        {
+            result.X = value1.X + value2.X;
+            result.Y = value1.Y + value2.Y;
+        }
 
-		/// <summary>
-		/// Performs addition of two Point2 objects using the (X+Y) operator. 
-		/// </summary>
-		public static Point2 operator + (Point2 value1, Point2 value2)
-		{
-			Point2 point;
-			point.X = value1.X + value2.X;
-			point.Y = value1.Y + value2.Y;
-			return point;
-		}
-
-
-		// Subtraction Operators //-------------------------------------------//
-
-		/// <summary>
-		/// Performs subtraction of two Point2 objects.
-		/// </summary>
-		public static void Subtract (
-			ref Point2 value1, ref Point2 value2, out Point2 result)
-		{
-			result.X = value1.X - value2.X;
-			result.Y = value1.Y - value2.Y;
-		}
-
-		/// <summary>
-		/// Performs subtraction of two Point2 objects using the (X-Y) 
-		/// operator.
-		/// </summary>
-		public static Point2 operator - (Point2 value1, Point2 value2)
-		{
-			Point2 point;
-			point.X = value1.X - value2.X;
-			point.Y = value1.Y - value2.Y;
-			return point;
-		}
+        /// <summary>
+        /// Performs addition of two Point2 objects using the (X+Y) operator. 
+        /// </summary>
+        public static Point2 operator + (Point2 value1, Point2 value2)
+        {
+            Point2 point;
+            point.X = value1.X + value2.X;
+            point.Y = value1.Y + value2.Y;
+            return point;
+        }
 
 
-		// Negation Operators //----------------------------------------------//
-		
-		/// <summary>
-		/// Performs negation of a Point2 object.
-		/// </summary>
-		public static void Negate (ref Point2 value, out Point2 result)
-		{
-			result.X = -value.X;
-			result.Y = -value.Y;
-		}
+        // Subtraction Operators //-------------------------------------------//
 
-		/// <summary>
-		/// Performs negation of a Point2 object using the (-X) operator.
-		/// </summary>
-		public static Point2 operator - (Point2 value)
-		{
-			Point2 point;
-			point.X = -value.X;
-			point.Y = -value.Y;
-			return point;
-		}
+        /// <summary>
+        /// Performs subtraction of two Point2 objects.
+        /// </summary>
+        public static void Subtract (
+            ref Point2 value1, ref Point2 value2, out Point2 result)
+        {
+            result.X = value1.X - value2.X;
+            result.Y = value1.Y - value2.Y;
+        }
 
-		// Multiplication Operators //----------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Point2 objects using the (X-Y) 
+        /// operator.
+        /// </summary>
+        public static Point2 operator - (Point2 value1, Point2 value2)
+        {
+            Point2 point;
+            point.X = value1.X - value2.X;
+            point.Y = value1.Y - value2.Y;
+            return point;
+        }
 
-		/// <summary>
-		/// Performs muliplication of two Point2 objects.
-		/// </summary>
-		public static void Multiply (
-			ref Point2 value1, ref Point2 value2, out Point2 result)
-		{
-			result.X = value1.X * value2.X;
-			result.Y = value1.Y * value2.Y;
-		}
 
-		/// <summary>
-		/// Performs multiplication of a Point2 object and a <#= type #>
-		/// precision scaling factor.
-		/// </summary>
-		public static void Multiply (
-			ref Point2 value, <#= type #> scaleFactor, out Point2 result)
-		{
-			result.X = value.X * scaleFactor;
-			result.Y = value.Y * scaleFactor;
-		}
+        // Negation Operators //----------------------------------------------//
+        
+        /// <summary>
+        /// Performs negation of a Point2 object.
+        /// </summary>
+        public static void Negate (ref Point2 value, out Point2 result)
+        {
+            result.X = -value.X;
+            result.Y = -value.Y;
+        }
 
-		/// <summary>
-		/// Performs muliplication of two Point2 objects using the (X*Y)
-		/// operator.
-		/// </summary>
-		public static Point2 operator * (
-			Point2 value1, Point2 value2)
-		{
-			Point2 point;
-			point.X = value1.X * value2.X;
-			point.Y = value1.Y * value2.Y;
-			return point;
-		}
+        /// <summary>
+        /// Performs negation of a Point2 object using the (-X) operator.
+        /// </summary>
+        public static Point2 operator - (Point2 value)
+        {
+            Point2 point;
+            point.X = -value.X;
+            point.Y = -value.Y;
+            return point;
+        }
 
-		/// <summary>
-		/// Performs multiplication of a Point2 object and a <#= type #>
-		/// precision scaling factor using the (X*y) operator.
-		/// </summary>
-		public static Point2 operator * (
-			Point2 value, <#= type #> scaleFactor)
-		{
-			Point2 point;
-			point.X = value.X * scaleFactor;
-			point.Y = value.Y * scaleFactor;
-			return point;
-		}
+        // Multiplication Operators //----------------------------------------//
 
-		/// <summary>
-		/// Performs multiplication of a <#= type #> precision scaling factor 
-		/// and aPoint2 object using the (x*Y) operator.
-		/// </summary>
-		public static Point2 operator * (
-			<#= type #> scaleFactor, Point2 value)
-		{
-			Point2 point;
-			point.X = value.X * scaleFactor;
-			point.Y = value.Y * scaleFactor;
-			return point;
-		}
+        /// <summary>
+        /// Performs muliplication of two Point2 objects.
+        /// </summary>
+        public static void Multiply (
+            ref Point2 value1, ref Point2 value2, out Point2 result)
+        {
+            result.X = value1.X * value2.X;
+            result.Y = value1.Y * value2.Y;
+        }
 
-		// Division Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs multiplication of a Point2 object and a <#= type #>
+        /// precision scaling factor.
+        /// </summary>
+        public static void Multiply (
+            ref Point2 value, <#= type #> scaleFactor, out Point2 result)
+        {
+            result.X = value.X * scaleFactor;
+            result.Y = value.Y * scaleFactor;
+        }
 
-		/// <summary>
-		/// Performs division of two Point2 objects.
-		/// </summary>
-		public static void Divide (
-			ref Point2 value1, ref Point2 value2, out Point2 result)
-		{
-			result.X = value1.X / value2.X;
-			result.Y = value1.Y / value2.Y;
-		}
+        /// <summary>
+        /// Performs muliplication of two Point2 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Point2 operator * (
+            Point2 value1, Point2 value2)
+        {
+            Point2 point;
+            point.X = value1.X * value2.X;
+            point.Y = value1.Y * value2.Y;
+            return point;
+        }
 
-		/// <summary>
-		/// Performs division of a Point2 object and a <#= type #> precision
-		/// scaling factor.
-		/// </summary>
-		public static void Divide (
-			ref Point2 value1, <#= type #> divider, out Point2 result)
-		{
-			<#= type #> one = 1;
-			<#= type #> num = one / divider;
-			result.X = value1.X * num;
-			result.Y = value1.Y * num;
-		}
+        /// <summary>
+        /// Performs multiplication of a Point2 object and a <#= type #>
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Point2 operator * (
+            Point2 value, <#= type #> scaleFactor)
+        {
+            Point2 point;
+            point.X = value.X * scaleFactor;
+            point.Y = value.Y * scaleFactor;
+            return point;
+        }
 
-		/// <summary>
-		/// Performs division of two Point2 objects using the (X/Y) operator.
-		/// </summary>
-		public static Point2 operator / (Point2 value1, Point2 value2)
-		{
-			Point2 point;
-			point.X = value1.X / value2.X;
-			point.Y = value1.Y / value2.Y;
-			return point;
-		}
+        /// <summary>
+        /// Performs multiplication of a <#= type #> precision scaling factor 
+        /// and aPoint2 object using the (x*Y) operator.
+        /// </summary>
+        public static Point2 operator * (
+            <#= type #> scaleFactor, Point2 value)
+        {
+            Point2 point;
+            point.X = value.X * scaleFactor;
+            point.Y = value.Y * scaleFactor;
+            return point;
+        }
 
-		/// <summary>
-		/// Performs division of a Point2 object and a <#= type #> precision
-		/// scaling factor using the (X/y) operator.
-		/// </summary>
-		public static Point2 operator / (Point2 value1, <#= type #> divider)
-		{
-			Point2 point;
-			<#= type #> one = 1;
-			<#= type #> num = one / divider;
-			point.X = value1.X * num;
-			point.Y = value1.Y * num;
-			return point;
-		}
-		
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Point2 objects.
+        /// </summary>
+        public static void Divide (
+            ref Point2 value1, ref Point2 value2, out Point2 result)
+        {
+            result.X = value1.X / value2.X;
+            result.Y = value1.Y / value2.Y;
+        }
+
+        /// <summary>
+        /// Performs division of a Point2 object and a <#= type #> precision
+        /// scaling factor.
+        /// </summary>
+        public static void Divide (
+            ref Point2 value1, <#= type #> divider, out Point2 result)
+        {
+            <#= type #> one = 1;
+            <#= type #> num = one / divider;
+            result.X = value1.X * num;
+            result.Y = value1.Y * num;
+        }
+
+        /// <summary>
+        /// Performs division of two Point2 objects using the (X/Y) operator.
+        /// </summary>
+        public static Point2 operator / (Point2 value1, Point2 value2)
+        {
+            Point2 point;
+            point.X = value1.X / value2.X;
+            point.Y = value1.Y / value2.Y;
+            return point;
+        }
+
+        /// <summary>
+        /// Performs division of a Point2 object and a <#= type #> precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Point2 operator / (Point2 value1, <#= type #> divider)
+        {
+            Point2 point;
+            <#= type #> one = 1;
+            <#= type #> num = one / divider;
+            point.X = value1.X * num;
+            point.Y = value1.Y * num;
+            return point;
+        }
+        

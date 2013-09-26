@@ -1,1833 +1,1833 @@
-		/// <summary>
-		/// Tests that the Transparent constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Transparent_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the AliceBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_AliceBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the AntiqueWhite constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_AntiqueWhite_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Aqua constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Aqua_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Aquamarine constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Aquamarine_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Azure constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Azure_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Beige constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Beige_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Bisque constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Bisque_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Black constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Black_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the BlanchedAlmond constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_BlanchedAlmond_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Blue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Blue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the BlueViolet constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_BlueViolet_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Brown constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Brown_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the BurlyWood constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_BurlyWood_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the CadetBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_CadetBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Chartreuse constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Chartreuse_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Chocolate constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Chocolate_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Coral constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Coral_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the CornflowerBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_CornflowerBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Cornsilk constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Cornsilk_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Crimson constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Crimson_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Cyan constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Cyan_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkCyan constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkCyan_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkGoldenrod constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkGoldenrod_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkGray constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkGray_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkKhaki constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkKhaki_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkMagenta constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkMagenta_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkOliveGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkOliveGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkOrange constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkOrange_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkOrchid constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkOrchid_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkRed constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkRed_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkSalmon constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkSalmon_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkSeaGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkSeaGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkSlateBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkSlateBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkSlateGray constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkSlateGray_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkTurquoise constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkTurquoise_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DarkViolet constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DarkViolet_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DeepPink constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DeepPink_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DeepSkyBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DeepSkyBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DimGray constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DimGray_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the DodgerBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_DodgerBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-		
-		/// <summary>
-		/// Tests that the Firebrick constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Firebrick_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the FloralWhite constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_FloralWhite_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the ForestGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_ForestGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Fuchsia constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Fuchsia_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Gainsboro constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Gainsboro_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the GhostWhite constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_GhostWhite_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Gold constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Gold_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Goldenrod constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Goldenrod_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Gray constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Gray_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Green constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Green_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the GreenYellow constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_GreenYellow_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Honeydew constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Honeydew_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the HotPink constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_HotPink_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the IndianRed constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_IndianRed_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Indigo constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Indigo_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Ivory constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Ivory_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Khaki constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Khaki_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Lavender constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Lavender_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LavenderBlush constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LavenderBlush_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LawnGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LawnGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LemonChiffon constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LemonChiffon_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightCoral constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightCoral_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightCyan constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightCyan_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightGoldenrodYellow constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightGoldenrodYellow_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightGray constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightGray_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightPink constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightPink_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightSalmon constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightSalmon_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightSeaGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightSeaGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightSkyBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightSkyBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightSlateGray constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightSlateGray_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightSteelBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightSteelBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LightYellow constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LightYellow_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Lime constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Lime_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the LimeGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_LimeGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Linen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Linen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Magenta constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Magenta_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Maroon constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Maroon_i () 
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumAquamarine constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumAquamarine_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumOrchid constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumOrchid_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumPurple constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumPurple_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumSeaGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumSeaGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumSlateBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumSlateBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumSpringGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumSpringGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumTurquoise constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumTurquoise_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MediumVioletRed constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MediumVioletRed_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MidnightBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MidnightBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MintCream constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MintCream_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the MistyRose constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_MistyRose_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Moccasin constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Moccasin_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the NavajoWhite constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_NavajoWhite_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Navy constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Navy_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the OldLace constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_OldLace_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Olive constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Olive_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the OliveDrab constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_OliveDrab_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Orange constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Orange_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the OrangeRed constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_OrangeRed_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Orchid constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Orchid_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the PaleGoldenrod constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_PaleGoldenrod_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the PaleGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_PaleGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the PaleTurquoise constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_PaleTurquoise_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the PaleVioletRed constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_PaleVioletRed_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the PapayaWhip constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_PapayaWhip_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the PeachPuff constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_PeachPuff_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Peru constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Peru_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Pink constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Pink_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Plum constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Plum_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the PowderBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_PowderBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Purple constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Purple_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Red constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Red_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the RosyBrown constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_RosyBrown_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the RoyalBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_RoyalBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SaddleBrown constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SaddleBrown_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Salmon constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Salmon_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SandyBrown constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SandyBrown_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SeaGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SeaGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SeaShell constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SeaShell_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Sienna constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Sienna_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Silver constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Silver_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SkyBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SkyBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SlateBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SlateBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SlateGray constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SlateGray_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Snow constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Snow_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SpringGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SpringGreen_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the SteelBlue constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_SteelBlue_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Tan constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Tan_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Teal constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Teal_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Thistle constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Thistle_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Tomato constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Tomato_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Turquoise constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Turquoise_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Violet constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Violet_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Wheat constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Wheat_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the White constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_White_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the WhiteSmoke constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_WhiteSmoke_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the Yellow constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_Yellow_i ()
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
-
-		/// <summary>
-		/// Tests that the YellowGreen constant yeilds the correct value.
-		/// </summary>
-		[Test]
-		public void TestConstant_YellowGreen_i () 
-		{
-			var val = Rgba32.Transparent;
-			Assert.That(val.R, Is.EqualTo(0));
-			Assert.That(val.G, Is.EqualTo(0));
-			Assert.That(val.B, Is.EqualTo(0));
-			Assert.That(val.A, Is.EqualTo(0));
-		}
+        /// <summary>
+        /// Tests that the Transparent constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Transparent_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the AliceBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_AliceBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the AntiqueWhite constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_AntiqueWhite_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Aqua constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Aqua_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Aquamarine constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Aquamarine_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Azure constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Azure_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Beige constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Beige_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Bisque constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Bisque_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Black constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Black_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the BlanchedAlmond constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_BlanchedAlmond_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Blue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Blue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the BlueViolet constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_BlueViolet_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Brown constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Brown_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the BurlyWood constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_BurlyWood_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the CadetBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_CadetBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Chartreuse constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Chartreuse_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Chocolate constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Chocolate_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Coral constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Coral_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the CornflowerBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_CornflowerBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Cornsilk constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Cornsilk_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Crimson constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Crimson_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Cyan constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Cyan_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkCyan constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkCyan_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkGoldenrod constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkGoldenrod_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkGray constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkGray_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkKhaki constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkKhaki_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkMagenta constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkMagenta_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkOliveGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkOliveGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkOrange constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkOrange_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkOrchid constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkOrchid_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkRed constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkRed_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkSalmon constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkSalmon_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkSeaGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkSeaGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkSlateBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkSlateBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkSlateGray constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkSlateGray_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkTurquoise constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkTurquoise_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DarkViolet constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DarkViolet_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DeepPink constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DeepPink_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DeepSkyBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DeepSkyBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DimGray constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DimGray_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the DodgerBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_DodgerBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+        
+        /// <summary>
+        /// Tests that the Firebrick constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Firebrick_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the FloralWhite constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_FloralWhite_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the ForestGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_ForestGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Fuchsia constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Fuchsia_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Gainsboro constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Gainsboro_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the GhostWhite constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_GhostWhite_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Gold constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Gold_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Goldenrod constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Goldenrod_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Gray constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Gray_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Green constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Green_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the GreenYellow constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_GreenYellow_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Honeydew constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Honeydew_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the HotPink constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_HotPink_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the IndianRed constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_IndianRed_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Indigo constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Indigo_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Ivory constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Ivory_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Khaki constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Khaki_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Lavender constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Lavender_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LavenderBlush constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LavenderBlush_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LawnGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LawnGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LemonChiffon constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LemonChiffon_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightCoral constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightCoral_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightCyan constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightCyan_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightGoldenrodYellow constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightGoldenrodYellow_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightGray constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightGray_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightPink constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightPink_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightSalmon constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightSalmon_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightSeaGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightSeaGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightSkyBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightSkyBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightSlateGray constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightSlateGray_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightSteelBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightSteelBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LightYellow constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LightYellow_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Lime constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Lime_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the LimeGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_LimeGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Linen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Linen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Magenta constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Magenta_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Maroon constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Maroon_i () 
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumAquamarine constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumAquamarine_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumOrchid constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumOrchid_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumPurple constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumPurple_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumSeaGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumSeaGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumSlateBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumSlateBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumSpringGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumSpringGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumTurquoise constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumTurquoise_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MediumVioletRed constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MediumVioletRed_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MidnightBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MidnightBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MintCream constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MintCream_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the MistyRose constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_MistyRose_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Moccasin constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Moccasin_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the NavajoWhite constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_NavajoWhite_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Navy constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Navy_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the OldLace constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_OldLace_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Olive constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Olive_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the OliveDrab constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_OliveDrab_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Orange constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Orange_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the OrangeRed constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_OrangeRed_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Orchid constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Orchid_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the PaleGoldenrod constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_PaleGoldenrod_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the PaleGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_PaleGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the PaleTurquoise constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_PaleTurquoise_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the PaleVioletRed constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_PaleVioletRed_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the PapayaWhip constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_PapayaWhip_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the PeachPuff constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_PeachPuff_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Peru constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Peru_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Pink constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Pink_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Plum constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Plum_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the PowderBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_PowderBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Purple constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Purple_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Red constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Red_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the RosyBrown constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_RosyBrown_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the RoyalBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_RoyalBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SaddleBrown constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SaddleBrown_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Salmon constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Salmon_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SandyBrown constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SandyBrown_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SeaGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SeaGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SeaShell constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SeaShell_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Sienna constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Sienna_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Silver constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Silver_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SkyBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SkyBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SlateBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SlateBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SlateGray constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SlateGray_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Snow constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Snow_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SpringGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SpringGreen_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the SteelBlue constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_SteelBlue_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Tan constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Tan_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Teal constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Teal_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Thistle constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Thistle_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Tomato constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Tomato_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Turquoise constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Turquoise_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Violet constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Violet_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Wheat constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Wheat_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the White constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_White_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the WhiteSmoke constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_WhiteSmoke_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the Yellow constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_Yellow_i ()
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
+
+        /// <summary>
+        /// Tests that the YellowGreen constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_YellowGreen_i () 
+        {
+            var val = Rgba32.Transparent;
+            Assert.That(val.R, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(0));
+        }
 

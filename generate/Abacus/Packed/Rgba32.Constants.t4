@@ -1,1128 +1,1128 @@
-﻿		/// <summary>
-		/// Transparent
-		/// </summary>
-		public static Rgba32 Transparent
-		{
-			get { return new Rgba32 (0); }
-		}
-
-		/// <summary>
-		/// AliceBlue
-		/// </summary>
-		public static Rgba32 AliceBlue
-		{
-			get { return new Rgba32 (0xfffff8f0); }
-		}
-
-		/// <summary>
-		/// AntiqueWhite
-		/// </summary>
-		public static Rgba32 AntiqueWhite
-		{
-			get { return new Rgba32 (0xffd7ebfa); }
-		}
-
-		/// <summary>
-		/// Aqua
-		/// </summary>
-		public static Rgba32 Aqua
-		{
-			get { return new Rgba32 (0xffffff00); }
-		}
-
-		/// <summary>
-		/// Aquamarine
-		/// </summary>
-		public static Rgba32 Aquamarine
-		{
-			get { return new Rgba32 (0xffd4ff7f); }
-		}
-
-		/// <summary>
-		/// Azure
-		/// </summary>
-		public static Rgba32 Azure
-		{
-			get { return new Rgba32 (0xfffffff0); }
-		}
-
-		/// <summary>
-		/// Beige
-		/// </summary>
-		public static Rgba32 Beige
-		{
-			get { return new Rgba32 (0xffdcf5f5); }
-		}
-
-		/// <summary>
-		/// Bisque
-		/// </summary>
-		public static Rgba32 Bisque
-		{
-			get { return new Rgba32 (0xffc4e4ff); }
-		}
-
-		/// <summary>
-		/// Black
-		/// </summary>
-		public static Rgba32 Black
-		{
-			get { return new Rgba32 (0xff000000); }
-		}
-
-		/// <summary>
-		/// BlanchedAlmond
-		/// </summary>
-		public static Rgba32 BlanchedAlmond
-		{
-			get { return new Rgba32 (0xffcdebff); }
-		}
-
-		/// <summary>
-		/// Blue
-		/// </summary>
-		public static Rgba32 Blue
-		{
-			get { return new Rgba32 (0xffff0000); }
-		}
-
-		/// <summary>
-		/// BlueViolet
-		/// </summary>
-		public static Rgba32 BlueViolet
-		{
-			get { return new Rgba32 (0xffe22b8a); }
-		}
-
-		/// <summary>
-		/// Brown
-		/// </summary>
-		public static Rgba32 Brown
-		{
-			get { return new Rgba32 (0xff2a2aa5); }
-		}
-
-		/// <summary>
-		/// BurlyWood
-		/// </summary>
-		public static Rgba32 BurlyWood
-		{
-			get { return new Rgba32 (0xff87b8de); }
-		}
-
-		/// <summary>
-		/// CadetBlue
-		/// </summary>
-		public static Rgba32 CadetBlue
-		{
-			get { return new Rgba32 (0xffa09e5f); }
-		}
-
-		/// <summary>
-		/// Chartreuse
-		/// </summary>
-		public static Rgba32 Chartreuse
-		{
-			get { return new Rgba32 (0xff00ff7f); }
-		}
-
-		/// <summary>
-		/// Chocolate
-		/// </summary>
-		public static Rgba32 Chocolate
-		{
-			get { return new Rgba32 (0xff1e69d2); }
-		}
-
-		/// <summary>
-		/// Coral
-		/// </summary>
-		public static Rgba32 Coral
-		{
-			get { return new Rgba32 (0xff507fff); }
-		}
-
-		/// <summary>
-		/// CornflowerBlue
-		/// </summary>
-		public static Rgba32 CornflowerBlue
-		{
-			get { return new Rgba32 (0xffed9564); }
-		}
-
-		/// <summary>
-		/// Cornsilk
-		/// </summary>
-		public static Rgba32 Cornsilk
-		{
-			get { return new Rgba32 (0xffdcf8ff); }
-		}
-
-		/// <summary>
-		/// Crimson
-		/// </summary>
-		public static Rgba32 Crimson
-		{
-			get { return new Rgba32 (0xff3c14dc); }
-		}
-
-		/// <summary>
-		/// Cyan
-		/// </summary>
-		public static Rgba32 Cyan
-		{
-			get { return new Rgba32 (0xffffff00); }
-		}
-
-		/// <summary>
-		/// DarkBlue
-		/// </summary>
-		public static Rgba32 DarkBlue
-		{
-			get { return new Rgba32 (0xff8b0000); }
-		}
-
-		/// <summary>
-		/// DarkCyan
-		/// </summary>
-		public static Rgba32 DarkCyan
-		{
-			get { return new Rgba32 (0xff8b8b00); }
-		}
-
-		/// <summary>
-		/// DarkGoldenrod
-		/// </summary>
-		public static Rgba32 DarkGoldenrod
-		{
-			get { return new Rgba32 (0xff0b86b8); }
-		}
-
-		/// <summary>
-		/// DarkGray
-		/// </summary>
-		public static Rgba32 DarkGray
-		{
-			get { return new Rgba32 (0xffa9a9a9); }
-		}
-
-		/// <summary>
-		/// DarkGreen
-		/// </summary>
-		public static Rgba32 DarkGreen
-		{
-			get { return new Rgba32 (0xff006400); }
-		}
-
-		/// <summary>
-		/// DarkKhaki
-		/// </summary>
-		public static Rgba32 DarkKhaki
-		{
-			get { return new Rgba32 (0xff6bb7bd); }
-		}
-
-		/// <summary>
-		/// DarkMagenta
-		/// </summary>
-		public static Rgba32 DarkMagenta
-		{
-			get { return new Rgba32 (0xff8b008b); }
-		}
-
-		/// <summary>
-		/// DarkOliveGreen
-		/// </summary>
-		public static Rgba32 DarkOliveGreen
-		{
-			get { return new Rgba32 (0xff2f6b55); }
-		}
-
-		/// <summary>
-		/// DarkOrange
-		/// </summary>
-		public static Rgba32 DarkOrange
-		{
-			get { return new Rgba32 (0xff008cff); }
-		}
-
-		/// <summary>
-		/// DarkOrchid
-		/// </summary>
-		public static Rgba32 DarkOrchid
-		{
-			get { return new Rgba32 (0xffcc3299); }
-		}
-
-		/// <summary>
-		/// DarkRed
-		/// </summary>
-		public static Rgba32 DarkRed
-		{
-			get { return new Rgba32 (0xff00008b); }
-		}
-
-		/// <summary>
-		/// DarkSalmon
-		/// </summary>
-		public static Rgba32 DarkSalmon
-		{
-			get { return new Rgba32 (0xff7a96e9); }
-		}
-
-		/// <summary>
-		/// DarkSeaGreen
-		/// </summary>
-		public static Rgba32 DarkSeaGreen
-		{
-			get { return new Rgba32 (0xff8bbc8f); }
-		}
-
-		/// <summary>
-		/// DarkSlateBlue
-		/// </summary>
-		public static Rgba32 DarkSlateBlue
-		{
-			get { return new Rgba32 (0xff8b3d48); }
-		}
-
-		/// <summary>
-		/// DarkSlateGray
-		/// </summary>
-		public static Rgba32 DarkSlateGray
-		{
-			get { return new Rgba32 (0xff4f4f2f); }
-		}
-
-		/// <summary>
-		/// DarkTurquoise
-		/// </summary>
-		public static Rgba32 DarkTurquoise
-		{
-			get { return new Rgba32 (0xffd1ce00); }
-		}
-
-		/// <summary>
-		/// DarkViolet
-		/// </summary>
-		public static Rgba32 DarkViolet
-		{
-			get { return new Rgba32 (0xffd30094); }
-		}
-
-		/// <summary>
-		/// DeepPink
-		/// </summary>
-		public static Rgba32 DeepPink
-		{
-			get { return new Rgba32 (0xff9314ff); }
-		}
-
-		/// <summary>
-		/// DeepSkyBlue
-		/// </summary>
-		public static Rgba32 DeepSkyBlue
-		{
-			get { return new Rgba32 (0xffffbf00); }
-		}
-
-		/// <summary>
-		/// DimGray
-		/// </summary>
-		public static Rgba32 DimGray
-		{
-			get { return new Rgba32 (0xff696969); }
-		}
-
-		/// <summary>
-		/// DodgerBlue
-		/// </summary>
-		public static Rgba32 DodgerBlue
-		{
-			get { return new Rgba32 (0xffff901e); }
-		}
-		
-		/// <summary>
-		/// Firebrick
-		/// </summary>
-		public static Rgba32 Firebrick
-		{
-			get { return new Rgba32 (0xff2222b2); }
-		}
-
-		/// <summary>
-		/// FloralWhite
-		/// </summary>
-		public static Rgba32 FloralWhite
-		{
-			get { return new Rgba32 (0xfff0faff); }
-		}
-
-		/// <summary>
-		/// ForestGreen
-		/// </summary>
-		public static Rgba32 ForestGreen
-		{
-			get { return new Rgba32 (0xff228b22); }
-		}
-
-		/// <summary>
-		/// Fuchsia
-		/// </summary>
-		public static Rgba32 Fuchsia
-		{
-			get { return new Rgba32 (0xffff00ff); }
-		}
-
-		/// <summary>
-		/// Gainsboro
-		/// </summary>
-		public static Rgba32 Gainsboro
-		{
-			get { return new Rgba32 (0xffdcdcdc); }
-		}
-
-		/// <summary>
-		/// GhostWhite
-		/// </summary>
-		public static Rgba32 GhostWhite
-		{
-			get { return new Rgba32 (0xfffff8f8); }
-		}
-
-		/// <summary>
-		/// Gold
-		/// </summary>
-		public static Rgba32 Gold
-		{
-			get { return new Rgba32 (0xff00d7ff); }
-		}
-
-		/// <summary>
-		/// Goldenrod
-		/// </summary>
-		public static Rgba32 Goldenrod
-		{
-			get { return new Rgba32 (0xff20a5da); }
-		}
-
-		/// <summary>
-		/// Gray
-		/// </summary>
-		public static Rgba32 Gray
-		{
-			get { return new Rgba32 (0xff808080); }
-		}
-
-		/// <summary>
-		/// Green
-		/// </summary>
-		public static Rgba32 Green
-		{
-			get { return new Rgba32 (0xff008000); }
-		}
-
-		/// <summary>
-		/// GreenYellow
-		/// </summary>
-		public static Rgba32 GreenYellow
-		{
-			get { return new Rgba32 (0xff2fffad); }
-		}
-
-		/// <summary>
-		/// Honeydew
-		/// </summary>
-		public static Rgba32 Honeydew
-		{
-			get { return new Rgba32 (0xfff0fff0); }
-		}
-
-		/// <summary>
-		/// HotPink
-		/// </summary>
-		public static Rgba32 HotPink
-		{
-			get { return new Rgba32 (0xffb469ff); }
-		}
-
-		/// <summary>
-		/// IndianRed
-		/// </summary>
-		public static Rgba32 IndianRed
-		{
-			get { return new Rgba32 (0xff5c5ccd); }
-		}
-
-		/// <summary>
-		/// Indigo
-		/// </summary>
-		public static Rgba32 Indigo
-		{
-			get { return new Rgba32 (0xff82004b); }
-		}
-
-		/// <summary>
-		/// Ivory
-		/// </summary>
-		public static Rgba32 Ivory
-		{
-			get { return new Rgba32 (0xfff0ffff); }
-		}
-
-		/// <summary>
-		/// Khaki
-		/// </summary>
-		public static Rgba32 Khaki
-		{
-			get { return new Rgba32 (0xff8ce6f0); }
-		}
-
-		/// <summary>
-		/// Lavender
-		/// </summary>
-		public static Rgba32 Lavender
-		{
-			get { return new Rgba32 (0xfffae6e6); }
-		}
-
-		/// <summary>
-		/// LavenderBlush
-		/// </summary>
-		public static Rgba32 LavenderBlush
-		{
-			get { return new Rgba32 (0xfff5f0ff); }
-		}
-
-		/// <summary>
-		/// LawnGreen
-		/// </summary>
-		public static Rgba32 LawnGreen
-		{
-			get { return new Rgba32 (0xff00fc7c); }
-		}
-
-		/// <summary>
-		/// LemonChiffon
-		/// </summary>
-		public static Rgba32 LemonChiffon
-		{
-			get { return new Rgba32 (0xffcdfaff); }
-		}
-
-		/// <summary>
-		/// LightBlue
-		/// </summary>
-		public static Rgba32 LightBlue
-		{
-			get { return new Rgba32 (0xffe6d8ad); }
-		}
-
-		/// <summary>
-		/// LightCoral
-		/// </summary>
-		public static Rgba32 LightCoral
-		{
-			get { return new Rgba32 (0xff8080f0); }
-		}
-
-		/// <summary>
-		/// LightCyan
-		/// </summary>
-		public static Rgba32 LightCyan
-		{
-			get { return new Rgba32 (0xffffffe0); }
-		}
-
-		/// <summary>
-		/// LightGoldenrodYellow
-		/// </summary>
-		public static Rgba32 LightGoldenrodYellow
-		{
-			get { return new Rgba32 (0xffd2fafa); }
-		}
-
-		/// <summary>
-		/// LightGreen
-		/// </summary>
-		public static Rgba32 LightGreen
-		{
-			get { return new Rgba32 (0xff90ee90); }
-		}
-
-		/// <summary>
-		/// LightGray
-		/// </summary>
-		public static Rgba32 LightGray
-		{
-			get { return new Rgba32 (0xffd3d3d3); }
-		}
-
-		/// <summary>
-		/// LightPink
-		/// </summary>
-		public static Rgba32 LightPink
-		{
-			get { return new Rgba32 (0xffc1b6ff); }
-		}
-
-		/// <summary>
-		/// LightSalmon
-		/// </summary>
-		public static Rgba32 LightSalmon
-		{
-			get { return new Rgba32 (0xff7aa0ff); }
-		}
-
-		/// <summary>
-		/// LightSeaGreen
-		/// </summary>
-		public static Rgba32 LightSeaGreen
-		{
-			get { return new Rgba32 (0xffaab220); }
-		}
-
-		/// <summary>
-		/// LightSkyBlue
-		/// </summary>
-		public static Rgba32 LightSkyBlue
-		{
-			get { return new Rgba32 (0xffface87); }
-		}
-
-		/// <summary>
-		/// LightSlateGray
-		/// </summary>
-		public static Rgba32 LightSlateGray
-		{
-			get { return new Rgba32 (0xff998877); }
-		}
-
-		/// <summary>
-		/// LightSteelBlue
-		/// </summary>
-		public static Rgba32 LightSteelBlue
-		{
-			get { return new Rgba32 (0xffdec4b0); }
-		}
-
-		/// <summary>
-		/// LightYellow
-		/// </summary>
-		public static Rgba32 LightYellow
-		{
-			get { return new Rgba32 (0xffe0ffff); }
-		}
-
-		/// <summary>
-		/// Lime
-		/// </summary>
-		public static Rgba32 Lime
-		{
-			get { return new Rgba32 (0xff00ff00); }
-		}
-
-		/// <summary>
-		/// LimeGreen
-		/// </summary>
-		public static Rgba32 LimeGreen
-		{
-			get { return new Rgba32 (0xff32cd32); }
-		}
-
-		/// <summary>
-		/// Linen
-		/// </summary>
-		public static Rgba32 Linen
-		{
-			get { return new Rgba32 (0xffe6f0fa); }
-		}
-
-		/// <summary>
-		/// Magenta
-		/// </summary>
-		public static Rgba32 Magenta
-		{
-			get { return new Rgba32 (0xffff00ff); }
-		}
-
-		/// <summary>
-		/// Maroon
-		/// </summary>
-		public static Rgba32 Maroon 
-		{
-			get { return new Rgba32 (0xff000080); }
-		}
-
-		/// <summary>
-		/// MediumAquamarine
-		/// </summary>
-		public static Rgba32 MediumAquamarine
-		{
-			get { return new Rgba32 (0xffaacd66); }
-		}
-
-		/// <summary>
-		/// MediumBlue
-		/// </summary>
-		public static Rgba32 MediumBlue
-		{
-			get { return new Rgba32 (0xffcd0000); }
-		}
-
-		/// <summary>
-		/// MediumOrchid
-		/// </summary>
-		public static Rgba32 MediumOrchid
-		{
-			get { return new Rgba32 (0xffd355ba); }
-		}
-
-		/// <summary>
-		/// MediumPurple
-		/// </summary>
-		public static Rgba32 MediumPurple
-		{
-			get { return new Rgba32 (0xffdb7093); }
-		}
-
-		/// <summary>
-		/// MediumSeaGreen
-		/// </summary>
-		public static Rgba32 MediumSeaGreen
-		{
-			get { return new Rgba32 (0xff71b33c); }
-		}
-
-		/// <summary>
-		/// MediumSlateBlue
-		/// </summary>
-		public static Rgba32 MediumSlateBlue
-		{
-			get { return new Rgba32 (0xffee687b); }
-		}
-
-		/// <summary>
-		/// MediumSpringGreen
-		/// </summary>
-		public static Rgba32 MediumSpringGreen
-		{
-			get { return new Rgba32 (0xff9afa00); }
-		}
-
-		/// <summary>
-		/// MediumTurquoise
-		/// </summary>
-		public static Rgba32 MediumTurquoise
-		{
-			get { return new Rgba32 (0xffccd148); }
-		}
-
-		/// <summary>
-		/// MediumVioletRed
-		/// </summary>
-		public static Rgba32 MediumVioletRed
-		{
-			get { return new Rgba32 (0xff8515c7); }
-		}
-
-		/// <summary>
-		/// MidnightBlue
-		/// </summary>
-		public static Rgba32 MidnightBlue
-		{
-			get { return new Rgba32 (0xff701919); }
-		}
-
-		/// <summary>
-		/// MintCream
-		/// </summary>
-		public static Rgba32 MintCream
-		{
-			get { return new Rgba32 (0xfffafff5); }
-		}
-
-		/// <summary>
-		/// MistyRose
-		/// </summary>
-		public static Rgba32 MistyRose
-		{
-			get { return new Rgba32 (0xffe1e4ff); }
-		}
-
-		/// <summary>
-		/// Moccasin
-		/// </summary>
-		public static Rgba32 Moccasin
-		{
-			get { return new Rgba32 (0xffb5e4ff); }
-		}
-
-		/// <summary>
-		/// NavajoWhite
-		/// </summary>
-		public static Rgba32 NavajoWhite
-		{
-			get { return new Rgba32 (0xffaddeff); }
-		}
-
-		/// <summary>
-		/// Navy
-		/// </summary>
-		public static Rgba32 Navy
-		{
-			get { return new Rgba32 (0xff800000); }
-		}
-
-		/// <summary>
-		/// OldLace
-		/// </summary>
-		public static Rgba32 OldLace
-		{
-			get { return new Rgba32 (0xffe6f5fd); }
-		}
-
-		/// <summary>
-		/// Olive
-		/// </summary>
-		public static Rgba32 Olive
-		{
-			get { return new Rgba32 (0xff008080); }
-		}
-
-		/// <summary>
-		/// OliveDrab
-		/// </summary>
-		public static Rgba32 OliveDrab
-		{
-			get { return new Rgba32 (0xff238e6b); }
-		}
-
-		/// <summary>
-		/// Orange
-		/// </summary>
-		public static Rgba32 Orange
-		{
-			get { return new Rgba32 (0xff00a5ff); }
-		}
-
-		/// <summary>
-		/// OrangeRed
-		/// </summary>
-		public static Rgba32 OrangeRed
-		{
-			get { return new Rgba32 (0xff0045ff); }
-		}
-
-		/// <summary>
-		/// Orchid
-		/// </summary>
-		public static Rgba32 Orchid
-		{
-			get { return new Rgba32 (0xffd670da); }
-		}
-
-		/// <summary>
-		/// PaleGoldenrod
-		/// </summary>
-		public static Rgba32 PaleGoldenrod
-		{
-			get { return new Rgba32 (0xffaae8ee); }
-		}
-
-		/// <summary>
-		/// PaleGreen
-		/// </summary>
-		public static Rgba32 PaleGreen
-		{
-			get { return new Rgba32 (0xff98fb98); }
-		}
-
-		/// <summary>
-		/// PaleTurquoise
-		/// </summary>
-		public static Rgba32 PaleTurquoise
-		{
-			get { return new Rgba32 (0xffeeeeaf); }
-		}
-
-		/// <summary>
-		/// PaleVioletRed
-		/// </summary>
-		public static Rgba32 PaleVioletRed
-		{
-			get { return new Rgba32 (0xff9370db); }
-		}
-
-		/// <summary>
-		/// PapayaWhip
-		/// </summary>
-		public static Rgba32 PapayaWhip
-		{
-			get { return new Rgba32 (0xffd5efff); }
-		}
-
-		/// <summary>
-		/// PeachPuff
-		/// </summary>
-		public static Rgba32 PeachPuff
-		{
-			get { return new Rgba32 (0xffb9daff); }
-		}
-
-		/// <summary>
-		/// Peru
-		/// </summary>
-		public static Rgba32 Peru
-		{
-			get { return new Rgba32 (0xff3f85cd); }
-		}
-
-		/// <summary>
-		/// Pink
-		/// </summary>
-		public static Rgba32 Pink
-		{
-			get { return new Rgba32 (0xffcbc0ff); }
-		}
-
-		/// <summary>
-		/// Plum
-		/// </summary>
-		public static Rgba32 Plum
-		{
-			get { return new Rgba32 (0xffdda0dd); }
-		}
-
-		/// <summary>
-		/// PowderBlue
-		/// </summary>
-		public static Rgba32 PowderBlue
-		{
-			get { return new Rgba32 (0xffe6e0b0); }
-		}
-
-		/// <summary>
-		/// Purple
-		/// </summary>
-		public static Rgba32 Purple
-		{
-			get { return new Rgba32 (0xff800080); }
-		}
-
-		/// <summary>
-		/// Red
-		/// </summary>
-		public static Rgba32 Red
-		{
-			get { return new Rgba32 (0xff0000ff); }
-		}
-
-		/// <summary>
-		/// RosyBrown
-		/// </summary>
-		public static Rgba32 RosyBrown
-		{
-			get { return new Rgba32 (0xff8f8fbc); }
-		}
-
-		/// <summary>
-		/// RoyalBlue
-		/// </summary>
-		public static Rgba32 RoyalBlue
-		{
-			get { return new Rgba32 (0xffe16941); }
-		}
-
-		/// <summary>
-		/// SaddleBrown
-		/// </summary>
-		public static Rgba32 SaddleBrown
-		{
-			get { return new Rgba32 (0xff13458b); }
-		}
-
-		/// <summary>
-		/// Salmon
-		/// </summary>
-		public static Rgba32 Salmon
-		{
-			get { return new Rgba32 (0xff7280fa); }
-		}
-
-		/// <summary>
-		/// SandyBrown
-		/// </summary>
-		public static Rgba32 SandyBrown
-		{
-			get{ return new Rgba32 (0xff60a4f4); }
-		}
-
-		/// <summary>
-		/// SeaGreen
-		/// </summary>
-		public static Rgba32 SeaGreen
-		{
-			get { return new Rgba32 (0xff578b2e); }
-		}
-
-		/// <summary>
-		/// SeaShell
-		/// </summary>
-		public static Rgba32 SeaShell
-		{
-			get { return new Rgba32 (0xffeef5ff); }
-		}
-
-		/// <summary>
-		/// Sienna
-		/// </summary>
-		public static Rgba32 Sienna
-		{
-			get { return new Rgba32 (0xff2d52a0); }
-		}
-
-		/// <summary>
-		/// Silver
-		/// </summary>
-		public static Rgba32 Silver
-		{
-			get { return new Rgba32 (0xffc0c0c0); }
-		}
-
-		/// <summary>
-		/// SkyBlue
-		/// </summary>
-		public static Rgba32 SkyBlue
-		{
-			get { return new Rgba32 (0xffebce87); }
-		}
-
-		/// <summary>
-		/// SlateBlue
-		/// </summary>
-		public static Rgba32 SlateBlue
-		{
-			get { return new Rgba32 (0xffcd5a6a); }
-		}
-
-		/// <summary>
-		/// SlateGray
-		/// </summary>
-		public static Rgba32 SlateGray
-		{
-			get { return new Rgba32 (0xff908070); }
-		}
-
-		/// <summary>
-		/// Snow
-		/// </summary>
-		public static Rgba32 Snow
-		{
-			get { return new Rgba32 (0xfffafaff); }
-		}
-
-		/// <summary>
-		/// SpringGreen
-		/// </summary>
-		public static Rgba32 SpringGreen
-		{
-			get { return new Rgba32 (0xff7fff00); }
-		}
-
-		/// <summary>
-		/// SteelBlue
-		/// </summary>
-		public static Rgba32 SteelBlue
-		{
-			get { return new Rgba32 (0xffb48246); }
-		}
-
-		/// <summary>
-		/// Tan
-		/// </summary>
-		public static Rgba32 Tan
-		{
-			get { return new Rgba32 (0xff8cb4d2); }
-		}
-
-		/// <summary>
-		/// Teal
-		/// </summary>
-		public static Rgba32 Teal
-		{
-			get { return new Rgba32 (0xff808000); }
-		}
-
-		/// <summary>
-		/// Thistle
-		/// </summary>
-		public static Rgba32 Thistle
-		{
-			get { return new Rgba32 (0xffd8bfd8); }
-		}
-
-		/// <summary>
-		/// Tomato
-		/// </summary>
-		public static Rgba32 Tomato
-		{
-			get { return new Rgba32 (0xff4763ff); }
-		}
-
-		/// <summary>
-		/// Turquoise
-		/// </summary>
-		public static Rgba32 Turquoise
-		{
-			get { return new Rgba32 (0xffd0e040); }
-		}
-
-		/// <summary>
-		/// Violet
-		/// </summary>
-		public static Rgba32 Violet
-		{
-			get {return new Rgba32 (0xffee82ee); }
-		}
-
-		/// <summary>
-		/// Wheat
-		/// </summary>
-		public static Rgba32 Wheat
-		{
-			get { return new Rgba32 (0xffb3def5); }
-		}
-
-		/// <summary>
-		/// White
-		/// </summary>
-		public static Rgba32 White
-		{
-			get { return new Rgba32 (UInt32.MaxValue); }
-		}
-
-		/// <summary>
-		/// WhiteSmoke
-		/// </summary>
-		public static Rgba32 WhiteSmoke
-		{
-			get { return new Rgba32 (0xfff5f5f5); }
-		}
-
-		/// <summary>
-		/// Yellow
-		/// </summary>
-		public static Rgba32 Yellow
-		{
-			get { return new Rgba32 (0xff00ffff); }
-		}
-
-		/// <summary>
-		/// YellowGreen
-		/// </summary>
-		public static Rgba32 YellowGreen 
-		{
-			get { return new Rgba32 (0xff32cd9a); }
-		}
+﻿        /// <summary>
+        /// Transparent
+        /// </summary>
+        public static Rgba32 Transparent
+        {
+            get { return new Rgba32 (0); }
+        }
+
+        /// <summary>
+        /// AliceBlue
+        /// </summary>
+        public static Rgba32 AliceBlue
+        {
+            get { return new Rgba32 (0xfffff8f0); }
+        }
+
+        /// <summary>
+        /// AntiqueWhite
+        /// </summary>
+        public static Rgba32 AntiqueWhite
+        {
+            get { return new Rgba32 (0xffd7ebfa); }
+        }
+
+        /// <summary>
+        /// Aqua
+        /// </summary>
+        public static Rgba32 Aqua
+        {
+            get { return new Rgba32 (0xffffff00); }
+        }
+
+        /// <summary>
+        /// Aquamarine
+        /// </summary>
+        public static Rgba32 Aquamarine
+        {
+            get { return new Rgba32 (0xffd4ff7f); }
+        }
+
+        /// <summary>
+        /// Azure
+        /// </summary>
+        public static Rgba32 Azure
+        {
+            get { return new Rgba32 (0xfffffff0); }
+        }
+
+        /// <summary>
+        /// Beige
+        /// </summary>
+        public static Rgba32 Beige
+        {
+            get { return new Rgba32 (0xffdcf5f5); }
+        }
+
+        /// <summary>
+        /// Bisque
+        /// </summary>
+        public static Rgba32 Bisque
+        {
+            get { return new Rgba32 (0xffc4e4ff); }
+        }
+
+        /// <summary>
+        /// Black
+        /// </summary>
+        public static Rgba32 Black
+        {
+            get { return new Rgba32 (0xff000000); }
+        }
+
+        /// <summary>
+        /// BlanchedAlmond
+        /// </summary>
+        public static Rgba32 BlanchedAlmond
+        {
+            get { return new Rgba32 (0xffcdebff); }
+        }
+
+        /// <summary>
+        /// Blue
+        /// </summary>
+        public static Rgba32 Blue
+        {
+            get { return new Rgba32 (0xffff0000); }
+        }
+
+        /// <summary>
+        /// BlueViolet
+        /// </summary>
+        public static Rgba32 BlueViolet
+        {
+            get { return new Rgba32 (0xffe22b8a); }
+        }
+
+        /// <summary>
+        /// Brown
+        /// </summary>
+        public static Rgba32 Brown
+        {
+            get { return new Rgba32 (0xff2a2aa5); }
+        }
+
+        /// <summary>
+        /// BurlyWood
+        /// </summary>
+        public static Rgba32 BurlyWood
+        {
+            get { return new Rgba32 (0xff87b8de); }
+        }
+
+        /// <summary>
+        /// CadetBlue
+        /// </summary>
+        public static Rgba32 CadetBlue
+        {
+            get { return new Rgba32 (0xffa09e5f); }
+        }
+
+        /// <summary>
+        /// Chartreuse
+        /// </summary>
+        public static Rgba32 Chartreuse
+        {
+            get { return new Rgba32 (0xff00ff7f); }
+        }
+
+        /// <summary>
+        /// Chocolate
+        /// </summary>
+        public static Rgba32 Chocolate
+        {
+            get { return new Rgba32 (0xff1e69d2); }
+        }
+
+        /// <summary>
+        /// Coral
+        /// </summary>
+        public static Rgba32 Coral
+        {
+            get { return new Rgba32 (0xff507fff); }
+        }
+
+        /// <summary>
+        /// CornflowerBlue
+        /// </summary>
+        public static Rgba32 CornflowerBlue
+        {
+            get { return new Rgba32 (0xffed9564); }
+        }
+
+        /// <summary>
+        /// Cornsilk
+        /// </summary>
+        public static Rgba32 Cornsilk
+        {
+            get { return new Rgba32 (0xffdcf8ff); }
+        }
+
+        /// <summary>
+        /// Crimson
+        /// </summary>
+        public static Rgba32 Crimson
+        {
+            get { return new Rgba32 (0xff3c14dc); }
+        }
+
+        /// <summary>
+        /// Cyan
+        /// </summary>
+        public static Rgba32 Cyan
+        {
+            get { return new Rgba32 (0xffffff00); }
+        }
+
+        /// <summary>
+        /// DarkBlue
+        /// </summary>
+        public static Rgba32 DarkBlue
+        {
+            get { return new Rgba32 (0xff8b0000); }
+        }
+
+        /// <summary>
+        /// DarkCyan
+        /// </summary>
+        public static Rgba32 DarkCyan
+        {
+            get { return new Rgba32 (0xff8b8b00); }
+        }
+
+        /// <summary>
+        /// DarkGoldenrod
+        /// </summary>
+        public static Rgba32 DarkGoldenrod
+        {
+            get { return new Rgba32 (0xff0b86b8); }
+        }
+
+        /// <summary>
+        /// DarkGray
+        /// </summary>
+        public static Rgba32 DarkGray
+        {
+            get { return new Rgba32 (0xffa9a9a9); }
+        }
+
+        /// <summary>
+        /// DarkGreen
+        /// </summary>
+        public static Rgba32 DarkGreen
+        {
+            get { return new Rgba32 (0xff006400); }
+        }
+
+        /// <summary>
+        /// DarkKhaki
+        /// </summary>
+        public static Rgba32 DarkKhaki
+        {
+            get { return new Rgba32 (0xff6bb7bd); }
+        }
+
+        /// <summary>
+        /// DarkMagenta
+        /// </summary>
+        public static Rgba32 DarkMagenta
+        {
+            get { return new Rgba32 (0xff8b008b); }
+        }
+
+        /// <summary>
+        /// DarkOliveGreen
+        /// </summary>
+        public static Rgba32 DarkOliveGreen
+        {
+            get { return new Rgba32 (0xff2f6b55); }
+        }
+
+        /// <summary>
+        /// DarkOrange
+        /// </summary>
+        public static Rgba32 DarkOrange
+        {
+            get { return new Rgba32 (0xff008cff); }
+        }
+
+        /// <summary>
+        /// DarkOrchid
+        /// </summary>
+        public static Rgba32 DarkOrchid
+        {
+            get { return new Rgba32 (0xffcc3299); }
+        }
+
+        /// <summary>
+        /// DarkRed
+        /// </summary>
+        public static Rgba32 DarkRed
+        {
+            get { return new Rgba32 (0xff00008b); }
+        }
+
+        /// <summary>
+        /// DarkSalmon
+        /// </summary>
+        public static Rgba32 DarkSalmon
+        {
+            get { return new Rgba32 (0xff7a96e9); }
+        }
+
+        /// <summary>
+        /// DarkSeaGreen
+        /// </summary>
+        public static Rgba32 DarkSeaGreen
+        {
+            get { return new Rgba32 (0xff8bbc8f); }
+        }
+
+        /// <summary>
+        /// DarkSlateBlue
+        /// </summary>
+        public static Rgba32 DarkSlateBlue
+        {
+            get { return new Rgba32 (0xff8b3d48); }
+        }
+
+        /// <summary>
+        /// DarkSlateGray
+        /// </summary>
+        public static Rgba32 DarkSlateGray
+        {
+            get { return new Rgba32 (0xff4f4f2f); }
+        }
+
+        /// <summary>
+        /// DarkTurquoise
+        /// </summary>
+        public static Rgba32 DarkTurquoise
+        {
+            get { return new Rgba32 (0xffd1ce00); }
+        }
+
+        /// <summary>
+        /// DarkViolet
+        /// </summary>
+        public static Rgba32 DarkViolet
+        {
+            get { return new Rgba32 (0xffd30094); }
+        }
+
+        /// <summary>
+        /// DeepPink
+        /// </summary>
+        public static Rgba32 DeepPink
+        {
+            get { return new Rgba32 (0xff9314ff); }
+        }
+
+        /// <summary>
+        /// DeepSkyBlue
+        /// </summary>
+        public static Rgba32 DeepSkyBlue
+        {
+            get { return new Rgba32 (0xffffbf00); }
+        }
+
+        /// <summary>
+        /// DimGray
+        /// </summary>
+        public static Rgba32 DimGray
+        {
+            get { return new Rgba32 (0xff696969); }
+        }
+
+        /// <summary>
+        /// DodgerBlue
+        /// </summary>
+        public static Rgba32 DodgerBlue
+        {
+            get { return new Rgba32 (0xffff901e); }
+        }
+        
+        /// <summary>
+        /// Firebrick
+        /// </summary>
+        public static Rgba32 Firebrick
+        {
+            get { return new Rgba32 (0xff2222b2); }
+        }
+
+        /// <summary>
+        /// FloralWhite
+        /// </summary>
+        public static Rgba32 FloralWhite
+        {
+            get { return new Rgba32 (0xfff0faff); }
+        }
+
+        /// <summary>
+        /// ForestGreen
+        /// </summary>
+        public static Rgba32 ForestGreen
+        {
+            get { return new Rgba32 (0xff228b22); }
+        }
+
+        /// <summary>
+        /// Fuchsia
+        /// </summary>
+        public static Rgba32 Fuchsia
+        {
+            get { return new Rgba32 (0xffff00ff); }
+        }
+
+        /// <summary>
+        /// Gainsboro
+        /// </summary>
+        public static Rgba32 Gainsboro
+        {
+            get { return new Rgba32 (0xffdcdcdc); }
+        }
+
+        /// <summary>
+        /// GhostWhite
+        /// </summary>
+        public static Rgba32 GhostWhite
+        {
+            get { return new Rgba32 (0xfffff8f8); }
+        }
+
+        /// <summary>
+        /// Gold
+        /// </summary>
+        public static Rgba32 Gold
+        {
+            get { return new Rgba32 (0xff00d7ff); }
+        }
+
+        /// <summary>
+        /// Goldenrod
+        /// </summary>
+        public static Rgba32 Goldenrod
+        {
+            get { return new Rgba32 (0xff20a5da); }
+        }
+
+        /// <summary>
+        /// Gray
+        /// </summary>
+        public static Rgba32 Gray
+        {
+            get { return new Rgba32 (0xff808080); }
+        }
+
+        /// <summary>
+        /// Green
+        /// </summary>
+        public static Rgba32 Green
+        {
+            get { return new Rgba32 (0xff008000); }
+        }
+
+        /// <summary>
+        /// GreenYellow
+        /// </summary>
+        public static Rgba32 GreenYellow
+        {
+            get { return new Rgba32 (0xff2fffad); }
+        }
+
+        /// <summary>
+        /// Honeydew
+        /// </summary>
+        public static Rgba32 Honeydew
+        {
+            get { return new Rgba32 (0xfff0fff0); }
+        }
+
+        /// <summary>
+        /// HotPink
+        /// </summary>
+        public static Rgba32 HotPink
+        {
+            get { return new Rgba32 (0xffb469ff); }
+        }
+
+        /// <summary>
+        /// IndianRed
+        /// </summary>
+        public static Rgba32 IndianRed
+        {
+            get { return new Rgba32 (0xff5c5ccd); }
+        }
+
+        /// <summary>
+        /// Indigo
+        /// </summary>
+        public static Rgba32 Indigo
+        {
+            get { return new Rgba32 (0xff82004b); }
+        }
+
+        /// <summary>
+        /// Ivory
+        /// </summary>
+        public static Rgba32 Ivory
+        {
+            get { return new Rgba32 (0xfff0ffff); }
+        }
+
+        /// <summary>
+        /// Khaki
+        /// </summary>
+        public static Rgba32 Khaki
+        {
+            get { return new Rgba32 (0xff8ce6f0); }
+        }
+
+        /// <summary>
+        /// Lavender
+        /// </summary>
+        public static Rgba32 Lavender
+        {
+            get { return new Rgba32 (0xfffae6e6); }
+        }
+
+        /// <summary>
+        /// LavenderBlush
+        /// </summary>
+        public static Rgba32 LavenderBlush
+        {
+            get { return new Rgba32 (0xfff5f0ff); }
+        }
+
+        /// <summary>
+        /// LawnGreen
+        /// </summary>
+        public static Rgba32 LawnGreen
+        {
+            get { return new Rgba32 (0xff00fc7c); }
+        }
+
+        /// <summary>
+        /// LemonChiffon
+        /// </summary>
+        public static Rgba32 LemonChiffon
+        {
+            get { return new Rgba32 (0xffcdfaff); }
+        }
+
+        /// <summary>
+        /// LightBlue
+        /// </summary>
+        public static Rgba32 LightBlue
+        {
+            get { return new Rgba32 (0xffe6d8ad); }
+        }
+
+        /// <summary>
+        /// LightCoral
+        /// </summary>
+        public static Rgba32 LightCoral
+        {
+            get { return new Rgba32 (0xff8080f0); }
+        }
+
+        /// <summary>
+        /// LightCyan
+        /// </summary>
+        public static Rgba32 LightCyan
+        {
+            get { return new Rgba32 (0xffffffe0); }
+        }
+
+        /// <summary>
+        /// LightGoldenrodYellow
+        /// </summary>
+        public static Rgba32 LightGoldenrodYellow
+        {
+            get { return new Rgba32 (0xffd2fafa); }
+        }
+
+        /// <summary>
+        /// LightGreen
+        /// </summary>
+        public static Rgba32 LightGreen
+        {
+            get { return new Rgba32 (0xff90ee90); }
+        }
+
+        /// <summary>
+        /// LightGray
+        /// </summary>
+        public static Rgba32 LightGray
+        {
+            get { return new Rgba32 (0xffd3d3d3); }
+        }
+
+        /// <summary>
+        /// LightPink
+        /// </summary>
+        public static Rgba32 LightPink
+        {
+            get { return new Rgba32 (0xffc1b6ff); }
+        }
+
+        /// <summary>
+        /// LightSalmon
+        /// </summary>
+        public static Rgba32 LightSalmon
+        {
+            get { return new Rgba32 (0xff7aa0ff); }
+        }
+
+        /// <summary>
+        /// LightSeaGreen
+        /// </summary>
+        public static Rgba32 LightSeaGreen
+        {
+            get { return new Rgba32 (0xffaab220); }
+        }
+
+        /// <summary>
+        /// LightSkyBlue
+        /// </summary>
+        public static Rgba32 LightSkyBlue
+        {
+            get { return new Rgba32 (0xffface87); }
+        }
+
+        /// <summary>
+        /// LightSlateGray
+        /// </summary>
+        public static Rgba32 LightSlateGray
+        {
+            get { return new Rgba32 (0xff998877); }
+        }
+
+        /// <summary>
+        /// LightSteelBlue
+        /// </summary>
+        public static Rgba32 LightSteelBlue
+        {
+            get { return new Rgba32 (0xffdec4b0); }
+        }
+
+        /// <summary>
+        /// LightYellow
+        /// </summary>
+        public static Rgba32 LightYellow
+        {
+            get { return new Rgba32 (0xffe0ffff); }
+        }
+
+        /// <summary>
+        /// Lime
+        /// </summary>
+        public static Rgba32 Lime
+        {
+            get { return new Rgba32 (0xff00ff00); }
+        }
+
+        /// <summary>
+        /// LimeGreen
+        /// </summary>
+        public static Rgba32 LimeGreen
+        {
+            get { return new Rgba32 (0xff32cd32); }
+        }
+
+        /// <summary>
+        /// Linen
+        /// </summary>
+        public static Rgba32 Linen
+        {
+            get { return new Rgba32 (0xffe6f0fa); }
+        }
+
+        /// <summary>
+        /// Magenta
+        /// </summary>
+        public static Rgba32 Magenta
+        {
+            get { return new Rgba32 (0xffff00ff); }
+        }
+
+        /// <summary>
+        /// Maroon
+        /// </summary>
+        public static Rgba32 Maroon 
+        {
+            get { return new Rgba32 (0xff000080); }
+        }
+
+        /// <summary>
+        /// MediumAquamarine
+        /// </summary>
+        public static Rgba32 MediumAquamarine
+        {
+            get { return new Rgba32 (0xffaacd66); }
+        }
+
+        /// <summary>
+        /// MediumBlue
+        /// </summary>
+        public static Rgba32 MediumBlue
+        {
+            get { return new Rgba32 (0xffcd0000); }
+        }
+
+        /// <summary>
+        /// MediumOrchid
+        /// </summary>
+        public static Rgba32 MediumOrchid
+        {
+            get { return new Rgba32 (0xffd355ba); }
+        }
+
+        /// <summary>
+        /// MediumPurple
+        /// </summary>
+        public static Rgba32 MediumPurple
+        {
+            get { return new Rgba32 (0xffdb7093); }
+        }
+
+        /// <summary>
+        /// MediumSeaGreen
+        /// </summary>
+        public static Rgba32 MediumSeaGreen
+        {
+            get { return new Rgba32 (0xff71b33c); }
+        }
+
+        /// <summary>
+        /// MediumSlateBlue
+        /// </summary>
+        public static Rgba32 MediumSlateBlue
+        {
+            get { return new Rgba32 (0xffee687b); }
+        }
+
+        /// <summary>
+        /// MediumSpringGreen
+        /// </summary>
+        public static Rgba32 MediumSpringGreen
+        {
+            get { return new Rgba32 (0xff9afa00); }
+        }
+
+        /// <summary>
+        /// MediumTurquoise
+        /// </summary>
+        public static Rgba32 MediumTurquoise
+        {
+            get { return new Rgba32 (0xffccd148); }
+        }
+
+        /// <summary>
+        /// MediumVioletRed
+        /// </summary>
+        public static Rgba32 MediumVioletRed
+        {
+            get { return new Rgba32 (0xff8515c7); }
+        }
+
+        /// <summary>
+        /// MidnightBlue
+        /// </summary>
+        public static Rgba32 MidnightBlue
+        {
+            get { return new Rgba32 (0xff701919); }
+        }
+
+        /// <summary>
+        /// MintCream
+        /// </summary>
+        public static Rgba32 MintCream
+        {
+            get { return new Rgba32 (0xfffafff5); }
+        }
+
+        /// <summary>
+        /// MistyRose
+        /// </summary>
+        public static Rgba32 MistyRose
+        {
+            get { return new Rgba32 (0xffe1e4ff); }
+        }
+
+        /// <summary>
+        /// Moccasin
+        /// </summary>
+        public static Rgba32 Moccasin
+        {
+            get { return new Rgba32 (0xffb5e4ff); }
+        }
+
+        /// <summary>
+        /// NavajoWhite
+        /// </summary>
+        public static Rgba32 NavajoWhite
+        {
+            get { return new Rgba32 (0xffaddeff); }
+        }
+
+        /// <summary>
+        /// Navy
+        /// </summary>
+        public static Rgba32 Navy
+        {
+            get { return new Rgba32 (0xff800000); }
+        }
+
+        /// <summary>
+        /// OldLace
+        /// </summary>
+        public static Rgba32 OldLace
+        {
+            get { return new Rgba32 (0xffe6f5fd); }
+        }
+
+        /// <summary>
+        /// Olive
+        /// </summary>
+        public static Rgba32 Olive
+        {
+            get { return new Rgba32 (0xff008080); }
+        }
+
+        /// <summary>
+        /// OliveDrab
+        /// </summary>
+        public static Rgba32 OliveDrab
+        {
+            get { return new Rgba32 (0xff238e6b); }
+        }
+
+        /// <summary>
+        /// Orange
+        /// </summary>
+        public static Rgba32 Orange
+        {
+            get { return new Rgba32 (0xff00a5ff); }
+        }
+
+        /// <summary>
+        /// OrangeRed
+        /// </summary>
+        public static Rgba32 OrangeRed
+        {
+            get { return new Rgba32 (0xff0045ff); }
+        }
+
+        /// <summary>
+        /// Orchid
+        /// </summary>
+        public static Rgba32 Orchid
+        {
+            get { return new Rgba32 (0xffd670da); }
+        }
+
+        /// <summary>
+        /// PaleGoldenrod
+        /// </summary>
+        public static Rgba32 PaleGoldenrod
+        {
+            get { return new Rgba32 (0xffaae8ee); }
+        }
+
+        /// <summary>
+        /// PaleGreen
+        /// </summary>
+        public static Rgba32 PaleGreen
+        {
+            get { return new Rgba32 (0xff98fb98); }
+        }
+
+        /// <summary>
+        /// PaleTurquoise
+        /// </summary>
+        public static Rgba32 PaleTurquoise
+        {
+            get { return new Rgba32 (0xffeeeeaf); }
+        }
+
+        /// <summary>
+        /// PaleVioletRed
+        /// </summary>
+        public static Rgba32 PaleVioletRed
+        {
+            get { return new Rgba32 (0xff9370db); }
+        }
+
+        /// <summary>
+        /// PapayaWhip
+        /// </summary>
+        public static Rgba32 PapayaWhip
+        {
+            get { return new Rgba32 (0xffd5efff); }
+        }
+
+        /// <summary>
+        /// PeachPuff
+        /// </summary>
+        public static Rgba32 PeachPuff
+        {
+            get { return new Rgba32 (0xffb9daff); }
+        }
+
+        /// <summary>
+        /// Peru
+        /// </summary>
+        public static Rgba32 Peru
+        {
+            get { return new Rgba32 (0xff3f85cd); }
+        }
+
+        /// <summary>
+        /// Pink
+        /// </summary>
+        public static Rgba32 Pink
+        {
+            get { return new Rgba32 (0xffcbc0ff); }
+        }
+
+        /// <summary>
+        /// Plum
+        /// </summary>
+        public static Rgba32 Plum
+        {
+            get { return new Rgba32 (0xffdda0dd); }
+        }
+
+        /// <summary>
+        /// PowderBlue
+        /// </summary>
+        public static Rgba32 PowderBlue
+        {
+            get { return new Rgba32 (0xffe6e0b0); }
+        }
+
+        /// <summary>
+        /// Purple
+        /// </summary>
+        public static Rgba32 Purple
+        {
+            get { return new Rgba32 (0xff800080); }
+        }
+
+        /// <summary>
+        /// Red
+        /// </summary>
+        public static Rgba32 Red
+        {
+            get { return new Rgba32 (0xff0000ff); }
+        }
+
+        /// <summary>
+        /// RosyBrown
+        /// </summary>
+        public static Rgba32 RosyBrown
+        {
+            get { return new Rgba32 (0xff8f8fbc); }
+        }
+
+        /// <summary>
+        /// RoyalBlue
+        /// </summary>
+        public static Rgba32 RoyalBlue
+        {
+            get { return new Rgba32 (0xffe16941); }
+        }
+
+        /// <summary>
+        /// SaddleBrown
+        /// </summary>
+        public static Rgba32 SaddleBrown
+        {
+            get { return new Rgba32 (0xff13458b); }
+        }
+
+        /// <summary>
+        /// Salmon
+        /// </summary>
+        public static Rgba32 Salmon
+        {
+            get { return new Rgba32 (0xff7280fa); }
+        }
+
+        /// <summary>
+        /// SandyBrown
+        /// </summary>
+        public static Rgba32 SandyBrown
+        {
+            get{ return new Rgba32 (0xff60a4f4); }
+        }
+
+        /// <summary>
+        /// SeaGreen
+        /// </summary>
+        public static Rgba32 SeaGreen
+        {
+            get { return new Rgba32 (0xff578b2e); }
+        }
+
+        /// <summary>
+        /// SeaShell
+        /// </summary>
+        public static Rgba32 SeaShell
+        {
+            get { return new Rgba32 (0xffeef5ff); }
+        }
+
+        /// <summary>
+        /// Sienna
+        /// </summary>
+        public static Rgba32 Sienna
+        {
+            get { return new Rgba32 (0xff2d52a0); }
+        }
+
+        /// <summary>
+        /// Silver
+        /// </summary>
+        public static Rgba32 Silver
+        {
+            get { return new Rgba32 (0xffc0c0c0); }
+        }
+
+        /// <summary>
+        /// SkyBlue
+        /// </summary>
+        public static Rgba32 SkyBlue
+        {
+            get { return new Rgba32 (0xffebce87); }
+        }
+
+        /// <summary>
+        /// SlateBlue
+        /// </summary>
+        public static Rgba32 SlateBlue
+        {
+            get { return new Rgba32 (0xffcd5a6a); }
+        }
+
+        /// <summary>
+        /// SlateGray
+        /// </summary>
+        public static Rgba32 SlateGray
+        {
+            get { return new Rgba32 (0xff908070); }
+        }
+
+        /// <summary>
+        /// Snow
+        /// </summary>
+        public static Rgba32 Snow
+        {
+            get { return new Rgba32 (0xfffafaff); }
+        }
+
+        /// <summary>
+        /// SpringGreen
+        /// </summary>
+        public static Rgba32 SpringGreen
+        {
+            get { return new Rgba32 (0xff7fff00); }
+        }
+
+        /// <summary>
+        /// SteelBlue
+        /// </summary>
+        public static Rgba32 SteelBlue
+        {
+            get { return new Rgba32 (0xffb48246); }
+        }
+
+        /// <summary>
+        /// Tan
+        /// </summary>
+        public static Rgba32 Tan
+        {
+            get { return new Rgba32 (0xff8cb4d2); }
+        }
+
+        /// <summary>
+        /// Teal
+        /// </summary>
+        public static Rgba32 Teal
+        {
+            get { return new Rgba32 (0xff808000); }
+        }
+
+        /// <summary>
+        /// Thistle
+        /// </summary>
+        public static Rgba32 Thistle
+        {
+            get { return new Rgba32 (0xffd8bfd8); }
+        }
+
+        /// <summary>
+        /// Tomato
+        /// </summary>
+        public static Rgba32 Tomato
+        {
+            get { return new Rgba32 (0xff4763ff); }
+        }
+
+        /// <summary>
+        /// Turquoise
+        /// </summary>
+        public static Rgba32 Turquoise
+        {
+            get { return new Rgba32 (0xffd0e040); }
+        }
+
+        /// <summary>
+        /// Violet
+        /// </summary>
+        public static Rgba32 Violet
+        {
+            get {return new Rgba32 (0xffee82ee); }
+        }
+
+        /// <summary>
+        /// Wheat
+        /// </summary>
+        public static Rgba32 Wheat
+        {
+            get { return new Rgba32 (0xffb3def5); }
+        }
+
+        /// <summary>
+        /// White
+        /// </summary>
+        public static Rgba32 White
+        {
+            get { return new Rgba32 (UInt32.MaxValue); }
+        }
+
+        /// <summary>
+        /// WhiteSmoke
+        /// </summary>
+        public static Rgba32 WhiteSmoke
+        {
+            get { return new Rgba32 (0xfff5f5f5); }
+        }
+
+        /// <summary>
+        /// Yellow
+        /// </summary>
+        public static Rgba32 Yellow
+        {
+            get { return new Rgba32 (0xff00ffff); }
+        }
+
+        /// <summary>
+        /// YellowGreen
+        /// </summary>
+        public static Rgba32 YellowGreen 
+        {
+            get { return new Rgba32 (0xff32cd9a); }
+        }
 

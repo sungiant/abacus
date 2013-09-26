@@ -1,39 +1,39 @@
-﻿	/// <summary>
-	/// todo
-	/// </summary>
-	[StructLayout (LayoutKind.Sequential), Serializable]
-	public struct Short2 
-		: IPackedValue<UInt32>
-		, IEquatable<Short2>
-		, IPackedReal2
-	{
-		/// <summary>
-		/// todo
-		/// </summary>
-		public override String ToString ()
-		{
-			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
-		}
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Short2 
+        : IPackedValue<UInt32>
+        , IEquatable<Short2>
+        , IPackedReal2
+    {
+        /// <summary>
+        /// todo
+        /// </summary>
+        public override String ToString ()
+        {
+            return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Pack(ref SinglePrecision.Vector2 realXy, out UInt32 packedXy)
-		{
-			UInt32 x = PackUtils.PackSigned (0xffff, realXy.X);
-			UInt32 y = PackUtils.PackSigned (0xffff, realXy.Y) << 16;
-			packedXy = (x | y);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(ref SinglePrecision.Vector2 realXy, out UInt32 packedXy)
+        {
+            UInt32 x = PackUtils.PackSigned (0xffff, realXy.X);
+            UInt32 y = PackUtils.PackSigned (0xffff, realXy.Y) << 16;
+            packedXy = (x | y);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		static void Unpack(UInt32 packedXy, out SinglePrecision.Vector2 realXy)
-		{
-			realXy.X = (Int16) packedXy;
-			realXy.Y = (Int16) (packedXy >> 16);
-		}
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(UInt32 packedXy, out SinglePrecision.Vector2 realXy)
+        {
+            realXy.X = (Int16) packedXy;
+            realXy.Y = (Int16) (packedXy >> 16);
+        }
 
 <#  GeneratePackedCommon("Short2", "UInt32", "packedXy", "realXy", 2); #>
-	}
-	
+    }
+    

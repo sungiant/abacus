@@ -1,33 +1,33 @@
-﻿	// 2 bit alpha
-	[StructLayout (LayoutKind.Sequential), Serializable]
-	public struct Rgba_10_10_10_2 
-		: IPackedValue<UInt32>
-		, IEquatable<Rgba_10_10_10_2>
-		, IPackedReal4
-	{
+﻿    // 2 bit alpha
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Rgba_10_10_10_2 
+        : IPackedValue<UInt32>
+        , IEquatable<Rgba_10_10_10_2>
+        , IPackedReal4
+    {
 
-		public override String ToString ()
-		{
-			return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
-		}
+        public override String ToString ()
+        {
+            return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
+        }
 
-		static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt32 packedRgba)
-		{
-			UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.X);
-			UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.Y) << 10;
-			UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.Z) << 20;
-			UInt32 a = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.W) << 30;
-			packedRgba = ((r | g) | b) | a;
-		}
+        static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt32 packedRgba)
+        {
+            UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.X);
+            UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.Y) << 10;
+            UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.Z) << 20;
+            UInt32 a = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.W) << 30;
+            packedRgba = ((r | g) | b) | a;
+        }
 
-		static void Unpack(UInt32 packedRgba, out SinglePrecision.Vector4 realRgba)
-		{
-			realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, packedRgba);
-			realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 10));
-			realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 20));
-			realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 30));
-		}
+        static void Unpack(UInt32 packedRgba, out SinglePrecision.Vector4 realRgba)
+        {
+            realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, packedRgba);
+            realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 10));
+            realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 20));
+            realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 30));
+        }
 
 <#  GeneratePackedCommon("Rgba_10_10_10_2", "UInt32", "packedRgba", "realRgba", 4); #>
-	}
+    }
 

@@ -1,139 +1,139 @@
-﻿	/// <summary>
-	/// <#= type #> precision Vector4.
-	/// </summary>
-	[StructLayout (LayoutKind.Sequential), Serializable]
-	public struct Vector4 
-		: IEquatable<Vector4>
-	{
-		/// <summary>
-		/// Gets or sets the X-component of the Vector4.
-		/// </summary>
-		public <#= type #> X;
+﻿    /// <summary>
+    /// <#= type #> precision Vector4.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector4 
+        : IEquatable<Vector4>
+    {
+        /// <summary>
+        /// Gets or sets the X-component of the Vector4.
+        /// </summary>
+        public <#= type #> X;
 
-		/// <summary>
-		/// Gets or sets the Y-component of the Vector4.
-		/// </summary>
-		public <#= type #> Y;
+        /// <summary>
+        /// Gets or sets the Y-component of the Vector4.
+        /// </summary>
+        public <#= type #> Y;
 
-		/// <summary>
-		/// Gets or sets the Z-component of the Vector4.
-		/// </summary>
-		public <#= type #> Z;
+        /// <summary>
+        /// Gets or sets the Z-component of the Vector4.
+        /// </summary>
+        public <#= type #> Z;
 
-		/// <summary>
-		/// Gets or sets the W-component of the Vector4.
-		/// </summary>
-		public <#= type #> W;
+        /// <summary>
+        /// Gets or sets the W-component of the Vector4.
+        /// </summary>
+        public <#= type #> W;
 
-		/// <summary>
-		/// Initilises a new instance of Vector4 from four <#= type #> values 
-		/// representing X, Y, Z and W respectively.
-		/// </summary>
-		public Vector4 (
-			<#= type #> x, 
-			<#= type #> y, 
-			<#= type #> z, 
-			<#= type #> w)
-		{
-			this.X = x;
-			this.Y = y;
-			this.Z = z;
-			this.W = w;
-		}
+        /// <summary>
+        /// Initilises a new instance of Vector4 from four <#= type #> values 
+        /// representing X, Y, Z and W respectively.
+        /// </summary>
+        public Vector4 (
+            <#= type #> x, 
+            <#= type #> y, 
+            <#= type #> z, 
+            <#= type #> w)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.W = w;
+        }
 
-		/// <summary>
-		/// Initilises a new instance of Vector4 from one Vector2 value
-		/// representing X and Y and two <#= type #> values representing Z and
-		/// W respectively.
-		/// </summary>
-		public Vector4 (Vector2 value, <#= type #> z, <#= type #> w)
-		{
-			this.X = value.X;
-			this.Y = value.Y;
-			this.Z = z;
-			this.W = w;
-		}
+        /// <summary>
+        /// Initilises a new instance of Vector4 from one Vector2 value
+        /// representing X and Y and two <#= type #> values representing Z and
+        /// W respectively.
+        /// </summary>
+        public Vector4 (Vector2 value, <#= type #> z, <#= type #> w)
+        {
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = z;
+            this.W = w;
+        }
 
-		/// <summary>
-		/// Initilises a new instance of Vector4 from one Vector3 value
-		/// representing X, Y and Z and one <#= type #> value representing W.
-		/// </summary>
-		public Vector4 (Vector3 value, <#= type #> w)
-		{
-			this.X = value.X;
-			this.Y = value.Y;
-			this.Z = value.Z;
-			this.W = w;
-		}
+        /// <summary>
+        /// Initilises a new instance of Vector4 from one Vector3 value
+        /// representing X, Y and Z and one <#= type #> value representing W.
+        /// </summary>
+        public Vector4 (Vector3 value, <#= type #> w)
+        {
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = value.Z;
+            this.W = w;
+        }
 
-		/// <summary>
-		/// Calculates the length of the Vector4.
-		/// </summary>
-		public <#= type #> Length ()
-		{
-			<#= type #> num = (this.X * this.X) + 
-							  (this.Y * this.Y) + 
-							  (this.Z * this.Z) + 
-							  (this.W * this.W);
-			
-			return RealMaths.Sqrt (num);
-		}
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public <#= type #> Length ()
+        {
+            <#= type #> num = (this.X * this.X) + 
+                              (this.Y * this.Y) + 
+                              (this.Z * this.Z) + 
+                              (this.W * this.W);
+            
+            return RealMaths.Sqrt (num);
+        }
 
-		/// <summary>
-		/// Calculates the length of the Vector4 squared.
-		/// </summary>
-		public <#= type #> LengthSquared ()
-		{
-			return 
-				(this.X * this.X) + 
-				(this.Y * this.Y) + 
-				(this.Z * this.Z) + 
-				(this.W * this.W);
-		}
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public <#= type #> LengthSquared ()
+        {
+            return 
+                (this.X * this.X) + 
+                (this.Y * this.Y) + 
+                (this.Z * this.Z) + 
+                (this.W * this.W);
+        }
 
-		/// <summary>
-		/// Retrieves a string representation of the current object.
-		/// </summary>
-		public override String ToString ()
-		{
-			return string.Format (
-				"{{X:{0} Y:{1} Z:{2} W:{3}}}", 
-				new Object[] 
-				{ 
-					this.X.ToString (), 
-					this.Y.ToString (), 
-					this.Z.ToString (), 
-					this.W.ToString () 
-				}
-				);
-		}
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return string.Format (
+                "{{X:{0} Y:{1} Z:{2} W:{3}}}", 
+                new Object[] 
+                { 
+                    this.X.ToString (), 
+                    this.Y.ToString (), 
+                    this.Z.ToString (), 
+                    this.W.ToString () 
+                }
+                );
+        }
 
-		/// <summary>
-		/// Gets the hash code of the Vector4 object.
-		/// </summary>
-		public override Int32 GetHashCode ()
-		{
-			return (
-				this.X.GetHashCode () + 
-				this.Y.GetHashCode () + 
-				this.Z.GetHashCode () + 
-				this.W.GetHashCode ()
-				);
-		}
+        /// <summary>
+        /// Gets the hash code of the Vector4 object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return (
+                this.X.GetHashCode () + 
+                this.Y.GetHashCode () + 
+                this.Z.GetHashCode () + 
+                this.W.GetHashCode ()
+                );
+        }
 
-		/// <summary>
-		/// Detemines whether or not the Vector4 is of unit length.
-		/// </summary>
-		public Boolean IsUnit()
-		{
-			<#= type #> one = 1;
-			return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
-		}
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            <#= type #> one = 1;
+            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
+        }
 
 <#@ include file="Vector4.Constants.t4"#>
 <#@ include file="Vector4.Maths.t4"#>
 <#@ include file="Vector4.Operators.t4"#>
 <#@ include file="Vector4.Splines.t4"#>
 <#@ include file="Vector4.Utilities.t4"#>
-	}
+    }
 

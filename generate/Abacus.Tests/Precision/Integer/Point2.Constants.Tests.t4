@@ -1,56 +1,56 @@
-		// Test Constant: Zero //---------------------------------------------//
+        // Test Constant: Zero //---------------------------------------------//
 
-		/// <summary>
-		/// Tests to make sure that a Point2 initilised using the Zero constant
-		/// has it's member variables correctly set.
-		/// </summary>
-		[Test]
-		public void TestConstant_Zero_i ()
-		{
-			Point2 result = Point2.Zero;
-			Point2 expected = new Point2(0, 0);
-			AssertEqualWithinReason(result, expected);
-		}
+        /// <summary>
+        /// Tests to make sure that a Point2 initilised using the Zero constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Zero_i ()
+        {
+            Point2 result = Point2.Zero;
+            Point2 expected = new Point2(0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
 
-		// Test Constant: One //----------------------------------------------//
+        // Test Constant: One //----------------------------------------------//
 
-		/// <summary>
-		/// Tests to make sure that a Point2 initilised using the One constant
-		/// has it's member variables correctly set.
-		/// </summary>
-		[Test]
-		public void TestConstant_One_i ()
-		{
-			Point2 result = Point2.One;
-			Point2 expected = new Point2(1, 1);
-			AssertEqualWithinReason(result, expected);
-		}
+        /// <summary>
+        /// Tests to make sure that a Point2 initilised using the One constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_One_i ()
+        {
+            Point2 result = Point2.One;
+            Point2 expected = new Point2(1, 1);
+            AssertEqualWithinReason(result, expected);
+        }
 
-		// Test Constant: UnitX //--------------------------------------------//
+        // Test Constant: UnitX //--------------------------------------------//
 
-		/// <summary>
-		/// Tests to make sure that a Point2 initilised using the UnitX 
-		/// constant has it's member variables correctly set.
-		/// </summary>
-		[Test]
-		public void TestConstant_UnitX_i ()
-		{
-			Point2 result = Point2.UnitX;
-			Point2 expected = new Point2(1, 0);
-			AssertEqualWithinReason(result, expected);
-		}
+        /// <summary>
+        /// Tests to make sure that a Point2 initilised using the UnitX 
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitX_i ()
+        {
+            Point2 result = Point2.UnitX;
+            Point2 expected = new Point2(1, 0);
+            AssertEqualWithinReason(result, expected);
+        }
 
-		// Test Constant: UnitY //--------------------------------------------//
+        // Test Constant: UnitY //--------------------------------------------//
 
-		/// <summary>
-		/// Tests to make sure that a Point2 initilised using the UnitY
-		/// constant has it's member variables correctly set.
-		/// </summary>
-		[Test]
-		public void TestConstant_UnitY_i ()
-		{
-			Point2 result = Point2.UnitY;
-			Point2 expected = new Point2(0, 1);
-			AssertEqualWithinReason(result, expected);
-		}
+        /// <summary>
+        /// Tests to make sure that a Point2 initilised using the UnitY
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitY_i ()
+        {
+            Point2 result = Point2.UnitY;
+            Point2 expected = new Point2(0, 1);
+            AssertEqualWithinReason(result, expected);
+        }
 

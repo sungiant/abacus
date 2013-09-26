@@ -58,10 +58,10 @@ namespace Sungiant.Abacus.Tests
 
 namespace Sungiant.Abacus.Packed.Tests
 {
-	/// <summary>
-	/// todo
-	/// </summary>
-	public static class Settings
+    /// <summary>
+    /// todo
+    /// </summary>
+    public static class Settings
     {
         public const Int32 NumTests = 50000;
     }

@@ -1,465 +1,465 @@
-		// Test Operator: Equality //-----------------------------------------//
-
-		/// <summary>
-		/// Helper method for testing equality.
-		/// </summary>
-		void TestEquality (Point3 a, Point3 b, Boolean expected )
-		{
-			// This test asserts the following:
-			//   (a == b) == expected
-			//   (b == a) == expected
-			//   (a != b) == !expected
-			//   (b != a) == !expected
-
-			Boolean result_1a = (a == b);
-			Boolean result_1b = (a.Equals(b));
-			Boolean result_1c = (a.Equals((Object)b));
-			
-			Boolean result_2a = (b == a);
-			Boolean result_2b = (b.Equals(a));
-			Boolean result_2c = (b.Equals((Object)a));
-
-			Boolean result_3a = (a != b);
-			Boolean result_4a = (b != a);
-			
-			Assert.That(result_1a, Is.EqualTo(expected));
-			Assert.That(result_1b, Is.EqualTo(expected));
-			Assert.That(result_1c, Is.EqualTo(expected));
-			Assert.That(result_2a, Is.EqualTo(expected));
-			Assert.That(result_2b, Is.EqualTo(expected));
-			Assert.That(result_2c, Is.EqualTo(expected));
-			Assert.That(result_3a, Is.EqualTo(!expected));
-			Assert.That(result_4a, Is.EqualTo(!expected));
-		}
-
-		/// <summary>
-		/// Makes sure that, for a known example, all the equality opperators
-		/// and functions yield the expected result of TRUE when two equal  
-		/// Point3 objects are compared.
-		/// </summary>
-		[Test]
-		public void TestOperator_Equality_i ()
-		{
-			var a = new Point3(44, -54, -22);
-			var b = new Point3(44, -54, -22);
-
-			Boolean expected = true;
-
-			this.TestEquality(a, b, expected);
-		}
-
-		/// <summary>
-		/// Makes sure that, for a known example, all the equality opperators
-		/// and functions yield the expected result of FALSE when two unequal  
-		/// Point3 objects are compared.
-		/// </summary>
-		[Test]
-		public void TestOperator_Equality_ii ()
-		{
-			var a = new Point3(44, 54, 2);
-			var b = new Point3(44, -54, 2);
-
-			Boolean expected = false;
-
-			this.TestEquality(a, b, expected);
-		}
-
-		/// <summary>
-		/// Tests to make sure that all the equality opperators and functions 
-		/// yield the expected result of TRUE when used on a number of randomly 
-		/// generated pairs of equal Point3 objects.
-		/// </summary>
-		[Test]
-		public void TestOperator_Equality_iii ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomPoint3();
-
-				Point3 b = a;
-
-				this.TestEquality(a, b, true);
-			}
-		}
-
-
-		// Test Operator: Addition //-----------------------------------------//
-
-		/// <summary>
-		/// Helper method for testing addition.
-		/// </summary>
-		void TestAddition (Point3 a, Point3 b, Point3 expected )
-		{
-			// This test asserts the following:
-			//   a + b == expected
-			//   b + a == expected
-
-			var result_1a = a + b;
-			var result_2a = b + a;
-
-			Point3 result_1b; Point3.Add(ref a, ref b, out result_1b);
-			Point3 result_2b; Point3.Add(ref b, ref a, out result_2b);
-			
-			Assert.That(result_1a, Is.EqualTo(expected));
-			Assert.That(result_2a, Is.EqualTo(expected));
-			Assert.That(result_1b, Is.EqualTo(expected));
-			Assert.That(result_2b, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// Assert that, for a known example, all the addition opperators
-		/// and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Addition_i ()
-		{
-			var a = new Point3(3, -6, 44);
-			var b = new Point3(-6, 12, 18);
-
-			var expected = new Point3(-3, 6, 62);
-
-			this.TestAddition(a, b, expected);
-		}
-
-		/// <summary>
-		/// Assert that, for a known example involving the zero point, all the 
-		/// addition opperators and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Addition_ii ()
-		{
-			var a = new Point3(-2313, 88, 199);
-
-			var expected = a;
-
-			this.TestAddition(a, Point3.Zero, expected);
-		}
-
-		/// <summary>
-		/// Assert that, for a known example involving two zero points, all the 
-		/// addition opperators and functions yield the correct result of zero.
-		/// </summary>
-		[Test]
-		public void TestOperator_Addition_iii ()
-		{
-			this.TestAddition(Point3.Zero, Point3.Zero, Point3.Zero);
-		}
-
-		/// <summary>
-		/// Assert that, for a number of randomly generated scenarios, all the 
-		/// addition opperators and functions yield the same results as a
-		/// manual addition calculation.
-		/// </summary>
-		[Test]
-		public void TestOperator_Addition_iv ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomPoint3();
-				var b = GetNextRandomPoint3();
-
-				var expected = new Point3(
-					a.X + b.X, a.Y + b.Y, a.Z + b.Z);
-
-				this.TestAddition(a, b, expected);
-			}
-		}
-
-		// Test Operator: Subtraction //--------------------------------------//
-		
-		/// <summary>
-		/// Helper method for testing subtraction.
-		/// </summary>
-		void TestSubtraction (Point3 a, Point3 b, Point3 expected )
-		{
-			// This test asserts the following:
-			//   a - b == expected
-			//   b - a == -expected
-
-			var result_1a = a - b;
-			var result_2a = b - a;
-
-			Point3 result_1b; Point3.Subtract(ref a, ref b, out result_1b);
-			Point3 result_2b; Point3.Subtract(ref b, ref a, out result_2b);
-			
-			Assert.That(result_1a, Is.EqualTo(expected));
-			Assert.That(result_2a, Is.EqualTo(-expected));
-			Assert.That(result_1b, Is.EqualTo(expected));
-			Assert.That(result_2b, Is.EqualTo(-expected));
-		}
-
-		/// <summary>
-		/// Assert that, for known examples, all the subtraction opperators
-		/// and functions yield the correct result.
-		/// <summary>
-		[Test]
-		public void TestOperator_Subtraction_i ()
-		{
-			var a = new Point3(12, -4, 14);
-			var b = new Point3(15, 11, 7);
-			var expected = new Point3(-3, -15, 7);
-			this.TestSubtraction(a, b, expected);
-
-			var c = new Point3(-423, 342, 7);
-			this.TestSubtraction(c, Point3.Zero, c);
-		}
-
-		/// <summary>
-		/// Assert that when subtracting the zero point fromt the zero point, 
-		/// all the subtraction opperators and functions yield the correct 
-		/// result.
-		/// <summary>
-		[Test]
-		public void TestOperator_Subtraction_ii ()
-		{
-			this.TestSubtraction(Point3.Zero, Point3.Zero, Point3.Zero);
-		}
-
-		/// <summary>
-		/// Assert that, for a number of randomly generated scenarios, all the 
-		/// subtraction opperators and functions yield the same results as a
-		/// manual subtraction calculation.
-		/// </summary>
-		[Test]
-		public void TestOperator_Subtraction_iii ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomPoint3();
-				var b = GetNextRandomPoint3();
-
-				var expected = new Point3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
-
-				this.TestSubtraction(a, b, expected);
-			}
-		}
-
-		// Test Operator: Negation //-----------------------------------------//
-		
-		/// <summary>
-		/// Helper method for testing negation.
-		/// </summary>
-		void TestNegation (Point3 a, Point3 expected )
-		{
-			// This test asserts the following:
-			//   -a == expected
-
-			var result_1a = -a;
-
-			Point3 result_1b; Point3.Negate(ref a, out result_1b);
-			
-			Assert.That(result_1a, Is.EqualTo(expected));
-			Assert.That(result_1b, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// Assert that, for known examples, all the negation opperators
-		/// and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_i ()
-		{
-			<#= type #> r = 3432;
-			<#= type #> s = -6218;
-			<#= type #> t = -3432;
-			<#= type #> u = 6218;
-
-			var a = new Point3(r, s, t);
-			var b = new Point3(u, t, s);
-			var c = new Point3(t, u, r);
-			var d = new Point3(s, r, u);
-
-			this.TestNegation(a, c);
-			this.TestNegation(b, d);
-		}
-
-		/// <summary>
-		/// Assert that, for known examples involving the zero point, all the 
-		/// negation opperators and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_ii ()
-		{
-			<#= type #> t = -3432;
-			<#= type #> u = 6218;
-			<#= type #> r = 3432;
-			<#= type #> s = -6218;
-
-			var c = new Point3(t, u, r);
-			var d = new Point3(s, r, u);
-
-			this.TestNegation(c, Point3.Zero - c);
-			this.TestNegation(d, Point3.Zero - d);
-		}
-
-		/// <summary>
-		/// Assert that when negating the zero point, all the 
-		/// negation opperators and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_iii ()
-		{
-			this.TestNegation(Point3.Zero, Point3.Zero);
-		}
-
-		/// <summary>
-		/// Assert that, for a number of randomly generated scenarios, all the 
-		/// negation opperators and functions yield the same results as a
-		/// manual negation calculation.
-		/// </summary>
-		[Test]
-		public void TestOperator_Negation_iv ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomPoint3();
-				this.TestNegation(a, Point3.Zero - a);
-			}
-		}
-
-		// Test Operator: Multiplication //-----------------------------------//
-
-		/// <summary>
-		/// Helper method for testing multiplication.
-		/// </summary>
-		void TestMultiplication (Point3 a, Point3 b, Point3 expected )
-		{
-			// This test asserts the following:
-			//   a * b == expected
-			//   b * a == expected
-
-			var result_1a = a * b;
-			var result_2a = b * a;
-
-			Point3 result_1b; Point3.Multiply(ref a, ref b, out result_1b);
-			Point3 result_2b; Point3.Multiply(ref b, ref a, out result_2b);
-			
-			Assert.That(result_1a, Is.EqualTo(expected));
-			Assert.That(result_2a, Is.EqualTo(expected));
-			Assert.That(result_1b, Is.EqualTo(expected));
-			Assert.That(result_2b, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// Assert that, for a known example, all the multiplication opperators
-		/// and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Multiplication_i ()
-		{
-			<#= type #> r = -27;
-			<#= type #> s = 36;
-			<#= type #> t = 9;
-
-			<#= type #> x = 3;
-			<#= type #> y = 6;
-			<#= type #> z = -9;
-
-			var a = new Point3(x, y, x);
-			var b = new Point3(z, y, x);
-			var c = new Point3(r, s, t);
-
-			this.TestMultiplication(a, b, c);
-		}
-
-		/// <summary>
-		/// Assert that, for a number of randomly generated scenarios, all the 
-		/// multiplication opperators and functions yield the same results as a
-		/// manual multiplication calculation.
-		/// </summary>
-		[Test]
-		public void TestOperator_Multiplication_ii ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomPoint3();
-				var b = GetNextRandomPoint3();
-
-				var c = new Point3(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
-
-				this.TestMultiplication(a, b, c);
-			}
-		}
-
-
-		// Test Operator: Division //-----------------------------------------//
-
-		/// <summary>
-		/// Helper method for testing division.
-		/// </summary>
-		void TestDivision (Point3 a, Point3 b, Point3 expected )
-		{
-			// This test asserts the following:
-			//   a / b == expected
-
-			var result_1a = a / b;
-
-			Point3 result_1b; Point3.Divide(ref a, ref b, out result_1b);
-			
-			Assert.That(result_1a, Is.EqualTo(expected));
-			Assert.That(result_1b, Is.EqualTo(expected));
-		}
-
-		/// <summary>
-		/// Assert that, for a known example using whole numbers, all the 
-		/// division opperators and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Division_i ()
-		{
-			<#= type #> r = 10;
-			<#= type #> s = -40;
-			<#= type #> t = 1;
-
-			<#= type #> x = 2000;
-			<#= type #> y = 200;
-			<#= type #> z = -5;
-
-			var a = new Point3(x, y, x);
-			var b = new Point3(y, z, x);
-			var c = new Point3(r, s, t);
-
-			this.TestDivision(a, b, c);
-		}
-
-		/// <summary>
-		/// Assert that, for a known example using fractional numbers, all the 
-		/// division opperators and functions yield the correct result.
-		/// </summary>
-		[Test]
-		public void TestOperator_Division_ii ()
-		{
-			<#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
-			<#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
-			<#= type #> v = -20;
-			<#= type #> w = 100;
-			<#= type #> x = 2000;
-			<#= type #> y = 200;
-			<#= type #> z = -5;
-
-			var a = new Point3(y, z, w);
-			var b = new Point3(x, y, z);
-			var c = new Point3(t, u, v);
-
-			this.TestDivision(a, b, c);
-		}
-
-		/// <summary>
-		/// Assert that, for a number of randomly generated scenarios, all the 
-		/// division opperators and functions yield the same results as a
-		/// manual addition division.
-		/// </summary>
-		[Test]
-		public void TestOperator_Division_iii ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomPoint3();
-				var b = GetNextRandomPoint3();
-
-				var c = new Point3(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
-
-				this.TestDivision(a, b, c);
-			}
-		}
+        // Test Operator: Equality //-----------------------------------------//
+
+        /// <summary>
+        /// Helper method for testing equality.
+        /// </summary>
+        void TestEquality (Point3 a, Point3 b, Boolean expected )
+        {
+            // This test asserts the following:
+            //   (a == b) == expected
+            //   (b == a) == expected
+            //   (a != b) == !expected
+            //   (b != a) == !expected
+
+            Boolean result_1a = (a == b);
+            Boolean result_1b = (a.Equals(b));
+            Boolean result_1c = (a.Equals((Object)b));
+            
+            Boolean result_2a = (b == a);
+            Boolean result_2b = (b.Equals(a));
+            Boolean result_2c = (b.Equals((Object)a));
+
+            Boolean result_3a = (a != b);
+            Boolean result_4a = (b != a);
+            
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+            Assert.That(result_1c, Is.EqualTo(expected));
+            Assert.That(result_2a, Is.EqualTo(expected));
+            Assert.That(result_2b, Is.EqualTo(expected));
+            Assert.That(result_2c, Is.EqualTo(expected));
+            Assert.That(result_3a, Is.EqualTo(!expected));
+            Assert.That(result_4a, Is.EqualTo(!expected));
+        }
+
+        /// <summary>
+        /// Makes sure that, for a known example, all the equality opperators
+        /// and functions yield the expected result of TRUE when two equal  
+        /// Point3 objects are compared.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_i ()
+        {
+            var a = new Point3(44, -54, -22);
+            var b = new Point3(44, -54, -22);
+
+            Boolean expected = true;
+
+            this.TestEquality(a, b, expected);
+        }
+
+        /// <summary>
+        /// Makes sure that, for a known example, all the equality opperators
+        /// and functions yield the expected result of FALSE when two unequal  
+        /// Point3 objects are compared.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_ii ()
+        {
+            var a = new Point3(44, 54, 2);
+            var b = new Point3(44, -54, 2);
+
+            Boolean expected = false;
+
+            this.TestEquality(a, b, expected);
+        }
+
+        /// <summary>
+        /// Tests to make sure that all the equality opperators and functions 
+        /// yield the expected result of TRUE when used on a number of randomly 
+        /// generated pairs of equal Point3 objects.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_iii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomPoint3();
+
+                Point3 b = a;
+
+                this.TestEquality(a, b, true);
+            }
+        }
+
+
+        // Test Operator: Addition //-----------------------------------------//
+
+        /// <summary>
+        /// Helper method for testing addition.
+        /// </summary>
+        void TestAddition (Point3 a, Point3 b, Point3 expected )
+        {
+            // This test asserts the following:
+            //   a + b == expected
+            //   b + a == expected
+
+            var result_1a = a + b;
+            var result_2a = b + a;
+
+            Point3 result_1b; Point3.Add(ref a, ref b, out result_1b);
+            Point3 result_2b; Point3.Add(ref b, ref a, out result_2b);
+            
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_2a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+            Assert.That(result_2b, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that, for a known example, all the addition opperators
+        /// and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Addition_i ()
+        {
+            var a = new Point3(3, -6, 44);
+            var b = new Point3(-6, 12, 18);
+
+            var expected = new Point3(-3, 6, 62);
+
+            this.TestAddition(a, b, expected);
+        }
+
+        /// <summary>
+        /// Assert that, for a known example involving the zero point, all the 
+        /// addition opperators and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Addition_ii ()
+        {
+            var a = new Point3(-2313, 88, 199);
+
+            var expected = a;
+
+            this.TestAddition(a, Point3.Zero, expected);
+        }
+
+        /// <summary>
+        /// Assert that, for a known example involving two zero points, all the 
+        /// addition opperators and functions yield the correct result of zero.
+        /// </summary>
+        [Test]
+        public void TestOperator_Addition_iii ()
+        {
+            this.TestAddition(Point3.Zero, Point3.Zero, Point3.Zero);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// addition opperators and functions yield the same results as a
+        /// manual addition calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Addition_iv ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomPoint3();
+                var b = GetNextRandomPoint3();
+
+                var expected = new Point3(
+                    a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+
+                this.TestAddition(a, b, expected);
+            }
+        }
+
+        // Test Operator: Subtraction //--------------------------------------//
+        
+        /// <summary>
+        /// Helper method for testing subtraction.
+        /// </summary>
+        void TestSubtraction (Point3 a, Point3 b, Point3 expected )
+        {
+            // This test asserts the following:
+            //   a - b == expected
+            //   b - a == -expected
+
+            var result_1a = a - b;
+            var result_2a = b - a;
+
+            Point3 result_1b; Point3.Subtract(ref a, ref b, out result_1b);
+            Point3 result_2b; Point3.Subtract(ref b, ref a, out result_2b);
+            
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_2a, Is.EqualTo(-expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+            Assert.That(result_2b, Is.EqualTo(-expected));
+        }
+
+        /// <summary>
+        /// Assert that, for known examples, all the subtraction opperators
+        /// and functions yield the correct result.
+        /// <summary>
+        [Test]
+        public void TestOperator_Subtraction_i ()
+        {
+            var a = new Point3(12, -4, 14);
+            var b = new Point3(15, 11, 7);
+            var expected = new Point3(-3, -15, 7);
+            this.TestSubtraction(a, b, expected);
+
+            var c = new Point3(-423, 342, 7);
+            this.TestSubtraction(c, Point3.Zero, c);
+        }
+
+        /// <summary>
+        /// Assert that when subtracting the zero point fromt the zero point, 
+        /// all the subtraction opperators and functions yield the correct 
+        /// result.
+        /// <summary>
+        [Test]
+        public void TestOperator_Subtraction_ii ()
+        {
+            this.TestSubtraction(Point3.Zero, Point3.Zero, Point3.Zero);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// subtraction opperators and functions yield the same results as a
+        /// manual subtraction calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Subtraction_iii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomPoint3();
+                var b = GetNextRandomPoint3();
+
+                var expected = new Point3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+
+                this.TestSubtraction(a, b, expected);
+            }
+        }
+
+        // Test Operator: Negation //-----------------------------------------//
+        
+        /// <summary>
+        /// Helper method for testing negation.
+        /// </summary>
+        void TestNegation (Point3 a, Point3 expected )
+        {
+            // This test asserts the following:
+            //   -a == expected
+
+            var result_1a = -a;
+
+            Point3 result_1b; Point3.Negate(ref a, out result_1b);
+            
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that, for known examples, all the negation opperators
+        /// and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Negation_i ()
+        {
+            <#= type #> r = 3432;
+            <#= type #> s = -6218;
+            <#= type #> t = -3432;
+            <#= type #> u = 6218;
+
+            var a = new Point3(r, s, t);
+            var b = new Point3(u, t, s);
+            var c = new Point3(t, u, r);
+            var d = new Point3(s, r, u);
+
+            this.TestNegation(a, c);
+            this.TestNegation(b, d);
+        }
+
+        /// <summary>
+        /// Assert that, for known examples involving the zero point, all the 
+        /// negation opperators and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Negation_ii ()
+        {
+            <#= type #> t = -3432;
+            <#= type #> u = 6218;
+            <#= type #> r = 3432;
+            <#= type #> s = -6218;
+
+            var c = new Point3(t, u, r);
+            var d = new Point3(s, r, u);
+
+            this.TestNegation(c, Point3.Zero - c);
+            this.TestNegation(d, Point3.Zero - d);
+        }
+
+        /// <summary>
+        /// Assert that when negating the zero point, all the 
+        /// negation opperators and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Negation_iii ()
+        {
+            this.TestNegation(Point3.Zero, Point3.Zero);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// negation opperators and functions yield the same results as a
+        /// manual negation calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Negation_iv ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomPoint3();
+                this.TestNegation(a, Point3.Zero - a);
+            }
+        }
+
+        // Test Operator: Multiplication //-----------------------------------//
+
+        /// <summary>
+        /// Helper method for testing multiplication.
+        /// </summary>
+        void TestMultiplication (Point3 a, Point3 b, Point3 expected )
+        {
+            // This test asserts the following:
+            //   a * b == expected
+            //   b * a == expected
+
+            var result_1a = a * b;
+            var result_2a = b * a;
+
+            Point3 result_1b; Point3.Multiply(ref a, ref b, out result_1b);
+            Point3 result_2b; Point3.Multiply(ref b, ref a, out result_2b);
+            
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_2a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+            Assert.That(result_2b, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that, for a known example, all the multiplication opperators
+        /// and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Multiplication_i ()
+        {
+            <#= type #> r = -27;
+            <#= type #> s = 36;
+            <#= type #> t = 9;
+
+            <#= type #> x = 3;
+            <#= type #> y = 6;
+            <#= type #> z = -9;
+
+            var a = new Point3(x, y, x);
+            var b = new Point3(z, y, x);
+            var c = new Point3(r, s, t);
+
+            this.TestMultiplication(a, b, c);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// multiplication opperators and functions yield the same results as a
+        /// manual multiplication calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Multiplication_ii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomPoint3();
+                var b = GetNextRandomPoint3();
+
+                var c = new Point3(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
+
+                this.TestMultiplication(a, b, c);
+            }
+        }
+
+
+        // Test Operator: Division //-----------------------------------------//
+
+        /// <summary>
+        /// Helper method for testing division.
+        /// </summary>
+        void TestDivision (Point3 a, Point3 b, Point3 expected )
+        {
+            // This test asserts the following:
+            //   a / b == expected
+
+            var result_1a = a / b;
+
+            Point3 result_1b; Point3.Divide(ref a, ref b, out result_1b);
+            
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that, for a known example using whole numbers, all the 
+        /// division opperators and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Division_i ()
+        {
+            <#= type #> r = 10;
+            <#= type #> s = -40;
+            <#= type #> t = 1;
+
+            <#= type #> x = 2000;
+            <#= type #> y = 200;
+            <#= type #> z = -5;
+
+            var a = new Point3(x, y, x);
+            var b = new Point3(y, z, x);
+            var c = new Point3(r, s, t);
+
+            this.TestDivision(a, b, c);
+        }
+
+        /// <summary>
+        /// Assert that, for a known example using fractional numbers, all the 
+        /// division opperators and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Division_ii ()
+        {
+            <#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
+            <#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
+            <#= type #> v = -20;
+            <#= type #> w = 100;
+            <#= type #> x = 2000;
+            <#= type #> y = 200;
+            <#= type #> z = -5;
+
+            var a = new Point3(y, z, w);
+            var b = new Point3(x, y, z);
+            var c = new Point3(t, u, v);
+
+            this.TestDivision(a, b, c);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// division opperators and functions yield the same results as a
+        /// manual addition division.
+        /// </summary>
+        [Test]
+        public void TestOperator_Division_iii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomPoint3();
+                var b = GetNextRandomPoint3();
+
+                var c = new Point3(a.X / b.X, a.Y / b.Y, a.Z / b.Z);
+
+                this.TestDivision(a, b, c);
+            }
+        }
 

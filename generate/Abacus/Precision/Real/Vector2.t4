@@ -1,83 +1,83 @@
-﻿	/// <summary>
-	/// <#= type #> precision Vector2.
-	/// </summary>
-	[StructLayout (LayoutKind.Sequential), Serializable]
-	public struct Vector2
-		: IEquatable<Vector2>
-	{
-		/// <summary>
-		/// Gets or sets the X-component of the Vector2.
-		/// </summary>
-		public <#= type #> X;
+﻿    /// <summary>
+    /// <#= type #> precision Vector2.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector2
+        : IEquatable<Vector2>
+    {
+        /// <summary>
+        /// Gets or sets the X-component of the Vector2.
+        /// </summary>
+        public <#= type #> X;
 
-		/// <summary>
-		/// Gets or sets the Y-component of the Vector2.
-		/// </summary>
-		public <#= type #> Y;
+        /// <summary>
+        /// Gets or sets the Y-component of the Vector2.
+        /// </summary>
+        public <#= type #> Y;
 
-		/// <summary>
-		/// Initilises a new instance of Vector2 from two <#= type #> values 
-		/// representing X and Y respectively.
-		/// </summary>
-		public Vector2 (<#= type #> x, <#= type #> y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
+        /// <summary>
+        /// Initilises a new instance of Vector2 from two <#= type #> values 
+        /// representing X and Y respectively.
+        /// </summary>
+        public Vector2 (<#= type #> x, <#= type #> y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
 
-		/// <summary>
-		/// Calculates the length of the Vector2.
-		/// </summary>
-		public <#= type #> Length ()
-		{
-			<#= type #> num = (this.X * this.X) + (this.Y * this.Y);
-			return RealMaths.Sqrt (num);
-		}
+        /// <summary>
+        /// Calculates the length of the Vector2.
+        /// </summary>
+        public <#= type #> Length ()
+        {
+            <#= type #> num = (this.X * this.X) + (this.Y * this.Y);
+            return RealMaths.Sqrt (num);
+        }
 
-		/// <summary>
-		/// Calculates the length of the Vector2 squared.
-		/// </summary>
-		public <#= type #> LengthSquared ()
-		{
-			return ((this.X * this.X) + (this.Y * this.Y));
-		}
+        /// <summary>
+        /// Calculates the length of the Vector2 squared.
+        /// </summary>
+        public <#= type #> LengthSquared ()
+        {
+            return ((this.X * this.X) + (this.Y * this.Y));
+        }
 
-		/// <summary>
-		/// Retrieves a string representation of the current object.
-		/// </summary>
-		public override String ToString ()
-		{
-			return string.Format (
-				"{{X:{0} Y:{1}}}", 
-				new Object[] 
-				{ 
-					this.X.ToString (), 
-					this.Y.ToString () 
-				}
-				);
-		}
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return string.Format (
+                "{{X:{0} Y:{1}}}", 
+                new Object[] 
+                { 
+                    this.X.ToString (), 
+                    this.Y.ToString () 
+                }
+                );
+        }
 
-		/// <summary>
-		/// Gets the hash code of the Vector2 object.
-		/// </summary>
-		public override Int32 GetHashCode ()
-		{
-			return (this.X.GetHashCode () + this.Y.GetHashCode ());
-		}
+        /// <summary>
+        /// Gets the hash code of the Vector2 object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return (this.X.GetHashCode () + this.Y.GetHashCode ());
+        }
 
-		/// <summary>
-		/// Detemines whether or not the Vector2 is of unit length.
-		/// </summary>
-		public Boolean IsUnit()
-		{
-			<#= type #> one = 1;
-			return RealMaths.IsZero(one - X*X - Y*Y);
-		}
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            <#= type #> one = 1;
+            return RealMaths.IsZero(one - X*X - Y*Y);
+        }
 
 <#@ include file="Vector2.Constants.t4"#>
 <#@ include file="Vector2.Maths.t4"#>
 <#@ include file="Vector2.Operators.t4"#>
 <#@ include file="Vector2.Splines.t4"#>
 <#@ include file="Vector2.Utilities.t4"#>
-	}
+    }
 

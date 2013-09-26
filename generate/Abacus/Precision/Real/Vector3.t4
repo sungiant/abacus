@@ -1,111 +1,111 @@
-﻿	/// <summary>
-	/// <#= type #> precision Vector3.
-	/// </summary>
-	[StructLayout (LayoutKind.Sequential), Serializable]
-	public struct Vector3 
-		: IEquatable<Vector3>
-	{
-		/// <summary>
-		/// Gets or sets the X-component of the Vector3.
-		/// </summary>
-		public <#= type #> X;
+﻿    /// <summary>
+    /// <#= type #> precision Vector3.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector3 
+        : IEquatable<Vector3>
+    {
+        /// <summary>
+        /// Gets or sets the X-component of the Vector3.
+        /// </summary>
+        public <#= type #> X;
 
-		/// <summary>
-		/// Gets or sets the Y-component of the Vector3.
-		/// </summary>
-		public <#= type #> Y;
+        /// <summary>
+        /// Gets or sets the Y-component of the Vector3.
+        /// </summary>
+        public <#= type #> Y;
 
-		/// <summary>
-		/// Gets or sets the Z-component of the Vector3.
-		/// </summary>
-		public <#= type #> Z;
+        /// <summary>
+        /// Gets or sets the Z-component of the Vector3.
+        /// </summary>
+        public <#= type #> Z;
 
-		/// <summary>
-		/// Initilises a new instance of Vector3 from three <#= type #> values 
-		/// representing X, Y and Z respectively.
-		/// </summary>
-		public Vector3 (<#= type #> x, <#= type #> y, <#= type #> z)
-		{
-			this.X = x;
-			this.Y = y;
-			this.Z = z;
-		}
-		
-		/// <summary>
-		/// Initilises a new instance of Vector3 from one Vector2 value
-		/// representing X and Y and one <#= type #> value representing Z.
-		/// </summary>
-		public Vector3 (Vector2 value, <#= type #> z)
-		{
-			this.X = value.X;
-			this.Y = value.Y;
-			this.Z = z;
-		}
+        /// <summary>
+        /// Initilises a new instance of Vector3 from three <#= type #> values 
+        /// representing X, Y and Z respectively.
+        /// </summary>
+        public Vector3 (<#= type #> x, <#= type #> y, <#= type #> z)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+        }
+        
+        /// <summary>
+        /// Initilises a new instance of Vector3 from one Vector2 value
+        /// representing X and Y and one <#= type #> value representing Z.
+        /// </summary>
+        public Vector3 (Vector2 value, <#= type #> z)
+        {
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = z;
+        }
 
-		/// <summary>
-		/// Calculates the length of the Vector3.
-		/// </summary>
-		public <#= type #> Length ()
-		{
-			<#= type #> num = (this.X * this.X) + 
-				              (this.Y * this.Y) + 
-			                  (this.Z * this.Z);
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public <#= type #> Length ()
+        {
+            <#= type #> num = (this.X * this.X) + 
+                              (this.Y * this.Y) + 
+                              (this.Z * this.Z);
 
-			return RealMaths.Sqrt (num);
-		}
+            return RealMaths.Sqrt (num);
+        }
 
-		/// <summary>
-		/// Calculates the length of the Vector3 squared.
-		/// </summary>
-		public <#= type #> LengthSquared ()
-		{
-			return
-				(this.X * this.X) + 
-				(this.Y * this.Y) + 
-				(this.Z * this.Z);
-		}
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public <#= type #> LengthSquared ()
+        {
+            return
+                (this.X * this.X) + 
+                (this.Y * this.Y) + 
+                (this.Z * this.Z);
+        }
 
-		/// <summary>
-		/// Retrieves a string representation of the current object.
-		/// </summary>
-		public override String ToString ()
-		{
-			return string.Format (
-				"{{X:{0} Y:{1} Z:{2}}}", 
-				new Object[] 
-				{ 
-					this.X.ToString (), 
-					this.Y.ToString (), 
-					this.Z.ToString () 
-				}
-				);
-		}
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return string.Format (
+                "{{X:{0} Y:{1} Z:{2}}}", 
+                new Object[] 
+                { 
+                    this.X.ToString (), 
+                    this.Y.ToString (), 
+                    this.Z.ToString () 
+                }
+                );
+        }
 
-		/// <summary>
-		/// Gets the hash code of the Vector3 object.
-		/// </summary>
-		public override Int32 GetHashCode ()
-		{
-			return (
-				this.X.GetHashCode () + 
-				this.Y.GetHashCode () + 
-				this.Z.GetHashCode ()
-				);
-		}
+        /// <summary>
+        /// Gets the hash code of the Vector3 object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return (
+                this.X.GetHashCode () + 
+                this.Y.GetHashCode () + 
+                this.Z.GetHashCode ()
+                );
+        }
 
-		/// <summary>
-		/// Detemines whether or not the Vector3 is of unit length.
-		/// </summary>
-		public Boolean IsUnit()
-		{
-			<#= type #> one = 1;
-			return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
-		}
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            <#= type #> one = 1;
+            return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
+        }
 
 <#@ include file="Vector3.Constants.t4"#>
 <#@ include file="Vector3.Maths.t4"#>
 <#@ include file="Vector3.Operators.t4"#>
 <#@ include file="Vector3.Splines.t4"#>
 <#@ include file="Vector3.Utilities.t4"#>
-	}
+    }
 

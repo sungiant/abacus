@@ -1,784 +1,784 @@
-﻿		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateTranslation (ref Vector3 position, out Matrix44 result)
-		{
-			result.M11 = 1;
-			result.M12 = 0;
-			result.M13 = 0;
-			result.M14 = 0;
-			result.M21 = 0;
-			result.M22 = 1;
-			result.M23 = 0;
-			result.M24 = 0;
-			result.M31 = 0;
-			result.M32 = 0;
-			result.M33 = 1;
-			result.M34 = 0;
-			result.M41 = position.X;
-			result.M42 = position.Y;
-			result.M43 = position.Z;
-			result.M44 = 1;
-		}
-		
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateTranslation (<#= type #> xPosition, <#= type #> yPosition, <#= type #> zPosition, out Matrix44 result)
-		{	
-			result.M11 = 1;
-			result.M12 = 0;
-			result.M13 = 0;
-			result.M14 = 0;
-			result.M21 = 0;
-			result.M22 = 1;
-			result.M23 = 0;
-			result.M24 = 0;
-			result.M31 = 0;
-			result.M32 = 0;
-			result.M33 = 1;
-			result.M34 = 0;
-			result.M41 = xPosition;
-			result.M42 = yPosition;
-			result.M43 = zPosition;
-			result.M44 = 1;
-		}
-		
-		/// <summary>
-		/// Creates a scaling matrix based on x, y, z.
-		/// </summary>
-		public static void CreateScale (<#= type #> xScale, <#= type #> yScale, <#= type #> zScale, out Matrix44 result)
-		{
-			result.M11 = xScale;
-			result.M12 = 0;
-			result.M13 = 0;
-			result.M14 = 0;
-			result.M21 = 0;
-			result.M22 = yScale;
-			result.M23 = 0;
-			result.M24 = 0;
-			result.M31 = 0;
-			result.M32 = 0;
-			result.M33 = zScale;
-			result.M34 = 0;
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = 1;
-		}
+﻿        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateTranslation (ref Vector3 position, out Matrix44 result)
+        {
+            result.M11 = 1;
+            result.M12 = 0;
+            result.M13 = 0;
+            result.M14 = 0;
+            result.M21 = 0;
+            result.M22 = 1;
+            result.M23 = 0;
+            result.M24 = 0;
+            result.M31 = 0;
+            result.M32 = 0;
+            result.M33 = 1;
+            result.M34 = 0;
+            result.M41 = position.X;
+            result.M42 = position.Y;
+            result.M43 = position.Z;
+            result.M44 = 1;
+        }
+        
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateTranslation (<#= type #> xPosition, <#= type #> yPosition, <#= type #> zPosition, out Matrix44 result)
+        {   
+            result.M11 = 1;
+            result.M12 = 0;
+            result.M13 = 0;
+            result.M14 = 0;
+            result.M21 = 0;
+            result.M22 = 1;
+            result.M23 = 0;
+            result.M24 = 0;
+            result.M31 = 0;
+            result.M32 = 0;
+            result.M33 = 1;
+            result.M34 = 0;
+            result.M41 = xPosition;
+            result.M42 = yPosition;
+            result.M43 = zPosition;
+            result.M44 = 1;
+        }
+        
+        /// <summary>
+        /// Creates a scaling matrix based on x, y, z.
+        /// </summary>
+        public static void CreateScale (<#= type #> xScale, <#= type #> yScale, <#= type #> zScale, out Matrix44 result)
+        {
+            result.M11 = xScale;
+            result.M12 = 0;
+            result.M13 = 0;
+            result.M14 = 0;
+            result.M21 = 0;
+            result.M22 = yScale;
+            result.M23 = 0;
+            result.M24 = 0;
+            result.M31 = 0;
+            result.M32 = 0;
+            result.M33 = zScale;
+            result.M34 = 0;
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = 1;
+        }
 
-		/// <summary>
-		/// Creates a scaling matrix based on a vector.
-		/// </summary>
-		public static void CreateScale (ref Vector3 scales, out Matrix44 result)
-		{
-			result.M11 = scales.X;
-			result.M12 = 0;
-			result.M13 = 0;
-			result.M14 = 0;
-			result.M21 = 0;
-			result.M22 = scales.Y;
-			result.M23 = 0;
-			result.M24 = 0;
-			result.M31 = 0;
-			result.M32 = 0;
-			result.M33 = scales.Z;
-			result.M34 = 0;
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = 1;
-		}
+        /// <summary>
+        /// Creates a scaling matrix based on a vector.
+        /// </summary>
+        public static void CreateScale (ref Vector3 scales, out Matrix44 result)
+        {
+            result.M11 = scales.X;
+            result.M12 = 0;
+            result.M13 = 0;
+            result.M14 = 0;
+            result.M21 = 0;
+            result.M22 = scales.Y;
+            result.M23 = 0;
+            result.M24 = 0;
+            result.M31 = 0;
+            result.M32 = 0;
+            result.M33 = scales.Z;
+            result.M34 = 0;
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = 1;
+        }
 
-		/// <summary>
-		/// Create a scaling matrix consistant along each axis
-		/// </summary>
-		public static void CreateScale (<#= type #> scale, out Matrix44 result)
-		{
-			result.M11 = scale;
-			result.M12 = 0;
-			result.M13 = 0;
-			result.M14 = 0;
-			result.M21 = 0;
-			result.M22 = scale;
-			result.M23 = 0;
-			result.M24 = 0;
-			result.M31 = 0;
-			result.M32 = 0;
-			result.M33 = scale;
-			result.M34 = 0;
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = 1;
-		}
+        /// <summary>
+        /// Create a scaling matrix consistant along each axis
+        /// </summary>
+        public static void CreateScale (<#= type #> scale, out Matrix44 result)
+        {
+            result.M11 = scale;
+            result.M12 = 0;
+            result.M13 = 0;
+            result.M14 = 0;
+            result.M21 = 0;
+            result.M22 = scale;
+            result.M23 = 0;
+            result.M24 = 0;
+            result.M31 = 0;
+            result.M32 = 0;
+            result.M33 = scale;
+            result.M34 = 0;
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = 1;
+        }
 
-		/// <summary>
-		/// http://en.wikipedia.org/wiki/Rotation_matrix
-		/// </summary>
-		public static void CreateRotationX (<#= type #> radians, out Matrix44 result)
-		{
-			<#= type #> cos = RealMaths.Cos (radians);
-			<#= type #> sin = RealMaths.Sin (radians);
+        /// <summary>
+        /// http://en.wikipedia.org/wiki/Rotation_matrix
+        /// </summary>
+        public static void CreateRotationX (<#= type #> radians, out Matrix44 result)
+        {
+            <#= type #> cos = RealMaths.Cos (radians);
+            <#= type #> sin = RealMaths.Sin (radians);
 
-			result.M11 = 1;
-			result.M12 = 0;
-			result.M13 = 0;
-			result.M14 = 0;
-			result.M21 = 0;
-			result.M22 = cos;
-			result.M23 = sin;
-			result.M24 = 0;
-			result.M31 = 0;
-			result.M32 = -sin;
-			result.M33 = cos;
-			result.M34 = 0;
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = 1;
-		}
+            result.M11 = 1;
+            result.M12 = 0;
+            result.M13 = 0;
+            result.M14 = 0;
+            result.M21 = 0;
+            result.M22 = cos;
+            result.M23 = sin;
+            result.M24 = 0;
+            result.M31 = 0;
+            result.M32 = -sin;
+            result.M33 = cos;
+            result.M34 = 0;
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = 1;
+        }
 
-		/// <summary>
-		/// http://en.wikipedia.org/wiki/Rotation_matrix
-		/// </summary>
-		public static void CreateRotationY (<#= type #> radians, out Matrix44 result)
-		{
-			<#= type #> cos = RealMaths.Cos (radians);
-			<#= type #> sin = RealMaths.Sin (radians);
+        /// <summary>
+        /// http://en.wikipedia.org/wiki/Rotation_matrix
+        /// </summary>
+        public static void CreateRotationY (<#= type #> radians, out Matrix44 result)
+        {
+            <#= type #> cos = RealMaths.Cos (radians);
+            <#= type #> sin = RealMaths.Sin (radians);
 
-			result.M11 = cos;
-			result.M12 = 0;
-			result.M13 = -sin;
-			result.M14 = 0;
-			result.M21 = 0;
-			result.M22 = 1;
-			result.M23 = 0;
-			result.M24 = 0;
-			result.M31 = sin;
-			result.M32 = 0;
-			result.M33 = cos;
-			result.M34 = 0;
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = 1;
-		}
+            result.M11 = cos;
+            result.M12 = 0;
+            result.M13 = -sin;
+            result.M14 = 0;
+            result.M21 = 0;
+            result.M22 = 1;
+            result.M23 = 0;
+            result.M24 = 0;
+            result.M31 = sin;
+            result.M32 = 0;
+            result.M33 = cos;
+            result.M34 = 0;
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = 1;
+        }
 
-		/// <summary>
-		/// http://en.wikipedia.org/wiki/Rotation_matrix
-		/// </summary>
-		public static void CreateRotationZ (<#= type #> radians, out Matrix44 result)
-		{
-			<#= type #> cos = RealMaths.Cos (radians);
-			<#= type #> sin = RealMaths.Sin (radians);
+        /// <summary>
+        /// http://en.wikipedia.org/wiki/Rotation_matrix
+        /// </summary>
+        public static void CreateRotationZ (<#= type #> radians, out Matrix44 result)
+        {
+            <#= type #> cos = RealMaths.Cos (radians);
+            <#= type #> sin = RealMaths.Sin (radians);
 
-			result.M11 = cos;
-			result.M12 = sin;
-			result.M13 = 0;
-			result.M14 = 0;
-			result.M21 = -sin;
-			result.M22 = cos;
-			result.M23 = 0;
-			result.M24 = 0;
-			result.M31 = 0;
-			result.M32 = 0;
-			result.M33 = 1;
-			result.M34 = 0;
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = 1;
-		}
-		
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateFromAxisAngle (ref Vector3 axis, <#= type #> angle, out Matrix44 result)
-		{
-			<#= type #> one = 1;
+            result.M11 = cos;
+            result.M12 = sin;
+            result.M13 = 0;
+            result.M14 = 0;
+            result.M21 = -sin;
+            result.M22 = cos;
+            result.M23 = 0;
+            result.M24 = 0;
+            result.M31 = 0;
+            result.M32 = 0;
+            result.M33 = 1;
+            result.M34 = 0;
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = 1;
+        }
+        
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateFromAxisAngle (ref Vector3 axis, <#= type #> angle, out Matrix44 result)
+        {
+            <#= type #> one = 1;
 
-			<#= type #> x = axis.X;
-			<#= type #> y = axis.Y;
-			<#= type #> z = axis.Z;
+            <#= type #> x = axis.X;
+            <#= type #> y = axis.Y;
+            <#= type #> z = axis.Z;
 
-			<#= type #> sin = RealMaths.Sin (angle);
-			<#= type #> cos = RealMaths.Cos (angle);
+            <#= type #> sin = RealMaths.Sin (angle);
+            <#= type #> cos = RealMaths.Cos (angle);
 
-			<#= type #> xx = x * x;
-			<#= type #> yy = y * y;
-			<#= type #> zz = z * z;
+            <#= type #> xx = x * x;
+            <#= type #> yy = y * y;
+            <#= type #> zz = z * z;
 
-			<#= type #> xy = x * y;
-			<#= type #> xz = x * z;
-			<#= type #> yz = y * z;
+            <#= type #> xy = x * y;
+            <#= type #> xz = x * z;
+            <#= type #> yz = y * z;
 
-			result.M11 = xx + (cos * (one - xx));
-			result.M12 = (xy - (cos * xy)) + (sin * z);
-			result.M13 = (xz - (cos * xz)) - (sin * y);
-			result.M14 = 0;
+            result.M11 = xx + (cos * (one - xx));
+            result.M12 = (xy - (cos * xy)) + (sin * z);
+            result.M13 = (xz - (cos * xz)) - (sin * y);
+            result.M14 = 0;
 
-			result.M21 = (xy - (cos * xy)) - (sin * z);
-			result.M22 = yy + (cos * (one - yy));
-			result.M23 = (yz - (cos * yz)) + (sin * x);
-			result.M24 = 0;
+            result.M21 = (xy - (cos * xy)) - (sin * z);
+            result.M22 = yy + (cos * (one - yy));
+            result.M23 = (yz - (cos * yz)) + (sin * x);
+            result.M24 = 0;
 
-			result.M31 = (xz - (cos * xz)) + (sin * y);
-			result.M32 = (yz - (cos * yz)) - (sin * x);
-			result.M33 = zz + (cos * (one - zz));
-			result.M34 = 0;
+            result.M31 = (xz - (cos * xz)) + (sin * y);
+            result.M32 = (yz - (cos * yz)) - (sin * x);
+            result.M33 = zz + (cos * (one - zz));
+            result.M34 = 0;
 
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = one;
-		}
-		
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
-		{
-			if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
-			{
-				throw new ArgumentException("The input vertors must be normalised.");
-			}
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = one;
+        }
+        
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
+        {
+            if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
+            {
+                throw new ArgumentException("The input vertors must be normalised.");
+            }
 
-			result.M11 = right.X;
-			result.M12 = right.Y;
-			result.M13 = right.Z;
-			result.M14 = 0;
-			result.M21 = up.X;
-			result.M22 = up.Y;
-			result.M23 = up.Z;
-			result.M24 = 0;
-			result.M31 = backward.X;
-			result.M32 = backward.Y;
-			result.M33 = backward.Z;
-			result.M34 = 0;
-			result.M41 = 0;
-			result.M42 = 0;
-			result.M43 = 0;
-			result.M44 = 1;
-		}
+            result.M11 = right.X;
+            result.M12 = right.Y;
+            result.M13 = right.Z;
+            result.M14 = 0;
+            result.M21 = up.X;
+            result.M22 = up.Y;
+            result.M23 = up.Z;
+            result.M24 = 0;
+            result.M31 = backward.X;
+            result.M32 = backward.Y;
+            result.M33 = backward.Z;
+            result.M34 = 0;
+            result.M41 = 0;
+            result.M42 = 0;
+            result.M43 = 0;
+            result.M44 = 1;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
-		{
-			Vector3 backward = -forward;
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
+        {
+            Vector3 backward = -forward;
 
-			Vector3 right;
+            Vector3 right;
 
-			Vector3.Cross (ref up, ref backward, out right);
+            Vector3.Cross (ref up, ref backward, out right);
 
-			Vector3.Normalise(ref right, out right);
+            Vector3.Normalise(ref right, out right);
 
-			Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
+            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
-			result.M41 = position.X;
-			result.M42 = position.Y;
-			result.M43 = position.Z;
-		}
+            result.M41 = position.X;
+            result.M42 = position.Y;
+            result.M43 = position.Z;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
-		{
-			if(!forward.IsUnit() || !up.IsUnit() )
-			{
-				throw new ArgumentException("The input vertors must be normalised.");
-			}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
+        {
+            if(!forward.IsUnit() || !up.IsUnit() )
+            {
+                throw new ArgumentException("The input vertors must be normalised.");
+            }
 
-			Vector3 backward = -forward;
+            Vector3 backward = -forward;
 
-			Vector3 vector; Vector3.Normalise (ref backward, out vector);
+            Vector3 vector; Vector3.Normalise (ref backward, out vector);
 
-			Vector3 cross; Vector3.Cross (ref up, ref vector, out cross);
+            Vector3 cross; Vector3.Cross (ref up, ref vector, out cross);
 
-			Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
+            Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
 
-			Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
+            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
 
-			result.M11 = vector2.X;
-			result.M12 = vector2.Y;
-			result.M13 = vector2.Z;
-			result.M14 = 0;
-			result.M21 = vector3.X;
-			result.M22 = vector3.Y;
-			result.M23 = vector3.Z;
-			result.M24 = 0;
-			result.M31 = vector.X;
-			result.M32 = vector.Y;
-			result.M33 = vector.Z;
-			result.M34 = 0;
-			result.M41 = position.X;
-			result.M42 = position.Y;
-			result.M43 = position.Z;
-			result.M44 = 1;
-		}
+            result.M11 = vector2.X;
+            result.M12 = vector2.Y;
+            result.M13 = vector2.Z;
+            result.M14 = 0;
+            result.M21 = vector3.X;
+            result.M22 = vector3.Y;
+            result.M23 = vector3.Z;
+            result.M24 = 0;
+            result.M31 = vector.X;
+            result.M32 = vector.Y;
+            result.M33 = vector.Z;
+            result.M34 = 0;
+            result.M41 = position.X;
+            result.M42 = position.Y;
+            result.M43 = position.Z;
+            result.M44 = 1;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
-		{
-			if(!quaternion.IsUnit())
-			{
-				throw new ArgumentException("Input quaternion must be normalised.");
-			}
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
+        {
+            if(!quaternion.IsUnit())
+            {
+                throw new ArgumentException("Input quaternion must be normalised.");
+            }
 
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
 
 
-			<#= type #> xs = quaternion.X + quaternion.X;   
-			<#= type #> ys = quaternion.Y + quaternion.Y;
-			<#= type #> zs = quaternion.Z + quaternion.Z;
-			<#= type #> wx = quaternion.W * xs;
-			<#= type #> wy = quaternion.W * ys;
-			<#= type #> wz = quaternion.W * zs;
-			<#= type #> xx = quaternion.X * xs;
-			<#= type #> xy = quaternion.X * ys;
-			<#= type #> xz = quaternion.X * zs;
-			<#= type #> yy = quaternion.Y * ys;
-			<#= type #> yz = quaternion.Y * zs;
-			<#= type #> zz = quaternion.Z * zs;
+            <#= type #> xs = quaternion.X + quaternion.X;   
+            <#= type #> ys = quaternion.Y + quaternion.Y;
+            <#= type #> zs = quaternion.Z + quaternion.Z;
+            <#= type #> wx = quaternion.W * xs;
+            <#= type #> wy = quaternion.W * ys;
+            <#= type #> wz = quaternion.W * zs;
+            <#= type #> xx = quaternion.X * xs;
+            <#= type #> xy = quaternion.X * ys;
+            <#= type #> xz = quaternion.X * zs;
+            <#= type #> yy = quaternion.Y * ys;
+            <#= type #> yz = quaternion.Y * zs;
+            <#= type #> zz = quaternion.Z * zs;
 
-			result.M11 = one - (yy + zz);
-			result.M21 = xy - wz;
-			result.M31 = xz + wy;
-			result.M41 = zero;
+            result.M11 = one - (yy + zz);
+            result.M21 = xy - wz;
+            result.M31 = xz + wy;
+            result.M41 = zero;
     
-			result.M12 = xy + wz;
-			result.M22 = one - (xx + zz);
-			result.M32 = yz - wx;
-			result.M42 = zero;
+            result.M12 = xy + wz;
+            result.M22 = one - (xx + zz);
+            result.M32 = yz - wx;
+            result.M42 = zero;
     
-			result.M13 = xz - wy;
-			result.M23 = yz + wx;
-			result.M33 = one - (xx + yy);
-			result.M43 = zero;
+            result.M13 = xz - wy;
+            result.M23 = yz + wx;
+            result.M33 = one - (xx + yy);
+            result.M43 = zero;
 
-			result.M14 = zero;
-			result.M24 = zero;
-			result.M34 = zero;
-			result.M44 = one;
-		}
+            result.M14 = zero;
+            result.M24 = zero;
+            result.M34 = zero;
+            result.M44 = one;
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateFromYawPitchRoll (<#= type #> yaw, <#= type #> pitch, <#= type #> roll, out Matrix44 result)
-		{
-			Quaternion quaternion;
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateFromYawPitchRoll (<#= type #> yaw, <#= type #> pitch, <#= type #> roll, out Matrix44 result)
+        {
+            Quaternion quaternion;
 
-			Quaternion.CreateFromYawPitchRoll (yaw, pitch, roll, out quaternion);
+            Quaternion.CreateFromYawPitchRoll (yaw, pitch, roll, out quaternion);
 
-			CreateFromQuaternion (ref quaternion, out result);
-		}
+            CreateFromQuaternion (ref quaternion, out result);
+        }
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// Creates a cylindrical billboard that rotates around a specified axis.
-		/// This method computes the facing direction of the billboard from the object position and camera position. 
-		/// When the object and camera positions are too close, the matrix will not be accurate. 
-		/// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
-		/// </summary>
-		public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Creates a cylindrical billboard that rotates around a specified axis.
+        /// This method computes the facing direction of the billboard from the object position and camera position. 
+        /// When the object and camera positions are too close, the matrix will not be accurate. 
+        /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+        /// </summary>
+        public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
 
-			Vector3 vector;
-			Vector3 vector2;
-			Vector3 vector3;
-			vector.X = ObjectPosition.X - cameraPosition.X;
-			vector.Y = ObjectPosition.Y - cameraPosition.Y;
-			vector.Z = ObjectPosition.Z - cameraPosition.Z;
-			<#= type #> num = vector.LengthSquared ();
-			<#= type #> limit; RealMaths.FromString("0.0001", out limit);
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector.X = ObjectPosition.X - cameraPosition.X;
+            vector.Y = ObjectPosition.Y - cameraPosition.Y;
+            vector.Z = ObjectPosition.Z - cameraPosition.Z;
+            <#= type #> num = vector.LengthSquared ();
+            <#= type #> limit; RealMaths.FromString("0.0001", out limit);
 
-			if (num < limit) {
-				vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
-			} else {
-				Vector3.Multiply (ref vector, (<#= type #>)(one / (RealMaths.Sqrt (num))), out vector);
-			}
-			Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
+            if (num < limit) {
+                vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                Vector3.Multiply (ref vector, (<#= type #>)(one / (RealMaths.Sqrt (num))), out vector);
+            }
+            Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
 
-			Vector3.Normalise (ref vector3, out vector3);
+            Vector3.Normalise (ref vector3, out vector3);
 
-			Vector3.Cross (ref vector, ref vector3, out vector2);
-			result.M11 = vector3.X;
-			result.M12 = vector3.Y;
-			result.M13 = vector3.Z;
-			result.M14 = zero;
-			result.M21 = vector2.X;
-			result.M22 = vector2.Y;
-			result.M23 = vector2.Z;
-			result.M24 = zero;
-			result.M31 = vector.X;
-			result.M32 = vector.Y;
-			result.M33 = vector.Z;
-			result.M34 = zero;
-			result.M41 = ObjectPosition.X;
-			result.M42 = ObjectPosition.Y;
-			result.M43 = ObjectPosition.Z;
-			result.M44 = one;
-		}
+            Vector3.Cross (ref vector, ref vector3, out vector2);
+            result.M11 = vector3.X;
+            result.M12 = vector3.Y;
+            result.M13 = vector3.Z;
+            result.M14 = zero;
+            result.M21 = vector2.X;
+            result.M22 = vector2.Y;
+            result.M23 = vector2.Z;
+            result.M24 = zero;
+            result.M31 = vector.X;
+            result.M32 = vector.Y;
+            result.M33 = vector.Z;
+            result.M34 = zero;
+            result.M41 = ObjectPosition.X;
+            result.M42 = ObjectPosition.Y;
+            result.M43 = ObjectPosition.Z;
+            result.M44 = one;
+        }
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void CreateConstrainedBillboard (
-			ref Vector3 objectPosition, 
-			ref Vector3 cameraPosition, 
-			ref Vector3 rotateAxis, 
-			Vector3? cameraForwardVector, 
-			Vector3? objectForwardVector, 
-			out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateConstrainedBillboard (
+            ref Vector3 objectPosition, 
+            ref Vector3 cameraPosition, 
+            ref Vector3 rotateAxis, 
+            Vector3? cameraForwardVector, 
+            Vector3? objectForwardVector, 
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
 
-			<#= type #> num;
-			Vector3 vector;
-			Vector3 vector2;
-			Vector3 vector3;
-			vector2.X = objectPosition.X - cameraPosition.X;
-			vector2.Y = objectPosition.Y - cameraPosition.Y;
-			vector2.Z = objectPosition.Z - cameraPosition.Z;
-			<#= type #> num2 = vector2.LengthSquared ();
-			<#= type #> limit; RealMaths.FromString("0.0001", out limit);
+            <#= type #> num;
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector2.X = objectPosition.X - cameraPosition.X;
+            vector2.Y = objectPosition.Y - cameraPosition.Y;
+            vector2.Z = objectPosition.Z - cameraPosition.Z;
+            <#= type #> num2 = vector2.LengthSquared ();
+            <#= type #> limit; RealMaths.FromString("0.0001", out limit);
 
-			if (num2 < limit) {
-				vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
-			} else {
-				Vector3.Multiply (ref vector2, (<#= type #>)(one / (RealMaths.Sqrt (num2))), out vector2);
-			}
-			Vector3 vector4 = rotateAxis;
-			Vector3.Dot (ref rotateAxis, ref vector2, out num);
+            if (num2 < limit) {
+                vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                Vector3.Multiply (ref vector2, (<#= type #>)(one / (RealMaths.Sqrt (num2))), out vector2);
+            }
+            Vector3 vector4 = rotateAxis;
+            Vector3.Dot (ref rotateAxis, ref vector2, out num);
 
-			<#= type #> realHorrid; RealMaths.FromString("0.9982547", out realHorrid);
+            <#= type #> realHorrid; RealMaths.FromString("0.9982547", out realHorrid);
 
-			if (RealMaths.Abs (num) > realHorrid) {
-				if (objectForwardVector.HasValue) {
-					vector = objectForwardVector.Value;
-					Vector3.Dot (ref rotateAxis, ref vector, out num);
-					if (RealMaths.Abs (num) > realHorrid) {
-						num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-						vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
-					}
-				} else {
-					num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-					vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
-				}
-				Vector3.Cross (ref rotateAxis, ref vector, out vector3);
-				Vector3.Normalise (ref vector3, out vector3);
-				Vector3.Cross (ref vector3, ref rotateAxis, out vector);
-				Vector3.Normalise (ref vector, out vector);
-			} else {
-				Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
-				Vector3.Normalise (ref vector3, out vector3);
-				Vector3.Cross (ref vector3, ref vector4, out vector);
-				Vector3.Normalise (ref vector, out vector);
-			}
-			result.M11 = vector3.X;
-			result.M12 = vector3.Y;
-			result.M13 = vector3.Z;
-			result.M14 = zero;
-			result.M21 = vector4.X;
-			result.M22 = vector4.Y;
-			result.M23 = vector4.Z;
-			result.M24 = zero;
-			result.M31 = vector.X;
-			result.M32 = vector.Y;
-			result.M33 = vector.Z;
-			result.M34 = zero;
-			result.M41 = objectPosition.X;
-			result.M42 = objectPosition.Y;
-			result.M43 = objectPosition.Z;
-			result.M44 = one;
-		}
+            if (RealMaths.Abs (num) > realHorrid) {
+                if (objectForwardVector.HasValue) {
+                    vector = objectForwardVector.Value;
+                    Vector3.Dot (ref rotateAxis, ref vector, out num);
+                    if (RealMaths.Abs (num) > realHorrid) {
+                        num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                        vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                    }
+                } else {
+                    num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                    vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                }
+                Vector3.Cross (ref rotateAxis, ref vector, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref rotateAxis, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            } else {
+                Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref vector4, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            }
+            result.M11 = vector3.X;
+            result.M12 = vector3.Y;
+            result.M13 = vector3.Z;
+            result.M14 = zero;
+            result.M21 = vector4.X;
+            result.M22 = vector4.Y;
+            result.M23 = vector4.Z;
+            result.M24 = zero;
+            result.M31 = vector.X;
+            result.M32 = vector.Y;
+            result.M33 = vector.Z;
+            result.M34 = zero;
+            result.M41 = objectPosition.X;
+            result.M42 = objectPosition.Y;
+            result.M43 = objectPosition.Z;
+            result.M44 = one;
+        }
 
-		/// <summary>
-		/// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
-		/// </summary>
-		public static void CreatePerspectiveFieldOfView (
-			<#= type #> fieldOfView, 
-			<#= type #> aspectRatio, 
-			<#= type #> nearPlaneDistance, 
-			<#= type #> farPlaneDistance, 
-			out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> half; RealMaths.Half(out half);
-			<#= type #> one = 1;
-			<#= type #> pi; RealMaths.Pi(out pi);
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveFieldOfView (
+            <#= type #> fieldOfView, 
+            <#= type #> aspectRatio, 
+            <#= type #> nearPlaneDistance, 
+            <#= type #> farPlaneDistance, 
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> half; RealMaths.Half(out half);
+            <#= type #> one = 1;
+            <#= type #> pi; RealMaths.Pi(out pi);
 
-			if ((fieldOfView <= zero) || (fieldOfView >= pi))
-			{
-				throw new ArgumentOutOfRangeException ("fieldOfView");
-			}
+            if ((fieldOfView <= zero) || (fieldOfView >= pi))
+            {
+                throw new ArgumentOutOfRangeException ("fieldOfView");
+            }
 
-			if (nearPlaneDistance <= zero)
-			{
-				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-			}
+            if (nearPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
 
-			if (farPlaneDistance <= zero)
-			{
-				throw new ArgumentOutOfRangeException ("farPlaneDistance");
-			}
+            if (farPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
 
-			if (nearPlaneDistance >= farPlaneDistance)
-			{
-				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-			}
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
 
-			//
-			// xScale     0          0              0
-			// 0        yScale       0              0
-			// 0        0        zf/(zn-zf)        -1
-			// 0        0        zn*zf/(zn-zf)      0
-			//
-			// where:
-			//
-			// yScale = cot(fovY/2)
-			//     
-			// xScale = yScale / aspect ratio
-			//
+            //
+            // xScale     0          0              0
+            // 0        yScale       0              0
+            // 0        0        zf/(zn-zf)        -1
+            // 0        0        zn*zf/(zn-zf)      0
+            //
+            // where:
+            //
+            // yScale = cot(fovY/2)
+            //     
+            // xScale = yScale / aspect ratio
+            //
 
-			// yScale = cot(fovY/2)
-			<#= type #> yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+            // yScale = cot(fovY/2)
+            <#= type #> yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
 
-			// xScale = yScale / aspect ratio
-			<#= type #> xScale = yScale / aspectRatio;
+            // xScale = yScale / aspect ratio
+            <#= type #> xScale = yScale / aspectRatio;
 
-			result.M11 = xScale;
-			result.M12 = zero;
-			result.M13 = zero;
-			result.M14 = zero;
-			
-			result.M21 = zero;
-			result.M22 = yScale;
-			result.M23 = zero;
-			result.M24 = zero;
+            result.M11 = xScale;
+            result.M12 = zero;
+            result.M13 = zero;
+            result.M14 = zero;
+            
+            result.M21 = zero;
+            result.M22 = yScale;
+            result.M23 = zero;
+            result.M24 = zero;
 
-			result.M31 = zero;
-			result.M32 = zero;
-			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
-			result.M34 = -one;
+            result.M31 = zero;
+            result.M32 = zero;
+            result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
+            result.M34 = -one;
 
-			result.M41 = zero;
-			result.M42 = zero;
-			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
-			result.M44 = zero;
-		}
+            result.M41 = zero;
+            result.M42 = zero;
+            result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+            result.M44 = zero;
+        }
 
 
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
-		/// </summary>
-		public static void CreatePerspective (
-			<#= type #> width, 
-			<#= type #> height, 
-			<#= type #> nearPlaneDistance, 
-			<#= type #> farPlaneDistance, 
-			out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-			<#= type #> two = 2;
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspective (
+            <#= type #> width, 
+            <#= type #> height, 
+            <#= type #> nearPlaneDistance, 
+            <#= type #> farPlaneDistance, 
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
 
-			if (nearPlaneDistance <= zero) {
-				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-			}
-			if (farPlaneDistance <= zero) {
-				throw new ArgumentOutOfRangeException ("farPlaneDistance");
-			}
-			if (nearPlaneDistance >= farPlaneDistance) {
-				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-			}
-			result.M11 = (two * nearPlaneDistance) / width;
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = (two * nearPlaneDistance) / height;
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-			result.M31 = result.M32 = zero;
-			result.M34 = -one;
-			result.M41 = result.M42 = result.M44 = zero;
-			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-		}
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.M11 = (two * nearPlaneDistance) / width;
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = (two * nearPlaneDistance) / height;
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.M31 = result.M32 = zero;
+            result.M34 = -one;
+            result.M41 = result.M42 = result.M44 = zero;
+            result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+        }
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
-		/// </summary>
-		public static void CreatePerspectiveOffCenter (
-			<#= type #> left, 
-			<#= type #> right, 
-			<#= type #> bottom, 
-			<#= type #> top, 
-			<#= type #> nearPlaneDistance, 
-			<#= type #> farPlaneDistance, 
-			out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-			<#= type #> two = 2;
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveOffCenter (
+            <#= type #> left, 
+            <#= type #> right, 
+            <#= type #> bottom, 
+            <#= type #> top, 
+            <#= type #> nearPlaneDistance, 
+            <#= type #> farPlaneDistance, 
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
 
-			if (nearPlaneDistance <= zero) {
-				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-			}
-			if (farPlaneDistance <= zero) {
-				throw new ArgumentOutOfRangeException ("farPlaneDistance");
-			}
-			if (nearPlaneDistance >= farPlaneDistance) {
-				throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-			}
-			result.M11 = (two * nearPlaneDistance) / (right - left);
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = (two * nearPlaneDistance) / (top - bottom);
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M31 = (left + right) / (right - left);
-			result.M32 = (top + bottom) / (top - bottom);
-			result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-			result.M34 = -one;
-			result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-			result.M41 = result.M42 = result.M44 = zero;
-		}
-		
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
-		/// </summary>
-		public static void CreateOrthographic (
-			<#= type #> width, 
-			<#= type #> height, 
-			<#= type #> zNearPlane, 
-			<#= type #> zFarPlane, 
-			out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-			<#= type #> two = 2;
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.M11 = (two * nearPlaneDistance) / (right - left);
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = (two * nearPlaneDistance) / (top - bottom);
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M31 = (left + right) / (right - left);
+            result.M32 = (top + bottom) / (top - bottom);
+            result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.M34 = -one;
+            result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.M41 = result.M42 = result.M44 = zero;
+        }
+        
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographic (
+            <#= type #> width, 
+            <#= type #> height, 
+            <#= type #> zNearPlane, 
+            <#= type #> zFarPlane, 
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
 
-			result.M11 = two / width;
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = two / height;
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M33 = one / (zNearPlane - zFarPlane);
-			result.M31 = result.M32 = result.M34 = zero;
-			result.M41 = result.M42 = zero;
-			result.M43 = zNearPlane / (zNearPlane - zFarPlane);
-			result.M44 = one;
-		}
+            result.M11 = two / width;
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = two / height;
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M33 = one / (zNearPlane - zFarPlane);
+            result.M31 = result.M32 = result.M34 = zero;
+            result.M41 = result.M42 = zero;
+            result.M43 = zNearPlane / (zNearPlane - zFarPlane);
+            result.M44 = one;
+        }
 
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
-		/// </summary>
-		public static void CreateOrthographicOffCenter (
-			<#= type #> left, 
-			<#= type #> right, 
-			<#= type #> bottom, 
-			<#= type #> top, 
-			<#= type #> zNearPlane, 
-			<#= type #> zFarPlane, 
-			out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-			<#= type #> two = 2;
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographicOffCenter (
+            <#= type #> left, 
+            <#= type #> right, 
+            <#= type #> bottom, 
+            <#= type #> top, 
+            <#= type #> zNearPlane, 
+            <#= type #> zFarPlane, 
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
 
-			result.M11 = two / (right - left);
-			result.M12 = result.M13 = result.M14 = zero;
-			result.M22 = two / (top - bottom);
-			result.M21 = result.M23 = result.M24 = zero;
-			result.M33 = one / (zNearPlane - zFarPlane);
-			result.M31 = result.M32 = result.M34 = zero;
-			result.M41 = (left + right) / (left - right);
-			result.M42 = (top + bottom) / (bottom - top);
-			result.M43 = zNearPlane / (zNearPlane - zFarPlane);
-			result.M44 = one;
-		}
-		
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		// TODO: FROM XNA, NEEDS REVIEW
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-		/// </summary>
-		public static void CreateLookAt (
-			ref Vector3 cameraPosition, 
-			ref Vector3 cameraTarget, 
-			ref Vector3 cameraUpVector, 
-			out Matrix44 result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
+            result.M11 = two / (right - left);
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = two / (top - bottom);
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M33 = one / (zNearPlane - zFarPlane);
+            result.M31 = result.M32 = result.M34 = zero;
+            result.M41 = (left + right) / (left - right);
+            result.M42 = (top + bottom) / (bottom - top);
+            result.M43 = zNearPlane / (zNearPlane - zFarPlane);
+            result.M44 = one;
+        }
+        
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+        /// </summary>
+        public static void CreateLookAt (
+            ref Vector3 cameraPosition, 
+            ref Vector3 cameraTarget, 
+            ref Vector3 cameraUpVector, 
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
 
-			Vector3 targetToPosition = cameraPosition - cameraTarget;
+            Vector3 targetToPosition = cameraPosition - cameraTarget;
 
-			Vector3 vector; Vector3.Normalise (ref targetToPosition, out vector);
+            Vector3 vector; Vector3.Normalise (ref targetToPosition, out vector);
 
-			Vector3 cross; Vector3.Cross (ref cameraUpVector, ref vector, out cross); 
+            Vector3 cross; Vector3.Cross (ref cameraUpVector, ref vector, out cross); 
 
-			Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
-			Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
-			result.M11 = vector2.X;
-			result.M12 = vector3.X;
-			result.M13 = vector.X;
-			result.M14 = zero;
-			result.M21 = vector2.Y;
-			result.M22 = vector3.Y;
-			result.M23 = vector.Y;
-			result.M24 = zero;
-			result.M31 = vector2.Z;
-			result.M32 = vector3.Z;
-			result.M33 = vector.Z;
-			result.M34 = zero;
+            Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
+            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
+            result.M11 = vector2.X;
+            result.M12 = vector3.X;
+            result.M13 = vector.X;
+            result.M14 = zero;
+            result.M21 = vector2.Y;
+            result.M22 = vector3.Y;
+            result.M23 = vector.Y;
+            result.M24 = zero;
+            result.M31 = vector2.Z;
+            result.M32 = vector3.Z;
+            result.M33 = vector.Z;
+            result.M34 = zero;
 
-			Vector3.Dot (ref vector2, ref cameraPosition, out result.M41);
-			Vector3.Dot (ref vector3, ref cameraPosition, out result.M42);
-			Vector3.Dot (ref vector, ref cameraPosition, out result.M43);
-			
-			result.M41 *= -one;
-			result.M42 *= -one;
-			result.M43 *= -one;
+            Vector3.Dot (ref vector2, ref cameraPosition, out result.M41);
+            Vector3.Dot (ref vector3, ref cameraPosition, out result.M42);
+            Vector3.Dot (ref vector, ref cameraPosition, out result.M43);
+            
+            result.M41 *= -one;
+            result.M42 *= -one;
+            result.M43 *= -one;
 
-			result.M44 = one;
-		}
+            result.M44 = one;
+        }
 

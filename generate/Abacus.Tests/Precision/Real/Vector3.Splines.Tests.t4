@@ -1,475 +1,475 @@
-		// Test Static Fn: SmoothStep //--------------------------------------//
-
-		/// <summary>
-		/// This test runs a number of random scenarios and makes sure that when
-		/// the weighting parameter is at it's limits the spline passes directly 
-		/// through the correct control points.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_SmoothStep_i ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomVector3();
-				var b = GetNextRandomVector3();
-
-				<#= type #> amount1 = 0;
-				Vector3 result1;
-
-				Vector3.SmoothStep (
-					ref a, ref b, amount1, out result1);
-
-				AssertEqualWithinReason(result1, a);
-
-				<#= type #> amount2 = 1;
-				Vector3 result2;
-
-				Vector3.SmoothStep (
-					ref a, ref b, amount2, out result2);
-
-				AssertEqualWithinReason(result2, b);
-			}
-		}
-
-		/// <summary>
-		/// Assert that, for known examples where the weighting parameter is
-		/// is outside the allowed range, the correct exception is thrown.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_SmoothStep_ii ()
-		{
-			var a = GetNextRandomVector3();
-			var b = GetNextRandomVector3();
-
-			<#= type #> half; RealMaths.Half(out half);
-
-			var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
-
-			foreach( var amount in tests )
-			{
-				Vector3 result;
-
-				Assert.Throws(
-					typeof(ArgumentOutOfRangeException), 
-					() => 
-						Vector3.SmoothStep (
-							ref a, ref b, amount, out result)
-					);
-			}
-		}
-
-		/// <summary>
-		/// This tests compares results against a known example.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_SmoothStep_iii ()
-		{
-			var a = new Vector3( -30, -30, -30 );
-			var b = new Vector3( +30, +30, +30 );
-
-			<#= type #> one = 1;
-
-			<#= type #> i;
-			RealMaths.FromFraction(1755, 64, out i); // 27.421875
-			
-			<#= type #> j;
-			RealMaths.FromFraction( 165,  8, out j); // 20.625
-			
-			<#= type #> k;
-			RealMaths.FromFraction( 705, 64, out k); // 11.015625
-
-			<#= type #> a0 = 0;
-			<#= type #> a1 = (one * 1) / 8;
-			<#= type #> a2 = (one * 2) / 8;
-			<#= type #> a3 = (one * 3) / 8;
-			<#= type #> a4 = (one * 4) / 8;
-			<#= type #> a5 = (one * 5) / 8;
-			<#= type #> a6 = (one * 6) / 8;
-			<#= type #> a7 = (one * 7) / 8;
-			<#= type #> a8 = 1;
-
-			Vector3 r0 = a;
-			Vector3 r1 = new Vector3( -i, -i, -i );
-			Vector3 r2 = new Vector3( -j, -j, -j );
-			Vector3 r3 = new Vector3( -k, -k, -k );
-			Vector3 r4 = Vector3.Zero;
-			Vector3 r5 = new Vector3(  k,  k,  k );
-			Vector3 r6 = new Vector3(  j,  j,  j );
-			Vector3 r7 = new Vector3(  i,  i,  i );
-			Vector3 r8 = b;
-
-			var knownResults = new List<Tuple<<#= type #>, Vector3>>
-			{
-				new Tuple<<#= type #>, Vector3>( a0, r0 ),
-				new Tuple<<#= type #>, Vector3>( a1, r1 ),
-				new Tuple<<#= type #>, Vector3>( a2, r2 ),
-				new Tuple<<#= type #>, Vector3>( a3, r3 ),
-				new Tuple<<#= type #>, Vector3>( a4, r4 ),
-				new Tuple<<#= type #>, Vector3>( a5, r5 ),
-				new Tuple<<#= type #>, Vector3>( a6, r6 ),
-				new Tuple<<#= type #>, Vector3>( a7, r7 ),
-				new Tuple<<#= type #>, Vector3>( a8, r8 ),
-			};
-
-			foreach(var knownResult in knownResults )
-			{
-				Vector3 result;
-
-				Vector3.SmoothStep (
-					ref a, ref b, knownResult.Item1, out result);
-
-				AssertEqualWithinReason(result, knownResult.Item2);
-			}
-		}
-
-		// Test Static Fn: CatmullRom //--------------------------------------//
-
-		/// <summary>
-		/// This test runs a number of random scenarios and makes sure that when
-		/// the weighting parameter is at it's limits the spline passes directly 
-		/// through the correct control points.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_CatmullRom_i ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a = GetNextRandomVector3();
-				var b = GetNextRandomVector3();
-				var c = GetNextRandomVector3();
-				var d = GetNextRandomVector3();
-
-				<#= type #> amount1 = 0;
-				Vector3 result1;
-
-				Vector3.CatmullRom (
-					ref a, ref b, ref c, ref d, amount1, out result1);
-
-				AssertEqualWithinReason(result1, b);
-
-				<#= type #> amount2 = 1;
-				Vector3 result2;
-
-				Vector3.CatmullRom (
-					ref a, ref b, ref c, ref d, amount2, out result2);
-
-				AssertEqualWithinReason(result2, c);
-			}
-		}
-
-		/// <summary>
-		/// This tests compares results against a known example.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_CatmullRom_ii ()
-		{
-			var a = new Vector3( -90, +30, +90 );
-			var b = new Vector3( -30, -30, +30 );
-			var c = new Vector3( +30, +30, -30 );
-			var d = new Vector3( +90, -30, -90 );
-
-			<#= type #> one = 1;
-
-			<#= type #> u = 15;
-			<#= type #> v = (<#= type #>) 165  / (<#= type #>)  8; // 20.5
-			<#= type #> w = (<#= type #>) 45   / (<#= type #>)  2; // 20.625
-			<#= type #> x = (<#= type #>) 1755 / (<#= type #>) 64; // 27.421875
-			<#= type #> y = (<#= type #>) 15   / (<#= type #>)  2; // 14.5
-			<#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
-
-			<#= type #> a0 = 0;
-			<#= type #> a1 = (one * 1) / 8;
-			<#= type #> a2 = (one * 2) / 8;
-			<#= type #> a3 = (one * 3) / 8;
-			<#= type #> a4 = (one * 4) / 8;
-			<#= type #> a5 = (one * 5) / 8;
-			<#= type #> a6 = (one * 6) / 8;
-			<#= type #> a7 = (one * 7) / 8;
-			<#= type #> a8 = 1;
-
-			Vector3 r0 = b;
-			Vector3 r1 = new Vector3( -w, -x,  w );
-			Vector3 r2 = new Vector3( -u, -v,  u );
-			Vector3 r3 = new Vector3( -y, -z,  y );
-			Vector3 r4 = Vector3.Zero;
-			Vector3 r5 = new Vector3(  y,  z, -y );
-			Vector3 r6 = new Vector3(  u,  v, -u );
-			Vector3 r7 = new Vector3(  w,  x, -w );
-			Vector3 r8 = c;
-
-			var knownResults = new List<Tuple<<#= type #>, Vector3>>
-			{
-				new Tuple<<#= type #>, Vector3>( a0, r0 ),
-				new Tuple<<#= type #>, Vector3>( a1, r1 ),
-				new Tuple<<#= type #>, Vector3>( a2, r2 ),
-				new Tuple<<#= type #>, Vector3>( a3, r3 ),
-				new Tuple<<#= type #>, Vector3>( a4, r4 ),
-				new Tuple<<#= type #>, Vector3>( a5, r5 ),
-				new Tuple<<#= type #>, Vector3>( a6, r6 ),
-				new Tuple<<#= type #>, Vector3>( a7, r7 ),
-				new Tuple<<#= type #>, Vector3>( a8, r8 ),
-			};
-
-			foreach(var knownResult in knownResults )
-			{
-				Vector3 result;
-
-				Vector3.CatmullRom (
-					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
-
-				AssertEqualWithinReason(result, knownResult.Item2);
-			}
-		}
-
-		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
-		/// is outside the allowed range, the correct exception is thrown.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_CatmullRom_iii ()
-		{
-			var a = GetNextRandomVector3();
-			var b = GetNextRandomVector3();
-			var c = GetNextRandomVector3();
-			var d = GetNextRandomVector3();
-			
-			<#= type #> half; RealMaths.Half(out half);
-
-			var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
-
-			foreach( var amount in tests )
-			{
-				Vector3 result;
-
-				Assert.Throws(
-					typeof(ArgumentOutOfRangeException), 
-					() => 
-						Vector3.CatmullRom (
-							ref a, ref b, ref c, ref d, amount, out result)
-				);
-			}
-		}
-
-		/// <summary>
-		/// This tests compares results against an example where all the control
-		/// points are in a straight line.  In this case the resulting spline
-		/// should be a straight line.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_CatmullRom_iv ()
-		{
-			var a = new Vector3( -90, -90, +90 );
-			var b = new Vector3( -30, -30, +30 );
-			var c = new Vector3( +30, +30, -30 );
-			var d = new Vector3( +90, +90, -90 );
-
-			<#= type #> one = 1;
-
-			<#= type #> a0 = 0;
-			<#= type #> a1 = (one * 1) / 4;
-			<#= type #> a2 = (one * 2) / 4;
-			<#= type #> a3 = (one * 3) / 4;
-			<#= type #> a4 = 1;
-
-			Vector3 r0 = b;
-			Vector3 r1 = new Vector3( -15, -15,  15 );
-			Vector3 r2 = Vector3.Zero;
-			Vector3 r3 = new Vector3(  15,  15, -15 );
-			Vector3 r4 = c;
-
-			var knownResults = new List<Tuple<<#= type #>, Vector3>>
-			{
-				new Tuple<<#= type #>, Vector3>( a0, r0 ),
-				new Tuple<<#= type #>, Vector3>( a1, r1 ),
-				new Tuple<<#= type #>, Vector3>( a2, r2 ),
-				new Tuple<<#= type #>, Vector3>( a3, r3 ),
-				new Tuple<<#= type #>, Vector3>( a4, r4 ),
-			};
-
-			foreach(var knownResult in knownResults )
-			{
-				Vector3 result;
-
-				Vector3.CatmullRom (
-					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
-
-				AssertEqualWithinReason(result, knownResult.Item2);
-			}
-		}
-
-		// Test Static Fn: Hermite //-----------------------------------------//
-
-		/// <summary>
-		/// This test runs a number of random scenarios and makes sure that when
-		/// the weighting parameter is at it's limits the spline passes directly 
-		/// through the correct control points.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_i ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				var a  = GetNextRandomVector3();
-				var b  = GetNextRandomVector3();
-
-				var c = GetNextRandomVector3();
-				var d = GetNextRandomVector3();
-
-				Vector3 an; Vector3.Normalise(ref c, out an);
-				Vector3 bn; Vector3.Normalise(ref d, out bn);
-
-				<#= type #> amount1 = 0;
-				Vector3 result1;
-
-				Vector3.Hermite (
-					ref a, ref an, ref b, ref bn, amount1, out result1);
-
-				AssertEqualWithinReason(result1, a);
-
-				<#= type #> amount2 = 1;
-				Vector3 result2;
-
-				Vector3.Hermite (
-					ref a, ref an, ref b, ref bn, amount2, out result2);
-
-				AssertEqualWithinReason(result2, b);
-			}
-		}
-
-		/// <summary>
-		/// Assert that, for known examples where the weighting parameter is
-		/// is outside the allowed range, the correct exception is thrown.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_ii ()
-		{
-			var a = GetNextRandomVector3();
-			var b = GetNextRandomVector3();
-			var c = GetNextRandomVector3();
-			var d = GetNextRandomVector3();
-
-			Vector3 an; Vector3.Normalise(ref c, out an);
-			Vector3 bn; Vector3.Normalise(ref d, out bn);
-
-			<#= type #> half; RealMaths.Half(out half);
-
-			var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
-
-			foreach( var amount in tests )
-			{
-				Vector3 result;
-
-				Assert.Throws(
-					typeof(ArgumentOutOfRangeException), 
-					() => 
-						Vector3.Hermite (
-							ref a, ref an, ref b, ref bn, amount, out result)
-					);
-				
-			}
-		}
-
-		/// <summary>
-		/// This tests compares results against a known example.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Hermite_iii ()
-		{
-			var a = new Vector3( -100, +50, +100 );
-			var b = new Vector3( +100, -50, -100 );
-
-			var c = new Vector3( -10, +5, +10 );
-			var d = new Vector3( +10, -5, -10 );
-
-			Vector3 an; Vector3.Normalise(ref c, out an);
-			Vector3 bn; Vector3.Normalise(ref d, out bn);
-
-			<#= type #> one = 1;
-			
-			// 100.1953125
-			<#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512;
-
-			// 50.09765625
-			<#= type #> f = (<#= type #>) 12825 / (<#= type #>) 256;
-
-			// 91.25
-			<#= type #> g = (<#= type #>) 365 / (<#= type #>) 4;
-
-			// 45.625
-			<#= type #> h = (<#= type #>) 365 / (<#= type #>) 8;
-
-			// 75.7421875
-			<#= type #> i = (<#= type #>) 9695 / (<#= type #>) 128;
-
-			// 37.87109375
-			<#= type #> j = (<#= type #>) 9695 / (<#= type #>) 256;
-
-			// 56.25
-			<#= type #> k = (<#= type #>) 225 / (<#= type #>) 4;
-
-			// 28.125
-			<#= type #> l = (<#= type #>) 225 / (<#= type #>) 8;
-
-			// 35.3515625
-			<#= type #> m = (<#= type #>) 4525 / (<#= type #>) 128;
-
-			// 17.67578125
-			<#= type #> n = (<#= type #>) 4525 / (<#= type #>) 256;
-
-			// 15.625
-			<#= type #> o = (<#= type #>) 125 / (<#= type #>) 8;
-
-			// 7.8125
-			<#= type #> p = (<#= type #>) 125 / (<#= type #>) 16;
-
-			// 0.3515625
-			<#= type #> q = (<#= type #>) 45 / (<#= type #>) 128;
-
-			// 0.17578125
-			<#= type #> r = (<#= type #>) 45 / (<#= type #>) 256;
-
-			<#= type #> a0 = 0;
-			<#= type #> a1 = (one * 1) / 8;
-			<#= type #> a2 = (one * 2) / 8;
-			<#= type #> a3 = (one * 3) / 8;
-			<#= type #> a4 = (one * 4) / 8;
-			<#= type #> a5 = (one * 5) / 8;
-			<#= type #> a6 = (one * 6) / 8;
-			<#= type #> a7 = (one * 7) / 8;
-			<#= type #> a8 = 1;
-
-			Vector3 r0 = b;
-			Vector3 r1 = new Vector3(  e, -f, -e );
-			Vector3 r2 = new Vector3(  g, -h, -g );
-			Vector3 r3 = new Vector3(  i, -j, -i );
-			Vector3 r4 = new Vector3(  k, -l, -k );
-			Vector3 r5 = new Vector3(  m, -n, -m );
-			Vector3 r6 = new Vector3(  o, -p, -o );
-			Vector3 r7 = new Vector3( -q,  r,  q );
-			Vector3 r8 = c;
-
-			var knownResults = new List<Tuple<<#= type #>, Vector3>>
-			{
-				new Tuple<<#= type #>, Vector3>( a0, r0 ),
-				new Tuple<<#= type #>, Vector3>( a1, r1 ),
-				new Tuple<<#= type #>, Vector3>( a2, r2 ),
-				new Tuple<<#= type #>, Vector3>( a3, r3 ),
-				new Tuple<<#= type #>, Vector3>( a4, r4 ),
-				new Tuple<<#= type #>, Vector3>( a5, r5 ),
-				new Tuple<<#= type #>, Vector3>( a6, r6 ),
-				new Tuple<<#= type #>, Vector3>( a7, r7 ),
-				new Tuple<<#= type #>, Vector3>( a8, r8 ),
-			};
-
-			foreach(var knownResult in knownResults )
-			{
-				Vector3 result;
-
-				Vector3.CatmullRom (
-					ref a, ref b, ref c, ref d, knownResult.Item1, out result);
-
-				AssertEqualWithinReason(result, knownResult.Item2);
-			}
-		}
-
-		
+        // Test Static Fn: SmoothStep //--------------------------------------//
+
+        /// <summary>
+        /// This test runs a number of random scenarios and makes sure that when
+        /// the weighting parameter is at it's limits the spline passes directly 
+        /// through the correct control points.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_SmoothStep_i ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomVector3();
+                var b = GetNextRandomVector3();
+
+                <#= type #> amount1 = 0;
+                Vector3 result1;
+
+                Vector3.SmoothStep (
+                    ref a, ref b, amount1, out result1);
+
+                AssertEqualWithinReason(result1, a);
+
+                <#= type #> amount2 = 1;
+                Vector3 result2;
+
+                Vector3.SmoothStep (
+                    ref a, ref b, amount2, out result2);
+
+                AssertEqualWithinReason(result2, b);
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_SmoothStep_ii ()
+        {
+            var a = GetNextRandomVector3();
+            var b = GetNextRandomVector3();
+
+            <#= type #> half; RealMaths.Half(out half);
+
+            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+
+            foreach( var amount in tests )
+            {
+                Vector3 result;
+
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException), 
+                    () => 
+                        Vector3.SmoothStep (
+                            ref a, ref b, amount, out result)
+                    );
+            }
+        }
+
+        /// <summary>
+        /// This tests compares results against a known example.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_SmoothStep_iii ()
+        {
+            var a = new Vector3( -30, -30, -30 );
+            var b = new Vector3( +30, +30, +30 );
+
+            <#= type #> one = 1;
+
+            <#= type #> i;
+            RealMaths.FromFraction(1755, 64, out i); // 27.421875
+            
+            <#= type #> j;
+            RealMaths.FromFraction( 165,  8, out j); // 20.625
+            
+            <#= type #> k;
+            RealMaths.FromFraction( 705, 64, out k); // 11.015625
+
+            <#= type #> a0 = 0;
+            <#= type #> a1 = (one * 1) / 8;
+            <#= type #> a2 = (one * 2) / 8;
+            <#= type #> a3 = (one * 3) / 8;
+            <#= type #> a4 = (one * 4) / 8;
+            <#= type #> a5 = (one * 5) / 8;
+            <#= type #> a6 = (one * 6) / 8;
+            <#= type #> a7 = (one * 7) / 8;
+            <#= type #> a8 = 1;
+
+            Vector3 r0 = a;
+            Vector3 r1 = new Vector3( -i, -i, -i );
+            Vector3 r2 = new Vector3( -j, -j, -j );
+            Vector3 r3 = new Vector3( -k, -k, -k );
+            Vector3 r4 = Vector3.Zero;
+            Vector3 r5 = new Vector3(  k,  k,  k );
+            Vector3 r6 = new Vector3(  j,  j,  j );
+            Vector3 r7 = new Vector3(  i,  i,  i );
+            Vector3 r8 = b;
+
+            var knownResults = new List<Tuple<<#= type #>, Vector3>>
+            {
+                new Tuple<<#= type #>, Vector3>( a0, r0 ),
+                new Tuple<<#= type #>, Vector3>( a1, r1 ),
+                new Tuple<<#= type #>, Vector3>( a2, r2 ),
+                new Tuple<<#= type #>, Vector3>( a3, r3 ),
+                new Tuple<<#= type #>, Vector3>( a4, r4 ),
+                new Tuple<<#= type #>, Vector3>( a5, r5 ),
+                new Tuple<<#= type #>, Vector3>( a6, r6 ),
+                new Tuple<<#= type #>, Vector3>( a7, r7 ),
+                new Tuple<<#= type #>, Vector3>( a8, r8 ),
+            };
+
+            foreach(var knownResult in knownResults )
+            {
+                Vector3 result;
+
+                Vector3.SmoothStep (
+                    ref a, ref b, knownResult.Item1, out result);
+
+                AssertEqualWithinReason(result, knownResult.Item2);
+            }
+        }
+
+        // Test Static Fn: CatmullRom //--------------------------------------//
+
+        /// <summary>
+        /// This test runs a number of random scenarios and makes sure that when
+        /// the weighting parameter is at it's limits the spline passes directly 
+        /// through the correct control points.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_CatmullRom_i ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomVector3();
+                var b = GetNextRandomVector3();
+                var c = GetNextRandomVector3();
+                var d = GetNextRandomVector3();
+
+                <#= type #> amount1 = 0;
+                Vector3 result1;
+
+                Vector3.CatmullRom (
+                    ref a, ref b, ref c, ref d, amount1, out result1);
+
+                AssertEqualWithinReason(result1, b);
+
+                <#= type #> amount2 = 1;
+                Vector3 result2;
+
+                Vector3.CatmullRom (
+                    ref a, ref b, ref c, ref d, amount2, out result2);
+
+                AssertEqualWithinReason(result2, c);
+            }
+        }
+
+        /// <summary>
+        /// This tests compares results against a known example.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_CatmullRom_ii ()
+        {
+            var a = new Vector3( -90, +30, +90 );
+            var b = new Vector3( -30, -30, +30 );
+            var c = new Vector3( +30, +30, -30 );
+            var d = new Vector3( +90, -30, -90 );
+
+            <#= type #> one = 1;
+
+            <#= type #> u = 15;
+            <#= type #> v = (<#= type #>) 165  / (<#= type #>)  8; // 20.5
+            <#= type #> w = (<#= type #>) 45   / (<#= type #>)  2; // 20.625
+            <#= type #> x = (<#= type #>) 1755 / (<#= type #>) 64; // 27.421875
+            <#= type #> y = (<#= type #>) 15   / (<#= type #>)  2; // 14.5
+            <#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
+
+            <#= type #> a0 = 0;
+            <#= type #> a1 = (one * 1) / 8;
+            <#= type #> a2 = (one * 2) / 8;
+            <#= type #> a3 = (one * 3) / 8;
+            <#= type #> a4 = (one * 4) / 8;
+            <#= type #> a5 = (one * 5) / 8;
+            <#= type #> a6 = (one * 6) / 8;
+            <#= type #> a7 = (one * 7) / 8;
+            <#= type #> a8 = 1;
+
+            Vector3 r0 = b;
+            Vector3 r1 = new Vector3( -w, -x,  w );
+            Vector3 r2 = new Vector3( -u, -v,  u );
+            Vector3 r3 = new Vector3( -y, -z,  y );
+            Vector3 r4 = Vector3.Zero;
+            Vector3 r5 = new Vector3(  y,  z, -y );
+            Vector3 r6 = new Vector3(  u,  v, -u );
+            Vector3 r7 = new Vector3(  w,  x, -w );
+            Vector3 r8 = c;
+
+            var knownResults = new List<Tuple<<#= type #>, Vector3>>
+            {
+                new Tuple<<#= type #>, Vector3>( a0, r0 ),
+                new Tuple<<#= type #>, Vector3>( a1, r1 ),
+                new Tuple<<#= type #>, Vector3>( a2, r2 ),
+                new Tuple<<#= type #>, Vector3>( a3, r3 ),
+                new Tuple<<#= type #>, Vector3>( a4, r4 ),
+                new Tuple<<#= type #>, Vector3>( a5, r5 ),
+                new Tuple<<#= type #>, Vector3>( a6, r6 ),
+                new Tuple<<#= type #>, Vector3>( a7, r7 ),
+                new Tuple<<#= type #>, Vector3>( a8, r8 ),
+            };
+
+            foreach(var knownResult in knownResults )
+            {
+                Vector3 result;
+
+                Vector3.CatmullRom (
+                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+                AssertEqualWithinReason(result, knownResult.Item2);
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_CatmullRom_iii ()
+        {
+            var a = GetNextRandomVector3();
+            var b = GetNextRandomVector3();
+            var c = GetNextRandomVector3();
+            var d = GetNextRandomVector3();
+            
+            <#= type #> half; RealMaths.Half(out half);
+
+            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+
+            foreach( var amount in tests )
+            {
+                Vector3 result;
+
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException), 
+                    () => 
+                        Vector3.CatmullRom (
+                            ref a, ref b, ref c, ref d, amount, out result)
+                );
+            }
+        }
+
+        /// <summary>
+        /// This tests compares results against an example where all the control
+        /// points are in a straight line.  In this case the resulting spline
+        /// should be a straight line.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_CatmullRom_iv ()
+        {
+            var a = new Vector3( -90, -90, +90 );
+            var b = new Vector3( -30, -30, +30 );
+            var c = new Vector3( +30, +30, -30 );
+            var d = new Vector3( +90, +90, -90 );
+
+            <#= type #> one = 1;
+
+            <#= type #> a0 = 0;
+            <#= type #> a1 = (one * 1) / 4;
+            <#= type #> a2 = (one * 2) / 4;
+            <#= type #> a3 = (one * 3) / 4;
+            <#= type #> a4 = 1;
+
+            Vector3 r0 = b;
+            Vector3 r1 = new Vector3( -15, -15,  15 );
+            Vector3 r2 = Vector3.Zero;
+            Vector3 r3 = new Vector3(  15,  15, -15 );
+            Vector3 r4 = c;
+
+            var knownResults = new List<Tuple<<#= type #>, Vector3>>
+            {
+                new Tuple<<#= type #>, Vector3>( a0, r0 ),
+                new Tuple<<#= type #>, Vector3>( a1, r1 ),
+                new Tuple<<#= type #>, Vector3>( a2, r2 ),
+                new Tuple<<#= type #>, Vector3>( a3, r3 ),
+                new Tuple<<#= type #>, Vector3>( a4, r4 ),
+            };
+
+            foreach(var knownResult in knownResults )
+            {
+                Vector3 result;
+
+                Vector3.CatmullRom (
+                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+                AssertEqualWithinReason(result, knownResult.Item2);
+            }
+        }
+
+        // Test Static Fn: Hermite //-----------------------------------------//
+
+        /// <summary>
+        /// This test runs a number of random scenarios and makes sure that when
+        /// the weighting parameter is at it's limits the spline passes directly 
+        /// through the correct control points.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Hermite_i ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a  = GetNextRandomVector3();
+                var b  = GetNextRandomVector3();
+
+                var c = GetNextRandomVector3();
+                var d = GetNextRandomVector3();
+
+                Vector3 an; Vector3.Normalise(ref c, out an);
+                Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+                <#= type #> amount1 = 0;
+                Vector3 result1;
+
+                Vector3.Hermite (
+                    ref a, ref an, ref b, ref bn, amount1, out result1);
+
+                AssertEqualWithinReason(result1, a);
+
+                <#= type #> amount2 = 1;
+                Vector3 result2;
+
+                Vector3.Hermite (
+                    ref a, ref an, ref b, ref bn, amount2, out result2);
+
+                AssertEqualWithinReason(result2, b);
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Hermite_ii ()
+        {
+            var a = GetNextRandomVector3();
+            var b = GetNextRandomVector3();
+            var c = GetNextRandomVector3();
+            var d = GetNextRandomVector3();
+
+            Vector3 an; Vector3.Normalise(ref c, out an);
+            Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+            <#= type #> half; RealMaths.Half(out half);
+
+            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+
+            foreach( var amount in tests )
+            {
+                Vector3 result;
+
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException), 
+                    () => 
+                        Vector3.Hermite (
+                            ref a, ref an, ref b, ref bn, amount, out result)
+                    );
+                
+            }
+        }
+
+        /// <summary>
+        /// This tests compares results against a known example.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Hermite_iii ()
+        {
+            var a = new Vector3( -100, +50, +100 );
+            var b = new Vector3( +100, -50, -100 );
+
+            var c = new Vector3( -10, +5, +10 );
+            var d = new Vector3( +10, -5, -10 );
+
+            Vector3 an; Vector3.Normalise(ref c, out an);
+            Vector3 bn; Vector3.Normalise(ref d, out bn);
+
+            <#= type #> one = 1;
+            
+            // 100.1953125
+            <#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512;
+
+            // 50.09765625
+            <#= type #> f = (<#= type #>) 12825 / (<#= type #>) 256;
+
+            // 91.25
+            <#= type #> g = (<#= type #>) 365 / (<#= type #>) 4;
+
+            // 45.625
+            <#= type #> h = (<#= type #>) 365 / (<#= type #>) 8;
+
+            // 75.7421875
+            <#= type #> i = (<#= type #>) 9695 / (<#= type #>) 128;
+
+            // 37.87109375
+            <#= type #> j = (<#= type #>) 9695 / (<#= type #>) 256;
+
+            // 56.25
+            <#= type #> k = (<#= type #>) 225 / (<#= type #>) 4;
+
+            // 28.125
+            <#= type #> l = (<#= type #>) 225 / (<#= type #>) 8;
+
+            // 35.3515625
+            <#= type #> m = (<#= type #>) 4525 / (<#= type #>) 128;
+
+            // 17.67578125
+            <#= type #> n = (<#= type #>) 4525 / (<#= type #>) 256;
+
+            // 15.625
+            <#= type #> o = (<#= type #>) 125 / (<#= type #>) 8;
+
+            // 7.8125
+            <#= type #> p = (<#= type #>) 125 / (<#= type #>) 16;
+
+            // 0.3515625
+            <#= type #> q = (<#= type #>) 45 / (<#= type #>) 128;
+
+            // 0.17578125
+            <#= type #> r = (<#= type #>) 45 / (<#= type #>) 256;
+
+            <#= type #> a0 = 0;
+            <#= type #> a1 = (one * 1) / 8;
+            <#= type #> a2 = (one * 2) / 8;
+            <#= type #> a3 = (one * 3) / 8;
+            <#= type #> a4 = (one * 4) / 8;
+            <#= type #> a5 = (one * 5) / 8;
+            <#= type #> a6 = (one * 6) / 8;
+            <#= type #> a7 = (one * 7) / 8;
+            <#= type #> a8 = 1;
+
+            Vector3 r0 = b;
+            Vector3 r1 = new Vector3(  e, -f, -e );
+            Vector3 r2 = new Vector3(  g, -h, -g );
+            Vector3 r3 = new Vector3(  i, -j, -i );
+            Vector3 r4 = new Vector3(  k, -l, -k );
+            Vector3 r5 = new Vector3(  m, -n, -m );
+            Vector3 r6 = new Vector3(  o, -p, -o );
+            Vector3 r7 = new Vector3( -q,  r,  q );
+            Vector3 r8 = c;
+
+            var knownResults = new List<Tuple<<#= type #>, Vector3>>
+            {
+                new Tuple<<#= type #>, Vector3>( a0, r0 ),
+                new Tuple<<#= type #>, Vector3>( a1, r1 ),
+                new Tuple<<#= type #>, Vector3>( a2, r2 ),
+                new Tuple<<#= type #>, Vector3>( a3, r3 ),
+                new Tuple<<#= type #>, Vector3>( a4, r4 ),
+                new Tuple<<#= type #>, Vector3>( a5, r5 ),
+                new Tuple<<#= type #>, Vector3>( a6, r6 ),
+                new Tuple<<#= type #>, Vector3>( a7, r7 ),
+                new Tuple<<#= type #>, Vector3>( a8, r8 ),
+            };
+
+            foreach(var knownResult in knownResults )
+            {
+                Vector3 result;
+
+                Vector3.CatmullRom (
+                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+
+                AssertEqualWithinReason(result, knownResult.Item2);
+            }
+        }
+
+        

@@ -1,57 +1,57 @@
-		/// <summary>
-		/// The random number generator used for testing.
-		/// </summary>
-		static readonly System.Random rand;
+        /// <summary>
+        /// The random number generator used for testing.
+        /// </summary>
+        static readonly System.Random rand;
 
-		/// <summary>
-		/// Static constructor used to ensure that the random number generator
-		/// always gets initilised with the same seed, making the tests
-		/// behave in a deterministic manner.
-		/// </summary>
-		static Point3Tests ()
-		{
-			rand = new System.Random(0);
-		}
+        /// <summary>
+        /// Static constructor used to ensure that the random number generator
+        /// always gets initilised with the same seed, making the tests
+        /// behave in a deterministic manner.
+        /// </summary>
+        static Point3Tests ()
+        {
+            rand = new System.Random(0);
+        }
 
-		/// <summary>
-		/// Helper function for getting the next random <#= type #> value.
-		/// </summary>
-		static <#= type #> GetNextRandom<#= type #> ()
-		{
-			<#= type #> randomValue = rand.Next();
+        /// <summary>
+        /// Helper function for getting the next random <#= type #> value.
+        /// </summary>
+        static <#= type #> GetNextRandom<#= type #> ()
+        {
+            <#= type #> randomValue = rand.Next();
 
-			<#= type #> zero = 0;
-			<#= type #> multiplier = 1000;
+            <#= type #> zero = 0;
+            <#= type #> multiplier = 1000;
 
-			randomValue *= multiplier;
+            randomValue *= multiplier;
 
-			Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
 
-			if( randomBoolean )
-				randomValue = zero - randomValue;
+            if( randomBoolean )
+                randomValue = zero - randomValue;
 
-			return randomValue;
-		}
+            return randomValue;
+        }
 
-		/// <summary>
-		/// Helper function for getting the next random Point3.
-		/// </summary>
-		static Point3 GetNextRandomPoint3 ()
-		{
-			<#= type #> a = GetNextRandom<#= type #>();
-			<#= type #> b = GetNextRandom<#= type #>();
-			<#= type #> c = GetNextRandom<#= type #>();
+        /// <summary>
+        /// Helper function for getting the next random Point3.
+        /// </summary>
+        static Point3 GetNextRandomPoint3 ()
+        {
+            <#= type #> a = GetNextRandom<#= type #>();
+            <#= type #> b = GetNextRandom<#= type #>();
+            <#= type #> c = GetNextRandom<#= type #>();
 
-			return new Point3(a, b, c);
-		}
+            return new Point3(a, b, c);
+        }
 
-		/// <summary>
-		/// Helper to encapsulate asserting that two Point3s are equal.
-		/// </summary>
-		static void AssertEqualWithinReason (Point3 a, Point3 b)
-		{
-			Assert.That(a.X, Is.EqualTo(b.X));
-			Assert.That(a.Y, Is.EqualTo(b.Y));
-			Assert.That(a.Z, Is.EqualTo(b.Z));
-		}
-		
+        /// <summary>
+        /// Helper to encapsulate asserting that two Point3s are equal.
+        /// </summary>
+        static void AssertEqualWithinReason (Point3 a, Point3 b)
+        {
+            Assert.That(a.X, Is.EqualTo(b.X));
+            Assert.That(a.Y, Is.EqualTo(b.Y));
+            Assert.That(a.Z, Is.EqualTo(b.Z));
+        }
+        

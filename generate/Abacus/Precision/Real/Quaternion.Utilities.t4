@@ -1,67 +1,67 @@
-﻿		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
-			<#= type #> nineninenine; RealMaths.FromString("0.999999", out nineninenine);
+﻿        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> nineninenine; RealMaths.FromString("0.999999", out nineninenine);
 
-			<#= type #> num2;
-			<#= type #> num3;
-			<#= type #> num = amount;
-			<#= type #> num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
-			Boolean flag = false;
-			if (num4 < zero) {
-				flag = true;
-				num4 = -num4;
-			}
+            <#= type #> num2;
+            <#= type #> num3;
+            <#= type #> num = amount;
+            <#= type #> num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Boolean flag = false;
+            if (num4 < zero) {
+                flag = true;
+                num4 = -num4;
+            }
 
 
-			if (num4 >nineninenine) {
-				num3 = one - num;
-				num2 = flag ? -num : num;
-			} else {
-				<#= type #> num5 = RealMaths.ArcCos (num4);
-				<#= type #> num6 = one / RealMaths.Sin (num5);
+            if (num4 >nineninenine) {
+                num3 = one - num;
+                num2 = flag ? -num : num;
+            } else {
+                <#= type #> num5 = RealMaths.ArcCos (num4);
+                <#= type #> num6 = one / RealMaths.Sin (num5);
 
-				num3 = RealMaths.Sin ((one - num) * num5) * num6;
+                num3 = RealMaths.Sin ((one - num) * num5) * num6;
 
-				num2 = flag ? -RealMaths.Sin (num * num5) * num6 : RealMaths.Sin (num * num5) * num6;
-			}
-			result.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
-			result.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
-			result.Z = (num3 * quaternion1.Z) + (num2 * quaternion2.Z);
-			result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
-		}
+                num2 = flag ? -RealMaths.Sin (num * num5) * num6 : RealMaths.Sin (num * num5) * num6;
+            }
+            result.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
+            result.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
+            result.Z = (num3 * quaternion1.Z) + (num2 * quaternion2.Z);
+            result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
+        }
 
-		/// <summary>
-		/// todo
-		/// </summary>
-		public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
-		{
-			<#= type #> zero = 0;
-			<#= type #> one = 1;
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
 
-			<#= type #> num = amount;
-			<#= type #> num2 = one - num;
-			<#= type #> num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
-			if (num5 >= zero) {
-				result.X = (num2 * quaternion1.X) + (num * quaternion2.X);
-				result.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
-				result.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
-				result.W = (num2 * quaternion1.W) + (num * quaternion2.W);
-			} else {
-				result.X = (num2 * quaternion1.X) - (num * quaternion2.X);
-				result.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
-				result.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
-				result.W = (num2 * quaternion1.W) - (num * quaternion2.W);
-			}
-			<#= type #> num4 = (((result.X * result.X) + (result.Y * result.Y)) + (result.Z * result.Z)) + (result.W * result.W);
-			<#= type #> num3 = one / RealMaths.Sqrt (num4);
-			result.X *= num3;
-			result.Y *= num3;
-			result.Z *= num3;
-			result.W *= num3;
-		}
+            <#= type #> num = amount;
+            <#= type #> num2 = one - num;
+            <#= type #> num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            if (num5 >= zero) {
+                result.X = (num2 * quaternion1.X) + (num * quaternion2.X);
+                result.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
+                result.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
+                result.W = (num2 * quaternion1.W) + (num * quaternion2.W);
+            } else {
+                result.X = (num2 * quaternion1.X) - (num * quaternion2.X);
+                result.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
+                result.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
+                result.W = (num2 * quaternion1.W) - (num * quaternion2.W);
+            }
+            <#= type #> num4 = (((result.X * result.X) + (result.Y * result.Y)) + (result.Z * result.Z)) + (result.W * result.W);
+            <#= type #> num3 = one / RealMaths.Sqrt (num4);
+            result.X *= num3;
+            result.Y *= num3;
+            result.Z *= num3;
+            result.W *= num3;
+        }
 

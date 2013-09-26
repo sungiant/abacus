@@ -1,150 +1,150 @@
-		/// <summary>
-		/// Assert that, running the Min function on a number of randomly
-		/// generated pairs of Vector2 objects, yields the same results as those
-		/// obtained from performing a manual Min calculation.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Min ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				Vector2 a = GetNextRandomVector2();
-				Vector2 b = a * 2;
+        /// <summary>
+        /// Assert that, running the Min function on a number of randomly
+        /// generated pairs of Vector2 objects, yields the same results as those
+        /// obtained from performing a manual Min calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Min ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Vector2 b = a * 2;
 
-				Vector2 result;
-				Vector2.Min (ref a, ref b, out result);
+                Vector2 result;
+                Vector2.Min (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
-				Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
-			}
-		}
+                Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+                Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+            }
+        }
 
-		/// <summary>
-		/// Assert that, running the Max function on a number of randomly
-		/// generated pairs of Vector2 objects, yields the same results as those
-		/// obtained from performing a manual Max calculation.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Max ()
-		{
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				Vector2 a = GetNextRandomVector2();
-				Vector2 b = GetNextRandomVector2();
+        /// <summary>
+        /// Assert that, running the Max function on a number of randomly
+        /// generated pairs of Vector2 objects, yields the same results as those
+        /// obtained from performing a manual Max calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Max ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Vector2 b = GetNextRandomVector2();
 
-				Vector2 result;
-				Vector2.Max (ref a, ref b, out result);
+                Vector2 result;
+                Vector2.Max (ref a, ref b, out result);
 
-				Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
-				Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
-			}
-		}
+                Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+                Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+            }
+        }
 
-		/// <summary>
-		/// Assert that, running the Clamp function on a number of randomly
-		/// generated Vector2 objects for a given min-max range, yields
-		/// results that fall within that range.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Clamp_i ()
-		{
-			Vector2 min = new Vector2(-30, 1);
-			Vector2 max = new Vector2(32, 130);
+        /// <summary>
+        /// Assert that, running the Clamp function on a number of randomly
+        /// generated Vector2 objects for a given min-max range, yields
+        /// results that fall within that range.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Clamp_i ()
+        {
+            Vector2 min = new Vector2(-30, 1);
+            Vector2 max = new Vector2(32, 130);
 
-			for(Int32 i = 0; i < 100; ++i)
-			{
-				Vector2 a = GetNextRandomVector2();
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector2 a = GetNextRandomVector2();
 
-				Vector2 result;
-				Vector2.Clamp (ref a, ref min, ref max, out result);
+                Vector2 result;
+                Vector2.Clamp (ref a, ref min, ref max, out result);
 
-				Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
-				Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
-				Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
-				Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
-			}
-		}
+                Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+                Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+                Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+                Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+            }
+        }
 
-		/// <summary>
-		/// Assert that, running the Clamp function on an a Vector2 object known
-		/// to fall outside of a given min-max range, yields a result that fall 
-		/// within that range.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Clamp_ii ()
-		{
-			Vector2 min = new Vector2(-30, 1);
-			Vector2 max = new Vector2(32, 130);
+        /// <summary>
+        /// Assert that, running the Clamp function on an a Vector2 object known
+        /// to fall outside of a given min-max range, yields a result that fall 
+        /// within that range.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Clamp_ii ()
+        {
+            Vector2 min = new Vector2(-30, 1);
+            Vector2 max = new Vector2(32, 130);
 
-			Vector2 a = new Vector2(-100, 1113);
+            Vector2 a = new Vector2(-100, 1113);
 
-			Vector2 expected = new Vector2(-30, 130);
+            Vector2 expected = new Vector2(-30, 130);
 
-			Vector2 result;
-			Vector2.Clamp (ref a, ref min, ref max, out result);
+            Vector2 result;
+            Vector2.Clamp (ref a, ref min, ref max, out result);
 
-			Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
-			Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
-			Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
-			Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+            Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+            Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+            Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+            Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
 
-			AssertEqualWithinReason(result, expected);
+            AssertEqualWithinReason(result, expected);
 
-		}
+        }
 
-		/// <summary>
-		/// Assert that, running the Lerp function on a number of randomly
-		/// generated pairs of Vector2 objects for a range of weighting amounts, 
-		/// yields the same results as those obtained from performing a manual 
-		/// Lerp calculation.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Lerp_i ()
-		{
-			for(Int32 j = 0; j < 100; ++j)
-			{
-				<#= type #> delta = j;
+        /// <summary>
+        /// Assert that, running the Lerp function on a number of randomly
+        /// generated pairs of Vector2 objects for a range of weighting amounts, 
+        /// yields the same results as those obtained from performing a manual 
+        /// Lerp calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_i ()
+        {
+            for(Int32 j = 0; j < 100; ++j)
+            {
+                <#= type #> delta = j;
 
-				delta = delta / 100;
+                delta = delta / 100;
 
-				for(Int32 i = 0; i < 100; ++i)
-				{
-					Vector2 a = GetNextRandomVector2();
-					Vector2 b = GetNextRandomVector2();
+                for(Int32 i = 0; i < 100; ++i)
+                {
+                    Vector2 a = GetNextRandomVector2();
+                    Vector2 b = GetNextRandomVector2();
 
-					Vector2 result;
-					Vector2.Lerp (ref a, ref b, delta, out result);
+                    Vector2 result;
+                    Vector2.Lerp (ref a, ref b, delta, out result);
 
-					Vector2 expected = a + ( ( b - a ) * delta );
+                    Vector2 expected = a + ( ( b - a ) * delta );
 
-					AssertEqualWithinReason(result, expected);
-				}
-			}
-		}
+                    AssertEqualWithinReason(result, expected);
+                }
+            }
+        }
 
-		/// <summary>
-		/// Assert that, for a known examples where the weighting parameter is
-		/// is outside the allowed range, the correct exception is thrown.
-		/// </summary>
-		[Test]
-		public void TestStaticFn_Lerp_ii ()
-		{
-			Vector2 a = GetNextRandomVector2();
-			Vector2 b = GetNextRandomVector2();
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_ii ()
+        {
+            Vector2 a = GetNextRandomVector2();
+            Vector2 b = GetNextRandomVector2();
 
-			<#= type #> half; RealMaths.Half(out half);
+            <#= type #> half; RealMaths.Half(out half);
 
-			var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
 
-			foreach( var weighting in tests )
-			{
-				Vector2 result; 
-				Assert.Throws(
-					typeof(ArgumentOutOfRangeException), 
-					() => 
-						Vector2.Lerp (
-							ref a, ref b, weighting, out result)
-					);
-			}
-		}
+            foreach( var weighting in tests )
+            {
+                Vector2 result; 
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException), 
+                    () => 
+                        Vector2.Lerp (
+                            ref a, ref b, weighting, out result)
+                    );
+            }
+        }
 

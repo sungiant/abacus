@@ -1,14 +1,14 @@
 ﻿<#+
-	string[] GetRealTypes()
-	{
-		return new string[]
-		{ 
-			"Single", "Double", "Fixed32"
-		};
-	}
-	
-	string[] GetIntegerTypes()
-	{
-		return new string[]{ "Int32", "Int64" };
-	}
+    string[] GetRealTypes()
+    {
+        return new string[]
+        { 
+            "Single", "Double", "Fixed32"
+        };
+    }
+    
+    string[] GetIntegerTypes()
+    {
+        return new string[]{ "Int32", "Int64" };
+    }
 #>
