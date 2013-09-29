@@ -4,9 +4,9 @@ Abacus is a 3D maths library for the [CLI](http://en.wikipedia.org/wiki/Common_L
 
 Abacus supports similar features to the mathematical portions of the XNA framework, however, Abacus is written to support more than just single precision floating point calculations.  Abacus currently supports Single, Double and Fixed32 precision real number calculations.
 
-### Project Status: In Development 
+### Project Status:
 
-Currently the focus of the project is to reach 100% test coverage across all of the libaries features.
+Right now Abacus is in development, currently the focus of the project is to reach 100% test coverage across all of the libary's features, once this has been achieved the first Alpha build will be tagged and relased.
 
 ### Getting Starting
 
@@ -14,6 +14,6 @@ The source code for Abacus can be easily included in any C# project, simply copy
 
 Abacus's documentation can be found [here](https://github.com/sungiant/abacus/wiki).
 
-
+### Extra
 
 Finally, please visit my [homepage](http://www.sungiant.co/#!/Projects) for information about my other software products.
