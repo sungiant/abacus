@@ -1,4 +1,4 @@
-![Abacus](/misc/logo128.png)
+![Abacus](/misc/logo.png)
 
 Abacus is a 3D maths library for the [CLI](http://en.wikipedia.org/wiki/Common_Language_Infrastructure), built with a primary focus on performance and efficiency.  Abacus is ideal for use developing real-time 3D applications and deterministic network simulations.
 
