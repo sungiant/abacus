@@ -43,7 +43,10 @@
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            <#= type #> lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
+            <#= type #> lengthSquared = 
+                (value.X * value.X) + 
+                (value.Y * value.Y) + 
+                (value.Z * value.Z);
 
             <#= type #> epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -126,6 +129,7 @@
             <#= type #> num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             <#= type #> num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             <#= type #> num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
+            
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
@@ -144,6 +148,7 @@
             <#= type #> num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
             <#= type #> num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
             <#= type #> num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+
             result.X = num3;
             result.Y = num2;
             result.Z = num;

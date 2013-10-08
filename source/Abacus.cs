@@ -9662,34 +9662,43 @@ namespace Sungiant.Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            Vector3 targetToPosition = cameraPosition - cameraTarget;
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
 
-            Vector3 vector; Vector3.Normalise (ref targetToPosition, out vector);
-
-            Vector3 cross; Vector3.Cross (ref cameraUpVector, ref vector, out cross); 
-
-            Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
-            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
-            result.M11 = vector2.X;
-            result.M12 = vector3.X;
-            result.M13 = vector.X;
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right); 
+            Vector3.Normalise (ref right, out right);
+            
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+            
+            result.M11 = right.X;
+            result.M12 = up.X;
+            result.M13 = forward.X;
             result.M14 = zero;
-            result.M21 = vector2.Y;
-            result.M22 = vector3.Y;
-            result.M23 = vector.Y;
+
+            result.M21 = right.Y;
+            result.M22 = up.Y;
+            result.M23 = forward.Y;
             result.M24 = zero;
-            result.M31 = vector2.Z;
-            result.M32 = vector3.Z;
-            result.M33 = vector.Z;
+
+            result.M31 = right.Z;
+            result.M32 = up.Z;
+            result.M33 = forward.Z;
             result.M34 = zero;
 
-            Vector3.Dot (ref vector2, ref cameraPosition, out result.M41);
-            Vector3.Dot (ref vector3, ref cameraPosition, out result.M42);
-            Vector3.Dot (ref vector, ref cameraPosition, out result.M43);
+            Single a;
+            Single b;
+            Single c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
             
-            result.M41 *= -one;
-            result.M42 *= -one;
-            result.M43 *= -one;
+            result.M41 = -a;
+            result.M42 = -b;
+            result.M43 = -c;
 
             result.M44 = one;
         }
@@ -12384,7 +12393,10 @@ namespace Sungiant.Abacus.SinglePrecision
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            Single lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
+            Single lengthSquared = 
+                (value.X * value.X) + 
+                (value.Y * value.Y) + 
+                (value.Z * value.Z);
 
             Single epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -12467,6 +12479,7 @@ namespace Sungiant.Abacus.SinglePrecision
             Single num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             Single num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             Single num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
+            
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
@@ -12485,6 +12498,7 @@ namespace Sungiant.Abacus.SinglePrecision
             Single num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
             Single num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
             Single num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+
             result.X = num3;
             result.Y = num2;
             result.Z = num;
@@ -15156,34 +15170,43 @@ namespace Sungiant.Abacus.DoublePrecision
             Double zero = 0;
             Double one = 1;
 
-            Vector3 targetToPosition = cameraPosition - cameraTarget;
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
 
-            Vector3 vector; Vector3.Normalise (ref targetToPosition, out vector);
-
-            Vector3 cross; Vector3.Cross (ref cameraUpVector, ref vector, out cross); 
-
-            Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
-            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
-            result.M11 = vector2.X;
-            result.M12 = vector3.X;
-            result.M13 = vector.X;
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right); 
+            Vector3.Normalise (ref right, out right);
+            
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+            
+            result.M11 = right.X;
+            result.M12 = up.X;
+            result.M13 = forward.X;
             result.M14 = zero;
-            result.M21 = vector2.Y;
-            result.M22 = vector3.Y;
-            result.M23 = vector.Y;
+
+            result.M21 = right.Y;
+            result.M22 = up.Y;
+            result.M23 = forward.Y;
             result.M24 = zero;
-            result.M31 = vector2.Z;
-            result.M32 = vector3.Z;
-            result.M33 = vector.Z;
+
+            result.M31 = right.Z;
+            result.M32 = up.Z;
+            result.M33 = forward.Z;
             result.M34 = zero;
 
-            Vector3.Dot (ref vector2, ref cameraPosition, out result.M41);
-            Vector3.Dot (ref vector3, ref cameraPosition, out result.M42);
-            Vector3.Dot (ref vector, ref cameraPosition, out result.M43);
+            Double a;
+            Double b;
+            Double c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
             
-            result.M41 *= -one;
-            result.M42 *= -one;
-            result.M43 *= -one;
+            result.M41 = -a;
+            result.M42 = -b;
+            result.M43 = -c;
 
             result.M44 = one;
         }
@@ -17878,7 +17901,10 @@ namespace Sungiant.Abacus.DoublePrecision
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            Double lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
+            Double lengthSquared = 
+                (value.X * value.X) + 
+                (value.Y * value.Y) + 
+                (value.Z * value.Z);
 
             Double epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -17961,6 +17987,7 @@ namespace Sungiant.Abacus.DoublePrecision
             Double num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             Double num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             Double num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
+            
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
@@ -17979,6 +18006,7 @@ namespace Sungiant.Abacus.DoublePrecision
             Double num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
             Double num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
             Double num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+
             result.X = num3;
             result.Y = num2;
             result.Z = num;
@@ -20650,34 +20678,43 @@ namespace Sungiant.Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            Vector3 targetToPosition = cameraPosition - cameraTarget;
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
 
-            Vector3 vector; Vector3.Normalise (ref targetToPosition, out vector);
-
-            Vector3 cross; Vector3.Cross (ref cameraUpVector, ref vector, out cross); 
-
-            Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
-            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
-            result.M11 = vector2.X;
-            result.M12 = vector3.X;
-            result.M13 = vector.X;
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right); 
+            Vector3.Normalise (ref right, out right);
+            
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+            
+            result.M11 = right.X;
+            result.M12 = up.X;
+            result.M13 = forward.X;
             result.M14 = zero;
-            result.M21 = vector2.Y;
-            result.M22 = vector3.Y;
-            result.M23 = vector.Y;
+
+            result.M21 = right.Y;
+            result.M22 = up.Y;
+            result.M23 = forward.Y;
             result.M24 = zero;
-            result.M31 = vector2.Z;
-            result.M32 = vector3.Z;
-            result.M33 = vector.Z;
+
+            result.M31 = right.Z;
+            result.M32 = up.Z;
+            result.M33 = forward.Z;
             result.M34 = zero;
 
-            Vector3.Dot (ref vector2, ref cameraPosition, out result.M41);
-            Vector3.Dot (ref vector3, ref cameraPosition, out result.M42);
-            Vector3.Dot (ref vector, ref cameraPosition, out result.M43);
+            Fixed32 a;
+            Fixed32 b;
+            Fixed32 c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
             
-            result.M41 *= -one;
-            result.M42 *= -one;
-            result.M43 *= -one;
+            result.M41 = -a;
+            result.M42 = -b;
+            result.M43 = -c;
 
             result.M44 = one;
         }
@@ -23372,7 +23409,10 @@ namespace Sungiant.Abacus.Fixed32Precision
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            Fixed32 lengthSquared = ((value.X * value.X) + (value.Y * value.Y)) + (value.Z * value.Z);
+            Fixed32 lengthSquared = 
+                (value.X * value.X) + 
+                (value.Y * value.Y) + 
+                (value.Z * value.Z);
 
             Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -23455,6 +23495,7 @@ namespace Sungiant.Abacus.Fixed32Precision
             Fixed32 num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             Fixed32 num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             Fixed32 num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
+            
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
@@ -23473,6 +23514,7 @@ namespace Sungiant.Abacus.Fixed32Precision
             Fixed32 num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
             Fixed32 num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
             Fixed32 num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+
             result.X = num3;
             result.Y = num2;
             result.Z = num;
