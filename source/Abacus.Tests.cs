@@ -861,36 +861,11 @@ namespace Sungiant.Abacus.Tests
     public class Fixed32Tests
     {
         [Test]
-        public void TestBigMultiply ()
-        {
-            Fixed32 a = Fixed32.MaxValue / 2;
-            a -= 1;
-
-            Assert.That((a * 2) + 1, Is.Not.EqualTo(Fixed32.MaxValue));
-
-
-            /*
-            long basevalue = 1000000;
-            Fixed32 f = new Fixed32 (basevalue);
-            Fixed32 g = new Fixed32 (basevalue);
-            Fixed32 h = new Fixed32 (basevalue * basevalue);
-            Assert.That (f * g, Is.EqualTo (h));
-
-            // This is testing the test, really, to make sure 'basevalue' was
-            // large enough to trigger overflow in the first place.
-            Fixed32 bad_h = Fixed32.CreateFromRaw ((f.RawValue * g.RawValue) >> Fixed32.n);
-            Assert.That (bad_h, Is.Not.EqualTo (h));
-             * 
-             */
-        }
-
-        [Test]
         public void TestMaxRange()
         {
             double max = System.Math.Pow(2.0, Fixed32.m) - System.Math.Pow(2.0, -Fixed32.n);
             Assert.That(Fixed32.MaxValue.ToDouble(), Is.EqualTo(max));
         }
-
 
         [Test]
         public void TestMinRange()
@@ -911,35 +886,6 @@ namespace Sungiant.Abacus.Tests
             double res2 = res / 2;
             Fixed32 f2 = (Fixed32) res2;
             Assert.That((double)f2, Is.Not.EqualTo(res2));
-
-        }
-
-        [Test]
-        public void TestExtremeValueMultiply()
-        {
-            Assert.That((Fixed32.MaxValue - 10) * (Fixed32.MaxValue - 10), Is.EqualTo(Fixed32.MaxValue));
-            Assert.That(Fixed32.MaxValue * Fixed32.MaxValue, Is.EqualTo(Fixed32.MaxValue));
-
-            Assert.That(Fixed32.MinValue * Fixed32.MinValue, Is.EqualTo(Fixed32.MaxValue));
-
-            Assert.That(Fixed32.MaxValue * Fixed32.MinValue, Is.EqualTo(Fixed32.MinValue));
-        }
-
-
-        /// <summary>
-        /// Check that division doesn't get rounded to integers
-        /// </summary>
-        [Test]
-        public void TestDivide ()
-        {
-            const long numerator = 1;
-            const long denominator = 10;
-
-            Fixed32 f = new Fixed32 (numerator);
-            Fixed32 g = new Fixed32 (denominator);
-            Fixed32 h = new Fixed32 (((double)numerator) / denominator);
-
-            Assert.That (f / g, Is.EqualTo (h));
         }
 
         [Test]
@@ -955,55 +901,6 @@ namespace Sungiant.Abacus.Tests
             }
         }
 
-        
-        /// <summary>
-        /// Make sure tiny multiplies work properly - these inputs are so small
-        /// they underflow to zero
-        /// </summary>
-        [Test]
-        public void TestTinyMultiply ()
-        {
-            int[] values = { 2, 1, 0, -1, -2 };
-
-            foreach (int value in values) {
-                Fixed32 f = Fixed32.CreateFromRaw (value);
-                Fixed32 fsq = f * f;
-                Assert.That (fsq, Is.EqualTo (new Fixed32(0)));
-            }
-        }
-        
-
-        /// <summary>
-        /// Make sure signs are handled correctly during multiplication
-        /// </summary>
-        [Test]
-        public void TestPosNegMultiply ()
-        {
-
-            Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
-            Fixed32 negOne = -one;
-
-            Assert.That (one * one, Is.EqualTo (one));
-            Assert.That (negOne * one, Is.EqualTo (negOne));
-            Assert.That (one * negOne, Is.EqualTo (negOne));
-            Assert.That (negOne * negOne, Is.EqualTo (one));
-        }
-
-        
-        [Test]
-        public void TestSmallMultiply ()
-        {
-            double[] values = { 0.9, 0.5, 0.1, 0.01, 0.001, -0.001, -0.01, -0.1, -0.5, -0.9 };
-
-            foreach (double value in values) {
-                Fixed32 f = new Fixed32 (value);
-                Fixed32 fsq = f * f;
-
-                // Actually we tolerate a slight rounding error here.  We shouldn't have to, but it's not crucial to fix it.
-                long diff = System.Math.Abs (new Fixed32 (value * value).RawValue - fsq.RawValue);
-                Assert.That (diff < 2);
-            }
-        }
         
         [Test]
         public void TestToString ()
@@ -1108,6 +1005,135 @@ namespace Sungiant.Abacus.Tests
                     string.Format("was: {0}, should have been: {1}", fixedResult, singleResult));
             }
         }
+
+        [Test]
+        public void Test_Operators_Addition ()
+        {
+            Assert.That (true, Is.EqualTo (false));
+        }
+
+        [Test]
+        public void Test_Operators_Subtraction ()
+        {
+            Assert.That (true, Is.EqualTo (false));
+        }
+
+        /// <summary>
+        /// Make sure tiny multiplies work properly - these inputs are so small
+        /// they underflow to zero
+        /// </summary>
+        [Test]
+        public void Test_Operators_Multiplication_i ()
+        {
+            int[] values = { 2, 1, 0, -1, -2 };
+
+            foreach (int value in values) {
+                Fixed32 f = Fixed32.CreateFromRaw (value);
+                Fixed32 fsq = f * f;
+                Assert.That (fsq, Is.EqualTo (new Fixed32(0)));
+            }
+        }
+        
+
+        /// <summary>
+        /// Make sure signs are handled correctly during multiplication
+        /// </summary>
+        [Test]
+        public void Test_Operators_Multiplication_ii ()
+        {
+
+            Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
+            Fixed32 negOne = -one;
+
+            Assert.That (one * one, Is.EqualTo (one));
+            Assert.That (negOne * one, Is.EqualTo (negOne));
+            Assert.That (one * negOne, Is.EqualTo (negOne));
+            Assert.That (negOne * negOne, Is.EqualTo (one));
+        }
+
+        
+        [Test]
+        public void Test_Operators_Multiplication_iii ()
+        {
+            double[] values = { 0.9, 0.5, 0.1, 0.01, 0.001, -0.001, -0.01, -0.1, -0.5, -0.9 };
+
+            foreach (double value in values)
+            {
+                Fixed32 f = new Fixed32 (value);
+                Fixed32 fsq = f * f;
+
+                // Actually we tolerate a slight rounding error here.  We shouldn't have to, but it's not crucial to fix it.
+                long diff = System.Math.Abs (new Fixed32 (value * value).RawValue - fsq.RawValue);
+                Assert.That (diff < 2);
+           }
+        }
+
+        [Test]
+        public void Test_Operators_Multiplication_iv ()
+        {
+            Fixed32 a = Fixed32.MaxValue / 2;
+            a -= 1;
+
+            Assert.That((a * 2) + 1, Is.Not.EqualTo(Fixed32.MaxValue));
+
+
+            /*
+            long basevalue = 1000000;
+            Fixed32 f = new Fixed32 (basevalue);
+            Fixed32 g = new Fixed32 (basevalue);
+            Fixed32 h = new Fixed32 (basevalue * basevalue);
+            Assert.That (f * g, Is.EqualTo (h));
+
+            // This is testing the test, really, to make sure 'basevalue' was
+            // large enough to trigger overflow in the first place.
+            Fixed32 bad_h = Fixed32.CreateFromRaw ((f.RawValue * g.RawValue) >> Fixed32.n);
+            Assert.That (bad_h, Is.Not.EqualTo (h));
+             * 
+             */
+        }
+
+        [Test]
+        public void Test_Operators_Multiplication_v()
+        {
+            Assert.That((Fixed32.MaxValue - 10) * (Fixed32.MaxValue - 10), Is.EqualTo(Fixed32.MaxValue));
+            Assert.That(Fixed32.MaxValue * Fixed32.MaxValue, Is.EqualTo(Fixed32.MaxValue));
+
+            Assert.That(Fixed32.MinValue * Fixed32.MinValue, Is.EqualTo(Fixed32.MaxValue));
+
+            Assert.That(Fixed32.MaxValue * Fixed32.MinValue, Is.EqualTo(Fixed32.MinValue));
+        }
+
+        /// <summary>
+        /// Check that division doesn't get rounded to integers
+        /// </summary>
+        [Test]
+        public void Test_Operators_Division ()
+        {
+            const long numerator = 1;
+            const long denominator = 10;
+
+            Fixed32 f = new Fixed32 (numerator);
+            Fixed32 g = new Fixed32 (denominator);
+            Fixed32 h = new Fixed32 (((double)numerator) / denominator);
+
+            Assert.That (f / g, Is.EqualTo (h));
+        }
+
+        [Test]
+        public void Test_Operators_LessThan ()
+        {
+            Fixed32 f = new Fixed32 (419);
+
+            int i = 1000;
+            Assert.That (f < i);
+        }
+
+        [Test]
+        public void Test_Operators_GreaterThan ()
+        {
+            Assert.That (true, Is.EqualTo (false));
+        }
+
     }
 
 
@@ -9017,15 +9043,60 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// todo
+        /// Assert that, running the Lerp function on a number of randomly
+        /// generated pairs of Matrix44 objects for a range of weighting amounts, 
+        /// yields the same results as those obtained from performing a manual 
+        /// Lerp calculation.
         /// </summary>
         [Test]
         public void TestStaticFn_Lerp_i ()
         {
-            throw new NotImplementedException();
+            for(Int32 j = 0; j < 100; ++j)
+            {
+                Single delta = j;
+
+                delta = delta / 100;
+
+                for(Int32 i = 0; i < 100; ++i)
+                {
+                    Matrix44 a = GetNextRandomMatrix44();
+                    Matrix44 b = GetNextRandomMatrix44();
+
+                    Matrix44 result;
+                    Matrix44.Lerp (ref a, ref b, delta, out result);
+
+                    Matrix44 expected = a + ( ( b - a ) * delta );
+
+                    AssertEqualWithinReason(result, expected);
+                }
+            }
         }
 
-            }    /// <summary>
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_ii ()
+        {
+            Matrix44 a = GetNextRandomMatrix44();
+            Matrix44 b = GetNextRandomMatrix44();
+
+            Single half; RealMaths.Half(out half);
+
+            var tests = new Single[] { 2, half + 1, -half, -1 };
+
+            foreach( var weighting in tests )
+            {
+                Matrix44 result; 
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException), 
+                    () => 
+                        Matrix44.Lerp (
+                            ref a, ref b, weighting, out result)
+                    );
+            }
+        }    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -16679,15 +16750,60 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// todo
+        /// Assert that, running the Lerp function on a number of randomly
+        /// generated pairs of Matrix44 objects for a range of weighting amounts, 
+        /// yields the same results as those obtained from performing a manual 
+        /// Lerp calculation.
         /// </summary>
         [Test]
         public void TestStaticFn_Lerp_i ()
         {
-            throw new NotImplementedException();
+            for(Int32 j = 0; j < 100; ++j)
+            {
+                Double delta = j;
+
+                delta = delta / 100;
+
+                for(Int32 i = 0; i < 100; ++i)
+                {
+                    Matrix44 a = GetNextRandomMatrix44();
+                    Matrix44 b = GetNextRandomMatrix44();
+
+                    Matrix44 result;
+                    Matrix44.Lerp (ref a, ref b, delta, out result);
+
+                    Matrix44 expected = a + ( ( b - a ) * delta );
+
+                    AssertEqualWithinReason(result, expected);
+                }
+            }
         }
 
-            }    /// <summary>
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_ii ()
+        {
+            Matrix44 a = GetNextRandomMatrix44();
+            Matrix44 b = GetNextRandomMatrix44();
+
+            Double half; RealMaths.Half(out half);
+
+            var tests = new Double[] { 2, half + 1, -half, -1 };
+
+            foreach( var weighting in tests )
+            {
+                Matrix44 result; 
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException), 
+                    () => 
+                        Matrix44.Lerp (
+                            ref a, ref b, weighting, out result)
+                    );
+            }
+        }    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -24341,15 +24457,60 @@ namespace Sungiant.Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// todo
+        /// Assert that, running the Lerp function on a number of randomly
+        /// generated pairs of Matrix44 objects for a range of weighting amounts, 
+        /// yields the same results as those obtained from performing a manual 
+        /// Lerp calculation.
         /// </summary>
         [Test]
         public void TestStaticFn_Lerp_i ()
         {
-            throw new NotImplementedException();
+            for(Int32 j = 0; j < 100; ++j)
+            {
+                Fixed32 delta = j;
+
+                delta = delta / 100;
+
+                for(Int32 i = 0; i < 100; ++i)
+                {
+                    Matrix44 a = GetNextRandomMatrix44();
+                    Matrix44 b = GetNextRandomMatrix44();
+
+                    Matrix44 result;
+                    Matrix44.Lerp (ref a, ref b, delta, out result);
+
+                    Matrix44 expected = a + ( ( b - a ) * delta );
+
+                    AssertEqualWithinReason(result, expected);
+                }
+            }
         }
 
-            }    /// <summary>
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_ii ()
+        {
+            Matrix44 a = GetNextRandomMatrix44();
+            Matrix44 b = GetNextRandomMatrix44();
+
+            Fixed32 half; RealMaths.Half(out half);
+
+            var tests = new Fixed32[] { 2, half + 1, -half, -1 };
+
+            foreach( var weighting in tests )
+            {
+                Matrix44 result; 
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException), 
+                    () => 
+                        Matrix44.Lerp (
+                            ref a, ref b, weighting, out result)
+                    );
+            }
+        }    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
