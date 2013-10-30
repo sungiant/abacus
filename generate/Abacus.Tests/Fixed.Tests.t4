@@ -6,36 +6,11 @@
     public class Fixed32Tests
     {
         [Test]
-        public void TestBigMultiply ()
-        {
-            Fixed32 a = Fixed32.MaxValue / 2;
-            a -= 1;
-
-            Assert.That((a * 2) + 1, Is.Not.EqualTo(Fixed32.MaxValue));
-
-
-            /*
-            long basevalue = 1000000;
-            Fixed32 f = new Fixed32 (basevalue);
-            Fixed32 g = new Fixed32 (basevalue);
-            Fixed32 h = new Fixed32 (basevalue * basevalue);
-            Assert.That (f * g, Is.EqualTo (h));
-
-            // This is testing the test, really, to make sure 'basevalue' was
-            // large enough to trigger overflow in the first place.
-            Fixed32 bad_h = Fixed32.CreateFromRaw ((f.RawValue * g.RawValue) >> Fixed32.n);
-            Assert.That (bad_h, Is.Not.EqualTo (h));
-             * 
-             */
-        }
-
-        [Test]
         public void TestMaxRange()
         {
             double max = System.Math.Pow(2.0, Fixed32.m) - System.Math.Pow(2.0, -Fixed32.n);
             Assert.That(Fixed32.MaxValue.ToDouble(), Is.EqualTo(max));
         }
-
 
         [Test]
         public void TestMinRange()
@@ -56,35 +31,6 @@
             double res2 = res / 2;
             Fixed32 f2 = (Fixed32) res2;
             Assert.That((double)f2, Is.Not.EqualTo(res2));
-
-        }
-
-        [Test]
-        public void TestExtremeValueMultiply()
-        {
-            Assert.That((Fixed32.MaxValue - 10) * (Fixed32.MaxValue - 10), Is.EqualTo(Fixed32.MaxValue));
-            Assert.That(Fixed32.MaxValue * Fixed32.MaxValue, Is.EqualTo(Fixed32.MaxValue));
-
-            Assert.That(Fixed32.MinValue * Fixed32.MinValue, Is.EqualTo(Fixed32.MaxValue));
-
-            Assert.That(Fixed32.MaxValue * Fixed32.MinValue, Is.EqualTo(Fixed32.MinValue));
-        }
-
-
-        /// <summary>
-        /// Check that division doesn't get rounded to integers
-        /// </summary>
-        [Test]
-        public void TestDivide ()
-        {
-            const long numerator = 1;
-            const long denominator = 10;
-
-            Fixed32 f = new Fixed32 (numerator);
-            Fixed32 g = new Fixed32 (denominator);
-            Fixed32 h = new Fixed32 (((double)numerator) / denominator);
-
-            Assert.That (f / g, Is.EqualTo (h));
         }
 
         [Test]
@@ -100,55 +46,6 @@
             }
         }
 
-        
-        /// <summary>
-        /// Make sure tiny multiplies work properly - these inputs are so small
-        /// they underflow to zero
-        /// </summary>
-        [Test]
-        public void TestTinyMultiply ()
-        {
-            int[] values = { 2, 1, 0, -1, -2 };
-
-            foreach (int value in values) {
-                Fixed32 f = Fixed32.CreateFromRaw (value);
-                Fixed32 fsq = f * f;
-                Assert.That (fsq, Is.EqualTo (new Fixed32(0)));
-            }
-        }
-        
-
-        /// <summary>
-        /// Make sure signs are handled correctly during multiplication
-        /// </summary>
-        [Test]
-        public void TestPosNegMultiply ()
-        {
-
-            Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
-            Fixed32 negOne = -one;
-
-            Assert.That (one * one, Is.EqualTo (one));
-            Assert.That (negOne * one, Is.EqualTo (negOne));
-            Assert.That (one * negOne, Is.EqualTo (negOne));
-            Assert.That (negOne * negOne, Is.EqualTo (one));
-        }
-
-        
-        [Test]
-        public void TestSmallMultiply ()
-        {
-            double[] values = { 0.9, 0.5, 0.1, 0.01, 0.001, -0.001, -0.01, -0.1, -0.5, -0.9 };
-
-            foreach (double value in values) {
-                Fixed32 f = new Fixed32 (value);
-                Fixed32 fsq = f * f;
-
-                // Actually we tolerate a slight rounding error here.  We shouldn't have to, but it's not crucial to fix it.
-                long diff = System.Math.Abs (new Fixed32 (value * value).RawValue - fsq.RawValue);
-                Assert.That (diff < 2);
-            }
-        }
         
         [Test]
         public void TestToString ()
@@ -253,5 +150,7 @@
                     string.Format("was: {0}, should have been: {1}", fixedResult, singleResult));
             }
         }
+
+<#@ include file="Fixed.Operators.Tests.t4"#>
     }
 

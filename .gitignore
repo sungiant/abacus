@@ -5,6 +5,8 @@
 [Tt]est[Rr]esults
 [Tt]est-[Rr]esults/
 
+!build_examples/NUnit-2.6.3/bin/
+
 *.userprefs
 *.suo
 *.user
@@ -17,3 +19,4 @@
 *.tmp
 *.log
 *.pidb
+
