@@ -34,6 +34,19 @@
             }
         }
 
+        /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new NormalisedShort4();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
 <#  GeneratePackedTestsCommon("NormalisedShort4", "UInt64", "packedXyzw", "realXyzw", 4); #>
     }
 

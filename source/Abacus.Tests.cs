@@ -1157,6 +1157,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Alpha_8();
+            testCase.PackFrom(0.656f);
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1174,16 +1187,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1281,6 +1284,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Bgr_5_6_5();
+            testCase.PackFrom(new SinglePrecision.Vector3(0.656f, 0.125f, 0.861f);
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1298,16 +1314,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1405,6 +1411,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Bgra16();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1422,16 +1441,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1529,6 +1538,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Bgra_5_5_5_1();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1546,16 +1568,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1656,6 +1668,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Byte4();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1673,16 +1698,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1782,6 +1797,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new NormalisedByte2();
+            testCase.PackFrom(new SinglePrecision.Vector2(0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1799,16 +1827,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1909,6 +1927,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new NormalisedByte4();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1926,16 +1957,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -2036,6 +2057,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new NormalisedShort2();
+            testCase.PackFrom(new SinglePrecision.Vector2(0.656f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -2053,16 +2087,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -2163,6 +2187,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new NormalisedShort4();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -2180,16 +2217,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -2290,6 +2317,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Rg32();
+            testCase.PackFrom(new SinglePrecision.Vector2(0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -2307,16 +2347,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -2414,6 +2444,19 @@ namespace Sungiant.Abacus.Packed.Tests
                 
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
+        }
+
+        /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Rgba32();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
         }
 
         /// <summary>
@@ -4338,16 +4381,6 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
         /// and functions yield the expected result of TRUE when two equal  
         /// Alpha_8 objects are compared.
@@ -4446,6 +4479,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Rgba64();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -4463,16 +4509,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -4573,6 +4609,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Rgba_10_10_10_2();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -4590,16 +4639,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -4700,6 +4739,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Short2();
+            testCase.PackFrom(0.656f, -0.1253f);
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -4717,16 +4769,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>
@@ -4829,6 +4871,19 @@ namespace Sungiant.Abacus.Packed.Tests
         }
 
         /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Short4();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -4846,16 +4901,6 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_GetHashCode_i ()
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
         }
 
         /// <summary>

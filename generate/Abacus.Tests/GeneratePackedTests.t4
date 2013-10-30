@@ -23,16 +23,6 @@ void GeneratePackedTestsCommon(string type, string packedType, string packedVari
         }
 
         /// <summary>
-        /// For a given example, this test ensures that the ToString function
-        /// yields the expected string.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_ToString_i()
-        {
-           throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
         /// and functions yield the expected result of TRUE when two equal  
         /// Alpha_8 objects are compared.

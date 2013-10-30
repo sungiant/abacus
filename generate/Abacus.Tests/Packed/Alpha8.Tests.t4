@@ -31,6 +31,19 @@
             }
         }
 
+        /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Alpha_8();
+            testCase.PackFrom(0.656f);
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
 <#  GeneratePackedTestsCommon("Alpha_8", "Byte", "packedAlpha", "realAlpha", 1); #>
     }
 

@@ -34,6 +34,19 @@
             }
         }
 
+        /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Rg32();
+            testCase.PackFrom(new SinglePrecision.Vector2(0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
 <#  GeneratePackedTestsCommon("Rg32", "UInt32", "packedRg", "realRg", 2); #>
     }
 

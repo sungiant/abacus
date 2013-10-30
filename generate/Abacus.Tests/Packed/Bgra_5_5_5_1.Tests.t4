@@ -31,5 +31,18 @@
             }
         }
 
+        /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i()
+        {
+            var testCase = new Bgra_5_5_5_1();
+            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            String s = testCase.ToString ();
+            Assert.That(s, Is.EqualTo("A7"));
+        }
+
 <#  GeneratePackedTestsCommon("Bgra_5_5_5_1", "UInt16", "packedBgra", "realRgba", 4); #>
     }
