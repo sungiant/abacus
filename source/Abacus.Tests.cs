@@ -1317,7 +1317,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Bgr_5_6_5();
-            testCase.PackFrom(new SinglePrecision.Vector3(0.656f, 0.125f, 0.861f);
+            var f = new SinglePrecision.Vector3(0.656f, 0.125f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -1444,7 +1445,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Bgra16();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -1571,7 +1573,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Bgra_5_5_5_1();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -1701,7 +1704,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Byte4();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -1830,7 +1834,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new NormalisedByte2();
-            testCase.PackFrom(new SinglePrecision.Vector2(0.222f, 0.861f));
+            var f = new SinglePrecision.Vector2(0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -1960,7 +1965,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new NormalisedByte4();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -2090,7 +2096,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new NormalisedShort2();
-            testCase.PackFrom(new SinglePrecision.Vector2(0.656f, 0.861f));
+            var f = new SinglePrecision.Vector2(0.656f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -2220,7 +2227,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new NormalisedShort4();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -2350,7 +2358,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Rg32();
-            testCase.PackFrom(new SinglePrecision.Vector2(0.222f, 0.861f));
+            var f = new SinglePrecision.Vector2(0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -2480,7 +2489,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Rgba32();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -4512,7 +4522,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Rgba64();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -4642,7 +4653,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Rgba_10_10_10_2();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -4772,7 +4784,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Short2();
-            testCase.PackFrom(0.656f, -0.1253f);
+            var f = new SinglePrecision.Vector2(0.656f, 0.125f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
@@ -4904,7 +4917,8 @@ namespace Sungiant.Abacus.Packed.Tests
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Short4();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }

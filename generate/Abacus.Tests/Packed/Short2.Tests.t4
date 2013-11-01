@@ -42,7 +42,8 @@
         public void TestMemberFn_ToString_i()
         {
             var testCase = new Short2();
-            testCase.PackFrom(0.656f, -0.1253f);
+            var f = new SinglePrecision.Vector2(0.656f, 0.125f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }

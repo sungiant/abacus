@@ -42,7 +42,8 @@
         public void TestMemberFn_ToString_i()
         {
             var testCase = new NormalisedByte4();
-            testCase.PackFrom(new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f));
+            var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
+            testCase.PackFrom(ref f);
             String s = testCase.ToString ();
             Assert.That(s, Is.EqualTo("A7"));
         }
