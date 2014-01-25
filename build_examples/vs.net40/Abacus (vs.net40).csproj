@@ -15,7 +15,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -30,13 +30,24 @@
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- ===================================================================== -->
+  <!-- Configure Text Templating                                             -->
+  <!-- ===================================================================== -->
+  <PropertyGroup>
+    <TransformOnBuild>true</TransformOnBuild>
+    <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
+    <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+  </PropertyGroup>
+  <!-- ===================================================================== -->
+  <!-- Project References                                                    -->
+  <!-- ===================================================================== -->
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\NUnit-2.6.3\bin\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- ===================================================================== -->
   <!-- Include Text Templates                                                -->
   <!-- ===================================================================== -->
@@ -48,6 +59,8 @@
       <Link>Abacus.Tests\Abacus.Tests.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>..\..\source\Abacus.Tests.cs</LastGenOutput>
+      <OutputFilePath>..\..\source\</OutputFilePath>
+      <OutputFileName>Abacus.Tests.cs</OutputFileName>
     </None>
     <!-- =================================================================== -->
     <!-- Abacus.cs                                                           -->
@@ -56,6 +69,8 @@
       <Link>Abacus\Abacus.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>..\..\source\Abacus.cs</LastGenOutput>
+      <OutputFilePath>..\..\source\</OutputFilePath>
+      <OutputFileName>Abacus.cs</OutputFileName>
     </None>
     <!-- =================================================================== -->
     <!-- Abacus Type Template                                                -->
