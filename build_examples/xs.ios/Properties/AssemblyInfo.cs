@@ -38,7 +38,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Abacus")]
-[assembly: AssemblyDescription("Abacus, Xamarin iOS build.")]
+[assembly: AssemblyDescription("Abacus, built with Xamarin Studio using MDTool, targetting Mono for Xamarin iOS.")]
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("0.0.0.1")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

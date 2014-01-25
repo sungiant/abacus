@@ -13,8 +13,21 @@ Example Targets
 * Xamarin Studio (Xamarin Android)
 * Xamarin Studio (MonoMac/XamarinMac)
 * PlayStation Mobile Studio (Mono 4.0)
+* MS Build (.NET 4.0)
 
 Text Templates
 ==============
 
-Visual Studio provides good integration with t4 Text Templates, so the Visual Studio (.NET 4.0) build example given here uses the t4 templates to regenerate the source.
+Visual Studio provides good integration with t4 Text Templates, however it doesn't work well with the Abacus project structure:
+
+http://stackoverflow.com/questions/21352411/custom-output-file-path-for-t4-template
+
+If you want to regenerate the cs files use the generate scripts:
+
+Windows:
+    cd scripts/
+    generate.bat
+
+Posix:
+    cd scripts/
+    ./generate.sh
