@@ -12,7 +12,7 @@
 // │                \/           \//_____/         \/     \/                │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2013 A.J.Pook (http://sungiant.github.com)                 │ \\
+// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.com)                 │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
 // │ a copy of this software and associated documentation files (the        │ \\
@@ -48,7 +48,7 @@ using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
 using System.Runtime.CompilerServices;
 
-namespace Sungiant.Abacus.Tests
+namespace Abacus.Tests
 {
 
 <#@ include file="RealMaths.Tests.t4"#>
@@ -56,7 +56,7 @@ namespace Sungiant.Abacus.Tests
 
 }
 
-namespace Sungiant.Abacus.Packed.Tests
+namespace Abacus.Packed.Tests
 {
     /// <summary>
     /// todo
@@ -84,7 +84,7 @@ namespace Sungiant.Abacus.Packed.Tests
 }
 
 <# foreach( var type in GetIntegerTypes() ) { #>
-namespace Sungiant.Abacus.<#= type #>Precision.Tests
+namespace Abacus.<#= type #>Precision.Tests
 {
 <#@ include file="Precision/Integer/Point2.Tests.t4"#>
 <#@ include file="Precision/Integer/Point3.Tests.t4"#>
@@ -93,7 +93,7 @@ namespace Sungiant.Abacus.<#= type #>Precision.Tests
 <# } #>
 
 <# foreach(var type in GetRealTypes() ) { #>
-namespace Sungiant.Abacus.<#= type #>Precision.Tests
+namespace Abacus.<#= type #>Precision.Tests
 {
 <#@ include file="Precision/Real/Matrix44.Tests.t4"#>
 <#@ include file="Precision/Real/Quaternion.Tests.t4"#>

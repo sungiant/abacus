@@ -10,7 +10,7 @@
 // │                \/           \//_____/         \/     \/                │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2013 A.J.Pook (http://sungiant.github.com)                 │ \\
+// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.com)                 │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
 // │ a copy of this software and associated documentation files (the        │ \\
@@ -44,7 +44,7 @@ using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
 using System.Runtime.CompilerServices;
 
-namespace Sungiant.Abacus.Tests
+namespace Abacus.Tests
 {
 
     /// <summary>
@@ -913,8 +913,8 @@ namespace Sungiant.Abacus.Tests
         [Test]
         public void TestConstructFromString ()
         {
-            Fixed32 zero; global::Sungiant.Abacus.RealMaths.Zero(out zero);
-            Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
+            Fixed32 zero; global::Abacus.RealMaths.Zero(out zero);
+            Fixed32 one; global::Abacus.RealMaths.One(out one);
             Assert.That (Fixed32.Parse("0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("-0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("0."), Is.EqualTo (zero));
@@ -949,8 +949,8 @@ namespace Sungiant.Abacus.Tests
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
-            Fixed32 pi; global::Sungiant.Abacus.RealMaths.Pi(out pi);
-            Fixed32 tau; global::Sungiant.Abacus.RealMaths.Tau(out tau);
+            Fixed32 pi; global::Abacus.RealMaths.Pi(out pi);
+            Fixed32 tau; global::Abacus.RealMaths.Tau(out tau);
 
             double p1 = Fixed32.Sin(zero).ToDouble();
             double e1 = zero.ToDouble();
@@ -985,8 +985,8 @@ namespace Sungiant.Abacus.Tests
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
-            Fixed32 pi; global::Sungiant.Abacus.RealMaths.Pi(out pi);
-            Fixed32 tau; global::Sungiant.Abacus.RealMaths.Tau(out tau);
+            Fixed32 pi; global::Abacus.RealMaths.Pi(out pi);
+            Fixed32 tau; global::Abacus.RealMaths.Tau(out tau);
 
             Assert.That (Fixed32.Cos (zero), Is.EqualTo (one));
             Assert.That (Fixed32.Cos (pi / two), Is.EqualTo (zero));
@@ -1042,7 +1042,7 @@ namespace Sungiant.Abacus.Tests
         public void Test_Operators_Multiplication_ii ()
         {
 
-            Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
+            Fixed32 one; global::Abacus.RealMaths.One(out one);
             Fixed32 negOne = -one;
 
             Assert.That (one * one, Is.EqualTo (one));
@@ -1139,7 +1139,7 @@ namespace Sungiant.Abacus.Tests
 
 }
 
-namespace Sungiant.Abacus.Packed.Tests
+namespace Abacus.Packed.Tests
 {
     /// <summary>
     /// todo
@@ -5006,7 +5006,7 @@ namespace Sungiant.Abacus.Packed.Tests
 
 }
 
-namespace Sungiant.Abacus.Int32Precision.Tests
+namespace Abacus.Int32Precision.Tests
 {
     /// <summary>
     /// todo
@@ -6522,7 +6522,7 @@ namespace Sungiant.Abacus.Int32Precision.Tests
     }
     }
 
-namespace Sungiant.Abacus.Int64Precision.Tests
+namespace Abacus.Int64Precision.Tests
 {
     /// <summary>
     /// todo
@@ -8039,7 +8039,7 @@ namespace Sungiant.Abacus.Int64Precision.Tests
     }
 
 
-namespace Sungiant.Abacus.SinglePrecision.Tests
+namespace Abacus.SinglePrecision.Tests
 {
     /// <summary>
     /// 
@@ -15746,7 +15746,7 @@ namespace Sungiant.Abacus.SinglePrecision.Tests
 
     }}
 
-namespace Sungiant.Abacus.DoublePrecision.Tests
+namespace Abacus.DoublePrecision.Tests
 {
     /// <summary>
     /// 
@@ -23453,7 +23453,7 @@ namespace Sungiant.Abacus.DoublePrecision.Tests
 
     }}
 
-namespace Sungiant.Abacus.Fixed32Precision.Tests
+namespace Abacus.Fixed32Precision.Tests
 {
     /// <summary>
     /// 

@@ -12,7 +12,7 @@
 // │                \/           \//_____/         \/     \/                │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2013 A.J.Pook (http://sungiant.github.com)                 │ \\
+// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.com)                 │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
 // │ a copy of this software and associated documentation files (the        │ \\
@@ -43,7 +43,7 @@ using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Sungiant.Abacus
+namespace Abacus
 {
 <#@ include file="IPackedReal.t4"#>
 <#@ include file="IPackedValue.t4"#>
@@ -116,7 +116,7 @@ namespace Sungiant.Abacus
 
 }
 
-namespace Sungiant.Abacus.Packed
+namespace Abacus.Packed
 {
 <#@ include file="Packed/Alpha8.t4"#>
 <#@ include file="Packed/Bgr_5_6_5.t4"#>
@@ -137,7 +137,7 @@ namespace Sungiant.Abacus.Packed
 
 
 <# foreach( var type in GetIntegerTypes() ) { #>
-namespace Sungiant.Abacus.<#= type #>Precision
+namespace Abacus.<#= type #>Precision
 {
 <#@ include file="Precision/Integer/Point2.t4"#>
 <#@ include file="Precision/Integer/Point3.t4"#>
@@ -146,7 +146,7 @@ namespace Sungiant.Abacus.<#= type #>Precision
 <# } #>
 
 <# foreach( var type in GetRealTypes() ) { #>
-namespace Sungiant.Abacus.<#= type #>Precision
+namespace Abacus.<#= type #>Precision
 {
 <#@ include file="Precision/Real/GjkDistance.t4"#>
 <#@ include file="Precision/Real/Matrix44.t4"#>

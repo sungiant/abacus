@@ -10,8 +10,8 @@
             if (value == null)
                 return 1;
 
-            if (!(value is Sungiant.Abacus.Fixed32))
-                throw new ArgumentException("Value is not a Sungiant.Abacus.Fixed32.");
+            if (!(value is Abacus.Fixed32))
+                throw new ArgumentException("Value is not a Abacus.Fixed32.");
 
             Fixed32 fv = (Fixed32)value;
 
