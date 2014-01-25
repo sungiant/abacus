@@ -35,7 +35,6 @@
       <HintPath>..\NUnit-2.6.3\bin\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- ===================================================================== -->
@@ -56,6 +55,7 @@
     <None Include="..\..\generate\Abacus\Abacus.tt">
       <Link>Abacus\Abacus.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>..\..\source\Abacus.cs</LastGenOutput>
     </None>
     <!-- =================================================================== -->
     <!-- Abacus Type Template                                                -->
@@ -257,7 +257,7 @@
       <Link>Abacus.Tests\Precision\Real\Vector4.Utilities.Tests.t4</Link>
     </None>
     <None Include="..\..\generate\Abacus.Tests\RealMaths.Tests.t4">
-      <Link>Abacus.Tests\Abacus.Tests\RealMaths.Tests.t4</Link>
+      <Link>Abacus.Tests\RealMaths.Tests.t4</Link>
     </None>
     <!-- =================================================================== -->
     <!-- Abacus Templates                                                    -->
@@ -474,21 +474,17 @@
   <!-- Compile Abacus                                                        -->
   <!-- ===================================================================== -->
   <ItemGroup>
+    <Compile Include="..\..\generate\Abacus.Tests\..\..\source\Abacus.Tests.cs">
+      <Link>Abacus.Tests\Abacus.Tests.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Abacus.Tests.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\generate\Abacus\..\..\source\Abacus.cs">
       <Link>Abacus\Abacus.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Abacus.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\source\Abacus.Tests.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Abacus.Tests\Abacus.Tests.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\source\Abacus.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Abacus\Abacus.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -58,8 +58,8 @@
         [Test]
         public void TestConstructFromString ()
         {
-            Fixed32 zero; global::Sungiant.Abacus.RealMaths.Zero(out zero);
-            Fixed32 one; global::Sungiant.Abacus.RealMaths.One(out one);
+            Fixed32 zero; global::Abacus.RealMaths.Zero(out zero);
+            Fixed32 one; global::Abacus.RealMaths.One(out one);
             Assert.That (Fixed32.Parse("0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("-0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("0."), Is.EqualTo (zero));
@@ -94,8 +94,8 @@
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
-            Fixed32 pi; global::Sungiant.Abacus.RealMaths.Pi(out pi);
-            Fixed32 tau; global::Sungiant.Abacus.RealMaths.Tau(out tau);
+            Fixed32 pi; global::Abacus.RealMaths.Pi(out pi);
+            Fixed32 tau; global::Abacus.RealMaths.Tau(out tau);
 
             double p1 = Fixed32.Sin(zero).ToDouble();
             double e1 = zero.ToDouble();
@@ -130,8 +130,8 @@
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
-            Fixed32 pi; global::Sungiant.Abacus.RealMaths.Pi(out pi);
-            Fixed32 tau; global::Sungiant.Abacus.RealMaths.Tau(out tau);
+            Fixed32 pi; global::Abacus.RealMaths.Pi(out pi);
+            Fixed32 tau; global::Abacus.RealMaths.Tau(out tau);
 
             Assert.That (Fixed32.Cos (zero), Is.EqualTo (one));
             Assert.That (Fixed32.Cos (pi / two), Is.EqualTo (zero));
