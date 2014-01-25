@@ -474,13 +474,13 @@
   <!-- Compile Abacus                                                        -->
   <!-- ===================================================================== -->
   <ItemGroup>
-    <Compile Include="..\..\generate\Abacus.Tests\..\..\source\Abacus.Tests.cs">
+    <Compile Include="..\..\source\Abacus.Tests.cs">
       <Link>Abacus.Tests\Abacus.Tests.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Abacus.Tests.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\generate\Abacus\..\..\source\Abacus.cs">
+    <Compile Include="..\..\source\Abacus.cs">
       <Link>Abacus\Abacus.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
