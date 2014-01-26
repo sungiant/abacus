@@ -34,7 +34,7 @@
         public void Test_Operators_Multiplication_ii ()
         {
 
-            Fixed32 one; global::Abacus.RealMaths.One(out one);
+            Fixed32 one = 1;
             Fixed32 negOne = -one;
 
             Assert.That (one * one, Is.EqualTo (one));

@@ -279,6 +279,9 @@
     <None Include="..\..\generate\Abacus.Tests\RealMaths.Tests.t4">
       <Link>Abacus.Tests\RealMaths.Tests.t4</Link>
     </None>
+    <None Include="..\..\generate\Abacus.Tests\PackUtils.Tests.t4">
+      <Link>Abacus.Tests\PackUtils.Tests.t4</Link>
+    </None>
     <!-- =================================================================== -->
     <!-- Abacus Templates                                                    -->
     <!-- =================================================================== -->

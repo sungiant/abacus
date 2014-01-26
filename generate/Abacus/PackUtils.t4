@@ -65,15 +65,23 @@
         internal static Single UnpackSignedNormalised (UInt32 bitmask, UInt32 value)
         {
             UInt32 num = (UInt32)((bitmask + 1) >> 1);
-            if ((value & num) != 0) {
-                if ((value & bitmask) == num) {
+
+            if ((value & num) != 0)
+            {
+                if ((value & bitmask) == num)
+                {
                     return -1f;
                 }
+
                 value |= ~bitmask;
-            } else {
+            }
+            else
+            {
                 value &= bitmask;
             }
+
             Single num2 = bitmask >> 1;
+
             return (((Single)value) / num2);
         }
 

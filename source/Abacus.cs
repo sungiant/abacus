@@ -263,15 +263,23 @@ namespace Abacus
         internal static Single UnpackSignedNormalised (UInt32 bitmask, UInt32 value)
         {
             UInt32 num = (UInt32)((bitmask + 1) >> 1);
-            if ((value & num) != 0) {
-                if ((value & bitmask) == num) {
+
+            if ((value & num) != 0)
+            {
+                if ((value & bitmask) == num)
+                {
                     return -1f;
                 }
+
                 value |= ~bitmask;
-            } else {
+            }
+            else
+            {
                 value &= bitmask;
             }
+
             Single num2 = bitmask >> 1;
+
             return (((Single)value) / num2);
         }
 
@@ -3560,10 +3568,10 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
         {
-            UInt64 x = PackUtils.PackSignedNormalised(0xffff, realXyzw.X);
-            UInt64 y = PackUtils.PackSignedNormalised(0xffff, realXyzw.Y) << 16;
-            UInt64 z = PackUtils.PackSignedNormalised(0xffff, realXyzw.Z) << 32;
-            UInt64 w = PackUtils.PackSignedNormalised(0xffff, realXyzw.W) << 48;
+            UInt64 x = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.X);
+            UInt64 y = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.Y) << 16;
+            UInt64 z = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.Z) << 32;
+            UInt64 w = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.W) << 48;
             packedXyzw = (((x | y) | z) | w);
         }
 
@@ -3572,10 +3580,10 @@ namespace Abacus.Packed
         /// </summary>
         static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
         {
-            realXyzw.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedXyzw);
-            realXyzw.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 16));
-            realXyzw.Z = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 32));
-            realXyzw.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 48));
+            realXyzw.X = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) packedXyzw);
+            realXyzw.Y = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 16));
+            realXyzw.Z = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 32));
+            realXyzw.W = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 48));
         }
 
         /// <summary>

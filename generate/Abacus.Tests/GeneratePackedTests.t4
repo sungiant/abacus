@@ -12,17 +12,6 @@ void GeneratePackedTestsCommon(string type, string packedType, string packedVari
         }
 
         /// <summary>
-        /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
-        /// reasonable number of collisions.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_GetHashCode_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
         /// and functions yield the expected result of TRUE when two equal  
         /// Alpha_8 objects are compared.

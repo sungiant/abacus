@@ -16,17 +16,11 @@
             while ( packed < UInt16.MaxValue )
             {
                 ++packed;
-                
                 var packedObj = new Bgra16();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Bgra16(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -42,9 +36,27 @@
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
+            Assert.That(s, Is.EqualTo("DA23"));
         }
 
-<#  GeneratePackedTestsCommon("Bgra16", "UInt16", "packedBgra", "realRgba", 4); #>
+        /// <summary>
+        /// Makes sure that the hashing function is good by testing 
+        /// all scenarios and ensuring that there are no collisions.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_GetHashCode_i ()
+        {
+            HashSet<Int32> hs = new HashSet<Int32>();
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
+            {
+                ++packed;
+                var packedObj = new Bgra16();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
+        }
     }
 

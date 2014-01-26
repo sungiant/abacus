@@ -16,19 +16,12 @@
             while ( packed < UInt16.MaxValue )
             {
                 ++packed;
-
                 var packedObj = new NormalisedByte2();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector2 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-
                 Console.WriteLine("p: " + packed + ", v: " + unpacked);
-                
                 var newPackedObj = new NormalisedByte2(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed).Within(5));
             }
         }
@@ -44,9 +37,27 @@
             var f = new SinglePrecision.Vector2(0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
+            Assert.That(s, Is.EqualTo("6D1C"));
         }
 
-<#  GeneratePackedTestsCommon("NormalisedByte2", "UInt16", "packedXy", "realXy", 2); #>
+        /// <summary>
+        /// Makes sure that the hashing function is good by testing 
+        /// all scenarios and ensuring that there are no collisions.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_GetHashCode_i ()
+        {
+            HashSet<Int32> hs = new HashSet<Int32>();
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
+            {
+                ++packed;
+                var packedObj = new NormalisedByte2();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
+        }
     }
 

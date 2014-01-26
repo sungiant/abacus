@@ -16,17 +16,11 @@
             while ( packed < Byte.MaxValue )
             {
                 ++packed;
-
                 var packedObj = new Alpha_8();
-
                 packedObj.PackedValue = packed;
-
                 Single unpacked;
-
                 packedObj.UnpackTo(out unpacked);
-
                 var newPackedObj = new Alpha_8(unpacked);
-
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -44,6 +38,24 @@
             Assert.That(s, Is.EqualTo("A7"));
         }
 
-<#  GeneratePackedTestsCommon("Alpha_8", "Byte", "packedAlpha", "realAlpha", 1); #>
+        /// <summary>
+        /// Makes sure that the hashing function is good by testing 
+        /// all scenarios and ensuring that there are no collisions.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_GetHashCode_i ()
+        {
+            HashSet<Int32> hs = new HashSet<Int32>();
+            Byte packed = Byte.MinValue;
+            while ( packed < Byte.MaxValue )
+            {
+                ++packed;
+                var packedObj = new Alpha_8();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
+        }
     }
 

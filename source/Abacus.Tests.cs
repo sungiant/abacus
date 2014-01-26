@@ -46,6 +46,14 @@ using System.Runtime.CompilerServices;
 
 namespace Abacus.Tests
 {
+    /// <summary>
+    /// todo
+    /// </summary>
+    static class Settings
+    {
+        internal const UInt32 NumTests = 10000;
+    }
+
 
     /// <summary>
     /// todo
@@ -914,8 +922,8 @@ namespace Abacus.Tests
         [Test]
         public void TestConstructFromString ()
         {
-            Fixed32 zero; global::Abacus.RealMaths.Zero(out zero);
-            Fixed32 one; global::Abacus.RealMaths.One(out one);
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
             Assert.That (Fixed32.Parse("0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("-0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("0."), Is.EqualTo (zero));
@@ -1043,7 +1051,7 @@ namespace Abacus.Tests
         public void Test_Operators_Multiplication_ii ()
         {
 
-            Fixed32 one; global::Abacus.RealMaths.One(out one);
+            Fixed32 one = 1;
             Fixed32 negOne = -one;
 
             Assert.That (one * one, Is.EqualTo (one));
@@ -1139,19 +1147,112 @@ namespace Abacus.Tests
     }
 
 
+    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
+    public class PackUtils
+    {
+    	/*
+    	/// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestPacking_Signed_i ()
+        {
+            var rand = new System.Random();
+
+            UInt32 bitmask = 0xffffffff;
+
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+            	Single s = (Single)rand.NextDouble();
+
+            	UInt32 p = global::Abacus.PackUtils.PackSigned (bitmask, s);
+
+            	Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
+
+            	Assert.That (u, Is.EqualTo(s));
+            }
+        }
+
+     	/// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestPacking_Signed_ii ()
+        {
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 bitmask = 0xffffffff;
+
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+            	rand.NextBytes(buff);
+                UInt32 p = BitConverter.ToUInt32(buff, 0);
+
+            	Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
+
+            	UInt32 rp = global::Abacus.PackUtils.PackSigned (bitmask, u);
+
+            	Assert.That (rp, Is.EqualTo(p));
+            }
+        }*/
+
+    	/// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestPacking_SignedNormalised_i ()
+        {
+            var rand = new System.Random();
+
+            UInt32 bitmask = 0xffffffff;
+
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+            	Single s = (Single)rand.NextDouble();
+
+            	if (rand.Next(0, 1) == 1) s = -s;
+
+            	UInt32 p = global::Abacus.PackUtils.PackSignedNormalised (bitmask, s);
+
+            	Single u = global::Abacus.PackUtils.UnpackSignedNormalised (bitmask, p);
+
+            	Assert.That (u, Is.EqualTo(s));
+            }
+        }
+
+    	/// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestPacking_UnsignedNormalisedValue_i ()
+        {
+            var rand = new System.Random();
+
+            UInt32 bitmask = 0xffffffff;
+
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+            	Single s = (Single)rand.NextDouble();
+
+            	UInt32 p = global::Abacus.PackUtils.PackUnsignedNormalisedValue (bitmask, s);
+
+            	Single u = global::Abacus.PackUtils.UnpackUnsignedNormalisedValue (bitmask, p);
+
+            	Assert.That (u, Is.EqualTo(s));
+            }
+        }
+    }
+
+
 
 }
 
 namespace Abacus.Packed.Tests
 {
-    /// <summary>
-    /// todo
-    /// </summary>
-    public static class Settings
-    {
-        public const Int32 NumTests = 50000;
-    }
-
+	using Abacus.Tests;
     /// <summary>
     /// Tests the Alpha_8 packed data type.
     /// </summary>
@@ -1170,17 +1271,11 @@ namespace Abacus.Packed.Tests
             while ( packed < Byte.MaxValue )
             {
                 ++packed;
-
                 var packedObj = new Alpha_8();
-
                 packedObj.PackedValue = packed;
-
                 Single unpacked;
-
                 packedObj.UnpackTo(out unpacked);
-
                 var newPackedObj = new Alpha_8(unpacked);
-
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -1199,83 +1294,23 @@ namespace Abacus.Packed.Tests
         }
 
         /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
-        /// reasonable number of collisions.
+        /// all scenarios and ensuring that there are no collisions.
         /// </summary>
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            Byte packed = Byte.MinValue;
+            while ( packed < Byte.MaxValue )
+            {
+                ++packed;
+                var packedObj = new Alpha_8();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
         }
     }
 
@@ -1298,17 +1333,11 @@ namespace Abacus.Packed.Tests
             while ( packed < UInt16.MaxValue )
             {
                 ++packed;
-                
                 var packedObj = new Bgr_5_6_5();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector3 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Bgr_5_6_5(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -1324,87 +1353,27 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector3(0.656f, 0.125f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("A11B"));
         }
 
         /// <summary>
         /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
-        /// reasonable number of collisions.
+        /// all scenarios and ensuring that there are no collisions.
         /// </summary>
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
+            {
+                ++packed;
+                var packedObj = new Bgr_5_6_5();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
         }
     }
 
@@ -1427,17 +1396,11 @@ namespace Abacus.Packed.Tests
             while ( packed < UInt16.MaxValue )
             {
                 ++packed;
-                
                 var packedObj = new Bgra16();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Bgra16(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -1453,87 +1416,27 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("DA23"));
         }
 
         /// <summary>
         /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
-        /// reasonable number of collisions.
+        /// all scenarios and ensuring that there are no collisions.
         /// </summary>
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
+            {
+                ++packed;
+                var packedObj = new Bgra16();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
         }
     }
 
@@ -1556,17 +1459,11 @@ namespace Abacus.Packed.Tests
             while ( packed < UInt16.MaxValue )
             {
                 ++packed;
-                
                 var packedObj = new Bgra_5_5_5_1();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-
                 var newPackedObj = new Bgra_5_5_5_1(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -1582,87 +1479,27 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("D087"));
         }
 
         /// <summary>
         /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
-        /// reasonable number of collisions.
+        /// all scenarios and ensuring that there are no collisions.
         /// </summary>
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
+            {
+                ++packed;
+                var packedObj = new Bgra_5_5_5_1();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
         }
     }
 
@@ -1686,19 +1523,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
-
                 var packedObj = new Byte4();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Byte4(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -1714,16 +1544,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("01000001"));
         }
 
         /// <summary>
@@ -1734,67 +1555,22 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                BitConverter.ToUInt32(buff, 0);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new Byte4();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -1817,19 +1593,12 @@ namespace Abacus.Packed.Tests
             while ( packed < UInt16.MaxValue )
             {
                 ++packed;
-
                 var packedObj = new NormalisedByte2();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector2 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-
                 Console.WriteLine("p: " + packed + ", v: " + unpacked);
-                
                 var newPackedObj = new NormalisedByte2(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed).Within(5));
             }
         }
@@ -1845,87 +1614,27 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector2(0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("6D1C"));
         }
 
         /// <summary>
         /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
-        /// reasonable number of collisions.
+        /// all scenarios and ensuring that there are no collisions.
         /// </summary>
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            UInt16 packed = UInt16.MinValue;
+            while ( packed < UInt16.MaxValue )
+            {
+                ++packed;
+                var packedObj = new NormalisedByte2();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                Assert.That(!hs.Contains(hc));
+                hs.Add(hc);
+            }
         }
     }
 
@@ -1950,18 +1659,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
                 var packedObj = new NormalisedByte4();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new NormalisedByte4(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -1977,16 +1680,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("6D1C1053"));
         }
 
         /// <summary>
@@ -1997,67 +1691,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new NormalisedByte4();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -2082,18 +1730,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
                 var packedObj = new NormalisedShort2();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector2 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new NormalisedShort2(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -2109,16 +1751,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector2(0.656f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("6E3453F7"));
         }
 
         /// <summary>
@@ -2129,67 +1762,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new NormalisedShort2();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -2209,23 +1796,17 @@ namespace Abacus.Packed.Tests
         public void TestRandomValues_i()
         {
             var rand = new System.Random();
-            var buff = new Byte[4];
+            var buff = new Byte[8];
             
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
-                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                UInt64 packed = BitConverter.ToUInt64(buff, 0);
                 var packedObj = new NormalisedShort4();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new NormalisedShort4(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -2241,16 +1822,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("000000007E345FFF"));
         }
 
         /// <summary>
@@ -2261,67 +1833,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[8];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt64 packed = BitConverter.ToUInt64(buff, 0);
+                var packedObj = new NormalisedShort4();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -2346,18 +1872,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
                 var packedObj = new Rg32();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector2 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Rg32(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -2373,16 +1893,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector2(0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("DC6A38D5"));
         }
 
         /// <summary>
@@ -2393,67 +1904,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new Rgba64();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -2478,18 +1943,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
                 var packedObj = new Rgba32();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Rgba32(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -2505,7 +1964,32 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
+            Assert.That(s, Is.EqualTo("{R:167 G:32 B:57 A:220}"));
+        }
+
+        /// <summary>
+        /// Makes sure that the hashing function is good by testing 
+        /// random scenarios and ensuring that there are no more than a 
+        /// reasonable number of collisions.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_GetHashCode_i ()
+        {
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new Rgba32();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
 
         /// <summary>
@@ -4411,86 +3895,6 @@ namespace Abacus.Packed.Tests
         {
             this.TestMultiplication();
         }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
-        /// reasonable number of collisions.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_GetHashCode_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
-        }
     }
 
 
@@ -4514,19 +3918,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt64(buff, 0);
                 UInt64 packed = BitConverter.ToUInt64(buff, 0);
-                
                 var packedObj = new Rgba64();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Rgba64(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -4542,16 +3939,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("000000007E345FFF"));
         }
 
         /// <summary>
@@ -4562,67 +3950,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[8];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt64 packed = BitConverter.ToUInt64(buff, 0);
+                var packedObj = new Rgba64();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -4647,18 +3989,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
                 var packedObj = new Rgba_10_10_10_2();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Rgba_10_10_10_2(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -4674,16 +4010,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("8DD0A7EF"));
         }
 
         /// <summary>
@@ -4694,67 +4021,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new Rgba_10_10_10_2();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -4779,18 +4060,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt32(buff, 0);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
                 var packedObj = new Short2();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector2 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Short2(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -4806,16 +4081,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector2(0.656f, 0.125f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("00000001"));
         }
 
         /// <summary>
@@ -4826,67 +4092,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[4];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt32 packed = BitConverter.ToUInt32(buff, 0);
+                var packedObj = new Short2();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 
@@ -4911,20 +4131,12 @@ namespace Abacus.Packed.Tests
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt64(buff, 0);
-
                 UInt64 packed = BitConverter.ToUInt64(buff, 0);
-                
                 var packedObj = new Short4();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Short4(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -4940,16 +4152,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new NotImplementedException();
+            Assert.That(s, Is.EqualTo("0000000000010001"));
         }
 
         /// <summary>
@@ -4960,67 +4163,21 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_GetHashCode_i ()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
-        /// Alpha_8 objects are compared.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_ii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
-        /// generated pairs of equal Alpha_8 objects.
-        /// </summary>
-        [Test]
-        public void TestOperator_Equality_iii ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void Test_Constructors_i ()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[8];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt64 packed = BitConverter.ToUInt64(buff, 0);
+                var packedObj = new Short4();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
         }
     }
 

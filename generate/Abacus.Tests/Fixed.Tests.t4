@@ -58,8 +58,8 @@
         [Test]
         public void TestConstructFromString ()
         {
-            Fixed32 zero; global::Abacus.RealMaths.Zero(out zero);
-            Fixed32 one; global::Abacus.RealMaths.One(out one);
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
             Assert.That (Fixed32.Parse("0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("-0"), Is.EqualTo (zero));
             Assert.That (Fixed32.Parse("0."), Is.EqualTo (zero));

@@ -18,20 +18,12 @@
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
-                BitConverter.ToUInt64(buff, 0);
-
                 UInt64 packed = BitConverter.ToUInt64(buff, 0);
-                
                 var packedObj = new Short4();
-                
                 packedObj.PackedValue = packed;
-                
                 SinglePrecision.Vector4 unpacked;
-                
                 packedObj.UnpackTo(out unpacked);
-                
                 var newPackedObj = new Short4(ref unpacked);
-                
                 Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
             }
         }
@@ -47,9 +39,32 @@
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("A7"));
+            Assert.That(s, Is.EqualTo("0000000000010001"));
         }
 
-<#  GeneratePackedTestsCommon("Short4", "UInt64", "packedXyzw", "realXyzw", 4); #>
+        /// <summary>
+        /// Makes sure that the hashing function is good by testing 
+        /// random scenarios and ensuring that there are no more than a 
+        /// reasonable number of collisions.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_GetHashCode_i ()
+        {
+            HashSet<Int32> hs = new HashSet<Int32>();
+            var rand = new System.Random();
+            var buff = new Byte[8];
+            UInt32 collisions = 0;
+            for(Int32 i = 0; i < Settings.NumTests; ++i)
+            {
+                rand.NextBytes(buff);
+                UInt64 packed = BitConverter.ToUInt64(buff, 0);
+                var packedObj = new Short4();
+                packedObj.PackedValue = packed;
+                Int32 hc = packedObj.GetHashCode ();
+                if(hs.Contains(hc)) ++collisions;
+                hs.Add(hc);
+            }
+            Assert.That(collisions, Is.LessThan(10));
+        }
     }
 
