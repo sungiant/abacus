@@ -38,7 +38,17 @@
             realRgba32.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 24));
         }
 
-<#@ include file="Rgba32.Constants.t4"#>
+<# foreach( var kvp in GetColours() ) { #>
+        /// <summary>
+        /// <#= kvp.Key #>
+        /// </summary>
+        public static Rgba32 <#= kvp.Key #>
+        {
+            get { return new Rgba32 (<#= kvp.Value #>); }
+        }
+
+<# } #>
+
 <#@ include file="Rgba32.Misc.t4"#>
 <#@ include file="Rgba32.Operators.t4"#>
 

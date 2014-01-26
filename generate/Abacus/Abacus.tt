@@ -1,5 +1,6 @@
 <#@ template debug="true" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
+<#@ import namespace="System.Collections.Generic" #>
 // ┌────────────────────────────────────────────────────────────────────────┐ \\
 // │ Abacus - Fast, efficient, cross precision, maths library               │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
@@ -35,6 +36,7 @@
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
 <#@ include file="../Types.t4"#>
+<#@ include file="../Colours.t4"#>
 <#@ include file="GeneratePacked.t4"#>
 
 using System;

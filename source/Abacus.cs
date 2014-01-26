@@ -4035,7 +4035,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 AliceBlue
         {
-            get { return new Rgba32 (0xfffff8f0); }
+            get { return new Rgba32 (4294965488); }
         }
 
         /// <summary>
@@ -4043,7 +4043,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 AntiqueWhite
         {
-            get { return new Rgba32 (0xffd7ebfa); }
+            get { return new Rgba32 (4292340730); }
         }
 
         /// <summary>
@@ -4051,7 +4051,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Aqua
         {
-            get { return new Rgba32 (0xffffff00); }
+            get { return new Rgba32 (4294967040); }
         }
 
         /// <summary>
@@ -4059,7 +4059,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Aquamarine
         {
-            get { return new Rgba32 (0xffd4ff7f); }
+            get { return new Rgba32 (4292149119); }
         }
 
         /// <summary>
@@ -4067,7 +4067,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Azure
         {
-            get { return new Rgba32 (0xfffffff0); }
+            get { return new Rgba32 (4294967280); }
         }
 
         /// <summary>
@@ -4075,7 +4075,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Beige
         {
-            get { return new Rgba32 (0xffdcf5f5); }
+            get { return new Rgba32 (4292670965); }
         }
 
         /// <summary>
@@ -4083,7 +4083,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Bisque
         {
-            get { return new Rgba32 (0xffc4e4ff); }
+            get { return new Rgba32 (4291093759); }
         }
 
         /// <summary>
@@ -4091,7 +4091,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Black
         {
-            get { return new Rgba32 (0xff000000); }
+            get { return new Rgba32 (4278190080); }
         }
 
         /// <summary>
@@ -4099,7 +4099,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 BlanchedAlmond
         {
-            get { return new Rgba32 (0xffcdebff); }
+            get { return new Rgba32 (4291685375); }
         }
 
         /// <summary>
@@ -4107,7 +4107,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Blue
         {
-            get { return new Rgba32 (0xffff0000); }
+            get { return new Rgba32 (4294901760); }
         }
 
         /// <summary>
@@ -4115,7 +4115,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 BlueViolet
         {
-            get { return new Rgba32 (0xffe22b8a); }
+            get { return new Rgba32 (4293012362); }
         }
 
         /// <summary>
@@ -4123,7 +4123,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Brown
         {
-            get { return new Rgba32 (0xff2a2aa5); }
+            get { return new Rgba32 (4280953509); }
         }
 
         /// <summary>
@@ -4131,7 +4131,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 BurlyWood
         {
-            get { return new Rgba32 (0xff87b8de); }
+            get { return new Rgba32 (4287084766); }
         }
 
         /// <summary>
@@ -4139,7 +4139,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 CadetBlue
         {
-            get { return new Rgba32 (0xffa09e5f); }
+            get { return new Rgba32 (4288716383); }
         }
 
         /// <summary>
@@ -4147,7 +4147,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Chartreuse
         {
-            get { return new Rgba32 (0xff00ff7f); }
+            get { return new Rgba32 (4278255487); }
         }
 
         /// <summary>
@@ -4155,7 +4155,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Chocolate
         {
-            get { return new Rgba32 (0xff1e69d2); }
+            get { return new Rgba32 (4280183250); }
         }
 
         /// <summary>
@@ -4163,7 +4163,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Coral
         {
-            get { return new Rgba32 (0xff507fff); }
+            get { return new Rgba32 (4283465727); }
         }
 
         /// <summary>
@@ -4171,7 +4171,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 CornflowerBlue
         {
-            get { return new Rgba32 (0xffed9564); }
+            get { return new Rgba32 (4293760356); }
         }
 
         /// <summary>
@@ -4179,7 +4179,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Cornsilk
         {
-            get { return new Rgba32 (0xffdcf8ff); }
+            get { return new Rgba32 (4292671743); }
         }
 
         /// <summary>
@@ -4187,7 +4187,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Crimson
         {
-            get { return new Rgba32 (0xff3c14dc); }
+            get { return new Rgba32 (4282127580); }
         }
 
         /// <summary>
@@ -4195,7 +4195,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Cyan
         {
-            get { return new Rgba32 (0xffffff00); }
+            get { return new Rgba32 (4294967040); }
         }
 
         /// <summary>
@@ -4203,7 +4203,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkBlue
         {
-            get { return new Rgba32 (0xff8b0000); }
+            get { return new Rgba32 (4287299584); }
         }
 
         /// <summary>
@@ -4211,7 +4211,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkCyan
         {
-            get { return new Rgba32 (0xff8b8b00); }
+            get { return new Rgba32 (4287335168); }
         }
 
         /// <summary>
@@ -4219,15 +4219,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkGoldenrod
         {
-            get { return new Rgba32 (0xff0b86b8); }
+            get { return new Rgba32 (4278945464); }
         }
 
         /// <summary>
-        /// DarkGray
+        /// DarkGrey
         /// </summary>
-        public static Rgba32 DarkGray
+        public static Rgba32 DarkGrey
         {
-            get { return new Rgba32 (0xffa9a9a9); }
+            get { return new Rgba32 (4289309097); }
         }
 
         /// <summary>
@@ -4235,7 +4235,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkGreen
         {
-            get { return new Rgba32 (0xff006400); }
+            get { return new Rgba32 (4278215680); }
         }
 
         /// <summary>
@@ -4243,7 +4243,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkKhaki
         {
-            get { return new Rgba32 (0xff6bb7bd); }
+            get { return new Rgba32 (4285249469); }
         }
 
         /// <summary>
@@ -4251,7 +4251,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkMagenta
         {
-            get { return new Rgba32 (0xff8b008b); }
+            get { return new Rgba32 (4287299723); }
         }
 
         /// <summary>
@@ -4259,7 +4259,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkOliveGreen
         {
-            get { return new Rgba32 (0xff2f6b55); }
+            get { return new Rgba32 (4281297749); }
         }
 
         /// <summary>
@@ -4267,7 +4267,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkOrange
         {
-            get { return new Rgba32 (0xff008cff); }
+            get { return new Rgba32 (4278226175); }
         }
 
         /// <summary>
@@ -4275,7 +4275,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkOrchid
         {
-            get { return new Rgba32 (0xffcc3299); }
+            get { return new Rgba32 (4291572377); }
         }
 
         /// <summary>
@@ -4283,7 +4283,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkRed
         {
-            get { return new Rgba32 (0xff00008b); }
+            get { return new Rgba32 (4278190219); }
         }
 
         /// <summary>
@@ -4291,7 +4291,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkSalmon
         {
-            get { return new Rgba32 (0xff7a96e9); }
+            get { return new Rgba32 (4286224105); }
         }
 
         /// <summary>
@@ -4299,7 +4299,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkSeaGreen
         {
-            get { return new Rgba32 (0xff8bbc8f); }
+            get { return new Rgba32 (4287347855); }
         }
 
         /// <summary>
@@ -4307,15 +4307,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkSlateBlue
         {
-            get { return new Rgba32 (0xff8b3d48); }
+            get { return new Rgba32 (4287315272); }
         }
 
         /// <summary>
-        /// DarkSlateGray
+        /// DarkSlateGrey
         /// </summary>
-        public static Rgba32 DarkSlateGray
+        public static Rgba32 DarkSlateGrey
         {
-            get { return new Rgba32 (0xff4f4f2f); }
+            get { return new Rgba32 (4283387695); }
         }
 
         /// <summary>
@@ -4323,7 +4323,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkTurquoise
         {
-            get { return new Rgba32 (0xffd1ce00); }
+            get { return new Rgba32 (4291939840); }
         }
 
         /// <summary>
@@ -4331,7 +4331,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DarkViolet
         {
-            get { return new Rgba32 (0xffd30094); }
+            get { return new Rgba32 (4292018324); }
         }
 
         /// <summary>
@@ -4339,7 +4339,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DeepPink
         {
-            get { return new Rgba32 (0xff9314ff); }
+            get { return new Rgba32 (4287829247); }
         }
 
         /// <summary>
@@ -4347,15 +4347,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DeepSkyBlue
         {
-            get { return new Rgba32 (0xffffbf00); }
+            get { return new Rgba32 (4294950656); }
         }
 
         /// <summary>
-        /// DimGray
+        /// DimGrey
         /// </summary>
-        public static Rgba32 DimGray
+        public static Rgba32 DimGrey
         {
-            get { return new Rgba32 (0xff696969); }
+            get { return new Rgba32 (4285098345); }
         }
 
         /// <summary>
@@ -4363,15 +4363,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 DodgerBlue
         {
-            get { return new Rgba32 (0xffff901e); }
+            get { return new Rgba32 (4294938654); }
         }
-        
+
         /// <summary>
         /// Firebrick
         /// </summary>
         public static Rgba32 Firebrick
         {
-            get { return new Rgba32 (0xff2222b2); }
+            get { return new Rgba32 (4280427186); }
         }
 
         /// <summary>
@@ -4379,7 +4379,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 FloralWhite
         {
-            get { return new Rgba32 (0xfff0faff); }
+            get { return new Rgba32 (4293982975); }
         }
 
         /// <summary>
@@ -4387,7 +4387,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 ForestGreen
         {
-            get { return new Rgba32 (0xff228b22); }
+            get { return new Rgba32 (4280453922); }
         }
 
         /// <summary>
@@ -4395,7 +4395,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Fuchsia
         {
-            get { return new Rgba32 (0xffff00ff); }
+            get { return new Rgba32 (4294902015); }
         }
 
         /// <summary>
@@ -4403,7 +4403,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Gainsboro
         {
-            get { return new Rgba32 (0xffdcdcdc); }
+            get { return new Rgba32 (4292664540); }
         }
 
         /// <summary>
@@ -4411,7 +4411,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 GhostWhite
         {
-            get { return new Rgba32 (0xfffff8f8); }
+            get { return new Rgba32 (4294965496); }
         }
 
         /// <summary>
@@ -4419,7 +4419,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Gold
         {
-            get { return new Rgba32 (0xff00d7ff); }
+            get { return new Rgba32 (4278245375); }
         }
 
         /// <summary>
@@ -4427,15 +4427,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Goldenrod
         {
-            get { return new Rgba32 (0xff20a5da); }
+            get { return new Rgba32 (4280329690); }
         }
 
         /// <summary>
-        /// Gray
+        /// Grey
         /// </summary>
-        public static Rgba32 Gray
+        public static Rgba32 Grey
         {
-            get { return new Rgba32 (0xff808080); }
+            get { return new Rgba32 (4286611584); }
         }
 
         /// <summary>
@@ -4443,7 +4443,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Green
         {
-            get { return new Rgba32 (0xff008000); }
+            get { return new Rgba32 (4278222848); }
         }
 
         /// <summary>
@@ -4451,7 +4451,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 GreenYellow
         {
-            get { return new Rgba32 (0xff2fffad); }
+            get { return new Rgba32 (4281335725); }
         }
 
         /// <summary>
@@ -4459,7 +4459,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Honeydew
         {
-            get { return new Rgba32 (0xfff0fff0); }
+            get { return new Rgba32 (4293984240); }
         }
 
         /// <summary>
@@ -4467,7 +4467,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 HotPink
         {
-            get { return new Rgba32 (0xffb469ff); }
+            get { return new Rgba32 (4290013695); }
         }
 
         /// <summary>
@@ -4475,7 +4475,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 IndianRed
         {
-            get { return new Rgba32 (0xff5c5ccd); }
+            get { return new Rgba32 (4284243149); }
         }
 
         /// <summary>
@@ -4483,7 +4483,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Indigo
         {
-            get { return new Rgba32 (0xff82004b); }
+            get { return new Rgba32 (4286709835); }
         }
 
         /// <summary>
@@ -4491,7 +4491,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Ivory
         {
-            get { return new Rgba32 (0xfff0ffff); }
+            get { return new Rgba32 (4293984255); }
         }
 
         /// <summary>
@@ -4499,7 +4499,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Khaki
         {
-            get { return new Rgba32 (0xff8ce6f0); }
+            get { return new Rgba32 (4287424240); }
         }
 
         /// <summary>
@@ -4507,7 +4507,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Lavender
         {
-            get { return new Rgba32 (0xfffae6e6); }
+            get { return new Rgba32 (4294633190); }
         }
 
         /// <summary>
@@ -4515,7 +4515,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LavenderBlush
         {
-            get { return new Rgba32 (0xfff5f0ff); }
+            get { return new Rgba32 (4294308095); }
         }
 
         /// <summary>
@@ -4523,7 +4523,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LawnGreen
         {
-            get { return new Rgba32 (0xff00fc7c); }
+            get { return new Rgba32 (4278254716); }
         }
 
         /// <summary>
@@ -4531,7 +4531,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LemonChiffon
         {
-            get { return new Rgba32 (0xffcdfaff); }
+            get { return new Rgba32 (4291689215); }
         }
 
         /// <summary>
@@ -4539,7 +4539,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightBlue
         {
-            get { return new Rgba32 (0xffe6d8ad); }
+            get { return new Rgba32 (4293318829); }
         }
 
         /// <summary>
@@ -4547,7 +4547,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightCoral
         {
-            get { return new Rgba32 (0xff8080f0); }
+            get { return new Rgba32 (4286611696); }
         }
 
         /// <summary>
@@ -4555,7 +4555,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightCyan
         {
-            get { return new Rgba32 (0xffffffe0); }
+            get { return new Rgba32 (4294967264); }
         }
 
         /// <summary>
@@ -4563,7 +4563,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightGoldenrodYellow
         {
-            get { return new Rgba32 (0xffd2fafa); }
+            get { return new Rgba32 (4292016890); }
         }
 
         /// <summary>
@@ -4571,15 +4571,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightGreen
         {
-            get { return new Rgba32 (0xff90ee90); }
+            get { return new Rgba32 (4287688336); }
         }
 
         /// <summary>
-        /// LightGray
+        /// LightGrey
         /// </summary>
-        public static Rgba32 LightGray
+        public static Rgba32 LightGrey
         {
-            get { return new Rgba32 (0xffd3d3d3); }
+            get { return new Rgba32 (4292072403); }
         }
 
         /// <summary>
@@ -4587,7 +4587,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightPink
         {
-            get { return new Rgba32 (0xffc1b6ff); }
+            get { return new Rgba32 (4290885375); }
         }
 
         /// <summary>
@@ -4595,7 +4595,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightSalmon
         {
-            get { return new Rgba32 (0xff7aa0ff); }
+            get { return new Rgba32 (4286226687); }
         }
 
         /// <summary>
@@ -4603,7 +4603,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightSeaGreen
         {
-            get { return new Rgba32 (0xffaab220); }
+            get { return new Rgba32 (4289376800); }
         }
 
         /// <summary>
@@ -4611,15 +4611,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightSkyBlue
         {
-            get { return new Rgba32 (0xffface87); }
+            get { return new Rgba32 (4294626951); }
         }
 
         /// <summary>
-        /// LightSlateGray
+        /// LightSlateGrey
         /// </summary>
-        public static Rgba32 LightSlateGray
+        public static Rgba32 LightSlateGrey
         {
-            get { return new Rgba32 (0xff998877); }
+            get { return new Rgba32 (4288252023); }
         }
 
         /// <summary>
@@ -4627,7 +4627,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightSteelBlue
         {
-            get { return new Rgba32 (0xffdec4b0); }
+            get { return new Rgba32 (4292789424); }
         }
 
         /// <summary>
@@ -4635,7 +4635,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LightYellow
         {
-            get { return new Rgba32 (0xffe0ffff); }
+            get { return new Rgba32 (4292935679); }
         }
 
         /// <summary>
@@ -4643,7 +4643,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Lime
         {
-            get { return new Rgba32 (0xff00ff00); }
+            get { return new Rgba32 (4278255360); }
         }
 
         /// <summary>
@@ -4651,7 +4651,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 LimeGreen
         {
-            get { return new Rgba32 (0xff32cd32); }
+            get { return new Rgba32 (4281519410); }
         }
 
         /// <summary>
@@ -4659,7 +4659,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Linen
         {
-            get { return new Rgba32 (0xffe6f0fa); }
+            get { return new Rgba32 (4293325050); }
         }
 
         /// <summary>
@@ -4667,15 +4667,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Magenta
         {
-            get { return new Rgba32 (0xffff00ff); }
+            get { return new Rgba32 (4294902015); }
         }
 
         /// <summary>
         /// Maroon
         /// </summary>
-        public static Rgba32 Maroon 
+        public static Rgba32 Maroon
         {
-            get { return new Rgba32 (0xff000080); }
+            get { return new Rgba32 (4278190208); }
         }
 
         /// <summary>
@@ -4683,7 +4683,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumAquamarine
         {
-            get { return new Rgba32 (0xffaacd66); }
+            get { return new Rgba32 (4289383782); }
         }
 
         /// <summary>
@@ -4691,7 +4691,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumBlue
         {
-            get { return new Rgba32 (0xffcd0000); }
+            get { return new Rgba32 (4291624960); }
         }
 
         /// <summary>
@@ -4699,7 +4699,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumOrchid
         {
-            get { return new Rgba32 (0xffd355ba); }
+            get { return new Rgba32 (4292040122); }
         }
 
         /// <summary>
@@ -4707,7 +4707,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumPurple
         {
-            get { return new Rgba32 (0xffdb7093); }
+            get { return new Rgba32 (4292571283); }
         }
 
         /// <summary>
@@ -4715,7 +4715,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumSeaGreen
         {
-            get { return new Rgba32 (0xff71b33c); }
+            get { return new Rgba32 (4285641532); }
         }
 
         /// <summary>
@@ -4723,7 +4723,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumSlateBlue
         {
-            get { return new Rgba32 (0xffee687b); }
+            get { return new Rgba32 (4293814395); }
         }
 
         /// <summary>
@@ -4731,7 +4731,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumSpringGreen
         {
-            get { return new Rgba32 (0xff9afa00); }
+            get { return new Rgba32 (4288346624); }
         }
 
         /// <summary>
@@ -4739,7 +4739,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumTurquoise
         {
-            get { return new Rgba32 (0xffccd148); }
+            get { return new Rgba32 (4291613000); }
         }
 
         /// <summary>
@@ -4747,7 +4747,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MediumVioletRed
         {
-            get { return new Rgba32 (0xff8515c7); }
+            get { return new Rgba32 (4286911943); }
         }
 
         /// <summary>
@@ -4755,7 +4755,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MidnightBlue
         {
-            get { return new Rgba32 (0xff701919); }
+            get { return new Rgba32 (4285536537); }
         }
 
         /// <summary>
@@ -4763,7 +4763,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MintCream
         {
-            get { return new Rgba32 (0xfffafff5); }
+            get { return new Rgba32 (4294639605); }
         }
 
         /// <summary>
@@ -4771,7 +4771,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 MistyRose
         {
-            get { return new Rgba32 (0xffe1e4ff); }
+            get { return new Rgba32 (4292994303); }
         }
 
         /// <summary>
@@ -4779,7 +4779,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Moccasin
         {
-            get { return new Rgba32 (0xffb5e4ff); }
+            get { return new Rgba32 (4290110719); }
         }
 
         /// <summary>
@@ -4787,7 +4787,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 NavajoWhite
         {
-            get { return new Rgba32 (0xffaddeff); }
+            get { return new Rgba32 (4289584895); }
         }
 
         /// <summary>
@@ -4795,7 +4795,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Navy
         {
-            get { return new Rgba32 (0xff800000); }
+            get { return new Rgba32 (4286578688); }
         }
 
         /// <summary>
@@ -4803,7 +4803,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 OldLace
         {
-            get { return new Rgba32 (0xffe6f5fd); }
+            get { return new Rgba32 (4293326333); }
         }
 
         /// <summary>
@@ -4811,7 +4811,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Olive
         {
-            get { return new Rgba32 (0xff008080); }
+            get { return new Rgba32 (4278222976); }
         }
 
         /// <summary>
@@ -4819,7 +4819,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 OliveDrab
         {
-            get { return new Rgba32 (0xff238e6b); }
+            get { return new Rgba32 (4280520299); }
         }
 
         /// <summary>
@@ -4827,7 +4827,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Orange
         {
-            get { return new Rgba32 (0xff00a5ff); }
+            get { return new Rgba32 (4278232575); }
         }
 
         /// <summary>
@@ -4835,7 +4835,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 OrangeRed
         {
-            get { return new Rgba32 (0xff0045ff); }
+            get { return new Rgba32 (4278207999); }
         }
 
         /// <summary>
@@ -4843,7 +4843,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Orchid
         {
-            get { return new Rgba32 (0xffd670da); }
+            get { return new Rgba32 (4292243674); }
         }
 
         /// <summary>
@@ -4851,7 +4851,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 PaleGoldenrod
         {
-            get { return new Rgba32 (0xffaae8ee); }
+            get { return new Rgba32 (4289390830); }
         }
 
         /// <summary>
@@ -4859,7 +4859,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 PaleGreen
         {
-            get { return new Rgba32 (0xff98fb98); }
+            get { return new Rgba32 (4288215960); }
         }
 
         /// <summary>
@@ -4867,7 +4867,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 PaleTurquoise
         {
-            get { return new Rgba32 (0xffeeeeaf); }
+            get { return new Rgba32 (4293848751); }
         }
 
         /// <summary>
@@ -4875,7 +4875,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 PaleVioletRed
         {
-            get { return new Rgba32 (0xff9370db); }
+            get { return new Rgba32 (4287852763); }
         }
 
         /// <summary>
@@ -4883,7 +4883,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 PapayaWhip
         {
-            get { return new Rgba32 (0xffd5efff); }
+            get { return new Rgba32 (4292210687); }
         }
 
         /// <summary>
@@ -4891,7 +4891,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 PeachPuff
         {
-            get { return new Rgba32 (0xffb9daff); }
+            get { return new Rgba32 (4290370303); }
         }
 
         /// <summary>
@@ -4899,7 +4899,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Peru
         {
-            get { return new Rgba32 (0xff3f85cd); }
+            get { return new Rgba32 (4282353101); }
         }
 
         /// <summary>
@@ -4907,7 +4907,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Pink
         {
-            get { return new Rgba32 (0xffcbc0ff); }
+            get { return new Rgba32 (4291543295); }
         }
 
         /// <summary>
@@ -4915,7 +4915,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Plum
         {
-            get { return new Rgba32 (0xffdda0dd); }
+            get { return new Rgba32 (4292714717); }
         }
 
         /// <summary>
@@ -4923,7 +4923,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 PowderBlue
         {
-            get { return new Rgba32 (0xffe6e0b0); }
+            get { return new Rgba32 (4293320880); }
         }
 
         /// <summary>
@@ -4931,7 +4931,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Purple
         {
-            get { return new Rgba32 (0xff800080); }
+            get { return new Rgba32 (4286578816); }
         }
 
         /// <summary>
@@ -4939,7 +4939,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Red
         {
-            get { return new Rgba32 (0xff0000ff); }
+            get { return new Rgba32 (4278190335); }
         }
 
         /// <summary>
@@ -4947,7 +4947,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 RosyBrown
         {
-            get { return new Rgba32 (0xff8f8fbc); }
+            get { return new Rgba32 (4287598524); }
         }
 
         /// <summary>
@@ -4955,7 +4955,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 RoyalBlue
         {
-            get { return new Rgba32 (0xffe16941); }
+            get { return new Rgba32 (4292962625); }
         }
 
         /// <summary>
@@ -4963,7 +4963,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SaddleBrown
         {
-            get { return new Rgba32 (0xff13458b); }
+            get { return new Rgba32 (4279453067); }
         }
 
         /// <summary>
@@ -4971,7 +4971,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Salmon
         {
-            get { return new Rgba32 (0xff7280fa); }
+            get { return new Rgba32 (4285694202); }
         }
 
         /// <summary>
@@ -4979,7 +4979,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SandyBrown
         {
-            get{ return new Rgba32 (0xff60a4f4); }
+            get { return new Rgba32 (4284523764); }
         }
 
         /// <summary>
@@ -4987,7 +4987,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SeaGreen
         {
-            get { return new Rgba32 (0xff578b2e); }
+            get { return new Rgba32 (4283927342); }
         }
 
         /// <summary>
@@ -4995,7 +4995,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SeaShell
         {
-            get { return new Rgba32 (0xffeef5ff); }
+            get { return new Rgba32 (4293850623); }
         }
 
         /// <summary>
@@ -5003,7 +5003,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Sienna
         {
-            get { return new Rgba32 (0xff2d52a0); }
+            get { return new Rgba32 (4281160352); }
         }
 
         /// <summary>
@@ -5011,7 +5011,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Silver
         {
-            get { return new Rgba32 (0xffc0c0c0); }
+            get { return new Rgba32 (4290822336); }
         }
 
         /// <summary>
@@ -5019,7 +5019,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SkyBlue
         {
-            get { return new Rgba32 (0xffebce87); }
+            get { return new Rgba32 (4293643911); }
         }
 
         /// <summary>
@@ -5027,15 +5027,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SlateBlue
         {
-            get { return new Rgba32 (0xffcd5a6a); }
+            get { return new Rgba32 (4291648106); }
         }
 
         /// <summary>
-        /// SlateGray
+        /// SlateGrey
         /// </summary>
-        public static Rgba32 SlateGray
+        public static Rgba32 SlateGrey
         {
-            get { return new Rgba32 (0xff908070); }
+            get { return new Rgba32 (4287660144); }
         }
 
         /// <summary>
@@ -5043,7 +5043,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Snow
         {
-            get { return new Rgba32 (0xfffafaff); }
+            get { return new Rgba32 (4294638335); }
         }
 
         /// <summary>
@@ -5051,7 +5051,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SpringGreen
         {
-            get { return new Rgba32 (0xff7fff00); }
+            get { return new Rgba32 (4286578432); }
         }
 
         /// <summary>
@@ -5059,7 +5059,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 SteelBlue
         {
-            get { return new Rgba32 (0xffb48246); }
+            get { return new Rgba32 (4290019910); }
         }
 
         /// <summary>
@@ -5067,7 +5067,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Tan
         {
-            get { return new Rgba32 (0xff8cb4d2); }
+            get { return new Rgba32 (4287411410); }
         }
 
         /// <summary>
@@ -5075,7 +5075,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Teal
         {
-            get { return new Rgba32 (0xff808000); }
+            get { return new Rgba32 (4286611456); }
         }
 
         /// <summary>
@@ -5083,7 +5083,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Thistle
         {
-            get { return new Rgba32 (0xffd8bfd8); }
+            get { return new Rgba32 (4292394968); }
         }
 
         /// <summary>
@@ -5091,7 +5091,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Tomato
         {
-            get { return new Rgba32 (0xff4763ff); }
+            get { return new Rgba32 (4282868735); }
         }
 
         /// <summary>
@@ -5099,7 +5099,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Turquoise
         {
-            get { return new Rgba32 (0xffd0e040); }
+            get { return new Rgba32 (4291878976); }
         }
 
         /// <summary>
@@ -5107,7 +5107,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Violet
         {
-            get {return new Rgba32 (0xffee82ee); }
+            get { return new Rgba32 (4293821166); }
         }
 
         /// <summary>
@@ -5115,7 +5115,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Wheat
         {
-            get { return new Rgba32 (0xffb3def5); }
+            get { return new Rgba32 (4289978101); }
         }
 
         /// <summary>
@@ -5123,7 +5123,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 White
         {
-            get { return new Rgba32 (UInt32.MaxValue); }
+            get { return new Rgba32 (4294967295); }
         }
 
         /// <summary>
@@ -5131,7 +5131,7 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 WhiteSmoke
         {
-            get { return new Rgba32 (0xfff5f5f5); }
+            get { return new Rgba32 (4294309365); }
         }
 
         /// <summary>
@@ -5139,15 +5139,15 @@ namespace Abacus.Packed
         /// </summary>
         public static Rgba32 Yellow
         {
-            get { return new Rgba32 (0xff00ffff); }
+            get { return new Rgba32 (4278255615); }
         }
 
         /// <summary>
         /// YellowGreen
         /// </summary>
-        public static Rgba32 YellowGreen 
+        public static Rgba32 YellowGreen
         {
-            get { return new Rgba32 (0xff32cd9a); }
+            get { return new Rgba32 (4281519514); }
         }
 
 

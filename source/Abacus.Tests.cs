@@ -2011,11 +2011,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_AliceBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.AliceBlue;
+            Assert.That(val.R, Is.EqualTo(240));
+            Assert.That(val.G, Is.EqualTo(248));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2024,11 +2024,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_AntiqueWhite_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.AntiqueWhite;
+            Assert.That(val.R, Is.EqualTo(250));
+            Assert.That(val.G, Is.EqualTo(235));
+            Assert.That(val.B, Is.EqualTo(215));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2037,11 +2037,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Aqua_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Aqua;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2050,11 +2050,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Aquamarine_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Aquamarine;
+            Assert.That(val.R, Is.EqualTo(127));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(212));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2063,11 +2063,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Azure_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Azure;
+            Assert.That(val.R, Is.EqualTo(240));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2076,11 +2076,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Beige_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Beige;
+            Assert.That(val.R, Is.EqualTo(245));
+            Assert.That(val.G, Is.EqualTo(245));
+            Assert.That(val.B, Is.EqualTo(220));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2089,11 +2089,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Bisque_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Bisque;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(228));
+            Assert.That(val.B, Is.EqualTo(196));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2102,11 +2102,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Black_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Black;
             Assert.That(val.R, Is.EqualTo(0));
             Assert.That(val.G, Is.EqualTo(0));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2115,11 +2115,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_BlanchedAlmond_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.BlanchedAlmond;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(235));
+            Assert.That(val.B, Is.EqualTo(205));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2128,11 +2128,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Blue_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Blue;
             Assert.That(val.R, Is.EqualTo(0));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2141,11 +2141,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_BlueViolet_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.BlueViolet;
+            Assert.That(val.R, Is.EqualTo(138));
+            Assert.That(val.G, Is.EqualTo(43));
+            Assert.That(val.B, Is.EqualTo(226));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2154,11 +2154,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Brown_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Brown;
+            Assert.That(val.R, Is.EqualTo(165));
+            Assert.That(val.G, Is.EqualTo(42));
+            Assert.That(val.B, Is.EqualTo(42));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2167,11 +2167,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_BurlyWood_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.BurlyWood;
+            Assert.That(val.R, Is.EqualTo(222));
+            Assert.That(val.G, Is.EqualTo(184));
+            Assert.That(val.B, Is.EqualTo(135));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2180,11 +2180,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_CadetBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.CadetBlue;
+            Assert.That(val.R, Is.EqualTo(95));
+            Assert.That(val.G, Is.EqualTo(158));
+            Assert.That(val.B, Is.EqualTo(160));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2193,11 +2193,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Chartreuse_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.Chartreuse;
+            Assert.That(val.R, Is.EqualTo(127));
+            Assert.That(val.G, Is.EqualTo(255));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2206,11 +2206,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Chocolate_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Chocolate;
+            Assert.That(val.R, Is.EqualTo(210));
+            Assert.That(val.G, Is.EqualTo(105));
+            Assert.That(val.B, Is.EqualTo(30));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2219,11 +2219,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Coral_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Coral;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(127));
+            Assert.That(val.B, Is.EqualTo(80));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2232,11 +2232,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_CornflowerBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.CornflowerBlue;
+            Assert.That(val.R, Is.EqualTo(100));
+            Assert.That(val.G, Is.EqualTo(149));
+            Assert.That(val.B, Is.EqualTo(237));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2245,11 +2245,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Cornsilk_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Cornsilk;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(248));
+            Assert.That(val.B, Is.EqualTo(220));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2258,11 +2258,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Crimson_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Crimson;
+            Assert.That(val.R, Is.EqualTo(220));
+            Assert.That(val.G, Is.EqualTo(20));
+            Assert.That(val.B, Is.EqualTo(60));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2271,11 +2271,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Cyan_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Cyan;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2284,11 +2284,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkBlue_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.DarkBlue;
             Assert.That(val.R, Is.EqualTo(0));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(139));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2297,11 +2297,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkCyan_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.DarkCyan;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(139));
+            Assert.That(val.B, Is.EqualTo(139));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2310,24 +2310,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkGoldenrod_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkGoldenrod;
+            Assert.That(val.R, Is.EqualTo(184));
+            Assert.That(val.G, Is.EqualTo(134));
+            Assert.That(val.B, Is.EqualTo(11));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
-        /// Tests that the DarkGray constant yeilds the correct value.
+        /// Tests that the DarkGrey constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_DarkGray_i ()
+        public void TestConstant_DarkGrey_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkGrey;
+            Assert.That(val.R, Is.EqualTo(169));
+            Assert.That(val.G, Is.EqualTo(169));
+            Assert.That(val.B, Is.EqualTo(169));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2336,11 +2336,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkGreen_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.DarkGreen;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(100));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2349,11 +2349,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkKhaki_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkKhaki;
+            Assert.That(val.R, Is.EqualTo(189));
+            Assert.That(val.G, Is.EqualTo(183));
+            Assert.That(val.B, Is.EqualTo(107));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2362,11 +2362,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkMagenta_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.DarkMagenta;
+            Assert.That(val.R, Is.EqualTo(139));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(139));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2375,11 +2375,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkOliveGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkOliveGreen;
+            Assert.That(val.R, Is.EqualTo(85));
+            Assert.That(val.G, Is.EqualTo(107));
+            Assert.That(val.B, Is.EqualTo(47));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2388,11 +2388,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkOrange_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.DarkOrange;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(140));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2401,11 +2401,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkOrchid_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkOrchid;
+            Assert.That(val.R, Is.EqualTo(153));
+            Assert.That(val.G, Is.EqualTo(50));
+            Assert.That(val.B, Is.EqualTo(204));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2414,11 +2414,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkRed_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.DarkRed;
+            Assert.That(val.R, Is.EqualTo(139));
             Assert.That(val.G, Is.EqualTo(0));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2427,11 +2427,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkSalmon_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkSalmon;
+            Assert.That(val.R, Is.EqualTo(233));
+            Assert.That(val.G, Is.EqualTo(150));
+            Assert.That(val.B, Is.EqualTo(122));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2440,11 +2440,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkSeaGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkSeaGreen;
+            Assert.That(val.R, Is.EqualTo(143));
+            Assert.That(val.G, Is.EqualTo(188));
+            Assert.That(val.B, Is.EqualTo(139));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2453,24 +2453,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkSlateBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkSlateBlue;
+            Assert.That(val.R, Is.EqualTo(72));
+            Assert.That(val.G, Is.EqualTo(61));
+            Assert.That(val.B, Is.EqualTo(139));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
-        /// Tests that the DarkSlateGray constant yeilds the correct value.
+        /// Tests that the DarkSlateGrey constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_DarkSlateGray_i ()
+        public void TestConstant_DarkSlateGrey_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DarkSlateGrey;
+            Assert.That(val.R, Is.EqualTo(47));
+            Assert.That(val.G, Is.EqualTo(79));
+            Assert.That(val.B, Is.EqualTo(79));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2479,11 +2479,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkTurquoise_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.DarkTurquoise;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(206));
+            Assert.That(val.B, Is.EqualTo(209));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2492,11 +2492,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DarkViolet_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.DarkViolet;
+            Assert.That(val.R, Is.EqualTo(148));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(211));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2505,11 +2505,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DeepPink_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DeepPink;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(20));
+            Assert.That(val.B, Is.EqualTo(147));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2518,24 +2518,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DeepSkyBlue_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.DeepSkyBlue;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(191));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
-        /// Tests that the DimGray constant yeilds the correct value.
+        /// Tests that the DimGrey constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_DimGray_i ()
+        public void TestConstant_DimGrey_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DimGrey;
+            Assert.That(val.R, Is.EqualTo(105));
+            Assert.That(val.G, Is.EqualTo(105));
+            Assert.That(val.B, Is.EqualTo(105));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2544,24 +2544,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_DodgerBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.DodgerBlue;
+            Assert.That(val.R, Is.EqualTo(30));
+            Assert.That(val.G, Is.EqualTo(144));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
-        
+
         /// <summary>
         /// Tests that the Firebrick constant yeilds the correct value.
         /// </summary>
         [Test]
         public void TestConstant_Firebrick_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Firebrick;
+            Assert.That(val.R, Is.EqualTo(178));
+            Assert.That(val.G, Is.EqualTo(34));
+            Assert.That(val.B, Is.EqualTo(34));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2570,11 +2570,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_FloralWhite_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.FloralWhite;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(250));
+            Assert.That(val.B, Is.EqualTo(240));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2583,11 +2583,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_ForestGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.ForestGreen;
+            Assert.That(val.R, Is.EqualTo(34));
+            Assert.That(val.G, Is.EqualTo(139));
+            Assert.That(val.B, Is.EqualTo(34));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2596,11 +2596,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Fuchsia_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.Fuchsia;
+            Assert.That(val.R, Is.EqualTo(255));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2609,11 +2609,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Gainsboro_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Gainsboro;
+            Assert.That(val.R, Is.EqualTo(220));
+            Assert.That(val.G, Is.EqualTo(220));
+            Assert.That(val.B, Is.EqualTo(220));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2622,11 +2622,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_GhostWhite_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.GhostWhite;
+            Assert.That(val.R, Is.EqualTo(248));
+            Assert.That(val.G, Is.EqualTo(248));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2635,11 +2635,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Gold_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.Gold;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(215));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2648,24 +2648,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Goldenrod_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Goldenrod;
+            Assert.That(val.R, Is.EqualTo(218));
+            Assert.That(val.G, Is.EqualTo(165));
+            Assert.That(val.B, Is.EqualTo(32));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
-        /// Tests that the Gray constant yeilds the correct value.
+        /// Tests that the Grey constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_Gray_i ()
+        public void TestConstant_Grey_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Grey;
+            Assert.That(val.R, Is.EqualTo(128));
+            Assert.That(val.G, Is.EqualTo(128));
+            Assert.That(val.B, Is.EqualTo(128));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2674,11 +2674,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Green_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Green;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(128));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2687,11 +2687,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_GreenYellow_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.GreenYellow;
+            Assert.That(val.R, Is.EqualTo(173));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(47));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2700,11 +2700,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Honeydew_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Honeydew;
+            Assert.That(val.R, Is.EqualTo(240));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(240));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2713,11 +2713,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_HotPink_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.HotPink;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(105));
+            Assert.That(val.B, Is.EqualTo(180));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2726,11 +2726,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_IndianRed_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.IndianRed;
+            Assert.That(val.R, Is.EqualTo(205));
+            Assert.That(val.G, Is.EqualTo(92));
+            Assert.That(val.B, Is.EqualTo(92));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2739,11 +2739,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Indigo_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.Indigo;
+            Assert.That(val.R, Is.EqualTo(75));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(130));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2752,11 +2752,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Ivory_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Ivory;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(240));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2765,11 +2765,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Khaki_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Khaki;
+            Assert.That(val.R, Is.EqualTo(240));
+            Assert.That(val.G, Is.EqualTo(230));
+            Assert.That(val.B, Is.EqualTo(140));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2778,11 +2778,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Lavender_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Lavender;
+            Assert.That(val.R, Is.EqualTo(230));
+            Assert.That(val.G, Is.EqualTo(230));
+            Assert.That(val.B, Is.EqualTo(250));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2791,11 +2791,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LavenderBlush_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LavenderBlush;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(240));
+            Assert.That(val.B, Is.EqualTo(245));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2804,11 +2804,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LawnGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.LawnGreen;
+            Assert.That(val.R, Is.EqualTo(124));
+            Assert.That(val.G, Is.EqualTo(252));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2817,11 +2817,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LemonChiffon_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LemonChiffon;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(250));
+            Assert.That(val.B, Is.EqualTo(205));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2830,11 +2830,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightBlue;
+            Assert.That(val.R, Is.EqualTo(173));
+            Assert.That(val.G, Is.EqualTo(216));
+            Assert.That(val.B, Is.EqualTo(230));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2843,11 +2843,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightCoral_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightCoral;
+            Assert.That(val.R, Is.EqualTo(240));
+            Assert.That(val.G, Is.EqualTo(128));
+            Assert.That(val.B, Is.EqualTo(128));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2856,11 +2856,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightCyan_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightCyan;
+            Assert.That(val.R, Is.EqualTo(224));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2869,11 +2869,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightGoldenrodYellow_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightGoldenrodYellow;
+            Assert.That(val.R, Is.EqualTo(250));
+            Assert.That(val.G, Is.EqualTo(250));
+            Assert.That(val.B, Is.EqualTo(210));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2882,24 +2882,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightGreen;
+            Assert.That(val.R, Is.EqualTo(144));
+            Assert.That(val.G, Is.EqualTo(238));
+            Assert.That(val.B, Is.EqualTo(144));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
-        /// Tests that the LightGray constant yeilds the correct value.
+        /// Tests that the LightGrey constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_LightGray_i ()
+        public void TestConstant_LightGrey_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightGrey;
+            Assert.That(val.R, Is.EqualTo(211));
+            Assert.That(val.G, Is.EqualTo(211));
+            Assert.That(val.B, Is.EqualTo(211));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2908,11 +2908,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightPink_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightPink;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(182));
+            Assert.That(val.B, Is.EqualTo(193));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2921,11 +2921,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightSalmon_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightSalmon;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(160));
+            Assert.That(val.B, Is.EqualTo(122));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2934,11 +2934,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightSeaGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightSeaGreen;
+            Assert.That(val.R, Is.EqualTo(32));
+            Assert.That(val.G, Is.EqualTo(178));
+            Assert.That(val.B, Is.EqualTo(170));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2947,24 +2947,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightSkyBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightSkyBlue;
+            Assert.That(val.R, Is.EqualTo(135));
+            Assert.That(val.G, Is.EqualTo(206));
+            Assert.That(val.B, Is.EqualTo(250));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
-        /// Tests that the LightSlateGray constant yeilds the correct value.
+        /// Tests that the LightSlateGrey constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_LightSlateGray_i ()
+        public void TestConstant_LightSlateGrey_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightSlateGrey;
+            Assert.That(val.R, Is.EqualTo(119));
+            Assert.That(val.G, Is.EqualTo(136));
+            Assert.That(val.B, Is.EqualTo(153));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2973,11 +2973,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightSteelBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightSteelBlue;
+            Assert.That(val.R, Is.EqualTo(176));
+            Assert.That(val.G, Is.EqualTo(196));
+            Assert.That(val.B, Is.EqualTo(222));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2986,11 +2986,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LightYellow_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LightYellow;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(224));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -2999,11 +2999,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Lime_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Lime;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(255));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3012,11 +3012,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_LimeGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.LimeGreen;
+            Assert.That(val.R, Is.EqualTo(50));
+            Assert.That(val.G, Is.EqualTo(205));
+            Assert.That(val.B, Is.EqualTo(50));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3025,11 +3025,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Linen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Linen;
+            Assert.That(val.R, Is.EqualTo(250));
+            Assert.That(val.G, Is.EqualTo(240));
+            Assert.That(val.B, Is.EqualTo(230));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3038,24 +3038,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Magenta_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.Magenta;
+            Assert.That(val.R, Is.EqualTo(255));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
         /// Tests that the Maroon constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_Maroon_i () 
+        public void TestConstant_Maroon_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.Maroon;
+            Assert.That(val.R, Is.EqualTo(128));
             Assert.That(val.G, Is.EqualTo(0));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3064,11 +3064,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumAquamarine_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MediumAquamarine;
+            Assert.That(val.R, Is.EqualTo(102));
+            Assert.That(val.G, Is.EqualTo(205));
+            Assert.That(val.B, Is.EqualTo(170));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3077,11 +3077,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumBlue_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.MediumBlue;
             Assert.That(val.R, Is.EqualTo(0));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(205));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3090,11 +3090,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumOrchid_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MediumOrchid;
+            Assert.That(val.R, Is.EqualTo(186));
+            Assert.That(val.G, Is.EqualTo(85));
+            Assert.That(val.B, Is.EqualTo(211));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3103,11 +3103,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumPurple_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MediumPurple;
+            Assert.That(val.R, Is.EqualTo(147));
+            Assert.That(val.G, Is.EqualTo(112));
+            Assert.That(val.B, Is.EqualTo(219));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3116,11 +3116,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumSeaGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MediumSeaGreen;
+            Assert.That(val.R, Is.EqualTo(60));
+            Assert.That(val.G, Is.EqualTo(179));
+            Assert.That(val.B, Is.EqualTo(113));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3129,11 +3129,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumSlateBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MediumSlateBlue;
+            Assert.That(val.R, Is.EqualTo(123));
+            Assert.That(val.G, Is.EqualTo(104));
+            Assert.That(val.B, Is.EqualTo(238));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3142,11 +3142,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumSpringGreen_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.MediumSpringGreen;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(250));
+            Assert.That(val.B, Is.EqualTo(154));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3155,11 +3155,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumTurquoise_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MediumTurquoise;
+            Assert.That(val.R, Is.EqualTo(72));
+            Assert.That(val.G, Is.EqualTo(209));
+            Assert.That(val.B, Is.EqualTo(204));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3168,11 +3168,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MediumVioletRed_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MediumVioletRed;
+            Assert.That(val.R, Is.EqualTo(199));
+            Assert.That(val.G, Is.EqualTo(21));
+            Assert.That(val.B, Is.EqualTo(133));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3181,11 +3181,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MidnightBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MidnightBlue;
+            Assert.That(val.R, Is.EqualTo(25));
+            Assert.That(val.G, Is.EqualTo(25));
+            Assert.That(val.B, Is.EqualTo(112));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3194,11 +3194,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MintCream_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MintCream;
+            Assert.That(val.R, Is.EqualTo(245));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(250));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3207,11 +3207,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_MistyRose_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.MistyRose;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(228));
+            Assert.That(val.B, Is.EqualTo(225));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3220,11 +3220,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Moccasin_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Moccasin;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(228));
+            Assert.That(val.B, Is.EqualTo(181));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3233,11 +3233,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_NavajoWhite_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.NavajoWhite;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(222));
+            Assert.That(val.B, Is.EqualTo(173));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3246,11 +3246,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Navy_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Navy;
             Assert.That(val.R, Is.EqualTo(0));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(128));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3259,11 +3259,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_OldLace_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.OldLace;
+            Assert.That(val.R, Is.EqualTo(253));
+            Assert.That(val.G, Is.EqualTo(245));
+            Assert.That(val.B, Is.EqualTo(230));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3272,11 +3272,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Olive_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.Olive;
+            Assert.That(val.R, Is.EqualTo(128));
+            Assert.That(val.G, Is.EqualTo(128));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3285,11 +3285,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_OliveDrab_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.OliveDrab;
+            Assert.That(val.R, Is.EqualTo(107));
+            Assert.That(val.G, Is.EqualTo(142));
+            Assert.That(val.B, Is.EqualTo(35));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3298,11 +3298,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Orange_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.Orange;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(165));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3311,11 +3311,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_OrangeRed_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.OrangeRed;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(69));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3324,11 +3324,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Orchid_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Orchid;
+            Assert.That(val.R, Is.EqualTo(218));
+            Assert.That(val.G, Is.EqualTo(112));
+            Assert.That(val.B, Is.EqualTo(214));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3337,11 +3337,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_PaleGoldenrod_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.PaleGoldenrod;
+            Assert.That(val.R, Is.EqualTo(238));
+            Assert.That(val.G, Is.EqualTo(232));
+            Assert.That(val.B, Is.EqualTo(170));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3350,11 +3350,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_PaleGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.PaleGreen;
+            Assert.That(val.R, Is.EqualTo(152));
+            Assert.That(val.G, Is.EqualTo(251));
+            Assert.That(val.B, Is.EqualTo(152));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3363,11 +3363,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_PaleTurquoise_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.PaleTurquoise;
+            Assert.That(val.R, Is.EqualTo(175));
+            Assert.That(val.G, Is.EqualTo(238));
+            Assert.That(val.B, Is.EqualTo(238));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3376,11 +3376,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_PaleVioletRed_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.PaleVioletRed;
+            Assert.That(val.R, Is.EqualTo(219));
+            Assert.That(val.G, Is.EqualTo(112));
+            Assert.That(val.B, Is.EqualTo(147));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3389,11 +3389,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_PapayaWhip_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.PapayaWhip;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(239));
+            Assert.That(val.B, Is.EqualTo(213));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3402,11 +3402,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_PeachPuff_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.PeachPuff;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(218));
+            Assert.That(val.B, Is.EqualTo(185));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3415,11 +3415,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Peru_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Peru;
+            Assert.That(val.R, Is.EqualTo(205));
+            Assert.That(val.G, Is.EqualTo(133));
+            Assert.That(val.B, Is.EqualTo(63));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3428,11 +3428,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Pink_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Pink;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(192));
+            Assert.That(val.B, Is.EqualTo(203));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3441,11 +3441,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Plum_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Plum;
+            Assert.That(val.R, Is.EqualTo(221));
+            Assert.That(val.G, Is.EqualTo(160));
+            Assert.That(val.B, Is.EqualTo(221));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3454,11 +3454,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_PowderBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.PowderBlue;
+            Assert.That(val.R, Is.EqualTo(176));
+            Assert.That(val.G, Is.EqualTo(224));
+            Assert.That(val.B, Is.EqualTo(230));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3467,11 +3467,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Purple_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.Purple;
+            Assert.That(val.R, Is.EqualTo(128));
             Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.B, Is.EqualTo(128));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3480,11 +3480,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Red_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
+            var val = Rgba32.Red;
+            Assert.That(val.R, Is.EqualTo(255));
             Assert.That(val.G, Is.EqualTo(0));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3493,11 +3493,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_RosyBrown_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.RosyBrown;
+            Assert.That(val.R, Is.EqualTo(188));
+            Assert.That(val.G, Is.EqualTo(143));
+            Assert.That(val.B, Is.EqualTo(143));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3506,11 +3506,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_RoyalBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.RoyalBlue;
+            Assert.That(val.R, Is.EqualTo(65));
+            Assert.That(val.G, Is.EqualTo(105));
+            Assert.That(val.B, Is.EqualTo(225));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3519,11 +3519,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SaddleBrown_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SaddleBrown;
+            Assert.That(val.R, Is.EqualTo(139));
+            Assert.That(val.G, Is.EqualTo(69));
+            Assert.That(val.B, Is.EqualTo(19));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3532,11 +3532,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Salmon_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Salmon;
+            Assert.That(val.R, Is.EqualTo(250));
+            Assert.That(val.G, Is.EqualTo(128));
+            Assert.That(val.B, Is.EqualTo(114));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3545,11 +3545,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SandyBrown_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SandyBrown;
+            Assert.That(val.R, Is.EqualTo(244));
+            Assert.That(val.G, Is.EqualTo(164));
+            Assert.That(val.B, Is.EqualTo(96));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3558,11 +3558,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SeaGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SeaGreen;
+            Assert.That(val.R, Is.EqualTo(46));
+            Assert.That(val.G, Is.EqualTo(139));
+            Assert.That(val.B, Is.EqualTo(87));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3571,11 +3571,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SeaShell_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SeaShell;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(245));
+            Assert.That(val.B, Is.EqualTo(238));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3584,11 +3584,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Sienna_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Sienna;
+            Assert.That(val.R, Is.EqualTo(160));
+            Assert.That(val.G, Is.EqualTo(82));
+            Assert.That(val.B, Is.EqualTo(45));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3597,11 +3597,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Silver_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Silver;
+            Assert.That(val.R, Is.EqualTo(192));
+            Assert.That(val.G, Is.EqualTo(192));
+            Assert.That(val.B, Is.EqualTo(192));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3610,11 +3610,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SkyBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SkyBlue;
+            Assert.That(val.R, Is.EqualTo(135));
+            Assert.That(val.G, Is.EqualTo(206));
+            Assert.That(val.B, Is.EqualTo(235));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3623,24 +3623,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SlateBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SlateBlue;
+            Assert.That(val.R, Is.EqualTo(106));
+            Assert.That(val.G, Is.EqualTo(90));
+            Assert.That(val.B, Is.EqualTo(205));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
-        /// Tests that the SlateGray constant yeilds the correct value.
+        /// Tests that the SlateGrey constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_SlateGray_i ()
+        public void TestConstant_SlateGrey_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SlateGrey;
+            Assert.That(val.R, Is.EqualTo(112));
+            Assert.That(val.G, Is.EqualTo(128));
+            Assert.That(val.B, Is.EqualTo(144));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3649,11 +3649,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Snow_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Snow;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(250));
+            Assert.That(val.B, Is.EqualTo(250));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3662,11 +3662,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SpringGreen_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.SpringGreen;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(127));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3675,11 +3675,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_SteelBlue_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.SteelBlue;
+            Assert.That(val.R, Is.EqualTo(70));
+            Assert.That(val.G, Is.EqualTo(130));
+            Assert.That(val.B, Is.EqualTo(180));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3688,11 +3688,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Tan_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Tan;
+            Assert.That(val.R, Is.EqualTo(210));
+            Assert.That(val.G, Is.EqualTo(180));
+            Assert.That(val.B, Is.EqualTo(140));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3701,11 +3701,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Teal_i ()
         {
-            var val = Rgba32.Transparent;
+            var val = Rgba32.Teal;
             Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.G, Is.EqualTo(128));
+            Assert.That(val.B, Is.EqualTo(128));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3714,11 +3714,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Thistle_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Thistle;
+            Assert.That(val.R, Is.EqualTo(216));
+            Assert.That(val.G, Is.EqualTo(191));
+            Assert.That(val.B, Is.EqualTo(216));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3727,11 +3727,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Tomato_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Tomato;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(99));
+            Assert.That(val.B, Is.EqualTo(71));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3740,11 +3740,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Turquoise_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Turquoise;
+            Assert.That(val.R, Is.EqualTo(64));
+            Assert.That(val.G, Is.EqualTo(224));
+            Assert.That(val.B, Is.EqualTo(208));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3753,11 +3753,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Violet_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Violet;
+            Assert.That(val.R, Is.EqualTo(238));
+            Assert.That(val.G, Is.EqualTo(130));
+            Assert.That(val.B, Is.EqualTo(238));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3766,11 +3766,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Wheat_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.Wheat;
+            Assert.That(val.R, Is.EqualTo(245));
+            Assert.That(val.G, Is.EqualTo(222));
+            Assert.That(val.B, Is.EqualTo(179));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3779,11 +3779,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_White_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.White;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(255));
+            Assert.That(val.B, Is.EqualTo(255));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3792,11 +3792,11 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_WhiteSmoke_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.WhiteSmoke;
+            Assert.That(val.R, Is.EqualTo(245));
+            Assert.That(val.G, Is.EqualTo(245));
+            Assert.That(val.B, Is.EqualTo(245));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
@@ -3805,24 +3805,24 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestConstant_Yellow_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
+            var val = Rgba32.Yellow;
+            Assert.That(val.R, Is.EqualTo(255));
+            Assert.That(val.G, Is.EqualTo(255));
             Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
         /// <summary>
         /// Tests that the YellowGreen constant yeilds the correct value.
         /// </summary>
         [Test]
-        public void TestConstant_YellowGreen_i () 
+        public void TestConstant_YellowGreen_i ()
         {
-            var val = Rgba32.Transparent;
-            Assert.That(val.R, Is.EqualTo(0));
-            Assert.That(val.G, Is.EqualTo(0));
-            Assert.That(val.B, Is.EqualTo(0));
-            Assert.That(val.A, Is.EqualTo(0));
+            var val = Rgba32.YellowGreen;
+            Assert.That(val.R, Is.EqualTo(154));
+            Assert.That(val.G, Is.EqualTo(205));
+            Assert.That(val.B, Is.EqualTo(50));
+            Assert.That(val.A, Is.EqualTo(255));
         }
 
 

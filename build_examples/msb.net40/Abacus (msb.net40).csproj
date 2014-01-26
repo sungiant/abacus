@@ -123,9 +123,6 @@
     <None Include="..\..\generate\Abacus.Tests\Packed\Rg32.Tests.t4">
       <Link>Abacus.Tests\Packed\Rg32.Tests.t4</Link>
     </None>
-    <None Include="..\..\generate\Abacus.Tests\Packed\Rgba32.Constants.Tests.t4">
-      <Link>Abacus.Tests\Packed\Rgba32.Constants.Tests.t4</Link>
-    </None>
     <None Include="..\..\generate\Abacus.Tests\Packed\Rgba32.Misc.Tests.t4">
       <Link>Abacus.Tests\Packed\Rgba32.Misc.Tests.t4</Link>
     </None>
@@ -347,9 +344,6 @@
     </None>
     <None Include="..\..\generate\Abacus\Packed\Rg32.t4">
       <Link>Abacus\Packed\Rg32.t4</Link>
-    </None>
-    <None Include="..\..\generate\Abacus\Packed\Rgba32.Constants.t4">
-      <Link>Abacus\Packed\Rgba32.Constants.t4</Link>
     </None>
     <None Include="..\..\generate\Abacus\Packed\Rgba32.Misc.t4">
       <Link>Abacus\Packed\Rgba32.Misc.t4</Link>

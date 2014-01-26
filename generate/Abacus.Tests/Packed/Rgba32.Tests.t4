@@ -67,7 +67,22 @@
             Assert.That(collisions, Is.LessThan(10));
         }
 
-<#@ include file="Rgba32.Constants.Tests.t4"#>
+<# foreach( var kvp in GetColours() ) { #>
+        /// <summary>
+        /// Tests that the <#= kvp.Key #> constant yeilds the correct value.
+        /// </summary>
+        [Test]
+        public void TestConstant_<#= kvp.Key #>_i ()
+        {
+            var val = Rgba32.<#= kvp.Key #>;
+            Assert.That(val.R, Is.EqualTo(<#= ((Byte) (kvp.Value)) #>));
+            Assert.That(val.G, Is.EqualTo(<#= ((Byte) (kvp.Value >> 8)) #>));
+            Assert.That(val.B, Is.EqualTo(<#= ((Byte) (kvp.Value >> 16)) #>));
+            Assert.That(val.A, Is.EqualTo(<#= ((Byte) (kvp.Value >> 24)) #>));
+        }
+
+<# } #>
+
 <#@ include file="Rgba32.Misc.Tests.t4"#>
 <#@ include file="Rgba32.Operators.Tests.t4"#>
     }
