@@ -42,7 +42,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\source\Abacus.cs">
+    <Compile Include="..\..\..\source\Abacus.cs">
       <Link>Abacus.cs</Link>
     </Compile>
     <Compile Include="Resources\Resource.designer.cs" />

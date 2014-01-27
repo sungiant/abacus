@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\..\source\Abacus.cs">
+    <Compile Include="..\..\..\source\Abacus.cs">
       <Link>Abacus.cs</Link>
     </Compile>
   </ItemGroup>

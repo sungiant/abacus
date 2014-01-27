@@ -1,6 +1,7 @@
 <#@ template debug="true" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
 // ┌────────────────────────────────────────────────────────────────────────┐ \\
 // │ Abacus - Fast, efficient, cross precision, maths library               │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
@@ -69,7 +70,7 @@ namespace Abacus.Tests
 
 namespace Abacus.Packed.Tests
 {
-	using Abacus.Tests;
+    using Abacus.Tests;
 <#@ include file="Packed/Alpha8.Tests.t4"#>
 <#@ include file="Packed/Bgr_5_6_5.Tests.t4"#>
 <#@ include file="Packed/Bgra16.Tests.t4"#>

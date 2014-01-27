@@ -4,8 +4,8 @@
     [TestFixture]
     public class PackUtils
     {
-    	/*
-    	/// <summary>
+        /*
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -17,17 +17,17 @@
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	Single s = (Single)rand.NextDouble();
+                Single s = (Single)rand.NextDouble();
 
-            	UInt32 p = global::Abacus.PackUtils.PackSigned (bitmask, s);
+                UInt32 p = global::Abacus.PackUtils.PackSigned (bitmask, s);
 
-            	Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
 
-            	Assert.That (u, Is.EqualTo(s));
+                Assert.That (u, Is.EqualTo(s));
             }
         }
 
-     	/// <summary>
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -39,18 +39,18 @@
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	rand.NextBytes(buff);
+                rand.NextBytes(buff);
                 UInt32 p = BitConverter.ToUInt32(buff, 0);
 
-            	Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
 
-            	UInt32 rp = global::Abacus.PackUtils.PackSigned (bitmask, u);
+                UInt32 rp = global::Abacus.PackUtils.PackSigned (bitmask, u);
 
-            	Assert.That (rp, Is.EqualTo(p));
+                Assert.That (rp, Is.EqualTo(p));
             }
         }*/
 
-    	/// <summary>
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -62,19 +62,19 @@
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	Single s = (Single)rand.NextDouble();
+                Single s = (Single)rand.NextDouble();
 
-            	if (rand.Next(0, 1) == 1) s = -s;
+                if (rand.Next(0, 1) == 1) s = -s;
 
-            	UInt32 p = global::Abacus.PackUtils.PackSignedNormalised (bitmask, s);
+                UInt32 p = global::Abacus.PackUtils.PackSignedNormalised (bitmask, s);
 
-            	Single u = global::Abacus.PackUtils.UnpackSignedNormalised (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackSignedNormalised (bitmask, p);
 
-            	Assert.That (u, Is.EqualTo(s));
+                Assert.That (u, Is.EqualTo(s));
             }
         }
 
-    	/// <summary>
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -86,13 +86,13 @@
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	Single s = (Single)rand.NextDouble();
+                Single s = (Single)rand.NextDouble();
 
-            	UInt32 p = global::Abacus.PackUtils.PackUnsignedNormalisedValue (bitmask, s);
+                UInt32 p = global::Abacus.PackUtils.PackUnsignedNormalisedValue (bitmask, s);
 
-            	Single u = global::Abacus.PackUtils.UnpackUnsignedNormalisedValue (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackUnsignedNormalisedValue (bitmask, p);
 
-            	Assert.That (u, Is.EqualTo(s));
+                Assert.That (u, Is.EqualTo(s));
             }
         }
     }

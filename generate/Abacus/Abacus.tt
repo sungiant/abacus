@@ -1,6 +1,7 @@
 <#@ template debug="true" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
 // ┌────────────────────────────────────────────────────────────────────────┐ \\
 // │ Abacus - Fast, efficient, cross precision, maths library               │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
@@ -62,7 +63,7 @@ namespace Abacus
         internal static void Copy( IntPtr source, Int32[] destination, Int32 startIndex, Int32 length )
         {
             Marshal.Copy(source, destination, startIndex, length);
-        }   
+        }
 
         // Copies data from an unmanaged memory pointer to a managed 64-bit signed integer array.
         internal static void Copy( IntPtr source, Int64[] destination, Int32 startIndex, Int32 length )
