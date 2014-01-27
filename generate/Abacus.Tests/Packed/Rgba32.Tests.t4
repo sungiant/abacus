@@ -6,7 +6,7 @@
     {
         /// <summary>
         /// Iterates over a random selection of values within the range of
-        /// possible Rgba32 values and makes sure that unpacking them and 
+        /// possible Rgba32 values and makes sure that unpacking them and
         /// then re-packing that result yeilds the original packed value.
         /// </summary>
         [Test]
@@ -14,7 +14,7 @@
         {
             var rand = new System.Random();
             var buff = new Byte[4];
-            
+
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
@@ -43,8 +43,8 @@
         }
 
         /// <summary>
-        /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
+        /// Makes sure that the hashing function is good by testing
+        /// random scenarios and ensuring that there are no more than a
         /// reasonable number of collisions.
         /// </summary>
         [Test]
@@ -67,7 +67,7 @@
             Assert.That(collisions, Is.LessThan(10));
         }
 
-<# foreach( var kvp in GetColours() ) { #>
+<# foreach( var kvp in TT_GetUInt32Colours() ) { #>
         /// <summary>
         /// Tests that the <#= kvp.Key #> constant yeilds the correct value.
         /// </summary>

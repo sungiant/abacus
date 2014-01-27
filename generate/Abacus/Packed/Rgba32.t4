@@ -2,7 +2,7 @@
     /// todo
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public partial struct Rgba32 
+    public partial struct Rgba32
         : IPackedValue<UInt32>
         , IEquatable<Rgba32>
         , IPackedReal4
@@ -38,7 +38,7 @@
             realRgba32.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 24));
         }
 
-<# foreach( var kvp in GetColours() ) { #>
+<# foreach( var kvp in TT_GetUInt32Colours() ) { #>
         /// <summary>
         /// <#= kvp.Key #>
         /// </summary>
