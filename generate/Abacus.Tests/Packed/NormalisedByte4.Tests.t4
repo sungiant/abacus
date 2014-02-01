@@ -19,12 +19,21 @@
             {
                 rand.NextBytes(buff);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
-                var packedObj = new NormalisedByte4();
-                packedObj.PackedValue = packed;
-                SinglePrecision.Vector4 unpacked;
-                packedObj.UnpackTo(out unpacked);
-                var newPackedObj = new NormalisedByte4(ref unpacked);
-                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                
+                // Cannot guarantee that this packed value is valid.   
+                try
+                {
+                    var packedObj = new NormalisedByte4();
+                    packedObj.PackedValue = packed;
+                    SinglePrecision.Vector4 unpacked;
+                    packedObj.UnpackTo(out unpacked);
+                    var newPackedObj = new NormalisedByte4(ref unpacked);
+                    Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                }
+                catch(ArgumentException)
+                {
+                    continue;
+                }
             }
         }
 
