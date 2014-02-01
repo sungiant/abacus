@@ -1584,13 +1584,20 @@ namespace Abacus.Packed.Tests
             while ( packed < UInt16.MaxValue )
             {
                 ++packed;
-                var packedObj = new NormalisedByte2();
-                packedObj.PackedValue = packed;
-                SinglePrecision.Vector2 unpacked;
-                packedObj.UnpackTo(out unpacked);
-                Console.WriteLine("p: " + packed + ", v: " + unpacked);
-                var newPackedObj = new NormalisedByte2(ref unpacked);
-                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed).Within(5));
+                // Cannot guarantee that this packed value is valid.   
+                try
+                {
+                    var packedObj = new NormalisedByte2();
+                    packedObj.PackedValue = packed;
+                    SinglePrecision.Vector2 unpacked;
+                    packedObj.UnpackTo(out unpacked);
+                    var newPackedObj = new NormalisedByte2(ref unpacked);
+                    Assert.That(newPackedObj.PackedValue, Is.EqualTo(packedObj.PackedValue));
+                }
+                catch(ArgumentException)
+                {
+                    continue;
+                }
             }
         }
 
@@ -1650,12 +1657,21 @@ namespace Abacus.Packed.Tests
             {
                 rand.NextBytes(buff);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
-                var packedObj = new NormalisedByte4();
-                packedObj.PackedValue = packed;
-                SinglePrecision.Vector4 unpacked;
-                packedObj.UnpackTo(out unpacked);
-                var newPackedObj = new NormalisedByte4(ref unpacked);
-                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                
+                // Cannot guarantee that this packed value is valid.   
+                try
+                {
+                    var packedObj = new NormalisedByte4();
+                    packedObj.PackedValue = packed;
+                    SinglePrecision.Vector4 unpacked;
+                    packedObj.UnpackTo(out unpacked);
+                    var newPackedObj = new NormalisedByte4(ref unpacked);
+                    Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                }
+                catch(ArgumentException)
+                {
+                    continue;
+                }
             }
         }
 
@@ -1720,12 +1736,21 @@ namespace Abacus.Packed.Tests
             {
                 rand.NextBytes(buff);
                 UInt32 packed = BitConverter.ToUInt32(buff, 0);
-                var packedObj = new NormalisedShort2();
-                packedObj.PackedValue = packed;
-                SinglePrecision.Vector2 unpacked;
-                packedObj.UnpackTo(out unpacked);
-                var newPackedObj = new NormalisedShort2(ref unpacked);
-                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                
+                // Cannot guarantee that this packed value is valid.   
+                try
+                {
+                    var packedObj = new NormalisedShort2();
+                    packedObj.PackedValue = packed;
+                    SinglePrecision.Vector2 unpacked;
+                    packedObj.UnpackTo(out unpacked);
+                    var newPackedObj = new NormalisedShort2(ref unpacked);
+                    Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                }
+                catch(ArgumentException)
+                {
+                    continue;
+                }
             }
         }
 
@@ -1790,12 +1815,21 @@ namespace Abacus.Packed.Tests
             {
                 rand.NextBytes(buff);
                 UInt64 packed = BitConverter.ToUInt64(buff, 0);
-                var packedObj = new NormalisedShort4();
-                packedObj.PackedValue = packed;
-                SinglePrecision.Vector4 unpacked;
-                packedObj.UnpackTo(out unpacked);
-                var newPackedObj = new NormalisedShort4(ref unpacked);
-                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                
+                // Cannot guarantee that this packed value is valid.   
+                try
+                {
+                    var packedObj = new NormalisedShort4();
+                    packedObj.PackedValue = packed;
+                    SinglePrecision.Vector4 unpacked;
+                    packedObj.UnpackTo(out unpacked);
+                    var newPackedObj = new NormalisedShort4(ref unpacked);
+                    Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                }
+                catch(ArgumentException)
+                {
+                    continue;
+                }
             }
         }
 

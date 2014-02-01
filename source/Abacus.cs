@@ -250,9 +250,13 @@ namespace Abacus
         /// </summary>
         internal static UInt32 PackSignedNormalised (UInt32 bitmask, Single value)
         {
+            if (value > 1f || value < 0f)
+                throw new ArgumentException ("Input value must be normalised.");
+
             Single max = bitmask >> 1;
             value *= max;
-            return (((UInt32)((Int32)ClampAndRound (value, -max, max))) & bitmask);
+            UInt32 result = (((UInt32)((Int32)ClampAndRound (value, -max, max))) & bitmask);
+            return result;
         }
 
         /// <summary>
@@ -278,7 +282,12 @@ namespace Abacus
 
             Single num2 = bitmask >> 1;
 
-            return (((Single)value) / num2);
+            Single result = (((Single)value) / num2);
+
+            if (result > 1f || result < 0f)
+                throw new ArgumentException ("Input value does not yield a normalised result.");
+
+            return result;
         }
 
         /// <summary>
@@ -286,8 +295,12 @@ namespace Abacus
         /// </summary>
         internal static UInt32 PackUnsignedNormalisedValue (Single bitmask, Single value)
         {
+            if (value > 1f || value < 0f)
+                throw new ArgumentException ("Input value must be normalised.");
+
             value *= bitmask;
-            return (UInt32)ClampAndRound (value, 0f, bitmask);
+            UInt32 result = (UInt32)ClampAndRound (value, 0f, bitmask);
+            return result;
         }
         
         /// <summary>
@@ -296,7 +309,12 @@ namespace Abacus
         internal static Single UnpackUnsignedNormalisedValue (UInt32 bitmask, UInt32 value)
         {
             value &= bitmask;
-            return (((Single)value) / ((Single)bitmask));
+            Single result = (((Single)value) / ((Single)bitmask));
+
+            if (result > 1f || result < 0f)
+                throw new ArgumentException ("Input value does not yield a normalised result.");
+
+            return result;
         }
     }
 
