@@ -6,18 +6,14 @@ Abacus supports similar features to the mathematical portions of the XNA framewo
 
 ![Abacus](/misc/bead1.png) **Build Status**
 
-*Mono 4.0:* [![Build Status](https://travis-ci.org/abacus3D/abacus.png?branch=master)](https://travis-ci.org/abacus3D/abacus3D)
+**Mono 4.0:** [![Build Status](https://travis-ci.org/abacus3D/abacus.png?branch=master)](https://travis-ci.org/abacus3D/abacus3D)
 
-![Abacus](/misc/bead1.png) **Project Status**
+![Abacus](/misc/bead2.png) **Project Status**
 
 Right now Abacus is in development, currently the focus of the project is to reach 100% test coverage across all of the libary's features, once this has been achieved the first Alpha build will be tagged and relased.
 
-![Abacus](/misc/bead2.png) **Getting Starting**
+![Abacus](/misc/bead3.png) **Getting Starting**
 
 The source code for Abacus can be easily included in any C# project, simply copy and compile [Abacus.cs](https://raw.github.com/sungiant/abacus/development/source/Abacus.cs) along with the rest of you code.
 
 Abacus's documentation can be found [here](https://github.com/sungiant/abacus/wiki).
-
-![Abacus](/misc/bead3.png) **Extra**
-
-Finally, please visit my [homepage](http://www.sungiant.co/#!/Projects) for information about my other software products.
