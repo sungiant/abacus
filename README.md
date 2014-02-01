@@ -4,7 +4,11 @@ Abacus is a 3D maths library for the [CLI](http://en.wikipedia.org/wiki/Common_L
 
 Abacus supports similar features to the mathematical portions of the XNA framework, however, Abacus is written to support more than just single precision floating point calculations.  Abacus currently supports Single, Double and Fixed32 precision real number calculations.
 
-![Abacus](/misc/bead1.png)  **Project Status**
+![Abacus](/misc/bead1.png) **Build Status**
+
+*Mono 4.0:* [![Build Status](https://travis-ci.org/abacus3D/abacus.png?branch=master)](https://travis-ci.org/abacus3D/abacus3D)
+
+![Abacus](/misc/bead1.png) **Project Status**
 
 Right now Abacus is in development, currently the focus of the project is to reach 100% test coverage across all of the libary's features, once this has been achieved the first Alpha build will be tagged and relased.
 

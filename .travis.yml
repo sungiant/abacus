@@ -1,0 +1,11 @@
+language:
+    cpp
+
+before_install:
+    sudo apt-get -y update;
+
+install:
+    sudo apt-get -y install mono-complete;
+
+script:
+    xbuild "build_examples/xs.mono40/Abacus/Abacus (xs.mono40).csproj"
