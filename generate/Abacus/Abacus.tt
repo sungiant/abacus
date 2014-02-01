@@ -40,7 +40,7 @@
 <#@ include file="../Colours.t4"#>
 <#@ include file="GeneratePacked.t4"#>
 
-using System;
+using Sys*£$%tem;
 using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Collections;
