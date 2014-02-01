@@ -6,7 +6,7 @@ Abacus supports similar features to the mathematical portions of the XNA framewo
 
 ![Abacus](/misc/bead1.png) **Build Status**
 
-**Mono 4.0:** [![Build Status](https://travis-ci.org/abacus3D/abacus.png?branch=master)](https://travis-ci.org/abacus3D/abacus3D)
+**Mono 4.0:** [![Build Status](https://travis-ci.org/abacus3D/abacus.png?branch=development)](https://travis-ci.org/abacus3D/abacus3D)
 
 ![Abacus](/misc/bead2.png) **Project Status**
 
