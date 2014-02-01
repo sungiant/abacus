@@ -1,1 +1,1 @@
-mono MonoDevelop.TextTemplating TextTransform.exe $@
+mono MonoDevelop.TextTemplating/TextTransform.exe $@
