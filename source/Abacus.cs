@@ -1,36 +1,36 @@
-// +------------------------------------------------------------------------+ \\
-// � Abacus - Fast, efficient, cross precision, maths library               � \\
-// +------------------------------------------------------------------------� \\
-// � Brought to you by:                                                     � \\
-// �          _________                    .__               __             � \\
-// �         /   _____/__ __  ____    ____ |__|____    _____/  |_           � \\
-// �         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          � \\
-// �         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            � \\
-// �        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            � \\
-// �                \/           \//_____/         \/     \/                � \\
-// �                                                                        � \\
-// +------------------------------------------------------------------------� \\
-// � Copyright � 2013 A.J.Pook (http://abacus3d.github.com)                 � \\
-// +------------------------------------------------------------------------� \\
-// � Permission is hereby granted, free of charge, to any person obtaining  � \\
-// � a copy of this software and associated documentation files (the        � \\
-// � "Software"), to deal in the Software without restriction, including    � \\
-// � without limitation the rights to use, copy, modify, merge, publish,    � \\
-// � distribute, sublicense, and/or sellcopies of the Software, and to      � \\
-// � permit persons to whom the Software is furnished to do so, subject to  � \\
-// � the following conditions:                                              � \\
-// �                                                                        � \\
-// � The above copyright notice and this permission notice shall be         � \\
-// � included in all copies or substantial portions of the Software.        � \\
-// �                                                                        � \\
-// � THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        � \\
-// � EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     � \\
-// � MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. � \\
-// � IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   � \\
-// � CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   � \\
-// � TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       � \\
-// � SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 � \\
-// +------------------------------------------------------------------------+ \\
+﻿// ┌────────────────────────────────────────────────────────────────────────┐ \\
+// │ Abacus - Fast, efficient, cross precision, maths library               │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Brought to you by:                                                     │ \\
+// │          _________                    .__               __             │ \\
+// │         /   _____/__ __  ____    ____ |__|____    _____/  |_           │ \\
+// │         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          │ \\
+// │         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            │ \\
+// │        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            │ \\
+// │                \/           \//_____/         \/     \/                │ \\
+// │                                                                        │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.com)                 │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
+// │ a copy of this software and associated documentation files (the        │ \\
+// │ "Software"), to deal in the Software without restriction, including    │ \\
+// │ without limitation the rights to use, copy, modify, merge, publish,    │ \\
+// │ distribute, sublicense, and/or sellcopies of the Software, and to      │ \\
+// │ permit persons to whom the Software is furnished to do so, subject to  │ \\
+// │ the following conditions:                                              │ \\
+// │                                                                        │ \\
+// │ The above copyright notice and this permission notice shall be         │ \\
+// │ included in all copies or substantial portions of the Software.        │ \\
+// │                                                                        │ \\
+// │ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        │ \\
+// │ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     │ \\
+// │ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. │ \\
+// │ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   │ \\
+// │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
+// │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
+// │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
+// └────────────────────────────────────────────────────────────────────────┘ \\
 
 
 using System;
@@ -183,7 +183,6 @@ namespace Abacus
         void UnpackTo(out Fixed32Precision.Vector4 output);
     }
 
-
     /// <summary>
     /// T is the type that the value is packed into
     /// </summary>
@@ -194,7 +193,6 @@ namespace Abacus
         /// </summary>
         T PackedValue { get; set; }
     }
-
 
     /// <summary>
     /// todo
@@ -302,7 +300,6 @@ namespace Abacus
         }
     }
 
-
     ///
     /// Fixed32 is a binary fixed point number in the Q39.24 number format.
     ///
@@ -349,12 +346,12 @@ namespace Abacus
 
         // n is the number of bits used to designate the fractional portion of the
         // number, i.e. the number of bit's to the right of the binary point.
-        // (If n = 0, the Q numbers are integers � the degenerate case)
+        // (If n = 0, the Q numbers are integers — the degenerate case)
         public const Int32 n = 12;
 
         // This is the raw value that is stored and operated upon.
         // Size: Signed 64-bit integer
-        // Range: �9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+        // Range: –9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
         Int32 numerator;
 
         // This value is inferred as this is a Qm.n number.
@@ -543,7 +540,6 @@ namespace Abacus
 
         #endregion
 
-
         #region Maths
 
         static Fixed32 Sqrt (Fixed32 f, Int32 numberOfIterations)
@@ -673,7 +669,6 @@ namespace Abacus
         }
 
         #endregion
-
 
         #region Operators
 
@@ -897,7 +892,6 @@ namespace Abacus
 
         #endregion
 
-
         #region IComparable
         
         public int CompareTo(Fixed32 other)
@@ -925,7 +919,6 @@ namespace Abacus
         }
 
         #endregion
-
 
         #region IConvertible
 
@@ -1023,7 +1016,6 @@ namespace Abacus
 
         #endregion
 
-
         #region IEquatable
 
         public bool Equals(Fixed32 other)
@@ -1032,7 +1024,6 @@ namespace Abacus
         }
 
         #endregion
-
 
         #region IFormattable
 
@@ -1044,9 +1035,7 @@ namespace Abacus
         #endregion
 
 
-
     }
-
 
     /// <summary>
     /// This class provides maths functions with consistent function
@@ -1167,37 +1156,37 @@ namespace Abacus
 
         /// <summary>
         /// Assigns a Single precision real number representing the 
-        /// mathematical constant p to the output value.
+        /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Single value) { value = 3.1415926536f; }
 
         /// <summary>
         /// Assigns a Double precision real number representing the 
-        /// mathematical constant p to the output value.
+        /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Double value) { value = 3.14159265358979323846264338327950288; }
 
         /// <summary>
         /// Assigns a Fixed32 precision real number representing the 
-        /// mathematical constant p to the output value.
+        /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
 
         /// <summary>
         /// Assigns a Single precision real number representing the 
-        /// mathematical constant 2p to the output value.
+        /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Single value) { value = 6.283185f; }
 
         /// <summary>
         /// Assigns a Double precision real number representing the 
-        /// mathematical constant 2p to the output value.
+        /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Double value) { value = 6.283185; }
 
         /// <summary>
         /// Assigns a Fixed32 precision real number representing the 
-        /// mathematical constant 2p to the output value.
+        /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }
 
@@ -1734,7 +1723,6 @@ namespace Abacus
 
     }
 
-
     /// <summary>
     /// todo
     /// </summary>
@@ -1744,7 +1732,7 @@ namespace Abacus
         internal static void Copy( IntPtr source, Int32[] destination, Int32 startIndex, Int32 length )
         {
             Marshal.Copy(source, destination, startIndex, length);
-        }   
+        }
 
         // Copies data from an unmanaged memory pointer to a managed 64-bit signed integer array.
         internal static void Copy( IntPtr source, Int64[] destination, Int32 startIndex, Int32 length )
@@ -2016,7 +2004,6 @@ namespace Abacus.Packed
 
     }
 
-
     /// <summary>
     /// todo
     /// </summary>
@@ -2233,7 +2220,6 @@ namespace Abacus.Packed
             realRgb = new Fixed32Precision.Vector3((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z);
         }
     }
-
 
     /// <summary>
     /// todo
@@ -2454,7 +2440,6 @@ namespace Abacus.Packed
         }
     }
 
-
     /// <summary>
     /// todo
     /// </summary>
@@ -2674,7 +2659,6 @@ namespace Abacus.Packed
         }
     }
 
-
     /// <summary>
     /// todo
     /// </summary>
@@ -2893,7 +2877,6 @@ namespace Abacus.Packed
         }
     }
 
-
     /// <summary>
     /// todo
     /// </summary>
@@ -3108,7 +3091,6 @@ namespace Abacus.Packed
             realXy = new Fixed32Precision.Vector2((Fixed32)singleVector.X, (Fixed32)singleVector.Y);
         }
     }
-
 
     /// <summary>
     /// todo
@@ -3329,7 +3311,6 @@ namespace Abacus.Packed
         }
     }
 
-
     /// <summary>
     /// todo
     /// </summary>
@@ -3544,7 +3525,6 @@ namespace Abacus.Packed
             realXy = new Fixed32Precision.Vector2((Fixed32)singleVector.X, (Fixed32)singleVector.Y);
         }
     }
-
 
     /// <summary>
     /// todo
@@ -3765,7 +3745,6 @@ namespace Abacus.Packed
         }
     }
 
-
     /// <summary>
     /// todo
     /// </summary>
@@ -3981,12 +3960,11 @@ namespace Abacus.Packed
         }
     }
     
-
     /// <summary>
     /// todo
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public partial struct Rgba32 
+    public partial struct Rgba32
         : IPackedValue<UInt32>
         , IEquatable<Rgba32>
         , IPackedReal4
@@ -5468,7 +5446,6 @@ namespace Abacus.Packed
             return new Rgba32(colourVec.X, colourVec.Y, colourVec.Z, colourVec4.W);
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -5564,7 +5541,6 @@ namespace Abacus.Packed
             }
             colour.packedValue = ((num5 | (num4 << 8)) | (num3 << 0x10)) | (num2 << 0x18);
         }
-
 
 
         /// <summary>
@@ -5745,7 +5721,6 @@ namespace Abacus.Packed
             realRgba32 = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
         }
     }
-
 
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Rgba64 
@@ -5954,7 +5929,6 @@ namespace Abacus.Packed
         }
     }
     
-
     // 2 bit alpha
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Rgba_10_10_10_2 
@@ -6163,7 +6137,6 @@ namespace Abacus.Packed
             realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
         }
     }
-
 
     /// <summary>
     /// todo
@@ -6380,7 +6353,6 @@ namespace Abacus.Packed
         }
     }
     
-
     /// <summary>
     /// todo
     /// </summary>
@@ -6600,7 +6572,6 @@ namespace Abacus.Packed
         }
     }
 
-
 }
 
 
@@ -6713,7 +6684,6 @@ namespace Abacus.Int32Precision
         {
             get { return unitY; }
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -6947,9 +6917,7 @@ namespace Abacus.Int32Precision
             return point;
         }
         
-
     }
-
 
     /// <summary>
     /// Represents a Int32 precision point on a 3D integer grid.
@@ -7044,7 +7012,7 @@ namespace Abacus.Int32Precision
         static Point3 up;
 
         /// <summary>
-        /// Defines a unit Point3 designating down (0, -1, 0).
+        /// Defines a unit Point3 designating down (0, −1, 0).
         /// </summary>
         static Point3 down;
 
@@ -7054,7 +7022,7 @@ namespace Abacus.Int32Precision
         static Point3 right;
 
         /// <summary>
-        /// Defines a unit Point3 designating left (-1, 0, 0).
+        /// Defines a unit Point3 designating left (−1, 0, 0).
         /// </summary>
         static Point3 left;
 
@@ -7137,7 +7105,7 @@ namespace Abacus.Int32Precision
         }
 
         /// <summary>
-        /// Returns a unit Point3 designating down (0, -1, 0).
+        /// Returns a unit Point3 designating down (0, −1, 0).
         /// </summary>
         public static Point3 Down
         {
@@ -7153,7 +7121,7 @@ namespace Abacus.Int32Precision
         }
 
         /// <summary>
-        /// Returns a unit Point3 designating left (-1, 0, 0).
+        /// Returns a unit Point3 designating left (−1, 0, 0).
         /// </summary>
         public static Point3 Left
         {
@@ -7177,7 +7145,6 @@ namespace Abacus.Int32Precision
         {
             get { return backward; }
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -7418,9 +7385,7 @@ namespace Abacus.Int32Precision
             return point;
         }
         
-
     }
-
 
 }
 
@@ -7533,7 +7498,6 @@ namespace Abacus.Int64Precision
         {
             get { return unitY; }
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -7767,9 +7731,7 @@ namespace Abacus.Int64Precision
             return point;
         }
         
-
     }
-
 
     /// <summary>
     /// Represents a Int64 precision point on a 3D integer grid.
@@ -7864,7 +7826,7 @@ namespace Abacus.Int64Precision
         static Point3 up;
 
         /// <summary>
-        /// Defines a unit Point3 designating down (0, -1, 0).
+        /// Defines a unit Point3 designating down (0, −1, 0).
         /// </summary>
         static Point3 down;
 
@@ -7874,7 +7836,7 @@ namespace Abacus.Int64Precision
         static Point3 right;
 
         /// <summary>
-        /// Defines a unit Point3 designating left (-1, 0, 0).
+        /// Defines a unit Point3 designating left (−1, 0, 0).
         /// </summary>
         static Point3 left;
 
@@ -7957,7 +7919,7 @@ namespace Abacus.Int64Precision
         }
 
         /// <summary>
-        /// Returns a unit Point3 designating down (0, -1, 0).
+        /// Returns a unit Point3 designating down (0, −1, 0).
         /// </summary>
         public static Point3 Down
         {
@@ -7973,7 +7935,7 @@ namespace Abacus.Int64Precision
         }
 
         /// <summary>
-        /// Returns a unit Point3 designating left (-1, 0, 0).
+        /// Returns a unit Point3 designating left (−1, 0, 0).
         /// </summary>
         public static Point3 Left
         {
@@ -7997,7 +7959,6 @@ namespace Abacus.Int64Precision
         {
             get { return backward; }
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -8238,9 +8199,7 @@ namespace Abacus.Int64Precision
             return point;
         }
         
-
     }
-
 
 }
 
@@ -8587,7 +8546,6 @@ namespace Abacus.SinglePrecision
             return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
         }
     }
-
     /// <summary>
     /// Single precision Matrix44.
     /// </summary>
@@ -8934,7 +8892,6 @@ namespace Abacus.SinglePrecision
             }
         }
 
-
         // Constants //-------------------------------------------------------//
 
         /// <summary>
@@ -8962,7 +8919,6 @@ namespace Abacus.SinglePrecision
             get { return identity; }
         }
         
-
         /// <summary>
         /// todo
         /// </summary>
@@ -9756,7 +9712,6 @@ namespace Abacus.SinglePrecision
             result.M44 = one;
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -10023,7 +9978,6 @@ namespace Abacus.SinglePrecision
             result.M43 = num23;
             result.M44 = num22;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -10651,7 +10605,6 @@ namespace Abacus.SinglePrecision
             return result;
         }
 
-
         /// <summary>
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
@@ -10676,9 +10629,7 @@ namespace Abacus.SinglePrecision
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-        
-    }
-
+            }
 
     /// <summary>
     /// Single precision Quaternion.
@@ -10819,7 +10770,6 @@ namespace Abacus.SinglePrecision
             get { return identity; }
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -10913,7 +10863,6 @@ namespace Abacus.SinglePrecision
                 result.W = (matrix.M12 - matrix.M21) * num2;
             }
         }
-
         /// <summary>
         /// todo
         /// </summary>
@@ -11003,7 +10952,6 @@ namespace Abacus.SinglePrecision
             result.Z = quaternion.Z * b;
             result.W = quaternion.W * b;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -11352,7 +11300,6 @@ namespace Abacus.SinglePrecision
             return quat;
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -11420,9 +11367,7 @@ namespace Abacus.SinglePrecision
             result.W *= num3;
         }
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// Single precision Vector2.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
@@ -11564,7 +11509,6 @@ namespace Abacus.SinglePrecision
             get { return unitY; }
         }
 
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -11646,8 +11590,8 @@ namespace Abacus.SinglePrecision
             }
 
             // dot = vector . normal 
-            //     = |vector| * [normal] * cos?
-            //     = |vector| * cos?
+            //     = |vector| * [normal] * cosθ
+            //     = |vector| * cosθ
             //     = adjacent
             Single dot;
             Dot(ref vector, ref normal, out dot);
@@ -11717,7 +11661,6 @@ namespace Abacus.SinglePrecision
             result.X = a;
             result.Y = b;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -11951,7 +11894,6 @@ namespace Abacus.SinglePrecision
             return vector;
         }
         
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -12072,7 +12014,6 @@ namespace Abacus.SinglePrecision
                 (tangent1.Y * temp4)) + (tangent2.Y * temp3);
         }
 
-
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
@@ -12142,9 +12083,7 @@ namespace Abacus.SinglePrecision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
         }
 
-
     }
-
 
     /// <summary>
     /// Single precision Vector3.
@@ -12283,7 +12222,7 @@ namespace Abacus.SinglePrecision
         static Vector3 up;
 
         /// <summary>
-        /// Defines a unit Vector3 designating down (0, -1, 0).
+        /// Defines a unit Vector3 designating down (0, −1, 0).
         /// </summary>
         static Vector3 down;
 
@@ -12293,7 +12232,7 @@ namespace Abacus.SinglePrecision
         static Vector3 right;
 
         /// <summary>
-        /// Defines a unit Vector3 designating left (-1, 0, 0).
+        /// Defines a unit Vector3 designating left (−1, 0, 0).
         /// </summary>
         static Vector3 left;
 
@@ -12378,7 +12317,7 @@ namespace Abacus.SinglePrecision
         }
         
         /// <summary>
-        /// Returns a unit Vector3 designating down (0, -1, 0).
+        /// Returns a unit Vector3 designating down (0, −1, 0).
         /// </summary>
         public static Vector3 Down
         {
@@ -12394,7 +12333,7 @@ namespace Abacus.SinglePrecision
         }
         
         /// <summary>
-        /// Returns a unit Vector3 designating left (-1, 0, 0).
+        /// Returns a unit Vector3 designating left (−1, 0, 0).
         /// </summary>
         public static Vector3 Left
         {
@@ -12418,7 +12357,6 @@ namespace Abacus.SinglePrecision
         {
             get { return backward; }
         }
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -12575,7 +12513,6 @@ namespace Abacus.SinglePrecision
             result.Z = num;
         }
         
-
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -12815,7 +12752,6 @@ namespace Abacus.SinglePrecision
             return vector;
         }
         
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -12879,7 +12815,6 @@ namespace Abacus.SinglePrecision
             result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
             result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
         }
-
 
         // Utilities //-------------------------------------------------------//
 
@@ -12954,9 +12889,7 @@ namespace Abacus.SinglePrecision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
-
     }
-
 
     /// <summary>
     /// Single precision Vector4.
@@ -13184,7 +13117,6 @@ namespace Abacus.SinglePrecision
             get { return unitW; }
         }
         
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -13377,7 +13309,6 @@ namespace Abacus.SinglePrecision
             result.W = value.W;
         }
         
-
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -13629,7 +13560,6 @@ namespace Abacus.SinglePrecision
             return vector;
         }
 
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -13696,7 +13626,6 @@ namespace Abacus.SinglePrecision
             result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
             result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
         }
-
 
         // Utilities //-------------------------------------------------------//
 
@@ -13779,9 +13708,7 @@ namespace Abacus.SinglePrecision
             result.W = a.W + ((b.W - a.W) * amount);
         }
 
-
     }
-
 
 }
 
@@ -14127,7 +14054,6 @@ namespace Abacus.DoublePrecision
             return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
         }
     }
-
     /// <summary>
     /// Double precision Matrix44.
     /// </summary>
@@ -14474,7 +14400,6 @@ namespace Abacus.DoublePrecision
             }
         }
 
-
         // Constants //-------------------------------------------------------//
 
         /// <summary>
@@ -14502,7 +14427,6 @@ namespace Abacus.DoublePrecision
             get { return identity; }
         }
         
-
         /// <summary>
         /// todo
         /// </summary>
@@ -15296,7 +15220,6 @@ namespace Abacus.DoublePrecision
             result.M44 = one;
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -15563,7 +15486,6 @@ namespace Abacus.DoublePrecision
             result.M43 = num23;
             result.M44 = num22;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -16191,7 +16113,6 @@ namespace Abacus.DoublePrecision
             return result;
         }
 
-
         /// <summary>
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
@@ -16216,9 +16137,7 @@ namespace Abacus.DoublePrecision
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-        
-    }
-
+            }
 
     /// <summary>
     /// Double precision Quaternion.
@@ -16359,7 +16278,6 @@ namespace Abacus.DoublePrecision
             get { return identity; }
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -16453,7 +16371,6 @@ namespace Abacus.DoublePrecision
                 result.W = (matrix.M12 - matrix.M21) * num2;
             }
         }
-
         /// <summary>
         /// todo
         /// </summary>
@@ -16543,7 +16460,6 @@ namespace Abacus.DoublePrecision
             result.Z = quaternion.Z * b;
             result.W = quaternion.W * b;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -16892,7 +16808,6 @@ namespace Abacus.DoublePrecision
             return quat;
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -16960,9 +16875,7 @@ namespace Abacus.DoublePrecision
             result.W *= num3;
         }
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// Double precision Vector2.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
@@ -17104,7 +17017,6 @@ namespace Abacus.DoublePrecision
             get { return unitY; }
         }
 
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -17186,8 +17098,8 @@ namespace Abacus.DoublePrecision
             }
 
             // dot = vector . normal 
-            //     = |vector| * [normal] * cos?
-            //     = |vector| * cos?
+            //     = |vector| * [normal] * cosθ
+            //     = |vector| * cosθ
             //     = adjacent
             Double dot;
             Dot(ref vector, ref normal, out dot);
@@ -17257,7 +17169,6 @@ namespace Abacus.DoublePrecision
             result.X = a;
             result.Y = b;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -17491,7 +17402,6 @@ namespace Abacus.DoublePrecision
             return vector;
         }
         
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -17612,7 +17522,6 @@ namespace Abacus.DoublePrecision
                 (tangent1.Y * temp4)) + (tangent2.Y * temp3);
         }
 
-
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
@@ -17682,9 +17591,7 @@ namespace Abacus.DoublePrecision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
         }
 
-
     }
-
 
     /// <summary>
     /// Double precision Vector3.
@@ -17823,7 +17730,7 @@ namespace Abacus.DoublePrecision
         static Vector3 up;
 
         /// <summary>
-        /// Defines a unit Vector3 designating down (0, -1, 0).
+        /// Defines a unit Vector3 designating down (0, −1, 0).
         /// </summary>
         static Vector3 down;
 
@@ -17833,7 +17740,7 @@ namespace Abacus.DoublePrecision
         static Vector3 right;
 
         /// <summary>
-        /// Defines a unit Vector3 designating left (-1, 0, 0).
+        /// Defines a unit Vector3 designating left (−1, 0, 0).
         /// </summary>
         static Vector3 left;
 
@@ -17918,7 +17825,7 @@ namespace Abacus.DoublePrecision
         }
         
         /// <summary>
-        /// Returns a unit Vector3 designating down (0, -1, 0).
+        /// Returns a unit Vector3 designating down (0, −1, 0).
         /// </summary>
         public static Vector3 Down
         {
@@ -17934,7 +17841,7 @@ namespace Abacus.DoublePrecision
         }
         
         /// <summary>
-        /// Returns a unit Vector3 designating left (-1, 0, 0).
+        /// Returns a unit Vector3 designating left (−1, 0, 0).
         /// </summary>
         public static Vector3 Left
         {
@@ -17958,7 +17865,6 @@ namespace Abacus.DoublePrecision
         {
             get { return backward; }
         }
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -18115,7 +18021,6 @@ namespace Abacus.DoublePrecision
             result.Z = num;
         }
         
-
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -18355,7 +18260,6 @@ namespace Abacus.DoublePrecision
             return vector;
         }
         
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -18419,7 +18323,6 @@ namespace Abacus.DoublePrecision
             result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
             result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
         }
-
 
         // Utilities //-------------------------------------------------------//
 
@@ -18494,9 +18397,7 @@ namespace Abacus.DoublePrecision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
-
     }
-
 
     /// <summary>
     /// Double precision Vector4.
@@ -18724,7 +18625,6 @@ namespace Abacus.DoublePrecision
             get { return unitW; }
         }
         
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -18917,7 +18817,6 @@ namespace Abacus.DoublePrecision
             result.W = value.W;
         }
         
-
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -19169,7 +19068,6 @@ namespace Abacus.DoublePrecision
             return vector;
         }
 
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -19236,7 +19134,6 @@ namespace Abacus.DoublePrecision
             result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
             result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
         }
-
 
         // Utilities //-------------------------------------------------------//
 
@@ -19319,9 +19216,7 @@ namespace Abacus.DoublePrecision
             result.W = a.W + ((b.W - a.W) * amount);
         }
 
-
     }
-
 
 }
 
@@ -19667,7 +19562,6 @@ namespace Abacus.Fixed32Precision
             return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
         }
     }
-
     /// <summary>
     /// Fixed32 precision Matrix44.
     /// </summary>
@@ -20014,7 +19908,6 @@ namespace Abacus.Fixed32Precision
             }
         }
 
-
         // Constants //-------------------------------------------------------//
 
         /// <summary>
@@ -20042,7 +19935,6 @@ namespace Abacus.Fixed32Precision
             get { return identity; }
         }
         
-
         /// <summary>
         /// todo
         /// </summary>
@@ -20836,7 +20728,6 @@ namespace Abacus.Fixed32Precision
             result.M44 = one;
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -21103,7 +20994,6 @@ namespace Abacus.Fixed32Precision
             result.M43 = num23;
             result.M44 = num22;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -21731,7 +21621,6 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
-
         /// <summary>
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
@@ -21756,9 +21645,7 @@ namespace Abacus.Fixed32Precision
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-        
-    }
-
+            }
 
     /// <summary>
     /// Fixed32 precision Quaternion.
@@ -21899,7 +21786,6 @@ namespace Abacus.Fixed32Precision
             get { return identity; }
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -21993,7 +21879,6 @@ namespace Abacus.Fixed32Precision
                 result.W = (matrix.M12 - matrix.M21) * num2;
             }
         }
-
         /// <summary>
         /// todo
         /// </summary>
@@ -22083,7 +21968,6 @@ namespace Abacus.Fixed32Precision
             result.Z = quaternion.Z * b;
             result.W = quaternion.W * b;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -22432,7 +22316,6 @@ namespace Abacus.Fixed32Precision
             return quat;
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -22500,9 +22383,7 @@ namespace Abacus.Fixed32Precision
             result.W *= num3;
         }
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// Fixed32 precision Vector2.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
@@ -22644,7 +22525,6 @@ namespace Abacus.Fixed32Precision
             get { return unitY; }
         }
 
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -22726,8 +22606,8 @@ namespace Abacus.Fixed32Precision
             }
 
             // dot = vector . normal 
-            //     = |vector| * [normal] * cos?
-            //     = |vector| * cos?
+            //     = |vector| * [normal] * cosθ
+            //     = |vector| * cosθ
             //     = adjacent
             Fixed32 dot;
             Dot(ref vector, ref normal, out dot);
@@ -22797,7 +22677,6 @@ namespace Abacus.Fixed32Precision
             result.X = a;
             result.Y = b;
         }
-
 
         // Equality Operators //----------------------------------------------//
 
@@ -23031,7 +22910,6 @@ namespace Abacus.Fixed32Precision
             return vector;
         }
         
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -23152,7 +23030,6 @@ namespace Abacus.Fixed32Precision
                 (tangent1.Y * temp4)) + (tangent2.Y * temp3);
         }
 
-
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
@@ -23222,9 +23099,7 @@ namespace Abacus.Fixed32Precision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
         }
 
-
     }
-
 
     /// <summary>
     /// Fixed32 precision Vector3.
@@ -23363,7 +23238,7 @@ namespace Abacus.Fixed32Precision
         static Vector3 up;
 
         /// <summary>
-        /// Defines a unit Vector3 designating down (0, -1, 0).
+        /// Defines a unit Vector3 designating down (0, −1, 0).
         /// </summary>
         static Vector3 down;
 
@@ -23373,7 +23248,7 @@ namespace Abacus.Fixed32Precision
         static Vector3 right;
 
         /// <summary>
-        /// Defines a unit Vector3 designating left (-1, 0, 0).
+        /// Defines a unit Vector3 designating left (−1, 0, 0).
         /// </summary>
         static Vector3 left;
 
@@ -23458,7 +23333,7 @@ namespace Abacus.Fixed32Precision
         }
         
         /// <summary>
-        /// Returns a unit Vector3 designating down (0, -1, 0).
+        /// Returns a unit Vector3 designating down (0, −1, 0).
         /// </summary>
         public static Vector3 Down
         {
@@ -23474,7 +23349,7 @@ namespace Abacus.Fixed32Precision
         }
         
         /// <summary>
-        /// Returns a unit Vector3 designating left (-1, 0, 0).
+        /// Returns a unit Vector3 designating left (−1, 0, 0).
         /// </summary>
         public static Vector3 Left
         {
@@ -23498,7 +23373,6 @@ namespace Abacus.Fixed32Precision
         {
             get { return backward; }
         }
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -23655,7 +23529,6 @@ namespace Abacus.Fixed32Precision
             result.Z = num;
         }
         
-
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -23895,7 +23768,6 @@ namespace Abacus.Fixed32Precision
             return vector;
         }
         
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -23959,7 +23831,6 @@ namespace Abacus.Fixed32Precision
             result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
             result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
         }
-
 
         // Utilities //-------------------------------------------------------//
 
@@ -24034,9 +23905,7 @@ namespace Abacus.Fixed32Precision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
-
     }
-
 
     /// <summary>
     /// Fixed32 precision Vector4.
@@ -24264,7 +24133,6 @@ namespace Abacus.Fixed32Precision
             get { return unitW; }
         }
         
-
         // Maths //-----------------------------------------------------------//
 
         /// <summary>
@@ -24457,7 +24325,6 @@ namespace Abacus.Fixed32Precision
             result.W = value.W;
         }
         
-
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -24709,7 +24576,6 @@ namespace Abacus.Fixed32Precision
             return vector;
         }
 
-
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -24776,7 +24642,6 @@ namespace Abacus.Fixed32Precision
             result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
             result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
         }
-
 
         // Utilities //-------------------------------------------------------//
 
@@ -24859,9 +24724,7 @@ namespace Abacus.Fixed32Precision
             result.W = a.W + ((b.W - a.W) * amount);
         }
 
-
     }
-
 
 }
 

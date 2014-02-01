@@ -1,36 +1,36 @@
-// +------------------------------------------------------------------------+ \\
-// � Abacus - Fast, efficient, cross precision, maths library               � \\
-// +------------------------------------------------------------------------� \\
-// � Brought to you by:                                                     � \\
-// �          _________                    .__               __             � \\
-// �         /   _____/__ __  ____    ____ |__|____    _____/  |_           � \\
-// �         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          � \\
-// �         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            � \\
-// �        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            � \\
-// �                \/           \//_____/         \/     \/                � \\
-// �                                                                        � \\
-// +------------------------------------------------------------------------� \\
-// � Copyright � 2013 A.J.Pook (http://abacus3d.github.com)                 � \\
-// +------------------------------------------------------------------------� \\
-// � Permission is hereby granted, free of charge, to any person obtaining  � \\
-// � a copy of this software and associated documentation files (the        � \\
-// � "Software"), to deal in the Software without restriction, including    � \\
-// � without limitation the rights to use, copy, modify, merge, publish,    � \\
-// � distribute, sublicense, and/or sellcopies of the Software, and to      � \\
-// � permit persons to whom the Software is furnished to do so, subject to  � \\
-// � the following conditions:                                              � \\
-// �                                                                        � \\
-// � The above copyright notice and this permission notice shall be         � \\
-// � included in all copies or substantial portions of the Software.        � \\
-// �                                                                        � \\
-// � THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        � \\
-// � EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     � \\
-// � MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. � \\
-// � IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   � \\
-// � CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   � \\
-// � TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       � \\
-// � SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 � \\
-// +------------------------------------------------------------------------+ \\
+﻿// ┌────────────────────────────────────────────────────────────────────────┐ \\
+// │ Abacus - Fast, efficient, cross precision, maths library               │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Brought to you by:                                                     │ \\
+// │          _________                    .__               __             │ \\
+// │         /   _____/__ __  ____    ____ |__|____    _____/  |_           │ \\
+// │         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          │ \\
+// │         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            │ \\
+// │        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            │ \\
+// │                \/           \//_____/         \/     \/                │ \\
+// │                                                                        │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.com)                 │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
+// │ a copy of this software and associated documentation files (the        │ \\
+// │ "Software"), to deal in the Software without restriction, including    │ \\
+// │ without limitation the rights to use, copy, modify, merge, publish,    │ \\
+// │ distribute, sublicense, and/or sellcopies of the Software, and to      │ \\
+// │ permit persons to whom the Software is furnished to do so, subject to  │ \\
+// │ the following conditions:                                              │ \\
+// │                                                                        │ \\
+// │ The above copyright notice and this permission notice shall be         │ \\
+// │ included in all copies or substantial portions of the Software.        │ \\
+// │                                                                        │ \\
+// │ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        │ \\
+// │ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     │ \\
+// │ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. │ \\
+// │ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   │ \\
+// │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
+// │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
+// │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
+// └────────────────────────────────────────────────────────────────────────┘ \\
 
 
 using System;
@@ -861,7 +861,6 @@ namespace Abacus.Tests
         
     }
 
-
     /// <summary>
     ///This is a test class for Fixed32Test and is intended
     ///to contain all Fixed32Test Unit Tests
@@ -1143,9 +1142,7 @@ namespace Abacus.Tests
             Assert.That (true, Is.EqualTo (false));
         }
 
-
     }
-
 
     /// <summary>
     /// todo
@@ -1153,8 +1150,8 @@ namespace Abacus.Tests
     [TestFixture]
     public class PackUtils
     {
-    	/*
-    	/// <summary>
+        /*
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1166,17 +1163,17 @@ namespace Abacus.Tests
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	Single s = (Single)rand.NextDouble();
+                Single s = (Single)rand.NextDouble();
 
-            	UInt32 p = global::Abacus.PackUtils.PackSigned (bitmask, s);
+                UInt32 p = global::Abacus.PackUtils.PackSigned (bitmask, s);
 
-            	Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
 
-            	Assert.That (u, Is.EqualTo(s));
+                Assert.That (u, Is.EqualTo(s));
             }
         }
 
-     	/// <summary>
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1188,18 +1185,18 @@ namespace Abacus.Tests
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	rand.NextBytes(buff);
+                rand.NextBytes(buff);
                 UInt32 p = BitConverter.ToUInt32(buff, 0);
 
-            	Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackSigned (bitmask, p);
 
-            	UInt32 rp = global::Abacus.PackUtils.PackSigned (bitmask, u);
+                UInt32 rp = global::Abacus.PackUtils.PackSigned (bitmask, u);
 
-            	Assert.That (rp, Is.EqualTo(p));
+                Assert.That (rp, Is.EqualTo(p));
             }
         }*/
 
-    	/// <summary>
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1211,19 +1208,19 @@ namespace Abacus.Tests
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	Single s = (Single)rand.NextDouble();
+                Single s = (Single)rand.NextDouble();
 
-            	if (rand.Next(0, 1) == 1) s = -s;
+                if (rand.Next(0, 1) == 1) s = -s;
 
-            	UInt32 p = global::Abacus.PackUtils.PackSignedNormalised (bitmask, s);
+                UInt32 p = global::Abacus.PackUtils.PackSignedNormalised (bitmask, s);
 
-            	Single u = global::Abacus.PackUtils.UnpackSignedNormalised (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackSignedNormalised (bitmask, p);
 
-            	Assert.That (u, Is.EqualTo(s));
+                Assert.That (u, Is.EqualTo(s));
             }
         }
 
-    	/// <summary>
+        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -1235,24 +1232,23 @@ namespace Abacus.Tests
 
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
-            	Single s = (Single)rand.NextDouble();
+                Single s = (Single)rand.NextDouble();
 
-            	UInt32 p = global::Abacus.PackUtils.PackUnsignedNormalisedValue (bitmask, s);
+                UInt32 p = global::Abacus.PackUtils.PackUnsignedNormalisedValue (bitmask, s);
 
-            	Single u = global::Abacus.PackUtils.UnpackUnsignedNormalisedValue (bitmask, p);
+                Single u = global::Abacus.PackUtils.UnpackUnsignedNormalisedValue (bitmask, p);
 
-            	Assert.That (u, Is.EqualTo(s));
+                Assert.That (u, Is.EqualTo(s));
             }
         }
     }
-
 
 
 }
 
 namespace Abacus.Packed.Tests
 {
-	using Abacus.Tests;
+    using Abacus.Tests;
     /// <summary>
     /// Tests the Alpha_8 packed data type.
     /// </summary>
@@ -1313,7 +1309,6 @@ namespace Abacus.Packed.Tests
             }
         }
     }
-
 
     /// <summary>
     /// Tests the Bgr_5_6_5 packed data type.
@@ -1377,7 +1372,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
     /// <summary>
     /// Tests the Bgra16 packed data type.
     /// </summary>
@@ -1440,7 +1434,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
     /// <summary>
     /// Tests the Bgra_5_5_5_1 packed data type.
     /// </summary>
@@ -1502,7 +1495,6 @@ namespace Abacus.Packed.Tests
             }
         }
     }
-
     /// <summary>
     /// Tests the Byte4 packed data type.
     /// </summary>
@@ -1574,7 +1566,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
     /// <summary>
     /// Tests the NormalisedByte2 packed data type.
     /// </summary>
@@ -1637,7 +1628,6 @@ namespace Abacus.Packed.Tests
             }
         }
     }
-
 
     /// <summary>
     /// Tests the NormalisedByte4 packed data type.
@@ -1709,7 +1699,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
     /// <summary>
     /// Tests the NormalisedShort2 packed data type.
     /// </summary>
@@ -1779,7 +1768,6 @@ namespace Abacus.Packed.Tests
             Assert.That(collisions, Is.LessThan(10));
         }
     }
-
 
     /// <summary>
     /// Tests the NormalisedShort4 packed data type.
@@ -1851,7 +1839,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
     /// <summary>
     /// Tests the Rg32 packed data type.
     /// </summary>
@@ -1922,7 +1909,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
     /// <summary>
     /// Tests the Rgba32 packed data type.
     /// </summary>
@@ -1931,7 +1917,7 @@ namespace Abacus.Packed.Tests
     {
         /// <summary>
         /// Iterates over a random selection of values within the range of
-        /// possible Rgba32 values and makes sure that unpacking them and 
+        /// possible Rgba32 values and makes sure that unpacking them and
         /// then re-packing that result yeilds the original packed value.
         /// </summary>
         [Test]
@@ -1939,7 +1925,7 @@ namespace Abacus.Packed.Tests
         {
             var rand = new System.Random();
             var buff = new Byte[4];
-            
+
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
@@ -1968,8 +1954,8 @@ namespace Abacus.Packed.Tests
         }
 
         /// <summary>
-        /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
+        /// Makes sure that the hashing function is good by testing
+        /// random scenarios and ensuring that there are no more than a
         /// reasonable number of collisions.
         /// </summary>
         [Test]
@@ -3880,7 +3866,6 @@ namespace Abacus.Packed.Tests
             throw new NotImplementedException ();
         }
 
-
         void TestMultiplication ()
         {
             throw new NotImplementedException();
@@ -3894,9 +3879,7 @@ namespace Abacus.Packed.Tests
         public void TestOperator_Multiplication_i ()
         {
             this.TestMultiplication();
-        }
-    }
-
+        }    }
 
     /// <summary>
     /// Tests the Rgba64 packed data type.
@@ -3906,7 +3889,7 @@ namespace Abacus.Packed.Tests
     {
         /// <summary>
         /// Iterates over a random selection of values within the range of
-        /// possible Rgba64 values and makes sure that unpacking them and 
+        /// possible Rgba64 values and makes sure that unpacking them and
         /// then re-packing that result yeilds the original packed value.
         /// </summary>
         [Test]
@@ -3914,7 +3897,7 @@ namespace Abacus.Packed.Tests
         {
             var rand = new System.Random();
             var buff = new Byte[8];
-            
+
             for(Int32 i = 0; i < Settings.NumTests; ++i)
             {
                 rand.NextBytes(buff);
@@ -3943,8 +3926,8 @@ namespace Abacus.Packed.Tests
         }
 
         /// <summary>
-        /// Makes sure that the hashing function is good by testing 
-        /// random scenarios and ensuring that there are no more than a 
+        /// Makes sure that the hashing function is good by testing
+        /// random scenarios and ensuring that there are no more than a
         /// reasonable number of collisions.
         /// </summary>
         [Test]
@@ -3967,7 +3950,6 @@ namespace Abacus.Packed.Tests
             Assert.That(collisions, Is.LessThan(10));
         }
     }
-
 
     /// <summary>
     /// Tests the Rgba_10_10_10_2 packed data type.
@@ -4039,7 +4021,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
     /// <summary>
     /// Tests the Short2 packed data type.
     /// </summary>
@@ -4109,7 +4090,6 @@ namespace Abacus.Packed.Tests
             Assert.That(collisions, Is.LessThan(10));
         }
     }
-
 
     /// <summary>
     /// Tests the Short4 packed data type.
@@ -4181,7 +4161,6 @@ namespace Abacus.Packed.Tests
         }
     }
 
-
 }
 
 namespace Abacus.Int32Precision.Tests
@@ -4247,7 +4226,6 @@ namespace Abacus.Int32Precision.Tests
             Assert.That(a.Y, Is.EqualTo(b.Y));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -4422,7 +4400,6 @@ namespace Abacus.Int32Precision.Tests
             Point2 expected = new Point2(0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -4884,10 +4861,8 @@ namespace Abacus.Int32Precision.Tests
             }
         }
 
-
     }
-    
-    /// <summary>
+        /// <summary>
     /// todo
     /// </summary>
     [TestFixture]
@@ -4950,7 +4925,6 @@ namespace Abacus.Int32Precision.Tests
             Assert.That(a.Z, Is.EqualTo(b.Z));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -5236,7 +5210,6 @@ namespace Abacus.Int32Precision.Tests
             Point3 expected = new Point3(0, 0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -5703,10 +5676,8 @@ namespace Abacus.Int32Precision.Tests
             }
         }
 
-
     }
-    
-}
+    }
 
 namespace Abacus.Int64Precision.Tests
 {
@@ -5771,7 +5742,6 @@ namespace Abacus.Int64Precision.Tests
             Assert.That(a.Y, Is.EqualTo(b.Y));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -5946,7 +5916,6 @@ namespace Abacus.Int64Precision.Tests
             Point2 expected = new Point2(0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -6408,10 +6377,8 @@ namespace Abacus.Int64Precision.Tests
             }
         }
 
-
     }
-    
-    /// <summary>
+        /// <summary>
     /// todo
     /// </summary>
     [TestFixture]
@@ -6474,7 +6441,6 @@ namespace Abacus.Int64Precision.Tests
             Assert.That(a.Z, Is.EqualTo(b.Z));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -6760,7 +6726,6 @@ namespace Abacus.Int64Precision.Tests
             Point3 expected = new Point3(0, 0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -7227,10 +7192,8 @@ namespace Abacus.Int64Precision.Tests
             }
         }
 
-
     }
-    
-}
+    }
 
 
 namespace Abacus.SinglePrecision.Tests
@@ -7327,7 +7290,6 @@ namespace Abacus.SinglePrecision.Tests
         }
         
 
-
         /// <summary>
         /// This test makes sure that the struct layout has been defined
         /// correctly.
@@ -7388,8 +7350,7 @@ namespace Abacus.SinglePrecision.Tests
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }
-        /// <summary>
+        }        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -7642,7 +7603,6 @@ namespace Abacus.SinglePrecision.Tests
             throw new NotImplementedException();
         }
 
-
         // Test Static Fn: Transpose //---------------------------------------//
 
         /// <summary>
@@ -7732,8 +7692,7 @@ namespace Abacus.SinglePrecision.Tests
         public void TestStaticFn_Transform_i ()
         {
             throw new NotImplementedException();
-        }
-        // Test Operator: Equality //-----------------------------------------//
+        }        // Test Operator: Equality //-----------------------------------------//
 
         /// <summary>
         /// Helper method for testing equality.
@@ -8299,7 +8258,6 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
-
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
         /// generated pairs of Matrix44 objects for a range of weighting amounts, 
@@ -8354,9 +8312,7 @@ namespace Abacus.SinglePrecision.Tests
                             ref a, ref b, weighting, out result)
                     );
             }
-        }
-    }
-    /// <summary>
+        }    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -8423,7 +8379,6 @@ namespace Abacus.SinglePrecision.Tests
             Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -8504,8 +8459,7 @@ namespace Abacus.SinglePrecision.Tests
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }
-        /// <summary>
+        }        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -8540,7 +8494,6 @@ namespace Abacus.SinglePrecision.Tests
         {
             throw new NotImplementedException();
         }
-
 
         // Test Static Fn: Conjugate //---------------------------------------//
 
@@ -8596,7 +8549,6 @@ namespace Abacus.SinglePrecision.Tests
         {
             throw new NotImplementedException();
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -9069,7 +9021,6 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -9166,10 +9117,8 @@ namespace Abacus.SinglePrecision.Tests
             result.W *= e;
         }
 
-
     }
-    
-    /// <summary>
+        /// <summary>
     /// todo
     /// </summary>
     [TestFixture]
@@ -9232,7 +9181,6 @@ namespace Abacus.SinglePrecision.Tests
             Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -9528,7 +9476,6 @@ namespace Abacus.SinglePrecision.Tests
             Vector2 expected = new Vector2(0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Static Fn: Distance //----------------------------------------//
 
@@ -9959,7 +9906,6 @@ namespace Abacus.SinglePrecision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -10420,7 +10366,6 @@ namespace Abacus.SinglePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -10896,8 +10841,7 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector2 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -11048,9 +10992,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -11115,7 +11057,6 @@ namespace Abacus.SinglePrecision.Tests
             Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -11538,7 +11479,6 @@ namespace Abacus.SinglePrecision.Tests
             Vector3 expected = new Vector3(0, 0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Static Fn: Distance //----------------------------------------//
 
@@ -11977,7 +11917,6 @@ namespace Abacus.SinglePrecision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -12443,7 +12382,6 @@ namespace Abacus.SinglePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -12919,8 +12857,7 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector3 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -13075,9 +13012,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -13144,7 +13079,6 @@ namespace Abacus.SinglePrecision.Tests
             Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -13528,7 +13462,6 @@ namespace Abacus.SinglePrecision.Tests
             AssertEqualWithinReason(result, expected);
         }
 
-
         // Test Static Fn: Distance //----------------------------------------//
 
         /// <summary>
@@ -13863,7 +13796,6 @@ namespace Abacus.SinglePrecision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -14335,7 +14267,6 @@ namespace Abacus.SinglePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -14811,8 +14742,7 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector4 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -14971,9 +14901,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
 
-
-    }
-}
+    }}
 
 namespace Abacus.DoublePrecision.Tests
 {
@@ -15069,7 +14997,6 @@ namespace Abacus.DoublePrecision.Tests
         }
         
 
-
         /// <summary>
         /// This test makes sure that the struct layout has been defined
         /// correctly.
@@ -15130,8 +15057,7 @@ namespace Abacus.DoublePrecision.Tests
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }
-        /// <summary>
+        }        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -15384,7 +15310,6 @@ namespace Abacus.DoublePrecision.Tests
             throw new NotImplementedException();
         }
 
-
         // Test Static Fn: Transpose //---------------------------------------//
 
         /// <summary>
@@ -15474,8 +15399,7 @@ namespace Abacus.DoublePrecision.Tests
         public void TestStaticFn_Transform_i ()
         {
             throw new NotImplementedException();
-        }
-        // Test Operator: Equality //-----------------------------------------//
+        }        // Test Operator: Equality //-----------------------------------------//
 
         /// <summary>
         /// Helper method for testing equality.
@@ -16041,7 +15965,6 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
-
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
         /// generated pairs of Matrix44 objects for a range of weighting amounts, 
@@ -16096,9 +16019,7 @@ namespace Abacus.DoublePrecision.Tests
                             ref a, ref b, weighting, out result)
                     );
             }
-        }
-    }
-    /// <summary>
+        }    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -16165,7 +16086,6 @@ namespace Abacus.DoublePrecision.Tests
             Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -16246,8 +16166,7 @@ namespace Abacus.DoublePrecision.Tests
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }
-        /// <summary>
+        }        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -16282,7 +16201,6 @@ namespace Abacus.DoublePrecision.Tests
         {
             throw new NotImplementedException();
         }
-
 
         // Test Static Fn: Conjugate //---------------------------------------//
 
@@ -16338,7 +16256,6 @@ namespace Abacus.DoublePrecision.Tests
         {
             throw new NotImplementedException();
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -16811,7 +16728,6 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -16908,10 +16824,8 @@ namespace Abacus.DoublePrecision.Tests
             result.W *= e;
         }
 
-
     }
-    
-    /// <summary>
+        /// <summary>
     /// todo
     /// </summary>
     [TestFixture]
@@ -16974,7 +16888,6 @@ namespace Abacus.DoublePrecision.Tests
             Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -17270,7 +17183,6 @@ namespace Abacus.DoublePrecision.Tests
             Vector2 expected = new Vector2(0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Static Fn: Distance //----------------------------------------//
 
@@ -17701,7 +17613,6 @@ namespace Abacus.DoublePrecision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -18162,7 +18073,6 @@ namespace Abacus.DoublePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -18638,8 +18548,7 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector2 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -18790,9 +18699,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -18857,7 +18764,6 @@ namespace Abacus.DoublePrecision.Tests
             Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -19280,7 +19186,6 @@ namespace Abacus.DoublePrecision.Tests
             Vector3 expected = new Vector3(0, 0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Static Fn: Distance //----------------------------------------//
 
@@ -19719,7 +19624,6 @@ namespace Abacus.DoublePrecision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -20185,7 +20089,6 @@ namespace Abacus.DoublePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -20661,8 +20564,7 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector3 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -20817,9 +20719,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -20886,7 +20786,6 @@ namespace Abacus.DoublePrecision.Tests
             Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -21270,7 +21169,6 @@ namespace Abacus.DoublePrecision.Tests
             AssertEqualWithinReason(result, expected);
         }
 
-
         // Test Static Fn: Distance //----------------------------------------//
 
         /// <summary>
@@ -21605,7 +21503,6 @@ namespace Abacus.DoublePrecision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -22077,7 +21974,6 @@ namespace Abacus.DoublePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -22553,8 +22449,7 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector4 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -22713,9 +22608,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
 
-
-    }
-}
+    }}
 
 namespace Abacus.Fixed32Precision.Tests
 {
@@ -22811,7 +22704,6 @@ namespace Abacus.Fixed32Precision.Tests
         }
         
 
-
         /// <summary>
         /// This test makes sure that the struct layout has been defined
         /// correctly.
@@ -22872,8 +22764,7 @@ namespace Abacus.Fixed32Precision.Tests
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }
-        /// <summary>
+        }        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -23126,7 +23017,6 @@ namespace Abacus.Fixed32Precision.Tests
             throw new NotImplementedException();
         }
 
-
         // Test Static Fn: Transpose //---------------------------------------//
 
         /// <summary>
@@ -23216,8 +23106,7 @@ namespace Abacus.Fixed32Precision.Tests
         public void TestStaticFn_Transform_i ()
         {
             throw new NotImplementedException();
-        }
-        // Test Operator: Equality //-----------------------------------------//
+        }        // Test Operator: Equality //-----------------------------------------//
 
         /// <summary>
         /// Helper method for testing equality.
@@ -23783,7 +23672,6 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
-
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
         /// generated pairs of Matrix44 objects for a range of weighting amounts, 
@@ -23838,9 +23726,7 @@ namespace Abacus.Fixed32Precision.Tests
                             ref a, ref b, weighting, out result)
                     );
             }
-        }
-    }
-    /// <summary>
+        }    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -23907,7 +23793,6 @@ namespace Abacus.Fixed32Precision.Tests
             Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -23988,8 +23873,7 @@ namespace Abacus.Fixed32Precision.Tests
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }
-        /// <summary>
+        }        /// <summary>
         /// todo
         /// </summary>
         [Test]
@@ -24024,7 +23908,6 @@ namespace Abacus.Fixed32Precision.Tests
         {
             throw new NotImplementedException();
         }
-
 
         // Test Static Fn: Conjugate //---------------------------------------//
 
@@ -24080,7 +23963,6 @@ namespace Abacus.Fixed32Precision.Tests
         {
             throw new NotImplementedException();
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -24553,7 +24435,6 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
-
         /// <summary>
         /// todo
         /// </summary>
@@ -24650,10 +24531,8 @@ namespace Abacus.Fixed32Precision.Tests
             result.W *= e;
         }
 
-
     }
-    
-    /// <summary>
+        /// <summary>
     /// todo
     /// </summary>
     [TestFixture]
@@ -24716,7 +24595,6 @@ namespace Abacus.Fixed32Precision.Tests
             Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -25012,7 +24890,6 @@ namespace Abacus.Fixed32Precision.Tests
             Vector2 expected = new Vector2(0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Static Fn: Distance //----------------------------------------//
 
@@ -25443,7 +25320,6 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -25904,7 +25780,6 @@ namespace Abacus.Fixed32Precision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -26380,8 +26255,7 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector2 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -26532,9 +26406,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -26599,7 +26471,6 @@ namespace Abacus.Fixed32Precision.Tests
             Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -27022,7 +26893,6 @@ namespace Abacus.Fixed32Precision.Tests
             Vector3 expected = new Vector3(0, 0, 1);
             AssertEqualWithinReason(result, expected);
         }
-
 
         // Test Static Fn: Distance //----------------------------------------//
 
@@ -27461,7 +27331,6 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -27927,7 +27796,6 @@ namespace Abacus.Fixed32Precision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -28403,8 +28271,7 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector3 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -28559,9 +28426,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
 
-
-    }
-    /// <summary>
+    }    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -28628,7 +28493,6 @@ namespace Abacus.Fixed32Precision.Tests
             Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
         }
         
-
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -29012,7 +28876,6 @@ namespace Abacus.Fixed32Precision.Tests
             AssertEqualWithinReason(result, expected);
         }
 
-
         // Test Static Fn: Distance //----------------------------------------//
 
         /// <summary>
@@ -29347,7 +29210,6 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Assert.That (true, Is.EqualTo (false));
         }
-
 
         // Test Operator: Equality //-----------------------------------------//
 
@@ -29819,7 +29681,6 @@ namespace Abacus.Fixed32Precision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
 
         // Test Static Fn: SmoothStep //--------------------------------------//
 
@@ -30295,8 +30156,7 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
-        
-        /// <summary>
+                /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector4 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -30455,7 +30315,5 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
 
-
-    }
-}
+    }}
 
