@@ -1844,7 +1844,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("000000007FFFFF00"));
+            Assert.That(s, Is.EqualTo("7FFFFF00"));
         }
 
         /// <summary>
@@ -3956,7 +3956,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("000000007E345FFF"));
+            Assert.That(s, Is.EqualTo("7E345FFF"));
         }
 
         /// <summary>
@@ -4166,7 +4166,7 @@ namespace Abacus.Packed.Tests
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("0000000000010001"));
+            Assert.That(s, Is.EqualTo("00010001"));
         }
 
         /// <summary>

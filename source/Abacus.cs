@@ -3558,7 +3558,7 @@ namespace Abacus.Packed
         /// </summary>
         public override String ToString ()
         {
-            return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
+            return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -5748,7 +5748,7 @@ namespace Abacus.Packed
     {
         public override String ToString ()
         {
-            return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
+            return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
         }
 
         static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt64 packedRgba)
@@ -6385,7 +6385,7 @@ namespace Abacus.Packed
         /// </summary>
         public override String ToString ()
         {
-            return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
+            return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@
         /// </summary>
         public override String ToString ()
         {
-            return this.packedValue.ToString ("X16", CultureInfo.InvariantCulture);
+            return this.packedValue.ToString ("X8", CultureInfo.InvariantCulture);
         }
 
         /// <summary>
