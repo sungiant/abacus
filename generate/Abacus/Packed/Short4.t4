@@ -20,10 +20,10 @@
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
         {
-            UInt64 x = PackUtils.PackSigned(0xffff, realXyzw.X);
-            UInt64 y = PackUtils.PackSigned(0xffff, realXyzw.Y) << 16;
-            UInt64 z = PackUtils.PackSigned(0xffff, realXyzw.Z) << 32;
-            UInt64 w = PackUtils.PackSigned(0xffff, realXyzw.W) << 48;
+            UInt64 x = (UInt64) PackUtils.PackSigned(0xffff, realXyzw.X);
+            UInt64 y = ((UInt64) PackUtils.PackSigned(0xffff, realXyzw.Y)) << 16;
+            UInt64 z = ((UInt64) PackUtils.PackSigned(0xffff, realXyzw.Z)) << 32;
+            UInt64 w = ((UInt64) PackUtils.PackSigned(0xffff, realXyzw.W)) << 48;
             packedXyzw = (((x | y) | z) | w);
         }
 
@@ -32,12 +32,13 @@
         /// </summary>
         static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
         {
-            realXyzw.X = (Int16) packedXyzw;
-            realXyzw.Y = (Int16) (packedXyzw >> 16);
-            realXyzw.Z = (Int16) (packedXyzw >> 32);
-            realXyzw.W = (Int16) (packedXyzw >> 48);
+            realXyzw.X = ((Int16) packedXyzw);
+            realXyzw.Y = ((Int16) (packedXyzw >> 16));
+            realXyzw.Z = ((Int16) (packedXyzw >> 32));
+            realXyzw.W = ((Int16) (packedXyzw >> 48));
         }
 
 <#  GeneratePackedCommon("Short4", "UInt64", "packedXyzw", "realXyzw", 4); #>
+
     }
 

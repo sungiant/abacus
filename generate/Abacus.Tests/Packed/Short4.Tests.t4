@@ -24,7 +24,7 @@
                 SinglePrecision.Vector4 unpacked;
                 packedObj.UnpackTo(out unpacked);
                 var newPackedObj = new Short4(ref unpacked);
-                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packed));
+                Assert.That(newPackedObj.PackedValue, Is.EqualTo(packedObj.PackedValue));
             }
         }
 
@@ -39,7 +39,7 @@
             var f = new SinglePrecision.Vector4(0.656f, 0.125f, 0.222f, 0.861f);
             testCase.PackFrom(ref f);
             String s = testCase.ToString ();
-            Assert.That(s, Is.EqualTo("00010001"));
+            Assert.That(s, Is.EqualTo("1000000000001"));
         }
 
         /// <summary>

@@ -11,21 +11,69 @@
 
         static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt64 packedRgba)
         {
-            UInt64 r = PackUtils.PackSignedNormalised(0xffff, realRgba.X);
-            UInt64 g = PackUtils.PackSignedNormalised(0xffff, realRgba.Y) << 16;
-            UInt64 b = PackUtils.PackSignedNormalised(0xffff, realRgba.Z) << 32;
-            UInt64 a = PackUtils.PackSignedNormalised(0xffff, realRgba.W) << 48;
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
+
+            UInt64 r = (UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.X);
+            UInt64 g = ((UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.Y)) << 16;
+            UInt64 b = ((UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.Z)) << 32;
+            UInt64 a = ((UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.W)) << 48;
             packedRgba = (((r | g) | b) | a);
         }
 
         static void Unpack(UInt64 packedRgba, out SinglePrecision.Vector4 realRgba)
         {
-            realRgba.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedRgba);
-            realRgba.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 16));
-            realRgba.Z = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 32));
-            realRgba.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 48));
+            realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) packedRgba);
+            realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRgba >> 16));
+            realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRgba >> 32));
+            realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRgba >> 48));
+
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a unsigned normalised output: " + packedRgba);
         }
 
 <#  GeneratePackedCommon("Rgba64", "UInt64", "packedRgba", "realRgba", 4); #>
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 R
+        {
+            get { return unchecked((UInt16)this.packedValue); }
+            set { this.packedValue = (this.packedValue & 0xffffffffffff0000) | value; }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 G
+        {
+            get { return unchecked((UInt16)(this.packedValue >> 16)); }
+            set { this.packedValue = (this.packedValue & 0xffffffff0000ffff) | ((UInt64)(value << 16)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 B
+        {
+            get { return unchecked((UInt16)(this.packedValue >> 32)); }
+            set { this.packedValue = (this.packedValue & 0xffff0000ffffffff) | ((UInt64)(value << 32)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 A
+        {
+            get { return unchecked((UInt16)(this.packedValue >> 48)); }
+            set { this.packedValue = (this.packedValue & 0x0000ffffffffffff) | ((UInt64)(value << 48)); }
+        }
     }
     

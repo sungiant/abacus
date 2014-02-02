@@ -1830,6 +1830,9 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(Single realAlpha, out Byte packedAlpha)
         {
+            if (realAlpha < 0f || realAlpha > 1f) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realAlpha);
+
             packedAlpha = (Byte)PackUtils.PackUnsignedNormalisedValue(255f, realAlpha);
         }
 
@@ -1839,6 +1842,9 @@ namespace Abacus.Packed
         static void Unpack(Byte packedAlpha, out Single realAlpha)
         {
             realAlpha = PackUtils.UnpackUnsignedNormalisedValue(0xff, packedAlpha);
+
+            if (realAlpha < 0f || realAlpha > 1f) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedAlpha);
         }
 
         /// <summary>
@@ -2044,6 +2050,11 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector3 realRgb, out UInt16 packedBgr)
         {
+            if (realRgb.X < 0f || realRgb.X > 1f ||
+                realRgb.Y < 0f || realRgb.Y > 1f ||
+                realRgb.Z < 0f || realRgb.Z > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgb);
+
             UInt32 r = PackUtils.PackUnsignedNormalisedValue(31f, realRgb.X) << 11;
             UInt32 g = PackUtils.PackUnsignedNormalisedValue(63f, realRgb.Y) << 5;
             UInt32 b = PackUtils.PackUnsignedNormalisedValue(31f, realRgb.Z);
@@ -2058,6 +2069,11 @@ namespace Abacus.Packed
             realRgb.X = PackUtils.UnpackUnsignedNormalisedValue(0x1f, (UInt32)(packedBgr >> 11));
             realRgb.Y = PackUtils.UnpackUnsignedNormalisedValue(0x3f, (UInt32)(packedBgr >> 5));
             realRgb.Z = PackUtils.UnpackUnsignedNormalisedValue(0x1f, packedBgr);
+
+            if (realRgb.X < 0f || realRgb.X > 1f ||
+                realRgb.Y < 0f || realRgb.Y > 1f ||
+                realRgb.Z < 0f || realRgb.Z > 1f ) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedBgr);
         }
 
         /// <summary>
@@ -2261,6 +2277,12 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt16 packedBgra)
         {
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
+
             UInt32 r = PackUtils.PackUnsignedNormalisedValue (15f, realRgba.X) << 8;
             UInt32 g = PackUtils.PackUnsignedNormalisedValue (15f, realRgba.Y) << 4;
             UInt32 b = PackUtils.PackUnsignedNormalisedValue (15f, realRgba.Z);
@@ -2277,6 +2299,12 @@ namespace Abacus.Packed
             realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (15, (UInt32)(packedBgra >> 4));
             realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (15, packedBgra);
             realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (15, (UInt32)(packedBgra >> 12));
+
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedBgra);
         }
 
         /// <summary>
@@ -2480,6 +2508,12 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt16 packedBgra)
         {
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
+
             UInt32 r = PackUtils.PackUnsignedNormalisedValue (31f, realRgba.X) << 10;
             UInt32 g = PackUtils.PackUnsignedNormalisedValue (31f, realRgba.Y) << 5;
             UInt32 b = PackUtils.PackUnsignedNormalisedValue (31f, realRgba.Z);
@@ -2496,6 +2530,12 @@ namespace Abacus.Packed
             realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0x1f, (UInt32)(packedBgra >> 5));
             realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0x1f, packedBgra);
             realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (1, (UInt32)(packedBgra >> 15));
+
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedBgra);
         }
 
         /// <summary>
@@ -2917,6 +2957,10 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector2 realXy, out UInt16 packedXy)
         {
+            if (realXy.X < -1f || realXy.X > 1f ||
+                realXy.Y < -1f || realXy.Y > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realXy);
+
             UInt32 x = PackUtils.PackSignedNormalised(0xff, realXy.X);
             UInt32 y = PackUtils.PackSignedNormalised(0xff, realXy.Y) << 8;
             packedXy = (UInt16)(x | y);
@@ -2929,6 +2973,10 @@ namespace Abacus.Packed
         {
             realXy.X = PackUtils.UnpackSignedNormalised (0xff, packedXy);
             realXy.Y = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXy >> 8));
+
+            if (realXy.X < -1f || realXy.X > 1f ||
+                realXy.Y < -1f || realXy.Y > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedXy);
         }
 
         /// <summary>
@@ -3132,6 +3180,12 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt32 packedXyzw)
         {
+            if (realXyzw.X < -1f || realXyzw.X > 1f ||
+                realXyzw.Y < -1f || realXyzw.Y > 1f ||
+                realXyzw.Z < -1f || realXyzw.Z > 1f ||
+                realXyzw.W < -1f || realXyzw.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realXyzw);
+
             UInt32 x = PackUtils.PackSignedNormalised(0xff, realXyzw.X);
             UInt32 y = PackUtils.PackSignedNormalised(0xff, realXyzw.Y) << 8;
             UInt32 z = PackUtils.PackSignedNormalised(0xff, realXyzw.Z) << 16;
@@ -3148,6 +3202,12 @@ namespace Abacus.Packed
             realXyzw.Y = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXyzw >> 8));
             realXyzw.Z = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXyzw >> 16));
             realXyzw.W = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXyzw >> 24));
+
+            if (realXyzw.X < -1f || realXyzw.X > 1f ||
+                realXyzw.Y < -1f || realXyzw.Y > 1f ||
+                realXyzw.Z < -1f || realXyzw.Z > 1f ||
+                realXyzw.W < -1f || realXyzw.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedXyzw);
         }
 
         /// <summary>
@@ -3351,6 +3411,10 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector2 realXy, out UInt32 packedXy)
         {
+            if (realXy.X < -1f || realXy.X > 1f ||
+                realXy.Y < -1f || realXy.Y > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realXy);
+
             UInt32 x = PackUtils.PackSignedNormalised(0xffff, realXy.X);
             UInt32 y = PackUtils.PackSignedNormalised(0xffff, realXy.Y) << 16;
             packedXy = (x | y);
@@ -3363,6 +3427,10 @@ namespace Abacus.Packed
         {
             realXy.X = PackUtils.UnpackSignedNormalised (0xffff, packedXy);
             realXy.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXy >> 16));
+
+            if (realXy.X < -1f || realXy.X > 1f ||
+                realXy.Y < -1f || realXy.Y > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedXy);
         }
 
         /// <summary>
@@ -3566,10 +3634,16 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
         {
-            UInt64 x = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.X);
-            UInt64 y = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.Y) << 16;
-            UInt64 z = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.Z) << 32;
-            UInt64 w = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.W) << 48;
+            if (realXyzw.X < -1f || realXyzw.X > 1f ||
+                realXyzw.Y < -1f || realXyzw.Y > 1f ||
+                realXyzw.Z < -1f || realXyzw.Z > 1f ||
+                realXyzw.W < -1f || realXyzw.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realXyzw);
+
+            UInt64 x = (UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.X);
+            UInt64 y = ((UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.Y)) << 16;
+            UInt64 z = ((UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.Z)) << 32;
+            UInt64 w = ((UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.W)) << 48;
             packedXyzw = (((x | y) | z) | w);
         }
 
@@ -3578,10 +3652,16 @@ namespace Abacus.Packed
         /// </summary>
         static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
         {
-            realXyzw.X = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) packedXyzw);
-            realXyzw.Y = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 16));
-            realXyzw.Z = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 32));
-            realXyzw.W = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 48));
+            realXyzw.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedXyzw);
+            realXyzw.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 16));
+            realXyzw.Z = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 32));
+            realXyzw.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 48));
+
+            if (realXyzw.X < -1f || realXyzw.X > 1f ||
+                realXyzw.Y < -1f || realXyzw.Y > 1f ||
+                realXyzw.Z < -1f || realXyzw.Z > 1f ||
+                realXyzw.W < -1f || realXyzw.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedXyzw);
         }
 
         /// <summary>
@@ -3785,6 +3865,10 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector2 realRg, out UInt32 packedRg)
         {
+            if (realRg.X < -1f || realRg.X > 1f ||
+                realRg.Y < -1f || realRg.Y > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realRg);
+
             UInt32 x = PackUtils.PackUnsignedNormalisedValue(0xffff, realRg.X);
             UInt32 y = PackUtils.PackUnsignedNormalisedValue(0xffff, realRg.Y) << 16;
             packedRg = (x | y);
@@ -3797,6 +3881,10 @@ namespace Abacus.Packed
         {
             realRg.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, packedRg);
             realRg.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRg >> 16));
+
+            if (realRg.X < -1f || realRg.X > 1f ||
+                realRg.Y < -1f || realRg.Y > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedRg);
         }
 
         /// <summary>
@@ -3998,24 +4086,36 @@ namespace Abacus.Packed
         /// <summary>
         /// todo
         /// </summary>
-        static void Pack(ref SinglePrecision.Vector4 realRgba32, out UInt32 packedRgba32)
+        static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt32 packedRgba)
         {
-            UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.X);
-            UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.Y) << 8;
-            UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.Z) << 16;
-            UInt32 a = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.W) << 24;
-            packedRgba32 = ((r | g) | b) | a;
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
+
+            UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.X);
+            UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.Y) << 8;
+            UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.Z) << 16;
+            UInt32 a = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.W) << 24;
+            packedRgba = ((r | g) | b) | a;
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        static void Unpack(UInt32 packedRgba32, out SinglePrecision.Vector4 realRgba32)
+        static void Unpack(UInt32 packedRgba, out SinglePrecision.Vector4 realRgba)
         {
-            realRgba32.X = PackUtils.UnpackUnsignedNormalisedValue (0xff, packedRgba32);
-            realRgba32.Y = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 8));
-            realRgba32.Z = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 16));
-            realRgba32.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 24));
+            realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (0xff, packedRgba);
+            realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba >> 8));
+            realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba >> 16));
+            realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba >> 24));
+
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedRgba);
         }
 
         /// <summary>
@@ -5150,6 +5250,220 @@ namespace Abacus.Packed
         /// <summary>
         /// todo
         /// </summary>
+        UInt32 packedValue;
+
+        #region IPackedValue
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [CLSCompliant (false)]
+        public UInt32 PackedValue
+        {
+            get
+            {
+                return this.packedValue;
+            }
+            set
+            {
+                this.packedValue = value;
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public override Int32 GetHashCode()
+        {
+            return this.packedValue.GetHashCode();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public override Boolean Equals(Object obj)
+        {
+            return ((obj is Rgba32) && this.Equals((Rgba32)obj));
+        }
+
+        #region IEquatable<Rgba32>
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Boolean Equals(Rgba32 other)
+        {
+            return this.packedValue.Equals(other.packedValue);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Boolean operator ==(Rgba32 a, Rgba32 b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Boolean operator !=(Rgba32 a, Rgba32 b)
+        {
+            return !a.Equals(b);
+        }
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Rgba32(ref SinglePrecision.Vector4 realRgba)
+        {
+            Pack(ref realRgba, out this.packedValue);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void PackFrom(ref SinglePrecision.Vector4 realRgba)
+        {
+            Pack(ref realRgba, out this.packedValue);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void UnpackTo(out SinglePrecision.Vector4 realRgba)
+        {
+            Unpack(this.packedValue, out realRgba);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Rgba32(ref DoublePrecision.Vector4 realRgba)
+        {
+            Pack(ref realRgba, out this.packedValue);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void PackFrom(ref DoublePrecision.Vector4 realRgba)
+        {
+            Pack(ref realRgba, out this.packedValue);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void UnpackTo(out DoublePrecision.Vector4 realRgba)
+        {
+            Unpack(this.packedValue, out realRgba);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Rgba32(ref Fixed32Precision.Vector4 realRgba)
+        {
+            Pack(ref realRgba, out this.packedValue);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void PackFrom(ref Fixed32Precision.Vector4 realRgba)
+        {
+            Pack(ref realRgba, out this.packedValue);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void UnpackTo(out Fixed32Precision.Vector4 realRgba)
+        {
+            Unpack(this.packedValue, out realRgba);
+        }
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(ref DoublePrecision.Vector4 realRgba, out UInt32 packedRgba)
+        {
+            SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
+            Pack(ref singleVector, out packedRgba);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(UInt32 packedRgba, out DoublePrecision.Vector4 realRgba)
+        {
+            SinglePrecision.Vector4 singleVector;
+            Unpack(packedRgba, out singleVector);
+            realRgba = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
+        }
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Pack(ref Fixed32Precision.Vector4 realRgba, out UInt32 packedRgba)
+        {
+            SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba.X, (Single)realRgba.Y, (Single)realRgba.Z, (Single)realRgba.W);
+            Pack(ref singleVector, out packedRgba);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        static void Unpack(UInt32 packedRgba, out Fixed32Precision.Vector4 realRgba)
+        {
+            SinglePrecision.Vector4 singleVector;
+            Unpack(packedRgba, out singleVector);
+            realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte R
+        {
+            get { return unchecked((Byte)this.packedValue); }
+            set { this.packedValue = (this.packedValue & 0xffffff00) | value; }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte G
+        {
+            get { return unchecked((Byte)(this.packedValue >> 8)); }
+            set { this.packedValue = (this.packedValue & 0xffff00ff) | ((UInt32)(value << 8)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte B
+        {
+            get { return unchecked((Byte)(this.packedValue >> 0x10)); }
+            set { this.packedValue = (this.packedValue & 0xff00ffff) | ((UInt32)(value << 0x10)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte A
+        {
+            get { return unchecked((Byte)(this.packedValue >> 0x18)); }
+            set { this.packedValue = (this.packedValue & 0xffffff) | ((UInt32)(value << 0x18)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
         Rgba32(UInt32 packedValue)
         {
             this.packedValue = packedValue;
@@ -5321,66 +5635,7 @@ namespace Abacus.Packed
 
             return (Int32)value;
         }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte R
-        {
-            get
-            {
-                return unchecked((byte)this.packedValue);
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xffffff00) | value;
-            }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte G
-        {
-            get
-            {
-                return unchecked((byte)(this.packedValue >> 8));
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xffff00ff) | ((UInt32)(value << 8));
-            }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte B
-        {
-            get
-            {
-                return unchecked((byte)(this.packedValue >> 0x10));
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xff00ffff) | ((UInt32)(value << 0x10));
-            }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte A
-        {
-            get
-            {
-                return unchecked((byte)(this.packedValue >> 0x18));
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xffffff) | ((UInt32)(value << 0x18));
-            }
-        }
+        
 
         /// <summary>
         /// todo
@@ -5561,183 +5816,6 @@ namespace Abacus.Packed
         }
 
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        UInt32 packedValue;
-
-        #region IPackedValue
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [CLSCompliant (false)]
-        public UInt32 PackedValue
-        {
-            get
-            {
-                return this.packedValue;
-            }
-            set
-            {
-                this.packedValue = value;
-            }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public override Int32 GetHashCode()
-        {
-            return this.packedValue.GetHashCode();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public override Boolean Equals(Object obj)
-        {
-            return ((obj is Rgba32) && this.Equals((Rgba32)obj));
-        }
-
-        #region IEquatable<Rgba32>
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Boolean Equals(Rgba32 other)
-        {
-            return this.packedValue.Equals(other.packedValue);
-        }
-
-        #endregion
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Boolean operator ==(Rgba32 a, Rgba32 b)
-        {
-            return a.Equals(b);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Boolean operator !=(Rgba32 a, Rgba32 b)
-        {
-            return !a.Equals(b);
-        }
-
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Rgba32(ref SinglePrecision.Vector4 realRgba32)
-        {
-            Pack(ref realRgba32, out this.packedValue);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void PackFrom(ref SinglePrecision.Vector4 realRgba32)
-        {
-            Pack(ref realRgba32, out this.packedValue);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void UnpackTo(out SinglePrecision.Vector4 realRgba32)
-        {
-            Unpack(this.packedValue, out realRgba32);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Rgba32(ref DoublePrecision.Vector4 realRgba32)
-        {
-            Pack(ref realRgba32, out this.packedValue);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void PackFrom(ref DoublePrecision.Vector4 realRgba32)
-        {
-            Pack(ref realRgba32, out this.packedValue);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void UnpackTo(out DoublePrecision.Vector4 realRgba32)
-        {
-            Unpack(this.packedValue, out realRgba32);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Rgba32(ref Fixed32Precision.Vector4 realRgba32)
-        {
-            Pack(ref realRgba32, out this.packedValue);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void PackFrom(ref Fixed32Precision.Vector4 realRgba32)
-        {
-            Pack(ref realRgba32, out this.packedValue);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void UnpackTo(out Fixed32Precision.Vector4 realRgba32)
-        {
-            Unpack(this.packedValue, out realRgba32);
-        }
-        /// <summary>
-        /// todo
-        /// </summary>
-        static void Pack(ref DoublePrecision.Vector4 realRgba32, out UInt32 packedRgba32)
-        {
-            SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba32.X, (Single)realRgba32.Y, (Single)realRgba32.Z, (Single)realRgba32.W);
-            Pack(ref singleVector, out packedRgba32);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        static void Unpack(UInt32 packedRgba32, out DoublePrecision.Vector4 realRgba32)
-        {
-            SinglePrecision.Vector4 singleVector;
-            Unpack(packedRgba32, out singleVector);
-            realRgba32 = new DoublePrecision.Vector4((Double)singleVector.X, (Double)singleVector.Y, (Double)singleVector.Z, (Double)singleVector.W);
-        }
-        /// <summary>
-        /// todo
-        /// </summary>
-        static void Pack(ref Fixed32Precision.Vector4 realRgba32, out UInt32 packedRgba32)
-        {
-            SinglePrecision.Vector4 singleVector = new SinglePrecision.Vector4((Single)realRgba32.X, (Single)realRgba32.Y, (Single)realRgba32.Z, (Single)realRgba32.W);
-            Pack(ref singleVector, out packedRgba32);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        static void Unpack(UInt32 packedRgba32, out Fixed32Precision.Vector4 realRgba32)
-        {
-            SinglePrecision.Vector4 singleVector;
-            Unpack(packedRgba32, out singleVector);
-            realRgba32 = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
-        }
     }
 
     [StructLayout (LayoutKind.Sequential), Serializable]
@@ -5753,19 +5831,31 @@ namespace Abacus.Packed
 
         static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt64 packedRgba)
         {
-            UInt64 r = PackUtils.PackSignedNormalised(0xffff, realRgba.X);
-            UInt64 g = PackUtils.PackSignedNormalised(0xffff, realRgba.Y) << 16;
-            UInt64 b = PackUtils.PackSignedNormalised(0xffff, realRgba.Z) << 32;
-            UInt64 a = PackUtils.PackSignedNormalised(0xffff, realRgba.W) << 48;
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
+
+            UInt64 r = (UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.X);
+            UInt64 g = ((UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.Y)) << 16;
+            UInt64 b = ((UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.Z)) << 32;
+            UInt64 a = ((UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.W)) << 48;
             packedRgba = (((r | g) | b) | a);
         }
 
         static void Unpack(UInt64 packedRgba, out SinglePrecision.Vector4 realRgba)
         {
-            realRgba.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedRgba);
-            realRgba.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 16));
-            realRgba.Z = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 32));
-            realRgba.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedRgba >> 48));
+            realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) packedRgba);
+            realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRgba >> 16));
+            realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRgba >> 32));
+            realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRgba >> 48));
+
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a unsigned normalised output: " + packedRgba);
         }
 
         /// <summary>
@@ -5945,6 +6035,42 @@ namespace Abacus.Packed
             Unpack(packedRgba, out singleVector);
             realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
         }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 R
+        {
+            get { return unchecked((UInt16)this.packedValue); }
+            set { this.packedValue = (this.packedValue & 0xffffffffffff0000) | value; }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 G
+        {
+            get { return unchecked((UInt16)(this.packedValue >> 16)); }
+            set { this.packedValue = (this.packedValue & 0xffffffff0000ffff) | ((UInt64)(value << 16)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 B
+        {
+            get { return unchecked((UInt16)(this.packedValue >> 32)); }
+            set { this.packedValue = (this.packedValue & 0xffff0000ffffffff) | ((UInt64)(value << 32)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public UInt16 A
+        {
+            get { return unchecked((UInt16)(this.packedValue >> 48)); }
+            set { this.packedValue = (this.packedValue & 0x0000ffffffffffff) | ((UInt64)(value << 48)); }
+        }
     }
     
     // 2 bit alpha
@@ -5962,6 +6088,12 @@ namespace Abacus.Packed
 
         static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt32 packedRgba)
         {
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
+
             UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.X);
             UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.Y) << 10;
             UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xffff, realRgba.Z) << 20;
@@ -5975,6 +6107,12 @@ namespace Abacus.Packed
             realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 10));
             realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 20));
             realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32)(packedRgba >> 30));
+
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedRgba);
         }
 
         /// <summary>
@@ -6369,6 +6507,7 @@ namespace Abacus.Packed
             Unpack(packedXy, out singleVector);
             realXy = new Fixed32Precision.Vector2((Fixed32)singleVector.X, (Fixed32)singleVector.Y);
         }
+
     }
     
     /// <summary>
@@ -6393,10 +6532,10 @@ namespace Abacus.Packed
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
         {
-            UInt64 x = PackUtils.PackSigned(0xffff, realXyzw.X);
-            UInt64 y = PackUtils.PackSigned(0xffff, realXyzw.Y) << 16;
-            UInt64 z = PackUtils.PackSigned(0xffff, realXyzw.Z) << 32;
-            UInt64 w = PackUtils.PackSigned(0xffff, realXyzw.W) << 48;
+            UInt64 x = (UInt64) PackUtils.PackSigned(0xffff, realXyzw.X);
+            UInt64 y = ((UInt64) PackUtils.PackSigned(0xffff, realXyzw.Y)) << 16;
+            UInt64 z = ((UInt64) PackUtils.PackSigned(0xffff, realXyzw.Z)) << 32;
+            UInt64 w = ((UInt64) PackUtils.PackSigned(0xffff, realXyzw.W)) << 48;
             packedXyzw = (((x | y) | z) | w);
         }
 
@@ -6405,10 +6544,10 @@ namespace Abacus.Packed
         /// </summary>
         static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
         {
-            realXyzw.X = (Int16) packedXyzw;
-            realXyzw.Y = (Int16) (packedXyzw >> 16);
-            realXyzw.Z = (Int16) (packedXyzw >> 32);
-            realXyzw.W = (Int16) (packedXyzw >> 48);
+            realXyzw.X = ((Int16) packedXyzw);
+            realXyzw.Y = ((Int16) (packedXyzw >> 16));
+            realXyzw.Z = ((Int16) (packedXyzw >> 32));
+            realXyzw.W = ((Int16) (packedXyzw >> 48));
         }
 
         /// <summary>
@@ -6588,6 +6727,7 @@ namespace Abacus.Packed
             Unpack(packedXyzw, out singleVector);
             realXyzw = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
         }
+
     }
 
 }

@@ -20,10 +20,16 @@
         /// </summary>
         static void Pack(ref SinglePrecision.Vector4 realXyzw, out UInt64 packedXyzw)
         {
-            UInt64 x = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.X);
-            UInt64 y = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.Y) << 16;
-            UInt64 z = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.Z) << 32;
-            UInt64 w = PackUtils.PackSignedNormalised(0xffffffff, realXyzw.W) << 48;
+            if (realXyzw.X < -1f || realXyzw.X > 1f ||
+                realXyzw.Y < -1f || realXyzw.Y > 1f ||
+                realXyzw.Z < -1f || realXyzw.Z > 1f ||
+                realXyzw.W < -1f || realXyzw.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realXyzw);
+
+            UInt64 x = (UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.X);
+            UInt64 y = ((UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.Y)) << 16;
+            UInt64 z = ((UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.Z)) << 32;
+            UInt64 w = ((UInt64) PackUtils.PackSignedNormalised(0xffff, realXyzw.W)) << 48;
             packedXyzw = (((x | y) | z) | w);
         }
 
@@ -32,10 +38,16 @@
         /// </summary>
         static void Unpack(UInt64 packedXyzw, out SinglePrecision.Vector4 realXyzw)
         {
-            realXyzw.X = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) packedXyzw);
-            realXyzw.Y = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 16));
-            realXyzw.Z = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 32));
-            realXyzw.W = PackUtils.UnpackSignedNormalised (0xffffffff, (UInt32) (packedXyzw >> 48));
+            realXyzw.X = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) packedXyzw);
+            realXyzw.Y = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 16));
+            realXyzw.Z = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 32));
+            realXyzw.W = PackUtils.UnpackSignedNormalised (0xffff, (UInt32) (packedXyzw >> 48));
+
+            if (realXyzw.X < -1f || realXyzw.X > 1f ||
+                realXyzw.Y < -1f || realXyzw.Y > 1f ||
+                realXyzw.Z < -1f || realXyzw.Z > 1f ||
+                realXyzw.W < -1f || realXyzw.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedXyzw);
         }
 
 <#  GeneratePackedCommon("NormalisedShort4", "UInt64", "packedXyzw", "realXyzw", 4); #>

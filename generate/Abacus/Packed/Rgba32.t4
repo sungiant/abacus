@@ -18,24 +18,36 @@
         /// <summary>
         /// todo
         /// </summary>
-        static void Pack(ref SinglePrecision.Vector4 realRgba32, out UInt32 packedRgba32)
+        static void Pack(ref SinglePrecision.Vector4 realRgba, out UInt32 packedRgba)
         {
-            UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.X);
-            UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.Y) << 8;
-            UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.Z) << 16;
-            UInt32 a = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba32.W) << 24;
-            packedRgba32 = ((r | g) | b) | a;
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
+
+            UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.X);
+            UInt32 g = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.Y) << 8;
+            UInt32 b = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.Z) << 16;
+            UInt32 a = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.W) << 24;
+            packedRgba = ((r | g) | b) | a;
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        static void Unpack(UInt32 packedRgba32, out SinglePrecision.Vector4 realRgba32)
+        static void Unpack(UInt32 packedRgba, out SinglePrecision.Vector4 realRgba)
         {
-            realRgba32.X = PackUtils.UnpackUnsignedNormalisedValue (0xff, packedRgba32);
-            realRgba32.Y = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 8));
-            realRgba32.Z = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 16));
-            realRgba32.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba32 >> 24));
+            realRgba.X = PackUtils.UnpackUnsignedNormalisedValue (0xff, packedRgba);
+            realRgba.Y = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba >> 8));
+            realRgba.Z = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba >> 16));
+            realRgba.W = PackUtils.UnpackUnsignedNormalisedValue (0xff, (UInt32)(packedRgba >> 24));
+
+            if (realRgba.X < 0f || realRgba.X > 1f ||
+                realRgba.Y < 0f || realRgba.Y > 1f ||
+                realRgba.Z < 0f || realRgba.Z > 1f ||
+                realRgba.W < 0f || realRgba.W > 1f ) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedRgba);
         }
 
 <# foreach( var kvp in TT_GetUInt32Colours() ) { #>
@@ -49,9 +61,46 @@
 
 <# } #>
 
+<#  GeneratePackedCommon("Rgba32", "UInt32", "packedRgba", "realRgba", 4); #>
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte R
+        {
+            get { return unchecked((Byte)this.packedValue); }
+            set { this.packedValue = (this.packedValue & 0xffffff00) | value; }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte G
+        {
+            get { return unchecked((Byte)(this.packedValue >> 8)); }
+            set { this.packedValue = (this.packedValue & 0xffff00ff) | ((UInt32)(value << 8)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte B
+        {
+            get { return unchecked((Byte)(this.packedValue >> 0x10)); }
+            set { this.packedValue = (this.packedValue & 0xff00ffff) | ((UInt32)(value << 0x10)); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Byte A
+        {
+            get { return unchecked((Byte)(this.packedValue >> 0x18)); }
+            set { this.packedValue = (this.packedValue & 0xffffff) | ((UInt32)(value << 0x18)); }
+        }
+
 <#@ include file="Rgba32.Misc.t4"#>
 <#@ include file="Rgba32.Operators.t4"#>
 
-<#  GeneratePackedCommon("Rgba32", "UInt32", "packedRgba32", "realRgba32", 4); #>
     }
 

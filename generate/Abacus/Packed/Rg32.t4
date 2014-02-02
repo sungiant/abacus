@@ -20,6 +20,10 @@
         /// </summary>
         static void Pack(ref SinglePrecision.Vector2 realRg, out UInt32 packedRg)
         {
+            if (realRg.X < -1f || realRg.X > 1f ||
+                realRg.Y < -1f || realRg.Y > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realRg);
+
             UInt32 x = PackUtils.PackUnsignedNormalisedValue(0xffff, realRg.X);
             UInt32 y = PackUtils.PackUnsignedNormalisedValue(0xffff, realRg.Y) << 16;
             packedRg = (x | y);
@@ -32,6 +36,10 @@
         {
             realRg.X = PackUtils.UnpackUnsignedNormalisedValue (0xffff, packedRg);
             realRg.Y = PackUtils.UnpackUnsignedNormalisedValue (0xffff, (UInt32) (packedRg >> 16));
+
+            if (realRg.X < -1f || realRg.X > 1f ||
+                realRg.Y < -1f || realRg.Y > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedRg);
         }
 
 <#  GeneratePackedCommon("Rg32", "UInt32", "packedRg", "realRg", 2); #>

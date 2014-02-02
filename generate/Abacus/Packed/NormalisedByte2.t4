@@ -20,6 +20,10 @@
         /// </summary>
         static void Pack(ref SinglePrecision.Vector2 realXy, out UInt16 packedXy)
         {
+            if (realXy.X < -1f || realXy.X > 1f ||
+                realXy.Y < -1f || realXy.Y > 1f ) 
+                throw new ArgumentException ("A component of the input source is not normalised: " + realXy);
+
             UInt32 x = PackUtils.PackSignedNormalised(0xff, realXy.X);
             UInt32 y = PackUtils.PackSignedNormalised(0xff, realXy.Y) << 8;
             packedXy = (UInt16)(x | y);
@@ -32,6 +36,10 @@
         {
             realXy.X = PackUtils.UnpackSignedNormalised (0xff, packedXy);
             realXy.Y = PackUtils.UnpackSignedNormalised (0xff, (UInt32) (packedXy >> 8));
+
+            if (realXy.X < -1f || realXy.X > 1f ||
+                realXy.Y < -1f || realXy.Y > 1f ) 
+                throw new Exception ("A the input source doesn't yeild a normalised output: " + packedXy);
         }
 
 <#  GeneratePackedCommon("NormalisedByte2", "UInt16", "packedXy", "realXy", 2); #>

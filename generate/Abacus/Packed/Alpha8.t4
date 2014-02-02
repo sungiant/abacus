@@ -20,6 +20,9 @@
         /// </summary>
         static void Pack(Single realAlpha, out Byte packedAlpha)
         {
+            if (realAlpha < 0f || realAlpha > 1f) 
+                throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realAlpha);
+
             packedAlpha = (Byte)PackUtils.PackUnsignedNormalisedValue(255f, realAlpha);
         }
 
@@ -29,6 +32,9 @@
         static void Unpack(Byte packedAlpha, out Single realAlpha)
         {
             realAlpha = PackUtils.UnpackUnsignedNormalisedValue(0xff, packedAlpha);
+
+            if (realAlpha < 0f || realAlpha > 1f) 
+                throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedAlpha);
         }
 
 <#  GeneratePackedCommon("Alpha_8", "Byte", "packedAlpha", "realAlpha", 1); #>

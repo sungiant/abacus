@@ -136,66 +136,7 @@
 
             return (Int32)value;
         }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte R
-        {
-            get
-            {
-                return unchecked((byte)this.packedValue);
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xffffff00) | value;
-            }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte G
-        {
-            get
-            {
-                return unchecked((byte)(this.packedValue >> 8));
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xffff00ff) | ((UInt32)(value << 8));
-            }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte B
-        {
-            get
-            {
-                return unchecked((byte)(this.packedValue >> 0x10));
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xff00ffff) | ((UInt32)(value << 0x10));
-            }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public byte A
-        {
-            get
-            {
-                return unchecked((byte)(this.packedValue >> 0x18));
-            }
-            set
-            {
-                this.packedValue = (this.packedValue & 0xffffff) | ((UInt32)(value << 0x18));
-            }
-        }
+        
 
         /// <summary>
         /// todo
