@@ -26,10 +26,10 @@
                 realXyzw.W < -1f || realXyzw.W > 1f ) 
                 throw new ArgumentException ("A component of the input source is not normalised: " + realXyzw);
 
-            UInt32 x = PackUtils.PackSignedNormalised(0xff, realXyzw.X);
-            UInt32 y = PackUtils.PackSignedNormalised(0xff, realXyzw.Y) << 8;
-            UInt32 z = PackUtils.PackSignedNormalised(0xff, realXyzw.Z) << 16;
-            UInt32 w = PackUtils.PackSignedNormalised(0xff, realXyzw.W) << 24;
+            UInt32 x = PackUtils.PackSignedNormalised (0xff, realXyzw.X);
+            UInt32 y = PackUtils.PackSignedNormalised (0xff, realXyzw.Y) << 8;
+            UInt32 z = PackUtils.PackSignedNormalised (0xff, realXyzw.Z) << 16;
+            UInt32 w = PackUtils.PackSignedNormalised (0xff, realXyzw.W) << 24;
             packedXyzw = (((x | y) | z) | w);
         }
 
