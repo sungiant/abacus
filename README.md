@@ -12,6 +12,6 @@ Right now Abacus is in development, currently the focus of the project is to rea
 
 ![Abacus](/misc/bead2.png) **Getting Starting**
 
-The source code for Abacus can be easily included in any C# project, simply copy and compile [Abacus.cs](https://raw.github.com/sungiant/abacus/development/source/Abacus.cs) along with the rest of you code.
+The source code for Abacus can be easily included in any C# project, simply copy and compile [Abacus.cs](https://raw.github.com/abacus3D/abacus/development/source/Abacus.cs) along with the rest of you code.
 
-Abacus's documentation can be found [here](https://github.com/sungiant/abacus/wiki).
+Abacus's documentation can be found [here](https://github.com/abacus3D/abacus/wiki).
