@@ -6,7 +6,7 @@
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15,7 +15,7 @@
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -69,7 +69,7 @@
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -78,7 +78,7 @@
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -118,10 +118,8 @@
 
             Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
             q.Normalise();
-            Console.WriteLine(q);
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
-            Console.WriteLine(m);
 
             Matrix44 expected = new Matrix44 ();
             expected.M11 = <#= type #>.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
@@ -147,7 +145,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of examples, a random quaternion can be 
+        /// Assert that, for a number of examples, a random quaternion can be
         /// selected, converted to a Matrix44 then converted back to the same
         /// quaternion (assuming that the conversion back is correct).
         /// </summary>
@@ -165,7 +163,6 @@
                 Quaternion q2;
                 Quaternion.CreateFromRotationMatrix(ref m, out q2);
 
-                Console.WriteLine( q.ToString() + " - " + q2.ToString());
                 QuaternionTests.AssertEqualWithinReason(q, q2);
             }
         }
@@ -241,7 +238,7 @@
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>

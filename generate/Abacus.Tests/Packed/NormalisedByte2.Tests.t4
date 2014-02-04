@@ -1,4 +1,4 @@
-﻿    /// <summary>
+    /// <summary>
     /// Tests the NormalisedByte2 packed data type.
     /// </summary>
     [TestFixture]
@@ -6,7 +6,7 @@
     {
         /// <summary>
         /// Iterates over every possible NormalisedByte2 value and makes sure that
-        /// unpacking them and then re-packing that result yeilds the 
+        /// unpacking them and then re-packing that result yeilds the
         /// original packed value.
         /// </summary>
         [Test]
@@ -48,7 +48,7 @@
         }
 
         /// <summary>
-        /// Makes sure that the hashing function is good by testing 
+        /// Makes sure that the hashing function is good by testing
         /// all scenarios and ensuring that there are no collisions.
         /// </summary>
         [Test]

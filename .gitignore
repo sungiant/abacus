@@ -18,4 +18,5 @@
 *.log
 *.pidb
 *.DS_Store
+TestResult.xml
 

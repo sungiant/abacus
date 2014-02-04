@@ -1574,7 +1574,7 @@ namespace Abacus.Packed.Tests
     {
         /// <summary>
         /// Iterates over every possible NormalisedByte2 value and makes sure that
-        /// unpacking them and then re-packing that result yeilds the 
+        /// unpacking them and then re-packing that result yeilds the
         /// original packed value.
         /// </summary>
         [Test]
@@ -1616,7 +1616,7 @@ namespace Abacus.Packed.Tests
         }
 
         /// <summary>
-        /// Makes sure that the hashing function is good by testing 
+        /// Makes sure that the hashing function is good by testing
         /// all scenarios and ensuring that there are no collisions.
         /// </summary>
         [Test]
@@ -7392,7 +7392,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -7401,7 +7401,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -7455,7 +7455,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -7464,7 +7464,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -7504,10 +7504,8 @@ namespace Abacus.SinglePrecision.Tests
 
             Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
             q.Normalise();
-            Console.WriteLine(q);
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
-            Console.WriteLine(m);
 
             Matrix44 expected = new Matrix44 ();
             expected.M11 = Single.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
@@ -7533,7 +7531,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of examples, a random quaternion can be 
+        /// Assert that, for a number of examples, a random quaternion can be
         /// selected, converted to a Matrix44 then converted back to the same
         /// quaternion (assuming that the conversion back is correct).
         /// </summary>
@@ -7551,7 +7549,6 @@ namespace Abacus.SinglePrecision.Tests
                 Quaternion q2;
                 Quaternion.CreateFromRotationMatrix(ref m, out q2);
 
-                Console.WriteLine( q.ToString() + " - " + q2.ToString());
                 QuaternionTests.AssertEqualWithinReason(q, q2);
             }
         }
@@ -7627,7 +7624,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15099,7 +15096,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15108,7 +15105,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15162,7 +15159,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15171,7 +15168,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15211,10 +15208,8 @@ namespace Abacus.DoublePrecision.Tests
 
             Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
             q.Normalise();
-            Console.WriteLine(q);
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
-            Console.WriteLine(m);
 
             Matrix44 expected = new Matrix44 ();
             expected.M11 = Double.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
@@ -15240,7 +15235,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of examples, a random quaternion can be 
+        /// Assert that, for a number of examples, a random quaternion can be
         /// selected, converted to a Matrix44 then converted back to the same
         /// quaternion (assuming that the conversion back is correct).
         /// </summary>
@@ -15258,7 +15253,6 @@ namespace Abacus.DoublePrecision.Tests
                 Quaternion q2;
                 Quaternion.CreateFromRotationMatrix(ref m, out q2);
 
-                Console.WriteLine( q.ToString() + " - " + q2.ToString());
                 QuaternionTests.AssertEqualWithinReason(q, q2);
             }
         }
@@ -15334,7 +15328,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -22806,7 +22800,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -22815,7 +22809,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -22869,7 +22863,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -22878,7 +22872,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -22918,10 +22912,8 @@ namespace Abacus.Fixed32Precision.Tests
 
             Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
             q.Normalise();
-            Console.WriteLine(q);
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
-            Console.WriteLine(m);
 
             Matrix44 expected = new Matrix44 ();
             expected.M11 = Fixed32.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
@@ -22947,7 +22939,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of examples, a random quaternion can be 
+        /// Assert that, for a number of examples, a random quaternion can be
         /// selected, converted to a Matrix44 then converted back to the same
         /// quaternion (assuming that the conversion back is correct).
         /// </summary>
@@ -22965,7 +22957,6 @@ namespace Abacus.Fixed32Precision.Tests
                 Quaternion q2;
                 Quaternion.CreateFromRotationMatrix(ref m, out q2);
 
-                Console.WriteLine( q.ToString() + " - " + q2.ToString());
                 QuaternionTests.AssertEqualWithinReason(q, q2);
             }
         }
@@ -23041,7 +23032,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>

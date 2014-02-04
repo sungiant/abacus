@@ -8,7 +8,12 @@ install:
     sudo apt-get -y install mono-complete;
 
 before_script:
-    cd scripts;sh generate.sh;cd ../;
+    cd scripts;
+    sh generate.sh;
 
 script:
-    xbuild "build_examples/xs.mono40/Abacus/Abacus (xs.mono40).csproj" /p:Configuration=Release
+    sh build.sh;
+    sh test.sh;
+
+after_script:
+    cd ../;
