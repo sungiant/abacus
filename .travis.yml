@@ -1,6 +1,3 @@
-language:
-    cpp
-
 before_install:
     sudo apt-get -y update;
 
@@ -12,8 +9,8 @@ before_script:
     sh generate.sh;
 
 script:
-    sh build.sh;
-    sh test.sh;
+    sh build.sh && exit 1;
+    sh test.sh && exit 1;
 
 after_script:
     cd ../;
