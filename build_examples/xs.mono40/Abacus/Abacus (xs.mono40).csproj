@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
-      <HintPath>..\..\NUnit-2.6.3\bin\framework\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\libs\NUnit-2.6.3\bin\framework\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
