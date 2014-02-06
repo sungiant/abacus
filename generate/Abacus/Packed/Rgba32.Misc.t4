@@ -143,24 +143,36 @@
         /// </summary>
         public static Rgba32 Lerp(Rgba32 value1, Rgba32 value2, Single amount)
         {
-            Rgba32 color;
-            UInt32 packedValue = value1.packedValue;
-            UInt32 num2 = value2.packedValue;
-            int num7 = (byte)packedValue;
-            int num6 = (byte)(packedValue >> 8);
-            int num5 = (byte)(packedValue >> 0x10);
-            int num4 = (byte)(packedValue >> 0x18);
-            int num15 = (byte)num2;
-            int num14 = (byte)(num2 >> 8);
-            int num13 = (byte)(num2 >> 0x10);
-            int num12 = (byte)(num2 >> 0x18);
-            int num = (int)PackUtils.PackUnsignedNormalisedValue(65536f, amount);
-            int num11 = num7 + (((num15 - num7) * num) >> 0x10);
-            int num10 = num6 + (((num14 - num6) * num) >> 0x10);
-            int num9 = num5 + (((num13 - num5) * num) >> 0x10);
-            int num8 = num4 + (((num12 - num4) * num) >> 0x10);
-            color.packedValue = (UInt32)(((num11 | (num10 << 8)) | (num9 << 0x10)) | (num8 << 0x18));
-            return color;
+            if (amount > 1f)
+                throw new ArgumentException("Amount: " + amount + " must be <= 1.");
+            if (amount < 0f)
+                throw new ArgumentException("Amount: " + amount + " must be >= 0.");
+
+            Rgba32 colour;
+            UInt32 packedValue1 = value1.packedValue;
+            UInt32 packedValue2 = value2.packedValue;
+
+            Int32 r1 = (Byte) (packedValue1);
+            Int32 g1 = (Byte) (packedValue1 >> 8);
+            Int32 b1 = (Byte) (packedValue1 >> 0x10);
+            Int32 a1 = (Byte) (packedValue1 >> 0x18);
+
+            Int32 r2 = (Byte) (packedValue2);
+            Int32 g2 = (Byte) (packedValue2 >> 8);
+            Int32 b2 = (Byte) (packedValue2 >> 0x10);
+            Int32 a2 = (Byte) (packedValue2 >> 0x18);
+
+            Int32 num = (Int32) PackUtils.PackUnsignedNormalisedValue(65536f, amount);
+
+            Int32 r = r1 + (((r2 - r1) * num) >> 0x10);
+            Int32 g = g1 + (((g2 - g1) * num) >> 0x10);
+            Int32 b = b1 + (((b2 - b1) * num) >> 0x10);
+            Int32 a = a1 + (((a2 - a1) * num) >> 0x10);
+
+            colour.packedValue = 
+                (UInt32)(((r | (g << 8)) | (b << 0x10)) | (a << 0x18));
+            
+            return colour;
         }
 
 <# foreach( var realType in GetRealTypes() ) { #>
