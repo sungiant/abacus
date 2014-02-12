@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -67,7 +67,7 @@
             {
                 Vector2 a = GetNextRandomVector2();
 
-                <#= type #> expected = 
+                <#= type #> expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -77,7 +77,7 @@
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -109,8 +109,8 @@
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -135,7 +135,7 @@
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -187,7 +187,7 @@
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -217,29 +217,29 @@
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector2 a = new Vector2(
-                    <#= type #>.MaxValue, 
+                    <#= type #>.MaxValue,
                     <#= type #>.MaxValue);
 
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -267,8 +267,8 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -347,7 +347,7 @@
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -366,7 +366,7 @@
 
                 Vector2 result;
                 Vector2.Reflect(ref a, ref b, out result);
-                
+
                 <#= type #> dot;
                 Vector2.Dot(ref a, ref b, out dot);
 
@@ -386,11 +386,11 @@
             Vector2 incident = GetNextRandomVector2();
             Vector2 normal = new Vector2(12, -241);
 
-            Vector2 result; 
+            Vector2 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector2.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -398,33 +398,140 @@
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Vector2.Normalise (ref position, out position);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2.Normalise (ref expected1, out expected1);
+            Vector2.Normalise (ref expected2, out expected2);
+            Vector2.Normalise (ref expected3, out expected3);
+            Vector2.Normalise (ref expected4, out expected4);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformNormal_ii ()
+        {
+            Matrix44 rotmat = Matrix44.Identity;
+            Vector2 normal = new Vector2 (21, -532);
+            Vector2 result;
+            Assert.Throws(
+                typeof(ArgumentOutOfRangeException),
+                () =>
+                Vector2.TransformNormal(ref normal, ref rotmat, out result)
+            );
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmaty = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmatxy = new Quaternion (0, 0, 1, 0);
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref quatmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref quatmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref quatmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref quatmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 

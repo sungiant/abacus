@@ -6,7 +6,7 @@
         [Test]
         public void TestStaticFn_Conjugate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Inverse //-----------------------------------------//
@@ -17,7 +17,7 @@
         [Test]
         public void TestStaticFn_Inverse_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Distance //----------------------------------------//
@@ -28,7 +28,7 @@
         [Test]
         public void TestStaticFn_Dot_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Concatenate //-------------------------------------//
@@ -39,7 +39,7 @@
         [Test]
         public void TestStaticFn_Concatenate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Normalise //---------------------------------------//
@@ -50,6 +50,6 @@
         [Test]
         public void TestStaticFn_Normalise_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 

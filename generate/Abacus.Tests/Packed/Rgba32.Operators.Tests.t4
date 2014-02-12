@@ -1,6 +1,6 @@
         void TestMultiplication ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>

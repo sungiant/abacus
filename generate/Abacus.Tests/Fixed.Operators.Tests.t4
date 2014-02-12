@@ -1,13 +1,13 @@
         [Test]
         public void Test_Operators_Addition ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         [Test]
         public void Test_Operators_Subtraction ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
                 Assert.That (fsq, Is.EqualTo (new Fixed32(0)));
             }
         }
-        
+
 
         /// <summary>
         /// Make sure signs are handled correctly during multiplication
@@ -43,7 +43,7 @@
             Assert.That (negOne * negOne, Is.EqualTo (one));
         }
 
-        
+
         [Test]
         public void Test_Operators_Multiplication_iii ()
         {
@@ -80,7 +80,7 @@
             // large enough to trigger overflow in the first place.
             Fixed32 bad_h = Fixed32.CreateFromRaw ((f.RawValue * g.RawValue) >> Fixed32.n);
             Assert.That (bad_h, Is.Not.EqualTo (h));
-             * 
+             *
              */
         }
 
@@ -123,6 +123,6 @@
         [Test]
         public void Test_Operators_GreaterThan ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 

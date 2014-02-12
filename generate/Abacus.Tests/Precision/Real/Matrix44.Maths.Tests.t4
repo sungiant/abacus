@@ -64,7 +64,7 @@
         [Test]
         public void TestStaticFn_Determinant_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Invert //------------------------------------------//
@@ -75,7 +75,7 @@
         [Test]
         public void TestStaticFn_Invert_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Transform //---------------------------------------//
@@ -86,5 +86,5 @@
         [Test]
         public void TestStaticFn_Transform_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }

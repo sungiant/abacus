@@ -5831,7 +5831,7 @@ namespace Abacus.Packed
     }
 
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Rgba64 
+    public struct Rgba64
         : IPackedValue<UInt64>
         , IEquatable<Rgba64>
         , IPackedReal4
@@ -5846,7 +5846,7 @@ namespace Abacus.Packed
             if (realRgba.X < 0f || realRgba.X > 1f ||
                 realRgba.Y < 0f || realRgba.Y > 1f ||
                 realRgba.Z < 0f || realRgba.Z > 1f ||
-                realRgba.W < 0f || realRgba.W > 1f ) 
+                realRgba.W < 0f || realRgba.W > 1f )
                 throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
 
             UInt64 r = (UInt64) PackUtils.PackUnsignedNormalisedValue(0xffff, realRgba.X);
@@ -5866,7 +5866,7 @@ namespace Abacus.Packed
             if (realRgba.X < 0f || realRgba.X > 1f ||
                 realRgba.Y < 0f || realRgba.Y > 1f ||
                 realRgba.Z < 0f || realRgba.Z > 1f ||
-                realRgba.W < 0f || realRgba.W > 1f ) 
+                realRgba.W < 0f || realRgba.W > 1f )
                 throw new Exception ("A the input source doesn't yeild a unsigned normalised output: " + packedRgba);
         }
 
@@ -6047,44 +6047,8 @@ namespace Abacus.Packed
             Unpack(packedRgba, out singleVector);
             realRgba = new Fixed32Precision.Vector4((Fixed32)singleVector.X, (Fixed32)singleVector.Y, (Fixed32)singleVector.Z, (Fixed32)singleVector.W);
         }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public UInt16 R
-        {
-            get { return unchecked((UInt16)this.packedValue); }
-            set { this.packedValue = (this.packedValue & 0xffffffffffff0000) | value; }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public UInt16 G
-        {
-            get { return unchecked((UInt16)(this.packedValue >> 16)); }
-            set { this.packedValue = (this.packedValue & 0xffffffff0000ffff) | ((UInt64)(value << 16)); }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public UInt16 B
-        {
-            get { return unchecked((UInt16)(this.packedValue >> 32)); }
-            set { this.packedValue = (this.packedValue & 0xffff0000ffffffff) | ((UInt64)(value << 32)); }
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public UInt16 A
-        {
-            get { return unchecked((UInt16)(this.packedValue >> 48)); }
-            set { this.packedValue = (this.packedValue & 0x0000ffffffffffff) | ((UInt64)(value << 48)); }
-        }
     }
-    
+
     // 2 bit alpha
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Rgba_10_10_10_2 

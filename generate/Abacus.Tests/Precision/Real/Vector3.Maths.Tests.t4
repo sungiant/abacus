@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -67,7 +67,7 @@
             {
                 Vector3 a = GetNextRandomVector3();
 
-                <#= type #> expected = 
+                <#= type #> expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -77,7 +77,7 @@
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -109,8 +109,8 @@
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -135,7 +135,7 @@
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -187,7 +187,7 @@
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -217,30 +217,30 @@
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector3 a = new Vector3(
-                    <#= type #>.MaxValue, 
-                    <#= type #>.MaxValue, 
+                    <#= type #>.MaxValue,
+                    <#= type #>.MaxValue,
                     <#= type #>.MaxValue);
 
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -268,8 +268,8 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -355,7 +355,7 @@
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -374,7 +374,7 @@
 
                 Vector3 result;
                 Vector3.Reflect(ref a, ref b, out result);
-                
+
                 <#= type #> dot;
                 Vector3.Dot(ref a, ref b, out dot);
 
@@ -394,11 +394,11 @@
             Vector3 incident = GetNextRandomVector3();
             Vector3 normal = new Vector3(12, -241, 123);
 
-            Vector3 result; 
+            Vector3 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector3.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -406,33 +406,33 @@
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 

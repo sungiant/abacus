@@ -11,7 +11,7 @@
         [Test]
         public void TestConstant_Zero_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -19,7 +19,7 @@
         [Test]
         public void TestConstant_Half_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -27,7 +27,7 @@
         [Test]
         public void TestConstant_One_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -36,7 +36,7 @@
         [Test]
         public void TestConstant_E_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -44,7 +44,7 @@
         [Test]
         public void TestConstant_Log10E_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -52,7 +52,7 @@
         [Test]
         public void TestConstant_Log2E_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -61,7 +61,7 @@
         [Test]
         public void TestConstant_Pi_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -70,7 +70,7 @@
         [Test]
         public void TestConstant_PiOver2_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -79,7 +79,7 @@
         [Test]
         public void TestConstant_PiOver4_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -88,7 +88,7 @@
         [Test]
         public void TestConstant_Tau_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -97,7 +97,7 @@
         [Test]
         public void TestConstant_Epsilon_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -106,7 +106,7 @@
         [Test]
         public void TestConstant_Root2_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -115,7 +115,7 @@
         [Test]
         public void TestConstant_Root3_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -124,7 +124,7 @@
         [Test]
         public void TestStaticFn_IsZero_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -133,7 +133,7 @@
         [Test]
         public void TestStaticFn_FromString_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -142,7 +142,7 @@
         [Test]
         public void TestStaticFn_FromFraction_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -151,7 +151,7 @@
         [Test]
         public void TestStaticFn_ToRadians_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -160,7 +160,7 @@
         [Test]
         public void TestStaticFn_ToDegrees_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -169,7 +169,7 @@
         [Test]
         public void TestStaticFn_Sqrt_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -178,7 +178,7 @@
         [Test]
         public void TestStaticFn_Sin_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -187,7 +187,7 @@
         [Test]
         public void TestStaticFn_Cos_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -196,7 +196,7 @@
         [Test]
         public void TestStaticFn_Tan_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -205,7 +205,7 @@
         [Test]
         public void TestStaticFn_Abs_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -214,7 +214,7 @@
         [Test]
         public void TestStaticFn_ArcSin_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -223,7 +223,7 @@
         [Test]
         public void TestStaticFn_ArcCos_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -232,7 +232,7 @@
         [Test]
         public void TestStaticFn_ArcTan_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -241,7 +241,7 @@
         [Test]
         public void TestStaticFn_Min_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -250,7 +250,7 @@
         [Test]
         public void TestStaticFn_Max_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -259,7 +259,7 @@
         [Test]
         public void TestStaticFn_WithinEpsilon_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -268,9 +268,9 @@
         [Test]
         public void TestStaticFn_Sign_<#= realType #>Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
-        
+
 <# } #>
     }
 

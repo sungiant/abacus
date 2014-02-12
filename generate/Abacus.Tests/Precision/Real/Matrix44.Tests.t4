@@ -1,5 +1,5 @@
 ﻿    /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class Matrix44Tests
@@ -16,19 +16,19 @@
             Type t = typeof(Matrix44);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
+        /// This test makes sure that when examining the memory addresses of the
         /// member variables of a number of randomly generated Matrix44
-        /// objects the results are as expected. 
+        /// objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
@@ -36,7 +36,7 @@
         {
             Assert.That(true, Is.EqualTo(false));
         }
-        
+
         [Test]
         public void TestMemberFn_ToString ()
         {

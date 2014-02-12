@@ -67,7 +67,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Zero_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -75,7 +75,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Half_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -83,7 +83,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_One_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_E_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -100,7 +100,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Log10E_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -108,7 +108,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Log2E_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Pi_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_PiOver2_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_PiOver4_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Tau_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Epsilon_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Root2_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Root3_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_IsZero_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_FromString_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_FromFraction_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ToRadians_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ToDegrees_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sqrt_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sin_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Cos_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Tan_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Abs_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcSin_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcCos_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcTan_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Min_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Max_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_WithinEpsilon_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -324,16 +324,16 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sign_SinglePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         [Test]
         public void TestConstant_Zero_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -341,7 +341,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Half_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -349,7 +349,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_One_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -358,7 +358,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_E_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -366,7 +366,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Log10E_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -374,7 +374,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Log2E_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -383,7 +383,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Pi_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_PiOver2_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_PiOver4_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Tau_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -419,7 +419,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Epsilon_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Root2_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -437,7 +437,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Root3_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -446,7 +446,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_IsZero_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -455,7 +455,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_FromString_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -464,7 +464,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_FromFraction_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -473,7 +473,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ToRadians_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -482,7 +482,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ToDegrees_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -491,7 +491,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sqrt_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -500,7 +500,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sin_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -509,7 +509,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Cos_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -518,7 +518,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Tan_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -527,7 +527,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Abs_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -536,7 +536,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcSin_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -545,7 +545,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcCos_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -554,7 +554,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcTan_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -563,7 +563,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Min_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -572,7 +572,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Max_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -581,7 +581,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_WithinEpsilon_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -590,16 +590,16 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sign_DoublePrecision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         [Test]
         public void TestConstant_Zero_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -607,7 +607,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Half_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -615,7 +615,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_One_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -624,7 +624,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_E_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -632,7 +632,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Log10E_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
         /// <summary>
         /// todo
@@ -640,7 +640,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Log2E_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -649,7 +649,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Pi_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -658,7 +658,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_PiOver2_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -667,7 +667,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_PiOver4_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -676,7 +676,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Tau_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -685,7 +685,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Epsilon_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -694,7 +694,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Root2_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -703,7 +703,7 @@ namespace Abacus.Tests
         [Test]
         public void TestConstant_Root3_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -712,7 +712,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_IsZero_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -721,7 +721,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_FromString_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -730,7 +730,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_FromFraction_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -739,7 +739,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ToRadians_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -748,7 +748,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ToDegrees_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -757,7 +757,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sqrt_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -766,7 +766,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sin_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -775,7 +775,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Cos_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -784,7 +784,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Tan_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -793,7 +793,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Abs_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -802,7 +802,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcSin_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -811,7 +811,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcCos_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -820,7 +820,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_ArcTan_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -829,7 +829,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Min_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -838,7 +838,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Max_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -847,7 +847,7 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_WithinEpsilon_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -856,9 +856,9 @@ namespace Abacus.Tests
         [Test]
         public void TestStaticFn_Sign_Fixed32Precision_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
-        
+
     }
 
     /// <summary>
@@ -1017,13 +1017,13 @@ namespace Abacus.Tests
         [Test]
         public void Test_Operators_Addition ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         [Test]
         public void Test_Operators_Subtraction ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         /// <summary>
@@ -1041,7 +1041,7 @@ namespace Abacus.Tests
                 Assert.That (fsq, Is.EqualTo (new Fixed32(0)));
             }
         }
-        
+
 
         /// <summary>
         /// Make sure signs are handled correctly during multiplication
@@ -1059,7 +1059,7 @@ namespace Abacus.Tests
             Assert.That (negOne * negOne, Is.EqualTo (one));
         }
 
-        
+
         [Test]
         public void Test_Operators_Multiplication_iii ()
         {
@@ -1096,7 +1096,7 @@ namespace Abacus.Tests
             // large enough to trigger overflow in the first place.
             Fixed32 bad_h = Fixed32.CreateFromRaw ((f.RawValue * g.RawValue) >> Fixed32.n);
             Assert.That (bad_h, Is.Not.EqualTo (h));
-             * 
+             *
              */
         }
 
@@ -1139,7 +1139,7 @@ namespace Abacus.Tests
         [Test]
         public void Test_Operators_GreaterThan ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
     }
@@ -3852,7 +3852,7 @@ namespace Abacus.Packed.Tests
         [Test]
         public void Test_Constructors_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -3861,7 +3861,7 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestStaticFn_FromNonPremultiplied_i ()
         {
-            throw new NotImplementedException ();
+            throw new InconclusiveException ("Not Implemented");
         }
 
         /// <summary>
@@ -3870,7 +3870,7 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestStaticFn_FromNonPremultiplied_ii ()
         {
-            throw new NotImplementedException ();
+            throw new InconclusiveException ("Not Implemented");
         }
 
         /// <summary>
@@ -3879,7 +3879,7 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestStaticFn_Lerp_i ()
         {
-            throw new NotImplementedException ();
+            throw new InconclusiveException ("Not Implemented");
         }
 
         /// <summary>
@@ -3888,7 +3888,7 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestMemberFn_ToVector3_i ()
         {
-            throw new NotImplementedException ();
+            throw new InconclusiveException ("Not Implemented");
         }
 
         /// <summary>
@@ -3897,12 +3897,12 @@ namespace Abacus.Packed.Tests
         [Test]
         public void TestStaticFn_Desaturate_i ()
         {
-            throw new NotImplementedException ();
+            throw new InconclusiveException ("Not Implemented");
         }
 
         void TestMultiplication ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -3913,7 +3913,8 @@ namespace Abacus.Packed.Tests
         public void TestOperator_Multiplication_i ()
         {
             this.TestMultiplication();
-        }    }
+        }
+    }
 
     /// <summary>
     /// Tests the Rgba64 packed data type.
@@ -7233,7 +7234,7 @@ namespace Abacus.Int64Precision.Tests
 namespace Abacus.SinglePrecision.Tests
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class Matrix44Tests
@@ -7334,19 +7335,19 @@ namespace Abacus.SinglePrecision.Tests
             Type t = typeof(Matrix44);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
+        /// This test makes sure that when examining the memory addresses of the
         /// member variables of a number of randomly generated Matrix44
-        /// objects the results are as expected. 
+        /// objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
@@ -7354,7 +7355,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             Assert.That(true, Is.EqualTo(false));
         }
-        
+
         [Test]
         public void TestMemberFn_ToString ()
         {
@@ -7390,7 +7391,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7399,7 +7400,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7408,7 +7409,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateScale_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         //// <summary>
@@ -7417,7 +7418,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateScale_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7426,7 +7427,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateScale_iii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7435,7 +7436,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateRotationX_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7444,7 +7445,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateRotationY_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7453,7 +7454,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateRotationZ_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7462,7 +7463,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7471,7 +7472,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromAllAxis_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7480,7 +7481,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateWorldNew_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7489,7 +7490,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateWorld_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7559,7 +7560,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7568,7 +7569,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateBillboard_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7577,7 +7578,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateConstrainedBillboard_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7586,7 +7587,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreatePerspectiveFieldOfView_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7595,7 +7596,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreatePerspective_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7604,7 +7605,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreatePerspectiveOffCenter_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7613,7 +7614,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateOrthographic_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7622,7 +7623,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void CreateOrthographicOffCenter_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -7631,7 +7632,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateLookAt_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Transpose //---------------------------------------//
@@ -7700,7 +7701,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Determinant_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Invert //------------------------------------------//
@@ -7711,7 +7712,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Invert_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Transform //---------------------------------------//
@@ -7722,8 +7723,9 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Transform_i ()
         {
-            throw new NotImplementedException();
-        }        // Test Operator: Equality //-----------------------------------------//
+            throw new InconclusiveException("Not Implemented");
+        }
+        // Test Operator: Equality //-----------------------------------------//
 
         /// <summary>
         /// Helper method for testing equality.
@@ -8343,7 +8345,8 @@ namespace Abacus.SinglePrecision.Tests
                             ref a, ref b, weighting, out result)
                     );
             }
-        }    }    /// <summary>
+        }    }
+    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -8496,7 +8499,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -8505,7 +8508,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -8514,7 +8517,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -8523,7 +8526,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromRotationMatrix_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Conjugate //---------------------------------------//
@@ -8534,7 +8537,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Conjugate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Inverse //-----------------------------------------//
@@ -8545,7 +8548,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Inverse_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Distance //----------------------------------------//
@@ -8556,7 +8559,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Dot_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Concatenate //-------------------------------------//
@@ -8567,7 +8570,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Concatenate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Normalise //---------------------------------------//
@@ -8578,7 +8581,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Normalise_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -9566,7 +9569,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -9577,7 +9580,7 @@ namespace Abacus.SinglePrecision.Tests
             {
                 Vector2 a = GetNextRandomVector2();
 
-                Single expected = 
+                Single expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -9587,7 +9590,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -9619,8 +9622,8 @@ namespace Abacus.SinglePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -9645,7 +9648,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -9697,7 +9700,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -9727,29 +9730,29 @@ namespace Abacus.SinglePrecision.Tests
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector2 a = new Vector2(
-                    Single.MaxValue, 
+                    Single.MaxValue,
                     Single.MaxValue);
 
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -9777,8 +9780,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -9857,7 +9860,7 @@ namespace Abacus.SinglePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -9876,7 +9879,7 @@ namespace Abacus.SinglePrecision.Tests
 
                 Vector2 result;
                 Vector2.Reflect(ref a, ref b, out result);
-                
+
                 Single dot;
                 Vector2.Dot(ref a, ref b, out dot);
 
@@ -9896,11 +9899,11 @@ namespace Abacus.SinglePrecision.Tests
             Vector2 incident = GetNextRandomVector2();
             Vector2 normal = new Vector2(12, -241);
 
-            Vector2 result; 
+            Vector2 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector2.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -9908,34 +9911,141 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Vector2.Normalise (ref position, out position);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2.Normalise (ref expected1, out expected1);
+            Vector2.Normalise (ref expected2, out expected2);
+            Vector2.Normalise (ref expected3, out expected3);
+            Vector2.Normalise (ref expected4, out expected4);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformNormal_ii ()
+        {
+            Matrix44 rotmat = Matrix44.Identity;
+            Vector2 normal = new Vector2 (21, -532);
+            Vector2 result;
+            Assert.Throws(
+                typeof(ArgumentOutOfRangeException),
+                () =>
+                Vector2.TransformNormal(ref normal, ref rotmat, out result)
+            );
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmaty = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmatxy = new Quaternion (0, 0, 1, 0);
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref quatmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref quatmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref quatmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref quatmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -11569,7 +11679,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -11580,7 +11690,7 @@ namespace Abacus.SinglePrecision.Tests
             {
                 Vector3 a = GetNextRandomVector3();
 
-                Single expected = 
+                Single expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -11590,7 +11700,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -11622,8 +11732,8 @@ namespace Abacus.SinglePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -11648,7 +11758,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -11700,7 +11810,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -11730,30 +11840,30 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector3 a = new Vector3(
-                    Single.MaxValue, 
-                    Single.MaxValue, 
+                    Single.MaxValue,
+                    Single.MaxValue,
                     Single.MaxValue);
 
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -11781,8 +11891,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -11868,7 +11978,7 @@ namespace Abacus.SinglePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -11887,7 +11997,7 @@ namespace Abacus.SinglePrecision.Tests
 
                 Vector3 result;
                 Vector3.Reflect(ref a, ref b, out result);
-                
+
                 Single dot;
                 Vector3.Dot(ref a, ref b, out dot);
 
@@ -11907,11 +12017,11 @@ namespace Abacus.SinglePrecision.Tests
             Vector3 incident = GetNextRandomVector3();
             Vector3 normal = new Vector3(12, -241, 123);
 
-            Vector3 result; 
+            Vector3 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector3.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -11919,34 +12029,34 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -13551,7 +13661,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -13562,7 +13672,7 @@ namespace Abacus.SinglePrecision.Tests
             {
                 Vector4 a = GetNextRandomVector4();
 
-                Single expected = 
+                Single expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z) + (a.W * a.W));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -13572,7 +13682,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -13604,8 +13714,8 @@ namespace Abacus.SinglePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -13630,7 +13740,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -13682,7 +13792,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -13712,31 +13822,31 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector4.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector4 a = new Vector4(
-                    Single.MaxValue, 
-                    Single.MaxValue, 
-                    Single.MaxValue, 
+                    Single.MaxValue,
+                    Single.MaxValue,
+                    Single.MaxValue,
                     Single.MaxValue);
 
                 Vector4 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector4.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -13764,8 +13874,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -13798,34 +13908,34 @@ namespace Abacus.SinglePrecision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -14937,7 +15047,7 @@ namespace Abacus.SinglePrecision.Tests
 namespace Abacus.DoublePrecision.Tests
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class Matrix44Tests
@@ -15038,19 +15148,19 @@ namespace Abacus.DoublePrecision.Tests
             Type t = typeof(Matrix44);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
+        /// This test makes sure that when examining the memory addresses of the
         /// member variables of a number of randomly generated Matrix44
-        /// objects the results are as expected. 
+        /// objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
@@ -15058,7 +15168,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             Assert.That(true, Is.EqualTo(false));
         }
-        
+
         [Test]
         public void TestMemberFn_ToString ()
         {
@@ -15094,7 +15204,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15103,7 +15213,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15112,7 +15222,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateScale_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         //// <summary>
@@ -15121,7 +15231,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateScale_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15130,7 +15240,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateScale_iii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15139,7 +15249,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateRotationX_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15148,7 +15258,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateRotationY_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15157,7 +15267,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateRotationZ_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15166,7 +15276,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15175,7 +15285,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromAllAxis_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15184,7 +15294,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateWorldNew_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15193,7 +15303,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateWorld_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15263,7 +15373,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15272,7 +15382,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateBillboard_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15281,7 +15391,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateConstrainedBillboard_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15290,7 +15400,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreatePerspectiveFieldOfView_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15299,7 +15409,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreatePerspective_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15308,7 +15418,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreatePerspectiveOffCenter_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15317,7 +15427,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateOrthographic_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15326,7 +15436,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void CreateOrthographicOffCenter_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -15335,7 +15445,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateLookAt_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Transpose //---------------------------------------//
@@ -15404,7 +15514,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Determinant_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Invert //------------------------------------------//
@@ -15415,7 +15525,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Invert_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Transform //---------------------------------------//
@@ -15426,8 +15536,9 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Transform_i ()
         {
-            throw new NotImplementedException();
-        }        // Test Operator: Equality //-----------------------------------------//
+            throw new InconclusiveException("Not Implemented");
+        }
+        // Test Operator: Equality //-----------------------------------------//
 
         /// <summary>
         /// Helper method for testing equality.
@@ -16047,7 +16158,8 @@ namespace Abacus.DoublePrecision.Tests
                             ref a, ref b, weighting, out result)
                     );
             }
-        }    }    /// <summary>
+        }    }
+    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -16200,7 +16312,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -16209,7 +16321,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -16218,7 +16330,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -16227,7 +16339,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CreateFromRotationMatrix_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Conjugate //---------------------------------------//
@@ -16238,7 +16350,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Conjugate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Inverse //-----------------------------------------//
@@ -16249,7 +16361,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Inverse_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Distance //----------------------------------------//
@@ -16260,7 +16372,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Dot_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Concatenate //-------------------------------------//
@@ -16271,7 +16383,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Concatenate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Normalise //---------------------------------------//
@@ -16282,7 +16394,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Normalise_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -17270,7 +17382,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -17281,7 +17393,7 @@ namespace Abacus.DoublePrecision.Tests
             {
                 Vector2 a = GetNextRandomVector2();
 
-                Double expected = 
+                Double expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -17291,7 +17403,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -17323,8 +17435,8 @@ namespace Abacus.DoublePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -17349,7 +17461,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -17401,7 +17513,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -17431,29 +17543,29 @@ namespace Abacus.DoublePrecision.Tests
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector2 a = new Vector2(
-                    Double.MaxValue, 
+                    Double.MaxValue,
                     Double.MaxValue);
 
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -17481,8 +17593,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -17561,7 +17673,7 @@ namespace Abacus.DoublePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -17580,7 +17692,7 @@ namespace Abacus.DoublePrecision.Tests
 
                 Vector2 result;
                 Vector2.Reflect(ref a, ref b, out result);
-                
+
                 Double dot;
                 Vector2.Dot(ref a, ref b, out dot);
 
@@ -17600,11 +17712,11 @@ namespace Abacus.DoublePrecision.Tests
             Vector2 incident = GetNextRandomVector2();
             Vector2 normal = new Vector2(12, -241);
 
-            Vector2 result; 
+            Vector2 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector2.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -17612,34 +17724,141 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Vector2.Normalise (ref position, out position);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2.Normalise (ref expected1, out expected1);
+            Vector2.Normalise (ref expected2, out expected2);
+            Vector2.Normalise (ref expected3, out expected3);
+            Vector2.Normalise (ref expected4, out expected4);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformNormal_ii ()
+        {
+            Matrix44 rotmat = Matrix44.Identity;
+            Vector2 normal = new Vector2 (21, -532);
+            Vector2 result;
+            Assert.Throws(
+                typeof(ArgumentOutOfRangeException),
+                () =>
+                Vector2.TransformNormal(ref normal, ref rotmat, out result)
+            );
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmaty = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmatxy = new Quaternion (0, 0, 1, 0);
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref quatmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref quatmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref quatmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref quatmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -19273,7 +19492,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -19284,7 +19503,7 @@ namespace Abacus.DoublePrecision.Tests
             {
                 Vector3 a = GetNextRandomVector3();
 
-                Double expected = 
+                Double expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -19294,7 +19513,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -19326,8 +19545,8 @@ namespace Abacus.DoublePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -19352,7 +19571,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -19404,7 +19623,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -19434,30 +19653,30 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector3 a = new Vector3(
-                    Double.MaxValue, 
-                    Double.MaxValue, 
+                    Double.MaxValue,
+                    Double.MaxValue,
                     Double.MaxValue);
 
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -19485,8 +19704,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -19572,7 +19791,7 @@ namespace Abacus.DoublePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -19591,7 +19810,7 @@ namespace Abacus.DoublePrecision.Tests
 
                 Vector3 result;
                 Vector3.Reflect(ref a, ref b, out result);
-                
+
                 Double dot;
                 Vector3.Dot(ref a, ref b, out dot);
 
@@ -19611,11 +19830,11 @@ namespace Abacus.DoublePrecision.Tests
             Vector3 incident = GetNextRandomVector3();
             Vector3 normal = new Vector3(12, -241, 123);
 
-            Vector3 result; 
+            Vector3 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector3.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -19623,34 +19842,34 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -21255,7 +21474,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -21266,7 +21485,7 @@ namespace Abacus.DoublePrecision.Tests
             {
                 Vector4 a = GetNextRandomVector4();
 
-                Double expected = 
+                Double expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z) + (a.W * a.W));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -21276,7 +21495,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -21308,8 +21527,8 @@ namespace Abacus.DoublePrecision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -21334,7 +21553,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -21386,7 +21605,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -21416,31 +21635,31 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector4.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector4 a = new Vector4(
-                    Double.MaxValue, 
-                    Double.MaxValue, 
-                    Double.MaxValue, 
+                    Double.MaxValue,
+                    Double.MaxValue,
+                    Double.MaxValue,
                     Double.MaxValue);
 
                 Vector4 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector4.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -21468,8 +21687,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -21502,34 +21721,34 @@ namespace Abacus.DoublePrecision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -22641,7 +22860,7 @@ namespace Abacus.DoublePrecision.Tests
 namespace Abacus.Fixed32Precision.Tests
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class Matrix44Tests
@@ -22742,19 +22961,19 @@ namespace Abacus.Fixed32Precision.Tests
             Type t = typeof(Matrix44);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
+        /// This test makes sure that when examining the memory addresses of the
         /// member variables of a number of randomly generated Matrix44
-        /// objects the results are as expected. 
+        /// objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
@@ -22762,7 +22981,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Assert.That(true, Is.EqualTo(false));
         }
-        
+
         [Test]
         public void TestMemberFn_ToString ()
         {
@@ -22798,7 +23017,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22807,7 +23026,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22816,7 +23035,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateScale_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         //// <summary>
@@ -22825,7 +23044,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateScale_ii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22834,7 +23053,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateScale_iii ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22843,7 +23062,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateRotationX_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22852,7 +23071,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateRotationY_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22861,7 +23080,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateRotationZ_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22870,7 +23089,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22879,7 +23098,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateFromAllAxis_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22888,7 +23107,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateWorldNew_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22897,7 +23116,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateWorld_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22967,7 +23186,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22976,7 +23195,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateBillboard_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22985,7 +23204,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateConstrainedBillboard_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -22994,7 +23213,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreatePerspectiveFieldOfView_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23003,7 +23222,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreatePerspective_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23012,7 +23231,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreatePerspectiveOffCenter_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23021,7 +23240,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateOrthographic_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23030,7 +23249,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void CreateOrthographicOffCenter_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23039,7 +23258,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateLookAt_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Transpose //---------------------------------------//
@@ -23108,7 +23327,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Determinant_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Invert //------------------------------------------//
@@ -23119,7 +23338,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Invert_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Transform //---------------------------------------//
@@ -23130,8 +23349,9 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Transform_i ()
         {
-            throw new NotImplementedException();
-        }        // Test Operator: Equality //-----------------------------------------//
+            throw new InconclusiveException("Not Implemented");
+        }
+        // Test Operator: Equality //-----------------------------------------//
 
         /// <summary>
         /// Helper method for testing equality.
@@ -23751,7 +23971,8 @@ namespace Abacus.Fixed32Precision.Tests
                             ref a, ref b, weighting, out result)
                     );
             }
-        }    }    /// <summary>
+        }    }
+    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -23904,7 +24125,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateTranslation_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23913,7 +24134,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23922,7 +24143,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
@@ -23931,7 +24152,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CreateFromRotationMatrix_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Conjugate //---------------------------------------//
@@ -23942,7 +24163,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Conjugate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Inverse //-----------------------------------------//
@@ -23953,7 +24174,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Inverse_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Distance //----------------------------------------//
@@ -23964,7 +24185,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Dot_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Concatenate //-------------------------------------//
@@ -23975,7 +24196,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Concatenate_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Normalise //---------------------------------------//
@@ -23986,7 +24207,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Normalise_i ()
         {
-            throw new NotImplementedException();
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -24974,7 +25195,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -24985,7 +25206,7 @@ namespace Abacus.Fixed32Precision.Tests
             {
                 Vector2 a = GetNextRandomVector2();
 
-                Fixed32 expected = 
+                Fixed32 expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -24995,7 +25216,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -25027,8 +25248,8 @@ namespace Abacus.Fixed32Precision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -25053,7 +25274,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -25105,7 +25326,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -25135,29 +25356,29 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector2 a = new Vector2(
-                    Fixed32.MaxValue, 
+                    Fixed32.MaxValue,
                     Fixed32.MaxValue);
 
                 Vector2 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector2.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -25185,8 +25406,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -25265,7 +25486,7 @@ namespace Abacus.Fixed32Precision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -25284,7 +25505,7 @@ namespace Abacus.Fixed32Precision.Tests
 
                 Vector2 result;
                 Vector2.Reflect(ref a, ref b, out result);
-                
+
                 Fixed32 dot;
                 Vector2.Dot(ref a, ref b, out dot);
 
@@ -25304,11 +25525,11 @@ namespace Abacus.Fixed32Precision.Tests
             Vector2 incident = GetNextRandomVector2();
             Vector2 normal = new Vector2(12, -241);
 
-            Vector2 result; 
+            Vector2 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector2.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -25316,34 +25537,141 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Vector2.Normalise (ref position, out position);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx;
+            Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty;
+            Matrix44.CreateRotationY(pi, out rotmaty);
+            Matrix44 rotmatxy = rotmatx * rotmaty;
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2.Normalise (ref expected1, out expected1);
+            Vector2.Normalise (ref expected2, out expected2);
+            Vector2.Normalise (ref expected3, out expected3);
+            Vector2.Normalise (ref expected4, out expected4);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref rotmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref rotmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref rotmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref rotmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformNormal_ii ()
+        {
+            Matrix44 rotmat = Matrix44.Identity;
+            Vector2 normal = new Vector2 (21, -532);
+            Vector2 result;
+            Assert.Throws(
+                typeof(ArgumentOutOfRangeException),
+                () =>
+                Vector2.TransformNormal(ref normal, ref rotmat, out result)
+            );
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            var position = new Vector2 (10, 50);
+            Single pi;
+            RealMaths.Pi (out pi);
+            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmaty = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmatxy = new Quaternion (0, 0, 1, 0);
+
+            var expected1 = new Vector2 (10, 50);
+            var expected2 = new Vector2 (10, -50);
+            var expected3 = new Vector2 (-10, 50);
+            var expected4 = new Vector2 (-10, -50);
+
+            Vector2 test1;
+            Vector2.Transform (ref position, ref quatmati, out test1);
+            Assert.That (test1, Is.EqualTo (expected1));
+
+            Vector2 test2;
+            Vector2.Transform (ref position, ref quatmatx, out test2);
+            Assert.That (test2, Is.EqualTo (expected2));
+
+            Vector2 test3;
+            Vector2.Transform (ref position, ref quatmaty, out test3);
+            Assert.That (test3, Is.EqualTo (expected3));
+
+            Vector2 test4;
+            Vector2.Transform (ref position, ref quatmatxy, out test4);
+            Assert.That (test4, Is.EqualTo (expected4));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -26977,7 +27305,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -26988,7 +27316,7 @@ namespace Abacus.Fixed32Precision.Tests
             {
                 Vector3 a = GetNextRandomVector3();
 
-                Fixed32 expected = 
+                Fixed32 expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -26998,7 +27326,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -27030,8 +27358,8 @@ namespace Abacus.Fixed32Precision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -27056,7 +27384,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -27108,7 +27436,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -27138,30 +27466,30 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector3 a = new Vector3(
-                    Fixed32.MaxValue, 
-                    Fixed32.MaxValue, 
+                    Fixed32.MaxValue,
+                    Fixed32.MaxValue,
                     Fixed32.MaxValue);
 
                 Vector3 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector3.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -27189,8 +27517,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -27276,7 +27604,7 @@ namespace Abacus.Fixed32Precision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Reflect method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -27295,7 +27623,7 @@ namespace Abacus.Fixed32Precision.Tests
 
                 Vector3 result;
                 Vector3.Reflect(ref a, ref b, out result);
-                
+
                 Fixed32 dot;
                 Vector3.Dot(ref a, ref b, out dot);
 
@@ -27315,11 +27643,11 @@ namespace Abacus.Fixed32Precision.Tests
             Vector3 incident = GetNextRandomVector3();
             Vector3 normal = new Vector3(12, -241, 123);
 
-            Vector3 result; 
+            Vector3 result;
 
             Assert.Throws(
-                typeof(ArgumentOutOfRangeException), 
-                () => 
+                typeof(ArgumentOutOfRangeException),
+                () =>
                 Vector3.Reflect(ref incident, ref normal, out result)
             );
         }
@@ -27327,34 +27655,34 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -28959,7 +29287,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Distance method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -28970,7 +29298,7 @@ namespace Abacus.Fixed32Precision.Tests
             {
                 Vector4 a = GetNextRandomVector4();
 
-                Fixed32 expected = 
+                Fixed32 expected =
                     RealMaths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z) + (a.W * a.W));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -28980,7 +29308,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: DistanceSquared //---------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of known examples, the DistanceSquared 
+        /// Assert that, for a number of known examples, the DistanceSquared
         /// method yeilds the correct results.
         /// </summary>
         [Test]
@@ -29012,8 +29340,8 @@ namespace Abacus.Fixed32Precision.Tests
 
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// DistanceSquared method yeilds the same results as those obtained 
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
         /// from performing a manual calculation.
         /// </summary>
         [Test]
@@ -29038,7 +29366,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: Dot //---------------------------------------------//
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Dot method yeilds the same results as those obtained from
         /// performing a manual calculation.
         /// </summary>
@@ -29090,7 +29418,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that two perpendicular unit vectors yeild a dot product of 
+        /// Assert that two perpendicular unit vectors yeild a dot product of
         /// zero.
         /// </summary>
         [Test]
@@ -29120,31 +29448,31 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector4.Normalise(ref a, out b)
                 );
             }
 
             {
                 Vector4 a = new Vector4(
-                    Fixed32.MaxValue, 
-                    Fixed32.MaxValue, 
-                    Fixed32.MaxValue, 
+                    Fixed32.MaxValue,
+                    Fixed32.MaxValue,
+                    Fixed32.MaxValue,
                     Fixed32.MaxValue);
 
                 Vector4 b;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                     Vector4.Normalise(ref a, out b)
                 );
             }
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
+        /// Assert that, for a number of randomly generated examples, the
         /// Normalise method yeilds a unit vector (with length equal to one);
         /// </summary>
         [Test]
@@ -29172,8 +29500,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated examples, the 
-        /// Normalise method yeilds a vector, which when multipled by the 
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
         /// length of the original vector results in the same vector as the
         /// original vector;
         /// </summary>
@@ -29206,34 +29534,34 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Static Fn: TransformMatrix44 //-------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Assert.That (true, Is.EqualTo (false));
+            throw new InconclusiveException ("Not Implemented");
         }
 
         // Test Operator: Equality //-----------------------------------------//
