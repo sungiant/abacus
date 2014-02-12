@@ -4,9 +4,9 @@
         /// Interpolates between two values using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            <#= type #> amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            <#= type #> amount,
             out Vector2 result)
         {
             <#= type #> zero = 0;
@@ -25,23 +25,23 @@
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
         }
-        
+
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            ref Vector2 c, 
-            ref Vector2 d, 
-            <#= type #> amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            ref Vector2 c,
+            ref Vector2 d,
+            <#= type #> amount,
             out Vector2 result)
         {
             <#= type #> zero = 0;
@@ -59,30 +59,28 @@
             <#= type #> four = 4;
             <#= type #> five = 5;
 
-            <#= type #> temp = amount * amount;
-            <#= type #> temp2 = amount * temp;
+            <#= type #> squared = amount * amount;
+            <#= type #> cubed = amount * squared;
 
-            result.X = 
-                half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
-                (((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
-                temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
-                temp2));
-            
-            result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
-                (((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
-                temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
-                temp2));
+            result.X =
+                half * ((two * b.X) + ((-a.X + c.X) * amount) +
+                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
+                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+
+            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
+                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
+                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 a, 
-            ref Vector2 tangent1, 
-            ref Vector2 b, 
-            ref Vector2 tangent2, 
-            <#= type #> amount, 
+            ref Vector2 value1,
+            ref Vector2 tangent1,
+            ref Vector2 value2,
+            ref Vector2 tangent2,
+            <#= type #> amount,
             out Vector2 result)
         {
             <#= type #> zero = 0;
@@ -102,19 +100,20 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> temp = amount * amount;
-            <#= type #> temp2 = amount * temp;
-            <#= type #> temp6 = ((two * temp2) - (three * temp)) + one;
-            <#= type #> temp5 = (-two * temp2) + (three * temp);
-            <#= type #> temp4 = (temp2 - (two * temp)) + amount;
-            <#= type #> temp3 = temp2 - temp;
+            <#= type #> squared = amount * amount;
+            <#= type #> cubed = amount * squared;
 
-            result.X = 
-                (((a.X * temp6) + (b.X * temp5)) + 
-                (tangent1.X * temp4)) + (tangent2.X * temp3);
+            <#= type #> a = ((two * cubed) - (three * squared)) + one;
+            <#= type #> b = (-two * cubed) + (three * squared);
+            <#= type #> c = (cubed - (two * squared)) + amount;
+            <#= type #> d = cubed - squared;
 
-            result.Y = 
-                (((a.Y * temp6) + (b.Y * temp5)) + 
-                (tangent1.Y * temp4)) + (tangent2.Y * temp3);
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
         }
 

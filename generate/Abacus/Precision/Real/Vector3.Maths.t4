@@ -24,11 +24,11 @@
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out <#= type #> result)
@@ -37,20 +37,20 @@
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            <#= type #> lengthSquared = 
-                (value.X * value.X) + 
-                (value.Y * value.Y) + 
+            <#= type #> lengthSquared =
+                (value.X * value.X) +
+                (value.Y * value.Y) +
                 (value.Z * value.Z);
 
             <#= type #> epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 <#= type #>.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -75,7 +75,7 @@
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -89,7 +89,7 @@
             <#= type #> two = 2;
 
             <#= type #> num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
-            
+
             result.X = vector.X - ((two * num) * normal.X);
             result.Y = vector.Y - ((two * num) * normal.Y);
             result.Z = vector.Z - ((two * num) * normal.Z);
@@ -107,7 +107,7 @@
             result.Y = num2;
             result.Z = num;
         }
-        
+
         /// <summary>
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
@@ -129,12 +129,12 @@
             <#= type #> num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             <#= type #> num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             <#= type #> num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-            
+
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
         }
-        
+
         /// <summary>
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
@@ -145,12 +145,12 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-            <#= type #> num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-            <#= type #> num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+            <#= type #> x = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+            <#= type #> y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+            <#= type #> z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
 
-            result.X = num3;
-            result.Y = num2;
-            result.Z = num;
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
         }
-        
+

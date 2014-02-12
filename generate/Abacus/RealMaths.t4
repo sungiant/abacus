@@ -1,7 +1,7 @@
 ﻿    /// <summary>
     /// This class provides maths functions with consistent function
     /// signatures across all supported precisions.  The idea being
-    /// the more you use this, the more you will be able to write 
+    /// the more you use this, the more you will be able to write
     /// code once and easily change the precision later.
     /// </summary>
     public static class RealMaths
@@ -60,73 +60,73 @@
         public static void E(out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the common 
+        /// Assigns a Single precision real number representing the common
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log10E(out Single value) { value = 0.4342944821f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the binary 
+        /// Assigns a Double precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log10E(out Double value) { value = 0.4342945; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the binary 
+        /// Assigns a Fixed32 precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log10E(out Fixed32 value) { value = Fixed32.Parse("0.4342945"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the binary 
+        /// Assigns a Single precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log2E(out Single value) { value = 1.442695f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the binary 
+        /// Assigns a Double precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log2E(out Double value) { value = 1.442695; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the binary 
+        /// Assigns a Fixed32 precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log2E(out Fixed32 value) { value = Fixed32.Parse("1.442695"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the 
+        /// Assigns a Single precision real number representing the
         /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Single value) { value = 3.1415926536f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the 
+        /// Assigns a Double precision real number representing the
         /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Double value) { value = 3.14159265358979323846264338327950288; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the 
+        /// Assigns a Fixed32 precision real number representing the
         /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the 
+        /// Assigns a Single precision real number representing the
         /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Single value) { value = 6.283185f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the 
+        /// Assigns a Double precision real number representing the
         /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Double value) { value = 6.283185; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the 
+        /// Assigns a Fixed32 precision real number representing the
         /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }

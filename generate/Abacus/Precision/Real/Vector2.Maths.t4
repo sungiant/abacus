@@ -8,7 +8,7 @@
         {
             <#= type #> a = value1.X - value2.X;
             <#= type #> b = value1.Y - value2.Y;
-            
+
             <#= type #> c = (a * a) + (b * b);
 
             result = RealMaths.Sqrt (c);
@@ -22,16 +22,16 @@
         {
             <#= type #> a = value1.X - value2.X;
             <#= type #> b = value1.Y - value2.Y;
-            
+
             result = (a * a) + (b * b);
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
@@ -41,18 +41,18 @@
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector2 value, out Vector2 result)
         {
-            <#= type #> lengthSquared = 
+            <#= type #> lengthSquared =
                 (value.X * value.X) + (value.Y * value.Y);
 
             <#= type #> epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 <#= type #>.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -67,7 +67,7 @@
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -78,7 +78,7 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            // dot = vector . normal 
+            // dot = vector . normal
             //     = |vector| * [normal] * cosθ
             //     = |vector| * cosθ
             //     = adjacent
@@ -87,7 +87,7 @@
 
             <#= type #> twoDot = dot * 2;
 
-            // Starting vector minus twice the length of the adjcent projected 
+            // Starting vector minus twice the length of the adjcent projected
             // along the normal.
             result = vector - (twoDot * normal);
         }
@@ -98,14 +98,14 @@
         public static void Transform (
             ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
         {
-            <#= type #> a = 
-                ((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+            <#= type #> a =
+                ((position.X * matrix.M11) + (position.Y * matrix.M21)) +
                 matrix.M41;
 
-            <#= type #> b = 
-                ((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+            <#= type #> b =
+                ((position.X * matrix.M12) + (position.Y * matrix.M22)) +
                 matrix.M42;
-            
+
             result.X = a;
             result.Y = b;
         }
@@ -132,7 +132,7 @@
             result.X = i;
             result.Y = j;
         }
-        
+
         /// <summary>
         /// Transforms a Vector2 by the specified Matrix.
         /// </summary>
@@ -144,10 +144,10 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-            <#= type #> b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-            
-            result.X = a;
-            result.Y = b;
+            <#= type #> x = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+            <#= type #> y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+
+            result.X = x;
+            result.Y = y;
         }
 

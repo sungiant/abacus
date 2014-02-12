@@ -411,7 +411,34 @@
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            throw new InconclusiveException ("Not Implemented");
+            Vector3 position = new Vector3 (10, 50, -20);
+
+            Single pi; RealMaths.Pi (out pi);
+            Single tau; RealMaths.Tau (out tau);
+
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
+            Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
+
+            Vector3 expected1 = new Vector3 ( 10,  50, -20);
+            Vector3 expected2 = new Vector3 ( 10, -50,  20);
+            Vector3 expected3 = new Vector3 ( 10,  50, -20);
+            Vector3 expected4 = new Vector3 (-10, -50, -20);
+            Vector3 expected5 = new Vector3 (-10,  50,  20);
+
+            Vector3 test1; Vector3.Transform (ref position, ref rotmati, out test1);
+            Vector3 test2; Vector3.Transform (ref position, ref rotmatx, out test2);
+            Vector3 test3; Vector3.Transform (ref position, ref rotmaty, out test3);
+            Vector3 test4; Vector3.Transform (ref position, ref rotmatz, out test4);
+            Vector3 test5; Vector3.Transform (ref position, ref rotmatxyz, out test5);
+
+            AssertEqualWithinReason(test1, expected1);
+            AssertEqualWithinReason(test2, expected2);
+            AssertEqualWithinReason(test3, expected3);
+            AssertEqualWithinReason(test4, expected4);
+            AssertEqualWithinReason(test5, expected5);
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
@@ -422,7 +449,70 @@
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            throw new InconclusiveException ("Not Implemented");
+            Vector3 position = new Vector3 (10, 50, -20);
+            Vector3.Normalise (ref position, out position);
+
+            Single pi; RealMaths.Pi (out pi);
+            Single tau; RealMaths.Tau (out tau);
+
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
+            Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
+
+            Vector3 expected1 = new Vector3 ( 10,  50, -20);
+            Vector3 expected2 = new Vector3 ( 10, -50,  20);
+            Vector3 expected3 = new Vector3 ( 10,  50, -20);
+            Vector3 expected4 = new Vector3 (-10, -50, -20);
+            Vector3 expected5 = new Vector3 (-10,  50,  20);
+
+            Vector3.Normalise (ref expected1, out expected1);
+            Vector3.Normalise (ref expected2, out expected2);
+            Vector3.Normalise (ref expected3, out expected3);
+            Vector3.Normalise (ref expected4, out expected4);
+            Vector3.Normalise (ref expected5, out expected5);
+
+            Vector3 test1; Vector3.TransformNormal (ref position, ref rotmati, out test1);
+            Vector3 test2; Vector3.TransformNormal (ref position, ref rotmatx, out test2);
+            Vector3 test3; Vector3.TransformNormal (ref position, ref rotmaty, out test3);
+            Vector3 test4; Vector3.TransformNormal (ref position, ref rotmatz, out test4);
+            Vector3 test5; Vector3.TransformNormal (ref position, ref rotmatxyz, out test5);
+
+            AssertEqualWithinReason(test1, expected1);
+            AssertEqualWithinReason(test2, expected2);
+            AssertEqualWithinReason(test3, expected3);
+            AssertEqualWithinReason(test4, expected4);
+            AssertEqualWithinReason(test5, expected5);
+
+            // should also work with the standard transform fn
+            Vector3 test1n; Vector3.TransformNormal (ref position, ref rotmati, out test1n);
+            Vector3 test2n; Vector3.TransformNormal (ref position, ref rotmatx, out test2n);
+            Vector3 test3n; Vector3.TransformNormal (ref position, ref rotmaty, out test3n);
+            Vector3 test4n; Vector3.TransformNormal (ref position, ref rotmatz, out test4n);
+            Vector3 test5n; Vector3.TransformNormal (ref position, ref rotmatxyz, out test5n);
+
+            AssertEqualWithinReason(test1n, expected1);
+            AssertEqualWithinReason(test2n, expected2);
+            AssertEqualWithinReason(test3n, expected3);
+            AssertEqualWithinReason(test4n, expected4);
+            AssertEqualWithinReason(test5n, expected5);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformNormal_ii ()
+        {
+            Matrix44 rotmat = Matrix44.Identity;
+            Vector3 normal = new Vector3 (21, -532, 0);
+            Vector3 result;
+            Assert.Throws(
+                typeof(ArgumentOutOfRangeException),
+                () =>
+                Vector3.TransformNormal(ref normal, ref rotmat, out result)
+            );
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
@@ -433,6 +523,33 @@
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            throw new InconclusiveException ("Not Implemented");
+            Vector3 position = new Vector3 (10, 50, -20);
+
+            Single pi;
+            RealMaths.Pi (out pi);
+
+            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmaty = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmatz = new Quaternion (0, 0, 1, 0);
+            Quaternion quatmatxyz = new Quaternion (0, 1, 0, 0);
+
+            Vector3 expected1 = new Vector3 ( 10,  50, -20);
+            Vector3 expected2 = new Vector3 ( 10, -50,  20);
+            Vector3 expected3 = new Vector3 ( 10,  50, -20);
+            Vector3 expected4 = new Vector3 (-10, -50, -20);
+            Vector3 expected5 = new Vector3 (-10,  50,  20);
+
+            Vector3 test1; Vector3.Transform (ref position, ref quatmati, out test1);
+            Vector3 test2; Vector3.Transform (ref position, ref quatmatx, out test2);
+            Vector3 test3; Vector3.Transform (ref position, ref quatmaty, out test3);
+            Vector3 test4; Vector3.Transform (ref position, ref quatmatz, out test4);
+            Vector3 test5; Vector3.Transform (ref position, ref quatmatxyz, out test5);
+
+            AssertEqualWithinReason(test1, expected1);
+            AssertEqualWithinReason(test2, expected2);
+            AssertEqualWithinReason(test3, expected3);
+            AssertEqualWithinReason(test4, expected4);
+            AssertEqualWithinReason(test5, expected5);
         }
 

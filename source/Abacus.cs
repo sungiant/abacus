@@ -1058,7 +1058,7 @@ namespace Abacus
     /// <summary>
     /// This class provides maths functions with consistent function
     /// signatures across all supported precisions.  The idea being
-    /// the more you use this, the more you will be able to write 
+    /// the more you use this, the more you will be able to write
     /// code once and easily change the precision later.
     /// </summary>
     public static class RealMaths
@@ -1137,73 +1137,73 @@ namespace Abacus
         public static void E(out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the common 
+        /// Assigns a Single precision real number representing the common
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log10E(out Single value) { value = 0.4342944821f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the binary 
+        /// Assigns a Double precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log10E(out Double value) { value = 0.4342945; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the binary 
+        /// Assigns a Fixed32 precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log10E(out Fixed32 value) { value = Fixed32.Parse("0.4342945"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the binary 
+        /// Assigns a Single precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log2E(out Single value) { value = 1.442695f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the binary 
+        /// Assigns a Double precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log2E(out Double value) { value = 1.442695; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the binary 
+        /// Assigns a Fixed32 precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
         public static void Log2E(out Fixed32 value) { value = Fixed32.Parse("1.442695"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the 
+        /// Assigns a Single precision real number representing the
         /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Single value) { value = 3.1415926536f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the 
+        /// Assigns a Double precision real number representing the
         /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Double value) { value = 3.14159265358979323846264338327950288; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the 
+        /// Assigns a Fixed32 precision real number representing the
         /// mathematical constant π to the output value.
         /// </summary>
         public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
 
         /// <summary>
-        /// Assigns a Single precision real number representing the 
+        /// Assigns a Single precision real number representing the
         /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Single value) { value = 6.283185f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing the 
+        /// Assigns a Double precision real number representing the
         /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Double value) { value = 6.283185; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing the 
+        /// Assigns a Fixed32 precision real number representing the
         /// mathematical constant 2π to the output value.
         /// </summary>
         public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }
@@ -11653,7 +11653,7 @@ namespace Abacus.SinglePrecision
         {
             Single a = value1.X - value2.X;
             Single b = value1.Y - value2.Y;
-            
+
             Single c = (a * a) + (b * b);
 
             result = RealMaths.Sqrt (c);
@@ -11667,16 +11667,16 @@ namespace Abacus.SinglePrecision
         {
             Single a = value1.X - value2.X;
             Single b = value1.Y - value2.Y;
-            
+
             result = (a * a) + (b * b);
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
@@ -11686,18 +11686,18 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector2 value, out Vector2 result)
         {
-            Single lengthSquared = 
+            Single lengthSquared =
                 (value.X * value.X) + (value.Y * value.Y);
 
             Single epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 Single.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -11712,7 +11712,7 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -11723,7 +11723,7 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            // dot = vector . normal 
+            // dot = vector . normal
             //     = |vector| * [normal] * cosθ
             //     = |vector| * cosθ
             //     = adjacent
@@ -11732,7 +11732,7 @@ namespace Abacus.SinglePrecision
 
             Single twoDot = dot * 2;
 
-            // Starting vector minus twice the length of the adjcent projected 
+            // Starting vector minus twice the length of the adjcent projected
             // along the normal.
             result = vector - (twoDot * normal);
         }
@@ -11743,14 +11743,14 @@ namespace Abacus.SinglePrecision
         public static void Transform (
             ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
         {
-            Single a = 
-                ((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+            Single a =
+                ((position.X * matrix.M11) + (position.Y * matrix.M21)) +
                 matrix.M41;
 
-            Single b = 
-                ((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+            Single b =
+                ((position.X * matrix.M12) + (position.Y * matrix.M22)) +
                 matrix.M42;
-            
+
             result.X = a;
             result.Y = b;
         }
@@ -11777,7 +11777,7 @@ namespace Abacus.SinglePrecision
             result.X = i;
             result.Y = j;
         }
-        
+
         /// <summary>
         /// Transforms a Vector2 by the specified Matrix.
         /// </summary>
@@ -11789,11 +11789,11 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Single a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-            Single b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-            
-            result.X = a;
-            result.Y = b;
+            Single x = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+            Single y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+
+            result.X = x;
+            result.Y = y;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -12034,9 +12034,9 @@ namespace Abacus.SinglePrecision
         /// Interpolates between two values using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            Single amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            Single amount,
             out Vector2 result)
         {
             Single zero = 0;
@@ -12055,23 +12055,23 @@ namespace Abacus.SinglePrecision
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
         }
-        
+
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            ref Vector2 c, 
-            ref Vector2 d, 
-            Single amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            ref Vector2 c,
+            ref Vector2 d,
+            Single amount,
             out Vector2 result)
         {
             Single zero = 0;
@@ -12089,30 +12089,28 @@ namespace Abacus.SinglePrecision
             Single four = 4;
             Single five = 5;
 
-            Single temp = amount * amount;
-            Single temp2 = amount * temp;
+            Single squared = amount * amount;
+            Single cubed = amount * squared;
 
-            result.X = 
-                half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
-                (((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
-                temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
-                temp2));
-            
-            result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
-                (((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
-                temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
-                temp2));
+            result.X =
+                half * ((two * b.X) + ((-a.X + c.X) * amount) +
+                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
+                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+
+            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
+                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
+                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 a, 
-            ref Vector2 tangent1, 
-            ref Vector2 b, 
-            ref Vector2 tangent2, 
-            Single amount, 
+            ref Vector2 value1,
+            ref Vector2 tangent1,
+            ref Vector2 value2,
+            ref Vector2 tangent2,
+            Single amount,
             out Vector2 result)
         {
             Single zero = 0;
@@ -12132,20 +12130,21 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Single temp = amount * amount;
-            Single temp2 = amount * temp;
-            Single temp6 = ((two * temp2) - (three * temp)) + one;
-            Single temp5 = (-two * temp2) + (three * temp);
-            Single temp4 = (temp2 - (two * temp)) + amount;
-            Single temp3 = temp2 - temp;
+            Single squared = amount * amount;
+            Single cubed = amount * squared;
 
-            result.X = 
-                (((a.X * temp6) + (b.X * temp5)) + 
-                (tangent1.X * temp4)) + (tangent2.X * temp3);
+            Single a = ((two * cubed) - (three * squared)) + one;
+            Single b = (-two * cubed) + (three * squared);
+            Single c = (cubed - (two * squared)) + amount;
+            Single d = cubed - squared;
 
-            result.Y = 
-                (((a.Y * temp6) + (b.Y * temp5)) + 
-                (tangent1.Y * temp4)) + (tangent2.Y * temp3);
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -12517,11 +12516,11 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out Single result)
@@ -12530,20 +12529,20 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            Single lengthSquared = 
-                (value.X * value.X) + 
-                (value.Y * value.Y) + 
+            Single lengthSquared =
+                (value.X * value.X) +
+                (value.Y * value.Y) +
                 (value.Z * value.Z);
 
             Single epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 Single.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -12568,7 +12567,7 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -12582,7 +12581,7 @@ namespace Abacus.SinglePrecision
             Single two = 2;
 
             Single num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
-            
+
             result.X = vector.X - ((two * num) * normal.X);
             result.Y = vector.Y - ((two * num) * normal.Y);
             result.Z = vector.Z - ((two * num) * normal.Z);
@@ -12600,7 +12599,7 @@ namespace Abacus.SinglePrecision
             result.Y = num2;
             result.Z = num;
         }
-        
+
         /// <summary>
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
@@ -12622,12 +12621,12 @@ namespace Abacus.SinglePrecision
             Single num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             Single num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             Single num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-            
+
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
         }
-        
+
         /// <summary>
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
@@ -12638,15 +12637,15 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Single num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-            Single num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-            Single num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+            Single x = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+            Single y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+            Single z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
 
-            result.X = num3;
-            result.Y = num2;
-            result.Z = num;
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
         }
-        
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -12891,15 +12890,26 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
-        public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, Single amount, out Vector3 result)
+        public static void SmoothStep (
+            ref Vector3 value1,
+            ref Vector3 value2,
+            Single amount,
+            out Vector3 result)
         {
             Single zero = 0;
             Single one = 1;
             Single two = 2;
             Single three = 3;
 
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
+
             result.X = value1.X + ((value2.X - value1.X) * amount);
             result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
             result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
@@ -12909,45 +12919,103 @@ namespace Abacus.SinglePrecision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
-        public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, Single amount, out Vector3 result)
+        public static void CatmullRom (
+            ref Vector3 value1,
+            ref Vector3 value2,
+            ref Vector3 value3,
+            ref Vector3 value4,
+            Single amount,
+            out Vector3 result)
         {
             Single half; RealMaths.Half(out half);
+            Single zero = 0;
+            Single one = 1;
             Single two = 2;
             Single three = 3;
             Single four = 4;
             Single five = 5;
 
-            Single num = amount * amount;
-            Single num2 = amount * num;
-            result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-            result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
-            result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Single squared = amount * amount;
+            Single cubed = amount * squared;
+
+            result.X =
+                half * ((((two * value2.X) + ((-value1.X + value3.X) *
+                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
+                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
+                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+
+            result.Y =
+                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
+                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
+                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
+                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+
+            result.Z =
+                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
+                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
+                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
+                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
-        public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, Single amount, out Vector3 result)
+        public static void Hermite (
+            ref Vector3 value1,
+            ref Vector3 tangent1,
+            ref Vector3 value2,
+            ref Vector3 tangent2,
+            Single amount,
+            out Vector3 result)
         {
+            Single zero = 0;
             Single one = 1;
             Single two = 2;
             Single three = 3;
 
-            Single num = amount * amount;
-            Single num2 = amount * num;
-            Single num6 = ((two * num2) - (three * num)) + one;
-            Single num5 = (-two * num2) + (three * num);
-            Single num4 = (num2 - (two * num)) + amount;
-            Single num3 = num2 - num;
-            result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-            result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
-            result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // Make sure that the tangents have been normalised.
+            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Single squared = amount * amount;
+            Single cubed = amount * squared;
+
+            Single a = ((two * cubed) - (three * squared)) + one;
+            Single b = (-two * cubed) + (three * squared);
+            Single c = (cubed - (two * squared)) + amount;
+            Single d = cubed - squared;
+
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
+
+            result.Z =
+                (value1.Z * a) + (value2.Z * b) +
+                (tangent1.Z * c) + (tangent2.Z * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -13279,21 +13347,21 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out Single result)
         {
             result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
         }
-        
+
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector4 vector, out Vector4 result)
@@ -13301,8 +13369,8 @@ namespace Abacus.SinglePrecision
             Single lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
 
             Single epsilon; RealMaths.Epsilon(out epsilon);
-            
-            if( lengthSquared <= epsilon || 
+
+            if( lengthSquared <= epsilon ||
                 Single.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -13315,36 +13383,6 @@ namespace Abacus.SinglePrecision
             result.Y = vector.Y * multiplier;
             result.Z = vector.Z * multiplier;
             result.W = vector.W * multiplier;
-        }
-
-        /// <summary>
-        /// Transforms a Vector2 by the specified Matrix44.
-        /// </summary>
-        public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
-        {
-            Single num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-            Single num3 = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-            Single num2 = ((position.X * matrix.M13) + (position.Y * matrix.M23)) + matrix.M43;
-            Single num = ((position.X * matrix.M14) + (position.Y * matrix.M24)) + matrix.M44;
-            result.X = num4;
-            result.Y = num3;
-            result.Z = num2;
-            result.W = num;
-        }
-
-        /// <summary>
-        /// Transforms a Vector3 by the specified Matrix44.
-        /// </summary>
-        public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
-        {
-            Single num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
-            Single num3 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
-            Single num2 = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
-            Single num = (((position.X * matrix.M14) + (position.Y * matrix.M24)) + (position.Z * matrix.M34)) + matrix.M44;
-            result.X = num4;
-            result.Y = num3;
-            result.Z = num2;
-            result.W = num;
         }
 
         /// <summary>
@@ -13361,61 +13399,7 @@ namespace Abacus.SinglePrecision
             result.Z = num2;
             result.W = num;
         }
-        
-        /// <summary>
-        /// Transforms a Vector2 by the specified Quaternion.
-        /// </summary>
-        public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
-        {
-            Single one = 1;
-            Single num6 = rotation.X + rotation.X;
-            Single num2 = rotation.Y + rotation.Y;
-            Single num = rotation.Z + rotation.Z;
-            Single num15 = rotation.W * num6;
-            Single num14 = rotation.W * num2;
-            Single num5 = rotation.W * num;
-            Single num13 = rotation.X * num6;
-            Single num4 = rotation.X * num2;
-            Single num12 = rotation.X * num;
-            Single num11 = rotation.Y * num2;
-            Single num10 = rotation.Y * num;
-            Single num3 = rotation.Z * num;
-            Single num9 = (value.X * ((one - num11) - num3)) + (value.Y * (num4 - num5));
-            Single num8 = (value.X * (num4 + num5)) + (value.Y * ((one - num13) - num3));
-            Single num7 = (value.X * (num12 - num14)) + (value.Y * (num10 + num15));
-            result.X = num9;
-            result.Y = num8;
-            result.Z = num7;
-            result.W = one;
-        }
-        
-        /// <summary>
-        /// Transforms a Vector3 by the specified Quaternion.
-        /// </summary>
-        public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
-        {
-            Single one = 1;
-            Single num12 = rotation.X + rotation.X;
-            Single num2 = rotation.Y + rotation.Y;
-            Single num = rotation.Z + rotation.Z;
-            Single num11 = rotation.W * num12;
-            Single num10 = rotation.W * num2;
-            Single num9 = rotation.W * num;
-            Single num8 = rotation.X * num12;
-            Single num7 = rotation.X * num2;
-            Single num6 = rotation.X * num;
-            Single num5 = rotation.Y * num2;
-            Single num4 = rotation.Y * num;
-            Single num3 = rotation.Z * num;
-            Single num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
-            Single num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
-            Single num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-            result.X = num15;
-            result.Y = num14;
-            result.Z = num13;
-            result.W = one;
-        }
-        
+
         /// <summary>
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
@@ -13442,7 +13426,28 @@ namespace Abacus.SinglePrecision
             result.Z = num13;
             result.W = value.W;
         }
-        
+
+        /// <summary>
+        /// Transforms a normalised Vector4 by a Matrix44.
+        /// </summary>
+        public static void TransformNormal (ref Vector4 normal, ref Matrix44 matrix, out Vector4 result)
+        {
+            if( !normal.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Single x = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31) + (normal.W * matrix.M41);
+            Single y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32) + (normal.W * matrix.M42);
+            Single z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33) + (normal.W * matrix.M43);
+            Single w = ((normal.X * matrix.M14) + (normal.Y * matrix.M24)) + (normal.Z * matrix.M34) + (normal.W * matrix.M44);
+
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
+            result.W = w;
+        }
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -13699,15 +13704,26 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
-        public static void SmoothStep (ref Vector4 value1, ref Vector4 value2, Single amount, out Vector4 result)
+        public static void SmoothStep (
+            ref Vector4 value1,
+            ref Vector4 value2,
+            Single amount,
+            out Vector4 result)
         {
             Single zero = 0;
             Single one = 1;
             Single two = 2;
             Single three = 3;
 
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
+
             result.X = value1.X + ((value2.X - value1.X) * amount);
             result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
             result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
@@ -13718,47 +13734,113 @@ namespace Abacus.SinglePrecision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
-        public static void CatmullRom (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, ref Vector4 value4, Single amount, out Vector4 result)
+        public static void CatmullRom (
+            ref Vector4 value1,
+            ref Vector4 value2,
+            ref Vector4 value3,
+            ref Vector4 value4,
+            Single amount,
+            out Vector4 result)
         {
             Single half; RealMaths.Half(out half);
+            Single zero = 0;
+            Single one = 1;
             Single two = 2;
             Single three = 3;
             Single four = 4;
             Single five = 5;
 
-            Single num = amount * amount;
-            Single num2 = amount * num;
-            result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-            result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
-            result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
-            result.W = half * ((((two * value2.W) + ((-value1.W + value3.W) * amount)) + (((((two * value1.W) - (five * value2.W)) + (four * value3.W)) - value4.W) * num)) + ((((-value1.W + (three * value2.W)) - (three * value3.W)) + value4.W) * num2));
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Single squared = amount * amount;
+            Single cubed = amount * squared;
+
+            result.X =
+                half * ((((two * value2.X) + ((-value1.X + value3.X) *
+                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
+                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
+                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+
+            result.Y =
+                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
+                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
+                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
+                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+
+            result.Z =
+                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
+                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
+                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
+                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+
+            result.W =
+                half * ((((two * value2.W) + ((-value1.W + value3.W) *
+                amount)) + (((((two * value1.W) - (five * value2.W)) + (four *
+                value3.W)) - value4.W) * squared)) + ((((-value1.W + (three *
+                value2.W)) - (three * value3.W)) + value4.W) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
-        public static void Hermite (ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, Single amount, out Vector4 result)
+        public static void Hermite (
+            ref Vector4 value1,
+            ref Vector4 tangent1,
+            ref Vector4 value2,
+            ref Vector4 tangent2,
+            Single amount,
+            out Vector4 result)
         {
+            Single zero = 0;
             Single one = 1;
             Single two = 2;
             Single three = 3;
 
-            Single num = amount * amount;
-            Single num6 = amount * num;
-            Single num5 = ((two * num6) - (three * num)) + one;
-            Single num4 = (-two * num6) + (three * num);
-            Single num3 = (num6 - (two * num)) + amount;
-            Single num2 = num6 - num;
-            result.X = (((value1.X * num5) + (value2.X * num4)) + (tangent1.X * num3)) + (tangent2.X * num2);
-            result.Y = (((value1.Y * num5) + (value2.Y * num4)) + (tangent1.Y * num3)) + (tangent2.Y * num2);
-            result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
-            result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // Make sure that the tangents have been normalised.
+            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Single squared = amount * amount;
+            Single cubed = amount * squared;
+
+            Single a = ((two * cubed) - (three * squared)) + one;
+            Single b = (-two * cubed) + (three * squared);
+            Single c = (cubed - (two * squared)) + amount;
+            Single d = cubed - squared;
+
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
+
+            result.Z =
+                (value1.Z * a) + (value2.Z * b) +
+                (tangent1.Z * c) + (tangent2.Z * d);
+
+            result.W =
+                (value1.W * a) + (value2.W * b) +
+                (tangent1.W * c) + (tangent2.W * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -17161,7 +17243,7 @@ namespace Abacus.DoublePrecision
         {
             Double a = value1.X - value2.X;
             Double b = value1.Y - value2.Y;
-            
+
             Double c = (a * a) + (b * b);
 
             result = RealMaths.Sqrt (c);
@@ -17175,16 +17257,16 @@ namespace Abacus.DoublePrecision
         {
             Double a = value1.X - value2.X;
             Double b = value1.Y - value2.Y;
-            
+
             result = (a * a) + (b * b);
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
@@ -17194,18 +17276,18 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector2 value, out Vector2 result)
         {
-            Double lengthSquared = 
+            Double lengthSquared =
                 (value.X * value.X) + (value.Y * value.Y);
 
             Double epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 Double.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -17220,7 +17302,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -17231,7 +17313,7 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            // dot = vector . normal 
+            // dot = vector . normal
             //     = |vector| * [normal] * cosθ
             //     = |vector| * cosθ
             //     = adjacent
@@ -17240,7 +17322,7 @@ namespace Abacus.DoublePrecision
 
             Double twoDot = dot * 2;
 
-            // Starting vector minus twice the length of the adjcent projected 
+            // Starting vector minus twice the length of the adjcent projected
             // along the normal.
             result = vector - (twoDot * normal);
         }
@@ -17251,14 +17333,14 @@ namespace Abacus.DoublePrecision
         public static void Transform (
             ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
         {
-            Double a = 
-                ((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+            Double a =
+                ((position.X * matrix.M11) + (position.Y * matrix.M21)) +
                 matrix.M41;
 
-            Double b = 
-                ((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+            Double b =
+                ((position.X * matrix.M12) + (position.Y * matrix.M22)) +
                 matrix.M42;
-            
+
             result.X = a;
             result.Y = b;
         }
@@ -17285,7 +17367,7 @@ namespace Abacus.DoublePrecision
             result.X = i;
             result.Y = j;
         }
-        
+
         /// <summary>
         /// Transforms a Vector2 by the specified Matrix.
         /// </summary>
@@ -17297,11 +17379,11 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Double a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-            Double b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-            
-            result.X = a;
-            result.Y = b;
+            Double x = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+            Double y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+
+            result.X = x;
+            result.Y = y;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -17542,9 +17624,9 @@ namespace Abacus.DoublePrecision
         /// Interpolates between two values using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            Double amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            Double amount,
             out Vector2 result)
         {
             Double zero = 0;
@@ -17563,23 +17645,23 @@ namespace Abacus.DoublePrecision
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
         }
-        
+
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            ref Vector2 c, 
-            ref Vector2 d, 
-            Double amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            ref Vector2 c,
+            ref Vector2 d,
+            Double amount,
             out Vector2 result)
         {
             Double zero = 0;
@@ -17597,30 +17679,28 @@ namespace Abacus.DoublePrecision
             Double four = 4;
             Double five = 5;
 
-            Double temp = amount * amount;
-            Double temp2 = amount * temp;
+            Double squared = amount * amount;
+            Double cubed = amount * squared;
 
-            result.X = 
-                half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
-                (((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
-                temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
-                temp2));
-            
-            result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
-                (((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
-                temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
-                temp2));
+            result.X =
+                half * ((two * b.X) + ((-a.X + c.X) * amount) +
+                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
+                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+
+            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
+                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
+                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 a, 
-            ref Vector2 tangent1, 
-            ref Vector2 b, 
-            ref Vector2 tangent2, 
-            Double amount, 
+            ref Vector2 value1,
+            ref Vector2 tangent1,
+            ref Vector2 value2,
+            ref Vector2 tangent2,
+            Double amount,
             out Vector2 result)
         {
             Double zero = 0;
@@ -17640,20 +17720,21 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Double temp = amount * amount;
-            Double temp2 = amount * temp;
-            Double temp6 = ((two * temp2) - (three * temp)) + one;
-            Double temp5 = (-two * temp2) + (three * temp);
-            Double temp4 = (temp2 - (two * temp)) + amount;
-            Double temp3 = temp2 - temp;
+            Double squared = amount * amount;
+            Double cubed = amount * squared;
 
-            result.X = 
-                (((a.X * temp6) + (b.X * temp5)) + 
-                (tangent1.X * temp4)) + (tangent2.X * temp3);
+            Double a = ((two * cubed) - (three * squared)) + one;
+            Double b = (-two * cubed) + (three * squared);
+            Double c = (cubed - (two * squared)) + amount;
+            Double d = cubed - squared;
 
-            result.Y = 
-                (((a.Y * temp6) + (b.Y * temp5)) + 
-                (tangent1.Y * temp4)) + (tangent2.Y * temp3);
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -18025,11 +18106,11 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out Double result)
@@ -18038,20 +18119,20 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            Double lengthSquared = 
-                (value.X * value.X) + 
-                (value.Y * value.Y) + 
+            Double lengthSquared =
+                (value.X * value.X) +
+                (value.Y * value.Y) +
                 (value.Z * value.Z);
 
             Double epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 Double.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -18076,7 +18157,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -18090,7 +18171,7 @@ namespace Abacus.DoublePrecision
             Double two = 2;
 
             Double num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
-            
+
             result.X = vector.X - ((two * num) * normal.X);
             result.Y = vector.Y - ((two * num) * normal.Y);
             result.Z = vector.Z - ((two * num) * normal.Z);
@@ -18108,7 +18189,7 @@ namespace Abacus.DoublePrecision
             result.Y = num2;
             result.Z = num;
         }
-        
+
         /// <summary>
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
@@ -18130,12 +18211,12 @@ namespace Abacus.DoublePrecision
             Double num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             Double num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             Double num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-            
+
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
         }
-        
+
         /// <summary>
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
@@ -18146,15 +18227,15 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Double num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-            Double num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-            Double num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+            Double x = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+            Double y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+            Double z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
 
-            result.X = num3;
-            result.Y = num2;
-            result.Z = num;
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
         }
-        
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -18399,15 +18480,26 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
-        public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, Double amount, out Vector3 result)
+        public static void SmoothStep (
+            ref Vector3 value1,
+            ref Vector3 value2,
+            Double amount,
+            out Vector3 result)
         {
             Double zero = 0;
             Double one = 1;
             Double two = 2;
             Double three = 3;
 
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
+
             result.X = value1.X + ((value2.X - value1.X) * amount);
             result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
             result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
@@ -18417,45 +18509,103 @@ namespace Abacus.DoublePrecision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
-        public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, Double amount, out Vector3 result)
+        public static void CatmullRom (
+            ref Vector3 value1,
+            ref Vector3 value2,
+            ref Vector3 value3,
+            ref Vector3 value4,
+            Double amount,
+            out Vector3 result)
         {
             Double half; RealMaths.Half(out half);
+            Double zero = 0;
+            Double one = 1;
             Double two = 2;
             Double three = 3;
             Double four = 4;
             Double five = 5;
 
-            Double num = amount * amount;
-            Double num2 = amount * num;
-            result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-            result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
-            result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Double squared = amount * amount;
+            Double cubed = amount * squared;
+
+            result.X =
+                half * ((((two * value2.X) + ((-value1.X + value3.X) *
+                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
+                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
+                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+
+            result.Y =
+                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
+                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
+                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
+                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+
+            result.Z =
+                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
+                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
+                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
+                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
-        public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, Double amount, out Vector3 result)
+        public static void Hermite (
+            ref Vector3 value1,
+            ref Vector3 tangent1,
+            ref Vector3 value2,
+            ref Vector3 tangent2,
+            Double amount,
+            out Vector3 result)
         {
+            Double zero = 0;
             Double one = 1;
             Double two = 2;
             Double three = 3;
 
-            Double num = amount * amount;
-            Double num2 = amount * num;
-            Double num6 = ((two * num2) - (three * num)) + one;
-            Double num5 = (-two * num2) + (three * num);
-            Double num4 = (num2 - (two * num)) + amount;
-            Double num3 = num2 - num;
-            result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-            result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
-            result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // Make sure that the tangents have been normalised.
+            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Double squared = amount * amount;
+            Double cubed = amount * squared;
+
+            Double a = ((two * cubed) - (three * squared)) + one;
+            Double b = (-two * cubed) + (three * squared);
+            Double c = (cubed - (two * squared)) + amount;
+            Double d = cubed - squared;
+
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
+
+            result.Z =
+                (value1.Z * a) + (value2.Z * b) +
+                (tangent1.Z * c) + (tangent2.Z * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -18787,21 +18937,21 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out Double result)
         {
             result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
         }
-        
+
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector4 vector, out Vector4 result)
@@ -18809,8 +18959,8 @@ namespace Abacus.DoublePrecision
             Double lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
 
             Double epsilon; RealMaths.Epsilon(out epsilon);
-            
-            if( lengthSquared <= epsilon || 
+
+            if( lengthSquared <= epsilon ||
                 Double.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -18823,36 +18973,6 @@ namespace Abacus.DoublePrecision
             result.Y = vector.Y * multiplier;
             result.Z = vector.Z * multiplier;
             result.W = vector.W * multiplier;
-        }
-
-        /// <summary>
-        /// Transforms a Vector2 by the specified Matrix44.
-        /// </summary>
-        public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
-        {
-            Double num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-            Double num3 = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-            Double num2 = ((position.X * matrix.M13) + (position.Y * matrix.M23)) + matrix.M43;
-            Double num = ((position.X * matrix.M14) + (position.Y * matrix.M24)) + matrix.M44;
-            result.X = num4;
-            result.Y = num3;
-            result.Z = num2;
-            result.W = num;
-        }
-
-        /// <summary>
-        /// Transforms a Vector3 by the specified Matrix44.
-        /// </summary>
-        public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
-        {
-            Double num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
-            Double num3 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
-            Double num2 = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
-            Double num = (((position.X * matrix.M14) + (position.Y * matrix.M24)) + (position.Z * matrix.M34)) + matrix.M44;
-            result.X = num4;
-            result.Y = num3;
-            result.Z = num2;
-            result.W = num;
         }
 
         /// <summary>
@@ -18869,61 +18989,7 @@ namespace Abacus.DoublePrecision
             result.Z = num2;
             result.W = num;
         }
-        
-        /// <summary>
-        /// Transforms a Vector2 by the specified Quaternion.
-        /// </summary>
-        public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
-        {
-            Double one = 1;
-            Double num6 = rotation.X + rotation.X;
-            Double num2 = rotation.Y + rotation.Y;
-            Double num = rotation.Z + rotation.Z;
-            Double num15 = rotation.W * num6;
-            Double num14 = rotation.W * num2;
-            Double num5 = rotation.W * num;
-            Double num13 = rotation.X * num6;
-            Double num4 = rotation.X * num2;
-            Double num12 = rotation.X * num;
-            Double num11 = rotation.Y * num2;
-            Double num10 = rotation.Y * num;
-            Double num3 = rotation.Z * num;
-            Double num9 = (value.X * ((one - num11) - num3)) + (value.Y * (num4 - num5));
-            Double num8 = (value.X * (num4 + num5)) + (value.Y * ((one - num13) - num3));
-            Double num7 = (value.X * (num12 - num14)) + (value.Y * (num10 + num15));
-            result.X = num9;
-            result.Y = num8;
-            result.Z = num7;
-            result.W = one;
-        }
-        
-        /// <summary>
-        /// Transforms a Vector3 by the specified Quaternion.
-        /// </summary>
-        public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
-        {
-            Double one = 1;
-            Double num12 = rotation.X + rotation.X;
-            Double num2 = rotation.Y + rotation.Y;
-            Double num = rotation.Z + rotation.Z;
-            Double num11 = rotation.W * num12;
-            Double num10 = rotation.W * num2;
-            Double num9 = rotation.W * num;
-            Double num8 = rotation.X * num12;
-            Double num7 = rotation.X * num2;
-            Double num6 = rotation.X * num;
-            Double num5 = rotation.Y * num2;
-            Double num4 = rotation.Y * num;
-            Double num3 = rotation.Z * num;
-            Double num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
-            Double num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
-            Double num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-            result.X = num15;
-            result.Y = num14;
-            result.Z = num13;
-            result.W = one;
-        }
-        
+
         /// <summary>
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
@@ -18950,7 +19016,28 @@ namespace Abacus.DoublePrecision
             result.Z = num13;
             result.W = value.W;
         }
-        
+
+        /// <summary>
+        /// Transforms a normalised Vector4 by a Matrix44.
+        /// </summary>
+        public static void TransformNormal (ref Vector4 normal, ref Matrix44 matrix, out Vector4 result)
+        {
+            if( !normal.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Double x = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31) + (normal.W * matrix.M41);
+            Double y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32) + (normal.W * matrix.M42);
+            Double z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33) + (normal.W * matrix.M43);
+            Double w = ((normal.X * matrix.M14) + (normal.Y * matrix.M24)) + (normal.Z * matrix.M34) + (normal.W * matrix.M44);
+
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
+            result.W = w;
+        }
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -19207,15 +19294,26 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
-        public static void SmoothStep (ref Vector4 value1, ref Vector4 value2, Double amount, out Vector4 result)
+        public static void SmoothStep (
+            ref Vector4 value1,
+            ref Vector4 value2,
+            Double amount,
+            out Vector4 result)
         {
             Double zero = 0;
             Double one = 1;
             Double two = 2;
             Double three = 3;
 
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
+
             result.X = value1.X + ((value2.X - value1.X) * amount);
             result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
             result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
@@ -19226,47 +19324,113 @@ namespace Abacus.DoublePrecision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
-        public static void CatmullRom (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, ref Vector4 value4, Double amount, out Vector4 result)
+        public static void CatmullRom (
+            ref Vector4 value1,
+            ref Vector4 value2,
+            ref Vector4 value3,
+            ref Vector4 value4,
+            Double amount,
+            out Vector4 result)
         {
             Double half; RealMaths.Half(out half);
+            Double zero = 0;
+            Double one = 1;
             Double two = 2;
             Double three = 3;
             Double four = 4;
             Double five = 5;
 
-            Double num = amount * amount;
-            Double num2 = amount * num;
-            result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-            result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
-            result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
-            result.W = half * ((((two * value2.W) + ((-value1.W + value3.W) * amount)) + (((((two * value1.W) - (five * value2.W)) + (four * value3.W)) - value4.W) * num)) + ((((-value1.W + (three * value2.W)) - (three * value3.W)) + value4.W) * num2));
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Double squared = amount * amount;
+            Double cubed = amount * squared;
+
+            result.X =
+                half * ((((two * value2.X) + ((-value1.X + value3.X) *
+                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
+                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
+                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+
+            result.Y =
+                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
+                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
+                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
+                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+
+            result.Z =
+                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
+                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
+                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
+                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+
+            result.W =
+                half * ((((two * value2.W) + ((-value1.W + value3.W) *
+                amount)) + (((((two * value1.W) - (five * value2.W)) + (four *
+                value3.W)) - value4.W) * squared)) + ((((-value1.W + (three *
+                value2.W)) - (three * value3.W)) + value4.W) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
-        public static void Hermite (ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, Double amount, out Vector4 result)
+        public static void Hermite (
+            ref Vector4 value1,
+            ref Vector4 tangent1,
+            ref Vector4 value2,
+            ref Vector4 tangent2,
+            Double amount,
+            out Vector4 result)
         {
+            Double zero = 0;
             Double one = 1;
             Double two = 2;
             Double three = 3;
 
-            Double num = amount * amount;
-            Double num6 = amount * num;
-            Double num5 = ((two * num6) - (three * num)) + one;
-            Double num4 = (-two * num6) + (three * num);
-            Double num3 = (num6 - (two * num)) + amount;
-            Double num2 = num6 - num;
-            result.X = (((value1.X * num5) + (value2.X * num4)) + (tangent1.X * num3)) + (tangent2.X * num2);
-            result.Y = (((value1.Y * num5) + (value2.Y * num4)) + (tangent1.Y * num3)) + (tangent2.Y * num2);
-            result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
-            result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // Make sure that the tangents have been normalised.
+            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Double squared = amount * amount;
+            Double cubed = amount * squared;
+
+            Double a = ((two * cubed) - (three * squared)) + one;
+            Double b = (-two * cubed) + (three * squared);
+            Double c = (cubed - (two * squared)) + amount;
+            Double d = cubed - squared;
+
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
+
+            result.Z =
+                (value1.Z * a) + (value2.Z * b) +
+                (tangent1.Z * c) + (tangent2.Z * d);
+
+            result.W =
+                (value1.W * a) + (value2.W * b) +
+                (tangent1.W * c) + (tangent2.W * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -22669,7 +22833,7 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 a = value1.X - value2.X;
             Fixed32 b = value1.Y - value2.Y;
-            
+
             Fixed32 c = (a * a) + (b * b);
 
             result = RealMaths.Sqrt (c);
@@ -22683,16 +22847,16 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 a = value1.X - value2.X;
             Fixed32 b = value1.Y - value2.Y;
-            
+
             result = (a * a) + (b * b);
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
@@ -22702,18 +22866,18 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector2 value, out Vector2 result)
         {
-            Fixed32 lengthSquared = 
+            Fixed32 lengthSquared =
                 (value.X * value.X) + (value.Y * value.Y);
 
             Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 Fixed32.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -22728,7 +22892,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -22739,7 +22903,7 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
-            // dot = vector . normal 
+            // dot = vector . normal
             //     = |vector| * [normal] * cosθ
             //     = |vector| * cosθ
             //     = adjacent
@@ -22748,7 +22912,7 @@ namespace Abacus.Fixed32Precision
 
             Fixed32 twoDot = dot * 2;
 
-            // Starting vector minus twice the length of the adjcent projected 
+            // Starting vector minus twice the length of the adjcent projected
             // along the normal.
             result = vector - (twoDot * normal);
         }
@@ -22759,14 +22923,14 @@ namespace Abacus.Fixed32Precision
         public static void Transform (
             ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
         {
-            Fixed32 a = 
-                ((position.X * matrix.M11) + (position.Y * matrix.M21)) + 
+            Fixed32 a =
+                ((position.X * matrix.M11) + (position.Y * matrix.M21)) +
                 matrix.M41;
 
-            Fixed32 b = 
-                ((position.X * matrix.M12) + (position.Y * matrix.M22)) + 
+            Fixed32 b =
+                ((position.X * matrix.M12) + (position.Y * matrix.M22)) +
                 matrix.M42;
-            
+
             result.X = a;
             result.Y = b;
         }
@@ -22793,7 +22957,7 @@ namespace Abacus.Fixed32Precision
             result.X = i;
             result.Y = j;
         }
-        
+
         /// <summary>
         /// Transforms a Vector2 by the specified Matrix.
         /// </summary>
@@ -22805,11 +22969,11 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Fixed32 a = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-            Fixed32 b = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
-            
-            result.X = a;
-            result.Y = b;
+            Fixed32 x = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+            Fixed32 y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+
+            result.X = x;
+            result.Y = y;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -23050,9 +23214,9 @@ namespace Abacus.Fixed32Precision
         /// Interpolates between two values using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            Fixed32 amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            Fixed32 amount,
             out Vector2 result)
         {
             Fixed32 zero = 0;
@@ -23071,23 +23235,23 @@ namespace Abacus.Fixed32Precision
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
         }
-        
+
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            ref Vector2 c, 
-            ref Vector2 d, 
-            Fixed32 amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            ref Vector2 c,
+            ref Vector2 d,
+            Fixed32 amount,
             out Vector2 result)
         {
             Fixed32 zero = 0;
@@ -23105,30 +23269,28 @@ namespace Abacus.Fixed32Precision
             Fixed32 four = 4;
             Fixed32 five = 5;
 
-            Fixed32 temp = amount * amount;
-            Fixed32 temp2 = amount * temp;
+            Fixed32 squared = amount * amount;
+            Fixed32 cubed = amount * squared;
 
-            result.X = 
-                half * ((((two * b.X) + ((-a.X + c.X) * amount)) + 
-                (((((two * a.X) - (five * b.X)) + (four * c.X)) - d.X) * 
-                temp)) + ((((-a.X + (three * b.X)) - (three * c.X)) + d.X) * 
-                temp2));
-            
-            result.Y = half * ((((two * b.Y) + ((-a.Y + c.Y) * amount)) + 
-                (((((two * a.Y) - (five * b.Y)) + (four * c.Y)) - d.Y) * 
-                temp)) + ((((-a.Y + (three * b.Y)) - (three * c.Y)) + d.Y) * 
-                temp2));
+            result.X =
+                half * ((two * b.X) + ((-a.X + c.X) * amount) +
+                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
+                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+
+            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
+                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
+                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 a, 
-            ref Vector2 tangent1, 
-            ref Vector2 b, 
-            ref Vector2 tangent2, 
-            Fixed32 amount, 
+            ref Vector2 value1,
+            ref Vector2 tangent1,
+            ref Vector2 value2,
+            ref Vector2 tangent2,
+            Fixed32 amount,
             out Vector2 result)
         {
             Fixed32 zero = 0;
@@ -23148,20 +23310,21 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Fixed32 temp = amount * amount;
-            Fixed32 temp2 = amount * temp;
-            Fixed32 temp6 = ((two * temp2) - (three * temp)) + one;
-            Fixed32 temp5 = (-two * temp2) + (three * temp);
-            Fixed32 temp4 = (temp2 - (two * temp)) + amount;
-            Fixed32 temp3 = temp2 - temp;
+            Fixed32 squared = amount * amount;
+            Fixed32 cubed = amount * squared;
 
-            result.X = 
-                (((a.X * temp6) + (b.X * temp5)) + 
-                (tangent1.X * temp4)) + (tangent2.X * temp3);
+            Fixed32 a = ((two * cubed) - (three * squared)) + one;
+            Fixed32 b = (-two * cubed) + (three * squared);
+            Fixed32 c = (cubed - (two * squared)) + amount;
+            Fixed32 d = cubed - squared;
 
-            result.Y = 
-                (((a.Y * temp6) + (b.Y * temp5)) + 
-                (tangent1.Y * temp4)) + (tangent2.Y * temp3);
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -23533,11 +23696,11 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (ref Vector3 vector1, ref Vector3 vector2, out Fixed32 result)
@@ -23546,20 +23709,20 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector3 value, out Vector3 result)
         {
-            Fixed32 lengthSquared = 
-                (value.X * value.X) + 
-                (value.Y * value.Y) + 
+            Fixed32 lengthSquared =
+                (value.X * value.X) +
+                (value.Y * value.Y) +
                 (value.Z * value.Z);
 
             Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
 
-            if( lengthSquared <= epsilon || 
+            if( lengthSquared <= epsilon ||
                 Fixed32.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -23584,7 +23747,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a 
+        /// Returns the value of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -23598,7 +23761,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 two = 2;
 
             Fixed32 num = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
-            
+
             result.X = vector.X - ((two * num) * normal.X);
             result.Y = vector.Y - ((two * num) * normal.Y);
             result.Z = vector.Z - ((two * num) * normal.Z);
@@ -23616,7 +23779,7 @@ namespace Abacus.Fixed32Precision
             result.Y = num2;
             result.Z = num;
         }
-        
+
         /// <summary>
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
@@ -23638,12 +23801,12 @@ namespace Abacus.Fixed32Precision
             Fixed32 num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
             Fixed32 num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
             Fixed32 num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-            
+
             result.X = num15;
             result.Y = num14;
             result.Z = num13;
         }
-        
+
         /// <summary>
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
@@ -23654,15 +23817,15 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Fixed32 num3 = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
-            Fixed32 num2 = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
-            Fixed32 num = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
+            Fixed32 x = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31);
+            Fixed32 y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32);
+            Fixed32 z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33);
 
-            result.X = num3;
-            result.Y = num2;
-            result.Z = num;
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
         }
-        
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -23907,15 +24070,26 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
-        public static void SmoothStep (ref Vector3 value1, ref Vector3 value2, Fixed32 amount, out Vector3 result)
+        public static void SmoothStep (
+            ref Vector3 value1,
+            ref Vector3 value2,
+            Fixed32 amount,
+            out Vector3 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
 
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
+
             result.X = value1.X + ((value2.X - value1.X) * amount);
             result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
             result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
@@ -23925,45 +24099,103 @@ namespace Abacus.Fixed32Precision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
-        public static void CatmullRom (ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, Fixed32 amount, out Vector3 result)
+        public static void CatmullRom (
+            ref Vector3 value1,
+            ref Vector3 value2,
+            ref Vector3 value3,
+            ref Vector3 value4,
+            Fixed32 amount,
+            out Vector3 result)
         {
             Fixed32 half; RealMaths.Half(out half);
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
             Fixed32 four = 4;
             Fixed32 five = 5;
 
-            Fixed32 num = amount * amount;
-            Fixed32 num2 = amount * num;
-            result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-            result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
-            result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Fixed32 squared = amount * amount;
+            Fixed32 cubed = amount * squared;
+
+            result.X =
+                half * ((((two * value2.X) + ((-value1.X + value3.X) *
+                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
+                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
+                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+
+            result.Y =
+                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
+                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
+                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
+                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+
+            result.Z =
+                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
+                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
+                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
+                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
-        public static void Hermite (ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, Fixed32 amount, out Vector3 result)
+        public static void Hermite (
+            ref Vector3 value1,
+            ref Vector3 tangent1,
+            ref Vector3 value2,
+            ref Vector3 tangent2,
+            Fixed32 amount,
+            out Vector3 result)
         {
+            Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            Fixed32 num = amount * amount;
-            Fixed32 num2 = amount * num;
-            Fixed32 num6 = ((two * num2) - (three * num)) + one;
-            Fixed32 num5 = (-two * num2) + (three * num);
-            Fixed32 num4 = (num2 - (two * num)) + amount;
-            Fixed32 num3 = num2 - num;
-            result.X = (((value1.X * num6) + (value2.X * num5)) + (tangent1.X * num4)) + (tangent2.X * num3);
-            result.Y = (((value1.Y * num6) + (value2.Y * num5)) + (tangent1.Y * num4)) + (tangent2.Y * num3);
-            result.Z = (((value1.Z * num6) + (value2.Z * num5)) + (tangent1.Z * num4)) + (tangent2.Z * num3);
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // Make sure that the tangents have been normalised.
+            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Fixed32 squared = amount * amount;
+            Fixed32 cubed = amount * squared;
+
+            Fixed32 a = ((two * cubed) - (three * squared)) + one;
+            Fixed32 b = (-two * cubed) + (three * squared);
+            Fixed32 c = (cubed - (two * squared)) + amount;
+            Fixed32 d = cubed - squared;
+
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
+
+            result.Z =
+                (value1.Z * a) + (value2.Z * b) +
+                (tangent1.Z * c) + (tangent2.Z * d);
         }
 
         // Utilities //-------------------------------------------------------//
@@ -24295,21 +24527,21 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Calculates the dot product of two vectors. If the two vectors are 
+        /// Calculates the dot product of two vectors. If the two vectors are
         /// unit vectors, the dot product returns a floating point value between
-        /// -1 and 1 that can be used to determine some properties of the angle 
-        /// between two vectors. For example, it can show whether the vectors 
-        /// are orthogonal, parallel, or have an acute or obtuse angle between 
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (ref Vector4 vector1, ref Vector4 vector2, out Fixed32 result)
         {
             result = (((vector1.X * vector2.X) + (vector1.Y * vector2.Y)) + (vector1.Z * vector2.Z)) + (vector1.W * vector2.W);
         }
-        
+
         /// <summary>
-        /// Creates a unit vector from the specified vector. The result is a 
-        /// vector one unit in length pointing in the same direction as the 
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
         public static void Normalise (ref Vector4 vector, out Vector4 result)
@@ -24317,8 +24549,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 lengthSquared = (((vector.X * vector.X) + (vector.Y * vector.Y)) + (vector.Z * vector.Z)) + (vector.W * vector.W);
 
             Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
-            
-            if( lengthSquared <= epsilon || 
+
+            if( lengthSquared <= epsilon ||
                 Fixed32.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
@@ -24331,36 +24563,6 @@ namespace Abacus.Fixed32Precision
             result.Y = vector.Y * multiplier;
             result.Z = vector.Z * multiplier;
             result.W = vector.W * multiplier;
-        }
-
-        /// <summary>
-        /// Transforms a Vector2 by the specified Matrix44.
-        /// </summary>
-        public static void Transform (ref Vector2 position, ref Matrix44 matrix, out Vector4 result)
-        {
-            Fixed32 num4 = ((position.X * matrix.M11) + (position.Y * matrix.M21)) + matrix.M41;
-            Fixed32 num3 = ((position.X * matrix.M12) + (position.Y * matrix.M22)) + matrix.M42;
-            Fixed32 num2 = ((position.X * matrix.M13) + (position.Y * matrix.M23)) + matrix.M43;
-            Fixed32 num = ((position.X * matrix.M14) + (position.Y * matrix.M24)) + matrix.M44;
-            result.X = num4;
-            result.Y = num3;
-            result.Z = num2;
-            result.W = num;
-        }
-
-        /// <summary>
-        /// Transforms a Vector3 by the specified Matrix44.
-        /// </summary>
-        public static void Transform (ref Vector3 position, ref Matrix44 matrix, out Vector4 result)
-        {
-            Fixed32 num4 = (((position.X * matrix.M11) + (position.Y * matrix.M21)) + (position.Z * matrix.M31)) + matrix.M41;
-            Fixed32 num3 = (((position.X * matrix.M12) + (position.Y * matrix.M22)) + (position.Z * matrix.M32)) + matrix.M42;
-            Fixed32 num2 = (((position.X * matrix.M13) + (position.Y * matrix.M23)) + (position.Z * matrix.M33)) + matrix.M43;
-            Fixed32 num = (((position.X * matrix.M14) + (position.Y * matrix.M24)) + (position.Z * matrix.M34)) + matrix.M44;
-            result.X = num4;
-            result.Y = num3;
-            result.Z = num2;
-            result.W = num;
         }
 
         /// <summary>
@@ -24377,61 +24579,7 @@ namespace Abacus.Fixed32Precision
             result.Z = num2;
             result.W = num;
         }
-        
-        /// <summary>
-        /// Transforms a Vector2 by the specified Quaternion.
-        /// </summary>
-        public static void Transform (ref Vector2 value, ref Quaternion rotation, out Vector4 result)
-        {
-            Fixed32 one = 1;
-            Fixed32 num6 = rotation.X + rotation.X;
-            Fixed32 num2 = rotation.Y + rotation.Y;
-            Fixed32 num = rotation.Z + rotation.Z;
-            Fixed32 num15 = rotation.W * num6;
-            Fixed32 num14 = rotation.W * num2;
-            Fixed32 num5 = rotation.W * num;
-            Fixed32 num13 = rotation.X * num6;
-            Fixed32 num4 = rotation.X * num2;
-            Fixed32 num12 = rotation.X * num;
-            Fixed32 num11 = rotation.Y * num2;
-            Fixed32 num10 = rotation.Y * num;
-            Fixed32 num3 = rotation.Z * num;
-            Fixed32 num9 = (value.X * ((one - num11) - num3)) + (value.Y * (num4 - num5));
-            Fixed32 num8 = (value.X * (num4 + num5)) + (value.Y * ((one - num13) - num3));
-            Fixed32 num7 = (value.X * (num12 - num14)) + (value.Y * (num10 + num15));
-            result.X = num9;
-            result.Y = num8;
-            result.Z = num7;
-            result.W = one;
-        }
-        
-        /// <summary>
-        /// Transforms a Vector3 by the specified Quaternion.
-        /// </summary>
-        public static void Transform (ref Vector3 value, ref Quaternion rotation, out Vector4 result)
-        {
-            Fixed32 one = 1;
-            Fixed32 num12 = rotation.X + rotation.X;
-            Fixed32 num2 = rotation.Y + rotation.Y;
-            Fixed32 num = rotation.Z + rotation.Z;
-            Fixed32 num11 = rotation.W * num12;
-            Fixed32 num10 = rotation.W * num2;
-            Fixed32 num9 = rotation.W * num;
-            Fixed32 num8 = rotation.X * num12;
-            Fixed32 num7 = rotation.X * num2;
-            Fixed32 num6 = rotation.X * num;
-            Fixed32 num5 = rotation.Y * num2;
-            Fixed32 num4 = rotation.Y * num;
-            Fixed32 num3 = rotation.Z * num;
-            Fixed32 num15 = ((value.X * ((one - num5) - num3)) + (value.Y * (num7 - num9))) + (value.Z * (num6 + num10));
-            Fixed32 num14 = ((value.X * (num7 + num9)) + (value.Y * ((one - num8) - num3))) + (value.Z * (num4 - num11));
-            Fixed32 num13 = ((value.X * (num6 - num10)) + (value.Y * (num4 + num11))) + (value.Z * ((one - num8) - num5));
-            result.X = num15;
-            result.Y = num14;
-            result.Z = num13;
-            result.W = one;
-        }
-        
+
         /// <summary>
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
@@ -24458,7 +24606,28 @@ namespace Abacus.Fixed32Precision
             result.Z = num13;
             result.W = value.W;
         }
-        
+
+        /// <summary>
+        /// Transforms a normalised Vector4 by a Matrix44.
+        /// </summary>
+        public static void TransformNormal (ref Vector4 normal, ref Matrix44 matrix, out Vector4 result)
+        {
+            if( !normal.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Fixed32 x = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31) + (normal.W * matrix.M41);
+            Fixed32 y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32) + (normal.W * matrix.M42);
+            Fixed32 z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33) + (normal.W * matrix.M43);
+            Fixed32 w = ((normal.X * matrix.M14) + (normal.Y * matrix.M24)) + (normal.Z * matrix.M34) + (normal.W * matrix.M44);
+
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
+            result.W = w;
+        }
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -24715,15 +24884,26 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
-        public static void SmoothStep (ref Vector4 value1, ref Vector4 value2, Fixed32 amount, out Vector4 result)
+        public static void SmoothStep (
+            ref Vector4 value1,
+            ref Vector4 value2,
+            Fixed32 amount,
+            out Vector4 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
 
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
+
             result.X = value1.X + ((value2.X - value1.X) * amount);
             result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
             result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
@@ -24734,47 +24914,113 @@ namespace Abacus.Fixed32Precision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// Features:
         /// - The spline passes through all of the control points.
-        /// - The spline is C^1 continuous, meaning that there are no 
+        /// - The spline is C^1 continuous, meaning that there are no
         ///   discontinuities in the tangent direction and magnitude.
-        /// - The spline is not C^2 continuous.  The second derivative is 
-        ///   linearly interpolated within each segment, causing the curvature 
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
         ///   to vary linearly over the length of the segment.
         /// </summary>
-        public static void CatmullRom (ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, ref Vector4 value4, Fixed32 amount, out Vector4 result)
+        public static void CatmullRom (
+            ref Vector4 value1,
+            ref Vector4 value2,
+            ref Vector4 value3,
+            ref Vector4 value4,
+            Fixed32 amount,
+            out Vector4 result)
         {
             Fixed32 half; RealMaths.Half(out half);
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
             Fixed32 four = 4;
             Fixed32 five = 5;
 
-            Fixed32 num = amount * amount;
-            Fixed32 num2 = amount * num;
-            result.X = half * ((((two * value2.X) + ((-value1.X + value3.X) * amount)) + (((((two * value1.X) - (five * value2.X)) + (four * value3.X)) - value4.X) * num)) + ((((-value1.X + (three * value2.X)) - (three * value3.X)) + value4.X) * num2));
-            result.Y = half * ((((two * value2.Y) + ((-value1.Y + value3.Y) * amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four * value3.Y)) - value4.Y) * num)) + ((((-value1.Y + (three * value2.Y)) - (three * value3.Y)) + value4.Y) * num2));
-            result.Z = half * ((((two * value2.Z) + ((-value1.Z + value3.Z) * amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four * value3.Z)) - value4.Z) * num)) + ((((-value1.Z + (three * value2.Z)) - (three * value3.Z)) + value4.Z) * num2));
-            result.W = half * ((((two * value2.W) + ((-value1.W + value3.W) * amount)) + (((((two * value1.W) - (five * value2.W)) + (four * value3.W)) - value4.W) * num)) + ((((-value1.W + (three * value2.W)) - (three * value3.W)) + value4.W) * num2));
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Fixed32 squared = amount * amount;
+            Fixed32 cubed = amount * squared;
+
+            result.X =
+                half * ((((two * value2.X) + ((-value1.X + value3.X) *
+                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
+                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
+                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+
+            result.Y =
+                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
+                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
+                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
+                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+
+            result.Z =
+                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
+                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
+                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
+                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+
+            result.W =
+                half * ((((two * value2.W) + ((-value1.W + value3.W) *
+                amount)) + (((((two * value1.W) - (five * value2.W)) + (four *
+                value3.W)) - value4.W) * squared)) + ((((-value1.W + (three *
+                value2.W)) - (three * value3.W)) + value4.W) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
-        public static void Hermite (ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, Fixed32 amount, out Vector4 result)
+        public static void Hermite (
+            ref Vector4 value1,
+            ref Vector4 tangent1,
+            ref Vector4 value2,
+            ref Vector4 tangent2,
+            Fixed32 amount,
+            out Vector4 result)
         {
+            Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            Fixed32 num = amount * amount;
-            Fixed32 num6 = amount * num;
-            Fixed32 num5 = ((two * num6) - (three * num)) + one;
-            Fixed32 num4 = (-two * num6) + (three * num);
-            Fixed32 num3 = (num6 - (two * num)) + amount;
-            Fixed32 num2 = num6 - num;
-            result.X = (((value1.X * num5) + (value2.X * num4)) + (tangent1.X * num3)) + (tangent2.X * num2);
-            result.Y = (((value1.Y * num5) + (value2.Y * num4)) + (tangent1.Y * num3)) + (tangent2.Y * num2);
-            result.Z = (((value1.Z * num5) + (value2.Z * num4)) + (tangent1.Z * num3)) + (tangent2.Z * num2);
-            result.W = (((value1.W * num5) + (value2.W * num4)) + (tangent1.W * num3)) + (tangent2.W * num2);
+            // Make sure that the weighting value is within the supported range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // Make sure that the tangents have been normalised.
+            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Fixed32 squared = amount * amount;
+            Fixed32 cubed = amount * squared;
+
+            Fixed32 a = ((two * cubed) - (three * squared)) + one;
+            Fixed32 b = (-two * cubed) + (three * squared);
+            Fixed32 c = (cubed - (two * squared)) + amount;
+            Fixed32 d = cubed - squared;
+
+            result.X =
+                (value1.X * a) + (value2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (value1.Y * a) + (value2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
+
+            result.Z =
+                (value1.Z * a) + (value2.Z * b) +
+                (tangent1.Z * c) + (tangent2.Z * d);
+
+            result.W =
+                (value1.W * a) + (value2.W * b) +
+                (tangent1.W * c) + (tangent2.W * d);
         }
 
         // Utilities //-------------------------------------------------------//
