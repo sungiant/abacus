@@ -121,21 +121,27 @@
         {
             <#= type #> two = 2;
 
-            <#= type #> x = rotation.X; <#= type #> xx = x * x;
-            <#= type #> y = rotation.Y; <#= type #> yy = y * y;
-            <#= type #> z = rotation.Z; <#= type #> zz = z * z;
+            <#= type #> x = rotation.X;
+            <#= type #> y = rotation.Y;
+            <#= type #> z = rotation.Z;
             <#= type #> w = rotation.W;
+
+            <#= type #> xx = x * x;
+            <#= type #> yy = y * y;
+            <#= type #> zz = z * z;
 
             <#= type #> wz = w * z;
             <#= type #> xy = x * y;
 
             result.X =
-                vector.X - (two * vector.X  * (yy + zz)) +
-                (two * vector.Y  * (xy - wz));
+                + vector.X
+                - (two * vector.X  * (yy + zz))
+                + (two * vector.Y  * (xy - wz));
 
             result.Y =
-                (two * vector.X * (xy + wz)) +
-                vector.Y - (two * vector.Y * (xx + zz));
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz));
         }
 
         /// <summary>

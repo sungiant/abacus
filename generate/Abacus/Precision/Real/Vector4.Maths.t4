@@ -132,43 +132,42 @@
             ref Quaternion rotation,
             out Vector4 result)
         {
-            <#= type #> one = 1;
             <#= type #> two = 2;
 
-            <#= type #> qx = rotation.X; <#= type #> qxSq = qx * qx;
-            <#= type #> qy = rotation.Y; <#= type #> qySq = qy * qy;
-            <#= type #> qz = rotation.Z; <#= type #> qzSq = qz * qz;
-            <#= type #> qw = rotation.W;
+            <#= type #> x = rotation.X;
+            <#= type #> y = rotation.Y;
+            <#= type #> z = rotation.Z;
+            <#= type #> w = rotation.W;
 
-            <#= type #> twowx = two * qw * qx;
-            <#= type #> twowy = two * qw * qy;
-            <#= type #> twowz = two * qw * qz;
-            <#= type #> twoxy = two * qx * qy;
-            <#= type #> twoxz = two * qx * qz;
-            <#= type #> twoyz = two * qy * qz;
+            <#= type #> xx = x * x;
+            <#= type #> yy = y * y;
+            <#= type #> zz = z * z;
 
-            <#= type #> twoxSq = two * qxSq;
-            <#= type #> twoySq = two * qySq;
-            <#= type #> twozSq = two * qzSq;
+            <#= type #> wx = w * x;
+            <#= type #> wy = w * y;
+            <#= type #> wz = w * z;
+            <#= type #> xy = x * y;
+            <#= type #> xz = x * z;
+            <#= type #> yz = y * z;
 
-            <#= type #> x =
-                (vector.X * (one   - twoySq - twozSq)) +
-                (vector.Y * (twoxy - twowz)) +
-                (vector.Z * (twoxz + twowy));
+            result.X =
+                + vector.X
+                - (two * vector.X * (yy + zz))
+                + (two * vector.Y * (xy - wz))
+                + (two * vector.Z * (xz + wy));
 
-            <#= type #> y =
-                (vector.X * (twoxy + twowz)) +
-                (vector.Y * (one   - twoxSq - twozSq)) +
-                (vector.Z * (twoyz - twowx));
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz))
+                + (two * vector.Z * (yz - wx));
 
-            <#= type #> z =
-                (vector.X * (twoxz - twowy)) +
-                (vector.Y * (twoyz + twowx)) +
-                (vector.Z * (one   - twoxSq - twoySq));
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (xz - wy))
+                + (two * vector.Y * (yz + wx))
+                - (two * vector.Z * (xx + yy));
 
-            result.X = x;
-            result.Y = y;
-            result.Z = z;
             result.W = vector.W;
         }
 

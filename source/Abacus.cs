@@ -11766,23 +11766,27 @@ namespace Abacus.SinglePrecision
         {
             Single two = 2;
 
-            Single x = rotation.X; Single xx = x * x;
-            Single y = rotation.Y; Single yy = y * y;
-            Single z = rotation.Z; Single zz = z * z;
+            Single x = rotation.X;
+            Single y = rotation.Y;
+            Single z = rotation.Z;
             Single w = rotation.W;
+
+            Single xx = x * x;
+            Single yy = y * y;
+            Single zz = z * z;
 
             Single wz = w * z;
             Single xy = x * y;
 
             result.X =
-                vector.X -
-                (vector.X * two * (yy - zz)) +
-                (vector.Y * two * (xy - wz));
+                + vector.X
+                - (two * vector.X  * (yy + zz))
+                + (two * vector.Y  * (xy - wz));
 
             result.Y =
-                vector.Y -
-                (vector.X * two * (xy + wz)) +
-                (vector.Y * two * (xx - zz));
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz));
         }
 
         /// <summary>
@@ -12654,43 +12658,41 @@ namespace Abacus.SinglePrecision
             ref Quaternion rotation,
             out Vector3 result)
         {
-            Single one = 1;
             Single two = 2;
 
-            Single qx = rotation.X; Single qxSq = qx * qx;
-            Single qy = rotation.Y; Single qySq = qy * qy;
-            Single qz = rotation.Z; Single qzSq = qz * qz;
-            Single qw = rotation.W;
+            Single x = rotation.X;
+            Single y = rotation.Y;
+            Single z = rotation.Z;
+            Single w = rotation.W;
 
-            Single twowx = two * qw * qx;
-            Single twowy = two * qw * qy;
-            Single twowz = two * qw * qz;
-            Single twoxy = two * qx * qy;
-            Single twoxz = two * qx * qz;
-            Single twoyz = two * qy * qz;
+            Single xx = x * x;
+            Single yy = y * y;
+            Single zz = z * z;
 
-            Single twoxSq = two * qxSq;
-            Single twoySq = two * qySq;
-            Single twozSq = two * qzSq;
+            Single wx = w * x;
+            Single wy = w * y;
+            Single wz = w * z;
+            Single xy = x * y;
+            Single xz = x * z;
+            Single yz = y * z;
 
-            Single x =
-                (vector.X * (one   - twoySq - twozSq)) +
-                (vector.Y * (twoxy - twowz)) +
-                (vector.Z * (twoxz + twowy));
+            result.X =
+                + vector.X
+                - (two * vector.X * (yy + zz))
+                + (two * vector.Y * (xy - wz))
+                + (two * vector.Z * (xz + wy));
 
-            Single y =
-                (vector.X * (twoxy + twowz)) +
-                (vector.Y * (one   - twoxSq - twozSq)) +
-                (vector.Z * (twoyz - twowx));
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz))
+                + (two * vector.Z * (yz - wx));
 
-            Single z =
-                (vector.X * (twoxz - twowy)) +
-                (vector.Y * (twoyz + twowx)) +
-                (vector.Z * (one   - twoxSq - twoySq));
-
-            result.X = x;
-            result.Y = y;
-            result.Z = z;
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (xz - wy))
+                + (two * vector.Y * (yz + wx))
+                - (two * vector.Z * (xx + yy));
         }
 
         /// <summary>
@@ -13534,43 +13536,42 @@ namespace Abacus.SinglePrecision
             ref Quaternion rotation,
             out Vector4 result)
         {
-            Single one = 1;
             Single two = 2;
 
-            Single qx = rotation.X; Single qxSq = qx * qx;
-            Single qy = rotation.Y; Single qySq = qy * qy;
-            Single qz = rotation.Z; Single qzSq = qz * qz;
-            Single qw = rotation.W;
+            Single x = rotation.X;
+            Single y = rotation.Y;
+            Single z = rotation.Z;
+            Single w = rotation.W;
 
-            Single twowx = two * qw * qx;
-            Single twowy = two * qw * qy;
-            Single twowz = two * qw * qz;
-            Single twoxy = two * qx * qy;
-            Single twoxz = two * qx * qz;
-            Single twoyz = two * qy * qz;
+            Single xx = x * x;
+            Single yy = y * y;
+            Single zz = z * z;
 
-            Single twoxSq = two * qxSq;
-            Single twoySq = two * qySq;
-            Single twozSq = two * qzSq;
+            Single wx = w * x;
+            Single wy = w * y;
+            Single wz = w * z;
+            Single xy = x * y;
+            Single xz = x * z;
+            Single yz = y * z;
 
-            Single x =
-                (vector.X * (one   - twoySq - twozSq)) +
-                (vector.Y * (twoxy - twowz)) +
-                (vector.Z * (twoxz + twowy));
+            result.X =
+                + vector.X
+                - (two * vector.X * (yy + zz))
+                + (two * vector.Y * (xy - wz))
+                + (two * vector.Z * (xz + wy));
 
-            Single y =
-                (vector.X * (twoxy + twowz)) +
-                (vector.Y * (one   - twoxSq - twozSq)) +
-                (vector.Z * (twoyz - twowx));
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz))
+                + (two * vector.Z * (yz - wx));
 
-            Single z =
-                (vector.X * (twoxz - twowy)) +
-                (vector.Y * (twoyz + twowx)) +
-                (vector.Z * (one   - twoxSq - twoySq));
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (xz - wy))
+                + (two * vector.Y * (yz + wx))
+                - (two * vector.Z * (xx + yy));
 
-            result.X = x;
-            result.Y = y;
-            result.Z = z;
             result.W = vector.W;
         }
 
@@ -17518,23 +17519,27 @@ namespace Abacus.DoublePrecision
         {
             Double two = 2;
 
-            Double x = rotation.X; Double xx = x * x;
-            Double y = rotation.Y; Double yy = y * y;
-            Double z = rotation.Z; Double zz = z * z;
+            Double x = rotation.X;
+            Double y = rotation.Y;
+            Double z = rotation.Z;
             Double w = rotation.W;
+
+            Double xx = x * x;
+            Double yy = y * y;
+            Double zz = z * z;
 
             Double wz = w * z;
             Double xy = x * y;
 
             result.X =
-                vector.X -
-                (vector.X * two * (yy - zz)) +
-                (vector.Y * two * (xy - wz));
+                + vector.X
+                - (two * vector.X  * (yy + zz))
+                + (two * vector.Y  * (xy - wz));
 
             result.Y =
-                vector.Y -
-                (vector.X * two * (xy + wz)) +
-                (vector.Y * two * (xx - zz));
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz));
         }
 
         /// <summary>
@@ -18406,43 +18411,41 @@ namespace Abacus.DoublePrecision
             ref Quaternion rotation,
             out Vector3 result)
         {
-            Double one = 1;
             Double two = 2;
 
-            Double qx = rotation.X; Double qxSq = qx * qx;
-            Double qy = rotation.Y; Double qySq = qy * qy;
-            Double qz = rotation.Z; Double qzSq = qz * qz;
-            Double qw = rotation.W;
+            Double x = rotation.X;
+            Double y = rotation.Y;
+            Double z = rotation.Z;
+            Double w = rotation.W;
 
-            Double twowx = two * qw * qx;
-            Double twowy = two * qw * qy;
-            Double twowz = two * qw * qz;
-            Double twoxy = two * qx * qy;
-            Double twoxz = two * qx * qz;
-            Double twoyz = two * qy * qz;
+            Double xx = x * x;
+            Double yy = y * y;
+            Double zz = z * z;
 
-            Double twoxSq = two * qxSq;
-            Double twoySq = two * qySq;
-            Double twozSq = two * qzSq;
+            Double wx = w * x;
+            Double wy = w * y;
+            Double wz = w * z;
+            Double xy = x * y;
+            Double xz = x * z;
+            Double yz = y * z;
 
-            Double x =
-                (vector.X * (one   - twoySq - twozSq)) +
-                (vector.Y * (twoxy - twowz)) +
-                (vector.Z * (twoxz + twowy));
+            result.X =
+                + vector.X
+                - (two * vector.X * (yy + zz))
+                + (two * vector.Y * (xy - wz))
+                + (two * vector.Z * (xz + wy));
 
-            Double y =
-                (vector.X * (twoxy + twowz)) +
-                (vector.Y * (one   - twoxSq - twozSq)) +
-                (vector.Z * (twoyz - twowx));
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz))
+                + (two * vector.Z * (yz - wx));
 
-            Double z =
-                (vector.X * (twoxz - twowy)) +
-                (vector.Y * (twoyz + twowx)) +
-                (vector.Z * (one   - twoxSq - twoySq));
-
-            result.X = x;
-            result.Y = y;
-            result.Z = z;
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (xz - wy))
+                + (two * vector.Y * (yz + wx))
+                - (two * vector.Z * (xx + yy));
         }
 
         /// <summary>
@@ -19286,43 +19289,42 @@ namespace Abacus.DoublePrecision
             ref Quaternion rotation,
             out Vector4 result)
         {
-            Double one = 1;
             Double two = 2;
 
-            Double qx = rotation.X; Double qxSq = qx * qx;
-            Double qy = rotation.Y; Double qySq = qy * qy;
-            Double qz = rotation.Z; Double qzSq = qz * qz;
-            Double qw = rotation.W;
+            Double x = rotation.X;
+            Double y = rotation.Y;
+            Double z = rotation.Z;
+            Double w = rotation.W;
 
-            Double twowx = two * qw * qx;
-            Double twowy = two * qw * qy;
-            Double twowz = two * qw * qz;
-            Double twoxy = two * qx * qy;
-            Double twoxz = two * qx * qz;
-            Double twoyz = two * qy * qz;
+            Double xx = x * x;
+            Double yy = y * y;
+            Double zz = z * z;
 
-            Double twoxSq = two * qxSq;
-            Double twoySq = two * qySq;
-            Double twozSq = two * qzSq;
+            Double wx = w * x;
+            Double wy = w * y;
+            Double wz = w * z;
+            Double xy = x * y;
+            Double xz = x * z;
+            Double yz = y * z;
 
-            Double x =
-                (vector.X * (one   - twoySq - twozSq)) +
-                (vector.Y * (twoxy - twowz)) +
-                (vector.Z * (twoxz + twowy));
+            result.X =
+                + vector.X
+                - (two * vector.X * (yy + zz))
+                + (two * vector.Y * (xy - wz))
+                + (two * vector.Z * (xz + wy));
 
-            Double y =
-                (vector.X * (twoxy + twowz)) +
-                (vector.Y * (one   - twoxSq - twozSq)) +
-                (vector.Z * (twoyz - twowx));
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz))
+                + (two * vector.Z * (yz - wx));
 
-            Double z =
-                (vector.X * (twoxz - twowy)) +
-                (vector.Y * (twoyz + twowx)) +
-                (vector.Z * (one   - twoxSq - twoySq));
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (xz - wy))
+                + (two * vector.Y * (yz + wx))
+                - (two * vector.Z * (xx + yy));
 
-            result.X = x;
-            result.Y = y;
-            result.Z = z;
             result.W = vector.W;
         }
 
@@ -23270,23 +23272,27 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 two = 2;
 
-            Fixed32 x = rotation.X; Fixed32 xx = x * x;
-            Fixed32 y = rotation.Y; Fixed32 yy = y * y;
-            Fixed32 z = rotation.Z; Fixed32 zz = z * z;
+            Fixed32 x = rotation.X;
+            Fixed32 y = rotation.Y;
+            Fixed32 z = rotation.Z;
             Fixed32 w = rotation.W;
+
+            Fixed32 xx = x * x;
+            Fixed32 yy = y * y;
+            Fixed32 zz = z * z;
 
             Fixed32 wz = w * z;
             Fixed32 xy = x * y;
 
             result.X =
-                vector.X -
-                (vector.X * two * (yy - zz)) +
-                (vector.Y * two * (xy - wz));
+                + vector.X
+                - (two * vector.X  * (yy + zz))
+                + (two * vector.Y  * (xy - wz));
 
             result.Y =
-                vector.Y -
-                (vector.X * two * (xy + wz)) +
-                (vector.Y * two * (xx - zz));
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz));
         }
 
         /// <summary>
@@ -24158,43 +24164,41 @@ namespace Abacus.Fixed32Precision
             ref Quaternion rotation,
             out Vector3 result)
         {
-            Fixed32 one = 1;
             Fixed32 two = 2;
 
-            Fixed32 qx = rotation.X; Fixed32 qxSq = qx * qx;
-            Fixed32 qy = rotation.Y; Fixed32 qySq = qy * qy;
-            Fixed32 qz = rotation.Z; Fixed32 qzSq = qz * qz;
-            Fixed32 qw = rotation.W;
+            Fixed32 x = rotation.X;
+            Fixed32 y = rotation.Y;
+            Fixed32 z = rotation.Z;
+            Fixed32 w = rotation.W;
 
-            Fixed32 twowx = two * qw * qx;
-            Fixed32 twowy = two * qw * qy;
-            Fixed32 twowz = two * qw * qz;
-            Fixed32 twoxy = two * qx * qy;
-            Fixed32 twoxz = two * qx * qz;
-            Fixed32 twoyz = two * qy * qz;
+            Fixed32 xx = x * x;
+            Fixed32 yy = y * y;
+            Fixed32 zz = z * z;
 
-            Fixed32 twoxSq = two * qxSq;
-            Fixed32 twoySq = two * qySq;
-            Fixed32 twozSq = two * qzSq;
+            Fixed32 wx = w * x;
+            Fixed32 wy = w * y;
+            Fixed32 wz = w * z;
+            Fixed32 xy = x * y;
+            Fixed32 xz = x * z;
+            Fixed32 yz = y * z;
 
-            Fixed32 x =
-                (vector.X * (one   - twoySq - twozSq)) +
-                (vector.Y * (twoxy - twowz)) +
-                (vector.Z * (twoxz + twowy));
+            result.X =
+                + vector.X
+                - (two * vector.X * (yy + zz))
+                + (two * vector.Y * (xy - wz))
+                + (two * vector.Z * (xz + wy));
 
-            Fixed32 y =
-                (vector.X * (twoxy + twowz)) +
-                (vector.Y * (one   - twoxSq - twozSq)) +
-                (vector.Z * (twoyz - twowx));
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz))
+                + (two * vector.Z * (yz - wx));
 
-            Fixed32 z =
-                (vector.X * (twoxz - twowy)) +
-                (vector.Y * (twoyz + twowx)) +
-                (vector.Z * (one   - twoxSq - twoySq));
-
-            result.X = x;
-            result.Y = y;
-            result.Z = z;
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (xz - wy))
+                + (two * vector.Y * (yz + wx))
+                - (two * vector.Z * (xx + yy));
         }
 
         /// <summary>
@@ -25038,43 +25042,42 @@ namespace Abacus.Fixed32Precision
             ref Quaternion rotation,
             out Vector4 result)
         {
-            Fixed32 one = 1;
             Fixed32 two = 2;
 
-            Fixed32 qx = rotation.X; Fixed32 qxSq = qx * qx;
-            Fixed32 qy = rotation.Y; Fixed32 qySq = qy * qy;
-            Fixed32 qz = rotation.Z; Fixed32 qzSq = qz * qz;
-            Fixed32 qw = rotation.W;
+            Fixed32 x = rotation.X;
+            Fixed32 y = rotation.Y;
+            Fixed32 z = rotation.Z;
+            Fixed32 w = rotation.W;
 
-            Fixed32 twowx = two * qw * qx;
-            Fixed32 twowy = two * qw * qy;
-            Fixed32 twowz = two * qw * qz;
-            Fixed32 twoxy = two * qx * qy;
-            Fixed32 twoxz = two * qx * qz;
-            Fixed32 twoyz = two * qy * qz;
+            Fixed32 xx = x * x;
+            Fixed32 yy = y * y;
+            Fixed32 zz = z * z;
 
-            Fixed32 twoxSq = two * qxSq;
-            Fixed32 twoySq = two * qySq;
-            Fixed32 twozSq = two * qzSq;
+            Fixed32 wx = w * x;
+            Fixed32 wy = w * y;
+            Fixed32 wz = w * z;
+            Fixed32 xy = x * y;
+            Fixed32 xz = x * z;
+            Fixed32 yz = y * z;
 
-            Fixed32 x =
-                (vector.X * (one   - twoySq - twozSq)) +
-                (vector.Y * (twoxy - twowz)) +
-                (vector.Z * (twoxz + twowy));
+            result.X =
+                + vector.X
+                - (two * vector.X * (yy + zz))
+                + (two * vector.Y * (xy - wz))
+                + (two * vector.Z * (xz + wy));
 
-            Fixed32 y =
-                (vector.X * (twoxy + twowz)) +
-                (vector.Y * (one   - twoxSq - twozSq)) +
-                (vector.Z * (twoyz - twowx));
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (xy + wz))
+                - (two * vector.Y * (xx + zz))
+                + (two * vector.Z * (yz - wx));
 
-            Fixed32 z =
-                (vector.X * (twoxz - twowy)) +
-                (vector.Y * (twoyz + twowx)) +
-                (vector.Z * (one   - twoxSq - twoySq));
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (xz - wy))
+                + (two * vector.Y * (yz + wx))
+                - (two * vector.Z * (xx + yy));
 
-            result.X = x;
-            result.Y = y;
-            result.Z = z;
             result.W = vector.W;
         }
 
