@@ -3,15 +3,6 @@ void GeneratePackedTestsCommon(string type, string packedType, string packedVari
 {
 #>
         /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestProperty_PackedValue_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
         /// and functions yield the expected result of TRUE when two equal
         /// Alpha_8 objects are compared.
@@ -51,24 +42,6 @@ void GeneratePackedTestsCommon(string type, string packedType, string packedVari
         public void Test_Constructors_i ()
         {
             throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_PackFrom_i()
-        {
-
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_UnpackTo_i()
-        {
-
         }
 <#+
 }

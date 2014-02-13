@@ -7,50 +7,30 @@
         [Test]
         public void TestStaticFn_Distance_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, <#= type #>>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    new Vector2(0, 4), new Vector2(3, 0), 5),
 
-                <#= type #> expected = 5;
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    new Vector2(0, -4), new Vector2(3, 0), 5),
+
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 5),
+
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                <#= type #> expected = test.Item3;
+
                 <#= type #> result;
-
                 Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(3, 0);
-
-                <#= type #> expected = 5;
-                <#= type #> result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(-3, 0);
-
-                <#= type #> expected = 5;
-                <#= type #> result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                <#= type #> expected = 0;
-                <#= type #> result;
-
-                Vector2.Distance(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -83,26 +63,30 @@
         [Test]
         public void TestStaticFn_DistanceSquared_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, <#= type #>>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    new Vector2(0, 4), new Vector2(3, 0), 25),
 
-                <#= type #> expected = 25;
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    new Vector2(0, -4), new Vector2(3, 0), 25),
+
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 25),
+
+                new Tuple<Vector2, Vector2, <#= type #>> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                <#= type #> expected = test.Item3;
+
                 <#= type #> result;
-
                 Vector2.DistanceSquared(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                <#= type #> expected = 0;
-                <#= type #> result;
-
-                Vector2.DistanceSquared(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -307,41 +291,30 @@
         [Test]
         public void TestStaticFn_Reflect_i ()
         {
+            var a = new Vector2(20, -5);
+            var b = new Vector2(1, -1); Vector2.Normalise(ref b, out b);
+            var c = new Vector2(-5, 20);
+            var d = new Vector2(2, -1); Vector2.Normalise(ref d, out d);
+            var e = new Vector2(-16, 13);
+            var f = Vector2.Zero;
+            var g = new Vector2(1, 0);
+
+            var tests = new Tuple<Vector2, Vector2, Vector2>[]
             {
-                Vector2 incident = new Vector2(20, -5);
+                //incident -> normal -> expected
+                new Tuple<Vector2, Vector2, Vector2> (a, b, c),
+                new Tuple<Vector2, Vector2, Vector2> (a, d, e),
+                new Tuple<Vector2, Vector2, Vector2> (f, g, f),
+            };
 
-                Vector2 normal = new Vector2(1, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-5, 20);
+            foreach(var test in tests)
+            {
+                Vector2 incident = test.Item1;
+                Vector2 normal = test.Item2;
+                Vector2 expected = test.Item3;
                 Vector2 result;
                 Vector2.Reflect(ref incident, ref normal, out result);
-
                 AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = new Vector2(20, -5);
-
-                Vector2 normal = new Vector2(2, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-16, 13);
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = Vector2.Zero;
-
-                Vector2 normal = new Vector2(1, 0);
-
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, Vector2.Zero);
             }
         }
 
@@ -471,7 +444,7 @@
                 Matrix44 trans = tests[i].Item2;
                 Vector2 expected = tests[i].Item3;
 
-                Vector2 result; 
+                Vector2 result;
 
                 Vector2.TransformNormal (ref normalVec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);

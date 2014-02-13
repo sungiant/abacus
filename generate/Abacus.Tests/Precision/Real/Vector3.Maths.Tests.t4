@@ -87,7 +87,7 @@
                 Vector3 a = new Vector3(0, 4, 12);
                 Vector3 b = new Vector3(3, 0, 0);
 
-                <#= type #> expected = 161;
+                <#= type #> expected = 169;
                 <#= type #> result;
 
                 Vector3.DistanceSquared(ref a, ref b, out result);
@@ -303,7 +303,7 @@
         [Test]
         public void TestStaticFn_Cross_i ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Reflect //-----------------------------------------//
@@ -321,7 +321,7 @@
                 Vector3 normal = new Vector3(1, -1, 2);
                 Vector3.Normalise(ref normal, out normal);
 
-                Vector3 expected = new Vector3(-5, 20, 2);
+                Vector3 expected = new Vector3(5, 10, -20);
                 Vector3 result;
                 Vector3.Reflect(ref incident, ref normal, out result);
 
@@ -331,7 +331,7 @@
             {
                 Vector3 incident = new Vector3(20, -5, 10);
 
-                Vector3 normal = new Vector3(2, -1, 2);
+                Vector3 normal = new Vector3(2, -1, 1);
                 Vector3.Normalise(ref normal, out normal);
 
                 Vector3 expected = new Vector3(-16, 13, 2);

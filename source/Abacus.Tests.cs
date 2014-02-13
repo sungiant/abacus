@@ -9520,50 +9520,30 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Distance_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, Single>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, Single> (
+                    new Vector2(0, 4), new Vector2(3, 0), 5),
 
-                Single expected = 5;
+                new Tuple<Vector2, Vector2, Single> (
+                    new Vector2(0, -4), new Vector2(3, 0), 5),
+
+                new Tuple<Vector2, Vector2, Single> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 5),
+
+                new Tuple<Vector2, Vector2, Single> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                Single expected = test.Item3;
+
                 Single result;
-
                 Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(3, 0);
-
-                Single expected = 5;
-                Single result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(-3, 0);
-
-                Single expected = 5;
-                Single result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                Single expected = 0;
-                Single result;
-
-                Vector2.Distance(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -9596,26 +9576,30 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_DistanceSquared_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, Single>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, Single> (
+                    new Vector2(0, 4), new Vector2(3, 0), 25),
 
-                Single expected = 25;
+                new Tuple<Vector2, Vector2, Single> (
+                    new Vector2(0, -4), new Vector2(3, 0), 25),
+
+                new Tuple<Vector2, Vector2, Single> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 25),
+
+                new Tuple<Vector2, Vector2, Single> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                Single expected = test.Item3;
+
                 Single result;
-
                 Vector2.DistanceSquared(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                Single expected = 0;
-                Single result;
-
-                Vector2.DistanceSquared(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -9820,41 +9804,30 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Reflect_i ()
         {
+            var a = new Vector2(20, -5);
+            var b = new Vector2(1, -1); Vector2.Normalise(ref b, out b);
+            var c = new Vector2(-5, 20);
+            var d = new Vector2(2, -1); Vector2.Normalise(ref d, out d);
+            var e = new Vector2(-16, 13);
+            var f = Vector2.Zero;
+            var g = new Vector2(1, 0);
+
+            var tests = new Tuple<Vector2, Vector2, Vector2>[]
             {
-                Vector2 incident = new Vector2(20, -5);
+                //incident -> normal -> expected
+                new Tuple<Vector2, Vector2, Vector2> (a, b, c),
+                new Tuple<Vector2, Vector2, Vector2> (a, d, e),
+                new Tuple<Vector2, Vector2, Vector2> (f, g, f),
+            };
 
-                Vector2 normal = new Vector2(1, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-5, 20);
+            foreach(var test in tests)
+            {
+                Vector2 incident = test.Item1;
+                Vector2 normal = test.Item2;
+                Vector2 expected = test.Item3;
                 Vector2 result;
                 Vector2.Reflect(ref incident, ref normal, out result);
-
                 AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = new Vector2(20, -5);
-
-                Vector2 normal = new Vector2(2, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-16, 13);
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = Vector2.Zero;
-
-                Vector2 normal = new Vector2(1, 0);
-
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, Vector2.Zero);
             }
         }
 
@@ -9984,7 +9957,7 @@ namespace Abacus.SinglePrecision.Tests
                 Matrix44 trans = tests[i].Item2;
                 Vector2 expected = tests[i].Item3;
 
-                Vector2 result; 
+                Vector2 result;
 
                 Vector2.TransformNormal (ref normalVec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
@@ -11721,7 +11694,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 a = new Vector3(0, 4, 12);
                 Vector3 b = new Vector3(3, 0, 0);
 
-                Single expected = 161;
+                Single expected = 169;
                 Single result;
 
                 Vector3.DistanceSquared(ref a, ref b, out result);
@@ -11937,7 +11910,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Cross_i ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Reflect //-----------------------------------------//
@@ -11955,7 +11928,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 normal = new Vector3(1, -1, 2);
                 Vector3.Normalise(ref normal, out normal);
 
-                Vector3 expected = new Vector3(-5, 20, 2);
+                Vector3 expected = new Vector3(5, 10, -20);
                 Vector3 result;
                 Vector3.Reflect(ref incident, ref normal, out result);
 
@@ -11965,7 +11938,7 @@ namespace Abacus.SinglePrecision.Tests
             {
                 Vector3 incident = new Vector3(20, -5, 10);
 
-                Vector3 normal = new Vector3(2, -1, 2);
+                Vector3 normal = new Vector3(2, -1, 1);
                 Vector3.Normalise(ref normal, out normal);
 
                 Vector3 expected = new Vector3(-16, 13, 2);
@@ -17573,50 +17546,30 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Distance_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, Double>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, Double> (
+                    new Vector2(0, 4), new Vector2(3, 0), 5),
 
-                Double expected = 5;
+                new Tuple<Vector2, Vector2, Double> (
+                    new Vector2(0, -4), new Vector2(3, 0), 5),
+
+                new Tuple<Vector2, Vector2, Double> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 5),
+
+                new Tuple<Vector2, Vector2, Double> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                Double expected = test.Item3;
+
                 Double result;
-
                 Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(3, 0);
-
-                Double expected = 5;
-                Double result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(-3, 0);
-
-                Double expected = 5;
-                Double result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                Double expected = 0;
-                Double result;
-
-                Vector2.Distance(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -17649,26 +17602,30 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_DistanceSquared_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, Double>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, Double> (
+                    new Vector2(0, 4), new Vector2(3, 0), 25),
 
-                Double expected = 25;
+                new Tuple<Vector2, Vector2, Double> (
+                    new Vector2(0, -4), new Vector2(3, 0), 25),
+
+                new Tuple<Vector2, Vector2, Double> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 25),
+
+                new Tuple<Vector2, Vector2, Double> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                Double expected = test.Item3;
+
                 Double result;
-
                 Vector2.DistanceSquared(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                Double expected = 0;
-                Double result;
-
-                Vector2.DistanceSquared(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -17873,41 +17830,30 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Reflect_i ()
         {
+            var a = new Vector2(20, -5);
+            var b = new Vector2(1, -1); Vector2.Normalise(ref b, out b);
+            var c = new Vector2(-5, 20);
+            var d = new Vector2(2, -1); Vector2.Normalise(ref d, out d);
+            var e = new Vector2(-16, 13);
+            var f = Vector2.Zero;
+            var g = new Vector2(1, 0);
+
+            var tests = new Tuple<Vector2, Vector2, Vector2>[]
             {
-                Vector2 incident = new Vector2(20, -5);
+                //incident -> normal -> expected
+                new Tuple<Vector2, Vector2, Vector2> (a, b, c),
+                new Tuple<Vector2, Vector2, Vector2> (a, d, e),
+                new Tuple<Vector2, Vector2, Vector2> (f, g, f),
+            };
 
-                Vector2 normal = new Vector2(1, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-5, 20);
+            foreach(var test in tests)
+            {
+                Vector2 incident = test.Item1;
+                Vector2 normal = test.Item2;
+                Vector2 expected = test.Item3;
                 Vector2 result;
                 Vector2.Reflect(ref incident, ref normal, out result);
-
                 AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = new Vector2(20, -5);
-
-                Vector2 normal = new Vector2(2, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-16, 13);
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = Vector2.Zero;
-
-                Vector2 normal = new Vector2(1, 0);
-
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, Vector2.Zero);
             }
         }
 
@@ -18037,7 +17983,7 @@ namespace Abacus.DoublePrecision.Tests
                 Matrix44 trans = tests[i].Item2;
                 Vector2 expected = tests[i].Item3;
 
-                Vector2 result; 
+                Vector2 result;
 
                 Vector2.TransformNormal (ref normalVec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
@@ -19774,7 +19720,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 a = new Vector3(0, 4, 12);
                 Vector3 b = new Vector3(3, 0, 0);
 
-                Double expected = 161;
+                Double expected = 169;
                 Double result;
 
                 Vector3.DistanceSquared(ref a, ref b, out result);
@@ -19990,7 +19936,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Cross_i ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Reflect //-----------------------------------------//
@@ -20008,7 +19954,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 normal = new Vector3(1, -1, 2);
                 Vector3.Normalise(ref normal, out normal);
 
-                Vector3 expected = new Vector3(-5, 20, 2);
+                Vector3 expected = new Vector3(5, 10, -20);
                 Vector3 result;
                 Vector3.Reflect(ref incident, ref normal, out result);
 
@@ -20018,7 +19964,7 @@ namespace Abacus.DoublePrecision.Tests
             {
                 Vector3 incident = new Vector3(20, -5, 10);
 
-                Vector3 normal = new Vector3(2, -1, 2);
+                Vector3 normal = new Vector3(2, -1, 1);
                 Vector3.Normalise(ref normal, out normal);
 
                 Vector3 expected = new Vector3(-16, 13, 2);
@@ -25626,50 +25572,30 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Distance_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, Fixed32>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    new Vector2(0, 4), new Vector2(3, 0), 5),
 
-                Fixed32 expected = 5;
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    new Vector2(0, -4), new Vector2(3, 0), 5),
+
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 5),
+
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                Fixed32 expected = test.Item3;
+
                 Fixed32 result;
-
                 Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(3, 0);
-
-                Fixed32 expected = 5;
-                Fixed32 result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = new Vector2(0, -4);
-                Vector2 b = new Vector2(-3, 0);
-
-                Fixed32 expected = 5;
-                Fixed32 result;
-
-                Vector2.Distance(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                Fixed32 expected = 0;
-                Fixed32 result;
-
-                Vector2.Distance(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -25702,26 +25628,30 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_DistanceSquared_i ()
         {
+            var tests = new Tuple<Vector2, Vector2, Fixed32>[]
             {
-                Vector2 a = new Vector2(0, 4);
-                Vector2 b = new Vector2(3, 0);
+                //a -> b -> expected
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    new Vector2(0, 4), new Vector2(3, 0), 25),
 
-                Fixed32 expected = 25;
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    new Vector2(0, -4), new Vector2(3, 0), 25),
+
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    new Vector2(0, -4), new Vector2(-3, 0), 25),
+
+                new Tuple<Vector2, Vector2, Fixed32> (
+                    Vector2.Zero, Vector2.Zero, 0),
+            };
+
+            foreach(var test in tests)
+            {
+                Vector2 a = test.Item1;
+                Vector2 b = test.Item2;
+                Fixed32 expected = test.Item3;
+
                 Fixed32 result;
-
                 Vector2.DistanceSquared(ref a, ref b, out result);
-
-                Assert.That(result, Is.EqualTo(expected));
-            }
-
-            {
-                Vector2 a = Vector2.Zero;
-
-                Fixed32 expected = 0;
-                Fixed32 result;
-
-                Vector2.DistanceSquared(ref a, ref a, out result);
-
                 Assert.That(result, Is.EqualTo(expected));
             }
         }
@@ -25926,41 +25856,30 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Reflect_i ()
         {
+            var a = new Vector2(20, -5);
+            var b = new Vector2(1, -1); Vector2.Normalise(ref b, out b);
+            var c = new Vector2(-5, 20);
+            var d = new Vector2(2, -1); Vector2.Normalise(ref d, out d);
+            var e = new Vector2(-16, 13);
+            var f = Vector2.Zero;
+            var g = new Vector2(1, 0);
+
+            var tests = new Tuple<Vector2, Vector2, Vector2>[]
             {
-                Vector2 incident = new Vector2(20, -5);
+                //incident -> normal -> expected
+                new Tuple<Vector2, Vector2, Vector2> (a, b, c),
+                new Tuple<Vector2, Vector2, Vector2> (a, d, e),
+                new Tuple<Vector2, Vector2, Vector2> (f, g, f),
+            };
 
-                Vector2 normal = new Vector2(1, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-5, 20);
+            foreach(var test in tests)
+            {
+                Vector2 incident = test.Item1;
+                Vector2 normal = test.Item2;
+                Vector2 expected = test.Item3;
                 Vector2 result;
                 Vector2.Reflect(ref incident, ref normal, out result);
-
                 AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = new Vector2(20, -5);
-
-                Vector2 normal = new Vector2(2, -1);
-                Vector2.Normalise(ref normal, out normal);
-
-                Vector2 expected = new Vector2(-16, 13);
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, expected);
-            }
-
-            {
-                Vector2 incident = Vector2.Zero;
-
-                Vector2 normal = new Vector2(1, 0);
-
-                Vector2 result;
-                Vector2.Reflect(ref incident, ref normal, out result);
-
-                AssertEqualWithinReason(result, Vector2.Zero);
             }
         }
 
@@ -26090,7 +26009,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Matrix44 trans = tests[i].Item2;
                 Vector2 expected = tests[i].Item3;
 
-                Vector2 result; 
+                Vector2 result;
 
                 Vector2.TransformNormal (ref normalVec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
@@ -27827,7 +27746,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 a = new Vector3(0, 4, 12);
                 Vector3 b = new Vector3(3, 0, 0);
 
-                Fixed32 expected = 161;
+                Fixed32 expected = 169;
                 Fixed32 result;
 
                 Vector3.DistanceSquared(ref a, ref b, out result);
@@ -28043,7 +27962,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Cross_i ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Static Fn: Reflect //-----------------------------------------//
@@ -28061,7 +27980,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 normal = new Vector3(1, -1, 2);
                 Vector3.Normalise(ref normal, out normal);
 
-                Vector3 expected = new Vector3(-5, 20, 2);
+                Vector3 expected = new Vector3(5, 10, -20);
                 Vector3 result;
                 Vector3.Reflect(ref incident, ref normal, out result);
 
@@ -28071,7 +27990,7 @@ namespace Abacus.Fixed32Precision.Tests
             {
                 Vector3 incident = new Vector3(20, -5, 10);
 
-                Vector3 normal = new Vector3(2, -1, 2);
+                Vector3 normal = new Vector3(2, -1, 1);
                 Vector3.Normalise(ref normal, out normal);
 
                 Vector3 expected = new Vector3(-16, 13, 2);
