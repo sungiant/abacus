@@ -6,12 +6,12 @@
         public static void Distance (
             ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
         {
-            <#= type #> a = value1.X - value2.X;
-            <#= type #> b = value1.Y - value2.Y;
+            <#= type #> dx = value1.X - value2.X;
+            <#= type #> dy = value1.Y - value2.Y;
 
-            <#= type #> c = (a * a) + (b * b);
+            <#= type #> lengthSquared = (dx * dx) + (dy * dy);
 
-            result = RealMaths.Sqrt (c);
+            result = RealMaths.Sqrt (lengthSquared);
         }
 
         /// <summary>
@@ -20,10 +20,10 @@
         public static void DistanceSquared (
             ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
         {
-            <#= type #> a = value1.X - value2.X;
-            <#= type #> b = value1.Y - value2.Y;
+            <#= type #> dx = value1.X - value2.X;
+            <#= type #> dy = value1.Y - value2.Y;
 
-            result = (a * a) + (b * b);
+            result = (dx * dx) + (dy * dy);
         }
 
         /// <summary>
@@ -85,7 +85,8 @@
             <#= type #> dot;
             Dot(ref vector, ref normal, out dot);
 
-            <#= type #> twoDot = dot * 2;
+            <#= type #> two = 2;
+            <#= type #> twoDot = dot * two;
 
             // Starting vector minus twice the length of the adjcent projected
             // along the normal.
@@ -96,18 +97,20 @@
         /// Transforms a Vector2 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector2 position, ref Matrix44 matrix, out Vector2 result)
+            ref Vector2 value, ref Matrix44 matrix, out Vector2 result)
         {
-            <#= type #> a =
-                ((position.X * matrix.M11) + (position.Y * matrix.M21)) +
+            <#= type #> x =
+                (value.X * matrix.M11) + 
+                (value.Y * matrix.M21) +
                 matrix.M41;
 
-            <#= type #> b =
-                ((position.X * matrix.M12) + (position.Y * matrix.M22)) +
+            <#= type #> y =
+                (value.X * matrix.M12) + 
+                (value.Y * matrix.M22) +
                 matrix.M42;
 
-            result.X = a;
-            result.Y = b;
+            result.X = x;
+            result.Y = y;
         }
 
         /// <summary>
@@ -116,21 +119,25 @@
         public static void Transform (
             ref Vector2 value, ref Quaternion rotation, out Vector2 result)
         {
-            <#= type #> one = 1;
+            <#= type #> two = 2;
 
-            <#= type #> a = rotation.X + rotation.X;
-            <#= type #> b = rotation.Y + rotation.Y;
-            <#= type #> c = rotation.Z + rotation.Z;
-            <#= type #> d = rotation.W * c;
-            <#= type #> e = rotation.X * a;
-            <#= type #> f = rotation.X * b;
-            <#= type #> g = rotation.Y * b;
-            <#= type #> h = rotation.Z * c;
-            <#= type #> i = (value.X * ((one - g) - h)) + (value.Y * (f - d));
-            <#= type #> j = (value.X * (f + d)) + (value.Y * ((one - e) - h));
+            <#= type #> x = rotation.X; <#= type #> xx = x * x;
+            <#= type #> y = rotation.Y; <#= type #> yy = y * y;
+            <#= type #> z = rotation.Z; <#= type #> zz = z * z;
+            <#= type #> w = rotation.W;
 
-            result.X = i;
-            result.Y = j;
+            <#= type #> wz = w * z;
+            <#= type #> xy = x * y;
+
+            result.X = 
+                value.X - 
+                (value.X * two * (yy - zz)) + 
+                (value.Y * two * (xy - wz));
+
+            result.Y = 
+                value.Y -
+                (value.X * two * (xy + wz)) +
+                (value.Y * two * (xx - zz));
         }
 
         /// <summary>
@@ -141,7 +148,8 @@
         {
             if( !normal.IsUnit() )
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(
+                    "The normal vector: " + normal + " must be normalised.");
             }
 
             <#= type #> x = (normal.X * matrix.M11) + (normal.Y * matrix.M21);

@@ -9914,29 +9914,33 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
-
             Single pi; RealMaths.Pi (out pi);
 
-            Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatxy = rotmatx * rotmaty;
+            Vector2 n1 = new Vector2 (8, 70);
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
+            Matrix44 rotmat1 = Matrix44.Identity;
+            Matrix44 rotmat2; Matrix44.CreateRotationX(pi, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationY(pi, out rotmat3);
+            Matrix44 rotmat4 = rotmat2 * rotmat3;
 
-            Vector2 test1; Vector2.Transform (ref position, ref rotmati, out test1);
-            Vector2 test2; Vector2.Transform (ref position, ref rotmatx, out test2);
-            Vector2 test3; Vector2.Transform (ref position, ref rotmaty, out test3);
-            Vector2 test4; Vector2.Transform (ref position, ref rotmatxy, out test4);
+            var tests = new Tuple<Vector2, Matrix44, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat4, new Vector2 (-n1.X, -n1.Y)),
+            };
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 vec = tests[i].Item1;
+                Matrix44 trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
+
+                Vector2 result; Vector2.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
@@ -9947,44 +9951,48 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector2 position = new Vector2 (3, 4);
-
-            Single a = (Single) 6 / (Single) 10;
-            Single b = (Single) 8 / (Single) 10;
-
-            Vector2.Normalise (ref position, out position);
+            Single one = 1;
+            Single ten = 10;
+            Single root2; RealMaths.Root2 (out root2);
             Single pi; RealMaths.Pi (out pi);
 
-            Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatxy = rotmatx * rotmaty;
+            Vector2 n1 = new Vector2 (6, 8) / ten;
+            Vector2 n2 = new Vector2 (one / root2, one / root2);
 
-            Vector2 expected1 = new Vector2 ( a,  b);
-            Vector2 expected2 = new Vector2 ( a, -b);
-            Vector2 expected3 = new Vector2 (-a,  b);
-            Vector2 expected4 = new Vector2 (-a, -b);
+            Matrix44 rotmat1 = Matrix44.Identity;
+            Matrix44 rotmat2; Matrix44.CreateRotationX(pi, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationY(pi, out rotmat3);
+            Matrix44 rotmat4 = rotmat2 * rotmat3;
 
-            Vector2 test1; Vector2.TransformNormal (ref position, ref rotmati, out test1);
-            Vector2 test2; Vector2.TransformNormal (ref position, ref rotmatx, out test2);
-            Vector2 test3; Vector2.TransformNormal (ref position, ref rotmaty, out test3);
-            Vector2 test4; Vector2.TransformNormal (ref position, ref rotmatxy, out test4);
+            var tests = new Tuple<Vector2, Matrix44, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat4, new Vector2 (-n1.X, -n1.Y)),
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat1, new Vector2 ( n2.X,  n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat2, new Vector2 ( n2.X, -n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat3, new Vector2 (-n2.X,  n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat4, new Vector2 (-n2.X, -n2.Y)),
+            };
 
-            // should also work with the standard transform fn
-            Vector2 test1n; Vector2.Transform (ref position, ref rotmati, out test1n);
-            Vector2 test2n; Vector2.Transform (ref position, ref rotmatx, out test2n);
-            Vector2 test3n; Vector2.Transform (ref position, ref rotmaty, out test3n);
-            Vector2 test4n; Vector2.Transform (ref position, ref rotmatxy, out test4n);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 normalVec = tests[i].Item1;
+                Matrix44 trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
 
-            AssertEqualWithinReason(test1n, expected1);
-            AssertEqualWithinReason(test2n, expected2);
-            AssertEqualWithinReason(test3n, expected3);
-            AssertEqualWithinReason(test4n, expected4);
+                Vector2 result; 
+
+                Vector2.TransformNormal (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+
+                // should also work with the standard transform fn
+                Vector2.Transform (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         /// <summary>
@@ -9994,13 +10002,24 @@ namespace Abacus.SinglePrecision.Tests
         public void TestStaticFn_TransformNormal_ii ()
         {
             Matrix44 rotmat = Matrix44.Identity;
-            Vector2 normal = new Vector2 (21, -532);
-            Vector2 result;
-            Assert.Throws(
-                typeof(ArgumentOutOfRangeException),
-                () =>
-                Vector2.TransformNormal(ref normal, ref rotmat, out result)
-            );
+            var tests = new Vector2[]
+            {
+                new Vector2 (21, -532),
+                new Vector2 (21, +532),
+                new Vector2 (1, -1),
+                new Vector2 (-2435, -2),
+            };
+
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 normal = tests[i];
+                Vector2 result;
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                    Vector2.TransformNormal(ref normal, ref rotmat, out result)
+                );
+            }
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
@@ -10011,28 +10030,33 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
             Single pi; RealMaths.Pi (out pi);
 
-            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
-            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
-            Quaternion quatmaty = new Quaternion (0, 1, 0, 0);
-            Quaternion quatmatxy = new Quaternion (0, 0, 1, 0);
+            Vector2 n1 = new Vector2 (8, 70);
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
+            Quaternion quatmat1 = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmat2 = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmat3 = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmat4 = new Quaternion (0, 0, 1, 0);
 
-            Vector2 test1; Vector2.Transform (ref position, ref quatmati, out test1);
-            Vector2 test2; Vector2.Transform (ref position, ref quatmatx, out test2);
-            Vector2 test3; Vector2.Transform (ref position, ref quatmaty, out test3);
-            Vector2 test4; Vector2.Transform (ref position, ref quatmatxy, out test4);
+            var tests = new Tuple<Vector2, Quaternion, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat4, new Vector2 (-n1.X, -n1.Y)),
+            };
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 vec = tests[i].Item1;
+                Quaternion trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
+
+                Vector2 result; Vector2.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -12024,11 +12048,11 @@ namespace Abacus.SinglePrecision.Tests
             Vector3 position = new Vector3 (10, 50, -20);
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (Single) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -12067,11 +12091,11 @@ namespace Abacus.SinglePrecision.Tests
             Single c = (Single) 8 / (Single) 10;
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (Single) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -12133,8 +12157,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             Vector3 position = new Vector3 (10, 50, -20);
 
-            Single pi;
-            RealMaths.Pi (out pi);
+            Single pi; RealMaths.Pi (out pi);
 
             Quaternion quatmati = new Quaternion (0, 0, 0, 1);
             Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
@@ -14018,12 +14041,12 @@ namespace Abacus.SinglePrecision.Tests
             Vector4 position = new Vector4 (-40, -20, 10, 20);
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (Single) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(tau, out rotmatx);
+            Matrix44 rotmatx; Matrix44.CreateRotationX(piOver2, out rotmatx);
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatz; Matrix44.CreateRotationZ(-tau, out rotmatz);
+            Matrix44 rotmatz; Matrix44.CreateRotationZ(-piOver2, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
             Vector4 expected1 = new Vector4 (-40, -20,  10, 20);
@@ -14062,11 +14085,11 @@ namespace Abacus.SinglePrecision.Tests
             Single d = (Single) 8 / (Single) 10;
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (Single) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -14128,8 +14151,7 @@ namespace Abacus.SinglePrecision.Tests
         {
             Vector4 position = new Vector4 (-40, -20, 10, 20);
 
-            Single pi;
-            RealMaths.Pi (out pi);
+            Single pi; RealMaths.Pi (out pi);
 
             Quaternion quatmati = new Quaternion (0, 0, 0, 1);
             Quaternion quatmatx = new Quaternion (0, 0, 0, 1);
@@ -17945,29 +17967,33 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
+            Double pi; RealMaths.Pi (out pi);
 
-            Single pi; RealMaths.Pi (out pi);
+            Vector2 n1 = new Vector2 (8, 70);
 
-            Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatxy = rotmatx * rotmaty;
+            Matrix44 rotmat1 = Matrix44.Identity;
+            Matrix44 rotmat2; Matrix44.CreateRotationX(pi, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationY(pi, out rotmat3);
+            Matrix44 rotmat4 = rotmat2 * rotmat3;
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
+            var tests = new Tuple<Vector2, Matrix44, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat4, new Vector2 (-n1.X, -n1.Y)),
+            };
 
-            Vector2 test1; Vector2.Transform (ref position, ref rotmati, out test1);
-            Vector2 test2; Vector2.Transform (ref position, ref rotmatx, out test2);
-            Vector2 test3; Vector2.Transform (ref position, ref rotmaty, out test3);
-            Vector2 test4; Vector2.Transform (ref position, ref rotmatxy, out test4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 vec = tests[i].Item1;
+                Matrix44 trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+                Vector2 result; Vector2.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
@@ -17978,44 +18004,48 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector2 position = new Vector2 (3, 4);
+            Double one = 1;
+            Double ten = 10;
+            Double root2; RealMaths.Root2 (out root2);
+            Double pi; RealMaths.Pi (out pi);
 
-            Double a = (Double) 6 / (Double) 10;
-            Double b = (Double) 8 / (Double) 10;
+            Vector2 n1 = new Vector2 (6, 8) / ten;
+            Vector2 n2 = new Vector2 (one / root2, one / root2);
 
-            Vector2.Normalise (ref position, out position);
-            Single pi; RealMaths.Pi (out pi);
+            Matrix44 rotmat1 = Matrix44.Identity;
+            Matrix44 rotmat2; Matrix44.CreateRotationX(pi, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationY(pi, out rotmat3);
+            Matrix44 rotmat4 = rotmat2 * rotmat3;
 
-            Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatxy = rotmatx * rotmaty;
+            var tests = new Tuple<Vector2, Matrix44, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat4, new Vector2 (-n1.X, -n1.Y)),
 
-            Vector2 expected1 = new Vector2 ( a,  b);
-            Vector2 expected2 = new Vector2 ( a, -b);
-            Vector2 expected3 = new Vector2 (-a,  b);
-            Vector2 expected4 = new Vector2 (-a, -b);
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat1, new Vector2 ( n2.X,  n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat2, new Vector2 ( n2.X, -n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat3, new Vector2 (-n2.X,  n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat4, new Vector2 (-n2.X, -n2.Y)),
+            };
 
-            Vector2 test1; Vector2.TransformNormal (ref position, ref rotmati, out test1);
-            Vector2 test2; Vector2.TransformNormal (ref position, ref rotmatx, out test2);
-            Vector2 test3; Vector2.TransformNormal (ref position, ref rotmaty, out test3);
-            Vector2 test4; Vector2.TransformNormal (ref position, ref rotmatxy, out test4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 normalVec = tests[i].Item1;
+                Matrix44 trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+                Vector2 result; 
 
-            // should also work with the standard transform fn
-            Vector2 test1n; Vector2.Transform (ref position, ref rotmati, out test1n);
-            Vector2 test2n; Vector2.Transform (ref position, ref rotmatx, out test2n);
-            Vector2 test3n; Vector2.Transform (ref position, ref rotmaty, out test3n);
-            Vector2 test4n; Vector2.Transform (ref position, ref rotmatxy, out test4n);
+                Vector2.TransformNormal (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
 
-            AssertEqualWithinReason(test1n, expected1);
-            AssertEqualWithinReason(test2n, expected2);
-            AssertEqualWithinReason(test3n, expected3);
-            AssertEqualWithinReason(test4n, expected4);
+                // should also work with the standard transform fn
+                Vector2.Transform (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         /// <summary>
@@ -18025,13 +18055,24 @@ namespace Abacus.DoublePrecision.Tests
         public void TestStaticFn_TransformNormal_ii ()
         {
             Matrix44 rotmat = Matrix44.Identity;
-            Vector2 normal = new Vector2 (21, -532);
-            Vector2 result;
-            Assert.Throws(
-                typeof(ArgumentOutOfRangeException),
-                () =>
-                Vector2.TransformNormal(ref normal, ref rotmat, out result)
-            );
+            var tests = new Vector2[]
+            {
+                new Vector2 (21, -532),
+                new Vector2 (21, +532),
+                new Vector2 (1, -1),
+                new Vector2 (-2435, -2),
+            };
+
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 normal = tests[i];
+                Vector2 result;
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                    Vector2.TransformNormal(ref normal, ref rotmat, out result)
+                );
+            }
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
@@ -18042,28 +18083,33 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
-            Single pi; RealMaths.Pi (out pi);
+            Double pi; RealMaths.Pi (out pi);
 
-            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
-            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
-            Quaternion quatmaty = new Quaternion (0, 1, 0, 0);
-            Quaternion quatmatxy = new Quaternion (0, 0, 1, 0);
+            Vector2 n1 = new Vector2 (8, 70);
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
+            Quaternion quatmat1 = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmat2 = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmat3 = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmat4 = new Quaternion (0, 0, 1, 0);
 
-            Vector2 test1; Vector2.Transform (ref position, ref quatmati, out test1);
-            Vector2 test2; Vector2.Transform (ref position, ref quatmatx, out test2);
-            Vector2 test3; Vector2.Transform (ref position, ref quatmaty, out test3);
-            Vector2 test4; Vector2.Transform (ref position, ref quatmatxy, out test4);
+            var tests = new Tuple<Vector2, Quaternion, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat4, new Vector2 (-n1.X, -n1.Y)),
+            };
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 vec = tests[i].Item1;
+                Quaternion trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
+
+                Vector2 result; Vector2.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -20054,12 +20100,12 @@ namespace Abacus.DoublePrecision.Tests
         {
             Vector3 position = new Vector3 (10, 50, -20);
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Double pi; RealMaths.Pi (out pi);
+            Double piOver2 = pi / (Double) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -20097,12 +20143,12 @@ namespace Abacus.DoublePrecision.Tests
             Double b = 0;
             Double c = (Double) 8 / (Double) 10;
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Double pi; RealMaths.Pi (out pi);
+            Double piOver2 = pi / (Double) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -20164,8 +20210,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             Vector3 position = new Vector3 (10, 50, -20);
 
-            Single pi;
-            RealMaths.Pi (out pi);
+            Double pi; RealMaths.Pi (out pi);
 
             Quaternion quatmati = new Quaternion (0, 0, 0, 1);
             Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
@@ -22048,13 +22093,13 @@ namespace Abacus.DoublePrecision.Tests
         {
             Vector4 position = new Vector4 (-40, -20, 10, 20);
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Double pi; RealMaths.Pi (out pi);
+            Double piOver2 = pi / (Double) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(tau, out rotmatx);
+            Matrix44 rotmatx; Matrix44.CreateRotationX(piOver2, out rotmatx);
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatz; Matrix44.CreateRotationZ(-tau, out rotmatz);
+            Matrix44 rotmatz; Matrix44.CreateRotationZ(-piOver2, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
             Vector4 expected1 = new Vector4 (-40, -20,  10, 20);
@@ -22092,12 +22137,12 @@ namespace Abacus.DoublePrecision.Tests
             Double c = 0;
             Double d = (Double) 8 / (Double) 10;
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Double pi; RealMaths.Pi (out pi);
+            Double piOver2 = pi / (Double) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -22159,8 +22204,7 @@ namespace Abacus.DoublePrecision.Tests
         {
             Vector4 position = new Vector4 (-40, -20, 10, 20);
 
-            Single pi;
-            RealMaths.Pi (out pi);
+            Double pi; RealMaths.Pi (out pi);
 
             Quaternion quatmati = new Quaternion (0, 0, 0, 1);
             Quaternion quatmatx = new Quaternion (0, 0, 0, 1);
@@ -25976,29 +26020,33 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
+            Fixed32 pi; RealMaths.Pi (out pi);
 
-            Single pi; RealMaths.Pi (out pi);
+            Vector2 n1 = new Vector2 (8, 70);
 
-            Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatxy = rotmatx * rotmaty;
+            Matrix44 rotmat1 = Matrix44.Identity;
+            Matrix44 rotmat2; Matrix44.CreateRotationX(pi, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationY(pi, out rotmat3);
+            Matrix44 rotmat4 = rotmat2 * rotmat3;
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
+            var tests = new Tuple<Vector2, Matrix44, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat4, new Vector2 (-n1.X, -n1.Y)),
+            };
 
-            Vector2 test1; Vector2.Transform (ref position, ref rotmati, out test1);
-            Vector2 test2; Vector2.Transform (ref position, ref rotmatx, out test2);
-            Vector2 test3; Vector2.Transform (ref position, ref rotmaty, out test3);
-            Vector2 test4; Vector2.Transform (ref position, ref rotmatxy, out test4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 vec = tests[i].Item1;
+                Matrix44 trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+                Vector2 result; Vector2.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         // Test Static Fn: TransformNormal //---------------------------------//
@@ -26009,44 +26057,48 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector2 position = new Vector2 (3, 4);
+            Fixed32 one = 1;
+            Fixed32 ten = 10;
+            Fixed32 root2; RealMaths.Root2 (out root2);
+            Fixed32 pi; RealMaths.Pi (out pi);
 
-            Fixed32 a = (Fixed32) 6 / (Fixed32) 10;
-            Fixed32 b = (Fixed32) 8 / (Fixed32) 10;
+            Vector2 n1 = new Vector2 (6, 8) / ten;
+            Vector2 n2 = new Vector2 (one / root2, one / root2);
 
-            Vector2.Normalise (ref position, out position);
-            Single pi; RealMaths.Pi (out pi);
+            Matrix44 rotmat1 = Matrix44.Identity;
+            Matrix44 rotmat2; Matrix44.CreateRotationX(pi, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationY(pi, out rotmat3);
+            Matrix44 rotmat4 = rotmat2 * rotmat3;
 
-            Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatxy = rotmatx * rotmaty;
+            var tests = new Tuple<Vector2, Matrix44, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n1, rotmat4, new Vector2 (-n1.X, -n1.Y)),
 
-            Vector2 expected1 = new Vector2 ( a,  b);
-            Vector2 expected2 = new Vector2 ( a, -b);
-            Vector2 expected3 = new Vector2 (-a,  b);
-            Vector2 expected4 = new Vector2 (-a, -b);
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat1, new Vector2 ( n2.X,  n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat2, new Vector2 ( n2.X, -n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat3, new Vector2 (-n2.X,  n2.Y)),
+                new Tuple<Vector2, Matrix44, Vector2>(n2, rotmat4, new Vector2 (-n2.X, -n2.Y)),
+            };
 
-            Vector2 test1; Vector2.TransformNormal (ref position, ref rotmati, out test1);
-            Vector2 test2; Vector2.TransformNormal (ref position, ref rotmatx, out test2);
-            Vector2 test3; Vector2.TransformNormal (ref position, ref rotmaty, out test3);
-            Vector2 test4; Vector2.TransformNormal (ref position, ref rotmatxy, out test4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 normalVec = tests[i].Item1;
+                Matrix44 trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+                Vector2 result; 
 
-            // should also work with the standard transform fn
-            Vector2 test1n; Vector2.Transform (ref position, ref rotmati, out test1n);
-            Vector2 test2n; Vector2.Transform (ref position, ref rotmatx, out test2n);
-            Vector2 test3n; Vector2.Transform (ref position, ref rotmaty, out test3n);
-            Vector2 test4n; Vector2.Transform (ref position, ref rotmatxy, out test4n);
+                Vector2.TransformNormal (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
 
-            AssertEqualWithinReason(test1n, expected1);
-            AssertEqualWithinReason(test2n, expected2);
-            AssertEqualWithinReason(test3n, expected3);
-            AssertEqualWithinReason(test4n, expected4);
+                // should also work with the standard transform fn
+                Vector2.Transform (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         /// <summary>
@@ -26056,13 +26108,24 @@ namespace Abacus.Fixed32Precision.Tests
         public void TestStaticFn_TransformNormal_ii ()
         {
             Matrix44 rotmat = Matrix44.Identity;
-            Vector2 normal = new Vector2 (21, -532);
-            Vector2 result;
-            Assert.Throws(
-                typeof(ArgumentOutOfRangeException),
-                () =>
-                Vector2.TransformNormal(ref normal, ref rotmat, out result)
-            );
+            var tests = new Vector2[]
+            {
+                new Vector2 (21, -532),
+                new Vector2 (21, +532),
+                new Vector2 (1, -1),
+                new Vector2 (-2435, -2),
+            };
+
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 normal = tests[i];
+                Vector2 result;
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                    Vector2.TransformNormal(ref normal, ref rotmat, out result)
+                );
+            }
         }
 
         // Test Static Fn: TransformQuaternion //-----------------------------//
@@ -26073,28 +26136,33 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_TransformQuaternion_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
-            Single pi; RealMaths.Pi (out pi);
+            Fixed32 pi; RealMaths.Pi (out pi);
 
-            Quaternion quatmati = new Quaternion (0, 0, 0, 1);
-            Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
-            Quaternion quatmaty = new Quaternion (0, 1, 0, 0);
-            Quaternion quatmatxy = new Quaternion (0, 0, 1, 0);
+            Vector2 n1 = new Vector2 (8, 70);
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
+            Quaternion quatmat1 = new Quaternion (0, 0, 0, 1);
+            Quaternion quatmat2 = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmat3 = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmat4 = new Quaternion (0, 0, 1, 0);
 
-            Vector2 test1; Vector2.Transform (ref position, ref quatmati, out test1);
-            Vector2 test2; Vector2.Transform (ref position, ref quatmatx, out test2);
-            Vector2 test3; Vector2.Transform (ref position, ref quatmaty, out test3);
-            Vector2 test4; Vector2.Transform (ref position, ref quatmatxy, out test4);
+            var tests = new Tuple<Vector2, Quaternion, Vector2>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat1, new Vector2 ( n1.X,  n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat2, new Vector2 ( n1.X, -n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat3, new Vector2 (-n1.X,  n1.Y)),
+                new Tuple<Vector2, Quaternion, Vector2>(n1, quatmat4, new Vector2 (-n1.X, -n1.Y)),
+            };
 
-            AssertEqualWithinReason(test1, expected1);
-            AssertEqualWithinReason(test2, expected2);
-            AssertEqualWithinReason(test3, expected3);
-            AssertEqualWithinReason(test4, expected4);
+            for (int i = 0; i < tests.Length; ++i)
+            {
+                Vector2 vec = tests[i].Item1;
+                Quaternion trans = tests[i].Item2;
+                Vector2 expected = tests[i].Item3;
+
+                Vector2 result; Vector2.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -28085,12 +28153,12 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Vector3 position = new Vector3 (10, 50, -20);
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Fixed32 pi; RealMaths.Pi (out pi);
+            Fixed32 piOver2 = pi / (Fixed32) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -28128,12 +28196,12 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 b = 0;
             Fixed32 c = (Fixed32) 8 / (Fixed32) 10;
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Fixed32 pi; RealMaths.Pi (out pi);
+            Fixed32 piOver2 = pi / (Fixed32) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -28195,8 +28263,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Vector3 position = new Vector3 (10, 50, -20);
 
-            Single pi;
-            RealMaths.Pi (out pi);
+            Fixed32 pi; RealMaths.Pi (out pi);
 
             Quaternion quatmati = new Quaternion (0, 0, 0, 1);
             Quaternion quatmatx = new Quaternion (1, 0, 0, 0);
@@ -30079,13 +30146,13 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Vector4 position = new Vector4 (-40, -20, 10, 20);
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Fixed32 pi; RealMaths.Pi (out pi);
+            Fixed32 piOver2 = pi / (Fixed32) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(tau, out rotmatx);
+            Matrix44 rotmatx; Matrix44.CreateRotationX(piOver2, out rotmatx);
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatz; Matrix44.CreateRotationZ(-tau, out rotmatz);
+            Matrix44 rotmatz; Matrix44.CreateRotationZ(-piOver2, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
             Vector4 expected1 = new Vector4 (-40, -20,  10, 20);
@@ -30123,12 +30190,12 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 c = 0;
             Fixed32 d = (Fixed32) 8 / (Fixed32) 10;
 
-            Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Fixed32 pi; RealMaths.Pi (out pi);
+            Fixed32 piOver2 = pi / (Fixed32) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -30190,8 +30257,7 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Vector4 position = new Vector4 (-40, -20, 10, 20);
 
-            Single pi;
-            RealMaths.Pi (out pi);
+            Fixed32 pi; RealMaths.Pi (out pi);
 
             Quaternion quatmati = new Quaternion (0, 0, 0, 1);
             Quaternion quatmatx = new Quaternion (0, 0, 0, 1);

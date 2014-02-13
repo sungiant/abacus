@@ -413,8 +413,8 @@
         {
             Vector3 position = new Vector3 (10, 50, -20);
 
-            Single pi; RealMaths.Pi (out pi);
-            Single piOver2 = pi / (<#= type #>) 2;
+            <#= type #> pi; RealMaths.Pi (out pi);
+            <#= type #> piOver2 = pi / (<#= type #>) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
@@ -456,8 +456,8 @@
             <#= type #> b = 0;
             <#= type #> c = (<#= type #>) 8 / (<#= type #>) 10;
 
-            Single pi; RealMaths.Pi (out pi);
-            Single piOver2 = pi / (<#= type #>) 2;
+            <#= type #> pi; RealMaths.Pi (out pi);
+            <#= type #> piOver2 = pi / (<#= type #>) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
@@ -523,8 +523,7 @@
         {
             Vector3 position = new Vector3 (10, 50, -20);
 
-            Single pi;
-            RealMaths.Pi (out pi);
+            <#= type #> pi; RealMaths.Pi (out pi);
 
             Quaternion quatmati = new Quaternion (0, 0, 0, 1);
             Quaternion quatmatx = new Quaternion (1, 0, 0, 0);

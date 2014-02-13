@@ -146,26 +146,26 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void Root2(out Single value) { value = 1.41421f; }
+        public static void Root2(out Single value) { value = 1.414213562f; }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Root2(out Double value) { value = 1.41421; }
+        public static void Root2(out Double value) { value = 1.414213562; }
 
-        public static void Root2(out Fixed32 value) { value = Fixed32.Parse("1.41421"); }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static void Root3(out Single value) { value = 1.73205f; }
+        public static void Root2(out Fixed32 value) { value = Fixed32.Parse("1.414213562"); }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Root3(out Double value) { value = 1.73205; }
+        public static void Root3(out Single value) { value = 1.732050808f; }
 
-        public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.73205"); }
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Root3(out Double value) { value = 1.732050808; }
+
+        public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.732050808"); }
 
         /// <summary>
         /// todo
