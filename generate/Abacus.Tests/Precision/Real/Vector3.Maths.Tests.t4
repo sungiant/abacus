@@ -414,11 +414,11 @@
             Vector3 position = new Vector3 (10, 50, -20);
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (<#= type #>) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
@@ -457,11 +457,11 @@
             <#= type #> c = (<#= type #>) 8 / (<#= type #>) 10;
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (<#= type #>) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 

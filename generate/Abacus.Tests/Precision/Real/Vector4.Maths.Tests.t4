@@ -311,12 +311,12 @@
             Vector4 position = new Vector4 (-40, -20, 10, 20);
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (<#= type #>) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmatx; Matrix44.CreateRotationX(tau, out rotmatx);
+            Matrix44 rotmatx; Matrix44.CreateRotationX(piOver2, out rotmatx);
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
-            Matrix44 rotmatz; Matrix44.CreateRotationZ(-tau, out rotmatz);
+            Matrix44 rotmatz; Matrix44.CreateRotationZ(-piOver2, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
             Vector4 expected1 = new Vector4 (-40, -20,  10, 20);
@@ -355,11 +355,11 @@
             <#= type #> d = (<#= type #>) 8 / (<#= type #>) 10;
 
             Single pi; RealMaths.Pi (out pi);
-            Single tau; RealMaths.Tau (out tau);
+            Single piOver2 = pi / (<#= type #>) 2;
 
             Matrix44 rotmati = Matrix44.Identity;
             Matrix44 rotmatx; Matrix44.CreateRotationX(pi, out rotmatx);
-            Matrix44 rotmaty; Matrix44.CreateRotationY(tau, out rotmaty);
+            Matrix44 rotmaty; Matrix44.CreateRotationY(piOver2, out rotmaty);
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
