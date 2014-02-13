@@ -130,14 +130,12 @@
             <#= type #> xy = x * y;
 
             result.X =
-                vector.X -
-                (vector.X * two * (yy - zz)) +
-                (vector.Y * two * (xy - wz));
+                vector.X - (two * vector.X  * (yy + zz)) +
+                (two * vector.Y  * (xy - wz));
 
             result.Y =
-                vector.Y -
-                (vector.X * two * (xy + wz)) +
-                (vector.Y * two * (xx - zz));
+                (two * vector.X * (xy + wz)) +
+                vector.Y - (two * vector.Y * (xx + zz));
         }
 
         /// <summary>
