@@ -11649,10 +11649,10 @@ namespace Abacus.SinglePrecision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector2 value1, ref Vector2 value2, out Single result)
+            ref Vector2 vector1, ref Vector2 vector2, out Single result)
         {
-            Single dx = value1.X - value2.X;
-            Single dy = value1.Y - value2.Y;
+            Single dx = vector1.X - vector2.X;
+            Single dy = vector1.Y - vector2.Y;
 
             Single lengthSquared = (dx * dx) + (dy * dy);
 
@@ -11663,26 +11663,26 @@ namespace Abacus.SinglePrecision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector2 value1, ref Vector2 value2, out Single result)
+            ref Vector2 vector1, ref Vector2 vector2, out Single result)
         {
-            Single dx = value1.X - value2.X;
-            Single dy = value1.Y - value2.Y;
+            Single dx = vector1.X - vector2.X;
+            Single dy = vector1.Y - vector2.Y;
 
             result = (dx * dx) + (dy * dy);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector2 value1, ref Vector2 value2, out Single result)
+            ref Vector2 vector1, ref Vector2 vector2, out Single result)
         {
-            result = (value1.X * value2.X) + (value1.Y * value2.Y);
+            result = (vector1.X * vector2.X) + (vector1.Y * vector2.Y);
         }
 
         /// <summary>
@@ -11690,10 +11690,10 @@ namespace Abacus.SinglePrecision
         /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
-        public static void Normalise (ref Vector2 value, out Vector2 result)
+        public static void Normalise (ref Vector2 vector, out Vector2 result)
         {
             Single lengthSquared =
-                (value.X * value.X) + (value.Y * value.Y);
+                (vector.X * vector.X) + (vector.Y * vector.Y);
 
             Single epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -11706,13 +11706,13 @@ namespace Abacus.SinglePrecision
             Single one = 1;
             Single multiplier = one / RealMaths.Sqrt (lengthSquared);
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
 
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a
+        /// Returns the vector of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -11742,16 +11742,16 @@ namespace Abacus.SinglePrecision
         /// Transforms a Vector2 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Matrix44 matrix, out Vector2 result)
+            ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             Single x =
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) +
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
                 matrix.M41;
 
             Single y =
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) +
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
                 matrix.M42;
 
             result.X = x;
@@ -11762,7 +11762,7 @@ namespace Abacus.SinglePrecision
         /// Transforms a Vector2 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+            ref Vector2 vector, ref Quaternion rotation, out Vector2 result)
         {
             Single two = 2;
 
@@ -11774,15 +11774,15 @@ namespace Abacus.SinglePrecision
             Single wz = w * z;
             Single xy = x * y;
 
-            result.X = 
-                value.X - 
-                (value.X * two * (yy - zz)) + 
-                (value.Y * two * (xy - wz));
+            result.X =
+                vector.X -
+                (vector.X * two * (yy - zz)) +
+                (vector.Y * two * (xy - wz));
 
-            result.Y = 
-                value.Y -
-                (value.X * two * (xy + wz)) +
-                (value.Y * two * (xx - zz));
+            result.Y =
+                vector.Y -
+                (vector.X * two * (xy + wz)) +
+                (vector.Y * two * (xx - zz));
         }
 
         /// <summary>
@@ -12504,13 +12504,13 @@ namespace Abacus.SinglePrecision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector3 value1, 
-            ref Vector3 value2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Single result)
         {
-            Single dx = value1.X - value2.X;
-            Single dy = value1.Y - value2.Y;
-            Single dz = value1.Z - value2.Z;
+            Single dx = vector1.X - vector2.X;
+            Single dy = vector1.Y - vector2.Y;
+            Single dz = vector1.Z - vector2.Z;
 
             Single lengthSquared = (dx * dx) + (dy * dy) + (dz * dz);
 
@@ -12521,33 +12521,33 @@ namespace Abacus.SinglePrecision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector3 value1, 
-            ref Vector3 value2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Single result)
         {
-            Single dx = value1.X - value2.X;
-            Single dy = value1.Y - value2.Y;
-            Single dz = value1.Z - value2.Z;
+            Single dx = vector1.X - vector2.X;
+            Single dy = vector1.Y - vector2.Y;
+            Single dz = vector1.Z - vector2.Z;
 
             result = (dx * dx) + (dy * dy) + (dz * dz);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector3 vector1, 
-            ref Vector3 vector2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Single result)
         {
-            result = 
+            result =
                 (vector1.X * vector2.X) +
-                (vector1.Y * vector2.Y) + 
+                (vector1.Y * vector2.Y) +
                 (vector1.Z * vector2.Z);
         }
 
@@ -12556,12 +12556,12 @@ namespace Abacus.SinglePrecision
         /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
-        public static void Normalise (ref Vector3 value, out Vector3 result)
+        public static void Normalise (ref Vector3 vector, out Vector3 result)
         {
             Single lengthSquared =
-                (value.X * value.X) +
-                (value.Y * value.Y) +
-                (value.Z * value.Z);
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
 
             Single epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -12574,17 +12574,17 @@ namespace Abacus.SinglePrecision
             Single one = 1;
             Single multiplier = one / RealMaths.Sqrt (lengthSquared);
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
-            result.Z = value.Z * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
         }
 
         /// <summary>
         /// Calculates the cross product of two vectors.
         /// </summary>
         public static void Cross (
-            ref Vector3 vector1, 
-            ref Vector3 vector2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Vector3 result)
         {
             result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -12593,12 +12593,12 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a
+        /// Returns the vector of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
             ref Vector3 vector,
-            ref Vector3 normal, 
+            ref Vector3 normal,
             out Vector3 result)
         {
             if( !normal.IsUnit() )
@@ -12608,9 +12608,9 @@ namespace Abacus.SinglePrecision
 
             Single two = 2;
 
-            Single num = 
-                (vector.X * normal.X) + 
-                (vector.Y * normal.Y) + 
+            Single num =
+                (vector.X * normal.X) +
+                (vector.Y * normal.Y) +
                 (vector.Z * normal.Z);
 
             result.X = vector.X - ((two * num) * normal.X);
@@ -12622,25 +12622,25 @@ namespace Abacus.SinglePrecision
         /// Transforms a Vector3 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector3 value, 
-            ref Matrix44 matrix, 
+            ref Vector3 vector,
+            ref Matrix44 matrix,
             out Vector3 result)
         {
-            Single x = 
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) + 
-                (value.Z * matrix.M31) + matrix.M41;
-            
-            Single y = 
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) + 
-                (value.Z * matrix.M32) + matrix.M42;
-            
-            Single z = 
-                (value.X * matrix.M13) + 
-                (value.Y * matrix.M23) + 
-                (value.Z * matrix.M33) + matrix.M43;
-            
+            Single x =
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
+                (vector.Z * matrix.M31) + matrix.M41;
+
+            Single y =
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
+                (vector.Z * matrix.M32) + matrix.M42;
+
+            Single z =
+                (vector.X * matrix.M13) +
+                (vector.Y * matrix.M23) +
+                (vector.Z * matrix.M33) + matrix.M43;
+
             result.X = x;
             result.Y = y;
             result.Z = z;
@@ -12650,8 +12650,8 @@ namespace Abacus.SinglePrecision
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector3 value, 
-            ref Quaternion rotation, 
+            ref Vector3 vector,
+            ref Quaternion rotation,
             out Vector3 result)
         {
             Single one = 1;
@@ -12673,20 +12673,20 @@ namespace Abacus.SinglePrecision
             Single twoySq = two * qySq;
             Single twozSq = two * qzSq;
 
-            Single x = 
-                (value.X * (one   - twoySq - twozSq)) + 
-                (value.Y * (twoxy - twowz)) + 
-                (value.Z * (twoxz + twowy));
-            
-            Single y = 
-                (value.X * (twoxy + twowz)) + 
-                (value.Y * (one   - twoxSq - twozSq)) + 
-                (value.Z * (twoyz - twowx));
-            
-            Single z = 
-                (value.X * (twoxz - twowy)) + 
-                (value.Y * (twoyz + twowx)) + 
-                (value.Z * (one   - twoxSq - twoySq));
+            Single x =
+                (vector.X * (one   - twoySq - twozSq)) +
+                (vector.Y * (twoxy - twowz)) +
+                (vector.Z * (twoxz + twowy));
+
+            Single y =
+                (vector.X * (twoxy + twowz)) +
+                (vector.Y * (one   - twoxSq - twozSq)) +
+                (vector.Z * (twoyz - twowx));
+
+            Single z =
+                (vector.X * (twoxz - twowy)) +
+                (vector.Y * (twoyz + twowx)) +
+                (vector.Z * (one   - twoxSq - twoySq));
 
             result.X = x;
             result.Y = y;
@@ -12697,8 +12697,8 @@ namespace Abacus.SinglePrecision
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector3 normal, 
-            ref Matrix44 matrix, 
+            ref Vector3 normal,
+            ref Matrix44 matrix,
             out Vector3 result)
         {
             if( !normal.IsUnit() )
@@ -12707,19 +12707,19 @@ namespace Abacus.SinglePrecision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Single x = 
-                (normal.X * matrix.M11) + 
-                (normal.Y * matrix.M21) + 
+            Single x =
+                (normal.X * matrix.M11) +
+                (normal.Y * matrix.M21) +
                 (normal.Z * matrix.M31);
 
-            Single y = 
-                (normal.X * matrix.M12) + 
-                (normal.Y * matrix.M22) + 
+            Single y =
+                (normal.X * matrix.M12) +
+                (normal.Y * matrix.M22) +
                 (normal.Z * matrix.M32);
 
-            Single z = 
-                (normal.X * matrix.M13) + 
-                (normal.Y * matrix.M23) + 
+            Single z =
+                (normal.X * matrix.M13) +
+                (normal.Y * matrix.M23) +
                 (normal.Z * matrix.M33);
 
             result.X = x;
@@ -13406,14 +13406,14 @@ namespace Abacus.SinglePrecision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Single result)
         {
-            Single dx = value1.X - value2.X;
-            Single dy = value1.Y - value2.Y;
-            Single dz = value1.Z - value2.Z;
-            Single dw = value1.W - value2.W;
+            Single dx = vector1.X - vector2.X;
+            Single dy = vector1.Y - vector2.Y;
+            Single dz = vector1.Z - vector2.Z;
+            Single dw = vector1.W - vector2.W;
 
             Single lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
@@ -13424,36 +13424,36 @@ namespace Abacus.SinglePrecision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Single result)
         {
-            Single dx = value1.X - value2.X;
-            Single dy = value1.Y - value2.Y;
-            Single dz = value1.Z - value2.Z;
-            Single dw = value1.W - value2.W;
+            Single dx = vector1.X - vector2.X;
+            Single dy = vector1.Y - vector2.Y;
+            Single dz = vector1.Z - vector2.Z;
+            Single dw = vector1.W - vector2.W;
 
             result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Single result)
         {
-            result = 
-                (value1.X * value2.X) +
-                (value1.Y * value2.Y) +
-                (value1.Z * value2.Z) +
-                (value1.W * value2.W);
+            result =
+                (vector1.X * vector2.X) +
+                (vector1.Y * vector2.Y) +
+                (vector1.Z * vector2.Z) +
+                (vector1.W * vector2.W);
         }
 
         /// <summary>
@@ -13462,14 +13462,14 @@ namespace Abacus.SinglePrecision
         /// original vector.
         /// </summary>
         public static void Normalise (
-            ref Vector4 value, 
+            ref Vector4 vector,
             out Vector4 result)
         {
             Single lengthSquared =
-                (value.X * value.X) +
-                (value.Y * value.Y) +
-                (value.Z * value.Z) +
-                (value.W * value.W);
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
 
             Single epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -13482,44 +13482,44 @@ namespace Abacus.SinglePrecision
             Single one = 1;
             Single multiplier = one / (RealMaths.Sqrt (lengthSquared));
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
-            result.Z = value.Z * multiplier;
-            result.W = value.W * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
+            result.W = vector.W * multiplier;
         }
 
         /// <summary>
         /// Transforms a Vector4 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Matrix44 matrix, 
+            ref Vector4 vector,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
-            Single x = 
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) + 
-                (value.Z * matrix.M31) +
-                (value.W * matrix.M41);
-            
-            Single y = 
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) + 
-                (value.Z * matrix.M32) +
-                (value.W * matrix.M42);
-            
-            Single z = 
-                (value.X * matrix.M13) + 
-                (value.Y * matrix.M23) + 
-                (value.Z * matrix.M33) +
-                (value.W * matrix.M43);
-            
-            Single w = 
-                (value.X * matrix.M14) + 
-                (value.Y * matrix.M24) + 
-                (value.Z * matrix.M34) +
-                (value.W * matrix.M44);
-            
+            Single x =
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
+                (vector.Z * matrix.M31) +
+                (vector.W * matrix.M41);
+
+            Single y =
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
+                (vector.Z * matrix.M32) +
+                (vector.W * matrix.M42);
+
+            Single z =
+                (vector.X * matrix.M13) +
+                (vector.Y * matrix.M23) +
+                (vector.Z * matrix.M33) +
+                (vector.W * matrix.M43);
+
+            Single w =
+                (vector.X * matrix.M14) +
+                (vector.Y * matrix.M24) +
+                (vector.Z * matrix.M34) +
+                (vector.W * matrix.M44);
+
             result.X = x;
             result.Y = y;
             result.Z = z;
@@ -13530,8 +13530,8 @@ namespace Abacus.SinglePrecision
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Quaternion rotation, 
+            ref Vector4 vector,
+            ref Quaternion rotation,
             out Vector4 result)
         {
             Single one = 1;
@@ -13553,33 +13553,33 @@ namespace Abacus.SinglePrecision
             Single twoySq = two * qySq;
             Single twozSq = two * qzSq;
 
-            Single x = 
-                (value.X * (one   - twoySq - twozSq)) + 
-                (value.Y * (twoxy - twowz)) + 
-                (value.Z * (twoxz + twowy));
-            
-            Single y = 
-                (value.X * (twoxy + twowz)) + 
-                (value.Y * (one   - twoxSq - twozSq)) + 
-                (value.Z * (twoyz - twowx));
-            
-            Single z = 
-                (value.X * (twoxz - twowy)) + 
-                (value.Y * (twoyz + twowx)) + 
-                (value.Z * (one   - twoxSq - twoySq));
+            Single x =
+                (vector.X * (one   - twoySq - twozSq)) +
+                (vector.Y * (twoxy - twowz)) +
+                (vector.Z * (twoxz + twowy));
+
+            Single y =
+                (vector.X * (twoxy + twowz)) +
+                (vector.Y * (one   - twoxSq - twozSq)) +
+                (vector.Z * (twoyz - twowx));
+
+            Single z =
+                (vector.X * (twoxz - twowy)) +
+                (vector.Y * (twoyz + twowx)) +
+                (vector.Z * (one   - twoxSq - twoySq));
 
             result.X = x;
             result.Y = y;
             result.Z = z;
-            result.W = value.W;
+            result.W = vector.W;
         }
 
         /// <summary>
         /// Transforms a normalised Vector4 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector4 normal, 
-            ref Matrix44 matrix, 
+            ref Vector4 normal,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
             if( !normal.IsUnit() )
@@ -13588,20 +13588,20 @@ namespace Abacus.SinglePrecision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Single x = 
-                (normal.X * matrix.M11) + (normal.Y * matrix.M21) + 
+            Single x =
+                (normal.X * matrix.M11) + (normal.Y * matrix.M21) +
                 (normal.Z * matrix.M31) + (normal.W * matrix.M41);
-            
-            Single y = 
-                (normal.X * matrix.M12) + (normal.Y * matrix.M22) + 
+
+            Single y =
+                (normal.X * matrix.M12) + (normal.Y * matrix.M22) +
                 (normal.Z * matrix.M32) + (normal.W * matrix.M42);
-            
-            Single z = 
-                (normal.X * matrix.M13) + (normal.Y * matrix.M23) + 
+
+            Single z =
+                (normal.X * matrix.M13) + (normal.Y * matrix.M23) +
                 (normal.Z * matrix.M33) + (normal.W * matrix.M43);
-            
-            Single w = 
-                (normal.X * matrix.M14) + (normal.Y * matrix.M24) + 
+
+            Single w =
+                (normal.X * matrix.M14) + (normal.Y * matrix.M24) +
                 (normal.Z * matrix.M34) + (normal.W * matrix.M44);
 
             result.X = x;
@@ -17401,10 +17401,10 @@ namespace Abacus.DoublePrecision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector2 value1, ref Vector2 value2, out Double result)
+            ref Vector2 vector1, ref Vector2 vector2, out Double result)
         {
-            Double dx = value1.X - value2.X;
-            Double dy = value1.Y - value2.Y;
+            Double dx = vector1.X - vector2.X;
+            Double dy = vector1.Y - vector2.Y;
 
             Double lengthSquared = (dx * dx) + (dy * dy);
 
@@ -17415,26 +17415,26 @@ namespace Abacus.DoublePrecision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector2 value1, ref Vector2 value2, out Double result)
+            ref Vector2 vector1, ref Vector2 vector2, out Double result)
         {
-            Double dx = value1.X - value2.X;
-            Double dy = value1.Y - value2.Y;
+            Double dx = vector1.X - vector2.X;
+            Double dy = vector1.Y - vector2.Y;
 
             result = (dx * dx) + (dy * dy);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector2 value1, ref Vector2 value2, out Double result)
+            ref Vector2 vector1, ref Vector2 vector2, out Double result)
         {
-            result = (value1.X * value2.X) + (value1.Y * value2.Y);
+            result = (vector1.X * vector2.X) + (vector1.Y * vector2.Y);
         }
 
         /// <summary>
@@ -17442,10 +17442,10 @@ namespace Abacus.DoublePrecision
         /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
-        public static void Normalise (ref Vector2 value, out Vector2 result)
+        public static void Normalise (ref Vector2 vector, out Vector2 result)
         {
             Double lengthSquared =
-                (value.X * value.X) + (value.Y * value.Y);
+                (vector.X * vector.X) + (vector.Y * vector.Y);
 
             Double epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -17458,13 +17458,13 @@ namespace Abacus.DoublePrecision
             Double one = 1;
             Double multiplier = one / RealMaths.Sqrt (lengthSquared);
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
 
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a
+        /// Returns the vector of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -17494,16 +17494,16 @@ namespace Abacus.DoublePrecision
         /// Transforms a Vector2 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Matrix44 matrix, out Vector2 result)
+            ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             Double x =
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) +
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
                 matrix.M41;
 
             Double y =
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) +
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
                 matrix.M42;
 
             result.X = x;
@@ -17514,7 +17514,7 @@ namespace Abacus.DoublePrecision
         /// Transforms a Vector2 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+            ref Vector2 vector, ref Quaternion rotation, out Vector2 result)
         {
             Double two = 2;
 
@@ -17526,15 +17526,15 @@ namespace Abacus.DoublePrecision
             Double wz = w * z;
             Double xy = x * y;
 
-            result.X = 
-                value.X - 
-                (value.X * two * (yy - zz)) + 
-                (value.Y * two * (xy - wz));
+            result.X =
+                vector.X -
+                (vector.X * two * (yy - zz)) +
+                (vector.Y * two * (xy - wz));
 
-            result.Y = 
-                value.Y -
-                (value.X * two * (xy + wz)) +
-                (value.Y * two * (xx - zz));
+            result.Y =
+                vector.Y -
+                (vector.X * two * (xy + wz)) +
+                (vector.Y * two * (xx - zz));
         }
 
         /// <summary>
@@ -18256,13 +18256,13 @@ namespace Abacus.DoublePrecision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector3 value1, 
-            ref Vector3 value2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Double result)
         {
-            Double dx = value1.X - value2.X;
-            Double dy = value1.Y - value2.Y;
-            Double dz = value1.Z - value2.Z;
+            Double dx = vector1.X - vector2.X;
+            Double dy = vector1.Y - vector2.Y;
+            Double dz = vector1.Z - vector2.Z;
 
             Double lengthSquared = (dx * dx) + (dy * dy) + (dz * dz);
 
@@ -18273,33 +18273,33 @@ namespace Abacus.DoublePrecision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector3 value1, 
-            ref Vector3 value2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Double result)
         {
-            Double dx = value1.X - value2.X;
-            Double dy = value1.Y - value2.Y;
-            Double dz = value1.Z - value2.Z;
+            Double dx = vector1.X - vector2.X;
+            Double dy = vector1.Y - vector2.Y;
+            Double dz = vector1.Z - vector2.Z;
 
             result = (dx * dx) + (dy * dy) + (dz * dz);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector3 vector1, 
-            ref Vector3 vector2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Double result)
         {
-            result = 
+            result =
                 (vector1.X * vector2.X) +
-                (vector1.Y * vector2.Y) + 
+                (vector1.Y * vector2.Y) +
                 (vector1.Z * vector2.Z);
         }
 
@@ -18308,12 +18308,12 @@ namespace Abacus.DoublePrecision
         /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
-        public static void Normalise (ref Vector3 value, out Vector3 result)
+        public static void Normalise (ref Vector3 vector, out Vector3 result)
         {
             Double lengthSquared =
-                (value.X * value.X) +
-                (value.Y * value.Y) +
-                (value.Z * value.Z);
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
 
             Double epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -18326,17 +18326,17 @@ namespace Abacus.DoublePrecision
             Double one = 1;
             Double multiplier = one / RealMaths.Sqrt (lengthSquared);
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
-            result.Z = value.Z * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
         }
 
         /// <summary>
         /// Calculates the cross product of two vectors.
         /// </summary>
         public static void Cross (
-            ref Vector3 vector1, 
-            ref Vector3 vector2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Vector3 result)
         {
             result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -18345,12 +18345,12 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a
+        /// Returns the vector of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
             ref Vector3 vector,
-            ref Vector3 normal, 
+            ref Vector3 normal,
             out Vector3 result)
         {
             if( !normal.IsUnit() )
@@ -18360,9 +18360,9 @@ namespace Abacus.DoublePrecision
 
             Double two = 2;
 
-            Double num = 
-                (vector.X * normal.X) + 
-                (vector.Y * normal.Y) + 
+            Double num =
+                (vector.X * normal.X) +
+                (vector.Y * normal.Y) +
                 (vector.Z * normal.Z);
 
             result.X = vector.X - ((two * num) * normal.X);
@@ -18374,25 +18374,25 @@ namespace Abacus.DoublePrecision
         /// Transforms a Vector3 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector3 value, 
-            ref Matrix44 matrix, 
+            ref Vector3 vector,
+            ref Matrix44 matrix,
             out Vector3 result)
         {
-            Double x = 
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) + 
-                (value.Z * matrix.M31) + matrix.M41;
-            
-            Double y = 
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) + 
-                (value.Z * matrix.M32) + matrix.M42;
-            
-            Double z = 
-                (value.X * matrix.M13) + 
-                (value.Y * matrix.M23) + 
-                (value.Z * matrix.M33) + matrix.M43;
-            
+            Double x =
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
+                (vector.Z * matrix.M31) + matrix.M41;
+
+            Double y =
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
+                (vector.Z * matrix.M32) + matrix.M42;
+
+            Double z =
+                (vector.X * matrix.M13) +
+                (vector.Y * matrix.M23) +
+                (vector.Z * matrix.M33) + matrix.M43;
+
             result.X = x;
             result.Y = y;
             result.Z = z;
@@ -18402,8 +18402,8 @@ namespace Abacus.DoublePrecision
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector3 value, 
-            ref Quaternion rotation, 
+            ref Vector3 vector,
+            ref Quaternion rotation,
             out Vector3 result)
         {
             Double one = 1;
@@ -18425,20 +18425,20 @@ namespace Abacus.DoublePrecision
             Double twoySq = two * qySq;
             Double twozSq = two * qzSq;
 
-            Double x = 
-                (value.X * (one   - twoySq - twozSq)) + 
-                (value.Y * (twoxy - twowz)) + 
-                (value.Z * (twoxz + twowy));
-            
-            Double y = 
-                (value.X * (twoxy + twowz)) + 
-                (value.Y * (one   - twoxSq - twozSq)) + 
-                (value.Z * (twoyz - twowx));
-            
-            Double z = 
-                (value.X * (twoxz - twowy)) + 
-                (value.Y * (twoyz + twowx)) + 
-                (value.Z * (one   - twoxSq - twoySq));
+            Double x =
+                (vector.X * (one   - twoySq - twozSq)) +
+                (vector.Y * (twoxy - twowz)) +
+                (vector.Z * (twoxz + twowy));
+
+            Double y =
+                (vector.X * (twoxy + twowz)) +
+                (vector.Y * (one   - twoxSq - twozSq)) +
+                (vector.Z * (twoyz - twowx));
+
+            Double z =
+                (vector.X * (twoxz - twowy)) +
+                (vector.Y * (twoyz + twowx)) +
+                (vector.Z * (one   - twoxSq - twoySq));
 
             result.X = x;
             result.Y = y;
@@ -18449,8 +18449,8 @@ namespace Abacus.DoublePrecision
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector3 normal, 
-            ref Matrix44 matrix, 
+            ref Vector3 normal,
+            ref Matrix44 matrix,
             out Vector3 result)
         {
             if( !normal.IsUnit() )
@@ -18459,19 +18459,19 @@ namespace Abacus.DoublePrecision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Double x = 
-                (normal.X * matrix.M11) + 
-                (normal.Y * matrix.M21) + 
+            Double x =
+                (normal.X * matrix.M11) +
+                (normal.Y * matrix.M21) +
                 (normal.Z * matrix.M31);
 
-            Double y = 
-                (normal.X * matrix.M12) + 
-                (normal.Y * matrix.M22) + 
+            Double y =
+                (normal.X * matrix.M12) +
+                (normal.Y * matrix.M22) +
                 (normal.Z * matrix.M32);
 
-            Double z = 
-                (normal.X * matrix.M13) + 
-                (normal.Y * matrix.M23) + 
+            Double z =
+                (normal.X * matrix.M13) +
+                (normal.Y * matrix.M23) +
                 (normal.Z * matrix.M33);
 
             result.X = x;
@@ -19158,14 +19158,14 @@ namespace Abacus.DoublePrecision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Double result)
         {
-            Double dx = value1.X - value2.X;
-            Double dy = value1.Y - value2.Y;
-            Double dz = value1.Z - value2.Z;
-            Double dw = value1.W - value2.W;
+            Double dx = vector1.X - vector2.X;
+            Double dy = vector1.Y - vector2.Y;
+            Double dz = vector1.Z - vector2.Z;
+            Double dw = vector1.W - vector2.W;
 
             Double lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
@@ -19176,36 +19176,36 @@ namespace Abacus.DoublePrecision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Double result)
         {
-            Double dx = value1.X - value2.X;
-            Double dy = value1.Y - value2.Y;
-            Double dz = value1.Z - value2.Z;
-            Double dw = value1.W - value2.W;
+            Double dx = vector1.X - vector2.X;
+            Double dy = vector1.Y - vector2.Y;
+            Double dz = vector1.Z - vector2.Z;
+            Double dw = vector1.W - vector2.W;
 
             result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Double result)
         {
-            result = 
-                (value1.X * value2.X) +
-                (value1.Y * value2.Y) +
-                (value1.Z * value2.Z) +
-                (value1.W * value2.W);
+            result =
+                (vector1.X * vector2.X) +
+                (vector1.Y * vector2.Y) +
+                (vector1.Z * vector2.Z) +
+                (vector1.W * vector2.W);
         }
 
         /// <summary>
@@ -19214,14 +19214,14 @@ namespace Abacus.DoublePrecision
         /// original vector.
         /// </summary>
         public static void Normalise (
-            ref Vector4 value, 
+            ref Vector4 vector,
             out Vector4 result)
         {
             Double lengthSquared =
-                (value.X * value.X) +
-                (value.Y * value.Y) +
-                (value.Z * value.Z) +
-                (value.W * value.W);
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
 
             Double epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -19234,44 +19234,44 @@ namespace Abacus.DoublePrecision
             Double one = 1;
             Double multiplier = one / (RealMaths.Sqrt (lengthSquared));
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
-            result.Z = value.Z * multiplier;
-            result.W = value.W * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
+            result.W = vector.W * multiplier;
         }
 
         /// <summary>
         /// Transforms a Vector4 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Matrix44 matrix, 
+            ref Vector4 vector,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
-            Double x = 
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) + 
-                (value.Z * matrix.M31) +
-                (value.W * matrix.M41);
-            
-            Double y = 
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) + 
-                (value.Z * matrix.M32) +
-                (value.W * matrix.M42);
-            
-            Double z = 
-                (value.X * matrix.M13) + 
-                (value.Y * matrix.M23) + 
-                (value.Z * matrix.M33) +
-                (value.W * matrix.M43);
-            
-            Double w = 
-                (value.X * matrix.M14) + 
-                (value.Y * matrix.M24) + 
-                (value.Z * matrix.M34) +
-                (value.W * matrix.M44);
-            
+            Double x =
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
+                (vector.Z * matrix.M31) +
+                (vector.W * matrix.M41);
+
+            Double y =
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
+                (vector.Z * matrix.M32) +
+                (vector.W * matrix.M42);
+
+            Double z =
+                (vector.X * matrix.M13) +
+                (vector.Y * matrix.M23) +
+                (vector.Z * matrix.M33) +
+                (vector.W * matrix.M43);
+
+            Double w =
+                (vector.X * matrix.M14) +
+                (vector.Y * matrix.M24) +
+                (vector.Z * matrix.M34) +
+                (vector.W * matrix.M44);
+
             result.X = x;
             result.Y = y;
             result.Z = z;
@@ -19282,8 +19282,8 @@ namespace Abacus.DoublePrecision
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Quaternion rotation, 
+            ref Vector4 vector,
+            ref Quaternion rotation,
             out Vector4 result)
         {
             Double one = 1;
@@ -19305,33 +19305,33 @@ namespace Abacus.DoublePrecision
             Double twoySq = two * qySq;
             Double twozSq = two * qzSq;
 
-            Double x = 
-                (value.X * (one   - twoySq - twozSq)) + 
-                (value.Y * (twoxy - twowz)) + 
-                (value.Z * (twoxz + twowy));
-            
-            Double y = 
-                (value.X * (twoxy + twowz)) + 
-                (value.Y * (one   - twoxSq - twozSq)) + 
-                (value.Z * (twoyz - twowx));
-            
-            Double z = 
-                (value.X * (twoxz - twowy)) + 
-                (value.Y * (twoyz + twowx)) + 
-                (value.Z * (one   - twoxSq - twoySq));
+            Double x =
+                (vector.X * (one   - twoySq - twozSq)) +
+                (vector.Y * (twoxy - twowz)) +
+                (vector.Z * (twoxz + twowy));
+
+            Double y =
+                (vector.X * (twoxy + twowz)) +
+                (vector.Y * (one   - twoxSq - twozSq)) +
+                (vector.Z * (twoyz - twowx));
+
+            Double z =
+                (vector.X * (twoxz - twowy)) +
+                (vector.Y * (twoyz + twowx)) +
+                (vector.Z * (one   - twoxSq - twoySq));
 
             result.X = x;
             result.Y = y;
             result.Z = z;
-            result.W = value.W;
+            result.W = vector.W;
         }
 
         /// <summary>
         /// Transforms a normalised Vector4 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector4 normal, 
-            ref Matrix44 matrix, 
+            ref Vector4 normal,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
             if( !normal.IsUnit() )
@@ -19340,20 +19340,20 @@ namespace Abacus.DoublePrecision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Double x = 
-                (normal.X * matrix.M11) + (normal.Y * matrix.M21) + 
+            Double x =
+                (normal.X * matrix.M11) + (normal.Y * matrix.M21) +
                 (normal.Z * matrix.M31) + (normal.W * matrix.M41);
-            
-            Double y = 
-                (normal.X * matrix.M12) + (normal.Y * matrix.M22) + 
+
+            Double y =
+                (normal.X * matrix.M12) + (normal.Y * matrix.M22) +
                 (normal.Z * matrix.M32) + (normal.W * matrix.M42);
-            
-            Double z = 
-                (normal.X * matrix.M13) + (normal.Y * matrix.M23) + 
+
+            Double z =
+                (normal.X * matrix.M13) + (normal.Y * matrix.M23) +
                 (normal.Z * matrix.M33) + (normal.W * matrix.M43);
-            
-            Double w = 
-                (normal.X * matrix.M14) + (normal.Y * matrix.M24) + 
+
+            Double w =
+                (normal.X * matrix.M14) + (normal.Y * matrix.M24) +
                 (normal.Z * matrix.M34) + (normal.W * matrix.M44);
 
             result.X = x;
@@ -23153,10 +23153,10 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Fixed32 result)
         {
-            Fixed32 dx = value1.X - value2.X;
-            Fixed32 dy = value1.Y - value2.Y;
+            Fixed32 dx = vector1.X - vector2.X;
+            Fixed32 dy = vector1.Y - vector2.Y;
 
             Fixed32 lengthSquared = (dx * dx) + (dy * dy);
 
@@ -23167,26 +23167,26 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Fixed32 result)
         {
-            Fixed32 dx = value1.X - value2.X;
-            Fixed32 dy = value1.Y - value2.Y;
+            Fixed32 dx = vector1.X - vector2.X;
+            Fixed32 dy = vector1.Y - vector2.Y;
 
             result = (dx * dx) + (dy * dy);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector2 value1, ref Vector2 value2, out Fixed32 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Fixed32 result)
         {
-            result = (value1.X * value2.X) + (value1.Y * value2.Y);
+            result = (vector1.X * vector2.X) + (vector1.Y * vector2.Y);
         }
 
         /// <summary>
@@ -23194,10 +23194,10 @@ namespace Abacus.Fixed32Precision
         /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
-        public static void Normalise (ref Vector2 value, out Vector2 result)
+        public static void Normalise (ref Vector2 vector, out Vector2 result)
         {
             Fixed32 lengthSquared =
-                (value.X * value.X) + (value.Y * value.Y);
+                (vector.X * vector.X) + (vector.Y * vector.Y);
 
             Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -23210,13 +23210,13 @@ namespace Abacus.Fixed32Precision
             Fixed32 one = 1;
             Fixed32 multiplier = one / RealMaths.Sqrt (lengthSquared);
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
 
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a
+        /// Returns the vector of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -23246,16 +23246,16 @@ namespace Abacus.Fixed32Precision
         /// Transforms a Vector2 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Matrix44 matrix, out Vector2 result)
+            ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             Fixed32 x =
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) +
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
                 matrix.M41;
 
             Fixed32 y =
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) +
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
                 matrix.M42;
 
             result.X = x;
@@ -23266,7 +23266,7 @@ namespace Abacus.Fixed32Precision
         /// Transforms a Vector2 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+            ref Vector2 vector, ref Quaternion rotation, out Vector2 result)
         {
             Fixed32 two = 2;
 
@@ -23278,15 +23278,15 @@ namespace Abacus.Fixed32Precision
             Fixed32 wz = w * z;
             Fixed32 xy = x * y;
 
-            result.X = 
-                value.X - 
-                (value.X * two * (yy - zz)) + 
-                (value.Y * two * (xy - wz));
+            result.X =
+                vector.X -
+                (vector.X * two * (yy - zz)) +
+                (vector.Y * two * (xy - wz));
 
-            result.Y = 
-                value.Y -
-                (value.X * two * (xy + wz)) +
-                (value.Y * two * (xx - zz));
+            result.Y =
+                vector.Y -
+                (vector.X * two * (xy + wz)) +
+                (vector.Y * two * (xx - zz));
         }
 
         /// <summary>
@@ -24008,13 +24008,13 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector3 value1, 
-            ref Vector3 value2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Fixed32 result)
         {
-            Fixed32 dx = value1.X - value2.X;
-            Fixed32 dy = value1.Y - value2.Y;
-            Fixed32 dz = value1.Z - value2.Z;
+            Fixed32 dx = vector1.X - vector2.X;
+            Fixed32 dy = vector1.Y - vector2.Y;
+            Fixed32 dz = vector1.Z - vector2.Z;
 
             Fixed32 lengthSquared = (dx * dx) + (dy * dy) + (dz * dz);
 
@@ -24025,33 +24025,33 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector3 value1, 
-            ref Vector3 value2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Fixed32 result)
         {
-            Fixed32 dx = value1.X - value2.X;
-            Fixed32 dy = value1.Y - value2.Y;
-            Fixed32 dz = value1.Z - value2.Z;
+            Fixed32 dx = vector1.X - vector2.X;
+            Fixed32 dy = vector1.Y - vector2.Y;
+            Fixed32 dz = vector1.Z - vector2.Z;
 
             result = (dx * dx) + (dy * dy) + (dz * dz);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector3 vector1, 
-            ref Vector3 vector2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Fixed32 result)
         {
-            result = 
+            result =
                 (vector1.X * vector2.X) +
-                (vector1.Y * vector2.Y) + 
+                (vector1.Y * vector2.Y) +
                 (vector1.Z * vector2.Z);
         }
 
@@ -24060,12 +24060,12 @@ namespace Abacus.Fixed32Precision
         /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
-        public static void Normalise (ref Vector3 value, out Vector3 result)
+        public static void Normalise (ref Vector3 vector, out Vector3 result)
         {
             Fixed32 lengthSquared =
-                (value.X * value.X) +
-                (value.Y * value.Y) +
-                (value.Z * value.Z);
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
 
             Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -24078,17 +24078,17 @@ namespace Abacus.Fixed32Precision
             Fixed32 one = 1;
             Fixed32 multiplier = one / RealMaths.Sqrt (lengthSquared);
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
-            result.Z = value.Z * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
         }
 
         /// <summary>
         /// Calculates the cross product of two vectors.
         /// </summary>
         public static void Cross (
-            ref Vector3 vector1, 
-            ref Vector3 vector2, 
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             out Vector3 result)
         {
             result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -24097,12 +24097,12 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a
+        /// Returns the vector of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
             ref Vector3 vector,
-            ref Vector3 normal, 
+            ref Vector3 normal,
             out Vector3 result)
         {
             if( !normal.IsUnit() )
@@ -24112,9 +24112,9 @@ namespace Abacus.Fixed32Precision
 
             Fixed32 two = 2;
 
-            Fixed32 num = 
-                (vector.X * normal.X) + 
-                (vector.Y * normal.Y) + 
+            Fixed32 num =
+                (vector.X * normal.X) +
+                (vector.Y * normal.Y) +
                 (vector.Z * normal.Z);
 
             result.X = vector.X - ((two * num) * normal.X);
@@ -24126,25 +24126,25 @@ namespace Abacus.Fixed32Precision
         /// Transforms a Vector3 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector3 value, 
-            ref Matrix44 matrix, 
+            ref Vector3 vector,
+            ref Matrix44 matrix,
             out Vector3 result)
         {
-            Fixed32 x = 
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) + 
-                (value.Z * matrix.M31) + matrix.M41;
-            
-            Fixed32 y = 
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) + 
-                (value.Z * matrix.M32) + matrix.M42;
-            
-            Fixed32 z = 
-                (value.X * matrix.M13) + 
-                (value.Y * matrix.M23) + 
-                (value.Z * matrix.M33) + matrix.M43;
-            
+            Fixed32 x =
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
+                (vector.Z * matrix.M31) + matrix.M41;
+
+            Fixed32 y =
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
+                (vector.Z * matrix.M32) + matrix.M42;
+
+            Fixed32 z =
+                (vector.X * matrix.M13) +
+                (vector.Y * matrix.M23) +
+                (vector.Z * matrix.M33) + matrix.M43;
+
             result.X = x;
             result.Y = y;
             result.Z = z;
@@ -24154,8 +24154,8 @@ namespace Abacus.Fixed32Precision
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector3 value, 
-            ref Quaternion rotation, 
+            ref Vector3 vector,
+            ref Quaternion rotation,
             out Vector3 result)
         {
             Fixed32 one = 1;
@@ -24177,20 +24177,20 @@ namespace Abacus.Fixed32Precision
             Fixed32 twoySq = two * qySq;
             Fixed32 twozSq = two * qzSq;
 
-            Fixed32 x = 
-                (value.X * (one   - twoySq - twozSq)) + 
-                (value.Y * (twoxy - twowz)) + 
-                (value.Z * (twoxz + twowy));
-            
-            Fixed32 y = 
-                (value.X * (twoxy + twowz)) + 
-                (value.Y * (one   - twoxSq - twozSq)) + 
-                (value.Z * (twoyz - twowx));
-            
-            Fixed32 z = 
-                (value.X * (twoxz - twowy)) + 
-                (value.Y * (twoyz + twowx)) + 
-                (value.Z * (one   - twoxSq - twoySq));
+            Fixed32 x =
+                (vector.X * (one   - twoySq - twozSq)) +
+                (vector.Y * (twoxy - twowz)) +
+                (vector.Z * (twoxz + twowy));
+
+            Fixed32 y =
+                (vector.X * (twoxy + twowz)) +
+                (vector.Y * (one   - twoxSq - twozSq)) +
+                (vector.Z * (twoyz - twowx));
+
+            Fixed32 z =
+                (vector.X * (twoxz - twowy)) +
+                (vector.Y * (twoyz + twowx)) +
+                (vector.Z * (one   - twoxSq - twoySq));
 
             result.X = x;
             result.Y = y;
@@ -24201,8 +24201,8 @@ namespace Abacus.Fixed32Precision
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector3 normal, 
-            ref Matrix44 matrix, 
+            ref Vector3 normal,
+            ref Matrix44 matrix,
             out Vector3 result)
         {
             if( !normal.IsUnit() )
@@ -24211,19 +24211,19 @@ namespace Abacus.Fixed32Precision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Fixed32 x = 
-                (normal.X * matrix.M11) + 
-                (normal.Y * matrix.M21) + 
+            Fixed32 x =
+                (normal.X * matrix.M11) +
+                (normal.Y * matrix.M21) +
                 (normal.Z * matrix.M31);
 
-            Fixed32 y = 
-                (normal.X * matrix.M12) + 
-                (normal.Y * matrix.M22) + 
+            Fixed32 y =
+                (normal.X * matrix.M12) +
+                (normal.Y * matrix.M22) +
                 (normal.Z * matrix.M32);
 
-            Fixed32 z = 
-                (normal.X * matrix.M13) + 
-                (normal.Y * matrix.M23) + 
+            Fixed32 z =
+                (normal.X * matrix.M13) +
+                (normal.Y * matrix.M23) +
                 (normal.Z * matrix.M33);
 
             result.X = x;
@@ -24910,14 +24910,14 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Fixed32 result)
         {
-            Fixed32 dx = value1.X - value2.X;
-            Fixed32 dy = value1.Y - value2.Y;
-            Fixed32 dz = value1.Z - value2.Z;
-            Fixed32 dw = value1.W - value2.W;
+            Fixed32 dx = vector1.X - vector2.X;
+            Fixed32 dy = vector1.Y - vector2.Y;
+            Fixed32 dz = vector1.Z - vector2.Z;
+            Fixed32 dw = vector1.W - vector2.W;
 
             Fixed32 lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
@@ -24928,36 +24928,36 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Fixed32 result)
         {
-            Fixed32 dx = value1.X - value2.X;
-            Fixed32 dy = value1.Y - value2.Y;
-            Fixed32 dz = value1.Z - value2.Z;
-            Fixed32 dw = value1.W - value2.W;
+            Fixed32 dx = vector1.X - vector2.X;
+            Fixed32 dy = vector1.Y - vector2.Y;
+            Fixed32 dz = vector1.Z - vector2.Z;
+            Fixed32 dw = vector1.W - vector2.W;
 
             result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out Fixed32 result)
         {
-            result = 
-                (value1.X * value2.X) +
-                (value1.Y * value2.Y) +
-                (value1.Z * value2.Z) +
-                (value1.W * value2.W);
+            result =
+                (vector1.X * vector2.X) +
+                (vector1.Y * vector2.Y) +
+                (vector1.Z * vector2.Z) +
+                (vector1.W * vector2.W);
         }
 
         /// <summary>
@@ -24966,14 +24966,14 @@ namespace Abacus.Fixed32Precision
         /// original vector.
         /// </summary>
         public static void Normalise (
-            ref Vector4 value, 
+            ref Vector4 vector,
             out Vector4 result)
         {
             Fixed32 lengthSquared =
-                (value.X * value.X) +
-                (value.Y * value.Y) +
-                (value.Z * value.Z) +
-                (value.W * value.W);
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
 
             Fixed32 epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -24986,44 +24986,44 @@ namespace Abacus.Fixed32Precision
             Fixed32 one = 1;
             Fixed32 multiplier = one / (RealMaths.Sqrt (lengthSquared));
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
-            result.Z = value.Z * multiplier;
-            result.W = value.W * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
+            result.W = vector.W * multiplier;
         }
 
         /// <summary>
         /// Transforms a Vector4 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Matrix44 matrix, 
+            ref Vector4 vector,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
-            Fixed32 x = 
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) + 
-                (value.Z * matrix.M31) +
-                (value.W * matrix.M41);
-            
-            Fixed32 y = 
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) + 
-                (value.Z * matrix.M32) +
-                (value.W * matrix.M42);
-            
-            Fixed32 z = 
-                (value.X * matrix.M13) + 
-                (value.Y * matrix.M23) + 
-                (value.Z * matrix.M33) +
-                (value.W * matrix.M43);
-            
-            Fixed32 w = 
-                (value.X * matrix.M14) + 
-                (value.Y * matrix.M24) + 
-                (value.Z * matrix.M34) +
-                (value.W * matrix.M44);
-            
+            Fixed32 x =
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
+                (vector.Z * matrix.M31) +
+                (vector.W * matrix.M41);
+
+            Fixed32 y =
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
+                (vector.Z * matrix.M32) +
+                (vector.W * matrix.M42);
+
+            Fixed32 z =
+                (vector.X * matrix.M13) +
+                (vector.Y * matrix.M23) +
+                (vector.Z * matrix.M33) +
+                (vector.W * matrix.M43);
+
+            Fixed32 w =
+                (vector.X * matrix.M14) +
+                (vector.Y * matrix.M24) +
+                (vector.Z * matrix.M34) +
+                (vector.W * matrix.M44);
+
             result.X = x;
             result.Y = y;
             result.Z = z;
@@ -25034,8 +25034,8 @@ namespace Abacus.Fixed32Precision
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Quaternion rotation, 
+            ref Vector4 vector,
+            ref Quaternion rotation,
             out Vector4 result)
         {
             Fixed32 one = 1;
@@ -25057,33 +25057,33 @@ namespace Abacus.Fixed32Precision
             Fixed32 twoySq = two * qySq;
             Fixed32 twozSq = two * qzSq;
 
-            Fixed32 x = 
-                (value.X * (one   - twoySq - twozSq)) + 
-                (value.Y * (twoxy - twowz)) + 
-                (value.Z * (twoxz + twowy));
-            
-            Fixed32 y = 
-                (value.X * (twoxy + twowz)) + 
-                (value.Y * (one   - twoxSq - twozSq)) + 
-                (value.Z * (twoyz - twowx));
-            
-            Fixed32 z = 
-                (value.X * (twoxz - twowy)) + 
-                (value.Y * (twoyz + twowx)) + 
-                (value.Z * (one   - twoxSq - twoySq));
+            Fixed32 x =
+                (vector.X * (one   - twoySq - twozSq)) +
+                (vector.Y * (twoxy - twowz)) +
+                (vector.Z * (twoxz + twowy));
+
+            Fixed32 y =
+                (vector.X * (twoxy + twowz)) +
+                (vector.Y * (one   - twoxSq - twozSq)) +
+                (vector.Z * (twoyz - twowx));
+
+            Fixed32 z =
+                (vector.X * (twoxz - twowy)) +
+                (vector.Y * (twoyz + twowx)) +
+                (vector.Z * (one   - twoxSq - twoySq));
 
             result.X = x;
             result.Y = y;
             result.Z = z;
-            result.W = value.W;
+            result.W = vector.W;
         }
 
         /// <summary>
         /// Transforms a normalised Vector4 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector4 normal, 
-            ref Matrix44 matrix, 
+            ref Vector4 normal,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
             if( !normal.IsUnit() )
@@ -25092,20 +25092,20 @@ namespace Abacus.Fixed32Precision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Fixed32 x = 
-                (normal.X * matrix.M11) + (normal.Y * matrix.M21) + 
+            Fixed32 x =
+                (normal.X * matrix.M11) + (normal.Y * matrix.M21) +
                 (normal.Z * matrix.M31) + (normal.W * matrix.M41);
-            
-            Fixed32 y = 
-                (normal.X * matrix.M12) + (normal.Y * matrix.M22) + 
+
+            Fixed32 y =
+                (normal.X * matrix.M12) + (normal.Y * matrix.M22) +
                 (normal.Z * matrix.M32) + (normal.W * matrix.M42);
-            
-            Fixed32 z = 
-                (normal.X * matrix.M13) + (normal.Y * matrix.M23) + 
+
+            Fixed32 z =
+                (normal.X * matrix.M13) + (normal.Y * matrix.M23) +
                 (normal.Z * matrix.M33) + (normal.W * matrix.M43);
-            
-            Fixed32 w = 
-                (normal.X * matrix.M14) + (normal.Y * matrix.M24) + 
+
+            Fixed32 w =
+                (normal.X * matrix.M14) + (normal.Y * matrix.M24) +
                 (normal.Z * matrix.M34) + (normal.W * matrix.M44);
 
             result.X = x;

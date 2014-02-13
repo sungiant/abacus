@@ -4,14 +4,14 @@
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out <#= type #> result)
         {
-            <#= type #> dx = value1.X - value2.X;
-            <#= type #> dy = value1.Y - value2.Y;
-            <#= type #> dz = value1.Z - value2.Z;
-            <#= type #> dw = value1.W - value2.W;
+            <#= type #> dx = vector1.X - vector2.X;
+            <#= type #> dy = vector1.Y - vector2.Y;
+            <#= type #> dz = vector1.Z - vector2.Z;
+            <#= type #> dw = vector1.W - vector2.W;
 
             <#= type #> lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
@@ -22,36 +22,36 @@
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out <#= type #> result)
         {
-            <#= type #> dx = value1.X - value2.X;
-            <#= type #> dy = value1.Y - value2.Y;
-            <#= type #> dz = value1.Z - value2.Z;
-            <#= type #> dw = value1.W - value2.W;
+            <#= type #> dx = vector1.X - vector2.X;
+            <#= type #> dy = vector1.Y - vector2.Y;
+            <#= type #> dz = vector1.Z - vector2.Z;
+            <#= type #> dw = vector1.W - vector2.W;
 
             result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector4 value1, 
-            ref Vector4 value2, 
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             out <#= type #> result)
         {
-            result = 
-                (value1.X * value2.X) +
-                (value1.Y * value2.Y) +
-                (value1.Z * value2.Z) +
-                (value1.W * value2.W);
+            result =
+                (vector1.X * vector2.X) +
+                (vector1.Y * vector2.Y) +
+                (vector1.Z * vector2.Z) +
+                (vector1.W * vector2.W);
         }
 
         /// <summary>
@@ -60,14 +60,14 @@
         /// original vector.
         /// </summary>
         public static void Normalise (
-            ref Vector4 value, 
+            ref Vector4 vector,
             out Vector4 result)
         {
             <#= type #> lengthSquared =
-                (value.X * value.X) +
-                (value.Y * value.Y) +
-                (value.Z * value.Z) +
-                (value.W * value.W);
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
 
             <#= type #> epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -80,44 +80,44 @@
             <#= type #> one = 1;
             <#= type #> multiplier = one / (RealMaths.Sqrt (lengthSquared));
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
-            result.Z = value.Z * multiplier;
-            result.W = value.W * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
+            result.W = vector.W * multiplier;
         }
 
         /// <summary>
         /// Transforms a Vector4 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Matrix44 matrix, 
+            ref Vector4 vector,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
-            <#= type #> x = 
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) + 
-                (value.Z * matrix.M31) +
-                (value.W * matrix.M41);
-            
-            <#= type #> y = 
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) + 
-                (value.Z * matrix.M32) +
-                (value.W * matrix.M42);
-            
-            <#= type #> z = 
-                (value.X * matrix.M13) + 
-                (value.Y * matrix.M23) + 
-                (value.Z * matrix.M33) +
-                (value.W * matrix.M43);
-            
-            <#= type #> w = 
-                (value.X * matrix.M14) + 
-                (value.Y * matrix.M24) + 
-                (value.Z * matrix.M34) +
-                (value.W * matrix.M44);
-            
+            <#= type #> x =
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
+                (vector.Z * matrix.M31) +
+                (vector.W * matrix.M41);
+
+            <#= type #> y =
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
+                (vector.Z * matrix.M32) +
+                (vector.W * matrix.M42);
+
+            <#= type #> z =
+                (vector.X * matrix.M13) +
+                (vector.Y * matrix.M23) +
+                (vector.Z * matrix.M33) +
+                (vector.W * matrix.M43);
+
+            <#= type #> w =
+                (vector.X * matrix.M14) +
+                (vector.Y * matrix.M24) +
+                (vector.Z * matrix.M34) +
+                (vector.W * matrix.M44);
+
             result.X = x;
             result.Y = y;
             result.Z = z;
@@ -128,8 +128,8 @@
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector4 value, 
-            ref Quaternion rotation, 
+            ref Vector4 vector,
+            ref Quaternion rotation,
             out Vector4 result)
         {
             <#= type #> one = 1;
@@ -151,33 +151,33 @@
             <#= type #> twoySq = two * qySq;
             <#= type #> twozSq = two * qzSq;
 
-            <#= type #> x = 
-                (value.X * (one   - twoySq - twozSq)) + 
-                (value.Y * (twoxy - twowz)) + 
-                (value.Z * (twoxz + twowy));
-            
-            <#= type #> y = 
-                (value.X * (twoxy + twowz)) + 
-                (value.Y * (one   - twoxSq - twozSq)) + 
-                (value.Z * (twoyz - twowx));
-            
-            <#= type #> z = 
-                (value.X * (twoxz - twowy)) + 
-                (value.Y * (twoyz + twowx)) + 
-                (value.Z * (one   - twoxSq - twoySq));
+            <#= type #> x =
+                (vector.X * (one   - twoySq - twozSq)) +
+                (vector.Y * (twoxy - twowz)) +
+                (vector.Z * (twoxz + twowy));
+
+            <#= type #> y =
+                (vector.X * (twoxy + twowz)) +
+                (vector.Y * (one   - twoxSq - twozSq)) +
+                (vector.Z * (twoyz - twowx));
+
+            <#= type #> z =
+                (vector.X * (twoxz - twowy)) +
+                (vector.Y * (twoyz + twowx)) +
+                (vector.Z * (one   - twoxSq - twoySq));
 
             result.X = x;
             result.Y = y;
             result.Z = z;
-            result.W = value.W;
+            result.W = vector.W;
         }
 
         /// <summary>
         /// Transforms a normalised Vector4 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector4 normal, 
-            ref Matrix44 matrix, 
+            ref Vector4 normal,
+            ref Matrix44 matrix,
             out Vector4 result)
         {
             if( !normal.IsUnit() )
@@ -186,20 +186,20 @@
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            <#= type #> x = 
-                (normal.X * matrix.M11) + (normal.Y * matrix.M21) + 
+            <#= type #> x =
+                (normal.X * matrix.M11) + (normal.Y * matrix.M21) +
                 (normal.Z * matrix.M31) + (normal.W * matrix.M41);
-            
-            <#= type #> y = 
-                (normal.X * matrix.M12) + (normal.Y * matrix.M22) + 
+
+            <#= type #> y =
+                (normal.X * matrix.M12) + (normal.Y * matrix.M22) +
                 (normal.Z * matrix.M32) + (normal.W * matrix.M42);
-            
-            <#= type #> z = 
-                (normal.X * matrix.M13) + (normal.Y * matrix.M23) + 
+
+            <#= type #> z =
+                (normal.X * matrix.M13) + (normal.Y * matrix.M23) +
                 (normal.Z * matrix.M33) + (normal.W * matrix.M43);
-            
-            <#= type #> w = 
-                (normal.X * matrix.M14) + (normal.Y * matrix.M24) + 
+
+            <#= type #> w =
+                (normal.X * matrix.M14) + (normal.Y * matrix.M24) +
                 (normal.Z * matrix.M34) + (normal.W * matrix.M44);
 
             result.X = x;

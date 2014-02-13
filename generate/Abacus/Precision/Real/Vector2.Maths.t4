@@ -4,10 +4,10 @@
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
+            ref Vector2 vector1, ref Vector2 vector2, out <#= type #> result)
         {
-            <#= type #> dx = value1.X - value2.X;
-            <#= type #> dy = value1.Y - value2.Y;
+            <#= type #> dx = vector1.X - vector2.X;
+            <#= type #> dy = vector1.Y - vector2.Y;
 
             <#= type #> lengthSquared = (dx * dx) + (dy * dy);
 
@@ -18,26 +18,26 @@
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
+            ref Vector2 vector1, ref Vector2 vector2, out <#= type #> result)
         {
-            <#= type #> dx = value1.X - value2.X;
-            <#= type #> dy = value1.Y - value2.Y;
+            <#= type #> dx = vector1.X - vector2.X;
+            <#= type #> dy = vector1.Y - vector2.Y;
 
             result = (dx * dx) + (dy * dy);
         }
 
         /// <summary>
         /// Calculates the dot product of two vectors. If the two vectors are
-        /// unit vectors, the dot product returns a floating point value between
+        /// unit vectors, the dot product returns a floating point vector between
         /// -1 and 1 that can be used to determine some properties of the angle
         /// between two vectors. For example, it can show whether the vectors
         /// are orthogonal, parallel, or have an acute or obtuse angle between
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector2 value1, ref Vector2 value2, out <#= type #> result)
+            ref Vector2 vector1, ref Vector2 vector2, out <#= type #> result)
         {
-            result = (value1.X * value2.X) + (value1.Y * value2.Y);
+            result = (vector1.X * vector2.X) + (vector1.Y * vector2.Y);
         }
 
         /// <summary>
@@ -45,10 +45,10 @@
         /// vector one unit in length pointing in the same direction as the
         /// original vector.
         /// </summary>
-        public static void Normalise (ref Vector2 value, out Vector2 result)
+        public static void Normalise (ref Vector2 vector, out Vector2 result)
         {
             <#= type #> lengthSquared =
-                (value.X * value.X) + (value.Y * value.Y);
+                (vector.X * vector.X) + (vector.Y * vector.Y);
 
             <#= type #> epsilon; RealMaths.Epsilon(out epsilon);
 
@@ -61,13 +61,13 @@
             <#= type #> one = 1;
             <#= type #> multiplier = one / RealMaths.Sqrt (lengthSquared);
 
-            result.X = value.X * multiplier;
-            result.Y = value.Y * multiplier;
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
 
         }
 
         /// <summary>
-        /// Returns the value of an incident vector reflected across the a
+        /// Returns the vector of an incident vector reflected across the a
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
@@ -97,16 +97,16 @@
         /// Transforms a Vector2 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Matrix44 matrix, out Vector2 result)
+            ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             <#= type #> x =
-                (value.X * matrix.M11) + 
-                (value.Y * matrix.M21) +
+                (vector.X * matrix.M11) +
+                (vector.Y * matrix.M21) +
                 matrix.M41;
 
             <#= type #> y =
-                (value.X * matrix.M12) + 
-                (value.Y * matrix.M22) +
+                (vector.X * matrix.M12) +
+                (vector.Y * matrix.M22) +
                 matrix.M42;
 
             result.X = x;
@@ -117,7 +117,7 @@
         /// Transforms a Vector2 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector2 value, ref Quaternion rotation, out Vector2 result)
+            ref Vector2 vector, ref Quaternion rotation, out Vector2 result)
         {
             <#= type #> two = 2;
 
@@ -129,15 +129,15 @@
             <#= type #> wz = w * z;
             <#= type #> xy = x * y;
 
-            result.X = 
-                value.X - 
-                (value.X * two * (yy - zz)) + 
-                (value.Y * two * (xy - wz));
+            result.X =
+                vector.X -
+                (vector.X * two * (yy - zz)) +
+                (vector.Y * two * (xy - wz));
 
-            result.Y = 
-                value.Y -
-                (value.X * two * (xy + wz)) +
-                (value.Y * two * (xx - zz));
+            result.Y =
+                vector.Y -
+                (vector.X * two * (xy + wz)) +
+                (vector.Y * two * (xx - zz));
         }
 
         /// <summary>
