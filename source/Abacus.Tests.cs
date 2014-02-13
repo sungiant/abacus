@@ -9947,7 +9947,11 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
+            Vector2 position = new Vector2 (3, 4);
+
+            Single a = (Single) 6 / (Single) 10;
+            Single b = (Single) 8 / (Single) 10;
+
             Vector2.Normalise (ref position, out position);
             Single pi; RealMaths.Pi (out pi);
 
@@ -9956,15 +9960,10 @@ namespace Abacus.SinglePrecision.Tests
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
             Matrix44 rotmatxy = rotmatx * rotmaty;
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
-
-            Vector2.Normalise (ref expected1, out expected1);
-            Vector2.Normalise (ref expected2, out expected2);
-            Vector2.Normalise (ref expected3, out expected3);
-            Vector2.Normalise (ref expected4, out expected4);
+            Vector2 expected1 = new Vector2 ( a,  b);
+            Vector2 expected2 = new Vector2 ( a, -b);
+            Vector2 expected3 = new Vector2 (-a,  b);
+            Vector2 expected4 = new Vector2 (-a, -b);
 
             Vector2 test1; Vector2.TransformNormal (ref position, ref rotmati, out test1);
             Vector2 test2; Vector2.TransformNormal (ref position, ref rotmatx, out test2);
@@ -12060,8 +12059,12 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector3 position = new Vector3 (10, 50, -20);
+            Vector3 position = new Vector3 (3, 0, -4);
             Vector3.Normalise (ref position, out position);
+
+            Single a = (Single) 6 / (Single) 10;
+            Single b = 0;
+            Single c = (Single) 8 / (Single) 10;
 
             Single pi; RealMaths.Pi (out pi);
             Single tau; RealMaths.Tau (out tau);
@@ -12072,17 +12075,11 @@ namespace Abacus.SinglePrecision.Tests
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
-            Vector3 expected1 = new Vector3 ( 10,  50, -20);
-            Vector3 expected2 = new Vector3 ( 10, -50,  20);
-            Vector3 expected3 = new Vector3 ( 10,  50, -20);
-            Vector3 expected4 = new Vector3 (-10, -50, -20);
-            Vector3 expected5 = new Vector3 (-10,  50,  20);
-
-            Vector3.Normalise (ref expected1, out expected1);
-            Vector3.Normalise (ref expected2, out expected2);
-            Vector3.Normalise (ref expected3, out expected3);
-            Vector3.Normalise (ref expected4, out expected4);
-            Vector3.Normalise (ref expected5, out expected5);
+            Vector3 expected1 = new Vector3 ( a,  b, -c);
+            Vector3 expected2 = new Vector3 ( a, -b,  c);
+            Vector3 expected3 = new Vector3 ( a,  b, -c);
+            Vector3 expected4 = new Vector3 (-a, -b, -c);
+            Vector3 expected5 = new Vector3 (-a,  b,  c);
 
             Vector3 test1; Vector3.TransformNormal (ref position, ref rotmati, out test1);
             Vector3 test2; Vector3.TransformNormal (ref position, ref rotmatx, out test2);
@@ -14056,8 +14053,13 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector4 position = new Vector4 (-40, -20, 10, 20);
+            Vector4 position = new Vector4 (-3, -0, 0, 4);
             Vector4.Normalise (ref position, out position);
+
+            Single a = (Single) 6 / (Single) 10;
+            Single b = 0;
+            Single c = 0;
+            Single d = (Single) 8 / (Single) 10;
 
             Single pi; RealMaths.Pi (out pi);
             Single tau; RealMaths.Tau (out tau);
@@ -14068,17 +14070,11 @@ namespace Abacus.SinglePrecision.Tests
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
-            Vector4 expected1 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected2 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected3 = new Vector4 ( 40, -20, -10, 20);
-            Vector4 expected4 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected5 = new Vector4 ( 40, -20, -10, 20);
-
-            Vector4.Normalise (ref expected1, out expected1);
-            Vector4.Normalise (ref expected2, out expected2);
-            Vector4.Normalise (ref expected3, out expected3);
-            Vector4.Normalise (ref expected4, out expected4);
-            Vector4.Normalise (ref expected5, out expected5);
+            Vector4 expected1 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected2 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected3 = new Vector4 ( a, -b, -c, d);
+            Vector4 expected4 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected5 = new Vector4 ( a, -b, -c, d);
 
             Vector4 test1; Vector4.TransformNormal (ref position, ref rotmati, out test1);
             Vector4 test2; Vector4.TransformNormal (ref position, ref rotmatx, out test2);
@@ -17982,7 +17978,11 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
+            Vector2 position = new Vector2 (3, 4);
+
+            Double a = (Double) 6 / (Double) 10;
+            Double b = (Double) 8 / (Double) 10;
+
             Vector2.Normalise (ref position, out position);
             Single pi; RealMaths.Pi (out pi);
 
@@ -17991,15 +17991,10 @@ namespace Abacus.DoublePrecision.Tests
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
             Matrix44 rotmatxy = rotmatx * rotmaty;
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
-
-            Vector2.Normalise (ref expected1, out expected1);
-            Vector2.Normalise (ref expected2, out expected2);
-            Vector2.Normalise (ref expected3, out expected3);
-            Vector2.Normalise (ref expected4, out expected4);
+            Vector2 expected1 = new Vector2 ( a,  b);
+            Vector2 expected2 = new Vector2 ( a, -b);
+            Vector2 expected3 = new Vector2 (-a,  b);
+            Vector2 expected4 = new Vector2 (-a, -b);
 
             Vector2 test1; Vector2.TransformNormal (ref position, ref rotmati, out test1);
             Vector2 test2; Vector2.TransformNormal (ref position, ref rotmatx, out test2);
@@ -20095,8 +20090,12 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector3 position = new Vector3 (10, 50, -20);
+            Vector3 position = new Vector3 (3, 0, -4);
             Vector3.Normalise (ref position, out position);
+
+            Double a = (Double) 6 / (Double) 10;
+            Double b = 0;
+            Double c = (Double) 8 / (Double) 10;
 
             Single pi; RealMaths.Pi (out pi);
             Single tau; RealMaths.Tau (out tau);
@@ -20107,17 +20106,11 @@ namespace Abacus.DoublePrecision.Tests
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
-            Vector3 expected1 = new Vector3 ( 10,  50, -20);
-            Vector3 expected2 = new Vector3 ( 10, -50,  20);
-            Vector3 expected3 = new Vector3 ( 10,  50, -20);
-            Vector3 expected4 = new Vector3 (-10, -50, -20);
-            Vector3 expected5 = new Vector3 (-10,  50,  20);
-
-            Vector3.Normalise (ref expected1, out expected1);
-            Vector3.Normalise (ref expected2, out expected2);
-            Vector3.Normalise (ref expected3, out expected3);
-            Vector3.Normalise (ref expected4, out expected4);
-            Vector3.Normalise (ref expected5, out expected5);
+            Vector3 expected1 = new Vector3 ( a,  b, -c);
+            Vector3 expected2 = new Vector3 ( a, -b,  c);
+            Vector3 expected3 = new Vector3 ( a,  b, -c);
+            Vector3 expected4 = new Vector3 (-a, -b, -c);
+            Vector3 expected5 = new Vector3 (-a,  b,  c);
 
             Vector3 test1; Vector3.TransformNormal (ref position, ref rotmati, out test1);
             Vector3 test2; Vector3.TransformNormal (ref position, ref rotmatx, out test2);
@@ -22091,8 +22084,13 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector4 position = new Vector4 (-40, -20, 10, 20);
+            Vector4 position = new Vector4 (-3, -0, 0, 4);
             Vector4.Normalise (ref position, out position);
+
+            Double a = (Double) 6 / (Double) 10;
+            Double b = 0;
+            Double c = 0;
+            Double d = (Double) 8 / (Double) 10;
 
             Single pi; RealMaths.Pi (out pi);
             Single tau; RealMaths.Tau (out tau);
@@ -22103,17 +22101,11 @@ namespace Abacus.DoublePrecision.Tests
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
-            Vector4 expected1 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected2 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected3 = new Vector4 ( 40, -20, -10, 20);
-            Vector4 expected4 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected5 = new Vector4 ( 40, -20, -10, 20);
-
-            Vector4.Normalise (ref expected1, out expected1);
-            Vector4.Normalise (ref expected2, out expected2);
-            Vector4.Normalise (ref expected3, out expected3);
-            Vector4.Normalise (ref expected4, out expected4);
-            Vector4.Normalise (ref expected5, out expected5);
+            Vector4 expected1 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected2 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected3 = new Vector4 ( a, -b, -c, d);
+            Vector4 expected4 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected5 = new Vector4 ( a, -b, -c, d);
 
             Vector4 test1; Vector4.TransformNormal (ref position, ref rotmati, out test1);
             Vector4 test2; Vector4.TransformNormal (ref position, ref rotmatx, out test2);
@@ -26017,7 +26009,11 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
+            Vector2 position = new Vector2 (3, 4);
+
+            Fixed32 a = (Fixed32) 6 / (Fixed32) 10;
+            Fixed32 b = (Fixed32) 8 / (Fixed32) 10;
+
             Vector2.Normalise (ref position, out position);
             Single pi; RealMaths.Pi (out pi);
 
@@ -26026,15 +26022,10 @@ namespace Abacus.Fixed32Precision.Tests
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
             Matrix44 rotmatxy = rotmatx * rotmaty;
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
-
-            Vector2.Normalise (ref expected1, out expected1);
-            Vector2.Normalise (ref expected2, out expected2);
-            Vector2.Normalise (ref expected3, out expected3);
-            Vector2.Normalise (ref expected4, out expected4);
+            Vector2 expected1 = new Vector2 ( a,  b);
+            Vector2 expected2 = new Vector2 ( a, -b);
+            Vector2 expected3 = new Vector2 (-a,  b);
+            Vector2 expected4 = new Vector2 (-a, -b);
 
             Vector2 test1; Vector2.TransformNormal (ref position, ref rotmati, out test1);
             Vector2 test2; Vector2.TransformNormal (ref position, ref rotmatx, out test2);
@@ -28130,8 +28121,12 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector3 position = new Vector3 (10, 50, -20);
+            Vector3 position = new Vector3 (3, 0, -4);
             Vector3.Normalise (ref position, out position);
+
+            Fixed32 a = (Fixed32) 6 / (Fixed32) 10;
+            Fixed32 b = 0;
+            Fixed32 c = (Fixed32) 8 / (Fixed32) 10;
 
             Single pi; RealMaths.Pi (out pi);
             Single tau; RealMaths.Tau (out tau);
@@ -28142,17 +28137,11 @@ namespace Abacus.Fixed32Precision.Tests
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
-            Vector3 expected1 = new Vector3 ( 10,  50, -20);
-            Vector3 expected2 = new Vector3 ( 10, -50,  20);
-            Vector3 expected3 = new Vector3 ( 10,  50, -20);
-            Vector3 expected4 = new Vector3 (-10, -50, -20);
-            Vector3 expected5 = new Vector3 (-10,  50,  20);
-
-            Vector3.Normalise (ref expected1, out expected1);
-            Vector3.Normalise (ref expected2, out expected2);
-            Vector3.Normalise (ref expected3, out expected3);
-            Vector3.Normalise (ref expected4, out expected4);
-            Vector3.Normalise (ref expected5, out expected5);
+            Vector3 expected1 = new Vector3 ( a,  b, -c);
+            Vector3 expected2 = new Vector3 ( a, -b,  c);
+            Vector3 expected3 = new Vector3 ( a,  b, -c);
+            Vector3 expected4 = new Vector3 (-a, -b, -c);
+            Vector3 expected5 = new Vector3 (-a,  b,  c);
 
             Vector3 test1; Vector3.TransformNormal (ref position, ref rotmati, out test1);
             Vector3 test2; Vector3.TransformNormal (ref position, ref rotmatx, out test2);
@@ -30126,8 +30115,13 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector4 position = new Vector4 (-40, -20, 10, 20);
+            Vector4 position = new Vector4 (-3, -0, 0, 4);
             Vector4.Normalise (ref position, out position);
+
+            Fixed32 a = (Fixed32) 6 / (Fixed32) 10;
+            Fixed32 b = 0;
+            Fixed32 c = 0;
+            Fixed32 d = (Fixed32) 8 / (Fixed32) 10;
 
             Single pi; RealMaths.Pi (out pi);
             Single tau; RealMaths.Tau (out tau);
@@ -30138,17 +30132,11 @@ namespace Abacus.Fixed32Precision.Tests
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
-            Vector4 expected1 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected2 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected3 = new Vector4 ( 40, -20, -10, 20);
-            Vector4 expected4 = new Vector4 (-40, -20,  10, 20);
-            Vector4 expected5 = new Vector4 ( 40, -20, -10, 20);
-
-            Vector4.Normalise (ref expected1, out expected1);
-            Vector4.Normalise (ref expected2, out expected2);
-            Vector4.Normalise (ref expected3, out expected3);
-            Vector4.Normalise (ref expected4, out expected4);
-            Vector4.Normalise (ref expected5, out expected5);
+            Vector4 expected1 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected2 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected3 = new Vector4 ( a, -b, -c, d);
+            Vector4 expected4 = new Vector4 (-a, -b,  c, d);
+            Vector4 expected5 = new Vector4 ( a, -b, -c, d);
 
             Vector4 test1; Vector4.TransformNormal (ref position, ref rotmati, out test1);
             Vector4 test2; Vector4.TransformNormal (ref position, ref rotmatx, out test2);

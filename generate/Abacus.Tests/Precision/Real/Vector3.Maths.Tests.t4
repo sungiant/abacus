@@ -449,8 +449,12 @@
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector3 position = new Vector3 (10, 50, -20);
+            Vector3 position = new Vector3 (3, 0, -4);
             Vector3.Normalise (ref position, out position);
+
+            <#= type #> a = (<#= type #>) 6 / (<#= type #>) 10;
+            <#= type #> b = 0;
+            <#= type #> c = (<#= type #>) 8 / (<#= type #>) 10;
 
             Single pi; RealMaths.Pi (out pi);
             Single tau; RealMaths.Tau (out tau);
@@ -461,17 +465,11 @@
             Matrix44 rotmatz; Matrix44.CreateRotationZ(-pi, out rotmatz);
             Matrix44 rotmatxyz = rotmatx * rotmaty * rotmatz;
 
-            Vector3 expected1 = new Vector3 ( 10,  50, -20);
-            Vector3 expected2 = new Vector3 ( 10, -50,  20);
-            Vector3 expected3 = new Vector3 ( 10,  50, -20);
-            Vector3 expected4 = new Vector3 (-10, -50, -20);
-            Vector3 expected5 = new Vector3 (-10,  50,  20);
-
-            Vector3.Normalise (ref expected1, out expected1);
-            Vector3.Normalise (ref expected2, out expected2);
-            Vector3.Normalise (ref expected3, out expected3);
-            Vector3.Normalise (ref expected4, out expected4);
-            Vector3.Normalise (ref expected5, out expected5);
+            Vector3 expected1 = new Vector3 ( a,  b, -c);
+            Vector3 expected2 = new Vector3 ( a, -b,  c);
+            Vector3 expected3 = new Vector3 ( a,  b, -c);
+            Vector3 expected4 = new Vector3 (-a, -b, -c);
+            Vector3 expected5 = new Vector3 (-a,  b,  c);
 
             Vector3 test1; Vector3.TransformNormal (ref position, ref rotmati, out test1);
             Vector3 test2; Vector3.TransformNormal (ref position, ref rotmatx, out test2);

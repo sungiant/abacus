@@ -434,7 +434,11 @@
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Vector2 position = new Vector2 (8, 70);
+            Vector2 position = new Vector2 (3, 4);
+
+            <#= type #> a = (<#= type #>) 6 / (<#= type #>) 10;
+            <#= type #> b = (<#= type #>) 8 / (<#= type #>) 10;
+
             Vector2.Normalise (ref position, out position);
             Single pi; RealMaths.Pi (out pi);
 
@@ -443,15 +447,10 @@
             Matrix44 rotmaty; Matrix44.CreateRotationY(pi, out rotmaty);
             Matrix44 rotmatxy = rotmatx * rotmaty;
 
-            Vector2 expected1 = new Vector2 ( 8,  70);
-            Vector2 expected2 = new Vector2 ( 8, -70);
-            Vector2 expected3 = new Vector2 (-8,  70);
-            Vector2 expected4 = new Vector2 (-8, -70);
-
-            Vector2.Normalise (ref expected1, out expected1);
-            Vector2.Normalise (ref expected2, out expected2);
-            Vector2.Normalise (ref expected3, out expected3);
-            Vector2.Normalise (ref expected4, out expected4);
+            Vector2 expected1 = new Vector2 ( a,  b);
+            Vector2 expected2 = new Vector2 ( a, -b);
+            Vector2 expected3 = new Vector2 (-a,  b);
+            Vector2 expected4 = new Vector2 (-a, -b);
 
             Vector2 test1; Vector2.TransformNormal (ref position, ref rotmati, out test1);
             Vector2 test2; Vector2.TransformNormal (ref position, ref rotmatx, out test2);
