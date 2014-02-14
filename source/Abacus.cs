@@ -1247,7 +1247,7 @@ namespace Abacus
         /// <summary>
         /// todo
         /// </summary>
-        internal static void TestTolerance(out Single value) { value = 1.0e-4f; }
+        internal static void TestTolerance(out Single value) { value = 1.0e-3f; }
 
         /// <summary>
         /// todo
