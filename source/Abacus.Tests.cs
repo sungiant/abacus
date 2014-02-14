@@ -12707,7 +12707,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -12755,8 +12755,8 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.SmoothStep (
                             ref a, ref b, amount, out result)
                     );
@@ -12776,10 +12776,10 @@ namespace Abacus.SinglePrecision.Tests
 
             Single i;
             RealMaths.FromFraction(1755, 64, out i); // 27.421875
-            
+
             Single j;
             RealMaths.FromFraction( 165,  8, out j); // 20.625
-            
+
             Single k;
             RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
@@ -12831,7 +12831,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -12937,7 +12937,7 @@ namespace Abacus.SinglePrecision.Tests
             var b = GetNextRandomVector3();
             var c = GetNextRandomVector3();
             var d = GetNextRandomVector3();
-            
+
             Single half; RealMaths.Half(out half);
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
@@ -12947,8 +12947,8 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.CatmullRom (
                             ref a, ref b, ref c, ref d, amount, out result)
                 );
@@ -12963,10 +12963,10 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CatmullRom_iv ()
         {
-            var a = new Vector3( -90, -90, +90 );
-            var b = new Vector3( -30, -30, +30 );
-            var c = new Vector3( +30, +30, -30 );
-            var d = new Vector3( +90, +90, -90 );
+            var a = new Vector3( -90, -90, -90 );
+            var b = new Vector3( -30, -30, -30 );
+            var c = new Vector3( +30, +30, +30 );
+            var d = new Vector3( +90, +90, +90 );
 
             Single one = 1;
 
@@ -12977,9 +12977,9 @@ namespace Abacus.SinglePrecision.Tests
             Single a4 = 1;
 
             Vector3 r0 = b;
-            Vector3 r1 = new Vector3( -15, -15,  15 );
+            Vector3 r1 = new Vector3( -15, -15, -15 );
             Vector3 r2 = Vector3.Zero;
-            Vector3 r3 = new Vector3(  15,  15, -15 );
+            Vector3 r3 = new Vector3(  15,  15,  15 );
             Vector3 r4 = c;
 
             var knownResults = new List<Tuple<Single, Vector3>>
@@ -13006,7 +13006,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -13065,12 +13065,12 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Hermite (
                             ref a, ref an, ref b, ref bn, amount, out result)
                     );
-                
+
             }
         }
 
@@ -13090,7 +13090,7 @@ namespace Abacus.SinglePrecision.Tests
             Vector3 bn; Vector3.Normalise(ref d, out bn);
 
             Single one = 1;
-            
+
             // 100.1953125
             Single e = (Single) 51300 / (Single) 512;
 
@@ -13177,7 +13177,8 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
-                /// <summary>
+
+        /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector3 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -14894,23 +14895,6 @@ namespace Abacus.SinglePrecision.Tests
             Single a7 = (one * 7) / 8;
             Single a8 = 1;
 
-/*
-
-{X:-40 Y:-40 Z:-40 W:40}
-
-
-{X:-30 Y:-36.5625 Z:-36.5625 W:30}
-{X:-20 Y:-27.5 Z:-27.5 W:20}
-{X:-10 Y:-14.6875 Z:-14.6875 W:10}
-{X:0 Y:0 Z:0 W:0}
-{X:10 Y:14.6875 Z:14.6875 W:-10}
-{X:20 Y:27.5 Z:27.5 W:-20}
-{X:30 Y:36.5625 Z:36.5625 W:-30}
-
-
-{X:40 Y:40 Z:40 W:-40}
-
-*/
             Vector4 r0 = b;
             Vector4 r1 = new Vector4( -y, -v, -v,  y );
             Vector4 r2 = new Vector4( -x, -u, -u,  x );
@@ -14982,10 +14966,10 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_CatmullRom_iv ()
         {
-            var a = new Vector4( -90, +30, +90, -30 );
-            var b = new Vector4( -30, -30, +30, +30 );
-            var c = new Vector4( +30, +30, -30, -30 );
-            var d = new Vector4( +90, -30, -90, -30 );
+            var a = new Vector4( -90, -90, -90, -90 );
+            var b = new Vector4( -30, -30, -30, -30 );
+            var c = new Vector4( +30, +30, +30, +30 );
+            var d = new Vector4( +90, +90, +90, +90 );
 
             Single one = 1;
 
@@ -14996,9 +14980,9 @@ namespace Abacus.SinglePrecision.Tests
             Single a4 = 1;
 
             Vector4 r0 = b;
-            Vector4 r1 = new Vector4( -15, -15,  15,  15 );
+            Vector4 r1 = new Vector4( -15, -15, -15, -15 );
             Vector4 r2 = Vector4.Zero;
-            Vector4 r3 = new Vector4(  15,  15, -15, -15 );
+            Vector4 r3 = new Vector4(  15,  15,  15,  15 );
             Vector4 r4 = c;
 
             var knownResults = new List<Tuple<Single, Vector4>>
@@ -20834,7 +20818,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -20882,8 +20866,8 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.SmoothStep (
                             ref a, ref b, amount, out result)
                     );
@@ -20903,10 +20887,10 @@ namespace Abacus.DoublePrecision.Tests
 
             Double i;
             RealMaths.FromFraction(1755, 64, out i); // 27.421875
-            
+
             Double j;
             RealMaths.FromFraction( 165,  8, out j); // 20.625
-            
+
             Double k;
             RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
@@ -20958,7 +20942,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -21064,7 +21048,7 @@ namespace Abacus.DoublePrecision.Tests
             var b = GetNextRandomVector3();
             var c = GetNextRandomVector3();
             var d = GetNextRandomVector3();
-            
+
             Double half; RealMaths.Half(out half);
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
@@ -21074,8 +21058,8 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.CatmullRom (
                             ref a, ref b, ref c, ref d, amount, out result)
                 );
@@ -21090,10 +21074,10 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CatmullRom_iv ()
         {
-            var a = new Vector3( -90, -90, +90 );
-            var b = new Vector3( -30, -30, +30 );
-            var c = new Vector3( +30, +30, -30 );
-            var d = new Vector3( +90, +90, -90 );
+            var a = new Vector3( -90, -90, -90 );
+            var b = new Vector3( -30, -30, -30 );
+            var c = new Vector3( +30, +30, +30 );
+            var d = new Vector3( +90, +90, +90 );
 
             Double one = 1;
 
@@ -21104,9 +21088,9 @@ namespace Abacus.DoublePrecision.Tests
             Double a4 = 1;
 
             Vector3 r0 = b;
-            Vector3 r1 = new Vector3( -15, -15,  15 );
+            Vector3 r1 = new Vector3( -15, -15, -15 );
             Vector3 r2 = Vector3.Zero;
-            Vector3 r3 = new Vector3(  15,  15, -15 );
+            Vector3 r3 = new Vector3(  15,  15,  15 );
             Vector3 r4 = c;
 
             var knownResults = new List<Tuple<Double, Vector3>>
@@ -21133,7 +21117,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -21192,12 +21176,12 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Hermite (
                             ref a, ref an, ref b, ref bn, amount, out result)
                     );
-                
+
             }
         }
 
@@ -21217,7 +21201,7 @@ namespace Abacus.DoublePrecision.Tests
             Vector3 bn; Vector3.Normalise(ref d, out bn);
 
             Double one = 1;
-            
+
             // 100.1953125
             Double e = (Double) 51300 / (Double) 512;
 
@@ -21304,7 +21288,8 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
-                /// <summary>
+
+        /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector3 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -23021,23 +23006,6 @@ namespace Abacus.DoublePrecision.Tests
             Double a7 = (one * 7) / 8;
             Double a8 = 1;
 
-/*
-
-{X:-40 Y:-40 Z:-40 W:40}
-
-
-{X:-30 Y:-36.5625 Z:-36.5625 W:30}
-{X:-20 Y:-27.5 Z:-27.5 W:20}
-{X:-10 Y:-14.6875 Z:-14.6875 W:10}
-{X:0 Y:0 Z:0 W:0}
-{X:10 Y:14.6875 Z:14.6875 W:-10}
-{X:20 Y:27.5 Z:27.5 W:-20}
-{X:30 Y:36.5625 Z:36.5625 W:-30}
-
-
-{X:40 Y:40 Z:40 W:-40}
-
-*/
             Vector4 r0 = b;
             Vector4 r1 = new Vector4( -y, -v, -v,  y );
             Vector4 r2 = new Vector4( -x, -u, -u,  x );
@@ -23109,10 +23077,10 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_CatmullRom_iv ()
         {
-            var a = new Vector4( -90, +30, +90, -30 );
-            var b = new Vector4( -30, -30, +30, +30 );
-            var c = new Vector4( +30, +30, -30, -30 );
-            var d = new Vector4( +90, -30, -90, -30 );
+            var a = new Vector4( -90, -90, -90, -90 );
+            var b = new Vector4( -30, -30, -30, -30 );
+            var c = new Vector4( +30, +30, +30, +30 );
+            var d = new Vector4( +90, +90, +90, +90 );
 
             Double one = 1;
 
@@ -23123,9 +23091,9 @@ namespace Abacus.DoublePrecision.Tests
             Double a4 = 1;
 
             Vector4 r0 = b;
-            Vector4 r1 = new Vector4( -15, -15,  15,  15 );
+            Vector4 r1 = new Vector4( -15, -15, -15, -15 );
             Vector4 r2 = Vector4.Zero;
-            Vector4 r3 = new Vector4(  15,  15, -15, -15 );
+            Vector4 r3 = new Vector4(  15,  15,  15,  15 );
             Vector4 r4 = c;
 
             var knownResults = new List<Tuple<Double, Vector4>>
@@ -28961,7 +28929,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -29009,8 +28977,8 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.SmoothStep (
                             ref a, ref b, amount, out result)
                     );
@@ -29030,10 +28998,10 @@ namespace Abacus.Fixed32Precision.Tests
 
             Fixed32 i;
             RealMaths.FromFraction(1755, 64, out i); // 27.421875
-            
+
             Fixed32 j;
             RealMaths.FromFraction( 165,  8, out j); // 20.625
-            
+
             Fixed32 k;
             RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
@@ -29085,7 +29053,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -29191,7 +29159,7 @@ namespace Abacus.Fixed32Precision.Tests
             var b = GetNextRandomVector3();
             var c = GetNextRandomVector3();
             var d = GetNextRandomVector3();
-            
+
             Fixed32 half; RealMaths.Half(out half);
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
@@ -29201,8 +29169,8 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.CatmullRom (
                             ref a, ref b, ref c, ref d, amount, out result)
                 );
@@ -29217,10 +29185,10 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CatmullRom_iv ()
         {
-            var a = new Vector3( -90, -90, +90 );
-            var b = new Vector3( -30, -30, +30 );
-            var c = new Vector3( +30, +30, -30 );
-            var d = new Vector3( +90, +90, -90 );
+            var a = new Vector3( -90, -90, -90 );
+            var b = new Vector3( -30, -30, -30 );
+            var c = new Vector3( +30, +30, +30 );
+            var d = new Vector3( +90, +90, +90 );
 
             Fixed32 one = 1;
 
@@ -29231,9 +29199,9 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 a4 = 1;
 
             Vector3 r0 = b;
-            Vector3 r1 = new Vector3( -15, -15,  15 );
+            Vector3 r1 = new Vector3( -15, -15, -15 );
             Vector3 r2 = Vector3.Zero;
-            Vector3 r3 = new Vector3(  15,  15, -15 );
+            Vector3 r3 = new Vector3(  15,  15,  15 );
             Vector3 r4 = c;
 
             var knownResults = new List<Tuple<Fixed32, Vector3>>
@@ -29260,7 +29228,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -29319,12 +29287,12 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Hermite (
                             ref a, ref an, ref b, ref bn, amount, out result)
                     );
-                
+
             }
         }
 
@@ -29344,7 +29312,7 @@ namespace Abacus.Fixed32Precision.Tests
             Vector3 bn; Vector3.Normalise(ref d, out bn);
 
             Fixed32 one = 1;
-            
+
             // 100.1953125
             Fixed32 e = (Fixed32) 51300 / (Fixed32) 512;
 
@@ -29431,7 +29399,8 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
-                /// <summary>
+
+        /// <summary>
         /// Assert that, running the Min function on a number of randomly
         /// generated pairs of Vector3 objects, yields the same results as those
         /// obtained from performing a manual Min calculation.
@@ -31148,23 +31117,6 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 a7 = (one * 7) / 8;
             Fixed32 a8 = 1;
 
-/*
-
-{X:-40 Y:-40 Z:-40 W:40}
-
-
-{X:-30 Y:-36.5625 Z:-36.5625 W:30}
-{X:-20 Y:-27.5 Z:-27.5 W:20}
-{X:-10 Y:-14.6875 Z:-14.6875 W:10}
-{X:0 Y:0 Z:0 W:0}
-{X:10 Y:14.6875 Z:14.6875 W:-10}
-{X:20 Y:27.5 Z:27.5 W:-20}
-{X:30 Y:36.5625 Z:36.5625 W:-30}
-
-
-{X:40 Y:40 Z:40 W:-40}
-
-*/
             Vector4 r0 = b;
             Vector4 r1 = new Vector4( -y, -v, -v,  y );
             Vector4 r2 = new Vector4( -x, -u, -u,  x );
@@ -31236,10 +31188,10 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_CatmullRom_iv ()
         {
-            var a = new Vector4( -90, +30, +90, -30 );
-            var b = new Vector4( -30, -30, +30, +30 );
-            var c = new Vector4( +30, +30, -30, -30 );
-            var d = new Vector4( +90, -30, -90, -30 );
+            var a = new Vector4( -90, -90, -90, -90 );
+            var b = new Vector4( -30, -30, -30, -30 );
+            var c = new Vector4( +30, +30, +30, +30 );
+            var d = new Vector4( +90, +90, +90, +90 );
 
             Fixed32 one = 1;
 
@@ -31250,9 +31202,9 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 a4 = 1;
 
             Vector4 r0 = b;
-            Vector4 r1 = new Vector4( -15, -15,  15,  15 );
+            Vector4 r1 = new Vector4( -15, -15, -15, -15 );
             Vector4 r2 = Vector4.Zero;
-            Vector4 r3 = new Vector4(  15,  15, -15, -15 );
+            Vector4 r3 = new Vector4(  15,  15,  15,  15 );
             Vector4 r4 = c;
 
             var knownResults = new List<Tuple<Fixed32, Vector4>>

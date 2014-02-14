@@ -2,7 +2,7 @@
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -50,8 +50,8 @@
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.SmoothStep (
                             ref a, ref b, amount, out result)
                     );
@@ -71,10 +71,10 @@
 
             <#= type #> i;
             RealMaths.FromFraction(1755, 64, out i); // 27.421875
-            
+
             <#= type #> j;
             RealMaths.FromFraction( 165,  8, out j); // 20.625
-            
+
             <#= type #> k;
             RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
@@ -126,7 +126,7 @@
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -232,7 +232,7 @@
             var b = GetNextRandomVector3();
             var c = GetNextRandomVector3();
             var d = GetNextRandomVector3();
-            
+
             <#= type #> half; RealMaths.Half(out half);
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
@@ -242,8 +242,8 @@
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.CatmullRom (
                             ref a, ref b, ref c, ref d, amount, out result)
                 );
@@ -258,10 +258,10 @@
         [Test]
         public void TestStaticFn_CatmullRom_iv ()
         {
-            var a = new Vector3( -90, -90, +90 );
-            var b = new Vector3( -30, -30, +30 );
-            var c = new Vector3( +30, +30, -30 );
-            var d = new Vector3( +90, +90, -90 );
+            var a = new Vector3( -90, -90, -90 );
+            var b = new Vector3( -30, -30, -30 );
+            var c = new Vector3( +30, +30, +30 );
+            var d = new Vector3( +90, +90, +90 );
 
             <#= type #> one = 1;
 
@@ -272,9 +272,9 @@
             <#= type #> a4 = 1;
 
             Vector3 r0 = b;
-            Vector3 r1 = new Vector3( -15, -15,  15 );
+            Vector3 r1 = new Vector3( -15, -15, -15 );
             Vector3 r2 = Vector3.Zero;
-            Vector3 r3 = new Vector3(  15,  15, -15 );
+            Vector3 r3 = new Vector3(  15,  15,  15 );
             Vector3 r4 = c;
 
             var knownResults = new List<Tuple<<#= type #>, Vector3>>
@@ -301,7 +301,7 @@
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -360,12 +360,12 @@
                 Vector3 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Hermite (
                             ref a, ref an, ref b, ref bn, amount, out result)
                     );
-                
+
             }
         }
 
@@ -385,7 +385,7 @@
             Vector3 bn; Vector3.Normalise(ref d, out bn);
 
             <#= type #> one = 1;
-            
+
             // 100.1953125
             <#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512;
 
@@ -472,4 +472,4 @@
             }
         }
 
-        
+
