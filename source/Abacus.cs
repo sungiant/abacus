@@ -12043,7 +12043,7 @@ namespace Abacus.SinglePrecision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
             ref Vector2 a,
@@ -12056,7 +12056,7 @@ namespace Abacus.SinglePrecision
             Single two = 2;
             Single three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -12089,7 +12089,7 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -12118,9 +12118,9 @@ namespace Abacus.SinglePrecision
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 value1,
+            ref Vector2 vector1,
             ref Vector2 tangent1,
-            ref Vector2 value2,
+            ref Vector2 vector2,
             ref Vector2 tangent2,
             Single amount,
             out Vector2 result)
@@ -12130,7 +12130,7 @@ namespace Abacus.SinglePrecision
             Single two = 2;
             Single three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -12151,11 +12151,11 @@ namespace Abacus.SinglePrecision
             Single d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
         }
 
@@ -12971,11 +12971,11 @@ namespace Abacus.SinglePrecision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector3 value1,
-            ref Vector3 value2,
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             Single amount,
             out Vector3 result)
         {
@@ -12984,7 +12984,7 @@ namespace Abacus.SinglePrecision
             Single two = 2;
             Single three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -12993,9 +12993,9 @@ namespace Abacus.SinglePrecision
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = value1.X + ((value2.X - value1.X) * amount);
-            result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-            result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
         }
 
         /// <summary>
@@ -13009,10 +13009,10 @@ namespace Abacus.SinglePrecision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector3 value1,
-            ref Vector3 value2,
-            ref Vector3 value3,
-            ref Vector3 value4,
+            ref Vector3 vector1,
+            ref Vector3 vector2,
+            ref Vector3 vector3,
+            ref Vector3 vector4,
             Single amount,
             out Vector3 result)
         {
@@ -13024,7 +13024,7 @@ namespace Abacus.SinglePrecision
             Single four = 4;
             Single five = 5;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -13034,31 +13034,31 @@ namespace Abacus.SinglePrecision
             Single cubed = amount * squared;
 
             result.X =
-                half * ((((two * value2.X) + ((-value1.X + value3.X) *
-                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
-                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
-                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
+                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
+                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
+                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
 
             result.Y =
-                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
-                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
-                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
-                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
+                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
+                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
+                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
 
             result.Z =
-                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
-                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
-                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
-                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
+                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
+                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
+                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector3 value1,
+            ref Vector3 vector1,
             ref Vector3 tangent1,
-            ref Vector3 value2,
+            ref Vector3 vector2,
             ref Vector3 tangent2,
             Single amount,
             out Vector3 result)
@@ -13068,7 +13068,7 @@ namespace Abacus.SinglePrecision
             Single two = 2;
             Single three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -13089,15 +13089,15 @@ namespace Abacus.SinglePrecision
             Single d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
 
             result.Z =
-                (value1.Z * a) + (value2.Z * b) +
+                (vector1.Z * a) + (vector2.Z * b) +
                 (tangent1.Z * c) + (tangent2.Z * d);
         }
 
@@ -13417,7 +13417,8 @@ namespace Abacus.SinglePrecision
             Single dz = vector1.Z - vector2.Z;
             Single dw = vector1.W - vector2.W;
 
-            Single lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+            Single lengthSquared =
+                (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
             result = RealMaths.Sqrt (lengthSquared);
         }
@@ -13865,11 +13866,11 @@ namespace Abacus.SinglePrecision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector4 value1,
-            ref Vector4 value2,
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             Single amount,
             out Vector4 result)
         {
@@ -13878,7 +13879,7 @@ namespace Abacus.SinglePrecision
             Single two = 2;
             Single three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -13887,10 +13888,10 @@ namespace Abacus.SinglePrecision
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = value1.X + ((value2.X - value1.X) * amount);
-            result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-            result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-            result.W = value1.W + ((value2.W - value1.W) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
+            result.W = vector1.W + ((vector2.W - vector1.W) * amount);
         }
 
         /// <summary>
@@ -13904,10 +13905,10 @@ namespace Abacus.SinglePrecision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector4 value1,
-            ref Vector4 value2,
-            ref Vector4 value3,
-            ref Vector4 value4,
+            ref Vector4 vector1,
+            ref Vector4 vector2,
+            ref Vector4 vector3,
+            ref Vector4 vector4,
             Single amount,
             out Vector4 result)
         {
@@ -13919,7 +13920,7 @@ namespace Abacus.SinglePrecision
             Single four = 4;
             Single five = 5;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -13929,37 +13930,37 @@ namespace Abacus.SinglePrecision
             Single cubed = amount * squared;
 
             result.X =
-                half * ((((two * value2.X) + ((-value1.X + value3.X) *
-                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
-                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
-                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
+                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
+                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
+                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
 
             result.Y =
-                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
-                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
-                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
-                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
+                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
+                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
+                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
 
             result.Z =
-                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
-                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
-                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
-                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
+                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
+                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
+                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
 
             result.W =
-                half * ((((two * value2.W) + ((-value1.W + value3.W) *
-                amount)) + (((((two * value1.W) - (five * value2.W)) + (four *
-                value3.W)) - value4.W) * squared)) + ((((-value1.W + (three *
-                value2.W)) - (three * value3.W)) + value4.W) * cubed));
+                half * ((((two * vector2.W) + ((-vector1.W + vector3.W) *
+                amount)) + (((((two * vector1.W) - (five * vector2.W)) + (four *
+                vector3.W)) - vector4.W) * squared)) + ((((-vector1.W + (three *
+                vector2.W)) - (three * vector3.W)) + vector4.W) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector4 value1,
+            ref Vector4 vector1,
             ref Vector4 tangent1,
-            ref Vector4 value2,
+            ref Vector4 vector2,
             ref Vector4 tangent2,
             Single amount,
             out Vector4 result)
@@ -13969,7 +13970,7 @@ namespace Abacus.SinglePrecision
             Single two = 2;
             Single three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -13990,19 +13991,19 @@ namespace Abacus.SinglePrecision
             Single d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
 
             result.Z =
-                (value1.Z * a) + (value2.Z * b) +
+                (vector1.Z * a) + (vector2.Z * b) +
                 (tangent1.Z * c) + (tangent2.Z * d);
 
             result.W =
-                (value1.W * a) + (value2.W * b) +
+                (vector1.W * a) + (vector2.W * b) +
                 (tangent1.W * c) + (tangent2.W * d);
         }
 
@@ -17796,7 +17797,7 @@ namespace Abacus.DoublePrecision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
             ref Vector2 a,
@@ -17809,7 +17810,7 @@ namespace Abacus.DoublePrecision
             Double two = 2;
             Double three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -17842,7 +17843,7 @@ namespace Abacus.DoublePrecision
             Double zero = 0;
             Double one = 1;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -17871,9 +17872,9 @@ namespace Abacus.DoublePrecision
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 value1,
+            ref Vector2 vector1,
             ref Vector2 tangent1,
-            ref Vector2 value2,
+            ref Vector2 vector2,
             ref Vector2 tangent2,
             Double amount,
             out Vector2 result)
@@ -17883,7 +17884,7 @@ namespace Abacus.DoublePrecision
             Double two = 2;
             Double three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -17904,11 +17905,11 @@ namespace Abacus.DoublePrecision
             Double d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
         }
 
@@ -18724,11 +18725,11 @@ namespace Abacus.DoublePrecision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector3 value1,
-            ref Vector3 value2,
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             Double amount,
             out Vector3 result)
         {
@@ -18737,7 +18738,7 @@ namespace Abacus.DoublePrecision
             Double two = 2;
             Double three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -18746,9 +18747,9 @@ namespace Abacus.DoublePrecision
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = value1.X + ((value2.X - value1.X) * amount);
-            result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-            result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
         }
 
         /// <summary>
@@ -18762,10 +18763,10 @@ namespace Abacus.DoublePrecision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector3 value1,
-            ref Vector3 value2,
-            ref Vector3 value3,
-            ref Vector3 value4,
+            ref Vector3 vector1,
+            ref Vector3 vector2,
+            ref Vector3 vector3,
+            ref Vector3 vector4,
             Double amount,
             out Vector3 result)
         {
@@ -18777,7 +18778,7 @@ namespace Abacus.DoublePrecision
             Double four = 4;
             Double five = 5;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -18787,31 +18788,31 @@ namespace Abacus.DoublePrecision
             Double cubed = amount * squared;
 
             result.X =
-                half * ((((two * value2.X) + ((-value1.X + value3.X) *
-                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
-                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
-                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
+                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
+                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
+                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
 
             result.Y =
-                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
-                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
-                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
-                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
+                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
+                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
+                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
 
             result.Z =
-                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
-                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
-                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
-                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
+                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
+                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
+                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector3 value1,
+            ref Vector3 vector1,
             ref Vector3 tangent1,
-            ref Vector3 value2,
+            ref Vector3 vector2,
             ref Vector3 tangent2,
             Double amount,
             out Vector3 result)
@@ -18821,7 +18822,7 @@ namespace Abacus.DoublePrecision
             Double two = 2;
             Double three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -18842,15 +18843,15 @@ namespace Abacus.DoublePrecision
             Double d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
 
             result.Z =
-                (value1.Z * a) + (value2.Z * b) +
+                (vector1.Z * a) + (vector2.Z * b) +
                 (tangent1.Z * c) + (tangent2.Z * d);
         }
 
@@ -19170,7 +19171,8 @@ namespace Abacus.DoublePrecision
             Double dz = vector1.Z - vector2.Z;
             Double dw = vector1.W - vector2.W;
 
-            Double lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+            Double lengthSquared =
+                (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
             result = RealMaths.Sqrt (lengthSquared);
         }
@@ -19618,11 +19620,11 @@ namespace Abacus.DoublePrecision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector4 value1,
-            ref Vector4 value2,
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             Double amount,
             out Vector4 result)
         {
@@ -19631,7 +19633,7 @@ namespace Abacus.DoublePrecision
             Double two = 2;
             Double three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -19640,10 +19642,10 @@ namespace Abacus.DoublePrecision
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = value1.X + ((value2.X - value1.X) * amount);
-            result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-            result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-            result.W = value1.W + ((value2.W - value1.W) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
+            result.W = vector1.W + ((vector2.W - vector1.W) * amount);
         }
 
         /// <summary>
@@ -19657,10 +19659,10 @@ namespace Abacus.DoublePrecision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector4 value1,
-            ref Vector4 value2,
-            ref Vector4 value3,
-            ref Vector4 value4,
+            ref Vector4 vector1,
+            ref Vector4 vector2,
+            ref Vector4 vector3,
+            ref Vector4 vector4,
             Double amount,
             out Vector4 result)
         {
@@ -19672,7 +19674,7 @@ namespace Abacus.DoublePrecision
             Double four = 4;
             Double five = 5;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -19682,37 +19684,37 @@ namespace Abacus.DoublePrecision
             Double cubed = amount * squared;
 
             result.X =
-                half * ((((two * value2.X) + ((-value1.X + value3.X) *
-                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
-                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
-                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
+                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
+                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
+                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
 
             result.Y =
-                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
-                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
-                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
-                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
+                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
+                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
+                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
 
             result.Z =
-                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
-                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
-                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
-                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
+                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
+                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
+                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
 
             result.W =
-                half * ((((two * value2.W) + ((-value1.W + value3.W) *
-                amount)) + (((((two * value1.W) - (five * value2.W)) + (four *
-                value3.W)) - value4.W) * squared)) + ((((-value1.W + (three *
-                value2.W)) - (three * value3.W)) + value4.W) * cubed));
+                half * ((((two * vector2.W) + ((-vector1.W + vector3.W) *
+                amount)) + (((((two * vector1.W) - (five * vector2.W)) + (four *
+                vector3.W)) - vector4.W) * squared)) + ((((-vector1.W + (three *
+                vector2.W)) - (three * vector3.W)) + vector4.W) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector4 value1,
+            ref Vector4 vector1,
             ref Vector4 tangent1,
-            ref Vector4 value2,
+            ref Vector4 vector2,
             ref Vector4 tangent2,
             Double amount,
             out Vector4 result)
@@ -19722,7 +19724,7 @@ namespace Abacus.DoublePrecision
             Double two = 2;
             Double three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -19743,19 +19745,19 @@ namespace Abacus.DoublePrecision
             Double d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
 
             result.Z =
-                (value1.Z * a) + (value2.Z * b) +
+                (vector1.Z * a) + (vector2.Z * b) +
                 (tangent1.Z * c) + (tangent2.Z * d);
 
             result.W =
-                (value1.W * a) + (value2.W * b) +
+                (vector1.W * a) + (vector2.W * b) +
                 (tangent1.W * c) + (tangent2.W * d);
         }
 
@@ -23549,7 +23551,7 @@ namespace Abacus.Fixed32Precision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
             ref Vector2 a,
@@ -23562,7 +23564,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -23595,7 +23597,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -23624,9 +23626,9 @@ namespace Abacus.Fixed32Precision
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 value1,
+            ref Vector2 vector1,
             ref Vector2 tangent1,
-            ref Vector2 value2,
+            ref Vector2 vector2,
             ref Vector2 tangent2,
             Fixed32 amount,
             out Vector2 result)
@@ -23636,7 +23638,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -23657,11 +23659,11 @@ namespace Abacus.Fixed32Precision
             Fixed32 d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
         }
 
@@ -24477,11 +24479,11 @@ namespace Abacus.Fixed32Precision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector3 value1,
-            ref Vector3 value2,
+            ref Vector3 vector1,
+            ref Vector3 vector2,
             Fixed32 amount,
             out Vector3 result)
         {
@@ -24490,7 +24492,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -24499,9 +24501,9 @@ namespace Abacus.Fixed32Precision
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = value1.X + ((value2.X - value1.X) * amount);
-            result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-            result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
         }
 
         /// <summary>
@@ -24515,10 +24517,10 @@ namespace Abacus.Fixed32Precision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector3 value1,
-            ref Vector3 value2,
-            ref Vector3 value3,
-            ref Vector3 value4,
+            ref Vector3 vector1,
+            ref Vector3 vector2,
+            ref Vector3 vector3,
+            ref Vector3 vector4,
             Fixed32 amount,
             out Vector3 result)
         {
@@ -24530,7 +24532,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 four = 4;
             Fixed32 five = 5;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -24540,31 +24542,31 @@ namespace Abacus.Fixed32Precision
             Fixed32 cubed = amount * squared;
 
             result.X =
-                half * ((((two * value2.X) + ((-value1.X + value3.X) *
-                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
-                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
-                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
+                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
+                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
+                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
 
             result.Y =
-                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
-                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
-                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
-                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
+                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
+                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
+                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
 
             result.Z =
-                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
-                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
-                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
-                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
+                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
+                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
+                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector3 value1,
+            ref Vector3 vector1,
             ref Vector3 tangent1,
-            ref Vector3 value2,
+            ref Vector3 vector2,
             ref Vector3 tangent2,
             Fixed32 amount,
             out Vector3 result)
@@ -24574,7 +24576,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -24595,15 +24597,15 @@ namespace Abacus.Fixed32Precision
             Fixed32 d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
 
             result.Z =
-                (value1.Z * a) + (value2.Z * b) +
+                (vector1.Z * a) + (vector2.Z * b) +
                 (tangent1.Z * c) + (tangent2.Z * d);
         }
 
@@ -24923,7 +24925,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 dz = vector1.Z - vector2.Z;
             Fixed32 dw = vector1.W - vector2.W;
 
-            Fixed32 lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+            Fixed32 lengthSquared =
+                (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
             result = RealMaths.Sqrt (lengthSquared);
         }
@@ -25371,11 +25374,11 @@ namespace Abacus.Fixed32Precision
         // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector4 value1,
-            ref Vector4 value2,
+            ref Vector4 vector1,
+            ref Vector4 vector2,
             Fixed32 amount,
             out Vector4 result)
         {
@@ -25384,7 +25387,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -25393,10 +25396,10 @@ namespace Abacus.Fixed32Precision
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = value1.X + ((value2.X - value1.X) * amount);
-            result.Y = value1.Y + ((value2.Y - value1.Y) * amount);
-            result.Z = value1.Z + ((value2.Z - value1.Z) * amount);
-            result.W = value1.W + ((value2.W - value1.W) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
+            result.W = vector1.W + ((vector2.W - vector1.W) * amount);
         }
 
         /// <summary>
@@ -25410,10 +25413,10 @@ namespace Abacus.Fixed32Precision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector4 value1,
-            ref Vector4 value2,
-            ref Vector4 value3,
-            ref Vector4 value4,
+            ref Vector4 vector1,
+            ref Vector4 vector2,
+            ref Vector4 vector3,
+            ref Vector4 vector4,
             Fixed32 amount,
             out Vector4 result)
         {
@@ -25425,7 +25428,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 four = 4;
             Fixed32 five = 5;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -25435,37 +25438,37 @@ namespace Abacus.Fixed32Precision
             Fixed32 cubed = amount * squared;
 
             result.X =
-                half * ((((two * value2.X) + ((-value1.X + value3.X) *
-                amount)) + (((((two * value1.X) - (five * value2.X)) + (four *
-                value3.X)) - value4.X) * squared)) + ((((-value1.X + (three *
-                value2.X)) - (three * value3.X)) + value4.X) * cubed));
+                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
+                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
+                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
+                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
 
             result.Y =
-                half * ((((two * value2.Y) + ((-value1.Y + value3.Y) *
-                amount)) + (((((two * value1.Y) - (five * value2.Y)) + (four *
-                value3.Y)) - value4.Y) * squared)) + ((((-value1.Y + (three *
-                value2.Y)) - (three * value3.Y)) + value4.Y) * cubed));
+                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
+                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
+                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
+                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
 
             result.Z =
-                half * ((((two * value2.Z) + ((-value1.Z + value3.Z) *
-                amount)) + (((((two * value1.Z) - (five * value2.Z)) + (four *
-                value3.Z)) - value4.Z) * squared)) + ((((-value1.Z + (three *
-                value2.Z)) - (three * value3.Z)) + value4.Z) * cubed));
+                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
+                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
+                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
+                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
 
             result.W =
-                half * ((((two * value2.W) + ((-value1.W + value3.W) *
-                amount)) + (((((two * value1.W) - (five * value2.W)) + (four *
-                value3.W)) - value4.W) * squared)) + ((((-value1.W + (three *
-                value2.W)) - (three * value3.W)) + value4.W) * cubed));
+                half * ((((two * vector2.W) + ((-vector1.W + vector3.W) *
+                amount)) + (((((two * vector1.W) - (five * vector2.W)) + (four *
+                vector3.W)) - vector4.W) * squared)) + ((((-vector1.W + (three *
+                vector2.W)) - (three * vector3.W)) + vector4.W) * cubed));
         }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector4 value1,
+            ref Vector4 vector1,
             ref Vector4 tangent1,
-            ref Vector4 value2,
+            ref Vector4 vector2,
             ref Vector4 tangent2,
             Fixed32 amount,
             out Vector4 result)
@@ -25475,7 +25478,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 two = 2;
             Fixed32 three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -25496,19 +25499,19 @@ namespace Abacus.Fixed32Precision
             Fixed32 d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
 
             result.Z =
-                (value1.Z * a) + (value2.Z * b) +
+                (vector1.Z * a) + (vector2.Z * b) +
                 (tangent1.Z * c) + (tangent2.Z * d);
 
             result.W =
-                (value1.W * a) + (value2.W * b) +
+                (vector1.W * a) + (vector2.W * b) +
                 (tangent1.W * c) + (tangent2.W * d);
         }
 

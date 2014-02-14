@@ -1,7 +1,7 @@
 ﻿        // Splines //---------------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two values using a cubic equation.
+        /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
             ref Vector2 a,
@@ -14,7 +14,7 @@
             <#= type #> two = 2;
             <#= type #> three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -47,7 +47,7 @@
             <#= type #> zero = 0;
             <#= type #> one = 1;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -76,9 +76,9 @@
         /// Performs a Hermite spline interpolation.
         /// </summary>
         public static void Hermite (
-            ref Vector2 value1,
+            ref Vector2 vector1,
             ref Vector2 tangent1,
-            ref Vector2 value2,
+            ref Vector2 vector2,
             ref Vector2 tangent2,
             <#= type #> amount,
             out Vector2 result)
@@ -88,7 +88,7 @@
             <#= type #> two = 2;
             <#= type #> three = 3;
 
-            // Make sure that the weighting value is within the supported range.
+            // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -109,11 +109,11 @@
             <#= type #> d = cubed - squared;
 
             result.X =
-                (value1.X * a) + (value2.X * b) +
+                (vector1.X * a) + (vector2.X * b) +
                 (tangent1.X * c) + (tangent2.X * d);
 
             result.Y =
-                (value1.Y * a) + (value2.Y * b) +
+                (vector1.Y * a) + (vector2.Y * b) +
                 (tangent1.Y * c) + (tangent2.Y * d);
         }
 

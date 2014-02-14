@@ -2,7 +2,7 @@
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -50,8 +50,8 @@
                 Vector4 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector4.SmoothStep (
                             ref a, ref b, amount, out result)
                     );
@@ -71,10 +71,10 @@
 
             <#= type #> i;
             RealMaths.FromFraction(1755, 64, out i); // 27.421875
-            
+
             <#= type #> j;
             RealMaths.FromFraction( 165,  8, out j); // 20.625
-            
+
             <#= type #> k;
             RealMaths.FromFraction( 705, 64, out k); // 11.015625
 
@@ -126,7 +126,7 @@
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -163,19 +163,21 @@
         [Test]
         public void TestStaticFn_CatmullRom_ii ()
         {
-            var a = new Vector4( -90, +30, +90, -30 );
-            var b = new Vector4( -30, -30, +30, +30 );
-            var c = new Vector4( +30, +30, -30, -30 );
-            var d = new Vector4( +90, -30, -90, -30 );
+            var a = new Vector4( -120,  +40,  +40, +120 );
+            var b = new Vector4( - 40,  -40,  -40, + 40 );
+            var c = new Vector4( + 40,  +40,  +40, - 40 );
+            var d = new Vector4( +120,  -40,  -40, -120 );
 
+            <#= type #> zero = 0;
             <#= type #> one = 1;
 
-            <#= type #> u = 15;
-            <#= type #> v = (<#= type #>) 165  / (<#= type #>)  8; // 20.5
-            <#= type #> w = (<#= type #>) 45   / (<#= type #>)  2; // 20.625
-            <#= type #> x = (<#= type #>) 1755 / (<#= type #>) 64; // 27.421875
-            <#= type #> y = (<#= type #>) 15   / (<#= type #>)  2; // 14.5
-            <#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
+            <#= type #> z = 40;
+            <#= type #> y = 30;
+            <#= type #> x = 20;
+            <#= type #> w = 10;
+            <#= type #> v = (<#= type #>) 585  / (<#= type #>) 16; // 36.5625
+            <#= type #> u = (<#= type #>) 55  / (<#= type #>) 2; // 27.5
+            <#= type #> t = (<#= type #>) 235  / (<#= type #>) 16; // 14.6875
 
             <#= type #> a0 = 0;
             <#= type #> a1 = (one * 1) / 8;
@@ -188,13 +190,13 @@
             <#= type #> a8 = 1;
 
             Vector4 r0 = b;
-            Vector4 r1 = new Vector4( -w, -x,  w,  x );
-            Vector4 r2 = new Vector4( -u, -v,  u,  v );
-            Vector4 r3 = new Vector4( -y, -z,  y,  z );
+            Vector4 r1 = new Vector4( -y, -v, -v,  y );
+            Vector4 r2 = new Vector4( -x, -u, -u,  x );
+            Vector4 r3 = new Vector4( -w, -t, -t,  w );
             Vector4 r4 = Vector4.Zero;
-            Vector4 r5 = new Vector4(  y,  z, -y, -z );
-            Vector4 r6 = new Vector4(  u,  v, -u, -v );
-            Vector4 r7 = new Vector4(  w,  x, -w, -x );
+            Vector4 r5 = new Vector4(  w,  t,  t, -w );
+            Vector4 r6 = new Vector4(  x,  u,  u, -x );
+            Vector4 r7 = new Vector4(  y,  v,  v, -y );
             Vector4 r8 = c;
 
             var knownResults = new List<Tuple<<#= type #>, Vector4>>
@@ -232,7 +234,7 @@
             var b = GetNextRandomVector4();
             var c = GetNextRandomVector4();
             var d = GetNextRandomVector4();
-            
+
             <#= type #> half; RealMaths.Half(out half);
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
@@ -242,8 +244,8 @@
                 Vector4 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector4.CatmullRom (
                             ref a, ref b, ref c, ref d, amount, out result)
                 );
@@ -301,7 +303,7 @@
 
         /// <summary>
         /// This test runs a number of random scenarios and makes sure that when
-        /// the weighting parameter is at it's limits the spline passes directly 
+        /// the weighting parameter is at it's limits the spline passes directly
         /// through the correct control points.
         /// </summary>
         [Test]
@@ -360,12 +362,12 @@
                 Vector4 result;
 
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector4.Hermite (
                             ref a, ref an, ref b, ref bn, amount, out result)
                     );
-                
+
             }
         }
 
@@ -385,7 +387,7 @@
             Vector4 bn; Vector4.Normalise(ref d, out bn);
 
             <#= type #> one = 1;
-            
+
             // 100.1953125
             <#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512;
 
@@ -472,4 +474,4 @@
             }
         }
 
-        
+
