@@ -1,0 +1,27 @@
+        /// <summary>
+        /// Calculates the length of this Vector2.
+        /// </summary>
+        public <#= type #> Length ()
+        {
+            <#= type #> result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector2 squared.
+        /// </summary>
+        public <#= type #> LengthSquared ()
+        {
+            <#= type #> result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector2.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
