@@ -163,3 +163,24 @@
             result.Y = y;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector2.
+        /// </summary>
+        public static void Length (
+            ref Vector2 vector, out <#= type #> result)
+        {
+            <#= type #> lengthSquared =
+                (vector.X * vector.X) + (vector.Y * vector.Y);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector2 squared.
+        /// </summary>
+        public static void LengthSquared (
+            ref Vector2 vector, out <#= type #> result)
+        {
+            result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        }
+

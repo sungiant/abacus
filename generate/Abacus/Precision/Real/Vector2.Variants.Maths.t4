@@ -95,3 +95,23 @@
             return result;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector2.
+        /// </summary>
+        public static <#= type #> Length (Vector2 vector)
+        {
+            <#= type #> result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector2 squared.
+        /// </summary>
+        public static <#= type #> LengthSquared (Vector2 vector)
+        {
+            <#= type #> result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+

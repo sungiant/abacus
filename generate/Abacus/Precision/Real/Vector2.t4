@@ -26,23 +26,6 @@
         }
 
         /// <summary>
-        /// Calculates the length of the Vector2.
-        /// </summary>
-        public <#= type #> Length ()
-        {
-            <#= type #> num = (this.X * this.X) + (this.Y * this.Y);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector2 squared.
-        /// </summary>
-        public <#= type #> LengthSquared ()
-        {
-            return ((this.X * this.X) + (this.Y * this.Y));
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
@@ -53,8 +36,7 @@
                 {
                     this.X.ToString (),
                     this.Y.ToString ()
-                }
-                );
+                });
         }
 
         /// <summary>
@@ -66,13 +48,30 @@
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector2 is of unit length.
+        /// Determines whether or not this Vector2 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            <#= type #> one = 1;
-            return RealMaths.IsZero(one - X*X - Y*Y);
+            Boolean flag = false;
+            if (obj is Vector2) {
+                flag = this.Equals ((Vector2)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector2>
+
+        /// <summary>
+        /// Determines whether or not this Vector2 object is equal to another
+        /// Vector2 object.
+        /// </summary>
+        public Boolean Equals (Vector2 other)
+        {
+            return ((this.X == other.X) && (this.Y == other.Y));
+        }
+
+        #endregion
 
 <#@ include file="Vector2.Constants.t4"#>
 <#@ include file="Vector2.Maths.t4"#>
@@ -84,5 +83,7 @@
 <#@ include file="Vector2.Variants.Operators.t4"#>
 <#@ include file="Vector2.Variants.Splines.t4"#>
 <#@ include file="Vector2.Variants.Utilities.t4"#>
+
+<#@ include file="Vector2.Variants.MemberFunctions.t4"#>
     }
 

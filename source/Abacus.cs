@@ -11548,23 +11548,6 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector2.
-        /// </summary>
-        public Single Length ()
-        {
-            Single num = (this.X * this.X) + (this.Y * this.Y);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector2 squared.
-        /// </summary>
-        public Single LengthSquared ()
-        {
-            return ((this.X * this.X) + (this.Y * this.Y));
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
@@ -11575,8 +11558,7 @@ namespace Abacus.SinglePrecision
                 {
                     this.X.ToString (),
                     this.Y.ToString ()
-                }
-                );
+                });
         }
 
         /// <summary>
@@ -11588,13 +11570,30 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector2 is of unit length.
+        /// Determines whether or not this Vector2 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Single one = 1;
-            return RealMaths.IsZero(one - X*X - Y*Y);
+            Boolean flag = false;
+            if (obj is Vector2) {
+                flag = this.Equals ((Vector2)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector2>
+
+        /// <summary>
+        /// Determines whether or not this Vector2 object is equal to another
+        /// Vector2 object.
+        /// </summary>
+        public Boolean Equals (Vector2 other)
+        {
+            return ((this.X == other.X) && (this.Y == other.Y));
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -11827,53 +11826,25 @@ namespace Abacus.SinglePrecision
             result.Y = y;
         }
 
-        // Equality Operators //----------------------------------------------//
-
         /// <summary>
-        /// Determines whether or not this Vector2 object is equal to another
-        /// object.
+        /// Calculates the length of the Vector2.
         /// </summary>
-        public override Boolean Equals (Object obj)
+        public static void Length (
+            ref Vector2 vector, out Single result)
         {
-            Boolean flag = false;
-            if (obj is Vector2) {
-                flag = this.Equals ((Vector2)obj);
-            }
-            return flag;
-        }
+            Single lengthSquared =
+                (vector.X * vector.X) + (vector.Y * vector.Y);
 
-        #region IEquatable<Vector2>
-
-        /// <summary>
-        /// Determines whether or not this Vector2 object is equal to another
-        /// Vector2 object.
-        /// </summary>
-        public Boolean Equals (Vector2 other)
-        {
-            return ((this.X == other.X) && (this.Y == other.Y));
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Determines whether or not two Vector2 objects are equal using the
-        /// (X==Y) operator.
-        /// </summary>
-        public static Boolean operator == (Vector2 value1, Vector2 value2)
-        {
-            return ((value1.X == value2.X) && (value1.Y == value2.Y));
+            result = RealMaths.Sqrt (lengthSquared);
         }
 
         /// <summary>
-        /// Determines whether or not two Vector2 objects are not equal using
-        /// the (X!=Y) operator.
+        /// Calculates the length of the Vector2 squared.
         /// </summary>
-        public static Boolean operator != (Vector2 value1, Vector2 value2)
+        public static void LengthSquared (
+            ref Vector2 vector, out Single result)
         {
-            if (value1.X == value2.X) {
-                return !(value1.Y == value2.Y);
-            }
-            return true;
+            result = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -11882,10 +11853,10 @@ namespace Abacus.SinglePrecision
         /// Performs addition of two Vector2 objects.
         /// </summary>
         public static void Add (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
+            result.X = vector1.X + vector2.X;
+            result.Y = vector1.Y + vector2.Y;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -11894,10 +11865,10 @@ namespace Abacus.SinglePrecision
         /// Performs subtraction of two Vector2 objects.
         /// </summary>
         public static void Subtract (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
+            result.X = vector1.X - vector2.X;
+            result.Y = vector1.Y - vector2.Y;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -11905,10 +11876,10 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
-        public static void Negate (ref Vector2 value, out Vector2 result)
+        public static void Negate (ref Vector2 vector, out Vector2 result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
+            result.X = -vector.X;
+            result.Y = -vector.Y;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -11917,10 +11888,10 @@ namespace Abacus.SinglePrecision
         /// Performs muliplication of two Vector2 objects.
         /// </summary>
         public static void Multiply (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X * value2.X;
-            result.Y = value1.Y * value2.Y;
+            result.X = vector1.X * vector2.X;
+            result.Y = vector1.Y * vector2.Y;
         }
 
         /// <summary>
@@ -11928,10 +11899,10 @@ namespace Abacus.SinglePrecision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Vector2 value, Single scaleFactor, out Vector2 result)
+            ref Vector2 vector, ref Single scaleFactor, out Vector2 result)
         {
-            result.X = value.X * scaleFactor;
-            result.Y = value.Y * scaleFactor;
+            result.X = vector.X * scaleFactor;
+            result.Y = vector.Y * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -11940,10 +11911,10 @@ namespace Abacus.SinglePrecision
         /// Performs division of two Vector2 objects.
         /// </summary>
         public static void Divide (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X / value2.X;
-            result.Y = value1.Y / value2.Y;
+            result.X = vector1.X / vector2.X;
+            result.Y = vector1.Y / vector2.Y;
         }
 
         /// <summary>
@@ -11951,12 +11922,12 @@ namespace Abacus.SinglePrecision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Vector2 value1, Single divider, out Vector2 result)
+            ref Vector2 vector1, ref Single divider, out Vector2 result)
         {
             Single one = 1;
             Single num = one / divider;
-            result.X = value1.X * num;
-            result.Y = value1.Y * num;
+            result.X = vector1.X * num;
+            result.Y = vector1.Y * num;
         }
 
         // Splines //---------------------------------------------------------//
@@ -11967,7 +11938,7 @@ namespace Abacus.SinglePrecision
         public static void SmoothStep (
             ref Vector2 a,
             ref Vector2 b,
-            Single amount,
+            ref Single amount,
             out Vector2 result)
         {
             Single zero = 0;
@@ -12002,7 +11973,7 @@ namespace Abacus.SinglePrecision
             ref Vector2 b,
             ref Vector2 c,
             ref Vector2 d,
-            Single amount,
+            ref Single amount,
             out Vector2 result)
         {
             Single zero = 0;
@@ -12041,7 +12012,7 @@ namespace Abacus.SinglePrecision
             ref Vector2 tangent1,
             ref Vector2 vector2,
             ref Vector2 tangent2,
-            Single amount,
+            ref Single amount,
             out Vector2 result)
         {
             Single zero = 0;
@@ -12081,12 +12052,12 @@ namespace Abacus.SinglePrecision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
-            ref Vector2 a, 
-            ref Vector2 b, 
+            ref Vector2 a,
+            ref Vector2 b,
             out Vector2 result)
         {
             result.X = (a.X < b.X) ? a.X : b.X;
@@ -12094,12 +12065,12 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
-            ref Vector2 a, 
-            ref Vector2 b, 
+            ref Vector2 a,
+            ref Vector2 b,
             out Vector2 result)
         {
             result.X = (a.X > b.X) ? a.X : b.X;
@@ -12110,15 +12081,15 @@ namespace Abacus.SinglePrecision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static void Clamp (
-            ref Vector2 a, 
-            ref Vector2 min, 
-            ref Vector2 max, 
+            ref Vector2 a,
+            ref Vector2 min,
+            ref Vector2 max,
             out Vector2 result)
         {
             Single x = a.X;
             x = (x > max.X) ? max.X : x;
             x = (x < min.X) ? min.X : x;
-            
+
             Single y = a.Y;
             y = (y > max.Y) ? max.Y : y;
             y = (y < min.Y) ? min.Y : y;
@@ -12131,9 +12102,9 @@ namespace Abacus.SinglePrecision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static void Lerp (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            Single amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            ref Single amount,
             out Vector2 result)
         {
             Single zero = 0;
@@ -12142,9 +12113,19 @@ namespace Abacus.SinglePrecision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector2 vector, out Boolean result)
+        {
+            Single one = 1;
+            result = RealMaths.IsZero(
+                one - vector.X * vector.X - vector.Y * vector.Y);
         }
 
 
@@ -12245,6 +12226,45 @@ namespace Abacus.SinglePrecision
             return result;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector2.
+        /// </summary>
+        public static Single Length (Vector2 vector)
+        {
+            Single result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector2 squared.
+        /// </summary>
+        public static Single LengthSquared (Vector2 vector)
+        {
+            Single result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector2 vector1, Vector2 vector2)
+        {
+            return vector1.Equals (vector2);
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector2 vector1, Vector2 vector2)
+        {
+            return !vector1.Equals (vector2);
+        }
 
         // Variant Addition Operators //--------------------------------------//
 
@@ -12336,7 +12356,7 @@ namespace Abacus.SinglePrecision
             Vector2 vector, Single scaleFactor)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor, out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -12360,7 +12380,7 @@ namespace Abacus.SinglePrecision
             Vector2 vector, Single scaleFactor)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -12372,7 +12392,7 @@ namespace Abacus.SinglePrecision
             Single scaleFactor, Vector2 vector)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -12397,7 +12417,7 @@ namespace Abacus.SinglePrecision
             Vector2 vector1, Single divider)
         {
             Vector2 result;
-            Divide (ref vector1, divider, out result);
+            Divide (ref vector1, ref divider, out result);
             return result;
         }
 
@@ -12418,7 +12438,7 @@ namespace Abacus.SinglePrecision
         public static Vector2 operator / (Vector2 vector1, Single divider)
         {
             Vector2 result;
-            Divide (ref vector1, divider, out result);
+            Divide (ref vector1, ref divider, out result);
             return result;
         }
 
@@ -12433,7 +12453,7 @@ namespace Abacus.SinglePrecision
             Single amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, amount, out result);
+            SmoothStep (ref a, ref b, ref amount, out result);
             return result;
         }
 
@@ -12448,7 +12468,7 @@ namespace Abacus.SinglePrecision
             Single amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
             return result;
         }
 
@@ -12466,7 +12486,7 @@ namespace Abacus.SinglePrecision
             Hermite (
                 ref vector1, ref tangent1,
                 ref vector2, ref tangent2,
-                amount, out result);
+                ref amount, out result);
             return result;
         }
 
@@ -12490,8 +12510,8 @@ namespace Abacus.SinglePrecision
         /// pair of components.
         /// </summary>
         public static Vector2 Max (
-            ref Vector2 a,
-            ref Vector2 b)
+            Vector2 a,
+            Vector2 b)
         {
             Vector2 result;
             Max (ref a, ref b, out result);
@@ -12502,9 +12522,9 @@ namespace Abacus.SinglePrecision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static Vector2 Clamp (
-            ref Vector2 a,
-            ref Vector2 min,
-            ref Vector2 max)
+            Vector2 a,
+            Vector2 min,
+            Vector2 max)
         {
             Vector2 result;
             Clamp (ref a, ref min, ref max, out result);
@@ -12515,15 +12535,53 @@ namespace Abacus.SinglePrecision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static Vector2 Lerp (
-            ref Vector2 a,
-            ref Vector2 b,
+            Vector2 a,
+            Vector2 b,
             Single amount)
         {
             Vector2 result;
-            Lerp (ref a, ref b, amount, out result);
+            Lerp (ref a, ref b, ref amount, out result);
             return result;
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Calculates the length of this Vector2.
+        /// </summary>
+        public Single Length ()
+        {
+            Single result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector2 squared.
+        /// </summary>
+        public Single LengthSquared ()
+        {
+            Single result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector2.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
     }
 
     /// <summary>
@@ -17598,23 +17656,6 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector2.
-        /// </summary>
-        public Double Length ()
-        {
-            Double num = (this.X * this.X) + (this.Y * this.Y);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector2 squared.
-        /// </summary>
-        public Double LengthSquared ()
-        {
-            return ((this.X * this.X) + (this.Y * this.Y));
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
@@ -17625,8 +17666,7 @@ namespace Abacus.DoublePrecision
                 {
                     this.X.ToString (),
                     this.Y.ToString ()
-                }
-                );
+                });
         }
 
         /// <summary>
@@ -17638,13 +17678,30 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector2 is of unit length.
+        /// Determines whether or not this Vector2 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Double one = 1;
-            return RealMaths.IsZero(one - X*X - Y*Y);
+            Boolean flag = false;
+            if (obj is Vector2) {
+                flag = this.Equals ((Vector2)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector2>
+
+        /// <summary>
+        /// Determines whether or not this Vector2 object is equal to another
+        /// Vector2 object.
+        /// </summary>
+        public Boolean Equals (Vector2 other)
+        {
+            return ((this.X == other.X) && (this.Y == other.Y));
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -17877,53 +17934,25 @@ namespace Abacus.DoublePrecision
             result.Y = y;
         }
 
-        // Equality Operators //----------------------------------------------//
-
         /// <summary>
-        /// Determines whether or not this Vector2 object is equal to another
-        /// object.
+        /// Calculates the length of the Vector2.
         /// </summary>
-        public override Boolean Equals (Object obj)
+        public static void Length (
+            ref Vector2 vector, out Double result)
         {
-            Boolean flag = false;
-            if (obj is Vector2) {
-                flag = this.Equals ((Vector2)obj);
-            }
-            return flag;
-        }
+            Double lengthSquared =
+                (vector.X * vector.X) + (vector.Y * vector.Y);
 
-        #region IEquatable<Vector2>
-
-        /// <summary>
-        /// Determines whether or not this Vector2 object is equal to another
-        /// Vector2 object.
-        /// </summary>
-        public Boolean Equals (Vector2 other)
-        {
-            return ((this.X == other.X) && (this.Y == other.Y));
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Determines whether or not two Vector2 objects are equal using the
-        /// (X==Y) operator.
-        /// </summary>
-        public static Boolean operator == (Vector2 value1, Vector2 value2)
-        {
-            return ((value1.X == value2.X) && (value1.Y == value2.Y));
+            result = RealMaths.Sqrt (lengthSquared);
         }
 
         /// <summary>
-        /// Determines whether or not two Vector2 objects are not equal using
-        /// the (X!=Y) operator.
+        /// Calculates the length of the Vector2 squared.
         /// </summary>
-        public static Boolean operator != (Vector2 value1, Vector2 value2)
+        public static void LengthSquared (
+            ref Vector2 vector, out Double result)
         {
-            if (value1.X == value2.X) {
-                return !(value1.Y == value2.Y);
-            }
-            return true;
+            result = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -17932,10 +17961,10 @@ namespace Abacus.DoublePrecision
         /// Performs addition of two Vector2 objects.
         /// </summary>
         public static void Add (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
+            result.X = vector1.X + vector2.X;
+            result.Y = vector1.Y + vector2.Y;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -17944,10 +17973,10 @@ namespace Abacus.DoublePrecision
         /// Performs subtraction of two Vector2 objects.
         /// </summary>
         public static void Subtract (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
+            result.X = vector1.X - vector2.X;
+            result.Y = vector1.Y - vector2.Y;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -17955,10 +17984,10 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
-        public static void Negate (ref Vector2 value, out Vector2 result)
+        public static void Negate (ref Vector2 vector, out Vector2 result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
+            result.X = -vector.X;
+            result.Y = -vector.Y;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -17967,10 +17996,10 @@ namespace Abacus.DoublePrecision
         /// Performs muliplication of two Vector2 objects.
         /// </summary>
         public static void Multiply (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X * value2.X;
-            result.Y = value1.Y * value2.Y;
+            result.X = vector1.X * vector2.X;
+            result.Y = vector1.Y * vector2.Y;
         }
 
         /// <summary>
@@ -17978,10 +18007,10 @@ namespace Abacus.DoublePrecision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Vector2 value, Double scaleFactor, out Vector2 result)
+            ref Vector2 vector, ref Double scaleFactor, out Vector2 result)
         {
-            result.X = value.X * scaleFactor;
-            result.Y = value.Y * scaleFactor;
+            result.X = vector.X * scaleFactor;
+            result.Y = vector.Y * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -17990,10 +18019,10 @@ namespace Abacus.DoublePrecision
         /// Performs division of two Vector2 objects.
         /// </summary>
         public static void Divide (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X / value2.X;
-            result.Y = value1.Y / value2.Y;
+            result.X = vector1.X / vector2.X;
+            result.Y = vector1.Y / vector2.Y;
         }
 
         /// <summary>
@@ -18001,12 +18030,12 @@ namespace Abacus.DoublePrecision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Vector2 value1, Double divider, out Vector2 result)
+            ref Vector2 vector1, ref Double divider, out Vector2 result)
         {
             Double one = 1;
             Double num = one / divider;
-            result.X = value1.X * num;
-            result.Y = value1.Y * num;
+            result.X = vector1.X * num;
+            result.Y = vector1.Y * num;
         }
 
         // Splines //---------------------------------------------------------//
@@ -18017,7 +18046,7 @@ namespace Abacus.DoublePrecision
         public static void SmoothStep (
             ref Vector2 a,
             ref Vector2 b,
-            Double amount,
+            ref Double amount,
             out Vector2 result)
         {
             Double zero = 0;
@@ -18052,7 +18081,7 @@ namespace Abacus.DoublePrecision
             ref Vector2 b,
             ref Vector2 c,
             ref Vector2 d,
-            Double amount,
+            ref Double amount,
             out Vector2 result)
         {
             Double zero = 0;
@@ -18091,7 +18120,7 @@ namespace Abacus.DoublePrecision
             ref Vector2 tangent1,
             ref Vector2 vector2,
             ref Vector2 tangent2,
-            Double amount,
+            ref Double amount,
             out Vector2 result)
         {
             Double zero = 0;
@@ -18131,12 +18160,12 @@ namespace Abacus.DoublePrecision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
-            ref Vector2 a, 
-            ref Vector2 b, 
+            ref Vector2 a,
+            ref Vector2 b,
             out Vector2 result)
         {
             result.X = (a.X < b.X) ? a.X : b.X;
@@ -18144,12 +18173,12 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
-            ref Vector2 a, 
-            ref Vector2 b, 
+            ref Vector2 a,
+            ref Vector2 b,
             out Vector2 result)
         {
             result.X = (a.X > b.X) ? a.X : b.X;
@@ -18160,15 +18189,15 @@ namespace Abacus.DoublePrecision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static void Clamp (
-            ref Vector2 a, 
-            ref Vector2 min, 
-            ref Vector2 max, 
+            ref Vector2 a,
+            ref Vector2 min,
+            ref Vector2 max,
             out Vector2 result)
         {
             Double x = a.X;
             x = (x > max.X) ? max.X : x;
             x = (x < min.X) ? min.X : x;
-            
+
             Double y = a.Y;
             y = (y > max.Y) ? max.Y : y;
             y = (y < min.Y) ? min.Y : y;
@@ -18181,9 +18210,9 @@ namespace Abacus.DoublePrecision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static void Lerp (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            Double amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            ref Double amount,
             out Vector2 result)
         {
             Double zero = 0;
@@ -18192,9 +18221,19 @@ namespace Abacus.DoublePrecision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector2 vector, out Boolean result)
+        {
+            Double one = 1;
+            result = RealMaths.IsZero(
+                one - vector.X * vector.X - vector.Y * vector.Y);
         }
 
 
@@ -18295,6 +18334,45 @@ namespace Abacus.DoublePrecision
             return result;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector2.
+        /// </summary>
+        public static Double Length (Vector2 vector)
+        {
+            Double result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector2 squared.
+        /// </summary>
+        public static Double LengthSquared (Vector2 vector)
+        {
+            Double result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector2 vector1, Vector2 vector2)
+        {
+            return vector1.Equals (vector2);
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector2 vector1, Vector2 vector2)
+        {
+            return !vector1.Equals (vector2);
+        }
 
         // Variant Addition Operators //--------------------------------------//
 
@@ -18386,7 +18464,7 @@ namespace Abacus.DoublePrecision
             Vector2 vector, Double scaleFactor)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor, out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -18410,7 +18488,7 @@ namespace Abacus.DoublePrecision
             Vector2 vector, Double scaleFactor)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -18422,7 +18500,7 @@ namespace Abacus.DoublePrecision
             Double scaleFactor, Vector2 vector)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -18447,7 +18525,7 @@ namespace Abacus.DoublePrecision
             Vector2 vector1, Double divider)
         {
             Vector2 result;
-            Divide (ref vector1, divider, out result);
+            Divide (ref vector1, ref divider, out result);
             return result;
         }
 
@@ -18468,7 +18546,7 @@ namespace Abacus.DoublePrecision
         public static Vector2 operator / (Vector2 vector1, Double divider)
         {
             Vector2 result;
-            Divide (ref vector1, divider, out result);
+            Divide (ref vector1, ref divider, out result);
             return result;
         }
 
@@ -18483,7 +18561,7 @@ namespace Abacus.DoublePrecision
             Double amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, amount, out result);
+            SmoothStep (ref a, ref b, ref amount, out result);
             return result;
         }
 
@@ -18498,7 +18576,7 @@ namespace Abacus.DoublePrecision
             Double amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
             return result;
         }
 
@@ -18516,7 +18594,7 @@ namespace Abacus.DoublePrecision
             Hermite (
                 ref vector1, ref tangent1,
                 ref vector2, ref tangent2,
-                amount, out result);
+                ref amount, out result);
             return result;
         }
 
@@ -18540,8 +18618,8 @@ namespace Abacus.DoublePrecision
         /// pair of components.
         /// </summary>
         public static Vector2 Max (
-            ref Vector2 a,
-            ref Vector2 b)
+            Vector2 a,
+            Vector2 b)
         {
             Vector2 result;
             Max (ref a, ref b, out result);
@@ -18552,9 +18630,9 @@ namespace Abacus.DoublePrecision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static Vector2 Clamp (
-            ref Vector2 a,
-            ref Vector2 min,
-            ref Vector2 max)
+            Vector2 a,
+            Vector2 min,
+            Vector2 max)
         {
             Vector2 result;
             Clamp (ref a, ref min, ref max, out result);
@@ -18565,15 +18643,53 @@ namespace Abacus.DoublePrecision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static Vector2 Lerp (
-            ref Vector2 a,
-            ref Vector2 b,
+            Vector2 a,
+            Vector2 b,
             Double amount)
         {
             Vector2 result;
-            Lerp (ref a, ref b, amount, out result);
+            Lerp (ref a, ref b, ref amount, out result);
             return result;
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Calculates the length of this Vector2.
+        /// </summary>
+        public Double Length ()
+        {
+            Double result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector2 squared.
+        /// </summary>
+        public Double LengthSquared ()
+        {
+            Double result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector2.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
     }
 
     /// <summary>
@@ -23648,23 +23764,6 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector2.
-        /// </summary>
-        public Fixed32 Length ()
-        {
-            Fixed32 num = (this.X * this.X) + (this.Y * this.Y);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector2 squared.
-        /// </summary>
-        public Fixed32 LengthSquared ()
-        {
-            return ((this.X * this.X) + (this.Y * this.Y));
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
@@ -23675,8 +23774,7 @@ namespace Abacus.Fixed32Precision
                 {
                     this.X.ToString (),
                     this.Y.ToString ()
-                }
-                );
+                });
         }
 
         /// <summary>
@@ -23688,13 +23786,30 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector2 is of unit length.
+        /// Determines whether or not this Vector2 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Fixed32 one = 1;
-            return RealMaths.IsZero(one - X*X - Y*Y);
+            Boolean flag = false;
+            if (obj is Vector2) {
+                flag = this.Equals ((Vector2)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector2>
+
+        /// <summary>
+        /// Determines whether or not this Vector2 object is equal to another
+        /// Vector2 object.
+        /// </summary>
+        public Boolean Equals (Vector2 other)
+        {
+            return ((this.X == other.X) && (this.Y == other.Y));
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -23927,53 +24042,25 @@ namespace Abacus.Fixed32Precision
             result.Y = y;
         }
 
-        // Equality Operators //----------------------------------------------//
-
         /// <summary>
-        /// Determines whether or not this Vector2 object is equal to another
-        /// object.
+        /// Calculates the length of the Vector2.
         /// </summary>
-        public override Boolean Equals (Object obj)
+        public static void Length (
+            ref Vector2 vector, out Fixed32 result)
         {
-            Boolean flag = false;
-            if (obj is Vector2) {
-                flag = this.Equals ((Vector2)obj);
-            }
-            return flag;
-        }
+            Fixed32 lengthSquared =
+                (vector.X * vector.X) + (vector.Y * vector.Y);
 
-        #region IEquatable<Vector2>
-
-        /// <summary>
-        /// Determines whether or not this Vector2 object is equal to another
-        /// Vector2 object.
-        /// </summary>
-        public Boolean Equals (Vector2 other)
-        {
-            return ((this.X == other.X) && (this.Y == other.Y));
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Determines whether or not two Vector2 objects are equal using the
-        /// (X==Y) operator.
-        /// </summary>
-        public static Boolean operator == (Vector2 value1, Vector2 value2)
-        {
-            return ((value1.X == value2.X) && (value1.Y == value2.Y));
+            result = RealMaths.Sqrt (lengthSquared);
         }
 
         /// <summary>
-        /// Determines whether or not two Vector2 objects are not equal using
-        /// the (X!=Y) operator.
+        /// Calculates the length of the Vector2 squared.
         /// </summary>
-        public static Boolean operator != (Vector2 value1, Vector2 value2)
+        public static void LengthSquared (
+            ref Vector2 vector, out Fixed32 result)
         {
-            if (value1.X == value2.X) {
-                return !(value1.Y == value2.Y);
-            }
-            return true;
+            result = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -23982,10 +24069,10 @@ namespace Abacus.Fixed32Precision
         /// Performs addition of two Vector2 objects.
         /// </summary>
         public static void Add (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
+            result.X = vector1.X + vector2.X;
+            result.Y = vector1.Y + vector2.Y;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -23994,10 +24081,10 @@ namespace Abacus.Fixed32Precision
         /// Performs subtraction of two Vector2 objects.
         /// </summary>
         public static void Subtract (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
+            result.X = vector1.X - vector2.X;
+            result.Y = vector1.Y - vector2.Y;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -24005,10 +24092,10 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
-        public static void Negate (ref Vector2 value, out Vector2 result)
+        public static void Negate (ref Vector2 vector, out Vector2 result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
+            result.X = -vector.X;
+            result.Y = -vector.Y;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -24017,10 +24104,10 @@ namespace Abacus.Fixed32Precision
         /// Performs muliplication of two Vector2 objects.
         /// </summary>
         public static void Multiply (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X * value2.X;
-            result.Y = value1.Y * value2.Y;
+            result.X = vector1.X * vector2.X;
+            result.Y = vector1.Y * vector2.Y;
         }
 
         /// <summary>
@@ -24028,10 +24115,10 @@ namespace Abacus.Fixed32Precision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Vector2 value, Fixed32 scaleFactor, out Vector2 result)
+            ref Vector2 vector, ref Fixed32 scaleFactor, out Vector2 result)
         {
-            result.X = value.X * scaleFactor;
-            result.Y = value.Y * scaleFactor;
+            result.X = vector.X * scaleFactor;
+            result.Y = vector.Y * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -24040,10 +24127,10 @@ namespace Abacus.Fixed32Precision
         /// Performs division of two Vector2 objects.
         /// </summary>
         public static void Divide (
-            ref Vector2 value1, ref Vector2 value2, out Vector2 result)
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
         {
-            result.X = value1.X / value2.X;
-            result.Y = value1.Y / value2.Y;
+            result.X = vector1.X / vector2.X;
+            result.Y = vector1.Y / vector2.Y;
         }
 
         /// <summary>
@@ -24051,12 +24138,12 @@ namespace Abacus.Fixed32Precision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Vector2 value1, Fixed32 divider, out Vector2 result)
+            ref Vector2 vector1, ref Fixed32 divider, out Vector2 result)
         {
             Fixed32 one = 1;
             Fixed32 num = one / divider;
-            result.X = value1.X * num;
-            result.Y = value1.Y * num;
+            result.X = vector1.X * num;
+            result.Y = vector1.Y * num;
         }
 
         // Splines //---------------------------------------------------------//
@@ -24067,7 +24154,7 @@ namespace Abacus.Fixed32Precision
         public static void SmoothStep (
             ref Vector2 a,
             ref Vector2 b,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector2 result)
         {
             Fixed32 zero = 0;
@@ -24102,7 +24189,7 @@ namespace Abacus.Fixed32Precision
             ref Vector2 b,
             ref Vector2 c,
             ref Vector2 d,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector2 result)
         {
             Fixed32 zero = 0;
@@ -24141,7 +24228,7 @@ namespace Abacus.Fixed32Precision
             ref Vector2 tangent1,
             ref Vector2 vector2,
             ref Vector2 tangent2,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector2 result)
         {
             Fixed32 zero = 0;
@@ -24181,12 +24268,12 @@ namespace Abacus.Fixed32Precision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
-            ref Vector2 a, 
-            ref Vector2 b, 
+            ref Vector2 a,
+            ref Vector2 b,
             out Vector2 result)
         {
             result.X = (a.X < b.X) ? a.X : b.X;
@@ -24194,12 +24281,12 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
-            ref Vector2 a, 
-            ref Vector2 b, 
+            ref Vector2 a,
+            ref Vector2 b,
             out Vector2 result)
         {
             result.X = (a.X > b.X) ? a.X : b.X;
@@ -24210,15 +24297,15 @@ namespace Abacus.Fixed32Precision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static void Clamp (
-            ref Vector2 a, 
-            ref Vector2 min, 
-            ref Vector2 max, 
+            ref Vector2 a,
+            ref Vector2 min,
+            ref Vector2 max,
             out Vector2 result)
         {
             Fixed32 x = a.X;
             x = (x > max.X) ? max.X : x;
             x = (x < min.X) ? min.X : x;
-            
+
             Fixed32 y = a.Y;
             y = (y > max.Y) ? max.Y : y;
             y = (y < min.Y) ? min.Y : y;
@@ -24231,9 +24318,9 @@ namespace Abacus.Fixed32Precision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static void Lerp (
-            ref Vector2 a, 
-            ref Vector2 b, 
-            Fixed32 amount, 
+            ref Vector2 a,
+            ref Vector2 b,
+            ref Fixed32 amount,
             out Vector2 result)
         {
             Fixed32 zero = 0;
@@ -24242,9 +24329,19 @@ namespace Abacus.Fixed32Precision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector2 vector, out Boolean result)
+        {
+            Fixed32 one = 1;
+            result = RealMaths.IsZero(
+                one - vector.X * vector.X - vector.Y * vector.Y);
         }
 
 
@@ -24345,6 +24442,45 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector2.
+        /// </summary>
+        public static Fixed32 Length (Vector2 vector)
+        {
+            Fixed32 result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector2 squared.
+        /// </summary>
+        public static Fixed32 LengthSquared (Vector2 vector)
+        {
+            Fixed32 result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector2 vector1, Vector2 vector2)
+        {
+            return vector1.Equals (vector2);
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector2 vector1, Vector2 vector2)
+        {
+            return !vector1.Equals (vector2);
+        }
 
         // Variant Addition Operators //--------------------------------------//
 
@@ -24436,7 +24572,7 @@ namespace Abacus.Fixed32Precision
             Vector2 vector, Fixed32 scaleFactor)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor, out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -24460,7 +24596,7 @@ namespace Abacus.Fixed32Precision
             Vector2 vector, Fixed32 scaleFactor)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -24472,7 +24608,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 scaleFactor, Vector2 vector)
         {
             Vector2 result;
-            Multiply (ref vector, scaleFactor out result);
+            Multiply (ref vector, ref scaleFactor, out result);
             return result;
         }
 
@@ -24497,7 +24633,7 @@ namespace Abacus.Fixed32Precision
             Vector2 vector1, Fixed32 divider)
         {
             Vector2 result;
-            Divide (ref vector1, divider, out result);
+            Divide (ref vector1, ref divider, out result);
             return result;
         }
 
@@ -24518,7 +24654,7 @@ namespace Abacus.Fixed32Precision
         public static Vector2 operator / (Vector2 vector1, Fixed32 divider)
         {
             Vector2 result;
-            Divide (ref vector1, divider, out result);
+            Divide (ref vector1, ref divider, out result);
             return result;
         }
 
@@ -24533,7 +24669,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, amount, out result);
+            SmoothStep (ref a, ref b, ref amount, out result);
             return result;
         }
 
@@ -24548,7 +24684,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
             return result;
         }
 
@@ -24566,7 +24702,7 @@ namespace Abacus.Fixed32Precision
             Hermite (
                 ref vector1, ref tangent1,
                 ref vector2, ref tangent2,
-                amount, out result);
+                ref amount, out result);
             return result;
         }
 
@@ -24590,8 +24726,8 @@ namespace Abacus.Fixed32Precision
         /// pair of components.
         /// </summary>
         public static Vector2 Max (
-            ref Vector2 a,
-            ref Vector2 b)
+            Vector2 a,
+            Vector2 b)
         {
             Vector2 result;
             Max (ref a, ref b, out result);
@@ -24602,9 +24738,9 @@ namespace Abacus.Fixed32Precision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static Vector2 Clamp (
-            ref Vector2 a,
-            ref Vector2 min,
-            ref Vector2 max)
+            Vector2 a,
+            Vector2 min,
+            Vector2 max)
         {
             Vector2 result;
             Clamp (ref a, ref min, ref max, out result);
@@ -24615,15 +24751,53 @@ namespace Abacus.Fixed32Precision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static Vector2 Lerp (
-            ref Vector2 a,
-            ref Vector2 b,
+            Vector2 a,
+            Vector2 b,
             Fixed32 amount)
         {
             Vector2 result;
-            Lerp (ref a, ref b, amount, out result);
+            Lerp (ref a, ref b, ref amount, out result);
             return result;
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Calculates the length of this Vector2.
+        /// </summary>
+        public Fixed32 Length ()
+        {
+            Fixed32 result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector2 squared.
+        /// </summary>
+        public Fixed32 LengthSquared ()
+        {
+            Fixed32 result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector2.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
     }
 
     /// <summary>

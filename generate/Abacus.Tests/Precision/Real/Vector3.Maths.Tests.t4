@@ -23,8 +23,9 @@
                     Vector3.Zero, Vector3.Zero, 0),
             };
 
-            foreach(var test in tests)
+            for (Int32 i = 0; i < tests.Length; ++i)
             {
+                var test = tests [i];
                 Vector3 a = test.Item1;
                 Vector3 b = test.Item2;
                 <#= type #> expected = test.Item3;
@@ -79,8 +80,9 @@
                     Vector3.Zero, Vector3.Zero, 0),
             };
 
-            foreach(var test in tests)
+            for (Int32 i = 0; i < tests.Length; ++i)
             {
+                var test = tests [i];
                 Vector3 a = test.Item1;
                 Vector3 b = test.Item2;
                 <#= type #> expected = test.Item3;
@@ -318,8 +320,9 @@
                 new Tuple<Vector3, Vector3, Vector3> (d, e, ex3),
             };
 
-            foreach(var test in tests)
+            for (Int32 i = 0; i < tests.Length; ++i)
             {
+                var test = tests [i];
                 Vector3 incident = test.Item1;
                 Vector3 normal = test.Item2;
                 Vector3 expected = test.Item3;
@@ -418,8 +421,9 @@
                     v1, rotmat4, new Vector3 (-20, 50, -10))
             };
 
-            foreach (var test in tests)
+            for (Int32 i = 0; i < tests.Length; ++i)
             {
+                var test = tests [i];
                 Vector3 vec = test.Item1;
                 Matrix44 trans = test.Item2;
                 Vector3 expected = test.Item3;
@@ -495,8 +499,9 @@
                     v2, rotmat4, new Vector3 (oneOverRoot3, oneOverRoot3, -oneOverRoot3)),
             };
 
-            foreach (var test in tests)
+            for (Int32 i = 0; i < tests.Length; ++i)
             {
+                var test = tests [i];
                 Vector3 normalVec = test.Item1;
                 Matrix44 trans = test.Item2;
                 Vector3 expected = test.Item3;
@@ -527,8 +532,9 @@
                 new Vector3 (-2435, -2, 25342),
             };
 
-            foreach (var test in tests)
+            for (Int32 i = 0; i < tests.Length; ++i)
             {
+                var test = tests [i];
                 Vector3 normal = test;
                 Vector3 result;
                 Assert.Throws(
@@ -570,8 +576,9 @@
                     v1, quatmat3, new Vector3 (-10, -50, -20)),
             };
 
-            foreach (var test in tests)
+            for (Int32 i = 0; i < tests.Length; ++i)
             {
+                var test = tests [i];
                 Vector3 vec = test.Item1;
                 Quaternion trans = test.Item2;
                 Vector3 expected = test.Item3;

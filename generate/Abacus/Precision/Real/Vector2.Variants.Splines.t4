@@ -9,7 +9,7 @@
             <#= type #> amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, amount, out result);
+            SmoothStep (ref a, ref b, ref amount, out result);
             return result;
         }
 
@@ -24,7 +24,7 @@
             <#= type #> amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
             return result;
         }
 
@@ -42,7 +42,7 @@
             Hermite (
                 ref vector1, ref tangent1,
                 ref vector2, ref tangent2,
-                amount, out result);
+                ref amount, out result);
             return result;
         }
 

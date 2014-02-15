@@ -6,7 +6,7 @@
         public static void SmoothStep (
             ref Vector2 a,
             ref Vector2 b,
-            <#= type #> amount,
+            ref <#= type #> amount,
             out Vector2 result)
         {
             <#= type #> zero = 0;
@@ -41,7 +41,7 @@
             ref Vector2 b,
             ref Vector2 c,
             ref Vector2 d,
-            <#= type #> amount,
+            ref <#= type #> amount,
             out Vector2 result)
         {
             <#= type #> zero = 0;
@@ -80,7 +80,7 @@
             ref Vector2 tangent1,
             ref Vector2 vector2,
             ref Vector2 tangent2,
-            <#= type #> amount,
+            ref <#= type #> amount,
             out Vector2 result)
         {
             <#= type #> zero = 0;
