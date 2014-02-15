@@ -1,0 +1,54 @@
+        // Utilities //-------------------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Min (
+            Vector2 a,
+            Vector2 b)
+        {
+            Vector2 result;
+            Min (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Max (
+            ref Vector2 a,
+            ref Vector2 b)
+        {
+            Vector2 result;
+            Max (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector2 Clamp (
+            ref Vector2 a,
+            ref Vector2 min,
+            ref Vector2 max)
+        {
+            Vector2 result;
+            Clamp (ref a, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector2 Lerp (
+            ref Vector2 a,
+            ref Vector2 b,
+            <#= type #> amount)
+        {
+            Vector2 result;
+            Lerp (ref a, ref b, amount, out result);
+            return result;
+        }
+

@@ -16,7 +16,7 @@
         public <#= type #> Y;
 
         /// <summary>
-        /// Initilises a new instance of Vector2 from two <#= type #> values 
+        /// Initilises a new instance of Vector2 from two <#= type #> values
         /// representing X and Y respectively.
         /// </summary>
         public Vector2 (<#= type #> x, <#= type #> y)
@@ -48,11 +48,11 @@
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString () 
+                "{{X:{0} Y:{1}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString ()
                 }
                 );
         }
@@ -79,5 +79,10 @@
 <#@ include file="Vector2.Operators.t4"#>
 <#@ include file="Vector2.Splines.t4"#>
 <#@ include file="Vector2.Utilities.t4"#>
+
+<#@ include file="Vector2.Variants.Maths.t4"#>
+<#@ include file="Vector2.Variants.Operators.t4"#>
+<#@ include file="Vector2.Variants.Splines.t4"#>
+<#@ include file="Vector2.Variants.Utilities.t4"#>
     }
 

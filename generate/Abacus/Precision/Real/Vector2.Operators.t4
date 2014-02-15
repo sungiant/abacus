@@ -59,18 +59,6 @@
             result.Y = value1.Y + value2.Y;
         }
 
-        /// <summary>
-        /// Performs addition of two Vector2 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector2 operator + (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            return vector;
-        }
-
-
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
@@ -83,21 +71,8 @@
             result.Y = value1.Y - value2.Y;
         }
 
-        /// <summary>
-        /// Performs subtraction of two Vector2 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            return vector;
-        }
-
-
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
@@ -105,17 +80,6 @@
         {
             result.X = -value.X;
             result.Y = -value.Y;
-        }
-
-        /// <summary>
-        /// Performs negation of a Vector2 object using the (-X) operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            return vector;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -139,45 +103,6 @@
         {
             result.X = value.X * scaleFactor;
             result.Y = value.Y * scaleFactor;
-        }
-
-        /// <summary>
-        /// Performs muliplication of two Vector2 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Vector2 object and a <#= type #>
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value, <#= type #> scaleFactor)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a <#= type #> precision scaling factor 
-        /// and aVector2 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            <#= type #> scaleFactor, Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
         }
 
         // Division Operators //----------------------------------------------//
@@ -205,28 +130,3 @@
             result.Y = value1.Y * num;
         }
 
-        /// <summary>
-        /// Performs division of two Vector2 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs division of a Vector2 object and a <#= type #> precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, <#= type #> divider)
-        {
-            Vector2 vector;
-            <#= type #> one = 1;
-            <#= type #> num = one / divider;
-            vector.X = value1.X * num;
-            vector.Y = value1.Y * num;
-            return vector;
-        }
-        

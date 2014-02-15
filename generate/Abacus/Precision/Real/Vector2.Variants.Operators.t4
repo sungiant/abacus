@@ -1,0 +1,177 @@
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Add (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs addition of two Vector2 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector2 operator + (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Subtract (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector2 object.
+        /// </summary>
+        public static Vector2 Negate (Vector2 vector)
+        {
+            Vector2 result;
+            Negate (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs negation of a Vector2 object using the (-X) operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector)
+        {
+            Vector2 result;
+            Negate (ref vector, out result);
+            return result;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a <#= type #>
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 vector, <#= type #> scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a <#= type #>
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector, <#= type #> scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a <#= type #> precision scaling factor
+        /// and aVector2 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            <#= type #> scaleFactor, Vector2 vector)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a <#= type #> precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 vector1, <#= type #> divider)
+        {
+            Vector2 result;
+            Divide (ref vector1, divider, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of two Vector2 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a <#= type #> precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, <#= type #> divider)
+        {
+            Vector2 result;
+            Divide (ref vector1, divider, out result);
+            return result;
+        }
+

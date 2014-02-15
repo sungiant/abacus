@@ -1,0 +1,97 @@
+        // Maths //-----------------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static <#= type #> Distance (
+            Vector2 vector1, Vector2 vector2)
+        {
+            <#= type #> result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static <#= type #> DistanceSquared (
+            Vector2 vector1, Vector2 vector2)
+        {
+            <#= type #> result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static <#= type #> Dot (
+            Vector2 vector1, Vector2 vector2)
+        {
+            <#= type #> result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector2 Normalise (Vector2 vector)
+        {
+            Vector2 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static Vector2 Reflect (
+            Vector2 vector, Vector2 normal)
+        {
+            Vector2 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix44.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Matrix44 matrix)
+        {
+            Vector2 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Quaternion.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Quaternion rotation)
+        {
+            Vector2 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix.
+        /// </summary>
+        public static Vector2 TransformNormal (
+            Vector2 normal, Matrix44 matrix)
+        {
+            Vector2 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+

@@ -1,0 +1,48 @@
+        // Splines //---------------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector2 SmoothStep (
+            Vector2 a,
+            Vector2 b,
+            <#= type #> amount)
+        {
+            Vector2 result;
+            SmoothStep (ref a, ref b, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector2 CatmullRom (
+            Vector2 a,
+            Vector2 b,
+            Vector2 c,
+            Vector2 d,
+            <#= type #> amount)
+        {
+            Vector2 result;
+            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector2 Hermite (
+            Vector2 vector1,
+            Vector2 tangent1,
+            Vector2 vector2,
+            Vector2 tangent2,
+            <#= type #> amount)
+        {
+            Vector2 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                amount, out result);
+            return result;
+        }
+

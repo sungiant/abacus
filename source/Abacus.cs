@@ -11538,7 +11538,7 @@ namespace Abacus.SinglePrecision
         public Single Y;
 
         /// <summary>
-        /// Initilises a new instance of Vector2 from two Single values 
+        /// Initilises a new instance of Vector2 from two Single values
         /// representing X and Y respectively.
         /// </summary>
         public Vector2 (Single x, Single y)
@@ -11570,11 +11570,11 @@ namespace Abacus.SinglePrecision
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString () 
+                "{{X:{0} Y:{1}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString ()
                 }
                 );
         }
@@ -12245,6 +12245,295 @@ namespace Abacus.SinglePrecision
             
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
+        }
+
+
+        // Maths //-----------------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Single Distance (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Single result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Single DistanceSquared (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Single result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Single Dot (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Single result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector2 Normalise (Vector2 vector)
+        {
+            Vector2 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static Vector2 Reflect (
+            Vector2 vector, Vector2 normal)
+        {
+            Vector2 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix44.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Matrix44 matrix)
+        {
+            Vector2 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Quaternion.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Quaternion rotation)
+        {
+            Vector2 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix.
+        /// </summary>
+        public static Vector2 TransformNormal (
+            Vector2 normal, Matrix44 matrix)
+        {
+            Vector2 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Add (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Add (ref value1, ref value2, out result);
+            return result;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Subtract (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Subtract (ref value1, ref value2, out result);
+            return result;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector2 object.
+        /// </summary>
+        public static Vector2 Negate (Vector2 value)
+        {
+            Vector2 result;
+            Negate (ref value, out result);
+            return result;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Multiply (ref value1, ref value2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a Single
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 value, Single scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref value, scaleFactor, out result);
+            return result;
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Divide (ref value1, ref value2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a Single precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 value1, Single divider)
+        {
+            Vector2 result;
+            Divide (ref value1, divider, out result);
+            return result;
+        }
+
+        // Splines //---------------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector2 SmoothStep (
+            Vector2 a,
+            Vector2 b,
+            Single amount)
+        {
+            Vector2 result;
+            SmoothStep (ref a, ref b, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector2 CatmullRom (
+            Vector2 a,
+            Vector2 b,
+            Vector2 c,
+            Vector2 d,
+            Single amount)
+        {
+            Vector2 result;
+            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector2 Hermite (
+            Vector2 vector1,
+            Vector2 tangent1,
+            Vector2 vector2,
+            Vector2 tangent2,
+            Single amount)
+        {
+            Vector2 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                amount, out result);
+            return result;
+        }
+
+        // Utilities //-------------------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Min (
+            Vector2 a,
+            Vector2 b)
+        {
+            Vector2 result;
+            Min (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Max (
+            ref Vector2 a,
+            ref Vector2 b)
+        {
+            Vector2 result;
+            Max (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector2 Clamp (
+            ref Vector2 a,
+            ref Vector2 min,
+            ref Vector2 max)
+        {
+            Vector2 result;
+            Clamp (ref a, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector2 Lerp (
+            ref Vector2 a,
+            ref Vector2 b,
+            Single amount)
+        {
+            Vector2 result;
+            Lerp (ref a, ref b, amount, out result);
+            return result;
         }
 
     }
@@ -17311,7 +17600,7 @@ namespace Abacus.DoublePrecision
         public Double Y;
 
         /// <summary>
-        /// Initilises a new instance of Vector2 from two Double values 
+        /// Initilises a new instance of Vector2 from two Double values
         /// representing X and Y respectively.
         /// </summary>
         public Vector2 (Double x, Double y)
@@ -17343,11 +17632,11 @@ namespace Abacus.DoublePrecision
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString () 
+                "{{X:{0} Y:{1}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString ()
                 }
                 );
         }
@@ -18018,6 +18307,295 @@ namespace Abacus.DoublePrecision
             
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
+        }
+
+
+        // Maths //-----------------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Double Distance (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Double result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Double DistanceSquared (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Double result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Double Dot (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Double result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector2 Normalise (Vector2 vector)
+        {
+            Vector2 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static Vector2 Reflect (
+            Vector2 vector, Vector2 normal)
+        {
+            Vector2 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix44.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Matrix44 matrix)
+        {
+            Vector2 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Quaternion.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Quaternion rotation)
+        {
+            Vector2 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix.
+        /// </summary>
+        public static Vector2 TransformNormal (
+            Vector2 normal, Matrix44 matrix)
+        {
+            Vector2 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Add (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Add (ref value1, ref value2, out result);
+            return result;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Subtract (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Subtract (ref value1, ref value2, out result);
+            return result;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector2 object.
+        /// </summary>
+        public static Vector2 Negate (Vector2 value)
+        {
+            Vector2 result;
+            Negate (ref value, out result);
+            return result;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Multiply (ref value1, ref value2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a Double
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 value, Double scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref value, scaleFactor, out result);
+            return result;
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Divide (ref value1, ref value2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a Double precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 value1, Double divider)
+        {
+            Vector2 result;
+            Divide (ref value1, divider, out result);
+            return result;
+        }
+
+        // Splines //---------------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector2 SmoothStep (
+            Vector2 a,
+            Vector2 b,
+            Double amount)
+        {
+            Vector2 result;
+            SmoothStep (ref a, ref b, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector2 CatmullRom (
+            Vector2 a,
+            Vector2 b,
+            Vector2 c,
+            Vector2 d,
+            Double amount)
+        {
+            Vector2 result;
+            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector2 Hermite (
+            Vector2 vector1,
+            Vector2 tangent1,
+            Vector2 vector2,
+            Vector2 tangent2,
+            Double amount)
+        {
+            Vector2 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                amount, out result);
+            return result;
+        }
+
+        // Utilities //-------------------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Min (
+            Vector2 a,
+            Vector2 b)
+        {
+            Vector2 result;
+            Min (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Max (
+            ref Vector2 a,
+            ref Vector2 b)
+        {
+            Vector2 result;
+            Max (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector2 Clamp (
+            ref Vector2 a,
+            ref Vector2 min,
+            ref Vector2 max)
+        {
+            Vector2 result;
+            Clamp (ref a, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector2 Lerp (
+            ref Vector2 a,
+            ref Vector2 b,
+            Double amount)
+        {
+            Vector2 result;
+            Lerp (ref a, ref b, amount, out result);
+            return result;
         }
 
     }
@@ -23084,7 +23662,7 @@ namespace Abacus.Fixed32Precision
         public Fixed32 Y;
 
         /// <summary>
-        /// Initilises a new instance of Vector2 from two Fixed32 values 
+        /// Initilises a new instance of Vector2 from two Fixed32 values
         /// representing X and Y respectively.
         /// </summary>
         public Vector2 (Fixed32 x, Fixed32 y)
@@ -23116,11 +23694,11 @@ namespace Abacus.Fixed32Precision
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString () 
+                "{{X:{0} Y:{1}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString ()
                 }
                 );
         }
@@ -23791,6 +24369,295 @@ namespace Abacus.Fixed32Precision
             
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
+        }
+
+
+        // Maths //-----------------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Fixed32 Distance (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Fixed32 result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Fixed32 DistanceSquared (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Fixed32 result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Fixed32 Dot (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Fixed32 result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector2 Normalise (Vector2 vector)
+        {
+            Vector2 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static Vector2 Reflect (
+            Vector2 vector, Vector2 normal)
+        {
+            Vector2 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix44.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Matrix44 matrix)
+        {
+            Vector2 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Quaternion.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Quaternion rotation)
+        {
+            Vector2 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix.
+        /// </summary>
+        public static Vector2 TransformNormal (
+            Vector2 normal, Matrix44 matrix)
+        {
+            Vector2 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Add (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Add (ref value1, ref value2, out result);
+            return result;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Subtract (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Subtract (ref value1, ref value2, out result);
+            return result;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector2 object.
+        /// </summary>
+        public static Vector2 Negate (Vector2 value)
+        {
+            Vector2 result;
+            Negate (ref value, out result);
+            return result;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Multiply (ref value1, ref value2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a Fixed32
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector2 Multiply (
+            Vector2 value, Fixed32 scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref value, scaleFactor, out result);
+            return result;
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector2 objects.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 value1, Vector2 value2)
+        {
+            Vector2 result;
+            Divide (ref value1, ref value2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a Fixed32 precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector2 Divide (
+            Vector2 value1, Fixed32 divider)
+        {
+            Vector2 result;
+            Divide (ref value1, divider, out result);
+            return result;
+        }
+
+        // Splines //---------------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector2 SmoothStep (
+            Vector2 a,
+            Vector2 b,
+            Fixed32 amount)
+        {
+            Vector2 result;
+            SmoothStep (ref a, ref b, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector2 CatmullRom (
+            Vector2 a,
+            Vector2 b,
+            Vector2 c,
+            Vector2 d,
+            Fixed32 amount)
+        {
+            Vector2 result;
+            CatmullRom (ref a, ref b, ref c, ref d, amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector2 Hermite (
+            Vector2 vector1,
+            Vector2 tangent1,
+            Vector2 vector2,
+            Vector2 tangent2,
+            Fixed32 amount)
+        {
+            Vector2 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                amount, out result);
+            return result;
+        }
+
+        // Utilities //-------------------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Min (
+            Vector2 a,
+            Vector2 b)
+        {
+            Vector2 result;
+            Min (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector2 Max (
+            ref Vector2 a,
+            ref Vector2 b)
+        {
+            Vector2 result;
+            Max (ref a, ref b, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector2 Clamp (
+            ref Vector2 a,
+            ref Vector2 min,
+            ref Vector2 max)
+        {
+            Vector2 result;
+            Clamp (ref a, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector2 Lerp (
+            ref Vector2 a,
+            ref Vector2 b,
+            Fixed32 amount)
+        {
+            Vector2 result;
+            Lerp (ref a, ref b, amount, out result);
+            return result;
         }
 
     }
