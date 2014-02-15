@@ -1,5 +1,5 @@
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
 
         /// <summary>
         /// Performs addition of two Vector2 objects.
@@ -22,7 +22,7 @@
             return result;
         }
 
-        // Subtraction Operators //-------------------------------------------//
+        // Variant Subtraction Operators //-----------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector2 objects.
@@ -46,7 +46,7 @@
             return result;
         }
 
-        // Negation Operators //----------------------------------------------//
+        // Variant Negation Operators //--------------------------------------//
 
         /// <summary>
         /// Performs negation of a Vector2 object.
@@ -68,7 +68,7 @@
             return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector2 objects.
@@ -129,7 +129,7 @@
             return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
 
         /// <summary>
         /// Performs division of two Vector2 objects.

@@ -1,4 +1,4 @@
-        // Utilities //-------------------------------------------------------//
+        // Variant Utilities //-----------------------------------------------//
 
         /// <summary>
         /// Returns a vector that contains the lowest value from each matching

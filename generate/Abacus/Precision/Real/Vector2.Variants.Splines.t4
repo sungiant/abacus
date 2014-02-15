@@ -1,4 +1,4 @@
-        // Splines //---------------------------------------------------------//
+        // Variant Splines //-------------------------------------------------//
 
         /// <summary>
         /// Interpolates between two vectors using a cubic equation.

@@ -11888,18 +11888,6 @@ namespace Abacus.SinglePrecision
             result.Y = value1.Y + value2.Y;
         }
 
-        /// <summary>
-        /// Performs addition of two Vector2 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector2 operator + (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            return vector;
-        }
-
-
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
@@ -11912,21 +11900,8 @@ namespace Abacus.SinglePrecision
             result.Y = value1.Y - value2.Y;
         }
 
-        /// <summary>
-        /// Performs subtraction of two Vector2 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            return vector;
-        }
-
-
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
@@ -11934,17 +11909,6 @@ namespace Abacus.SinglePrecision
         {
             result.X = -value.X;
             result.Y = -value.Y;
-        }
-
-        /// <summary>
-        /// Performs negation of a Vector2 object using the (-X) operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            return vector;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -11968,45 +11932,6 @@ namespace Abacus.SinglePrecision
         {
             result.X = value.X * scaleFactor;
             result.Y = value.Y * scaleFactor;
-        }
-
-        /// <summary>
-        /// Performs muliplication of two Vector2 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Vector2 object and a Single
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value, Single scaleFactor)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Single precision scaling factor 
-        /// and aVector2 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Single scaleFactor, Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
         }
 
         // Division Operators //----------------------------------------------//
@@ -12034,31 +11959,6 @@ namespace Abacus.SinglePrecision
             result.Y = value1.Y * num;
         }
 
-        /// <summary>
-        /// Performs division of two Vector2 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs division of a Vector2 object and a Single precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, Single divider)
-        {
-            Vector2 vector;
-            Single one = 1;
-            Single num = one / divider;
-            vector.X = value1.X * num;
-            vector.Y = value1.Y * num;
-            return vector;
-        }
-        
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -12248,7 +12148,7 @@ namespace Abacus.SinglePrecision
         }
 
 
-        // Maths //-----------------------------------------------------------//
+        // Variant Maths //---------------------------------------------------//
 
         /// <summary>
         /// Calculates the distance between two vectors.
@@ -12346,54 +12246,85 @@ namespace Abacus.SinglePrecision
         }
 
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
 
         /// <summary>
         /// Performs addition of two Vector2 objects.
         /// </summary>
         public static Vector2 Add (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Add (ref value1, ref value2, out result);
+            Add (ref vector1, ref vector2, out result);
             return result;
         }
 
-        // Subtraction Operators //-------------------------------------------//
+        /// <summary>
+        /// Performs addition of two Vector2 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector2 operator + (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Subtraction Operators //-----------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector2 objects.
         /// </summary>
         public static Vector2 Subtract (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Subtract (ref value1, ref value2, out result);
+            Subtract (ref vector1, ref vector2, out result);
             return result;
         }
 
-        // Negation Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Negation Operators //--------------------------------------//
 
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
-        public static Vector2 Negate (Vector2 value)
+        public static Vector2 Negate (Vector2 vector)
         {
             Vector2 result;
-            Negate (ref value, out result);
+            Negate (ref vector, out result);
             return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        /// <summary>
+        /// Performs negation of a Vector2 object using the (-X) operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector)
+        {
+            Vector2 result;
+            Negate (ref vector, out result);
+            return result;
+        }
+
+        // Variant Multiplication Operators //--------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector2 objects.
         /// </summary>
         public static Vector2 Multiply (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Multiply (ref value1, ref value2, out result);
+            Multiply (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -12402,23 +12333,59 @@ namespace Abacus.SinglePrecision
         /// precision scaling factor.
         /// </summary>
         public static Vector2 Multiply (
-            Vector2 value, Single scaleFactor)
+            Vector2 vector, Single scaleFactor)
         {
             Vector2 result;
-            Multiply (ref value, scaleFactor, out result);
+            Multiply (ref vector, scaleFactor, out result);
             return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a Single
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector, Single scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Single precision scaling factor
+        /// and aVector2 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Single scaleFactor, Vector2 vector)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        // Variant Division Operators //--------------------------------------//
 
         /// <summary>
         /// Performs division of two Vector2 objects.
         /// </summary>
         public static Vector2 Divide (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Divide (ref value1, ref value2, out result);
+            Divide (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -12427,14 +12394,35 @@ namespace Abacus.SinglePrecision
         /// scaling factor.
         /// </summary>
         public static Vector2 Divide (
-            Vector2 value1, Single divider)
+            Vector2 vector1, Single divider)
         {
             Vector2 result;
-            Divide (ref value1, divider, out result);
+            Divide (ref vector1, divider, out result);
             return result;
         }
 
-        // Splines //---------------------------------------------------------//
+        /// <summary>
+        /// Performs division of two Vector2 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a Single precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, Single divider)
+        {
+            Vector2 result;
+            Divide (ref vector1, divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
 
         /// <summary>
         /// Interpolates between two vectors using a cubic equation.
@@ -12482,7 +12470,7 @@ namespace Abacus.SinglePrecision
             return result;
         }
 
-        // Utilities //-------------------------------------------------------//
+        // Variant Utilities //-----------------------------------------------//
 
         /// <summary>
         /// Returns a vector that contains the lowest value from each matching
@@ -17950,18 +17938,6 @@ namespace Abacus.DoublePrecision
             result.Y = value1.Y + value2.Y;
         }
 
-        /// <summary>
-        /// Performs addition of two Vector2 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector2 operator + (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            return vector;
-        }
-
-
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
@@ -17974,21 +17950,8 @@ namespace Abacus.DoublePrecision
             result.Y = value1.Y - value2.Y;
         }
 
-        /// <summary>
-        /// Performs subtraction of two Vector2 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            return vector;
-        }
-
-
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
@@ -17996,17 +17959,6 @@ namespace Abacus.DoublePrecision
         {
             result.X = -value.X;
             result.Y = -value.Y;
-        }
-
-        /// <summary>
-        /// Performs negation of a Vector2 object using the (-X) operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            return vector;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -18030,45 +17982,6 @@ namespace Abacus.DoublePrecision
         {
             result.X = value.X * scaleFactor;
             result.Y = value.Y * scaleFactor;
-        }
-
-        /// <summary>
-        /// Performs muliplication of two Vector2 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Vector2 object and a Double
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value, Double scaleFactor)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Double precision scaling factor 
-        /// and aVector2 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Double scaleFactor, Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
         }
 
         // Division Operators //----------------------------------------------//
@@ -18096,31 +18009,6 @@ namespace Abacus.DoublePrecision
             result.Y = value1.Y * num;
         }
 
-        /// <summary>
-        /// Performs division of two Vector2 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs division of a Vector2 object and a Double precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, Double divider)
-        {
-            Vector2 vector;
-            Double one = 1;
-            Double num = one / divider;
-            vector.X = value1.X * num;
-            vector.Y = value1.Y * num;
-            return vector;
-        }
-        
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -18310,7 +18198,7 @@ namespace Abacus.DoublePrecision
         }
 
 
-        // Maths //-----------------------------------------------------------//
+        // Variant Maths //---------------------------------------------------//
 
         /// <summary>
         /// Calculates the distance between two vectors.
@@ -18408,54 +18296,85 @@ namespace Abacus.DoublePrecision
         }
 
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
 
         /// <summary>
         /// Performs addition of two Vector2 objects.
         /// </summary>
         public static Vector2 Add (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Add (ref value1, ref value2, out result);
+            Add (ref vector1, ref vector2, out result);
             return result;
         }
 
-        // Subtraction Operators //-------------------------------------------//
+        /// <summary>
+        /// Performs addition of two Vector2 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector2 operator + (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Subtraction Operators //-----------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector2 objects.
         /// </summary>
         public static Vector2 Subtract (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Subtract (ref value1, ref value2, out result);
+            Subtract (ref vector1, ref vector2, out result);
             return result;
         }
 
-        // Negation Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Negation Operators //--------------------------------------//
 
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
-        public static Vector2 Negate (Vector2 value)
+        public static Vector2 Negate (Vector2 vector)
         {
             Vector2 result;
-            Negate (ref value, out result);
+            Negate (ref vector, out result);
             return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        /// <summary>
+        /// Performs negation of a Vector2 object using the (-X) operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector)
+        {
+            Vector2 result;
+            Negate (ref vector, out result);
+            return result;
+        }
+
+        // Variant Multiplication Operators //--------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector2 objects.
         /// </summary>
         public static Vector2 Multiply (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Multiply (ref value1, ref value2, out result);
+            Multiply (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -18464,23 +18383,59 @@ namespace Abacus.DoublePrecision
         /// precision scaling factor.
         /// </summary>
         public static Vector2 Multiply (
-            Vector2 value, Double scaleFactor)
+            Vector2 vector, Double scaleFactor)
         {
             Vector2 result;
-            Multiply (ref value, scaleFactor, out result);
+            Multiply (ref vector, scaleFactor, out result);
             return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a Double
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector, Double scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Double precision scaling factor
+        /// and aVector2 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Double scaleFactor, Vector2 vector)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        // Variant Division Operators //--------------------------------------//
 
         /// <summary>
         /// Performs division of two Vector2 objects.
         /// </summary>
         public static Vector2 Divide (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Divide (ref value1, ref value2, out result);
+            Divide (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -18489,14 +18444,35 @@ namespace Abacus.DoublePrecision
         /// scaling factor.
         /// </summary>
         public static Vector2 Divide (
-            Vector2 value1, Double divider)
+            Vector2 vector1, Double divider)
         {
             Vector2 result;
-            Divide (ref value1, divider, out result);
+            Divide (ref vector1, divider, out result);
             return result;
         }
 
-        // Splines //---------------------------------------------------------//
+        /// <summary>
+        /// Performs division of two Vector2 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a Double precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, Double divider)
+        {
+            Vector2 result;
+            Divide (ref vector1, divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
 
         /// <summary>
         /// Interpolates between two vectors using a cubic equation.
@@ -18544,7 +18520,7 @@ namespace Abacus.DoublePrecision
             return result;
         }
 
-        // Utilities //-------------------------------------------------------//
+        // Variant Utilities //-----------------------------------------------//
 
         /// <summary>
         /// Returns a vector that contains the lowest value from each matching
@@ -24012,18 +23988,6 @@ namespace Abacus.Fixed32Precision
             result.Y = value1.Y + value2.Y;
         }
 
-        /// <summary>
-        /// Performs addition of two Vector2 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector2 operator + (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            return vector;
-        }
-
-
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
@@ -24036,21 +24000,8 @@ namespace Abacus.Fixed32Precision
             result.Y = value1.Y - value2.Y;
         }
 
-        /// <summary>
-        /// Performs subtraction of two Vector2 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            return vector;
-        }
-
-
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
@@ -24058,17 +24009,6 @@ namespace Abacus.Fixed32Precision
         {
             result.X = -value.X;
             result.Y = -value.Y;
-        }
-
-        /// <summary>
-        /// Performs negation of a Vector2 object using the (-X) operator.
-        /// </summary>
-        public static Vector2 operator - (Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            return vector;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -24092,45 +24032,6 @@ namespace Abacus.Fixed32Precision
         {
             result.X = value.X * scaleFactor;
             result.Y = value.Y * scaleFactor;
-        }
-
-        /// <summary>
-        /// Performs muliplication of two Vector2 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Vector2 object and a Fixed32
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Vector2 value, Fixed32 scaleFactor)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Fixed32 precision scaling factor 
-        /// and aVector2 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector2 operator * (
-            Fixed32 scaleFactor, Vector2 value)
-        {
-            Vector2 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            return vector;
         }
 
         // Division Operators //----------------------------------------------//
@@ -24158,31 +24059,6 @@ namespace Abacus.Fixed32Precision
             result.Y = value1.Y * num;
         }
 
-        /// <summary>
-        /// Performs division of two Vector2 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, Vector2 value2)
-        {
-            Vector2 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs division of a Vector2 object and a Fixed32 precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector2 operator / (Vector2 value1, Fixed32 divider)
-        {
-            Vector2 vector;
-            Fixed32 one = 1;
-            Fixed32 num = one / divider;
-            vector.X = value1.X * num;
-            vector.Y = value1.Y * num;
-            return vector;
-        }
-        
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -24372,7 +24248,7 @@ namespace Abacus.Fixed32Precision
         }
 
 
-        // Maths //-----------------------------------------------------------//
+        // Variant Maths //---------------------------------------------------//
 
         /// <summary>
         /// Calculates the distance between two vectors.
@@ -24470,54 +24346,85 @@ namespace Abacus.Fixed32Precision
         }
 
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
 
         /// <summary>
         /// Performs addition of two Vector2 objects.
         /// </summary>
         public static Vector2 Add (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Add (ref value1, ref value2, out result);
+            Add (ref vector1, ref vector2, out result);
             return result;
         }
 
-        // Subtraction Operators //-------------------------------------------//
+        /// <summary>
+        /// Performs addition of two Vector2 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector2 operator + (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Subtraction Operators //-----------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector2 objects.
         /// </summary>
         public static Vector2 Subtract (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Subtract (ref value1, ref value2, out result);
+            Subtract (ref vector1, ref vector2, out result);
             return result;
         }
 
-        // Negation Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Negation Operators //--------------------------------------//
 
         /// <summary>
         /// Performs negation of a Vector2 object.
         /// </summary>
-        public static Vector2 Negate (Vector2 value)
+        public static Vector2 Negate (Vector2 vector)
         {
             Vector2 result;
-            Negate (ref value, out result);
+            Negate (ref vector, out result);
             return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        /// <summary>
+        /// Performs negation of a Vector2 object using the (-X) operator.
+        /// </summary>
+        public static Vector2 operator - (Vector2 vector)
+        {
+            Vector2 result;
+            Negate (ref vector, out result);
+            return result;
+        }
+
+        // Variant Multiplication Operators //--------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector2 objects.
         /// </summary>
         public static Vector2 Multiply (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Multiply (ref value1, ref value2, out result);
+            Multiply (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -24526,23 +24433,59 @@ namespace Abacus.Fixed32Precision
         /// precision scaling factor.
         /// </summary>
         public static Vector2 Multiply (
-            Vector2 value, Fixed32 scaleFactor)
+            Vector2 vector, Fixed32 scaleFactor)
         {
             Vector2 result;
-            Multiply (ref value, scaleFactor, out result);
+            Multiply (ref vector, scaleFactor, out result);
             return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a Fixed32
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Vector2 vector, Fixed32 scaleFactor)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Fixed32 precision scaling factor
+        /// and aVector2 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector2 operator * (
+            Fixed32 scaleFactor, Vector2 vector)
+        {
+            Vector2 result;
+            Multiply (ref vector, scaleFactor out result);
+            return result;
+        }
+
+        // Variant Division Operators //--------------------------------------//
 
         /// <summary>
         /// Performs division of two Vector2 objects.
         /// </summary>
         public static Vector2 Divide (
-            Vector2 value1, Vector2 value2)
+            Vector2 vector1, Vector2 vector2)
         {
             Vector2 result;
-            Divide (ref value1, ref value2, out result);
+            Divide (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -24551,14 +24494,35 @@ namespace Abacus.Fixed32Precision
         /// scaling factor.
         /// </summary>
         public static Vector2 Divide (
-            Vector2 value1, Fixed32 divider)
+            Vector2 vector1, Fixed32 divider)
         {
             Vector2 result;
-            Divide (ref value1, divider, out result);
+            Divide (ref vector1, divider, out result);
             return result;
         }
 
-        // Splines //---------------------------------------------------------//
+        /// <summary>
+        /// Performs division of two Vector2 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, Vector2 vector2)
+        {
+            Vector2 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a Fixed32 precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector2 operator / (Vector2 vector1, Fixed32 divider)
+        {
+            Vector2 result;
+            Divide (ref vector1, divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
 
         /// <summary>
         /// Interpolates between two vectors using a cubic equation.
@@ -24606,7 +24570,7 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
-        // Utilities //-------------------------------------------------------//
+        // Variant Utilities //-----------------------------------------------//
 
         /// <summary>
         /// Returns a vector that contains the lowest value from each matching
