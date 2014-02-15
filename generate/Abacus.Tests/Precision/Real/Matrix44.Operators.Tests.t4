@@ -274,22 +274,22 @@
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 - b.M11,
+                    a.M12 - b.M12,
+                    a.M13 - b.M13,
+                    a.M14 - b.M14,
+                    a.M21 - b.M21,
+                    a.M22 - b.M22,
+                    a.M23 - b.M23,
+                    a.M24 - b.M24,
+                    a.M31 - b.M31,
+                    a.M32 - b.M32,
+                    a.M33 - b.M33,
+                    a.M34 - b.M34,
+                    a.M41 - b.M41,
+                    a.M42 - b.M42,
+                    a.M43 - b.M43,
+                    a.M44 - b.M44
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -469,22 +469,22 @@
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 * b.M11,
+                    a.M12 * b.M12,
+                    a.M13 * b.M13,
+                    a.M14 * b.M14,
+                    a.M21 * b.M21,
+                    a.M22 * b.M22,
+                    a.M23 * b.M23,
+                    a.M24 * b.M24,
+                    a.M31 * b.M31,
+                    a.M32 * b.M32,
+                    a.M33 * b.M33,
+                    a.M34 * b.M34,
+                    a.M41 * b.M41,
+                    a.M42 * b.M42,
+                    a.M43 * b.M43,
+                    a.M44 * b.M44
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -517,20 +517,39 @@
         [Test]
         public void TestOperator_Division_i ()
         {
-            <#= type #> r = 10;
-            <#= type #> s = -40;
-            <#= type #> t = 1;
-            <#= type #> u = -400;
+            Single r = 10;
+            Single s = -40;
+            Single t = 1;
+            Single u = -400;
 
-            <#= type #> x = 2000;
-            <#= type #> y = 200;
-            <#= type #> z = -5;
+            Single w = 1200;
+            Single x = 4000;
+            Single y = 200;
+            Single z = -300;
 
-            var a = new Matrix44(x, y, x, x, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(y, z, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                w, x, y, z,
+                x, y, z, w,
+                y, z, w, x,
+                z, w, x, y);
 
-            this.TestDivision(a, b, c);
+            var b = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            <#= type #> i = (<#= type #>) 3 / (<#= type #>) 4;
+            <#= type #> j = (<#= type #>) 1 / (<#= type #>) 2;
+            <#= type #> k = (<#= type #>) 15 / (<#= type #>) 2;
+
+            var expected = new Matrix44(
+                120, -100, 200, i,
+                400, -5, -300, -3,
+                20, k, 1200, -10,
+                -30, -30, 4000, -j);
+
+            this.TestDivision(a, b, expected);
         }
 
         /// <summary>

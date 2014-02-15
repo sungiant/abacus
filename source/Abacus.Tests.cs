@@ -7643,11 +7643,20 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Transpose_i ()
         {
-            Matrix44 startMatrix = new Matrix44(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+            Matrix44 startMatrix = new Matrix44(
+                0, 1, 2, 3,
+                4, 5, 6, 7,
+                8, 9, 10, 11,
+                12, 13, 14, 15);
 
             Matrix44 testMatrix = startMatrix;
 
-            Matrix44 testMatrixExpectedTranspose = new Matrix44(0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15);
+            Matrix44 testMatrixExpectedTranspose =
+                new Matrix44(
+                    0, 4, 8, 12,
+                    1, 5, 9, 13,
+                    2, 6, 10, 14,
+                    3, 7, 11, 15);
 
             // RUN THE STATIC VERSION OF THE FUNCTION
             Matrix44 resultMatrix = Matrix44.Identity;
@@ -8001,22 +8010,22 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 - b.M11,
+                    a.M12 - b.M12,
+                    a.M13 - b.M13,
+                    a.M14 - b.M14,
+                    a.M21 - b.M21,
+                    a.M22 - b.M22,
+                    a.M23 - b.M23,
+                    a.M24 - b.M24,
+                    a.M31 - b.M31,
+                    a.M32 - b.M32,
+                    a.M33 - b.M33,
+                    a.M34 - b.M34,
+                    a.M41 - b.M41,
+                    a.M42 - b.M42,
+                    a.M43 - b.M43,
+                    a.M44 - b.M44
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -8196,22 +8205,22 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 * b.M11,
+                    a.M12 * b.M12,
+                    a.M13 * b.M13,
+                    a.M14 * b.M14,
+                    a.M21 * b.M21,
+                    a.M22 * b.M22,
+                    a.M23 * b.M23,
+                    a.M24 * b.M24,
+                    a.M31 * b.M31,
+                    a.M32 * b.M32,
+                    a.M33 * b.M33,
+                    a.M34 * b.M34,
+                    a.M41 * b.M41,
+                    a.M42 * b.M42,
+                    a.M43 * b.M43,
+                    a.M44 * b.M44
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -8249,15 +8258,34 @@ namespace Abacus.SinglePrecision.Tests
             Single t = 1;
             Single u = -400;
 
-            Single x = 2000;
+            Single w = 1200;
+            Single x = 4000;
             Single y = 200;
-            Single z = -5;
+            Single z = -300;
 
-            var a = new Matrix44(x, y, x, x, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(y, z, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                w, x, y, z,
+                x, y, z, w,
+                y, z, w, x,
+                z, w, x, y);
 
-            this.TestDivision(a, b, c);
+            var b = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            Single i = (Single) 3 / (Single) 4;
+            Single j = (Single) 1 / (Single) 2;
+            Single k = (Single) 15 / (Single) 2;
+
+            var expected = new Matrix44(
+                120, -100, 200, i,
+                400, -5, -300, -3,
+                20, k, 1200, -10,
+                -30, -30, 4000, -j);
+
+            this.TestDivision(a, b, expected);
         }
 
         /// <summary>
@@ -15757,11 +15785,20 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Transpose_i ()
         {
-            Matrix44 startMatrix = new Matrix44(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+            Matrix44 startMatrix = new Matrix44(
+                0, 1, 2, 3,
+                4, 5, 6, 7,
+                8, 9, 10, 11,
+                12, 13, 14, 15);
 
             Matrix44 testMatrix = startMatrix;
 
-            Matrix44 testMatrixExpectedTranspose = new Matrix44(0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15);
+            Matrix44 testMatrixExpectedTranspose =
+                new Matrix44(
+                    0, 4, 8, 12,
+                    1, 5, 9, 13,
+                    2, 6, 10, 14,
+                    3, 7, 11, 15);
 
             // RUN THE STATIC VERSION OF THE FUNCTION
             Matrix44 resultMatrix = Matrix44.Identity;
@@ -16115,22 +16152,22 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 - b.M11,
+                    a.M12 - b.M12,
+                    a.M13 - b.M13,
+                    a.M14 - b.M14,
+                    a.M21 - b.M21,
+                    a.M22 - b.M22,
+                    a.M23 - b.M23,
+                    a.M24 - b.M24,
+                    a.M31 - b.M31,
+                    a.M32 - b.M32,
+                    a.M33 - b.M33,
+                    a.M34 - b.M34,
+                    a.M41 - b.M41,
+                    a.M42 - b.M42,
+                    a.M43 - b.M43,
+                    a.M44 - b.M44
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -16310,22 +16347,22 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 * b.M11,
+                    a.M12 * b.M12,
+                    a.M13 * b.M13,
+                    a.M14 * b.M14,
+                    a.M21 * b.M21,
+                    a.M22 * b.M22,
+                    a.M23 * b.M23,
+                    a.M24 * b.M24,
+                    a.M31 * b.M31,
+                    a.M32 * b.M32,
+                    a.M33 * b.M33,
+                    a.M34 * b.M34,
+                    a.M41 * b.M41,
+                    a.M42 * b.M42,
+                    a.M43 * b.M43,
+                    a.M44 * b.M44
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -16358,20 +16395,39 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestOperator_Division_i ()
         {
-            Double r = 10;
-            Double s = -40;
-            Double t = 1;
-            Double u = -400;
+            Single r = 10;
+            Single s = -40;
+            Single t = 1;
+            Single u = -400;
 
-            Double x = 2000;
-            Double y = 200;
-            Double z = -5;
+            Single w = 1200;
+            Single x = 4000;
+            Single y = 200;
+            Single z = -300;
 
-            var a = new Matrix44(x, y, x, x, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(y, z, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                w, x, y, z,
+                x, y, z, w,
+                y, z, w, x,
+                z, w, x, y);
 
-            this.TestDivision(a, b, c);
+            var b = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            Double i = (Double) 3 / (Double) 4;
+            Double j = (Double) 1 / (Double) 2;
+            Double k = (Double) 15 / (Double) 2;
+
+            var expected = new Matrix44(
+                120, -100, 200, i,
+                400, -5, -300, -3,
+                20, k, 1200, -10,
+                -30, -30, 4000, -j);
+
+            this.TestDivision(a, b, expected);
         }
 
         /// <summary>
@@ -23871,11 +23927,20 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Transpose_i ()
         {
-            Matrix44 startMatrix = new Matrix44(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+            Matrix44 startMatrix = new Matrix44(
+                0, 1, 2, 3,
+                4, 5, 6, 7,
+                8, 9, 10, 11,
+                12, 13, 14, 15);
 
             Matrix44 testMatrix = startMatrix;
 
-            Matrix44 testMatrixExpectedTranspose = new Matrix44(0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15);
+            Matrix44 testMatrixExpectedTranspose =
+                new Matrix44(
+                    0, 4, 8, 12,
+                    1, 5, 9, 13,
+                    2, 6, 10, 14,
+                    3, 7, 11, 15);
 
             // RUN THE STATIC VERSION OF THE FUNCTION
             Matrix44 resultMatrix = Matrix44.Identity;
@@ -24229,22 +24294,22 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 - b.M11,
+                    a.M12 - b.M12,
+                    a.M13 - b.M13,
+                    a.M14 - b.M14,
+                    a.M21 - b.M21,
+                    a.M22 - b.M22,
+                    a.M23 - b.M23,
+                    a.M24 - b.M24,
+                    a.M31 - b.M31,
+                    a.M32 - b.M32,
+                    a.M33 - b.M33,
+                    a.M34 - b.M34,
+                    a.M41 - b.M41,
+                    a.M42 - b.M42,
+                    a.M43 - b.M43,
+                    a.M44 - b.M44
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -24424,22 +24489,22 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M14 / b.M14,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M24 / b.M24,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M11 * b.M11,
+                    a.M12 * b.M12,
+                    a.M13 * b.M13,
+                    a.M14 * b.M14,
+                    a.M21 * b.M21,
+                    a.M22 * b.M22,
+                    a.M23 * b.M23,
+                    a.M24 * b.M24,
+                    a.M31 * b.M31,
+                    a.M32 * b.M32,
+                    a.M33 * b.M33,
+                    a.M34 * b.M34,
+                    a.M41 * b.M41,
+                    a.M42 * b.M42,
+                    a.M43 * b.M43,
+                    a.M44 * b.M44
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -24472,20 +24537,39 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestOperator_Division_i ()
         {
-            Fixed32 r = 10;
-            Fixed32 s = -40;
-            Fixed32 t = 1;
-            Fixed32 u = -400;
+            Single r = 10;
+            Single s = -40;
+            Single t = 1;
+            Single u = -400;
 
-            Fixed32 x = 2000;
-            Fixed32 y = 200;
-            Fixed32 z = -5;
+            Single w = 1200;
+            Single x = 4000;
+            Single y = 200;
+            Single z = -300;
 
-            var a = new Matrix44(x, y, x, x, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(y, z, x, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                w, x, y, z,
+                x, y, z, w,
+                y, z, w, x,
+                z, w, x, y);
 
-            this.TestDivision(a, b, c);
+            var b = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            Fixed32 i = (Fixed32) 3 / (Fixed32) 4;
+            Fixed32 j = (Fixed32) 1 / (Fixed32) 2;
+            Fixed32 k = (Fixed32) 15 / (Fixed32) 2;
+
+            var expected = new Matrix44(
+                120, -100, 200, i,
+                400, -5, -300, -3,
+                20, k, 1200, -10,
+                -30, -30, 4000, -j);
+
+            this.TestDivision(a, b, expected);
         }
 
         /// <summary>

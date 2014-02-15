@@ -6,11 +6,20 @@
         [Test]
         public void TestStaticFn_Transpose_i ()
         {
-            Matrix44 startMatrix = new Matrix44(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+            Matrix44 startMatrix = new Matrix44(
+                0, 1, 2, 3,
+                4, 5, 6, 7,
+                8, 9, 10, 11,
+                12, 13, 14, 15);
 
             Matrix44 testMatrix = startMatrix;
 
-            Matrix44 testMatrixExpectedTranspose = new Matrix44(0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15);
+            Matrix44 testMatrixExpectedTranspose =
+                new Matrix44(
+                    0, 4, 8, 12,
+                    1, 5, 9, 13,
+                    2, 6, 10, 14,
+                    3, 7, 11, 15);
 
             // RUN THE STATIC VERSION OF THE FUNCTION
             Matrix44 resultMatrix = Matrix44.Identity;
