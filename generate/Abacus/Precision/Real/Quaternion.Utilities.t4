@@ -5,6 +5,12 @@
         {
             <#= type #> zero = 0;
             <#= type #> one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             <#= type #> nineninenine; RealMaths.FromString("0.999999", out nineninenine);
 
             <#= type #> num2;
@@ -42,6 +48,11 @@
         {
             <#= type #> zero = 0;
             <#= type #> one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
 
             <#= type #> num = amount;
             <#= type #> num2 = one - num;

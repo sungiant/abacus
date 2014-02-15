@@ -1,5 +1,5 @@
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class QuaternionTests
@@ -18,14 +18,14 @@
             Type t = typeof(Quaternion);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y, Z and W member variables of a number of randomly generated 
-        /// Quaterion objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Quaterion objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -42,13 +42,13 @@
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
                 Assert.That(data[0], Is.EqualTo(quat.X));
                 Assert.That(data[1], Is.EqualTo(quat.Y));
                 Assert.That(data[2], Is.EqualTo(quat.Z));
                 Assert.That(data[3], Is.EqualTo(quat.W));
-                
+
                 h_quat.Free();
             }
         }
@@ -56,19 +56,19 @@
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
 <#@ include file="Quaternion.Constants.Tests.t4"#>
@@ -77,4 +77,4 @@
 <#@ include file="Quaternion.Operators.Tests.t4"#>
 <#@ include file="Quaternion.Utilities.Tests.t4"#>
     }
-    
+

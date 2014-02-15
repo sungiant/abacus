@@ -4,6 +4,13 @@
         /// </summary>
         public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, <#= type #> amount, out Matrix44 result)
         {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
             result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
             result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
@@ -22,4 +29,4 @@
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-        
+

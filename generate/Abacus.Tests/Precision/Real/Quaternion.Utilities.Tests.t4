@@ -1,96 +1,20 @@
+        // Test: StructLayout //----------------------------------------------//
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Slerp_i ()
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
-
-            <#= type #> nineninenine;
-            RealMaths.FromString("0.999999", out nineninenine);
-
-            <#= type #> a;
-            <#= type #> b;
-            <#= type #> c = amount;
-            
-            <#= type #> d = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            Boolean flag = false;
-
-            if (d < zero)
-            {
-                flag = true;
-                d = -d;
-            }
-
-
-            if (d >nineninenine)
-            {
-                b = one - c;
-                a = flag ? -c : c;
-            }
-            else
-            {
-                <#= type #> e = RealMaths.ArcCos (d);
-                <#= type #> f = one / RealMaths.Sin (e);
-
-                b = RealMaths.Sin ((one - c) * e) * f;
-
-                a = flag ? -RealMaths.Sin (c * e) * f : RealMaths.Sin (c * e) * f;
-            }
-
-            result.X = (b * quaternion1.X) + (a * quaternion2.X);
-            result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-            result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-            result.W = (b * quaternion1.W) + (a * quaternion2.W);
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Lerp_i ()
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
-
-            <#= type #> a = amount;
-            <#= type #> b = one - a;
-            <#= type #> c = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            if (c >= zero)
-            {
-                result.X = (b * quaternion1.X) + (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) + (a * quaternion2.W);
-            }
-            else
-            {
-                result.X = (b * quaternion1.X) - (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) - (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) - (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) - (a * quaternion2.W);
-            }
-
-            <#= type #> d = 
-                (result.X * result.X) + 
-                (result.Y * result.Y) + 
-                (result.Z * result.Z) + 
-                (result.W * result.W);
-
-            <#= type #> e = one / RealMaths.Sqrt (d);
-
-            result.X *= e;
-            result.Y *= e;
-            result.Z *= e;
-            result.W *= e;
+            throw new InconclusiveException("Not Implemented");
         }
 

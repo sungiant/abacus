@@ -34,19 +34,19 @@
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
 <#@ include file="Matrix44.Constants.Tests.t4"#>

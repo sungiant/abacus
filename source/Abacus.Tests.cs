@@ -7353,19 +7353,19 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -7741,14 +7741,14 @@ namespace Abacus.SinglePrecision.Tests
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -7761,7 +7761,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Matrix44 objects are compared.
         /// </summary>
         [Test]
@@ -7777,7 +7777,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Matrix44 objects are compared.
         /// </summary>
         [Test]
@@ -7792,8 +7792,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Matrix44 objects.
         /// </summary>
         [Test]
@@ -7826,7 +7826,7 @@ namespace Abacus.SinglePrecision.Tests
 
             Matrix44 result_1b; Matrix44.Add(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -7840,40 +7840,69 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestOperator_Addition_i ()
         {
-            var a = new Matrix44(3, -6, 44, 11, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var b = new Matrix44(-6, 12, 18, -3, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                  3, - 6,  44,  11,
+                 44, -34, -22,  11,
+                 36, -34, -22,  34,
+                 44, -34, - 3,  12);
 
-            var expected = new Matrix44(-3, 6, 62, 8, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var b = new Matrix44(
+                - 6,  12,  18, - 3,
+                 44, -34, -22,  11,
+                 44, -54, -34,  11,
+                 34, -54, -22,  11);
+
+            var expected = new Matrix44(
+                - 3,   6,  62,  8,
+                 88, -68, -44, 22,
+                 80, -88, -56, 45,
+                 78, -88, -25, 23);
 
             this.TestAddition(a, b, expected);
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero matrix, all the 
+        /// Assert that, for a known example involving the identity matrix, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Addition_ii ()
         {
-            var a = new Matrix44(-2313, 88, 199, 42, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                  3, - 6,  44,  11,
+                 44, -34, -22,  11,
+                 36, -34, -22,  34,
+                 44, -34, - 3,  12);
 
             var expected = a;
+            expected.M11++;
+            expected.M22++;
+            expected.M33++;
+            expected.M44++;
 
             this.TestAddition(a, Matrix44.Identity, expected);
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero matrixs, all the 
-        /// addition opperators and functions yield the correct result of zero.
+        /// Assert that, for a known example involving two identity matricies,
+        /// all the addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Addition_iii ()
         {
-            this.TestAddition(Matrix44.Identity, Matrix44.Identity, Matrix44.Identity);
+            var i = Matrix44.Identity;
+
+            var expected = new Matrix44(
+                2, 0, 0, 0,
+                0, 2, 0, 0,
+                0, 0, 2, 0,
+                0, 0, 0, 2);
+
+            this.TestAddition(i, i, expected);
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -7886,22 +7915,22 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
-                    a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
-                    a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
-                    a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
-                    a.M44 / b.M44
+                    a.M11 + b.M11,
+                    a.M12 + b.M12,
+                    a.M13 + b.M13,
+                    a.M14 + b.M14,
+                    a.M21 + b.M21,
+                    a.M22 + b.M22,
+                    a.M23 + b.M23,
+                    a.M24 + b.M24,
+                    a.M31 + b.M31,
+                    a.M32 + b.M32,
+                    a.M33 + b.M33,
+                    a.M34 + b.M34,
+                    a.M41 + b.M41,
+                    a.M42 + b.M42,
+                    a.M43 + b.M43,
+                    a.M44 + b.M44
                     );
 
                 this.TestAddition(a, b, expected);
@@ -7909,7 +7938,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -7924,7 +7953,7 @@ namespace Abacus.SinglePrecision.Tests
 
             Matrix44 result_1b; Matrix44.Subtract(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -7948,8 +7977,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero matrix fromt the zero matrix, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero matrix fromt the zero matrix,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -7959,7 +7988,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -7972,21 +8001,21 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -7995,7 +8024,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -8008,7 +8037,7 @@ namespace Abacus.SinglePrecision.Tests
 
             Matrix44 result_1b;
             Matrix44.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -8035,7 +8064,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero matrix, all the 
+        /// Assert that, for known examples involving the zero matrix, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -8054,7 +8083,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when negating the zero matrix, all the 
+        /// Assert that when negating the zero matrix, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -8064,7 +8093,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -8094,7 +8123,7 @@ namespace Abacus.SinglePrecision.Tests
 
             Matrix44 result_1b; Matrix44.Multiply(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -8113,17 +8142,17 @@ namespace Abacus.SinglePrecision.Tests
             a.M12 = 36;
             a.M13 = 9;
             a.M14 = -54;
-            
+
             a.M21 = 36;
             a.M22 = 3;
             a.M23 = 9;
             a.M24 = 9;
-            
+
             a.M31 = 9;
             a.M32 = 9;
             a.M33 = -36;
             a.M34 = 6;
-            
+
             a.M41 = -24;
             a.M42 = 9;
             a.M43 = 36;
@@ -8134,17 +8163,17 @@ namespace Abacus.SinglePrecision.Tests
             b.M12 = -1269;
             b.M13 = -2187;
             b.M14 = 2484;
-            
+
             b.M21 = -999;
             b.M22 = 1467;
             b.M23 = 351;
             b.M24 = -1971;
-            
+
             b.M31 = -387;
             b.M32 = 81;
             b.M33 = 1674;
             b.M34 = -693;
-            
+
             b.M41 = 1584;
             b.M42 = -621;
             b.M43 = -1863;
@@ -8154,7 +8183,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -8167,21 +8196,21 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -8203,13 +8232,13 @@ namespace Abacus.SinglePrecision.Tests
             var result_1a = a / b;
 
             Matrix44 result_1b; Matrix44.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -8232,7 +8261,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -8256,7 +8285,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -8269,21 +8298,21 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -8347,7 +8376,7 @@ namespace Abacus.SinglePrecision.Tests
             }
         }    }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class QuaternionTests
@@ -8426,14 +8455,14 @@ namespace Abacus.SinglePrecision.Tests
             Type t = typeof(Quaternion);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y, Z and W member variables of a number of randomly generated 
-        /// Quaterion objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Quaterion objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -8450,13 +8479,13 @@ namespace Abacus.SinglePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
                 Assert.That(data[0], Is.EqualTo(quat.X));
                 Assert.That(data[1], Is.EqualTo(quat.Y));
                 Assert.That(data[2], Is.EqualTo(quat.Z));
                 Assert.That(data[3], Is.EqualTo(quat.W));
-                
+
                 h_quat.Free();
             }
         }
@@ -8464,19 +8493,19 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -9055,104 +9084,29 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
+        // Test: StructLayout //----------------------------------------------//
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Single amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Slerp_i ()
         {
-            Single zero = 0;
-            Single one = 1;
-
-            Single nineninenine;
-            RealMaths.FromString("0.999999", out nineninenine);
-
-            Single a;
-            Single b;
-            Single c = amount;
-            
-            Single d = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            Boolean flag = false;
-
-            if (d < zero)
-            {
-                flag = true;
-                d = -d;
-            }
-
-
-            if (d >nineninenine)
-            {
-                b = one - c;
-                a = flag ? -c : c;
-            }
-            else
-            {
-                Single e = RealMaths.ArcCos (d);
-                Single f = one / RealMaths.Sin (e);
-
-                b = RealMaths.Sin ((one - c) * e) * f;
-
-                a = flag ? -RealMaths.Sin (c * e) * f : RealMaths.Sin (c * e) * f;
-            }
-
-            result.X = (b * quaternion1.X) + (a * quaternion2.X);
-            result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-            result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-            result.W = (b * quaternion1.W) + (a * quaternion2.W);
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Single amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Lerp_i ()
         {
-            Single zero = 0;
-            Single one = 1;
-
-            Single a = amount;
-            Single b = one - a;
-            Single c = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            if (c >= zero)
-            {
-                result.X = (b * quaternion1.X) + (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) + (a * quaternion2.W);
-            }
-            else
-            {
-                result.X = (b * quaternion1.X) - (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) - (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) - (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) - (a * quaternion2.W);
-            }
-
-            Single d = 
-                (result.X * result.X) + 
-                (result.Y * result.Y) + 
-                (result.Z * result.Z) + 
-                (result.W * result.W);
-
-            Single e = one / RealMaths.Sqrt (d);
-
-            result.X *= e;
-            result.Y *= e;
-            result.Z *= e;
-            result.W *= e;
+            throw new InconclusiveException("Not Implemented");
         }
 
     }
-        /// <summary>
+
+    /// <summary>
     /// todo
     /// </summary>
     [TestFixture]
@@ -15513,19 +15467,19 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -15901,14 +15855,14 @@ namespace Abacus.DoublePrecision.Tests
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -15921,7 +15875,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Matrix44 objects are compared.
         /// </summary>
         [Test]
@@ -15937,7 +15891,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Matrix44 objects are compared.
         /// </summary>
         [Test]
@@ -15952,8 +15906,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Matrix44 objects.
         /// </summary>
         [Test]
@@ -15986,7 +15940,7 @@ namespace Abacus.DoublePrecision.Tests
 
             Matrix44 result_1b; Matrix44.Add(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -16000,40 +15954,69 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestOperator_Addition_i ()
         {
-            var a = new Matrix44(3, -6, 44, 11, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var b = new Matrix44(-6, 12, 18, -3, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                  3, - 6,  44,  11,
+                 44, -34, -22,  11,
+                 36, -34, -22,  34,
+                 44, -34, - 3,  12);
 
-            var expected = new Matrix44(-3, 6, 62, 8, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var b = new Matrix44(
+                - 6,  12,  18, - 3,
+                 44, -34, -22,  11,
+                 44, -54, -34,  11,
+                 34, -54, -22,  11);
+
+            var expected = new Matrix44(
+                - 3,   6,  62,  8,
+                 88, -68, -44, 22,
+                 80, -88, -56, 45,
+                 78, -88, -25, 23);
 
             this.TestAddition(a, b, expected);
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero matrix, all the 
+        /// Assert that, for a known example involving the identity matrix, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Addition_ii ()
         {
-            var a = new Matrix44(-2313, 88, 199, 42, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                  3, - 6,  44,  11,
+                 44, -34, -22,  11,
+                 36, -34, -22,  34,
+                 44, -34, - 3,  12);
 
             var expected = a;
+            expected.M11++;
+            expected.M22++;
+            expected.M33++;
+            expected.M44++;
 
             this.TestAddition(a, Matrix44.Identity, expected);
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero matrixs, all the 
-        /// addition opperators and functions yield the correct result of zero.
+        /// Assert that, for a known example involving two identity matricies,
+        /// all the addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Addition_iii ()
         {
-            this.TestAddition(Matrix44.Identity, Matrix44.Identity, Matrix44.Identity);
+            var i = Matrix44.Identity;
+
+            var expected = new Matrix44(
+                2, 0, 0, 0,
+                0, 2, 0, 0,
+                0, 0, 2, 0,
+                0, 0, 0, 2);
+
+            this.TestAddition(i, i, expected);
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -16046,22 +16029,22 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
-                    a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
-                    a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
-                    a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
-                    a.M44 / b.M44
+                    a.M11 + b.M11,
+                    a.M12 + b.M12,
+                    a.M13 + b.M13,
+                    a.M14 + b.M14,
+                    a.M21 + b.M21,
+                    a.M22 + b.M22,
+                    a.M23 + b.M23,
+                    a.M24 + b.M24,
+                    a.M31 + b.M31,
+                    a.M32 + b.M32,
+                    a.M33 + b.M33,
+                    a.M34 + b.M34,
+                    a.M41 + b.M41,
+                    a.M42 + b.M42,
+                    a.M43 + b.M43,
+                    a.M44 + b.M44
                     );
 
                 this.TestAddition(a, b, expected);
@@ -16069,7 +16052,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -16084,7 +16067,7 @@ namespace Abacus.DoublePrecision.Tests
 
             Matrix44 result_1b; Matrix44.Subtract(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -16108,8 +16091,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero matrix fromt the zero matrix, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero matrix fromt the zero matrix,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -16119,7 +16102,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -16132,21 +16115,21 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -16155,7 +16138,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -16168,7 +16151,7 @@ namespace Abacus.DoublePrecision.Tests
 
             Matrix44 result_1b;
             Matrix44.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -16195,7 +16178,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero matrix, all the 
+        /// Assert that, for known examples involving the zero matrix, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -16214,7 +16197,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when negating the zero matrix, all the 
+        /// Assert that when negating the zero matrix, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -16224,7 +16207,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -16254,7 +16237,7 @@ namespace Abacus.DoublePrecision.Tests
 
             Matrix44 result_1b; Matrix44.Multiply(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -16273,17 +16256,17 @@ namespace Abacus.DoublePrecision.Tests
             a.M12 = 36;
             a.M13 = 9;
             a.M14 = -54;
-            
+
             a.M21 = 36;
             a.M22 = 3;
             a.M23 = 9;
             a.M24 = 9;
-            
+
             a.M31 = 9;
             a.M32 = 9;
             a.M33 = -36;
             a.M34 = 6;
-            
+
             a.M41 = -24;
             a.M42 = 9;
             a.M43 = 36;
@@ -16294,17 +16277,17 @@ namespace Abacus.DoublePrecision.Tests
             b.M12 = -1269;
             b.M13 = -2187;
             b.M14 = 2484;
-            
+
             b.M21 = -999;
             b.M22 = 1467;
             b.M23 = 351;
             b.M24 = -1971;
-            
+
             b.M31 = -387;
             b.M32 = 81;
             b.M33 = 1674;
             b.M34 = -693;
-            
+
             b.M41 = 1584;
             b.M42 = -621;
             b.M43 = -1863;
@@ -16314,7 +16297,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -16327,21 +16310,21 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -16363,13 +16346,13 @@ namespace Abacus.DoublePrecision.Tests
             var result_1a = a / b;
 
             Matrix44 result_1b; Matrix44.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -16392,7 +16375,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -16416,7 +16399,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -16429,21 +16412,21 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -16507,7 +16490,7 @@ namespace Abacus.DoublePrecision.Tests
             }
         }    }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class QuaternionTests
@@ -16586,14 +16569,14 @@ namespace Abacus.DoublePrecision.Tests
             Type t = typeof(Quaternion);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y, Z and W member variables of a number of randomly generated 
-        /// Quaterion objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Quaterion objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -16610,13 +16593,13 @@ namespace Abacus.DoublePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
                 Assert.That(data[0], Is.EqualTo(quat.X));
                 Assert.That(data[1], Is.EqualTo(quat.Y));
                 Assert.That(data[2], Is.EqualTo(quat.Z));
                 Assert.That(data[3], Is.EqualTo(quat.W));
-                
+
                 h_quat.Free();
             }
         }
@@ -16624,19 +16607,19 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -17215,104 +17198,29 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
+        // Test: StructLayout //----------------------------------------------//
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Double amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Slerp_i ()
         {
-            Double zero = 0;
-            Double one = 1;
-
-            Double nineninenine;
-            RealMaths.FromString("0.999999", out nineninenine);
-
-            Double a;
-            Double b;
-            Double c = amount;
-            
-            Double d = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            Boolean flag = false;
-
-            if (d < zero)
-            {
-                flag = true;
-                d = -d;
-            }
-
-
-            if (d >nineninenine)
-            {
-                b = one - c;
-                a = flag ? -c : c;
-            }
-            else
-            {
-                Double e = RealMaths.ArcCos (d);
-                Double f = one / RealMaths.Sin (e);
-
-                b = RealMaths.Sin ((one - c) * e) * f;
-
-                a = flag ? -RealMaths.Sin (c * e) * f : RealMaths.Sin (c * e) * f;
-            }
-
-            result.X = (b * quaternion1.X) + (a * quaternion2.X);
-            result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-            result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-            result.W = (b * quaternion1.W) + (a * quaternion2.W);
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Double amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Lerp_i ()
         {
-            Double zero = 0;
-            Double one = 1;
-
-            Double a = amount;
-            Double b = one - a;
-            Double c = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            if (c >= zero)
-            {
-                result.X = (b * quaternion1.X) + (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) + (a * quaternion2.W);
-            }
-            else
-            {
-                result.X = (b * quaternion1.X) - (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) - (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) - (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) - (a * quaternion2.W);
-            }
-
-            Double d = 
-                (result.X * result.X) + 
-                (result.Y * result.Y) + 
-                (result.Z * result.Z) + 
-                (result.W * result.W);
-
-            Double e = one / RealMaths.Sqrt (d);
-
-            result.X *= e;
-            result.Y *= e;
-            result.Z *= e;
-            result.W *= e;
+            throw new InconclusiveException("Not Implemented");
         }
 
     }
-        /// <summary>
+
+    /// <summary>
     /// todo
     /// </summary>
     [TestFixture]
@@ -23673,19 +23581,19 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -24061,14 +23969,14 @@ namespace Abacus.Fixed32Precision.Tests
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -24081,7 +23989,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Matrix44 objects are compared.
         /// </summary>
         [Test]
@@ -24097,7 +24005,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Matrix44 objects are compared.
         /// </summary>
         [Test]
@@ -24112,8 +24020,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Matrix44 objects.
         /// </summary>
         [Test]
@@ -24146,7 +24054,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             Matrix44 result_1b; Matrix44.Add(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -24160,40 +24068,69 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestOperator_Addition_i ()
         {
-            var a = new Matrix44(3, -6, 44, 11, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var b = new Matrix44(-6, 12, 18, -3, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                  3, - 6,  44,  11,
+                 44, -34, -22,  11,
+                 36, -34, -22,  34,
+                 44, -34, - 3,  12);
 
-            var expected = new Matrix44(-3, 6, 62, 8, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var b = new Matrix44(
+                - 6,  12,  18, - 3,
+                 44, -34, -22,  11,
+                 44, -54, -34,  11,
+                 34, -54, -22,  11);
+
+            var expected = new Matrix44(
+                - 3,   6,  62,  8,
+                 88, -68, -44, 22,
+                 80, -88, -56, 45,
+                 78, -88, -25, 23);
 
             this.TestAddition(a, b, expected);
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero matrix, all the 
+        /// Assert that, for a known example involving the identity matrix, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Addition_ii ()
         {
-            var a = new Matrix44(-2313, 88, 199, 42, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                  3, - 6,  44,  11,
+                 44, -34, -22,  11,
+                 36, -34, -22,  34,
+                 44, -34, - 3,  12);
 
             var expected = a;
+            expected.M11++;
+            expected.M22++;
+            expected.M33++;
+            expected.M44++;
 
             this.TestAddition(a, Matrix44.Identity, expected);
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero matrixs, all the 
-        /// addition opperators and functions yield the correct result of zero.
+        /// Assert that, for a known example involving two identity matricies,
+        /// all the addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Addition_iii ()
         {
-            this.TestAddition(Matrix44.Identity, Matrix44.Identity, Matrix44.Identity);
+            var i = Matrix44.Identity;
+
+            var expected = new Matrix44(
+                2, 0, 0, 0,
+                0, 2, 0, 0,
+                0, 0, 2, 0,
+                0, 0, 0, 2);
+
+            this.TestAddition(i, i, expected);
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -24206,22 +24143,22 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
-                    a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
-                    a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
-                    a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
-                    a.M44 / b.M44
+                    a.M11 + b.M11,
+                    a.M12 + b.M12,
+                    a.M13 + b.M13,
+                    a.M14 + b.M14,
+                    a.M21 + b.M21,
+                    a.M22 + b.M22,
+                    a.M23 + b.M23,
+                    a.M24 + b.M24,
+                    a.M31 + b.M31,
+                    a.M32 + b.M32,
+                    a.M33 + b.M33,
+                    a.M34 + b.M34,
+                    a.M41 + b.M41,
+                    a.M42 + b.M42,
+                    a.M43 + b.M43,
+                    a.M44 + b.M44
                     );
 
                 this.TestAddition(a, b, expected);
@@ -24229,7 +24166,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -24244,7 +24181,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             Matrix44 result_1b; Matrix44.Subtract(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -24268,8 +24205,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero matrix fromt the zero matrix, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero matrix fromt the zero matrix,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -24279,7 +24216,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -24292,21 +24229,21 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -24315,7 +24252,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -24328,7 +24265,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             Matrix44 result_1b;
             Matrix44.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -24355,7 +24292,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero matrix, all the 
+        /// Assert that, for known examples involving the zero matrix, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -24374,7 +24311,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that when negating the zero matrix, all the 
+        /// Assert that when negating the zero matrix, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -24384,7 +24321,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -24414,7 +24351,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             Matrix44 result_1b; Matrix44.Multiply(ref a, ref b, out result_1b);
             Matrix44 result_2b; Matrix44.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -24433,17 +24370,17 @@ namespace Abacus.Fixed32Precision.Tests
             a.M12 = 36;
             a.M13 = 9;
             a.M14 = -54;
-            
+
             a.M21 = 36;
             a.M22 = 3;
             a.M23 = 9;
             a.M24 = 9;
-            
+
             a.M31 = 9;
             a.M32 = 9;
             a.M33 = -36;
             a.M34 = 6;
-            
+
             a.M41 = -24;
             a.M42 = 9;
             a.M43 = 36;
@@ -24454,17 +24391,17 @@ namespace Abacus.Fixed32Precision.Tests
             b.M12 = -1269;
             b.M13 = -2187;
             b.M14 = 2484;
-            
+
             b.M21 = -999;
             b.M22 = 1467;
             b.M23 = 351;
             b.M24 = -1971;
-            
+
             b.M31 = -387;
             b.M32 = 81;
             b.M33 = 1674;
             b.M34 = -693;
-            
+
             b.M41 = 1584;
             b.M42 = -621;
             b.M43 = -1863;
@@ -24474,7 +24411,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -24487,21 +24424,21 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -24523,13 +24460,13 @@ namespace Abacus.Fixed32Precision.Tests
             var result_1a = a / b;
 
             Matrix44 result_1b; Matrix44.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -24552,7 +24489,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -24576,7 +24513,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -24589,21 +24526,21 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M11 / b.M11, 
-                    a.M12 / b.M12, 
-                    a.M13 / b.M13, 
+                    a.M11 / b.M11,
+                    a.M12 / b.M12,
+                    a.M13 / b.M13,
                     a.M14 / b.M14,
-                    a.M21 / b.M21, 
-                    a.M22 / b.M22, 
-                    a.M23 / b.M23, 
+                    a.M21 / b.M21,
+                    a.M22 / b.M22,
+                    a.M23 / b.M23,
                     a.M24 / b.M24,
-                    a.M31 / b.M31, 
-                    a.M32 / b.M32, 
-                    a.M33 / b.M33, 
+                    a.M31 / b.M31,
+                    a.M32 / b.M32,
+                    a.M33 / b.M33,
                     a.M34 / b.M34,
-                    a.M41 / b.M41, 
-                    a.M42 / b.M42, 
-                    a.M43 / b.M43, 
+                    a.M41 / b.M41,
+                    a.M42 / b.M42,
+                    a.M43 / b.M43,
                     a.M44 / b.M44
                     );
 
@@ -24667,7 +24604,7 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }    }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class QuaternionTests
@@ -24746,14 +24683,14 @@ namespace Abacus.Fixed32Precision.Tests
             Type t = typeof(Quaternion);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y, Z and W member variables of a number of randomly generated 
-        /// Quaterion objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Quaterion objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -24770,13 +24707,13 @@ namespace Abacus.Fixed32Precision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
                 Assert.That(data[0], Is.EqualTo(quat.X));
                 Assert.That(data[1], Is.EqualTo(quat.Y));
                 Assert.That(data[2], Is.EqualTo(quat.Z));
                 Assert.That(data[3], Is.EqualTo(quat.W));
-                
+
                 h_quat.Free();
             }
         }
@@ -24784,19 +24721,19 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void Test_Constructors ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_ToString ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            Assert.That(true, Is.EqualTo(false));
+            throw new InconclusiveException("Not Implemented");
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -25375,104 +25312,29 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
+        // Test: StructLayout //----------------------------------------------//
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Fixed32 amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Slerp_i ()
         {
-            Fixed32 zero = 0;
-            Fixed32 one = 1;
-
-            Fixed32 nineninenine;
-            RealMaths.FromString("0.999999", out nineninenine);
-
-            Fixed32 a;
-            Fixed32 b;
-            Fixed32 c = amount;
-            
-            Fixed32 d = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            Boolean flag = false;
-
-            if (d < zero)
-            {
-                flag = true;
-                d = -d;
-            }
-
-
-            if (d >nineninenine)
-            {
-                b = one - c;
-                a = flag ? -c : c;
-            }
-            else
-            {
-                Fixed32 e = RealMaths.ArcCos (d);
-                Fixed32 f = one / RealMaths.Sin (e);
-
-                b = RealMaths.Sin ((one - c) * e) * f;
-
-                a = flag ? -RealMaths.Sin (c * e) * f : RealMaths.Sin (c * e) * f;
-            }
-
-            result.X = (b * quaternion1.X) + (a * quaternion2.X);
-            result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-            result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-            result.W = (b * quaternion1.W) + (a * quaternion2.W);
+            throw new InconclusiveException("Not Implemented");
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Fixed32 amount, out Quaternion result)
+        [Test]
+        public static void TestStaticFn_Lerp_i ()
         {
-            Fixed32 zero = 0;
-            Fixed32 one = 1;
-
-            Fixed32 a = amount;
-            Fixed32 b = one - a;
-            Fixed32 c = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
-                (quaternion1.W * quaternion2.W);
-            
-            if (c >= zero)
-            {
-                result.X = (b * quaternion1.X) + (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) + (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) + (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) + (a * quaternion2.W);
-            }
-            else
-            {
-                result.X = (b * quaternion1.X) - (a * quaternion2.X);
-                result.Y = (b * quaternion1.Y) - (a * quaternion2.Y);
-                result.Z = (b * quaternion1.Z) - (a * quaternion2.Z);
-                result.W = (b * quaternion1.W) - (a * quaternion2.W);
-            }
-
-            Fixed32 d = 
-                (result.X * result.X) + 
-                (result.Y * result.Y) + 
-                (result.Z * result.Z) + 
-                (result.W * result.W);
-
-            Fixed32 e = one / RealMaths.Sqrt (d);
-
-            result.X *= e;
-            result.Y *= e;
-            result.Z *= e;
-            result.W *= e;
+            throw new InconclusiveException("Not Implemented");
         }
 
     }
-        /// <summary>
+
+    /// <summary>
     /// todo
     /// </summary>
     [TestFixture]

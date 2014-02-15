@@ -10745,6 +10745,13 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Single amount, out Matrix44 result)
         {
+            Single zero = 0;
+            Single one = 1;
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
             result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
             result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
@@ -10763,7 +10770,8 @@ namespace Abacus.SinglePrecision
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-            }
+
+    }
 
     /// <summary>
     /// Single precision Quaternion.
@@ -11441,6 +11449,12 @@ namespace Abacus.SinglePrecision
         {
             Single zero = 0;
             Single one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             Single nineninenine; RealMaths.FromString("0.999999", out nineninenine);
 
             Single num2;
@@ -11478,6 +11492,11 @@ namespace Abacus.SinglePrecision
         {
             Single zero = 0;
             Single one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
 
             Single num = amount;
             Single num2 = one - num;
@@ -16499,6 +16518,13 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Double amount, out Matrix44 result)
         {
+            Double zero = 0;
+            Double one = 1;
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
             result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
             result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
@@ -16517,7 +16543,8 @@ namespace Abacus.DoublePrecision
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-            }
+
+    }
 
     /// <summary>
     /// Double precision Quaternion.
@@ -17195,6 +17222,12 @@ namespace Abacus.DoublePrecision
         {
             Double zero = 0;
             Double one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             Double nineninenine; RealMaths.FromString("0.999999", out nineninenine);
 
             Double num2;
@@ -17232,6 +17265,11 @@ namespace Abacus.DoublePrecision
         {
             Double zero = 0;
             Double one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
 
             Double num = amount;
             Double num2 = one - num;
@@ -22253,6 +22291,13 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Fixed32 amount, out Matrix44 result)
         {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
             result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
             result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
@@ -22271,7 +22316,8 @@ namespace Abacus.Fixed32Precision
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-            }
+
+    }
 
     /// <summary>
     /// Fixed32 precision Quaternion.
@@ -22949,6 +22995,12 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             Fixed32 nineninenine; RealMaths.FromString("0.999999", out nineninenine);
 
             Fixed32 num2;
@@ -22986,6 +23038,11 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
 
             Fixed32 num = amount;
             Fixed32 num2 = one - num;
