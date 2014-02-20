@@ -11590,7 +11590,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public Boolean Equals (Vector2 other)
         {
-            return ((this.X == other.X) && (this.Y == other.Y));
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion
@@ -11845,6 +11847,17 @@ namespace Abacus.SinglePrecision
             ref Vector2 vector, out Single result)
         {
             result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static void Equals (
+            ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
+        {
+            result = ((vector1.X == vector2.X) && (vector1.Y == vector2.Y));
         }
 
         // Addition Operators //----------------------------------------------//
@@ -12249,12 +12262,24 @@ namespace Abacus.SinglePrecision
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector2 vector1, Vector2 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
         /// Determines whether or not two Vector2 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
         public static Boolean operator == (Vector2 vector1, Vector2 vector2)
         {
-            return vector1.Equals (vector2);
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
@@ -12263,7 +12288,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static Boolean operator != (Vector2 vector1, Vector2 vector2)
         {
-            return !vector1.Equals (vector2);
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
         // Variant Addition Operators //--------------------------------------//
@@ -13528,6 +13555,8 @@ namespace Abacus.SinglePrecision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
+
+
     }
 
     /// <summary>
@@ -14441,6 +14470,10 @@ namespace Abacus.SinglePrecision
             result.Z = a.Z + ((b.Z - a.Z) * amount);
             result.W = a.W + ((b.W - a.W) * amount);
         }
+
+
+
+
 
     }
 
@@ -17698,7 +17731,9 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public Boolean Equals (Vector2 other)
         {
-            return ((this.X == other.X) && (this.Y == other.Y));
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion
@@ -17953,6 +17988,17 @@ namespace Abacus.DoublePrecision
             ref Vector2 vector, out Double result)
         {
             result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static void Equals (
+            ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
+        {
+            result = ((vector1.X == vector2.X) && (vector1.Y == vector2.Y));
         }
 
         // Addition Operators //----------------------------------------------//
@@ -18357,12 +18403,24 @@ namespace Abacus.DoublePrecision
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector2 vector1, Vector2 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
         /// Determines whether or not two Vector2 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
         public static Boolean operator == (Vector2 vector1, Vector2 vector2)
         {
-            return vector1.Equals (vector2);
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
@@ -18371,7 +18429,9 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static Boolean operator != (Vector2 vector1, Vector2 vector2)
         {
-            return !vector1.Equals (vector2);
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
         // Variant Addition Operators //--------------------------------------//
@@ -19636,6 +19696,8 @@ namespace Abacus.DoublePrecision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
+
+
     }
 
     /// <summary>
@@ -20549,6 +20611,10 @@ namespace Abacus.DoublePrecision
             result.Z = a.Z + ((b.Z - a.Z) * amount);
             result.W = a.W + ((b.W - a.W) * amount);
         }
+
+
+
+
 
     }
 
@@ -23806,7 +23872,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public Boolean Equals (Vector2 other)
         {
-            return ((this.X == other.X) && (this.Y == other.Y));
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion
@@ -24061,6 +24129,17 @@ namespace Abacus.Fixed32Precision
             ref Vector2 vector, out Fixed32 result)
         {
             result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static void Equals (
+            ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
+        {
+            result = ((vector1.X == vector2.X) && (vector1.Y == vector2.Y));
         }
 
         // Addition Operators //----------------------------------------------//
@@ -24465,12 +24544,24 @@ namespace Abacus.Fixed32Precision
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector2 vector1, Vector2 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
         /// Determines whether or not two Vector2 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
         public static Boolean operator == (Vector2 vector1, Vector2 vector2)
         {
-            return vector1.Equals (vector2);
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
@@ -24479,7 +24570,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static Boolean operator != (Vector2 vector1, Vector2 vector2)
         {
-            return !vector1.Equals (vector2);
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
         // Variant Addition Operators //--------------------------------------//
@@ -25744,6 +25837,8 @@ namespace Abacus.Fixed32Precision
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
+
+
     }
 
     /// <summary>
@@ -26657,6 +26752,10 @@ namespace Abacus.Fixed32Precision
             result.Z = a.Z + ((b.Z - a.Z) * amount);
             result.W = a.W + ((b.W - a.W) * amount);
         }
+
+
+
+
 
     }
 

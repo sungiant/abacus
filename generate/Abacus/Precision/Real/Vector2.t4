@@ -69,7 +69,7 @@
         public Boolean Equals (Vector2 other)
         {
             Boolean result;
-            Equals (ref vector1, ref vector2, out result);
+            Equals (ref this, ref other, out result);
             return result;
         }
 
