@@ -135,5 +135,14 @@
 <#@ include file="Vector4.Operators.t4"#>
 <#@ include file="Vector4.Splines.t4"#>
 <#@ include file="Vector4.Utilities.t4"#>
+
+
+
+<#@ include file="Vector4.Variants.Maths.t4"#>
+<#@ include file="Vector4.Variants.Operators.t4"#>
+<#@ include file="Vector4.Variants.Splines.t4"#>
+<#@ include file="Vector4.Variants.Utilities.t4"#>
+
+<#@ include file="Vector4.Variants.MemberFunctions.t4"#>
     }
 
