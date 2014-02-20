@@ -68,7 +68,9 @@
         /// </summary>
         public Boolean Equals (Vector2 other)
         {
-            return ((this.X == other.X) && (this.Y == other.Y));
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         #endregion

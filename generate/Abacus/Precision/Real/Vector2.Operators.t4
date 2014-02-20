@@ -1,4 +1,15 @@
-﻿        // Addition Operators //----------------------------------------------//
+﻿        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static void Equals (
+            ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
+        {
+            result = ((vector1.X == vector2.X) && (vector1.Y == vector2.Y));
+        }
+
+        // Addition Operators //----------------------------------------------//
 
         /// <summary>
         /// Performs addition of two Vector2 objects.
