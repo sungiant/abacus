@@ -5,11 +5,11 @@
         /// pair of components.
         /// </summary>
         public static Vector2 Min (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Min (ref a, ref b, out result);
+            Min (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -18,11 +18,11 @@
         /// pair of components.
         /// </summary>
         public static Vector2 Max (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Max (ref a, ref b, out result);
+            Max (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -30,12 +30,12 @@
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static Vector2 Clamp (
-            Vector2 a,
+            Vector2 vector,
             Vector2 min,
             Vector2 max)
         {
             Vector2 result;
-            Clamp (ref a, ref min, ref max, out result);
+            Clamp (ref vector, ref min, ref max, out result);
             return result;
         }
 
@@ -43,22 +43,22 @@
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static Vector2 Lerp (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             <#= type #> amount)
         {
             Vector2 result;
-            Lerp (ref a, ref b, ref amount, out result);
+            Lerp (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
         /// <summary>
         /// Detemines whether or not the Vector2 is of unit length.
         /// </summary>
-        public Boolean IsUnit()
+        public static Boolean IsUnit (Vector2 vector)
         {
             Boolean result;
-            IsUnit (ref this, out result);
+            IsUnit (ref vector, out result);
             return result;
         }
 

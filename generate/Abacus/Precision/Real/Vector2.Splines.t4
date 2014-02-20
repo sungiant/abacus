@@ -4,8 +4,8 @@
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a,
-            ref Vector2 b,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
             ref <#= type #> amount,
             out Vector2 result)
         {
@@ -22,8 +22,8 @@
 
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = a.X + ((b.X - a.X) * amount);
-            result.Y = a.Y + ((b.Y - a.Y) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
         }
 
         /// <summary>
@@ -37,10 +37,10 @@
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a,
-            ref Vector2 b,
-            ref Vector2 c,
-            ref Vector2 d,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
+            ref Vector2 vector3,
+            ref Vector2 vector4,
             ref <#= type #> amount,
             out Vector2 result)
         {
@@ -62,14 +62,69 @@
             <#= type #> squared = amount * amount;
             <#= type #> cubed = amount * squared;
 
-            result.X =
-                half * ((two * b.X) + ((-a.X + c.X) * amount) +
-                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
-                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
-                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
-                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
+
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X 
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X) 
+                    + (three * vector2.X) 
+                    - (three * vector3.X) 
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y 
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y) 
+                    + (three * vector2.Y) 
+                    - (three * vector3.Y) 
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
         }
 
         /// <summary>

@@ -4,12 +4,12 @@
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static Vector2 SmoothStep (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             <#= type #> amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, ref amount, out result);
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
@@ -17,14 +17,16 @@
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
         public static Vector2 CatmullRom (
-            Vector2 a,
-            Vector2 b,
-            Vector2 c,
-            Vector2 d,
+            Vector2 vector1,
+            Vector2 vector2,
+            Vector2 vector3,
+            Vector2 vector4,
             <#= type #> amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4, 
+                ref amount, out result);
             return result;
         }
 

@@ -11949,8 +11949,8 @@ namespace Abacus.SinglePrecision
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a,
-            ref Vector2 b,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
             ref Single amount,
             out Vector2 result)
         {
@@ -11967,8 +11967,8 @@ namespace Abacus.SinglePrecision
 
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = a.X + ((b.X - a.X) * amount);
-            result.Y = a.Y + ((b.Y - a.Y) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
         }
 
         /// <summary>
@@ -11982,10 +11982,10 @@ namespace Abacus.SinglePrecision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a,
-            ref Vector2 b,
-            ref Vector2 c,
-            ref Vector2 d,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
+            ref Vector2 vector3,
+            ref Vector2 vector4,
             ref Single amount,
             out Vector2 result)
         {
@@ -12007,14 +12007,69 @@ namespace Abacus.SinglePrecision
             Single squared = amount * amount;
             Single cubed = amount * squared;
 
-            result.X =
-                half * ((two * b.X) + ((-a.X + c.X) * amount) +
-                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
-                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
-                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
-                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
+
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X 
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X) 
+                    + (three * vector2.X) 
+                    - (three * vector3.X) 
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y 
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y) 
+                    + (three * vector2.Y) 
+                    - (three * vector3.Y) 
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
         }
 
         /// <summary>
@@ -12475,12 +12530,12 @@ namespace Abacus.SinglePrecision
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static Vector2 SmoothStep (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             Single amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, ref amount, out result);
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
@@ -12488,14 +12543,16 @@ namespace Abacus.SinglePrecision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
         public static Vector2 CatmullRom (
-            Vector2 a,
-            Vector2 b,
-            Vector2 c,
-            Vector2 d,
+            Vector2 vector1,
+            Vector2 vector2,
+            Vector2 vector3,
+            Vector2 vector4,
             Single amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4, 
+                ref amount, out result);
             return result;
         }
 
@@ -12524,11 +12581,11 @@ namespace Abacus.SinglePrecision
         /// pair of components.
         /// </summary>
         public static Vector2 Min (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Min (ref a, ref b, out result);
+            Min (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -12537,11 +12594,11 @@ namespace Abacus.SinglePrecision
         /// pair of components.
         /// </summary>
         public static Vector2 Max (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Max (ref a, ref b, out result);
+            Max (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -12549,12 +12606,12 @@ namespace Abacus.SinglePrecision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static Vector2 Clamp (
-            Vector2 a,
+            Vector2 vector,
             Vector2 min,
             Vector2 max)
         {
             Vector2 result;
-            Clamp (ref a, ref min, ref max, out result);
+            Clamp (ref vector, ref min, ref max, out result);
             return result;
         }
 
@@ -12562,22 +12619,22 @@ namespace Abacus.SinglePrecision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static Vector2 Lerp (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             Single amount)
         {
             Vector2 result;
-            Lerp (ref a, ref b, ref amount, out result);
+            Lerp (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
         /// <summary>
         /// Detemines whether or not the Vector2 is of unit length.
         /// </summary>
-        public Boolean IsUnit()
+        public static Boolean IsUnit (Vector2 vector)
         {
             Boolean result;
-            IsUnit (ref this, out result);
+            IsUnit (ref vector, out result);
             return result;
         }
 
@@ -12609,6 +12666,17 @@ namespace Abacus.SinglePrecision
         {
             Normalise (ref this, out this);
         }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
     }
 
     /// <summary>
@@ -18090,8 +18158,8 @@ namespace Abacus.DoublePrecision
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a,
-            ref Vector2 b,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
             ref Double amount,
             out Vector2 result)
         {
@@ -18108,8 +18176,8 @@ namespace Abacus.DoublePrecision
 
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = a.X + ((b.X - a.X) * amount);
-            result.Y = a.Y + ((b.Y - a.Y) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
         }
 
         /// <summary>
@@ -18123,10 +18191,10 @@ namespace Abacus.DoublePrecision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a,
-            ref Vector2 b,
-            ref Vector2 c,
-            ref Vector2 d,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
+            ref Vector2 vector3,
+            ref Vector2 vector4,
             ref Double amount,
             out Vector2 result)
         {
@@ -18148,14 +18216,69 @@ namespace Abacus.DoublePrecision
             Double squared = amount * amount;
             Double cubed = amount * squared;
 
-            result.X =
-                half * ((two * b.X) + ((-a.X + c.X) * amount) +
-                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
-                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
-                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
-                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
+
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X 
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X) 
+                    + (three * vector2.X) 
+                    - (three * vector3.X) 
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y 
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y) 
+                    + (three * vector2.Y) 
+                    - (three * vector3.Y) 
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
         }
 
         /// <summary>
@@ -18616,12 +18739,12 @@ namespace Abacus.DoublePrecision
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static Vector2 SmoothStep (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             Double amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, ref amount, out result);
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
@@ -18629,14 +18752,16 @@ namespace Abacus.DoublePrecision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
         public static Vector2 CatmullRom (
-            Vector2 a,
-            Vector2 b,
-            Vector2 c,
-            Vector2 d,
+            Vector2 vector1,
+            Vector2 vector2,
+            Vector2 vector3,
+            Vector2 vector4,
             Double amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4, 
+                ref amount, out result);
             return result;
         }
 
@@ -18665,11 +18790,11 @@ namespace Abacus.DoublePrecision
         /// pair of components.
         /// </summary>
         public static Vector2 Min (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Min (ref a, ref b, out result);
+            Min (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -18678,11 +18803,11 @@ namespace Abacus.DoublePrecision
         /// pair of components.
         /// </summary>
         public static Vector2 Max (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Max (ref a, ref b, out result);
+            Max (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -18690,12 +18815,12 @@ namespace Abacus.DoublePrecision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static Vector2 Clamp (
-            Vector2 a,
+            Vector2 vector,
             Vector2 min,
             Vector2 max)
         {
             Vector2 result;
-            Clamp (ref a, ref min, ref max, out result);
+            Clamp (ref vector, ref min, ref max, out result);
             return result;
         }
 
@@ -18703,22 +18828,22 @@ namespace Abacus.DoublePrecision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static Vector2 Lerp (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             Double amount)
         {
             Vector2 result;
-            Lerp (ref a, ref b, ref amount, out result);
+            Lerp (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
         /// <summary>
         /// Detemines whether or not the Vector2 is of unit length.
         /// </summary>
-        public Boolean IsUnit()
+        public static Boolean IsUnit (Vector2 vector)
         {
             Boolean result;
-            IsUnit (ref this, out result);
+            IsUnit (ref vector, out result);
             return result;
         }
 
@@ -18750,6 +18875,17 @@ namespace Abacus.DoublePrecision
         {
             Normalise (ref this, out this);
         }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
     }
 
     /// <summary>
@@ -24231,8 +24367,8 @@ namespace Abacus.Fixed32Precision
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static void SmoothStep (
-            ref Vector2 a,
-            ref Vector2 b,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
             ref Fixed32 amount,
             out Vector2 result)
         {
@@ -24249,8 +24385,8 @@ namespace Abacus.Fixed32Precision
 
             amount = (amount * amount) * (three - (two * amount));
 
-            result.X = a.X + ((b.X - a.X) * amount);
-            result.Y = a.Y + ((b.Y - a.Y) * amount);
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
         }
 
         /// <summary>
@@ -24264,10 +24400,10 @@ namespace Abacus.Fixed32Precision
         ///   to vary linearly over the length of the segment.
         /// </summary>
         public static void CatmullRom (
-            ref Vector2 a,
-            ref Vector2 b,
-            ref Vector2 c,
-            ref Vector2 d,
+            ref Vector2 vector1,
+            ref Vector2 vector2,
+            ref Vector2 vector3,
+            ref Vector2 vector4,
             ref Fixed32 amount,
             out Vector2 result)
         {
@@ -24289,14 +24425,69 @@ namespace Abacus.Fixed32Precision
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
 
-            result.X =
-                half * ((two * b.X) + ((-a.X + c.X) * amount) +
-                (((two * a.X) - (five * b.X) + (four * c.X) - d.X) * squared) +
-                ((-a.X + (three * b.X) - (three * c.X) + d.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y = half * ((two * b.Y) + ((-a.Y + c.Y) * amount) +
-                (((two * a.Y) - (five * b.Y) + (four * c.Y) - d.Y) * squared) +
-                ((-a.Y + (three * b.Y) - (three * c.Y) + d.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
+
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X 
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X) 
+                    + (three * vector2.X) 
+                    - (three * vector3.X) 
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y 
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y) 
+                    + (three * vector2.Y) 
+                    - (three * vector3.Y) 
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
         }
 
         /// <summary>
@@ -24757,12 +24948,12 @@ namespace Abacus.Fixed32Precision
         /// Interpolates between two vectors using a cubic equation.
         /// </summary>
         public static Vector2 SmoothStep (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             Fixed32 amount)
         {
             Vector2 result;
-            SmoothStep (ref a, ref b, ref amount, out result);
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
@@ -24770,14 +24961,16 @@ namespace Abacus.Fixed32Precision
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
         public static Vector2 CatmullRom (
-            Vector2 a,
-            Vector2 b,
-            Vector2 c,
-            Vector2 d,
+            Vector2 vector1,
+            Vector2 vector2,
+            Vector2 vector3,
+            Vector2 vector4,
             Fixed32 amount)
         {
             Vector2 result;
-            CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4, 
+                ref amount, out result);
             return result;
         }
 
@@ -24806,11 +24999,11 @@ namespace Abacus.Fixed32Precision
         /// pair of components.
         /// </summary>
         public static Vector2 Min (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Min (ref a, ref b, out result);
+            Min (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -24819,11 +25012,11 @@ namespace Abacus.Fixed32Precision
         /// pair of components.
         /// </summary>
         public static Vector2 Max (
-            Vector2 a,
-            Vector2 b)
+            Vector2 vector1,
+            Vector2 vector2)
         {
             Vector2 result;
-            Max (ref a, ref b, out result);
+            Max (ref vector1, ref vector2, out result);
             return result;
         }
 
@@ -24831,12 +25024,12 @@ namespace Abacus.Fixed32Precision
         /// Restricts a value to be within a specified range.
         /// </summary>
         public static Vector2 Clamp (
-            Vector2 a,
+            Vector2 vector,
             Vector2 min,
             Vector2 max)
         {
             Vector2 result;
-            Clamp (ref a, ref min, ref max, out result);
+            Clamp (ref vector, ref min, ref max, out result);
             return result;
         }
 
@@ -24844,22 +25037,22 @@ namespace Abacus.Fixed32Precision
         /// Performs a linear interpolation between two vectors.
         /// </summary>
         public static Vector2 Lerp (
-            Vector2 a,
-            Vector2 b,
+            Vector2 vector1,
+            Vector2 vector2,
             Fixed32 amount)
         {
             Vector2 result;
-            Lerp (ref a, ref b, ref amount, out result);
+            Lerp (ref vector1, ref vector2, ref amount, out result);
             return result;
         }
 
         /// <summary>
         /// Detemines whether or not the Vector2 is of unit length.
         /// </summary>
-        public Boolean IsUnit()
+        public static Boolean IsUnit (Vector2 vector)
         {
             Boolean result;
-            IsUnit (ref this, out result);
+            IsUnit (ref vector, out result);
             return result;
         }
 
@@ -24891,6 +25084,17 @@ namespace Abacus.Fixed32Precision
         {
             Normalise (ref this, out this);
         }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
     }
 
     /// <summary>
