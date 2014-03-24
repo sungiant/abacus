@@ -1,0 +1,25 @@
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Sqrt(Single input)
+        {
+            Single output = (Single)Math.Sqrt(input);
+            return output;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Sqrt(Double input)
+        {
+            return Math.Sqrt(input);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Sqrt(Fixed32 input)
+        {
+            return Fixed32.Sqrt(input);
+        }
+

@@ -1,0 +1,24 @@
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcCos(Single input)
+        {
+            return (Single)Math.Acos((Single)input);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcCos(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcCos(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
+

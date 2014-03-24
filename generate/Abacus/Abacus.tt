@@ -14,7 +14,7 @@
 // │                \/           \//_____/         \/     \/                │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.com)                 │ \\
+// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.io)                  │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
 // │ a copy of this software and associated documentation files (the        │ \\
@@ -52,7 +52,13 @@ namespace Abacus
 <#@ include file="IPackedReal.t4"#>
 <#@ include file="IPackedValue.t4"#>
 <#@ include file="PackUtils.t4"#>
+
+<# foreach( var fixedTypeDefinition in GetFixedTypeDefinitions() ) { #>
+
 <#@ include file="Fixed.t4"#>
+
+<# } #>
+
 <#@ include file="RealMaths.t4"#>
 
     /// <summary>
@@ -117,7 +123,6 @@ namespace Abacus
             return Fixed32.CreateFromRaw(randomInt32);
         }
     }
-
 }
 
 namespace Abacus.Packed

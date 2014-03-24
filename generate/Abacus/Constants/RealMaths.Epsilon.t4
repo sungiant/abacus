@@ -1,0 +1,12 @@
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Epsilon(out Single value) { value = 1.0e-6f; }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Epsilon(out Double value) { value = 1.0e-6; }
+
+        public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
+

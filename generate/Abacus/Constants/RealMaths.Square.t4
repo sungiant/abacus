@@ -1,0 +1,24 @@
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Square(Single input)
+        {
+            return input * input;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Square(Double input)
+        {
+            return input * input;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Square(Fixed32 input)
+        {
+            return Fixed32.Square(input);
+        }
+

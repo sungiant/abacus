@@ -1,0 +1,18 @@
+        /// <summary>
+        /// Assigns a Single precision real number representing the
+        /// mathematical constant π to the output value.
+        /// </summary>
+        public static void Pi(out Single value) { value = 3.1415926536f; }
+
+        /// <summary>
+        /// Assigns a Double precision real number representing the
+        /// mathematical constant π to the output value.
+        /// </summary>
+        public static void Pi(out Double value) { value = 3.14159265358979323846264338327950288; }
+
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the
+        /// mathematical constant π to the output value.
+        /// </summary>
+        public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
+

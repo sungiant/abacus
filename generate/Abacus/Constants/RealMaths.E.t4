@@ -1,0 +1,18 @@
+        /// <summary>
+        /// Assigns a Single precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E (out Single value) { value = 2.71828183f; }
+
+        /// <summary>
+        /// Assigns a Double precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E (out Double value) { value = 2.71828182845904523536028747135266249775724709369995; }
+
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E (out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
+
