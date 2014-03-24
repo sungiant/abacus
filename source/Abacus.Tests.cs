@@ -14175,8 +14175,6 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Single one = 1;
-            Single four = 4;
             Single six = 6;
             Single eight = 8;
             Single ten = 10;
@@ -14969,10 +14967,8 @@ namespace Abacus.SinglePrecision.Tests
             var c = new Vector4( + 40,  +40,  +40, - 40 );
             var d = new Vector4( +120,  -40,  -40, -120 );
 
-            Single zero = 0;
             Single one = 1;
 
-            Single z = 40;
             Single y = 30;
             Single x = 20;
             Single w = 10;
@@ -22384,8 +22380,6 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Double one = 1;
-            Double four = 4;
             Double six = 6;
             Double eight = 8;
             Double ten = 10;
@@ -23178,10 +23172,8 @@ namespace Abacus.DoublePrecision.Tests
             var c = new Vector4( + 40,  +40,  +40, - 40 );
             var d = new Vector4( +120,  -40,  -40, -120 );
 
-            Double zero = 0;
             Double one = 1;
 
-            Double z = 40;
             Double y = 30;
             Double x = 20;
             Double w = 10;
@@ -30593,8 +30585,6 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            Fixed32 one = 1;
-            Fixed32 four = 4;
             Fixed32 six = 6;
             Fixed32 eight = 8;
             Fixed32 ten = 10;
@@ -31387,10 +31377,8 @@ namespace Abacus.Fixed32Precision.Tests
             var c = new Vector4( + 40,  +40,  +40, - 40 );
             var d = new Vector4( +120,  -40,  -40, -120 );
 
-            Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            Fixed32 z = 40;
             Fixed32 y = 30;
             Fixed32 x = 20;
             Fixed32 w = 10;

@@ -170,10 +170,8 @@
             var c = new Vector4( + 40,  +40,  +40, - 40 );
             var d = new Vector4( +120,  -40,  -40, -120 );
 
-            <#= type #> zero = 0;
             <#= type #> one = 1;
 
-            <#= type #> z = 40;
             <#= type #> y = 30;
             <#= type #> x = 20;
             <#= type #> w = 10;

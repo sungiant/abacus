@@ -348,8 +348,6 @@
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            <#= type #> one = 1;
-            <#= type #> four = 4;
             <#= type #> six = 6;
             <#= type #> eight = 8;
             <#= type #> ten = 10;
