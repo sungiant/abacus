@@ -1,6 +1,6 @@
 ﻿        #region IComparable
         
-        public int CompareTo(Fixed32 other)
+        public int CompareTo(<#= fixedTypeDefinition.TypeName #> other)
         {
             return numerator.CompareTo(other.numerator);
         }
@@ -10,10 +10,10 @@
             if (value == null)
                 return 1;
 
-            if (!(value is Abacus.Fixed32))
-                throw new ArgumentException("Value is not a Abacus.Fixed32.");
+            if (!(value is Abacus.<#= fixedTypeDefinition.TypeName #>))
+                throw new ArgumentException("Value is not a Abacus.<#= fixedTypeDefinition.TypeName #>.");
 
-            Fixed32 fv = (Fixed32)value;
+            <#= fixedTypeDefinition.TypeName #> fv = (<#= fixedTypeDefinition.TypeName #>)value;
 
             if (this == fv)
                 return 0;

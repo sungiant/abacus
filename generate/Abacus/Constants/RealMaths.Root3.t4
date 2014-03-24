@@ -1,0 +1,12 @@
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Root3(out Single value) { value = 1.732050808f; }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Root3(out Double value) { value = 1.732050808; }
+
+        public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.732050808"); }
+

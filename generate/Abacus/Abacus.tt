@@ -51,7 +51,13 @@ namespace Abacus
 <#@ include file="IPackedReal.t4"#>
 <#@ include file="IPackedValue.t4"#>
 <#@ include file="PackUtils.t4"#>
+
+<# foreach( var fixedTypeDefinition in GetFixedTypeDefinitions() ) { #>
+
 <#@ include file="Fixed.t4"#>
+
+<# } #>
+
 <#@ include file="RealMaths.t4"#>
 
     /// <summary>
@@ -116,7 +122,6 @@ namespace Abacus
             return Fixed32.CreateFromRaw(randomInt32);
         }
     }
-
 }
 
 namespace Abacus.Packed

@@ -1,0 +1,42 @@
+        public static bool TryParse(string s, NumberStyles style, IFormatProvider provider, out <#= fixedTypeDefinition.TypeName #> result)
+        {
+            Double d;
+            Boolean ok = Double.TryParse(s, style, provider, out d);
+            if( ok )
+            {
+                result = new <#= fixedTypeDefinition.TypeName #>(d);
+            }
+            else
+            {
+                result = 0;
+            }
+
+            return ok;
+        }
+
+        public static bool TryParse(string s, out <#= fixedTypeDefinition.TypeName #> result)
+        {
+            return TryParse(s, NumberStyles.Any, null, out result);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> Parse(string s)
+        {
+            return Parse(s, (NumberStyles.Float | NumberStyles.AllowThousands), null);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> Parse (string s, IFormatProvider provider)
+        {
+            return Parse(s, (NumberStyles.Float | NumberStyles.AllowThousands), provider);
+        }
+        
+        public static <#= fixedTypeDefinition.TypeName #> Parse (string s, NumberStyles style)
+        {
+            return Parse(s, style, null);
+        }
+        
+        public static <#= fixedTypeDefinition.TypeName #> Parse (string s, NumberStyles style, IFormatProvider provider) 
+        {
+            Double d = Double.Parse(s, style, provider);
+            return new <#= fixedTypeDefinition.TypeName #>(d);
+        }
+

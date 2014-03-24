@@ -1,6 +1,6 @@
 ﻿        #region IEquatable
 
-        public bool Equals(Fixed32 other)
+        public bool Equals(<#= fixedTypeDefinition.TypeName #> other)
         {
             return (this.RawValue == other.RawValue);
         }

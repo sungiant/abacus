@@ -10,7 +10,7 @@
 // │                \/           \//_____/         \/     \/                │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.com)                 │ \\
+// │ Copyright © 2013 A.J.Pook (http://abacus3d.github.io)                  │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
 // │ a copy of this software and associated documentation files (the        │ \\
@@ -318,8 +318,11 @@ namespace Abacus
         }
     }
 
+
+
     ///
-    /// Fixed32 is a binary fixed point number in the Q39.24 number format.
+    /// Fixed32 is a binary fixed 
+    /// point number in the Q39.24 number format.
     ///
     /// This type can be useful:
     /// - as a performance enhancement when working with embedded 
@@ -346,7 +349,8 @@ namespace Abacus
     ///
     /// Q numbers are a ratio of two integers: the numerator is kept in storage, 
     /// the denominator is equal to 2^n.
-    /// 
+    ///
+
     [StructLayout(LayoutKind.Sequential), Serializable]
     public struct Fixed32
         : IFormattable
@@ -356,16 +360,16 @@ namespace Abacus
         , IEquatable<Fixed32>
     {
         // s is the number of sign bits
-        public const Int32 s = 1;
+        public const Byte s = 1;
 
         // m is the number of bits set aside to designate the two's complement integer
         // portion of the number exclusive of the sign bit.
-        public const Int32 m = 32 - n - s;
+        public const Byte m = 32 - n - s;
 
         // n is the number of bits used to designate the fractional portion of the
         // number, i.e. the number of bit's to the right of the binary point.
         // (If n = 0, the Q numbers are integers — the degenerate case)
-        public const Int32 n = 12;
+        public const Byte n = 12;
 
         // This is the raw value that is stored and operated upon.
         // Size: Signed 64-bit integer
@@ -377,58 +381,57 @@ namespace Abacus
 
         double value { get { return (double)numerator / (double)denominator; } }
 
-
-
-        public static bool IsInfinity(Fixed32 value)
-        {
-            return ( value == Fixed32.NegativeInfinity || value == Fixed32.PositiveInfinity );
-        }
-
-        public static bool IsNegativeInfinity(Fixed32 value)
-        {
-            return ( value == Fixed32.NegativeInfinity );
-        }
-        
-        public static bool IsPositiveInfinity(Fixed32 value)
-        {
-            return ( value == Fixed32.PositiveInfinity );
-        }
-
-        public static bool IsNaNInfinity(Fixed32 value)
-        {
-            return ( value == Fixed32.NaN );
-        }
-
         // perhaps this shouldn't be public
         public Int32 RawValue { get { return numerator; } }
         //public Int32 RawHigh { get { return numerator >> n; } }
         //public Int32 RawLow { get { return numerator - (RawHigh << n); } }
         
-        static Fixed32()
-        {
-            // i think this is wrong.
-            Int32 l = One.RawValue;
-            while (l != 0)
-            {
-                l /= 10;
-                Digits += 1;
-                DMul *= 10;
-            }
-        }
-
         public Fixed32(Int32 value)
         {
             numerator = value << n;
         }
 
-        public Fixed32 (Int64 value)
-        {
-            numerator = (Int32)value << n;
-        }
-
         public Fixed32 (Double value)
         {
             numerator = (Int32)System.Math.Round (value * (1 << n));
+        }
+
+        public Int32 ToInt32 ()
+        {
+            // todo: explain
+            return (Int32)(numerator >> n);
+        }
+        
+        public Double ToDouble ()
+        {
+            return numerator * d;
+        }
+
+        public Single ToSingle ()
+        {
+            return (Single) this.ToDouble();
+        }
+
+        public override Boolean Equals(object obj)
+        {
+            if (obj is Fixed32)
+            {
+                return ((Fixed32)obj).numerator == numerator;
+            }
+
+            return false;
+        }
+
+        public override Int32 GetHashCode()
+        {
+            //return (Int32)(numerator & 0xffffffff) ^ (Int32)(numerator >> 32); (for 64bit)
+
+            return numerator;
+        }
+
+        public override String ToString()
+        {
+            return ToDouble().ToString();
         }
 
         public static bool TryParse(string s, NumberStyles style, IFormatProvider provider, out Fixed32 result)
@@ -473,54 +476,48 @@ namespace Abacus
             return new Fixed32(d);
         }
 
-
-        public static Fixed32 CreateFromRaw (Int32 rawValue)
+        public static Fixed32 CreateFromRaw (
+            Int32 rawValue)
         {
             Fixed32 f;
             f.numerator = rawValue;
             return f;
         }
 
-        public Int32 ToInt32 ()
-        {
-            // todo: explain
-            return (Int32)(numerator >> n);
-        }
-        
-        public Double ToDouble ()
-        {
-            return numerator * d;
-        }
-
-        public Single ToSingle ()
-        {
-            return (Single) this.ToDouble();
-        }
-
-        public override Boolean Equals(object obj)
-        {
-            if (obj is Fixed32)
-            {
-                return ((Fixed32)obj).numerator == numerator;
-            }
-
-            return false;
-        }
-
-        public override Int32 GetHashCode()
-        {
-            //return (Int32)(numerator & 0xffffffff) ^ (Int32)(numerator >> 32); (for 64bit)
-
-            return numerator;
-        }
-
-        public override String ToString()
-        {
-            return ToDouble().ToString();
-        }
-
         #region Constants
 
+        static Fixed32()
+        {
+            // i think this is wrong.
+            Int32 l = One.RawValue;
+            while (l != 0)
+            {
+                l /= 10;
+                Digits += 1;
+                DMul *= 10;
+            }
+        }
+
+        public static bool IsInfinity(Fixed32 value)
+        {
+            return ( value == Fixed32.NegativeInfinity || value == Fixed32.PositiveInfinity );
+        }
+
+        public static bool IsNegativeInfinity(Fixed32 value)
+        {
+            return ( value == Fixed32.NegativeInfinity );
+        }
+        
+        public static bool IsPositiveInfinity(Fixed32 value)
+        {
+            return ( value == Fixed32.PositiveInfinity );
+        }
+
+        public static bool IsNaNInfinity(Fixed32 value)
+        {
+            return ( value == Fixed32.NaN );
+        }
+        
         // todo, put this else where
         static Int32[] PowersOfTwo = new Int32[] 
         {
@@ -1055,6 +1052,8 @@ namespace Abacus
 
     }
 
+
+
     /// <summary>
     /// This class provides maths functions with consistent function
     /// signatures across all supported precisions.  The idea being
@@ -1063,25 +1062,148 @@ namespace Abacus
     /// </summary>
     public static class RealMaths
     {
-        /// <summary>
-        /// Assigns a Single precision real number representing
-        /// zero to the output value.
+                /// <summary>
+        /// todo
         /// </summary>
-        public static void Zero(out Single value) { value = 0; }
+        internal static void TestTolerance(out Single value) { value = 1.0e-3f; }
 
         /// <summary>
-        /// Assigns a Double precision real number representing
-        /// zero to the output value.
+        /// todo
         /// </summary>
-        public static void Zero(out Double value) { value = 0; }
+        internal static void TestTolerance(out Double value) { value = 1.0e-7; }
 
         /// <summary>
-        /// Assigns a Fixed32 precision real number representing
-        /// zero to the output value.
+        /// todo
         /// </summary>
-        public static void Zero(out Fixed32 value) { value = 0; }
+        internal static void TestTolerance(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
+
+                /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcCos(Single input)
+        {
+            return (Single)Math.Acos((Single)input);
+        }
 
         /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcCos(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcCos(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+                /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcSin(Single input)
+        {
+            return (Single)Math.Asin((Single)input);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcSin(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcSin(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+                /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcTan(Single input)
+        {
+            return (Single)Math.Atan((Single)input);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcTan(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcTan(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+                /// <summary>
+        /// todo
+        /// </summary>
+        public static Single Cos(Single input)
+        {
+            return (Single)Math.Cos((Single)input);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double Cos(Double input)
+        {
+            return Math.Cos(input);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 Cos(Fixed32 input)
+        {
+            return Fixed32.Cos(input);
+        }
+
+                /// <summary>
+        /// Assigns a Single precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E (out Single value) { value = 2.71828183f; }
+
+        /// <summary>
+        /// Assigns a Double precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E (out Double value) { value = 2.71828182845904523536028747135266249775724709369995; }
+
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the mathematical
+        /// constant E, Euler's number, to the output value.
+        /// </summary>
+        public static void E (out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
+
+                /// <summary>
+        /// todo
+        /// </summary>
+        public static void Epsilon(out Single value) { value = 1.0e-6f; }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Epsilon(out Double value) { value = 1.0e-6; }
+
+        public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
+
+                /// <summary>
         /// Assigns a Single precision real number representing half to the
         /// output value.
         /// </summary>
@@ -1099,44 +1221,7 @@ namespace Abacus
         /// </summary>
         public static void Half(out Fixed32 value) { value = Fixed32.Parse("0.5"); }
 
-        /// <summary>
-        /// Assigns a Single precision real number representing
-        /// one to the output value.
-        /// </summary>
-        public static void One(out Single value) { value = 1; }
-
-        /// <summary>
-        /// Assigns a Double precision real number representing
-        /// one to the output value.
-        /// </summary>
-        public static void One(out Double value) { value = 1; }
-
-        /// <summary>
-        /// Assigns a Fixed32 precision real number representing
-        /// one to the output value.
-        /// </summary>
-        public static void One(out Fixed32 value) { value = 1; }
-
-
-        /// <summary>
-        /// Assigns a Single precision real number representing the mathematical
-        /// constant E, Euler's number, to the output value.
-        /// </summary>
-        public static void E(out Single value) { value = 2.71828183f; }
-
-        /// <summary>
-        /// Assigns a Double precision real number representing the mathematical
-        /// constant E, Euler's number, to the output value.
-        /// </summary>
-        public static void E(out Double value) { value = 2.71828182845904523536028747135266249775724709369995; }
-
-        /// <summary>
-        /// Assigns a Fixed32 precision real number representing the mathematical
-        /// constant E, Euler's number, to the output value.
-        /// </summary>
-        public static void E(out Fixed32 value) { value = Fixed32.Parse("2.71828183"); }
-
-        /// <summary>
+                /// <summary>
         /// Assigns a Single precision real number representing the common
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
@@ -1154,7 +1239,7 @@ namespace Abacus
         /// </summary>
         public static void Log10E(out Fixed32 value) { value = Fixed32.Parse("0.4342945"); }
 
-        /// <summary>
+                /// <summary>
         /// Assigns a Single precision real number representing the binary
         /// logarithm of the mathematical constant E to the output value.
         /// </summary>
@@ -1172,7 +1257,7 @@ namespace Abacus
         /// </summary>
         public static void Log2E(out Fixed32 value) { value = Fixed32.Parse("1.442695"); }
 
-        /// <summary>
+                /// <summary>
         /// Assigns a Single precision real number representing the
         /// mathematical constant π to the output value.
         /// </summary>
@@ -1190,37 +1275,7 @@ namespace Abacus
         /// </summary>
         public static void Pi(out Fixed32 value) { value = Fixed32.Parse("3.1415926536"); }
 
-        /// <summary>
-        /// Assigns a Single precision real number representing the
-        /// mathematical constant 2π to the output value.
-        /// </summary>
-        public static void Tau(out Single value) { value = 6.283185f; }
-
-        /// <summary>
-        /// Assigns a Double precision real number representing the
-        /// mathematical constant 2π to the output value.
-        /// </summary>
-        public static void Tau(out Double value) { value = 6.283185; }
-
-        /// <summary>
-        /// Assigns a Fixed32 precision real number representing the
-        /// mathematical constant 2π to the output value.
-        /// </summary>
-        public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static void Epsilon(out Single value) { value = 1.0e-6f; }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static void Epsilon(out Double value) { value = 1.0e-6; }
-
-        public static void Epsilon(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
-
-        /// <summary>
+                /// <summary>
         /// todo
         /// </summary>
         public static void Root2(out Single value) { value = 1.414213562f; }
@@ -1232,7 +1287,7 @@ namespace Abacus
 
         public static void Root2(out Fixed32 value) { value = Fixed32.Parse("1.414213562"); }
 
-        /// <summary>
+                /// <summary>
         /// todo
         /// </summary>
         public static void Root3(out Single value) { value = 1.732050808f; }
@@ -1244,22 +1299,31 @@ namespace Abacus
 
         public static void Root3(out Fixed32 value) { value = Fixed32.Parse("1.732050808"); }
 
-        /// <summary>
+                /// <summary>
         /// todo
         /// </summary>
-        internal static void TestTolerance(out Single value) { value = 1.0e-3f; }
+        public static Single Sin(Single input)
+        {
+            return (Single) Math.Sin((Single) input);
+        }
 
         /// <summary>
         /// todo
         /// </summary>
-        internal static void TestTolerance(out Double value) { value = 1.0e-7; }
+        public static Double Sin(Double input)
+        {
+            return Math.Sin(input);
+        }
 
         /// <summary>
         /// todo
         /// </summary>
-        internal static void TestTolerance(out Fixed32 value) { value = Fixed32.Parse("0.0001"); }
+        public static Fixed32 Sin(Fixed32 input)
+        {
+            return Fixed32.Sin(input);
+        }
 
-        /// <summary>
+                /// <summary>
         /// todo
         /// </summary>
         public static Single Sqrt(Single input)
@@ -1284,7 +1348,7 @@ namespace Abacus
             return Fixed32.Sqrt(input);
         }
 
-        /// <summary>
+                /// <summary>
         /// todo
         /// </summary>
         public static Single Square(Single input)
@@ -1308,55 +1372,7 @@ namespace Abacus
             return Fixed32.Square(input);
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Single Sin(Single input)
-        {
-            return (Single) Math.Sin((Single) input);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Double Sin(Double input)
-        {
-            return Math.Sin(input);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Fixed32 Sin(Fixed32 input)
-        {
-            return Fixed32.Sin(input);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Single Cos(Single input)
-        {
-            return (Single)Math.Cos((Single)input);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Double Cos(Double input)
-        {
-            return Math.Cos(input);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Fixed32 Cos(Fixed32 input)
-        {
-            return Fixed32.Cos(input);
-        }
-
-        /// <summary>
+                /// <summary>
         /// todo
         /// </summary>
         public static Single Tan(Single input)
@@ -1380,7 +1396,26 @@ namespace Abacus
             return Fixed32.Tan(input);
         }
 
+                /// <summary>
+        /// Assigns a Single precision real number representing the
+        /// mathematical constant 2π to the output value.
+        /// </summary>
+        public static void Tau(out Single value) { value = 6.283185f; }
+
         /// <summary>
+        /// Assigns a Double precision real number representing the
+        /// mathematical constant 2π to the output value.
+        /// </summary>
+        public static void Tau(out Double value) { value = 6.283185; }
+
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing the
+        /// mathematical constant 2π to the output value.
+        /// </summary>
+        public static void Tau(out Fixed32 value) { value = Fixed32.Parse("6.283185"); }
+
+
+                /// <summary>
         /// todo
         /// </summary>
         public static Single Abs(Single input)
@@ -1396,6 +1431,7 @@ namespace Abacus
             return Math.Abs(input);
         }
 
+
         /// <summary>
         /// todo
         /// </summary>
@@ -1409,77 +1445,20 @@ namespace Abacus
             return input;
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Single ArcSin(Single input)
-        {
-            return (Single)Math.Asin((Single)input);
-        }
+
+
 
         /// <summary>
-        /// todo
+        /// Assigns a Single precision real number representing
+        /// zero to the output value.
         /// </summary>
-        public static Double ArcSin(Double input)
-        {
-            throw new System.NotImplementedException();
-        }
+        public static void Zero(out Single value) { value = 0; }
 
         /// <summary>
-        /// todo
+        /// Assigns a Single precision real number representing
+        /// one to the output value.
         /// </summary>
-        public static Fixed32 ArcSin(Fixed32 input)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Single ArcCos(Single input)
-        {
-            return (Single)Math.Acos((Single)input);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Double ArcCos(Double input)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Fixed32 ArcCos(Fixed32 input)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Single ArcTan(Single input)
-        {
-            return (Single)Math.Atan((Single)input);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Double ArcTan(Double input)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static Fixed32 ArcTan(Fixed32 input)
-        {
-            throw new System.NotImplementedException();
-        }
+        public static void One(out Single value) { value = 1; }
 
         /// <summary>
         /// todo
@@ -1568,6 +1547,18 @@ namespace Abacus
         }
 
         /// <summary>
+        /// Assigns a Double precision real number representing
+        /// zero to the output value.
+        /// </summary>
+        public static void Zero(out Double value) { value = 0; }
+
+        /// <summary>
+        /// Assigns a Double precision real number representing
+        /// one to the output value.
+        /// </summary>
+        public static void One(out Double value) { value = 1; }
+
+        /// <summary>
         /// todo
         /// </summary>
         public static Double ToRadians(Double input)
@@ -1652,6 +1643,18 @@ namespace Abacus
 
             return 0;
         }
+
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing
+        /// zero to the output value.
+        /// </summary>
+        public static void Zero(out Fixed32 value) { value = 0; }
+
+        /// <summary>
+        /// Assigns a Fixed32 precision real number representing
+        /// one to the output value.
+        /// </summary>
+        public static void One(out Fixed32 value) { value = 1; }
 
         /// <summary>
         /// todo
@@ -1803,7 +1806,6 @@ namespace Abacus
             return Fixed32.CreateFromRaw(randomInt32);
         }
     }
-
 }
 
 namespace Abacus.Packed

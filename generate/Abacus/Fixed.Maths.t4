@@ -1,6 +1,6 @@
 ﻿        #region Maths
 
-        static Fixed32 Sqrt (Fixed32 f, Int32 numberOfIterations)
+        static <#= fixedTypeDefinition.TypeName #> Sqrt (<#= fixedTypeDefinition.TypeName #> f, Int32 numberOfIterations)
         {
             if (f.numerator < 0) //NaN in Math.Sqrt
             {
@@ -12,7 +12,7 @@
                 return Zero;
             }
 
-            Fixed32 k = (f + One) >> 1;
+            <#= fixedTypeDefinition.TypeName #> k = (f + One) >> 1;
             
             for (Int32 i = 0; i < numberOfIterations; i++)
             {
@@ -27,7 +27,7 @@
             return k;
         }
         
-        internal static Fixed32 Sqrt (Fixed32 f)
+        internal static <#= fixedTypeDefinition.TypeName #> Sqrt (<#= fixedTypeDefinition.TypeName #> f)
         {
             Int32 numberOfIterations = 8;
             
@@ -44,56 +44,56 @@
             return Sqrt (f, numberOfIterations);
         }
 
-        internal static Fixed32 Square (Fixed32 f)
+        internal static <#= fixedTypeDefinition.TypeName #> Square (<#= fixedTypeDefinition.TypeName #> f)
         {
             int v = f.numerator >> (n / 2);
             int w = f.numerator >> (n - (n / 2));
             return CreateFromRaw (v * w);
         }
 
-        internal static Fixed32 Sin (Fixed32 f)
+        internal static <#= fixedTypeDefinition.TypeName #> Sin (<#= fixedTypeDefinition.TypeName #> f)
         {
-            Fixed32 x_ = f % Fixed32.Tau;
+            <#= fixedTypeDefinition.TypeName #> x_ = f % <#= fixedTypeDefinition.TypeName #>.Tau;
 
-            if (x_ > Fixed32.Pi)
-                x_ -= Fixed32.Tau;
+            if (x_ > <#= fixedTypeDefinition.TypeName #>.Pi)
+                x_ -= <#= fixedTypeDefinition.TypeName #>.Tau;
 
-            Fixed32 xx = x_ * x_;
+            <#= fixedTypeDefinition.TypeName #> xx = x_ * x_;
 
-            Fixed32 y = 0;
-            y -= Fixed32.One / new Fixed32(2 * 3 * 4 * 5 * 6 * 7);
+            <#= fixedTypeDefinition.TypeName #> y = 0;
+            y -= <#= fixedTypeDefinition.TypeName #>.One / new <#= fixedTypeDefinition.TypeName #>(2 * 3 * 4 * 5 * 6 * 7);
             y *= xx;
-            y += Fixed32.One / new Fixed32(2 * 3 * 4 * 5);
+            y += <#= fixedTypeDefinition.TypeName #>.One / new <#= fixedTypeDefinition.TypeName #>(2 * 3 * 4 * 5);
             y *= xx;
-            y -= Fixed32.One / new Fixed32(2 * 3);
+            y -= <#= fixedTypeDefinition.TypeName #>.One / new <#= fixedTypeDefinition.TypeName #>(2 * 3);
             y *= xx;
-            y += Fixed32.One;
+            y += <#= fixedTypeDefinition.TypeName #>.One;
             y *= x_;
 
             return y;
         }
         
-        internal static Fixed32 Cos (Fixed32 f)
+        internal static <#= fixedTypeDefinition.TypeName #> Cos (<#= fixedTypeDefinition.TypeName #> f)
         {
             return Sin (PiOver2 - f);
         }
         
-        internal static Fixed32 Tan (Fixed32 f)
+        internal static <#= fixedTypeDefinition.TypeName #> Tan (<#= fixedTypeDefinition.TypeName #> f)
         {
             return Sin (f) / Cos (f);
         }
         
-        public static void Add (ref Fixed32 one, ref Fixed32 other, out Fixed32 ouput)
+        public static void Add (ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> ouput)
         {
             ouput.numerator = checked(one.numerator + other.numerator);
         }
 
-        public static void Subtract(ref Fixed32 one, ref Fixed32 other, out Fixed32 ouput)
+        public static void Subtract(ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> ouput)
         {
             ouput.numerator = checked(one.numerator - other.numerator);
         }
 
-        public static void Multiply(ref Fixed32 one, ref Fixed32 other, out Fixed32 output)
+        public static void Multiply(ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> output)
         {
             Int64 temp = (Int64)one.numerator * (Int64)other.numerator;
 
@@ -115,7 +115,7 @@
             }
         }
 
-        public static void Divide(ref Fixed32 one, ref Fixed32 other, out Fixed32 output)
+        public static void Divide(ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> output)
         {
             Int64 temp = ((Int64)one.numerator) << n;
 

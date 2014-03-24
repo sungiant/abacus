@@ -1,0 +1,24 @@
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Single ArcTan(Single input)
+        {
+            return (Single)Math.Atan((Single)input);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Double ArcTan(Double input)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static Fixed32 ArcTan(Fixed32 input)
+        {
+            throw new System.NotImplementedException();
+        }
+
