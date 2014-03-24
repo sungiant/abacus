@@ -378,13 +378,14 @@
         {
             <#= type #> pi; RealMaths.Pi (out pi);
             <#= type #> piOver2 = pi / (<#= type #>) 2;
+            <#= type #> minusPi = -pi;
 
             Vector2 v1 = new Vector2 (8, 70);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]
@@ -432,6 +433,7 @@
             <#= type #> ten = 10;
             <#= type #> root2; RealMaths.Root2 (out root2);
             <#= type #> pi; RealMaths.Pi (out pi);
+            <#= type #> minusPi = -pi;
             <#= type #> piOver2 = pi / (<#= type #>) 2;
             <#= type #> oneOverRoot2 = one / root2;
             <#= type #> sixTenths = six / ten;
@@ -441,9 +443,9 @@
             Vector2 v2 = new Vector2 (oneOverRoot2, oneOverRoot2);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]

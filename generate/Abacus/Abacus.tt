@@ -35,7 +35,8 @@
 // │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
-//#define VARIANTS_ENABLED
+
+#define VARIANTS_ENABLED
 
 <#@ include file="../Types.t4"#>
 <#@ include file="../Colours.t4"#>

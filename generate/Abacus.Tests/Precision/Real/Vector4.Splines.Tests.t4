@@ -17,7 +17,7 @@
                 Vector4 result1;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount1, out result1);
+                    ref a, ref b, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -25,7 +25,7 @@
                 Vector4 result2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount2, out result2);
+                    ref a, ref b, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -45,7 +45,7 @@
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -53,7 +53,7 @@
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.SmoothStep (
-                            ref a, ref b, amount, out result)
+                            ref a, ref b, ref tests[idx], out result)
                     );
             }
         }
@@ -111,14 +111,16 @@
                 new Tuple<<#= type #>, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                <#= type #> amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, knownResult.Item1, out result);
+                    ref a, ref b, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -143,7 +145,7 @@
                 Vector4 result1;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount1, out result1);
+                    ref a, ref b, ref c, ref d, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, b);
 
@@ -151,7 +153,7 @@
                 Vector4 result2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount2, out result2);
+                    ref a, ref b, ref c, ref d, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, c);
             }
@@ -212,14 +214,16 @@
                 new Tuple<<#= type #>, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                <#= type #> amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -239,7 +243,7 @@
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -247,7 +251,7 @@
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.CatmullRom (
-                            ref a, ref b, ref c, ref d, amount, out result)
+                            ref a, ref b, ref c, ref d, ref tests[idx], out result)
                 );
             }
         }
@@ -288,14 +292,16 @@
                 new Tuple<<#= type #>, Vector4>( a4, r4 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                <#= type #> amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -324,7 +330,7 @@
                 Vector4 result1;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount1, out result1);
+                    ref a, ref an, ref b, ref bn, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -332,7 +338,7 @@
                 Vector4 result2;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount2, out result2);
+                    ref a, ref an, ref b, ref bn, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -357,7 +363,7 @@
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -365,7 +371,7 @@
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.Hermite (
-                            ref a, ref an, ref b, ref bn, amount, out result)
+                            ref a, ref an, ref b, ref bn, ref tests[idx], out result)
                     );
 
             }
@@ -463,14 +469,16 @@
                 new Tuple<<#= type #>, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                <#= type #> amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 

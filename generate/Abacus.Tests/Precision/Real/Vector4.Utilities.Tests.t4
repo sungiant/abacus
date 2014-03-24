@@ -71,7 +71,7 @@
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector4 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -102,8 +102,8 @@
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector4 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector4 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -121,7 +121,7 @@
                     Vector4 b = GetNextRandomVector4();
 
                     Vector4 result;
-                    Vector4.Lerp (ref a, ref b, delta, out result);
+                    Vector4.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector4 expected = a + ( ( b - a ) * delta );
 
@@ -144,14 +144,14 @@
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector4 result; 
+                Vector4 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector4.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }

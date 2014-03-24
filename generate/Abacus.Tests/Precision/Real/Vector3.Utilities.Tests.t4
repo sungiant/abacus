@@ -69,7 +69,7 @@
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector3 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -98,8 +98,8 @@
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector3 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector3 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -117,7 +117,7 @@
                     Vector3 b = GetNextRandomVector3();
 
                     Vector3 result;
-                    Vector3.Lerp (ref a, ref b, delta, out result);
+                    Vector3.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector3 expected = a + ( ( b - a ) * delta );
 
@@ -140,14 +140,14 @@
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector3 result; 
+                Vector3 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }

@@ -63,7 +63,7 @@
         public static void Lerp (
             ref Vector4 a,
             ref Vector4 b,
-            <#= type #> amount,
+            ref <#= type #> amount,
             out Vector4 result)
         {
             <#= type #> zero = 0;

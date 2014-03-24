@@ -105,12 +105,12 @@
 
 #if (VARIANTS_ENABLED)
 
-<#@ include file="Vector3.Variants.Maths.t4"#>
-<#@ include file="Vector3.Variants.Operators.t4"#>
-<#@ include file="Vector3.Variants.Splines.t4"#>
-<#@ include file="Vector3.Variants.Utilities.t4"#>
+<#@ include file="Variants/Vector3.Variants.Maths.t4"#>
+<#@ include file="Variants/Vector3.Variants.Operators.t4"#>
+<#@ include file="Variants/Vector3.Variants.Splines.t4"#>
+<#@ include file="Variants/Vector3.Variants.Utilities.t4"#>
 
-<#@ include file="Vector3.Variants.MemberFunctions.t4"#>
+<#@ include file="Variants/Vector3.Variants.MemberFunctions.t4"#>
 
 #endif
     }

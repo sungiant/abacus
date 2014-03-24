@@ -31,7 +31,7 @@
 // │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
-//#define TESTS_ENABLED
+#define TESTS_ENABLED
 
 #if TESTS_ENABLED
 
@@ -7506,7 +7506,7 @@ namespace Abacus.SinglePrecision.Tests
             Single pitch; RealMaths.Pi(out pitch); pitch /= (Single) (-8);
             Single roll; RealMaths.Pi(out roll); roll /= (Single) 2;
 
-            Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
             q.Normalise();
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
@@ -7677,15 +7677,24 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestStaticFn_Decompose_i ()
         {
+            Single a1 = 4;
+            Single a2 = 2;
+            Single a3 = 3;
+
             Matrix44 scale;
-            Matrix44.CreateScale(4, 2, 3, out scale);
+            Matrix44.CreateScale(ref a1, ref a2, ref a3, out scale);
 
             Matrix44 rotation;
             Single pi; RealMaths.Pi(out pi);
-            Matrix44.CreateRotationY(pi, out rotation);
+            Matrix44.CreateRotationY(ref pi, out rotation);
+
+
+            Single b1 = 100;
+            Single b2 = 5;
+            Single b3 = 3;
 
             Matrix44 translation;
-            Matrix44.CreateTranslation(100, 5, 3, out translation);
+            Matrix44.CreateTranslation(ref b1, ref b2, ref b3, out translation);
 
             Matrix44 m = rotation * scale;
             //m = translation * m;
@@ -8353,8 +8362,8 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Matrix44 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Matrix44 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -8372,7 +8381,7 @@ namespace Abacus.SinglePrecision.Tests
                     Matrix44 b = GetNextRandomMatrix44();
 
                     Matrix44 result;
-                    Matrix44.Lerp (ref a, ref b, delta, out result);
+                    Matrix44.Lerp (ref a, ref b, ref delta, out result);
 
                     Matrix44 expected = a + ( ( b - a ) * delta );
 
@@ -8395,17 +8404,18 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Matrix44 result; 
+                Matrix44 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Matrix44.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
-        }    }
+        }
+    }
     /// <summary>
     ///
     /// </summary>
@@ -9895,13 +9905,14 @@ namespace Abacus.SinglePrecision.Tests
         {
             Single pi; RealMaths.Pi (out pi);
             Single piOver2 = pi / (Single) 2;
+            Single minusPi = -pi;
 
             Vector2 v1 = new Vector2 (8, 70);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]
@@ -9949,6 +9960,7 @@ namespace Abacus.SinglePrecision.Tests
             Single ten = 10;
             Single root2; RealMaths.Root2 (out root2);
             Single pi; RealMaths.Pi (out pi);
+            Single minusPi = -pi;
             Single piOver2 = pi / (Single) 2;
             Single oneOverRoot2 = one / root2;
             Single sixTenths = six / ten;
@@ -9958,9 +9970,9 @@ namespace Abacus.SinglePrecision.Tests
             Vector2 v2 = new Vector2 (oneOverRoot2, oneOverRoot2);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]
@@ -12063,13 +12075,14 @@ namespace Abacus.SinglePrecision.Tests
         {
             Single pi; RealMaths.Pi (out pi);
             Single piOver2 = pi / (Single) 2;
+            Single minusPi = -pi;
 
             Vector3 v1 = new Vector3 (10, 50, -20);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector3, Matrix44, Vector3>[]
@@ -12118,6 +12131,7 @@ namespace Abacus.SinglePrecision.Tests
             Single ten = 10;
             Single root3; RealMaths.Root3 (out root3);
             Single pi; RealMaths.Pi (out pi);
+            Single minusPi = -pi;
             Single piOver2 = pi / (Single) 2;
             Single oneOverRoot3 = one / root3;
             Single sixTenths = six / ten;
@@ -12129,9 +12143,9 @@ namespace Abacus.SinglePrecision.Tests
             Vector3 v2 = new Vector3 (oneOverRoot3, oneOverRoot3, oneOverRoot3);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector3, Matrix44, Vector3>[]
@@ -12743,7 +12757,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result1;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, amount1, out result1);
+                    ref a, ref b, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -12751,7 +12765,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result2;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, amount2, out result2);
+                    ref a, ref b, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -12771,7 +12785,7 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -12779,7 +12793,7 @@ namespace Abacus.SinglePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.SmoothStep (
-                            ref a, ref b, amount, out result)
+                            ref a, ref b, ref tests[idx], out result)
                     );
             }
         }
@@ -12837,14 +12851,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Single amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, knownResult.Item1, out result);
+                    ref a, ref b, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -12869,7 +12885,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result1;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount1, out result1);
+                    ref a, ref b, ref c, ref d, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, b);
 
@@ -12877,7 +12893,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount2, out result2);
+                    ref a, ref b, ref c, ref d, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, c);
             }
@@ -12936,14 +12952,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Single amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -12963,7 +12981,7 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -12971,7 +12989,7 @@ namespace Abacus.SinglePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.CatmullRom (
-                            ref a, ref b, ref c, ref d, amount, out result)
+                            ref a, ref b, ref c, ref d, ref tests[idx], out result)
                 );
             }
         }
@@ -13012,14 +13030,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector3>( a4, r4 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Single amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -13048,7 +13068,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result1;
 
                 Vector3.Hermite (
-                    ref a, ref an, ref b, ref bn, amount1, out result1);
+                    ref a, ref an, ref b, ref bn, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -13056,7 +13076,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3 result2;
 
                 Vector3.Hermite (
-                    ref a, ref an, ref b, ref bn, amount2, out result2);
+                    ref a, ref an, ref b, ref bn, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -13081,7 +13101,7 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -13089,9 +13109,8 @@ namespace Abacus.SinglePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.Hermite (
-                            ref a, ref an, ref b, ref bn, amount, out result)
+                            ref a, ref an, ref b, ref bn, ref tests[idx], out result)
                     );
-
             }
         }
 
@@ -13187,14 +13206,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Single amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -13270,7 +13291,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector3 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -13299,8 +13320,8 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector3 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector3 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -13318,7 +13339,7 @@ namespace Abacus.SinglePrecision.Tests
                     Vector3 b = GetNextRandomVector3();
 
                     Vector3 result;
-                    Vector3.Lerp (ref a, ref b, delta, out result);
+                    Vector3.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector3 expected = a + ( ( b - a ) * delta );
 
@@ -13341,14 +13362,14 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector3 result; 
+                Vector3 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }
@@ -14105,13 +14126,14 @@ namespace Abacus.SinglePrecision.Tests
         {
             Single pi; RealMaths.Pi (out pi);
             Single piOver2 = pi / (Single) 2;
+            Single minusPi = -pi;
 
             Vector4 v1 = new Vector4 (10, 50, -20, 100);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector4, Matrix44, Vector4>[]
@@ -14159,6 +14181,7 @@ namespace Abacus.SinglePrecision.Tests
             Single eight = 8;
             Single ten = 10;
             Single pi; RealMaths.Pi (out pi);
+            Single minusPi = -pi;
             Single piOver2 = pi / (Single) 2;
             Single oneOverRoot4; RealMaths.Half (out oneOverRoot4);
             Single sixTenths = six / ten;
@@ -14171,9 +14194,9 @@ namespace Abacus.SinglePrecision.Tests
                 oneOverRoot4, oneOverRoot4, oneOverRoot4, oneOverRoot4);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector4, Matrix44, Vector4>[]
@@ -14793,7 +14816,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4 result1;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount1, out result1);
+                    ref a, ref b, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -14801,7 +14824,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4 result2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount2, out result2);
+                    ref a, ref b, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -14821,7 +14844,7 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -14829,7 +14852,7 @@ namespace Abacus.SinglePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.SmoothStep (
-                            ref a, ref b, amount, out result)
+                            ref a, ref b, ref tests[idx], out result)
                     );
             }
         }
@@ -14887,14 +14910,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Single amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, knownResult.Item1, out result);
+                    ref a, ref b, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -14919,7 +14944,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4 result1;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount1, out result1);
+                    ref a, ref b, ref c, ref d, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, b);
 
@@ -14927,7 +14952,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4 result2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount2, out result2);
+                    ref a, ref b, ref c, ref d, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, c);
             }
@@ -14988,14 +15013,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Single amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -15015,7 +15042,7 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -15023,7 +15050,7 @@ namespace Abacus.SinglePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.CatmullRom (
-                            ref a, ref b, ref c, ref d, amount, out result)
+                            ref a, ref b, ref c, ref d, ref tests[idx], out result)
                 );
             }
         }
@@ -15064,14 +15091,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector4>( a4, r4 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Single amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -15100,7 +15129,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4 result1;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount1, out result1);
+                    ref a, ref an, ref b, ref bn, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -15108,7 +15137,7 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4 result2;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount2, out result2);
+                    ref a, ref an, ref b, ref bn, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -15133,7 +15162,7 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -15141,7 +15170,7 @@ namespace Abacus.SinglePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.Hermite (
-                            ref a, ref an, ref b, ref bn, amount, out result)
+                            ref a, ref an, ref b, ref bn, ref tests[idx], out result)
                     );
 
             }
@@ -15239,14 +15268,16 @@ namespace Abacus.SinglePrecision.Tests
                 new Tuple<Single, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Single amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -15324,7 +15355,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector4 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -15355,8 +15386,8 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector4 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector4 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -15374,7 +15405,7 @@ namespace Abacus.SinglePrecision.Tests
                     Vector4 b = GetNextRandomVector4();
 
                     Vector4 result;
-                    Vector4.Lerp (ref a, ref b, delta, out result);
+                    Vector4.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector4 expected = a + ( ( b - a ) * delta );
 
@@ -15397,14 +15428,14 @@ namespace Abacus.SinglePrecision.Tests
 
             var tests = new Single[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector4 result; 
+                Vector4 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector4.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }
@@ -15684,7 +15715,7 @@ namespace Abacus.DoublePrecision.Tests
             Double pitch; RealMaths.Pi(out pitch); pitch /= (Double) (-8);
             Double roll; RealMaths.Pi(out roll); roll /= (Double) 2;
 
-            Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
             q.Normalise();
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
@@ -15855,15 +15886,24 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestStaticFn_Decompose_i ()
         {
+            Double a1 = 4;
+            Double a2 = 2;
+            Double a3 = 3;
+
             Matrix44 scale;
-            Matrix44.CreateScale(4, 2, 3, out scale);
+            Matrix44.CreateScale(ref a1, ref a2, ref a3, out scale);
 
             Matrix44 rotation;
             Double pi; RealMaths.Pi(out pi);
-            Matrix44.CreateRotationY(pi, out rotation);
+            Matrix44.CreateRotationY(ref pi, out rotation);
+
+
+            Double b1 = 100;
+            Double b2 = 5;
+            Double b3 = 3;
 
             Matrix44 translation;
-            Matrix44.CreateTranslation(100, 5, 3, out translation);
+            Matrix44.CreateTranslation(ref b1, ref b2, ref b3, out translation);
 
             Matrix44 m = rotation * scale;
             //m = translation * m;
@@ -16531,8 +16571,8 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Matrix44 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Matrix44 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -16550,7 +16590,7 @@ namespace Abacus.DoublePrecision.Tests
                     Matrix44 b = GetNextRandomMatrix44();
 
                     Matrix44 result;
-                    Matrix44.Lerp (ref a, ref b, delta, out result);
+                    Matrix44.Lerp (ref a, ref b, ref delta, out result);
 
                     Matrix44 expected = a + ( ( b - a ) * delta );
 
@@ -16573,17 +16613,18 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Matrix44 result; 
+                Matrix44 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Matrix44.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
-        }    }
+        }
+    }
     /// <summary>
     ///
     /// </summary>
@@ -18073,13 +18114,14 @@ namespace Abacus.DoublePrecision.Tests
         {
             Double pi; RealMaths.Pi (out pi);
             Double piOver2 = pi / (Double) 2;
+            Double minusPi = -pi;
 
             Vector2 v1 = new Vector2 (8, 70);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]
@@ -18127,6 +18169,7 @@ namespace Abacus.DoublePrecision.Tests
             Double ten = 10;
             Double root2; RealMaths.Root2 (out root2);
             Double pi; RealMaths.Pi (out pi);
+            Double minusPi = -pi;
             Double piOver2 = pi / (Double) 2;
             Double oneOverRoot2 = one / root2;
             Double sixTenths = six / ten;
@@ -18136,9 +18179,9 @@ namespace Abacus.DoublePrecision.Tests
             Vector2 v2 = new Vector2 (oneOverRoot2, oneOverRoot2);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]
@@ -20241,13 +20284,14 @@ namespace Abacus.DoublePrecision.Tests
         {
             Double pi; RealMaths.Pi (out pi);
             Double piOver2 = pi / (Double) 2;
+            Double minusPi = -pi;
 
             Vector3 v1 = new Vector3 (10, 50, -20);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector3, Matrix44, Vector3>[]
@@ -20296,6 +20340,7 @@ namespace Abacus.DoublePrecision.Tests
             Double ten = 10;
             Double root3; RealMaths.Root3 (out root3);
             Double pi; RealMaths.Pi (out pi);
+            Double minusPi = -pi;
             Double piOver2 = pi / (Double) 2;
             Double oneOverRoot3 = one / root3;
             Double sixTenths = six / ten;
@@ -20307,9 +20352,9 @@ namespace Abacus.DoublePrecision.Tests
             Vector3 v2 = new Vector3 (oneOverRoot3, oneOverRoot3, oneOverRoot3);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector3, Matrix44, Vector3>[]
@@ -20921,7 +20966,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result1;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, amount1, out result1);
+                    ref a, ref b, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -20929,7 +20974,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result2;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, amount2, out result2);
+                    ref a, ref b, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -20949,7 +20994,7 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -20957,7 +21002,7 @@ namespace Abacus.DoublePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.SmoothStep (
-                            ref a, ref b, amount, out result)
+                            ref a, ref b, ref tests[idx], out result)
                     );
             }
         }
@@ -21015,14 +21060,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Double amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, knownResult.Item1, out result);
+                    ref a, ref b, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -21047,7 +21094,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result1;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount1, out result1);
+                    ref a, ref b, ref c, ref d, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, b);
 
@@ -21055,7 +21102,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount2, out result2);
+                    ref a, ref b, ref c, ref d, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, c);
             }
@@ -21114,14 +21161,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Double amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -21141,7 +21190,7 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -21149,7 +21198,7 @@ namespace Abacus.DoublePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.CatmullRom (
-                            ref a, ref b, ref c, ref d, amount, out result)
+                            ref a, ref b, ref c, ref d, ref tests[idx], out result)
                 );
             }
         }
@@ -21190,14 +21239,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector3>( a4, r4 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Double amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -21226,7 +21277,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result1;
 
                 Vector3.Hermite (
-                    ref a, ref an, ref b, ref bn, amount1, out result1);
+                    ref a, ref an, ref b, ref bn, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -21234,7 +21285,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3 result2;
 
                 Vector3.Hermite (
-                    ref a, ref an, ref b, ref bn, amount2, out result2);
+                    ref a, ref an, ref b, ref bn, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -21259,7 +21310,7 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -21267,9 +21318,8 @@ namespace Abacus.DoublePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.Hermite (
-                            ref a, ref an, ref b, ref bn, amount, out result)
+                            ref a, ref an, ref b, ref bn, ref tests[idx], out result)
                     );
-
             }
         }
 
@@ -21365,14 +21415,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Double amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -21448,7 +21500,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector3 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -21477,8 +21529,8 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector3 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector3 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -21496,7 +21548,7 @@ namespace Abacus.DoublePrecision.Tests
                     Vector3 b = GetNextRandomVector3();
 
                     Vector3 result;
-                    Vector3.Lerp (ref a, ref b, delta, out result);
+                    Vector3.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector3 expected = a + ( ( b - a ) * delta );
 
@@ -21519,14 +21571,14 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector3 result; 
+                Vector3 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }
@@ -22283,13 +22335,14 @@ namespace Abacus.DoublePrecision.Tests
         {
             Double pi; RealMaths.Pi (out pi);
             Double piOver2 = pi / (Double) 2;
+            Double minusPi = -pi;
 
             Vector4 v1 = new Vector4 (10, 50, -20, 100);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector4, Matrix44, Vector4>[]
@@ -22337,6 +22390,7 @@ namespace Abacus.DoublePrecision.Tests
             Double eight = 8;
             Double ten = 10;
             Double pi; RealMaths.Pi (out pi);
+            Double minusPi = -pi;
             Double piOver2 = pi / (Double) 2;
             Double oneOverRoot4; RealMaths.Half (out oneOverRoot4);
             Double sixTenths = six / ten;
@@ -22349,9 +22403,9 @@ namespace Abacus.DoublePrecision.Tests
                 oneOverRoot4, oneOverRoot4, oneOverRoot4, oneOverRoot4);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector4, Matrix44, Vector4>[]
@@ -22971,7 +23025,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4 result1;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount1, out result1);
+                    ref a, ref b, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -22979,7 +23033,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4 result2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount2, out result2);
+                    ref a, ref b, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -22999,7 +23053,7 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -23007,7 +23061,7 @@ namespace Abacus.DoublePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.SmoothStep (
-                            ref a, ref b, amount, out result)
+                            ref a, ref b, ref tests[idx], out result)
                     );
             }
         }
@@ -23065,14 +23119,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Double amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, knownResult.Item1, out result);
+                    ref a, ref b, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -23097,7 +23153,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4 result1;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount1, out result1);
+                    ref a, ref b, ref c, ref d, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, b);
 
@@ -23105,7 +23161,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4 result2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount2, out result2);
+                    ref a, ref b, ref c, ref d, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, c);
             }
@@ -23166,14 +23222,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Double amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -23193,7 +23251,7 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -23201,7 +23259,7 @@ namespace Abacus.DoublePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.CatmullRom (
-                            ref a, ref b, ref c, ref d, amount, out result)
+                            ref a, ref b, ref c, ref d, ref tests[idx], out result)
                 );
             }
         }
@@ -23242,14 +23300,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector4>( a4, r4 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Double amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -23278,7 +23338,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4 result1;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount1, out result1);
+                    ref a, ref an, ref b, ref bn, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -23286,7 +23346,7 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4 result2;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount2, out result2);
+                    ref a, ref an, ref b, ref bn, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -23311,7 +23371,7 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -23319,7 +23379,7 @@ namespace Abacus.DoublePrecision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.Hermite (
-                            ref a, ref an, ref b, ref bn, amount, out result)
+                            ref a, ref an, ref b, ref bn, ref tests[idx], out result)
                     );
 
             }
@@ -23417,14 +23477,16 @@ namespace Abacus.DoublePrecision.Tests
                 new Tuple<Double, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Double amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -23502,7 +23564,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector4 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -23533,8 +23595,8 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector4 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector4 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -23552,7 +23614,7 @@ namespace Abacus.DoublePrecision.Tests
                     Vector4 b = GetNextRandomVector4();
 
                     Vector4 result;
-                    Vector4.Lerp (ref a, ref b, delta, out result);
+                    Vector4.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector4 expected = a + ( ( b - a ) * delta );
 
@@ -23575,14 +23637,14 @@ namespace Abacus.DoublePrecision.Tests
 
             var tests = new Double[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector4 result; 
+                Vector4 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector4.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }
@@ -23862,7 +23924,7 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 pitch; RealMaths.Pi(out pitch); pitch /= (Fixed32) (-8);
             Fixed32 roll; RealMaths.Pi(out roll); roll /= (Fixed32) 2;
 
-            Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
             q.Normalise();
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
@@ -24033,15 +24095,24 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestStaticFn_Decompose_i ()
         {
+            Fixed32 a1 = 4;
+            Fixed32 a2 = 2;
+            Fixed32 a3 = 3;
+
             Matrix44 scale;
-            Matrix44.CreateScale(4, 2, 3, out scale);
+            Matrix44.CreateScale(ref a1, ref a2, ref a3, out scale);
 
             Matrix44 rotation;
             Fixed32 pi; RealMaths.Pi(out pi);
-            Matrix44.CreateRotationY(pi, out rotation);
+            Matrix44.CreateRotationY(ref pi, out rotation);
+
+
+            Fixed32 b1 = 100;
+            Fixed32 b2 = 5;
+            Fixed32 b3 = 3;
 
             Matrix44 translation;
-            Matrix44.CreateTranslation(100, 5, 3, out translation);
+            Matrix44.CreateTranslation(ref b1, ref b2, ref b3, out translation);
 
             Matrix44 m = rotation * scale;
             //m = translation * m;
@@ -24709,8 +24780,8 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Matrix44 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Matrix44 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -24728,7 +24799,7 @@ namespace Abacus.Fixed32Precision.Tests
                     Matrix44 b = GetNextRandomMatrix44();
 
                     Matrix44 result;
-                    Matrix44.Lerp (ref a, ref b, delta, out result);
+                    Matrix44.Lerp (ref a, ref b, ref delta, out result);
 
                     Matrix44 expected = a + ( ( b - a ) * delta );
 
@@ -24751,17 +24822,18 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Matrix44 result; 
+                Matrix44 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Matrix44.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
-        }    }
+        }
+    }
     /// <summary>
     ///
     /// </summary>
@@ -26251,13 +26323,14 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Fixed32 pi; RealMaths.Pi (out pi);
             Fixed32 piOver2 = pi / (Fixed32) 2;
+            Fixed32 minusPi = -pi;
 
             Vector2 v1 = new Vector2 (8, 70);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]
@@ -26305,6 +26378,7 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 ten = 10;
             Fixed32 root2; RealMaths.Root2 (out root2);
             Fixed32 pi; RealMaths.Pi (out pi);
+            Fixed32 minusPi = -pi;
             Fixed32 piOver2 = pi / (Fixed32) 2;
             Fixed32 oneOverRoot2 = one / root2;
             Fixed32 sixTenths = six / ten;
@@ -26314,9 +26388,9 @@ namespace Abacus.Fixed32Precision.Tests
             Vector2 v2 = new Vector2 (oneOverRoot2, oneOverRoot2);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector2, Matrix44, Vector2>[]
@@ -28419,13 +28493,14 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Fixed32 pi; RealMaths.Pi (out pi);
             Fixed32 piOver2 = pi / (Fixed32) 2;
+            Fixed32 minusPi = -pi;
 
             Vector3 v1 = new Vector3 (10, 50, -20);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector3, Matrix44, Vector3>[]
@@ -28474,6 +28549,7 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 ten = 10;
             Fixed32 root3; RealMaths.Root3 (out root3);
             Fixed32 pi; RealMaths.Pi (out pi);
+            Fixed32 minusPi = -pi;
             Fixed32 piOver2 = pi / (Fixed32) 2;
             Fixed32 oneOverRoot3 = one / root3;
             Fixed32 sixTenths = six / ten;
@@ -28485,9 +28561,9 @@ namespace Abacus.Fixed32Precision.Tests
             Vector3 v2 = new Vector3 (oneOverRoot3, oneOverRoot3, oneOverRoot3);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector3, Matrix44, Vector3>[]
@@ -29099,7 +29175,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result1;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, amount1, out result1);
+                    ref a, ref b, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -29107,7 +29183,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result2;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, amount2, out result2);
+                    ref a, ref b, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -29127,7 +29203,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -29135,7 +29211,7 @@ namespace Abacus.Fixed32Precision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.SmoothStep (
-                            ref a, ref b, amount, out result)
+                            ref a, ref b, ref tests[idx], out result)
                     );
             }
         }
@@ -29193,14 +29269,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.SmoothStep (
-                    ref a, ref b, knownResult.Item1, out result);
+                    ref a, ref b, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -29225,7 +29303,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result1;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount1, out result1);
+                    ref a, ref b, ref c, ref d, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, b);
 
@@ -29233,7 +29311,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount2, out result2);
+                    ref a, ref b, ref c, ref d, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, c);
             }
@@ -29292,14 +29370,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -29319,7 +29399,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -29327,7 +29407,7 @@ namespace Abacus.Fixed32Precision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.CatmullRom (
-                            ref a, ref b, ref c, ref d, amount, out result)
+                            ref a, ref b, ref c, ref d, ref tests[idx], out result)
                 );
             }
         }
@@ -29368,14 +29448,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector3>( a4, r4 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -29404,7 +29486,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result1;
 
                 Vector3.Hermite (
-                    ref a, ref an, ref b, ref bn, amount1, out result1);
+                    ref a, ref an, ref b, ref bn, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -29412,7 +29494,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3 result2;
 
                 Vector3.Hermite (
-                    ref a, ref an, ref b, ref bn, amount2, out result2);
+                    ref a, ref an, ref b, ref bn, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -29437,7 +29519,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector3 result;
 
@@ -29445,9 +29527,8 @@ namespace Abacus.Fixed32Precision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector3.Hermite (
-                            ref a, ref an, ref b, ref bn, amount, out result)
+                            ref a, ref an, ref b, ref bn, ref tests[idx], out result)
                     );
-
             }
         }
 
@@ -29543,14 +29624,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector3>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector3 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector3 expected = knownResults[idx].Item2;
 
                 Vector3.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -29626,7 +29709,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector3 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -29655,8 +29738,8 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector3 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector3 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -29674,7 +29757,7 @@ namespace Abacus.Fixed32Precision.Tests
                     Vector3 b = GetNextRandomVector3();
 
                     Vector3 result;
-                    Vector3.Lerp (ref a, ref b, delta, out result);
+                    Vector3.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector3 expected = a + ( ( b - a ) * delta );
 
@@ -29697,14 +29780,14 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector3 result; 
+                Vector3 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector3.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }
@@ -30461,13 +30544,14 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Fixed32 pi; RealMaths.Pi (out pi);
             Fixed32 piOver2 = pi / (Fixed32) 2;
+            Fixed32 minusPi = -pi;
 
             Vector4 v1 = new Vector4 (10, 50, -20, 100);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector4, Matrix44, Vector4>[]
@@ -30515,6 +30599,7 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 eight = 8;
             Fixed32 ten = 10;
             Fixed32 pi; RealMaths.Pi (out pi);
+            Fixed32 minusPi = -pi;
             Fixed32 piOver2 = pi / (Fixed32) 2;
             Fixed32 oneOverRoot4; RealMaths.Half (out oneOverRoot4);
             Fixed32 sixTenths = six / ten;
@@ -30527,9 +30612,9 @@ namespace Abacus.Fixed32Precision.Tests
                 oneOverRoot4, oneOverRoot4, oneOverRoot4, oneOverRoot4);
 
             Matrix44 rotmati = Matrix44.Identity;
-            Matrix44 rotmat1; Matrix44.CreateRotationX(pi, out rotmat1);
-            Matrix44 rotmat2; Matrix44.CreateRotationY(piOver2, out rotmat2);
-            Matrix44 rotmat3; Matrix44.CreateRotationZ(-pi, out rotmat3);
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
             Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
 
             var tests = new Tuple<Vector4, Matrix44, Vector4>[]
@@ -31149,7 +31234,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4 result1;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount1, out result1);
+                    ref a, ref b, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -31157,7 +31242,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4 result2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, amount2, out result2);
+                    ref a, ref b, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -31177,7 +31262,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -31185,7 +31270,7 @@ namespace Abacus.Fixed32Precision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.SmoothStep (
-                            ref a, ref b, amount, out result)
+                            ref a, ref b, ref tests[idx], out result)
                     );
             }
         }
@@ -31243,14 +31328,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.SmoothStep (
-                    ref a, ref b, knownResult.Item1, out result);
+                    ref a, ref b, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -31275,7 +31362,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4 result1;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount1, out result1);
+                    ref a, ref b, ref c, ref d, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, b);
 
@@ -31283,7 +31370,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4 result2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, amount2, out result2);
+                    ref a, ref b, ref c, ref d, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, c);
             }
@@ -31344,14 +31431,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -31371,7 +31460,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -31379,7 +31468,7 @@ namespace Abacus.Fixed32Precision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.CatmullRom (
-                            ref a, ref b, ref c, ref d, amount, out result)
+                            ref a, ref b, ref c, ref d, ref tests[idx], out result)
                 );
             }
         }
@@ -31420,14 +31509,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector4>( a4, r4 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -31456,7 +31547,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4 result1;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount1, out result1);
+                    ref a, ref an, ref b, ref bn, ref amount1, out result1);
 
                 AssertEqualWithinReason(result1, a);
 
@@ -31464,7 +31555,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4 result2;
 
                 Vector4.Hermite (
-                    ref a, ref an, ref b, ref bn, amount2, out result2);
+                    ref a, ref an, ref b, ref bn, ref amount2, out result2);
 
                 AssertEqualWithinReason(result2, b);
             }
@@ -31489,7 +31580,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var amount in tests )
+            for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
                 Vector4 result;
 
@@ -31497,7 +31588,7 @@ namespace Abacus.Fixed32Precision.Tests
                     typeof(ArgumentOutOfRangeException),
                     () =>
                         Vector4.Hermite (
-                            ref a, ref an, ref b, ref bn, amount, out result)
+                            ref a, ref an, ref b, ref bn, ref tests[idx], out result)
                     );
 
             }
@@ -31595,14 +31686,16 @@ namespace Abacus.Fixed32Precision.Tests
                 new Tuple<Fixed32, Vector4>( a8, r8 ),
             };
 
-            foreach(var knownResult in knownResults )
+            for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector4 result;
+                Fixed32 amount = knownResults[idx].Item1;
+                Vector4 expected = knownResults[idx].Item2;
 
                 Vector4.CatmullRom (
-                    ref a, ref b, ref c, ref d, knownResult.Item1, out result);
+                    ref a, ref b, ref c, ref d, ref amount, out result);
 
-                AssertEqualWithinReason(result, knownResult.Item2);
+                AssertEqualWithinReason(result, expected);
             }
         }
 
@@ -31680,7 +31773,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Assert that, running the Clamp function on an a Vector4 object known
-        /// to fall outside of a given min-max range, yields a result that fall 
+        /// to fall outside of a given min-max range, yields a result that fall
         /// within that range.
         /// </summary>
         [Test]
@@ -31711,8 +31804,8 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Vector4 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Vector4 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -31730,7 +31823,7 @@ namespace Abacus.Fixed32Precision.Tests
                     Vector4 b = GetNextRandomVector4();
 
                     Vector4 result;
-                    Vector4.Lerp (ref a, ref b, delta, out result);
+                    Vector4.Lerp (ref a, ref b, ref delta, out result);
 
                     Vector4 expected = a + ( ( b - a ) * delta );
 
@@ -31753,14 +31846,14 @@ namespace Abacus.Fixed32Precision.Tests
 
             var tests = new Fixed32[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Vector4 result; 
+                Vector4 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Vector4.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }

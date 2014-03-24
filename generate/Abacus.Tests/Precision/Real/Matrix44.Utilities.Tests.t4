@@ -1,7 +1,7 @@
         /// <summary>
         /// Assert that, running the Lerp function on a number of randomly
-        /// generated pairs of Matrix44 objects for a range of weighting amounts, 
-        /// yields the same results as those obtained from performing a manual 
+        /// generated pairs of Matrix44 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
         /// Lerp calculation.
         /// </summary>
         [Test]
@@ -19,7 +19,7 @@
                     Matrix44 b = GetNextRandomMatrix44();
 
                     Matrix44 result;
-                    Matrix44.Lerp (ref a, ref b, delta, out result);
+                    Matrix44.Lerp (ref a, ref b, ref delta, out result);
 
                     Matrix44 expected = a + ( ( b - a ) * delta );
 
@@ -42,14 +42,14 @@
 
             var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
 
-            foreach( var weighting in tests )
+            for( Int32 i = 0; i < tests.Length; ++i )
             {
-                Matrix44 result; 
+                Matrix44 result;
                 Assert.Throws(
-                    typeof(ArgumentOutOfRangeException), 
-                    () => 
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
                         Matrix44.Lerp (
-                            ref a, ref b, weighting, out result)
+                            ref a, ref b, ref tests[i], out result)
                     );
             }
         }

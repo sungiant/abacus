@@ -112,12 +112,12 @@
 
 #if (VARIANTS_ENABLED)
 
-<#@ include file="Quaternion.Variants.Create.t4"#>
-<#@ include file="Quaternion.Variants.Maths.t4"#>
-<#@ include file="Quaternion.Variants.Operators.t4"#>
-<#@ include file="Quaternion.Variants.Utilities.t4"#>
+<#@ include file="Variants/Quaternion.Variants.Create.t4"#>
+<#@ include file="Variants/Quaternion.Variants.Maths.t4"#>
+<#@ include file="Variants/Quaternion.Variants.Operators.t4"#>
+<#@ include file="Variants/Quaternion.Variants.Utilities.t4"#>
 
-<#@ include file="Quaternion.Variants.MemberFunctions.t4"#>
+<#@ include file="Variants/Quaternion.Variants.MemberFunctions.t4"#>
 
 #endif
     }

@@ -31,7 +31,8 @@
 // │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
-//#define VARIANTS_ENABLED
+
+#define VARIANTS_ENABLED
 
 
 using System;
@@ -8874,22 +8875,22 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return 
-                this.M11.GetHashCode () + 
-                this.M12.GetHashCode () + 
-                this.M13.GetHashCode () + 
-                this.M14.GetHashCode () + 
-                this.M21.GetHashCode () + 
-                this.M22.GetHashCode () + 
-                this.M23.GetHashCode () + 
-                this.M24.GetHashCode () + 
-                this.M31.GetHashCode () + 
-                this.M32.GetHashCode () + 
-                this.M33.GetHashCode () + 
-                this.M34.GetHashCode () + 
-                this.M41.GetHashCode () + 
-                this.M42.GetHashCode () + 
-                this.M43.GetHashCode () + 
+            return
+                this.M11.GetHashCode () +
+                this.M12.GetHashCode () +
+                this.M13.GetHashCode () +
+                this.M14.GetHashCode () +
+                this.M21.GetHashCode () +
+                this.M22.GetHashCode () +
+                this.M23.GetHashCode () +
+                this.M24.GetHashCode () +
+                this.M31.GetHashCode () +
+                this.M32.GetHashCode () +
+                this.M33.GetHashCode () +
+                this.M34.GetHashCode () +
+                this.M41.GetHashCode () +
+                this.M42.GetHashCode () +
+                this.M43.GetHashCode () +
                 this.M44.GetHashCode ();
         }
 
@@ -14842,7 +14843,7 @@ namespace Abacus.SinglePrecision
         public static void Lerp (
             ref Vector4 a,
             ref Vector4 b,
-            Single amount,
+            ref Single amount,
             out Vector4 result)
         {
             Single zero = 0;
@@ -15552,22 +15553,22 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return 
-                this.M11.GetHashCode () + 
-                this.M12.GetHashCode () + 
-                this.M13.GetHashCode () + 
-                this.M14.GetHashCode () + 
-                this.M21.GetHashCode () + 
-                this.M22.GetHashCode () + 
-                this.M23.GetHashCode () + 
-                this.M24.GetHashCode () + 
-                this.M31.GetHashCode () + 
-                this.M32.GetHashCode () + 
-                this.M33.GetHashCode () + 
-                this.M34.GetHashCode () + 
-                this.M41.GetHashCode () + 
-                this.M42.GetHashCode () + 
-                this.M43.GetHashCode () + 
+            return
+                this.M11.GetHashCode () +
+                this.M12.GetHashCode () +
+                this.M13.GetHashCode () +
+                this.M14.GetHashCode () +
+                this.M21.GetHashCode () +
+                this.M22.GetHashCode () +
+                this.M23.GetHashCode () +
+                this.M24.GetHashCode () +
+                this.M31.GetHashCode () +
+                this.M32.GetHashCode () +
+                this.M33.GetHashCode () +
+                this.M34.GetHashCode () +
+                this.M41.GetHashCode () +
+                this.M42.GetHashCode () +
+                this.M43.GetHashCode () +
                 this.M44.GetHashCode ();
         }
 
@@ -21520,7 +21521,7 @@ namespace Abacus.DoublePrecision
         public static void Lerp (
             ref Vector4 a,
             ref Vector4 b,
-            Double amount,
+            ref Double amount,
             out Vector4 result)
         {
             Double zero = 0;
@@ -22230,22 +22231,22 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return 
-                this.M11.GetHashCode () + 
-                this.M12.GetHashCode () + 
-                this.M13.GetHashCode () + 
-                this.M14.GetHashCode () + 
-                this.M21.GetHashCode () + 
-                this.M22.GetHashCode () + 
-                this.M23.GetHashCode () + 
-                this.M24.GetHashCode () + 
-                this.M31.GetHashCode () + 
-                this.M32.GetHashCode () + 
-                this.M33.GetHashCode () + 
-                this.M34.GetHashCode () + 
-                this.M41.GetHashCode () + 
-                this.M42.GetHashCode () + 
-                this.M43.GetHashCode () + 
+            return
+                this.M11.GetHashCode () +
+                this.M12.GetHashCode () +
+                this.M13.GetHashCode () +
+                this.M14.GetHashCode () +
+                this.M21.GetHashCode () +
+                this.M22.GetHashCode () +
+                this.M23.GetHashCode () +
+                this.M24.GetHashCode () +
+                this.M31.GetHashCode () +
+                this.M32.GetHashCode () +
+                this.M33.GetHashCode () +
+                this.M34.GetHashCode () +
+                this.M41.GetHashCode () +
+                this.M42.GetHashCode () +
+                this.M43.GetHashCode () +
                 this.M44.GetHashCode ();
         }
 
@@ -28198,7 +28199,7 @@ namespace Abacus.Fixed32Precision
         public static void Lerp (
             ref Vector4 a,
             ref Vector4 b,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector4 result)
         {
             Fixed32 zero = 0;

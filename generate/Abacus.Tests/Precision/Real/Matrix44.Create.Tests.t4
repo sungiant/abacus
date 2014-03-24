@@ -116,7 +116,7 @@
             <#= type #> pitch; RealMaths.Pi(out pitch); pitch /= (<#= type #>) (-8);
             <#= type #> roll; RealMaths.Pi(out roll); roll /= (<#= type #>) 2;
 
-            Quaternion q; Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out q);
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
             q.Normalise();
 
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
