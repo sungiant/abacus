@@ -1,7 +1,10 @@
 ﻿        /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromAxisAngle (ref Vector3 axis, <#= type #> angle, out Quaternion result)
+        public static void CreateFromAxisAngle (
+            ref Vector3 axis,
+            ref <#= type #> angle,
+            out Quaternion result)
         {
             <#= type #> half; RealMaths.Half(out half);
             <#= type #> theta = angle * half;
@@ -19,7 +22,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromYawPitchRoll (<#= type #> yaw, <#= type #> pitch, <#= type #> roll, out Quaternion result)
+        public static void CreateFromYawPitchRoll (
+            ref <#= type #> yaw,
+            ref <#= type #> pitch,
+            ref <#= type #> roll,
+            out Quaternion result)
         {
             <#= type #> half; RealMaths.Half(out half);
             <#= type #> num9 = roll * half;
@@ -46,7 +53,9 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
+        public static void CreateFromRotationMatrix (
+            ref Matrix44 matrix,
+            out Quaternion result)
         {
             <#= type #> zero = 0;
             <#= type #> half; RealMaths.Half(out half);

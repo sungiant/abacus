@@ -2,7 +2,7 @@
     /// <#= type #> precision Matrix44.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Matrix44 
+    public struct Matrix44
         : IEquatable<Matrix44>
     {
         /// <summary>
@@ -84,27 +84,27 @@
         /// Gets or sets (Row 4, Column 4) of the Matrix44.
         /// </summary>
         public <#= type #> M44;
-        
+
         /// <summary>
-        /// Initilises a new instance of Matrix44 from sixteen <#= type #> 
+        /// Initilises a new instance of Matrix44 from sixteen <#= type #>
         /// values representing the matrix, in row major order, respectively.
         /// </summary>
         public Matrix44 (
-            <#= type #> m11, 
-            <#= type #> m12, 
-            <#= type #> m13, 
-            <#= type #> m14, 
-            <#= type #> m21, 
-            <#= type #> m22, 
-            <#= type #> m23, 
-            <#= type #> m24, 
-            <#= type #> m31, 
-            <#= type #> m32, 
-            <#= type #> m33, 
-            <#= type #> m34, 
-            <#= type #> m41, 
-            <#= type #> m42, 
-            <#= type #> m43, 
+            <#= type #> m11,
+            <#= type #> m12,
+            <#= type #> m13,
+            <#= type #> m14,
+            <#= type #> m21,
+            <#= type #> m22,
+            <#= type #> m23,
+            <#= type #> m24,
+            <#= type #> m31,
+            <#= type #> m32,
+            <#= type #> m33,
+            <#= type #> m34,
+            <#= type #> m41,
+            <#= type #> m42,
+            <#= type #> m43,
             <#= type #> m44)
         {
             this.M11 = m11;
@@ -130,44 +130,44 @@
         /// </summary>
         public override String ToString ()
         {
-            return 
+            return
                 (
-                    "{ " + 
-                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M11.ToString (), 
-                            this.M12.ToString (), 
-                            this.M13.ToString (), 
-                            this.M14.ToString () 
+                    "{ " +
+                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ",
+                        new Object[]
+                        {
+                            this.M11.ToString (),
+                            this.M12.ToString (),
+                            this.M13.ToString (),
+                            this.M14.ToString ()
                         }
-                    ) + 
-                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M21.ToString (), 
-                            this.M22.ToString (), 
-                            this.M23.ToString (), 
-                            this.M24.ToString () 
+                    ) +
+                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ",
+                        new Object[]
+                        {
+                            this.M21.ToString (),
+                            this.M22.ToString (),
+                            this.M23.ToString (),
+                            this.M24.ToString ()
                             }
-                    ) + 
-                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M31.ToString (), 
-                            this.M32.ToString (), 
-                            this.M33.ToString (), 
-                            this.M34.ToString () 
+                    ) +
+                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ",
+                        new Object[]
+                        {
+                            this.M31.ToString (),
+                            this.M32.ToString (),
+                            this.M33.ToString (),
+                            this.M34.ToString ()
                         }
-                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
-                    new Object[] 
-                    { 
-                        this.M41.ToString (), 
-                        this.M42.ToString (), 
-                        this.M43.ToString (), 
-                        this.M44.ToString () 
+                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ",
+                    new Object[]
+                    {
+                        this.M41.ToString (),
+                        this.M42.ToString (),
+                        this.M43.ToString (),
+                        this.M44.ToString ()
                     }
-                    ) + 
+                    ) +
                     "}"
                 );
         }
@@ -177,24 +177,23 @@
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return 
-                (((((((((((((((
-                    this.M11.GetHashCode () + 
-                    this.M12.GetHashCode ()) + 
-                    this.M13.GetHashCode ()) + 
-                    this.M14.GetHashCode ()) + 
-                    this.M21.GetHashCode ()) + 
-                    this.M22.GetHashCode ()) + 
-                    this.M23.GetHashCode ()) + 
-                    this.M24.GetHashCode ()) + 
-                    this.M31.GetHashCode ()) + 
-                    this.M32.GetHashCode ()) + 
-                    this.M33.GetHashCode ()) + 
-                    this.M34.GetHashCode ()) + 
-                    this.M41.GetHashCode ()) + 
-                    this.M42.GetHashCode ()) + 
-                    this.M43.GetHashCode ()) + 
-                    this.M44.GetHashCode ());
+            return
+                this.M11.GetHashCode () +
+                this.M12.GetHashCode () +
+                this.M13.GetHashCode () +
+                this.M14.GetHashCode () +
+                this.M21.GetHashCode () +
+                this.M22.GetHashCode () +
+                this.M23.GetHashCode () +
+                this.M24.GetHashCode () +
+                this.M31.GetHashCode () +
+                this.M32.GetHashCode () +
+                this.M33.GetHashCode () +
+                this.M34.GetHashCode () +
+                this.M41.GetHashCode () +
+                this.M42.GetHashCode () +
+                this.M43.GetHashCode () +
+                this.M44.GetHashCode ();
         }
 
 <#@ include file="Matrix44.Accessors.t4"#>
@@ -203,5 +202,16 @@
 <#@ include file="Matrix44.Maths.t4"#>
 <#@ include file="Matrix44.Operators.t4"#>
 <#@ include file="Matrix44.Utilities.t4"#>
+
+#if (VARIANTS_ENABLED)
+
+<#@ include file="Matrix44.Variants.Create.t4"#>
+<#@ include file="Matrix44.Variants.Maths.t4"#>
+<#@ include file="Matrix44.Variants.Operators.t4"#>
+<#@ include file="Matrix44.Variants.Utilities.t4"#>
+
+<#@ include file="Matrix44.Variants.MemberFunctions.t4"#>
+
+#endif
     }
 

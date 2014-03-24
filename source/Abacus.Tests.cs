@@ -31,6 +31,9 @@
 // │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
+//#define TESTS_ENABLED
+
+#if TESTS_ENABLED
 
 
 using System;
@@ -9210,14 +9213,14 @@ namespace Abacus.SinglePrecision.Tests
             Type t = typeof(Vector2);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
+        /// This test makes sure that when examining the memory addresses of the
         /// X and Y member variables of a number of randomly generated Vector2
-        /// objects the results are as expected. 
+        /// objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -9234,11 +9237,11 @@ namespace Abacus.SinglePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 2);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
-                
+
                 h_vec.Free();
             }
         }
@@ -9246,7 +9249,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -9337,7 +9340,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -9368,18 +9371,31 @@ namespace Abacus.SinglePrecision.Tests
             Vector2 e = new Vector2( 1,  1);
             Vector2 f = new Vector2( 0,  0);
 
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Boolean aIsUnit;
+            Boolean bIsUnit;
+            Boolean cIsUnit;
+            Boolean dIsUnit;
+            Boolean eIsUnit;
+            Boolean fIsUnit;
 
-            Assert.That(e.IsUnit(), Is.EqualTo(false));
-            Assert.That(f.IsUnit(), Is.EqualTo(false));
+            Vector2.IsUnit(ref a, out aIsUnit);
+            Vector2.IsUnit(ref b, out bIsUnit);
+            Vector2.IsUnit(ref c, out cIsUnit);
+            Vector2.IsUnit(ref d, out dIsUnit);
+            Vector2.IsUnit(ref e, out eIsUnit);
+            Vector2.IsUnit(ref f, out fIsUnit);
+
+            Assert.That(aIsUnit, Is.EqualTo(true));
+            Assert.That(bIsUnit, Is.EqualTo(true));
+            Assert.That(cIsUnit, Is.EqualTo(true));
+            Assert.That(dIsUnit, Is.EqualTo(true));
+            Assert.That(eIsUnit, Is.EqualTo(true));
+            Assert.That(fIsUnit, Is.EqualTo(true));
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -9391,13 +9407,16 @@ namespace Abacus.SinglePrecision.Tests
 
                 Vector2 b; Vector2.Normalise(ref a, out b);
 
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
+                Boolean bIsUnit;
+                Vector2.IsUnit(ref b, out bIsUnit);
+
+                Assert.That(bIsUnit, Is.EqualTo(true));
             }
         }
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -9412,17 +9431,19 @@ namespace Abacus.SinglePrecision.Tests
                 Single theta = 2 * pi * i * radius / 100;
 
                 Single x = RealMaths.Sin(theta);
-                Single y = RealMaths.Cos(theta);               
+                Single y = RealMaths.Cos(theta);
 
-                Assert.That(
-                    new Vector2(x,  y).IsUnit(), 
-                    Is.EqualTo(true));
+                Vector2 a = new Vector2(x,  y);
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+
+                Assert.That(aIsUnit, Is.EqualTo(true));
             }
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -9432,11 +9453,12 @@ namespace Abacus.SinglePrecision.Tests
             for( Int32 i = 0; i < 100; ++ i)
             {
                 Vector2 a = GetNextRandomVector2();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+                Assert.That(aIsUnit, Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -11157,7 +11179,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
 
-    }    /// <summary>
+    }
+    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -17368,14 +17391,14 @@ namespace Abacus.DoublePrecision.Tests
             Type t = typeof(Vector2);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
+        /// This test makes sure that when examining the memory addresses of the
         /// X and Y member variables of a number of randomly generated Vector2
-        /// objects the results are as expected. 
+        /// objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -17392,11 +17415,11 @@ namespace Abacus.DoublePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 2);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
-                
+
                 h_vec.Free();
             }
         }
@@ -17404,7 +17427,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -17495,7 +17518,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -17526,18 +17549,31 @@ namespace Abacus.DoublePrecision.Tests
             Vector2 e = new Vector2( 1,  1);
             Vector2 f = new Vector2( 0,  0);
 
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Boolean aIsUnit;
+            Boolean bIsUnit;
+            Boolean cIsUnit;
+            Boolean dIsUnit;
+            Boolean eIsUnit;
+            Boolean fIsUnit;
 
-            Assert.That(e.IsUnit(), Is.EqualTo(false));
-            Assert.That(f.IsUnit(), Is.EqualTo(false));
+            Vector2.IsUnit(ref a, out aIsUnit);
+            Vector2.IsUnit(ref b, out bIsUnit);
+            Vector2.IsUnit(ref c, out cIsUnit);
+            Vector2.IsUnit(ref d, out dIsUnit);
+            Vector2.IsUnit(ref e, out eIsUnit);
+            Vector2.IsUnit(ref f, out fIsUnit);
+
+            Assert.That(aIsUnit, Is.EqualTo(true));
+            Assert.That(bIsUnit, Is.EqualTo(true));
+            Assert.That(cIsUnit, Is.EqualTo(true));
+            Assert.That(dIsUnit, Is.EqualTo(true));
+            Assert.That(eIsUnit, Is.EqualTo(true));
+            Assert.That(fIsUnit, Is.EqualTo(true));
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -17549,13 +17585,16 @@ namespace Abacus.DoublePrecision.Tests
 
                 Vector2 b; Vector2.Normalise(ref a, out b);
 
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
+                Boolean bIsUnit;
+                Vector2.IsUnit(ref b, out bIsUnit);
+
+                Assert.That(bIsUnit, Is.EqualTo(true));
             }
         }
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -17570,17 +17609,19 @@ namespace Abacus.DoublePrecision.Tests
                 Double theta = 2 * pi * i * radius / 100;
 
                 Double x = RealMaths.Sin(theta);
-                Double y = RealMaths.Cos(theta);               
+                Double y = RealMaths.Cos(theta);
 
-                Assert.That(
-                    new Vector2(x,  y).IsUnit(), 
-                    Is.EqualTo(true));
+                Vector2 a = new Vector2(x,  y);
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+
+                Assert.That(aIsUnit, Is.EqualTo(true));
             }
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -17590,11 +17631,12 @@ namespace Abacus.DoublePrecision.Tests
             for( Int32 i = 0; i < 100; ++ i)
             {
                 Vector2 a = GetNextRandomVector2();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+                Assert.That(aIsUnit, Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -19315,7 +19357,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
 
-    }    /// <summary>
+    }
+    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -25526,14 +25569,14 @@ namespace Abacus.Fixed32Precision.Tests
             Type t = typeof(Vector2);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
+        /// This test makes sure that when examining the memory addresses of the
         /// X and Y member variables of a number of randomly generated Vector2
-        /// objects the results are as expected. 
+        /// objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -25550,11 +25593,11 @@ namespace Abacus.Fixed32Precision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 2);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
-                
+
                 h_vec.Free();
             }
         }
@@ -25562,7 +25605,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -25653,7 +25696,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -25684,18 +25727,31 @@ namespace Abacus.Fixed32Precision.Tests
             Vector2 e = new Vector2( 1,  1);
             Vector2 f = new Vector2( 0,  0);
 
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Boolean aIsUnit;
+            Boolean bIsUnit;
+            Boolean cIsUnit;
+            Boolean dIsUnit;
+            Boolean eIsUnit;
+            Boolean fIsUnit;
 
-            Assert.That(e.IsUnit(), Is.EqualTo(false));
-            Assert.That(f.IsUnit(), Is.EqualTo(false));
+            Vector2.IsUnit(ref a, out aIsUnit);
+            Vector2.IsUnit(ref b, out bIsUnit);
+            Vector2.IsUnit(ref c, out cIsUnit);
+            Vector2.IsUnit(ref d, out dIsUnit);
+            Vector2.IsUnit(ref e, out eIsUnit);
+            Vector2.IsUnit(ref f, out fIsUnit);
+
+            Assert.That(aIsUnit, Is.EqualTo(true));
+            Assert.That(bIsUnit, Is.EqualTo(true));
+            Assert.That(cIsUnit, Is.EqualTo(true));
+            Assert.That(dIsUnit, Is.EqualTo(true));
+            Assert.That(eIsUnit, Is.EqualTo(true));
+            Assert.That(fIsUnit, Is.EqualTo(true));
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -25707,13 +25763,16 @@ namespace Abacus.Fixed32Precision.Tests
 
                 Vector2 b; Vector2.Normalise(ref a, out b);
 
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
+                Boolean bIsUnit;
+                Vector2.IsUnit(ref b, out bIsUnit);
+
+                Assert.That(bIsUnit, Is.EqualTo(true));
             }
         }
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -25728,17 +25787,19 @@ namespace Abacus.Fixed32Precision.Tests
                 Fixed32 theta = 2 * pi * i * radius / 100;
 
                 Fixed32 x = RealMaths.Sin(theta);
-                Fixed32 y = RealMaths.Cos(theta);               
+                Fixed32 y = RealMaths.Cos(theta);
 
-                Assert.That(
-                    new Vector2(x,  y).IsUnit(), 
-                    Is.EqualTo(true));
+                Vector2 a = new Vector2(x,  y);
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+
+                Assert.That(aIsUnit, Is.EqualTo(true));
             }
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -25748,11 +25809,12 @@ namespace Abacus.Fixed32Precision.Tests
             for( Int32 i = 0; i < 100; ++ i)
             {
                 Vector2 a = GetNextRandomVector2();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+                Assert.That(aIsUnit, Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -27473,7 +27535,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
 
-    }    /// <summary>
+    }
+    /// <summary>
     /// 
     /// </summary>
     [TestFixture]
@@ -31705,3 +31768,5 @@ namespace Abacus.Fixed32Precision.Tests
 
     }}
 
+
+#endif

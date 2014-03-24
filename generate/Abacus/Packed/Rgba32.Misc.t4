@@ -136,7 +136,7 @@
 
             return (Int32)value;
         }
-        
+
 
         /// <summary>
         /// todo
@@ -169,9 +169,9 @@
             Int32 b = b1 + (((b2 - b1) * num) >> 0x10);
             Int32 a = a1 + (((a2 - a1) * num) >> 0x10);
 
-            colour.packedValue = 
+            colour.packedValue =
                 (UInt32)(((r | (g << 8)) | (b << 0x10)) | (a << 0x18));
-            
+
             return colour;
         }
 
@@ -209,7 +209,7 @@
 
             SinglePrecision.Vector3 lumVec = new SinglePrecision.Vector3(luminance, luminance, luminance);
 
-            SinglePrecision.Vector3.Lerp(ref colourVec, ref lumVec, desaturation, out colourVec);
+            SinglePrecision.Vector3.Lerp(ref colourVec, ref lumVec, ref desaturation, out colourVec);
 
             return new Rgba32(colourVec.X, colourVec.Y, colourVec.Z, colourVec4.W);
         }

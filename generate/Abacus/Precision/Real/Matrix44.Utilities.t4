@@ -2,7 +2,11 @@
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
         /// </summary>
-        public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, <#= type #> amount, out Matrix44 result)
+        public static void Lerp (
+            ref Matrix44 matrix1,
+            ref Matrix44 matrix2,
+            <#= type #> amount,
+            out Matrix44 result)
         {
             <#= type #> zero = 0;
             <#= type #> one = 1;

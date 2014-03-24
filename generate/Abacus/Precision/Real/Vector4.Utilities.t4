@@ -1,7 +1,7 @@
 ﻿        // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -16,7 +16,7 @@
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -29,7 +29,7 @@
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
             result.W = (a.W > b.W) ? a.W : b.W;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -56,7 +56,7 @@
             result.Z = z;
             result.W = w;
         }
-        
+
         /// <summary>
         /// Performs a linear interpolation between two vectors.
         /// </summary>
@@ -72,10 +72,24 @@
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
             result.W = a.W + ((b.W - a.W) * amount);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector4 vector, out Boolean result)
+        {
+            <#= type #> one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z
+                - vector.W * vector.W);
         }
 

@@ -1,0 +1,101 @@
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector3 object using the (-X) operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a <#= type #>
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value, <#= type #> scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a <#= type #> precision scaling factor
+        /// and a Vector3 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector3 operator * (<#= type #> scaleFactor, Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a <#= type #> precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value, <#= type #> divider)
+        {
+            throw new NotImplementedException();
+        }
+

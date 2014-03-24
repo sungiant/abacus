@@ -1,0 +1,99 @@
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector4 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector4 operator + (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector4 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector4 object using the (-X) operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector4 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector4 object and a <#= type #>
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, <#= type #> scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a <#= type #> precision scaling factor
+        /// and aVector4 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector4 operator * (<#= type #> scaleFactor, Vector4 value1)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector4 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector4 object and a <#= type #> precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, <#= type #> divider)
+        {
+            throw new NotImplementedException();
+        }
+

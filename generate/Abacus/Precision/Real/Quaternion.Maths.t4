@@ -1,24 +1,76 @@
 ﻿        /// <summary>
         /// todo
         /// </summary>
-        public static void Conjugate (ref Quaternion value, out Quaternion result)
+        public static void LengthSquared (
+            ref Quaternion quaternion,
+            out <#= type #> result)
+        {
+            result =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Length (
+            ref Quaternion quaternion,
+            out <#= type #> result)
+        {
+            <#= type #> lengthSquared =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            <#= type #> one = 1;
+
+            result = RealMaths.IsZero(
+                one -
+                quaternion.W * quaternion.W -
+                quaternion.X * quaternion.X -
+                quaternion.Y * quaternion.Y -
+                quaternion.Z * quaternion.Z);
+        }
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Conjugate (
+            ref Quaternion value,
+            out Quaternion result)
         {
             result.X = -value.X;
             result.Y = -value.Y;
             result.Z = -value.Z;
             result.W = value.W;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Inverse (ref Quaternion quaternion, out Quaternion result)
+        public static void Inverse (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             <#= type #> one = 1;
             <#= type #> a =
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             <#= type #> b = one / a;
@@ -28,23 +80,29 @@
             result.Z = -quaternion.Z * b;
             result.W =  quaternion.W * b;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out <#= type #> result)
+        public static void Dot (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            out <#= type #> result)
         {
-            result = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
+            result =
+                (quaternion1.X * quaternion2.X) +
+                (quaternion1.Y * quaternion2.Y) +
+                (quaternion1.Z * quaternion2.Z) +
                 (quaternion1.W * quaternion2.W);
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Concatenate (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        public static void Concatenate (
+            ref Quaternion value1,
+            ref Quaternion value2,
+            out Quaternion result)
         {
             <#= type #> x = value2.X;
             <#= type #> y = value2.Y;
@@ -70,14 +128,16 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void Normalise (ref Quaternion quaternion, out Quaternion result)
+        public static void Normalise (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             <#= type #> one = 1;
 
-            <#= type #> a = 
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+            <#= type #> a =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             <#= type #> b = one / RealMaths.Sqrt (a);

@@ -20,12 +20,12 @@
             result.M43 = position.Z;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateTranslation (<#= type #> xPosition, <#= type #> yPosition, <#= type #> zPosition, out Matrix44 result)
-        {   
+        {
             result.M11 = 1;
             result.M12 = 0;
             result.M13 = 0;
@@ -43,7 +43,7 @@
             result.M43 = zPosition;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// Creates a scaling matrix based on x, y, z.
         /// </summary>
@@ -190,7 +190,7 @@
             result.M43 = 0;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -233,13 +233,17 @@
             result.M43 = 0;
             result.M44 = one;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
         {
-            if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
+            Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+
+            if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
@@ -267,7 +271,7 @@
         /// </summary>
         public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
 
@@ -287,12 +291,15 @@
         /// </summary>
         public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            if(!forward.IsUnit() || !up.IsUnit() )
+            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+
+            if(!isForwardUnit || !isUpUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 vector; Vector3.Normalise (ref backward, out vector);
 
@@ -325,7 +332,9 @@
         /// </summary>
         public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
         {
-            if(!quaternion.IsUnit())
+            Boolean quaternionIsUnit;
+            Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
+            if(!quaternionIsUnit)
             {
                 throw new ArgumentException("Input quaternion must be normalised.");
             }
@@ -334,7 +343,7 @@
             <#= type #> one = 1;
 
 
-            <#= type #> xs = quaternion.X + quaternion.X;   
+            <#= type #> xs = quaternion.X + quaternion.X;
             <#= type #> ys = quaternion.Y + quaternion.Y;
             <#= type #> zs = quaternion.Z + quaternion.Z;
             <#= type #> wx = quaternion.W * xs;
@@ -351,12 +360,12 @@
             result.M21 = xy - wz;
             result.M31 = xz + wy;
             result.M41 = zero;
-    
+
             result.M12 = xy + wz;
             result.M22 = one - (xx + zz);
             result.M32 = yz - wx;
             result.M42 = zero;
-    
+
             result.M13 = xz - wy;
             result.M23 = yz + wx;
             result.M33 = one - (xx + yy);
@@ -380,6 +389,8 @@
             CreateFromQuaternion (ref quaternion, out result);
         }
 
+#if UNTESTED
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -387,8 +398,8 @@
         ////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Creates a cylindrical billboard that rotates around a specified axis.
-        /// This method computes the facing direction of the billboard from the object position and camera position. 
-        /// When the object and camera positions are too close, the matrix will not be accurate. 
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
         /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
         /// </summary>
         public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
@@ -442,11 +453,11 @@
         /// todo
         /// </summary>
         public static void CreateConstrainedBillboard (
-            ref Vector3 objectPosition, 
-            ref Vector3 cameraPosition, 
-            ref Vector3 rotateAxis, 
-            Vector3? cameraForwardVector, 
-            Vector3? objectForwardVector, 
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -516,10 +527,10 @@
         /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveFieldOfView (
-            <#= type #> fieldOfView, 
-            <#= type #> aspectRatio, 
-            <#= type #> nearPlaneDistance, 
-            <#= type #> farPlaneDistance, 
+            <#= type #> fieldOfView,
+            <#= type #> aspectRatio,
+            <#= type #> nearPlaneDistance,
+            <#= type #> farPlaneDistance,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -556,7 +567,7 @@
             // where:
             //
             // yScale = cot(fovY/2)
-            //     
+            //
             // xScale = yScale / aspect ratio
             //
 
@@ -570,7 +581,7 @@
             result.M12 = zero;
             result.M13 = zero;
             result.M14 = zero;
-            
+
             result.M21 = zero;
             result.M22 = yScale;
             result.M23 = zero;
@@ -598,10 +609,10 @@
         /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspective (
-            <#= type #> width, 
-            <#= type #> height, 
-            <#= type #> nearPlaneDistance, 
-            <#= type #> farPlaneDistance, 
+            <#= type #> width,
+            <#= type #> height,
+            <#= type #> nearPlaneDistance,
+            <#= type #> farPlaneDistance,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -637,12 +648,12 @@
         /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveOffCenter (
-            <#= type #> left, 
-            <#= type #> right, 
-            <#= type #> bottom, 
-            <#= type #> top, 
-            <#= type #> nearPlaneDistance, 
-            <#= type #> farPlaneDistance, 
+            <#= type #> left,
+            <#= type #> right,
+            <#= type #> bottom,
+            <#= type #> top,
+            <#= type #> nearPlaneDistance,
+            <#= type #> farPlaneDistance,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -669,7 +680,7 @@
             result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
             result.M41 = result.M42 = result.M44 = zero;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -679,10 +690,10 @@
         /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographic (
-            <#= type #> width, 
-            <#= type #> height, 
-            <#= type #> zNearPlane, 
-            <#= type #> zFarPlane, 
+            <#= type #> width,
+            <#= type #> height,
+            <#= type #> zNearPlane,
+            <#= type #> zFarPlane,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -709,12 +720,12 @@
         /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographicOffCenter (
-            <#= type #> left, 
-            <#= type #> right, 
-            <#= type #> bottom, 
-            <#= type #> top, 
-            <#= type #> zNearPlane, 
-            <#= type #> zFarPlane, 
+            <#= type #> left,
+            <#= type #> right,
+            <#= type #> bottom,
+            <#= type #> top,
+            <#= type #> zNearPlane,
+            <#= type #> zFarPlane,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -732,7 +743,7 @@
             result.M43 = zNearPlane / (zNearPlane - zFarPlane);
             result.M44 = one;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -742,9 +753,9 @@
         /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
         /// </summary>
         public static void CreateLookAt (
-            ref Vector3 cameraPosition, 
-            ref Vector3 cameraTarget, 
-            ref Vector3 cameraUpVector, 
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -754,13 +765,13 @@
             Vector3.Normalise (ref forward, out forward);
 
             Vector3 right;
-            Vector3.Cross (ref cameraUpVector, ref forward, out right); 
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
             Vector3.Normalise (ref right, out right);
-            
+
             Vector3 up;
             Vector3.Cross (ref forward, ref right, out up);
             Vector3.Normalise (ref up, out up);
-            
+
             result.M11 = right.X;
             result.M12 = up.X;
             result.M13 = forward.X;
@@ -783,11 +794,11 @@
             Vector3.Dot (ref right, ref cameraPosition, out a);
             Vector3.Dot (ref up, ref cameraPosition, out b);
             Vector3.Dot (ref forward, ref cameraPosition, out c);
-            
+
             result.M41 = -a;
             result.M42 = -b;
             result.M43 = -c;
 
             result.M44 = one;
         }
-
+#endif

@@ -1,3 +1,4 @@
+/*
     /// <summary>
     /// todo
     /// </summary>
@@ -22,19 +23,29 @@
             Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
             this.y [index] = newPoint;
-            this.yLengthSq [index] = newPoint.LengthSquared ();
+            <#= type #> newPointLs;
+            Vector3.LengthSquared(ref newPoint, out newPointLs);
+            this.yLengthSq [index] = newPointLs;
 
             for (Int32 i = BitsToIndices[this.simplexBits]; i != 0; i = i >> 3)
             {
-                Int32 num2 = (i & 7) - 1;
-                Vector3 vector = this.y [num2] - newPoint;
+                Int32 idx = (i & 7) - 1;
 
-                this.edges [num2] [index] = vector;
-                this.edges [index] [num2] = -vector;
+                Vector3 vector;
+                vector.X = this.y [idx].X - newPoint.X;
+                vector.Y = this.y [idx].Y - newPoint.Y;
+                vector.Z = this.y [idx].Z - newPoint.Z;
 
-                this.edgeLengthSq [index] [num2] = 
-                    this.edgeLengthSq [num2] [index] = 
-                        vector.LengthSquared ();
+                this.edges [idx] [index] = vector;
+                this.edges [index] [idx].X = -vector.X;
+                this.edges [index] [idx].Y = -vector.Y;
+                this.edges [index] [idx].Z = -vector.Z;
+
+                <#= type #> vectorLs;
+                Vector3.LengthSquared (ref vector, out vectorLs);
+
+                this.edgeLengthSq [index] [idx] = vectorLs;
+                this.edgeLengthSq [idx] [index] = vectorLs;
             }
 
             this.UpdateDeterminant (index);
@@ -68,7 +79,7 @@
         {
             get { return (this.simplexBits == 15); }
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -90,27 +101,27 @@
         /// <summary>
         /// todo
         /// </summary>
-        <#= type #>[][] edgeLengthSq = 
-            new <#= type #>[][] 
-            { 
-                new <#= type #>[4], 
-                new <#= type #>[4], 
-                new <#= type #>[4], 
-                new <#= type #>[4] 
+        <#= type #>[][] edgeLengthSq =
+            new <#= type #>[][]
+            {
+                new <#= type #>[4],
+                new <#= type #>[4],
+                new <#= type #>[4],
+                new <#= type #>[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        Vector3[][] edges = 
-            new Vector3[][] 
-            { 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4] 
+        Vector3[][] edges =
+            new Vector3[][]
+            {
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -134,11 +145,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        static Int32[] BitsToIndices = 
-            new Int32[] 
-            { 
-                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
-                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+        static Int32[] BitsToIndices =
+            new Int32[]
+            {
+                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1,
+                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1
             };
 
         /// <summary>
@@ -161,7 +172,7 @@
                 num3 += num4;
                 zero += (Vector3)(this.y [index] * num4);
 
-                this.maxLengthSq = 
+                this.maxLengthSq =
                 RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
             }
 
@@ -215,10 +226,10 @@
                 Int32 num12 = ((int)1) << num;
                 Int32 num6 = num12 | index;
 
-                this.det [num6] [num] = 
+                this.det [num6] [num] =
                     Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
 
-                this.det [num6] [xmIdx] = 
+                this.det [num6] [xmIdx] =
                     Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
                 Int32 num11 = num14;
@@ -230,20 +241,20 @@
                     int num9 = num6 | num5;
                     int num4 = (this.edgeLengthSq [num] [num3] < this.edgeLengthSq [xmIdx] [num3]) ? num : xmIdx;
 
-                    this.det [num9] [num3] = 
-                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) + 
+                    this.det [num9] [num3] =
+                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) +
                         (this.det [num6] [xmIdx] * Dot (ref this.edges [num4] [num3], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num3] [num] < this.edgeLengthSq [xmIdx] [num]) ? num3 : xmIdx;
 
-                    this.det [num9] [num] = 
-                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) + 
+                    this.det [num9] [num] =
+                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) +
                         (this.det [num5 | index] [xmIdx] * Dot (ref this.edges [num4] [num], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num] [xmIdx] < this.edgeLengthSq [num3] [xmIdx]) ? num : num3;
 
-                    this.det [num9] [xmIdx] = 
-                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) + 
+                    this.det [num9] [xmIdx] =
+                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) +
                         (this.det [num12 | num5] [num] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num]));
 
                     num11 = num11 >> 3;
@@ -254,44 +265,44 @@
 
             if ((this.simplexBits | index) == 15)
             {
-                int num2 = 
-                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ? 
-                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) : 
+                int num2 =
+                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ?
+                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) :
                     ((this.edgeLengthSq [2] [0] < this.edgeLengthSq [3] [0]) ? 2 : 3);
 
-                this.det [15] [0] = 
-                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) + 
-                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) + 
+                this.det [15] [0] =
+                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) +
+                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) +
                     (this.det [14] [3] * Dot (ref this.edges [num2] [0], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ? 
-                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ?
+                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) :
                     ((this.edgeLengthSq [2] [1] < this.edgeLengthSq [3] [1]) ? 2 : 3);
 
-                this.det [15] [1] = 
-                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) + 
-                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) + 
+                this.det [15] [1] =
+                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) +
+                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) +
                     (this.det [13] [3] * Dot (ref this.edges [num2] [1], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ? 
-                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ?
+                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) :
                     ((this.edgeLengthSq [1] [2] < this.edgeLengthSq [3] [2]) ? 1 : 3);
 
-                this.det [15] [2] = 
-                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) + 
-                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) + 
+                this.det [15] [2] =
+                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) +
+                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) +
                     (this.det [11] [3] * Dot (ref this.edges [num2] [2], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ? 
-                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) : 
+                num2 =
+                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ?
+                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) :
                     ((this.edgeLengthSq [1] [3] < this.edgeLengthSq [2] [3]) ? 1 : 2);
 
-                this.det [15] [3] = 
-                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) + 
-                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) + 
+                this.det [15] [3] =
+                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) +
+                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) +
                     (this.det [7] [2] * Dot (ref this.edges [num2] [3], ref this.y [2]));
             }
         }
@@ -338,3 +349,4 @@
             return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
         }
     }
+*/

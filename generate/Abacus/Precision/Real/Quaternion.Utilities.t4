@@ -1,7 +1,11 @@
 ﻿        /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
+        public static void Slerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref <#= type #> amount,
+            out Quaternion result)
         {
             <#= type #> zero = 0;
             <#= type #> one = 1;
@@ -44,7 +48,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, <#= type #> amount, out Quaternion result)
+        public static void Lerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref <#= type #> amount,
+            out Quaternion result)
         {
             <#= type #> zero = 0;
             <#= type #> one = 1;

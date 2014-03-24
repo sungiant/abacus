@@ -1,7 +1,7 @@
 ﻿        // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -15,7 +15,7 @@
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -27,7 +27,7 @@
             result.Y = (a.Y > b.Y) ? a.Y : b.Y;
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -57,7 +57,7 @@
         public static void Lerp (
             ref Vector3 a,
             ref Vector3 b,
-            <#= type #> amount,
+            ref <#= type #> amount,
             out Vector3 result)
         {
             <#= type #> zero = 0;
@@ -66,8 +66,21 @@
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector3 vector, out Boolean result)
+        {
+            <#= type #> one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z);
         }

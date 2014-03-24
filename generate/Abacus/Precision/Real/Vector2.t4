@@ -81,11 +81,16 @@
 <#@ include file="Vector2.Splines.t4"#>
 <#@ include file="Vector2.Utilities.t4"#>
 
+#if (VARIANTS_ENABLED)
+
 <#@ include file="Vector2.Variants.Maths.t4"#>
 <#@ include file="Vector2.Variants.Operators.t4"#>
 <#@ include file="Vector2.Variants.Splines.t4"#>
 <#@ include file="Vector2.Variants.Utilities.t4"#>
 
 <#@ include file="Vector2.Variants.MemberFunctions.t4"#>
+
+#endif
+
     }
 

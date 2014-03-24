@@ -2,7 +2,7 @@
     /// <#= type #> precision Quaternion.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Quaternion 
+    public struct Quaternion
         : IEquatable<Quaternion>
     {
         /// <summary>
@@ -63,60 +63,22 @@
             return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public <#= type #> LengthSquared ()
-        {
-            return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
-        }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public <#= type #> Length ()
-        {
-            <#= type #> num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Normalise ()
-        {
-            <#= type #> one = 1;
-            <#= type #> num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            <#= type #> num = one / RealMaths.Sqrt (num2);
-            this.X *= num;
-            this.Y *= num;
-            this.Z *= num;
-            this.W *= num;
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Boolean IsUnit()
-        {
-            <#= type #> one = 1;
-
-            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Conjugate ()
-        {
-            this.X = -this.X;
-            this.Y = -this.Y;
-            this.Z = -this.Z;
-        }
 
 <#@ include file="Quaternion.Constants.t4"#>
 <#@ include file="Quaternion.Create.t4"#>
 <#@ include file="Quaternion.Maths.t4"#>
 <#@ include file="Quaternion.Operators.t4"#>
 <#@ include file="Quaternion.Utilities.t4"#>
+
+#if (VARIANTS_ENABLED)
+
+<#@ include file="Quaternion.Variants.Create.t4"#>
+<#@ include file="Quaternion.Variants.Maths.t4"#>
+<#@ include file="Quaternion.Variants.Operators.t4"#>
+<#@ include file="Quaternion.Variants.Utilities.t4"#>
+
+<#@ include file="Quaternion.Variants.MemberFunctions.t4"#>
+
+#endif
     }

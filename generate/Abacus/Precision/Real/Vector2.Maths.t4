@@ -73,7 +73,9 @@
         public static void Reflect (
             ref Vector2 vector, ref Vector2 normal, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -90,7 +92,9 @@
 
             // Starting vector minus twice the length of the adjcent projected
             // along the normal.
-            result = vector - (twoDot * normal);
+            Vector2 m;
+            Vector2.Multiply (ref normal, ref twoDot, out m);
+            Vector2.Subtract (ref vector, ref m, out result);
         }
 
         /// <summary>
@@ -150,7 +154,9 @@
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");

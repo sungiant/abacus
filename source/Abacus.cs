@@ -31,6 +31,7 @@
 // │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
+//#define VARIANTS_ENABLED
 
 
 using System;
@@ -4091,7 +4092,7 @@ namespace Abacus.Packed
             if (realRgba.X < 0f || realRgba.X > 1f ||
                 realRgba.Y < 0f || realRgba.Y > 1f ||
                 realRgba.Z < 0f || realRgba.Z > 1f ||
-                realRgba.W < 0f || realRgba.W > 1f ) 
+                realRgba.W < 0f || realRgba.W > 1f )
                 throw new ArgumentException ("A component of the input source is not unsigned and normalised: " + realRgba);
 
             UInt32 r = PackUtils.PackUnsignedNormalisedValue (0xff, realRgba.X);
@@ -4114,7 +4115,7 @@ namespace Abacus.Packed
             if (realRgba.X < 0f || realRgba.X > 1f ||
                 realRgba.Y < 0f || realRgba.Y > 1f ||
                 realRgba.Z < 0f || realRgba.Z > 1f ||
-                realRgba.W < 0f || realRgba.W > 1f ) 
+                realRgba.W < 0f || realRgba.W > 1f )
                 throw new Exception ("A the input source doesn't yeild an unsigned normalised output: " + packedRgba);
         }
 
@@ -5461,7 +5462,7 @@ namespace Abacus.Packed
             set { this.packedValue = (this.packedValue & 0xffffff) | ((UInt32)(value << 0x18)); }
         }
 
-        /// <summary>
+//        /// <summary>
         /// todo
         /// </summary>
         Rgba32(UInt32 packedValue)
@@ -5635,7 +5636,7 @@ namespace Abacus.Packed
 
             return (Int32)value;
         }
-        
+
 
         /// <summary>
         /// todo
@@ -5668,9 +5669,9 @@ namespace Abacus.Packed
             Int32 b = b1 + (((b2 - b1) * num) >> 0x10);
             Int32 a = a1 + (((a2 - a1) * num) >> 0x10);
 
-            colour.packedValue = 
+            colour.packedValue =
                 (UInt32)(((r | (g << 8)) | (b << 0x10)) | (a << 0x18));
-            
+
             return colour;
         }
 
@@ -5726,12 +5727,12 @@ namespace Abacus.Packed
 
             SinglePrecision.Vector3 lumVec = new SinglePrecision.Vector3(luminance, luminance, luminance);
 
-            SinglePrecision.Vector3.Lerp(ref colourVec, ref lumVec, desaturation, out colourVec);
+            SinglePrecision.Vector3.Lerp(ref colourVec, ref lumVec, ref desaturation, out colourVec);
 
             return new Rgba32(colourVec.X, colourVec.Y, colourVec.Z, colourVec4.W);
         }
 
-        /// <summary>
+//        /// <summary>
         /// todo
         /// </summary>
         public static Rgba32 operator *(Rgba32 value, Single scale)
@@ -8340,6 +8341,7 @@ namespace Abacus.Int64Precision
 
 namespace Abacus.SinglePrecision
 {
+/*
     /// <summary>
     /// todo
     /// </summary>
@@ -8364,19 +8366,29 @@ namespace Abacus.SinglePrecision
             Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
             this.y [index] = newPoint;
-            this.yLengthSq [index] = newPoint.LengthSquared ();
+            Single newPointLs;
+            Vector3.LengthSquared(ref newPoint, out newPointLs);
+            this.yLengthSq [index] = newPointLs;
 
             for (Int32 i = BitsToIndices[this.simplexBits]; i != 0; i = i >> 3)
             {
-                Int32 num2 = (i & 7) - 1;
-                Vector3 vector = this.y [num2] - newPoint;
+                Int32 idx = (i & 7) - 1;
 
-                this.edges [num2] [index] = vector;
-                this.edges [index] [num2] = -vector;
+                Vector3 vector;
+                vector.X = this.y [idx].X - newPoint.X;
+                vector.Y = this.y [idx].Y - newPoint.Y;
+                vector.Z = this.y [idx].Z - newPoint.Z;
 
-                this.edgeLengthSq [index] [num2] = 
-                    this.edgeLengthSq [num2] [index] = 
-                        vector.LengthSquared ();
+                this.edges [idx] [index] = vector;
+                this.edges [index] [idx].X = -vector.X;
+                this.edges [index] [idx].Y = -vector.Y;
+                this.edges [index] [idx].Z = -vector.Z;
+
+                Single vectorLs;
+                Vector3.LengthSquared (ref vector, out vectorLs);
+
+                this.edgeLengthSq [index] [idx] = vectorLs;
+                this.edgeLengthSq [idx] [index] = vectorLs;
             }
 
             this.UpdateDeterminant (index);
@@ -8410,7 +8422,7 @@ namespace Abacus.SinglePrecision
         {
             get { return (this.simplexBits == 15); }
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -8432,27 +8444,27 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        Single[][] edgeLengthSq = 
-            new Single[][] 
-            { 
-                new Single[4], 
-                new Single[4], 
-                new Single[4], 
-                new Single[4] 
+        Single[][] edgeLengthSq =
+            new Single[][]
+            {
+                new Single[4],
+                new Single[4],
+                new Single[4],
+                new Single[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        Vector3[][] edges = 
-            new Vector3[][] 
-            { 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4] 
+        Vector3[][] edges =
+            new Vector3[][]
+            {
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -8476,11 +8488,11 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        static Int32[] BitsToIndices = 
-            new Int32[] 
-            { 
-                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
-                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+        static Int32[] BitsToIndices =
+            new Int32[]
+            {
+                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1,
+                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1
             };
 
         /// <summary>
@@ -8503,7 +8515,7 @@ namespace Abacus.SinglePrecision
                 num3 += num4;
                 zero += (Vector3)(this.y [index] * num4);
 
-                this.maxLengthSq = 
+                this.maxLengthSq =
                 RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
             }
 
@@ -8557,10 +8569,10 @@ namespace Abacus.SinglePrecision
                 Int32 num12 = ((int)1) << num;
                 Int32 num6 = num12 | index;
 
-                this.det [num6] [num] = 
+                this.det [num6] [num] =
                     Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
 
-                this.det [num6] [xmIdx] = 
+                this.det [num6] [xmIdx] =
                     Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
                 Int32 num11 = num14;
@@ -8572,20 +8584,20 @@ namespace Abacus.SinglePrecision
                     int num9 = num6 | num5;
                     int num4 = (this.edgeLengthSq [num] [num3] < this.edgeLengthSq [xmIdx] [num3]) ? num : xmIdx;
 
-                    this.det [num9] [num3] = 
-                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) + 
+                    this.det [num9] [num3] =
+                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) +
                         (this.det [num6] [xmIdx] * Dot (ref this.edges [num4] [num3], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num3] [num] < this.edgeLengthSq [xmIdx] [num]) ? num3 : xmIdx;
 
-                    this.det [num9] [num] = 
-                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) + 
+                    this.det [num9] [num] =
+                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) +
                         (this.det [num5 | index] [xmIdx] * Dot (ref this.edges [num4] [num], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num] [xmIdx] < this.edgeLengthSq [num3] [xmIdx]) ? num : num3;
 
-                    this.det [num9] [xmIdx] = 
-                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) + 
+                    this.det [num9] [xmIdx] =
+                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) +
                         (this.det [num12 | num5] [num] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num]));
 
                     num11 = num11 >> 3;
@@ -8596,44 +8608,44 @@ namespace Abacus.SinglePrecision
 
             if ((this.simplexBits | index) == 15)
             {
-                int num2 = 
-                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ? 
-                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) : 
+                int num2 =
+                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ?
+                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) :
                     ((this.edgeLengthSq [2] [0] < this.edgeLengthSq [3] [0]) ? 2 : 3);
 
-                this.det [15] [0] = 
-                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) + 
-                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) + 
+                this.det [15] [0] =
+                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) +
+                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) +
                     (this.det [14] [3] * Dot (ref this.edges [num2] [0], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ? 
-                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ?
+                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) :
                     ((this.edgeLengthSq [2] [1] < this.edgeLengthSq [3] [1]) ? 2 : 3);
 
-                this.det [15] [1] = 
-                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) + 
-                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) + 
+                this.det [15] [1] =
+                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) +
+                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) +
                     (this.det [13] [3] * Dot (ref this.edges [num2] [1], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ? 
-                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ?
+                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) :
                     ((this.edgeLengthSq [1] [2] < this.edgeLengthSq [3] [2]) ? 1 : 3);
 
-                this.det [15] [2] = 
-                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) + 
-                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) + 
+                this.det [15] [2] =
+                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) +
+                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) +
                     (this.det [11] [3] * Dot (ref this.edges [num2] [2], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ? 
-                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) : 
+                num2 =
+                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ?
+                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) :
                     ((this.edgeLengthSq [1] [3] < this.edgeLengthSq [2] [3]) ? 1 : 2);
 
-                this.det [15] [3] = 
-                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) + 
-                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) + 
+                this.det [15] [3] =
+                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) +
+                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) +
                     (this.det [7] [2] * Dot (ref this.edges [num2] [3], ref this.y [2]));
             }
         }
@@ -8680,11 +8692,12 @@ namespace Abacus.SinglePrecision
             return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
         }
     }
+*/
     /// <summary>
     /// Single precision Matrix44.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Matrix44 
+    public struct Matrix44
         : IEquatable<Matrix44>
     {
         /// <summary>
@@ -8766,27 +8779,27 @@ namespace Abacus.SinglePrecision
         /// Gets or sets (Row 4, Column 4) of the Matrix44.
         /// </summary>
         public Single M44;
-        
+
         /// <summary>
-        /// Initilises a new instance of Matrix44 from sixteen Single 
+        /// Initilises a new instance of Matrix44 from sixteen Single
         /// values representing the matrix, in row major order, respectively.
         /// </summary>
         public Matrix44 (
-            Single m11, 
-            Single m12, 
-            Single m13, 
-            Single m14, 
-            Single m21, 
-            Single m22, 
-            Single m23, 
-            Single m24, 
-            Single m31, 
-            Single m32, 
-            Single m33, 
-            Single m34, 
-            Single m41, 
-            Single m42, 
-            Single m43, 
+            Single m11,
+            Single m12,
+            Single m13,
+            Single m14,
+            Single m21,
+            Single m22,
+            Single m23,
+            Single m24,
+            Single m31,
+            Single m32,
+            Single m33,
+            Single m34,
+            Single m41,
+            Single m42,
+            Single m43,
             Single m44)
         {
             this.M11 = m11;
@@ -8812,44 +8825,44 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override String ToString ()
         {
-            return 
+            return
                 (
-                    "{ " + 
-                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M11.ToString (), 
-                            this.M12.ToString (), 
-                            this.M13.ToString (), 
-                            this.M14.ToString () 
+                    "{ " +
+                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ",
+                        new Object[]
+                        {
+                            this.M11.ToString (),
+                            this.M12.ToString (),
+                            this.M13.ToString (),
+                            this.M14.ToString ()
                         }
-                    ) + 
-                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M21.ToString (), 
-                            this.M22.ToString (), 
-                            this.M23.ToString (), 
-                            this.M24.ToString () 
+                    ) +
+                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ",
+                        new Object[]
+                        {
+                            this.M21.ToString (),
+                            this.M22.ToString (),
+                            this.M23.ToString (),
+                            this.M24.ToString ()
                             }
-                    ) + 
-                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M31.ToString (), 
-                            this.M32.ToString (), 
-                            this.M33.ToString (), 
-                            this.M34.ToString () 
+                    ) +
+                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ",
+                        new Object[]
+                        {
+                            this.M31.ToString (),
+                            this.M32.ToString (),
+                            this.M33.ToString (),
+                            this.M34.ToString ()
                         }
-                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
-                    new Object[] 
-                    { 
-                        this.M41.ToString (), 
-                        this.M42.ToString (), 
-                        this.M43.ToString (), 
-                        this.M44.ToString () 
+                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ",
+                    new Object[]
+                    {
+                        this.M41.ToString (),
+                        this.M42.ToString (),
+                        this.M43.ToString (),
+                        this.M44.ToString ()
                     }
-                    ) + 
+                    ) +
                     "}"
                 );
         }
@@ -8859,24 +8872,23 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return 
-                (((((((((((((((
-                    this.M11.GetHashCode () + 
-                    this.M12.GetHashCode ()) + 
-                    this.M13.GetHashCode ()) + 
-                    this.M14.GetHashCode ()) + 
-                    this.M21.GetHashCode ()) + 
-                    this.M22.GetHashCode ()) + 
-                    this.M23.GetHashCode ()) + 
-                    this.M24.GetHashCode ()) + 
-                    this.M31.GetHashCode ()) + 
-                    this.M32.GetHashCode ()) + 
-                    this.M33.GetHashCode ()) + 
-                    this.M34.GetHashCode ()) + 
-                    this.M41.GetHashCode ()) + 
-                    this.M42.GetHashCode ()) + 
-                    this.M43.GetHashCode ()) + 
-                    this.M44.GetHashCode ());
+            return
+                this.M11.GetHashCode () +
+                this.M12.GetHashCode () +
+                this.M13.GetHashCode () +
+                this.M14.GetHashCode () +
+                this.M21.GetHashCode () +
+                this.M22.GetHashCode () +
+                this.M23.GetHashCode () +
+                this.M24.GetHashCode () +
+                this.M31.GetHashCode () +
+                this.M32.GetHashCode () +
+                this.M33.GetHashCode () +
+                this.M34.GetHashCode () +
+                this.M41.GetHashCode () +
+                this.M42.GetHashCode () +
+                this.M43.GetHashCode () +
+                this.M44.GetHashCode ();
         }
 
         /// <summary>
@@ -9075,12 +9087,12 @@ namespace Abacus.SinglePrecision
             result.M43 = position.Z;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateTranslation (Single xPosition, Single yPosition, Single zPosition, out Matrix44 result)
-        {   
+        {
             result.M11 = 1;
             result.M12 = 0;
             result.M13 = 0;
@@ -9098,7 +9110,7 @@ namespace Abacus.SinglePrecision
             result.M43 = zPosition;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// Creates a scaling matrix based on x, y, z.
         /// </summary>
@@ -9245,7 +9257,7 @@ namespace Abacus.SinglePrecision
             result.M43 = 0;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -9288,13 +9300,17 @@ namespace Abacus.SinglePrecision
             result.M43 = 0;
             result.M44 = one;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
         {
-            if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
+            Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+
+            if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
@@ -9322,7 +9338,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
 
@@ -9342,12 +9358,15 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            if(!forward.IsUnit() || !up.IsUnit() )
+            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+
+            if(!isForwardUnit || !isUpUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 vector; Vector3.Normalise (ref backward, out vector);
 
@@ -9380,7 +9399,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
         {
-            if(!quaternion.IsUnit())
+            Boolean quaternionIsUnit;
+            Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
+            if(!quaternionIsUnit)
             {
                 throw new ArgumentException("Input quaternion must be normalised.");
             }
@@ -9389,7 +9410,7 @@ namespace Abacus.SinglePrecision
             Single one = 1;
 
 
-            Single xs = quaternion.X + quaternion.X;   
+            Single xs = quaternion.X + quaternion.X;
             Single ys = quaternion.Y + quaternion.Y;
             Single zs = quaternion.Z + quaternion.Z;
             Single wx = quaternion.W * xs;
@@ -9406,12 +9427,12 @@ namespace Abacus.SinglePrecision
             result.M21 = xy - wz;
             result.M31 = xz + wy;
             result.M41 = zero;
-    
+
             result.M12 = xy + wz;
             result.M22 = one - (xx + zz);
             result.M32 = yz - wx;
             result.M42 = zero;
-    
+
             result.M13 = xz - wy;
             result.M23 = yz + wx;
             result.M33 = one - (xx + yy);
@@ -9435,6 +9456,8 @@ namespace Abacus.SinglePrecision
             CreateFromQuaternion (ref quaternion, out result);
         }
 
+#if UNTESTED
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -9442,8 +9465,8 @@ namespace Abacus.SinglePrecision
         ////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Creates a cylindrical billboard that rotates around a specified axis.
-        /// This method computes the facing direction of the billboard from the object position and camera position. 
-        /// When the object and camera positions are too close, the matrix will not be accurate. 
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
         /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
         /// </summary>
         public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
@@ -9497,11 +9520,11 @@ namespace Abacus.SinglePrecision
         /// todo
         /// </summary>
         public static void CreateConstrainedBillboard (
-            ref Vector3 objectPosition, 
-            ref Vector3 cameraPosition, 
-            ref Vector3 rotateAxis, 
-            Vector3? cameraForwardVector, 
-            Vector3? objectForwardVector, 
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector,
             out Matrix44 result)
         {
             Single zero = 0;
@@ -9571,10 +9594,10 @@ namespace Abacus.SinglePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveFieldOfView (
-            Single fieldOfView, 
-            Single aspectRatio, 
-            Single nearPlaneDistance, 
-            Single farPlaneDistance, 
+            Single fieldOfView,
+            Single aspectRatio,
+            Single nearPlaneDistance,
+            Single farPlaneDistance,
             out Matrix44 result)
         {
             Single zero = 0;
@@ -9611,7 +9634,7 @@ namespace Abacus.SinglePrecision
             // where:
             //
             // yScale = cot(fovY/2)
-            //     
+            //
             // xScale = yScale / aspect ratio
             //
 
@@ -9625,7 +9648,7 @@ namespace Abacus.SinglePrecision
             result.M12 = zero;
             result.M13 = zero;
             result.M14 = zero;
-            
+
             result.M21 = zero;
             result.M22 = yScale;
             result.M23 = zero;
@@ -9653,10 +9676,10 @@ namespace Abacus.SinglePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspective (
-            Single width, 
-            Single height, 
-            Single nearPlaneDistance, 
-            Single farPlaneDistance, 
+            Single width,
+            Single height,
+            Single nearPlaneDistance,
+            Single farPlaneDistance,
             out Matrix44 result)
         {
             Single zero = 0;
@@ -9692,12 +9715,12 @@ namespace Abacus.SinglePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveOffCenter (
-            Single left, 
-            Single right, 
-            Single bottom, 
-            Single top, 
-            Single nearPlaneDistance, 
-            Single farPlaneDistance, 
+            Single left,
+            Single right,
+            Single bottom,
+            Single top,
+            Single nearPlaneDistance,
+            Single farPlaneDistance,
             out Matrix44 result)
         {
             Single zero = 0;
@@ -9724,7 +9747,7 @@ namespace Abacus.SinglePrecision
             result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
             result.M41 = result.M42 = result.M44 = zero;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -9734,10 +9757,10 @@ namespace Abacus.SinglePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographic (
-            Single width, 
-            Single height, 
-            Single zNearPlane, 
-            Single zFarPlane, 
+            Single width,
+            Single height,
+            Single zNearPlane,
+            Single zFarPlane,
             out Matrix44 result)
         {
             Single zero = 0;
@@ -9764,12 +9787,12 @@ namespace Abacus.SinglePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographicOffCenter (
-            Single left, 
-            Single right, 
-            Single bottom, 
-            Single top, 
-            Single zNearPlane, 
-            Single zFarPlane, 
+            Single left,
+            Single right,
+            Single bottom,
+            Single top,
+            Single zNearPlane,
+            Single zFarPlane,
             out Matrix44 result)
         {
             Single zero = 0;
@@ -9787,7 +9810,7 @@ namespace Abacus.SinglePrecision
             result.M43 = zNearPlane / (zNearPlane - zFarPlane);
             result.M44 = one;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -9797,9 +9820,9 @@ namespace Abacus.SinglePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
         /// </summary>
         public static void CreateLookAt (
-            ref Vector3 cameraPosition, 
-            ref Vector3 cameraTarget, 
-            ref Vector3 cameraUpVector, 
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
             out Matrix44 result)
         {
             Single zero = 0;
@@ -9809,13 +9832,13 @@ namespace Abacus.SinglePrecision
             Vector3.Normalise (ref forward, out forward);
 
             Vector3 right;
-            Vector3.Cross (ref cameraUpVector, ref forward, out right); 
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
             Vector3.Normalise (ref right, out right);
-            
+
             Vector3 up;
             Vector3.Cross (ref forward, ref right, out up);
             Vector3.Normalise (ref up, out up);
-            
+
             result.M11 = right.X;
             result.M12 = up.X;
             result.M13 = forward.X;
@@ -9838,14 +9861,14 @@ namespace Abacus.SinglePrecision
             Vector3.Dot (ref right, ref cameraPosition, out a);
             Vector3.Dot (ref up, ref cameraPosition, out b);
             Vector3.Dot (ref forward, ref cameraPosition, out c);
-            
+
             result.M41 = -a;
             result.M42 = -b;
             result.M43 = -c;
 
             result.M44 = one;
         }
-
+#endif
         /// <summary>
         /// todo
         /// </summary>
@@ -9894,12 +9917,12 @@ namespace Abacus.SinglePrecision
             Vector3 b = new Vector3(M12, M22, M32);
             Vector3 c = new Vector3(M13, M23, M33);
 
-            scale.X = a.Length();
-            scale.Y = b.Length();
-            scale.Z = c.Length();
+            Single aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
+            Single bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;
+            Single cLen; Vector3.Length(ref c, out cLen); scale.Z = cLen;
 
-            if ( RealMaths.IsZero(scale.X) || 
-                 RealMaths.IsZero(scale.Y) || 
+            if ( RealMaths.IsZero(scale.X) ||
+                 RealMaths.IsZero(scale.Y) ||
                  RealMaths.IsZero(scale.Z) )
             {
                 rotation = Quaternion.Identity;
@@ -9925,6 +9948,8 @@ namespace Abacus.SinglePrecision
 
             return true;
         }
+
+#if UNTESTED
 
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
@@ -9952,17 +9977,17 @@ namespace Abacus.SinglePrecision
             Single num3 = this.M42;
             Single num2 = this.M43;
             Single num = this.M44;
-            
+
             Single num18 = (num6 * num) - (num5 * num2);
             Single num17 = (num7 * num) - (num5 * num3);
             Single num16 = (num7 * num2) - (num6 * num3);
             Single num15 = (num8 * num) - (num5 * num4);
             Single num14 = (num8 * num2) - (num6 * num4);
             Single num13 = (num8 * num3) - (num7 * num4);
-            
+
             return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -10046,7 +10071,7 @@ namespace Abacus.SinglePrecision
             Single num21 = rotation.X + rotation.X;
             Single num11 = rotation.Y + rotation.Y;
             Single num10 = rotation.Z + rotation.Z;
-            
+
             Single num20 = rotation.W * num21;
             Single num19 = rotation.W * num11;
             Single num18 = rotation.W * num10;
@@ -10056,45 +10081,45 @@ namespace Abacus.SinglePrecision
             Single num14 = rotation.Y * num11;
             Single num13 = rotation.Y * num10;
             Single num12 = rotation.Z * num10;
-            
+
             Single num9 = (one - num14) - num12;
-            
+
             Single num8 = num16 - num18;
             Single num7 = num15 + num19;
             Single num6 = num16 + num18;
-            
+
             Single num5 = (one - num17) - num12;
-            
+
             Single num4 = num13 - num20;
             Single num3 = num15 - num19;
             Single num2 = num13 + num20;
-            
+
             Single num = (one - num17) - num14;
-            
+
             Single num37 = ((value.M11 * num9) + (value.M12 * num8)) + (value.M13 * num7);
             Single num36 = ((value.M11 * num6) + (value.M12 * num5)) + (value.M13 * num4);
             Single num35 = ((value.M11 * num3) + (value.M12 * num2)) + (value.M13 * num);
-            
+
             Single num34 = value.M14;
-            
+
             Single num33 = ((value.M21 * num9) + (value.M22 * num8)) + (value.M23 * num7);
             Single num32 = ((value.M21 * num6) + (value.M22 * num5)) + (value.M23 * num4);
             Single num31 = ((value.M21 * num3) + (value.M22 * num2)) + (value.M23 * num);
-            
+
             Single num30 = value.M24;
-            
+
             Single num29 = ((value.M31 * num9) + (value.M32 * num8)) + (value.M33 * num7);
             Single num28 = ((value.M31 * num6) + (value.M32 * num5)) + (value.M33 * num4);
             Single num27 = ((value.M31 * num3) + (value.M32 * num2)) + (value.M33 * num);
-            
+
             Single num26 = value.M34;
-            
+
             Single num25 = ((value.M41 * num9) + (value.M42 * num8)) + (value.M43 * num7);
             Single num24 = ((value.M41 * num6) + (value.M42 * num5)) + (value.M43 * num4);
             Single num23 = ((value.M41 * num3) + (value.M42 * num2)) + (value.M43 * num);
-            
+
             Single num22 = value.M44;
-            
+
             result.M11 = num37;
             result.M12 = num36;
             result.M13 = num35;
@@ -10112,6 +10137,8 @@ namespace Abacus.SinglePrecision
             result.M43 = num23;
             result.M44 = num22;
         }
+
+#endif
 
         // Equality Operators //----------------------------------------------//
 
@@ -10743,7 +10770,11 @@ namespace Abacus.SinglePrecision
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
         /// </summary>
-        public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Single amount, out Matrix44 result)
+        public static void Lerp (
+            ref Matrix44 matrix1,
+            ref Matrix44 matrix2,
+            Single amount,
+            out Matrix44 result)
         {
             Single zero = 0;
             Single one = 1;
@@ -10771,13 +10802,19 @@ namespace Abacus.SinglePrecision
         }
 
 
+
+#if (VARIANTS_ENABLED)
+
+
+
+#endif
     }
 
     /// <summary>
     /// Single precision Quaternion.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Quaternion 
+    public struct Quaternion
         : IEquatable<Quaternion>
     {
         /// <summary>
@@ -10838,56 +10875,7 @@ namespace Abacus.SinglePrecision
             return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Single LengthSquared ()
-        {
-            return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
-        }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Single Length ()
-        {
-            Single num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Normalise ()
-        {
-            Single one = 1;
-            Single num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            Single num = one / RealMaths.Sqrt (num2);
-            this.X *= num;
-            this.Y *= num;
-            this.Z *= num;
-            this.W *= num;
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Boolean IsUnit()
-        {
-            Single one = 1;
-
-            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Conjugate ()
-        {
-            this.X = -this.X;
-            this.Y = -this.Y;
-            this.Z = -this.Z;
-        }
 
         // Constants //-------------------------------------------------------//
 
@@ -10915,7 +10903,10 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromAxisAngle (ref Vector3 axis, Single angle, out Quaternion result)
+        public static void CreateFromAxisAngle (
+            ref Vector3 axis,
+            ref Single angle,
+            out Quaternion result)
         {
             Single half; RealMaths.Half(out half);
             Single theta = angle * half;
@@ -10933,7 +10924,11 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromYawPitchRoll (Single yaw, Single pitch, Single roll, out Quaternion result)
+        public static void CreateFromYawPitchRoll (
+            ref Single yaw,
+            ref Single pitch,
+            ref Single roll,
+            out Quaternion result)
         {
             Single half; RealMaths.Half(out half);
             Single num9 = roll * half;
@@ -10960,7 +10955,9 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
+        public static void CreateFromRotationMatrix (
+            ref Matrix44 matrix,
+            out Quaternion result)
         {
             Single zero = 0;
             Single half; RealMaths.Half(out half);
@@ -11008,24 +11005,76 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Conjugate (ref Quaternion value, out Quaternion result)
+        public static void LengthSquared (
+            ref Quaternion quaternion,
+            out Single result)
+        {
+            result =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Length (
+            ref Quaternion quaternion,
+            out Single result)
+        {
+            Single lengthSquared =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            Single one = 1;
+
+            result = RealMaths.IsZero(
+                one -
+                quaternion.W * quaternion.W -
+                quaternion.X * quaternion.X -
+                quaternion.Y * quaternion.Y -
+                quaternion.Z * quaternion.Z);
+        }
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Conjugate (
+            ref Quaternion value,
+            out Quaternion result)
         {
             result.X = -value.X;
             result.Y = -value.Y;
             result.Z = -value.Z;
             result.W = value.W;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Inverse (ref Quaternion quaternion, out Quaternion result)
+        public static void Inverse (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             Single one = 1;
             Single a =
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             Single b = one / a;
@@ -11035,23 +11084,29 @@ namespace Abacus.SinglePrecision
             result.Z = -quaternion.Z * b;
             result.W =  quaternion.W * b;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Single result)
+        public static void Dot (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            out Single result)
         {
-            result = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
+            result =
+                (quaternion1.X * quaternion2.X) +
+                (quaternion1.Y * quaternion2.Y) +
+                (quaternion1.Z * quaternion2.Z) +
                 (quaternion1.W * quaternion2.W);
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Concatenate (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        public static void Concatenate (
+            ref Quaternion value1,
+            ref Quaternion value2,
+            out Quaternion result)
         {
             Single x = value2.X;
             Single y = value2.Y;
@@ -11077,14 +11132,16 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Normalise (ref Quaternion quaternion, out Quaternion result)
+        public static void Normalise (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             Single one = 1;
 
-            Single a = 
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+            Single a =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             Single b = one / RealMaths.Sqrt (a);
@@ -11104,7 +11161,7 @@ namespace Abacus.SinglePrecision
         public override Boolean Equals (Object obj)
         {
             Boolean flag = false;
-            
+
             if (obj is Quaternion)
             {
                 flag = this.Equals ((Quaternion) obj);
@@ -11121,10 +11178,10 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public Boolean Equals (Quaternion other)
         {
-            return 
-                (this.X == other.X) && 
-                (this.Y == other.Y) && 
-                (this.Z == other.Z) && 
+            return
+                (this.X == other.X) &&
+                (this.Y == other.Y) &&
+                (this.Z == other.Z) &&
                 (this.W == other.W);
         }
 
@@ -11138,7 +11195,7 @@ namespace Abacus.SinglePrecision
         {
             return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
         }
-        
+
         /// <summary>
         /// Determines whether or not two Quaternion objects are not equal using
         /// the (X!=Y) operator.
@@ -11156,7 +11213,10 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Performs addition of two Quaternion objects.
         /// </summary>
-        public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        public static void Add (
+            ref Quaternion value1,
+            ref Quaternion value2,
+            out Quaternion result)
         {
             result.X = value1.X + value2.X;
             result.Y = value1.Y + value2.Y;
@@ -11165,7 +11225,7 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Performs addition of two Quaternion objects using the (X+Y) operator. 
+        /// Performs addition of two Quaternion objects using the (X+Y) operator.
         /// </summary>
         public static Quaternion operator + (Quaternion value1, Quaternion value2)
         {
@@ -11191,7 +11251,7 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Performs subtraction of two Quaternion objects using the (X-Y) 
+        /// Performs subtraction of two Quaternion objects using the (X-Y)
         /// operator.
         /// </summary>
         public static Quaternion operator - (Quaternion value1, Quaternion value2)
@@ -11205,7 +11265,7 @@ namespace Abacus.SinglePrecision
         }
 
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Quaternion object.
         /// </summary>
@@ -11229,7 +11289,7 @@ namespace Abacus.SinglePrecision
             quat.W = -value.W;
             return quat;
         }
-        
+
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
@@ -11277,7 +11337,7 @@ namespace Abacus.SinglePrecision
         public static Quaternion operator * (Quaternion value1, Quaternion value2)
         {
             Quaternion quaternion;
-            
+
             Single x1 = value1.X;
             Single y1 = value1.Y;
             Single z1 = value1.Z;
@@ -11300,7 +11360,7 @@ namespace Abacus.SinglePrecision
 
             return quaternion;
         }
-        
+
         /// <summary>
         /// Performs multiplication of a Quaternion object and a Single
         /// precision scaling factor using the (X*y) operator.
@@ -11314,9 +11374,9 @@ namespace Abacus.SinglePrecision
             quat.W = value1.W * scaleFactor;
             return quat;
         }
-        
+
         /// <summary>
-        /// Performs multiplication of a Single precision scaling factor 
+        /// Performs multiplication of a Single precision scaling factor
         /// and aQuaternion object using the (x*Y) operator.
         /// </summary>
         public static Quaternion operator * (Single scaleFactor, Quaternion value1)
@@ -11328,7 +11388,7 @@ namespace Abacus.SinglePrecision
             quat.W = value1.W * scaleFactor;
             return quat;
         }
-        
+
         // Division Operators //----------------------------------------------//
 
         /// <summary>
@@ -11343,10 +11403,10 @@ namespace Abacus.SinglePrecision
             Single z = value1.Z;
             Single w = value1.W;
 
-            Single a = 
-                (value2.X * value2.X) + 
+            Single a =
+                (value2.X * value2.X) +
                 (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) + 
+                (value2.Z * value2.Z) +
                 (value2.W * value2.W);
 
             Single b = one / a;
@@ -11396,10 +11456,10 @@ namespace Abacus.SinglePrecision
             Single z = value1.Z;
             Single w = value1.W;
 
-            Single a = 
-                (value2.X * value2.X) + 
+            Single a =
+                (value2.X * value2.X) +
                 (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) + 
+                (value2.Z * value2.Z) +
                 (value2.W * value2.W);
 
             Single b = one / a;
@@ -11421,7 +11481,7 @@ namespace Abacus.SinglePrecision
 
             return quaternion;
         }
-        
+
         /// <summary>
         /// Performs division of a Quaternion object and a Single precision
         /// scaling factor using the (X/y) operator.
@@ -11445,7 +11505,11 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Single amount, out Quaternion result)
+        public static void Slerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Single amount,
+            out Quaternion result)
         {
             Single zero = 0;
             Single one = 1;
@@ -11488,7 +11552,11 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Single amount, out Quaternion result)
+        public static void Lerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Single amount,
+            out Quaternion result)
         {
             Single zero = 0;
             Single one = 1;
@@ -11520,7 +11588,60 @@ namespace Abacus.SinglePrecision
             result.W *= num3;
         }
 
-    }    /// <summary>
+
+#if (VARIANTS_ENABLED)
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Single LengthSquared ()
+        {
+            Single result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Single Length ()
+        {
+            Single result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Conjugate ()
+        {
+            Conjugate (ref this, out this);
+        }
+
+
+#endif
+    }
+    /// <summary>
     /// Single precision Vector2.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
@@ -11738,7 +11859,9 @@ namespace Abacus.SinglePrecision
         public static void Reflect (
             ref Vector2 vector, ref Vector2 normal, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -11755,7 +11878,9 @@ namespace Abacus.SinglePrecision
 
             // Starting vector minus twice the length of the adjcent projected
             // along the normal.
-            result = vector - (twoDot * normal);
+            Vector2 m;
+            Vector2.Multiply (ref normal, ref twoDot, out m);
+            Vector2.Subtract (ref vector, ref m, out result);
         }
 
         /// <summary>
@@ -11815,7 +11940,9 @@ namespace Abacus.SinglePrecision
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -11857,7 +11984,7 @@ namespace Abacus.SinglePrecision
         public static void Equals (
             ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
         {
-            result = ((vector1.X == vector2.X) && (vector1.Y == vector2.Y));
+            result = (vector1.X == vector2.X) && (vector1.Y == vector2.Y);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -11956,14 +12083,15 @@ namespace Abacus.SinglePrecision
         {
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Single two = 2;
+            Single three = 3;
 
             amount = (amount * amount) * (three - (two * amount));
 
@@ -11998,11 +12126,11 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Single half; RealMaths.Half(out half);
             Single two = 2;
             Single three = 3;
             Single four = 4;
             Single five = 5;
+            Single half; RealMaths.Half(out half);
 
             Single squared = amount * amount;
             Single cubed = amount * squared;
@@ -12016,7 +12144,7 @@ namespace Abacus.SinglePrecision
 
             // (-P1 + P3) * t
             result.X += (
-                    - vector1.X 
+                    - vector1.X
                     + vector3.X
                 ) * amount;
 
@@ -12030,9 +12158,9 @@ namespace Abacus.SinglePrecision
 
             // (-P1 + 3*P2- 3*P3 + P4) * t^3
             result.X += (
-                    - (vector1.X) 
-                    + (three * vector2.X) 
-                    - (three * vector3.X) 
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
                     + (vector4.X)
                 ) * cubed;
 
@@ -12048,7 +12176,7 @@ namespace Abacus.SinglePrecision
 
             // (-P1 + P3) * t
             result.Y += (
-                    - vector1.Y 
+                    - vector1.Y
                     + vector3.Y
                 ) * amount;
 
@@ -12062,9 +12190,9 @@ namespace Abacus.SinglePrecision
 
             // (-P1 + 3*P2- 3*P3 + P4) * t^3
             result.Y += (
-                    - (vector1.Y) 
-                    + (three * vector2.Y) 
-                    - (three * vector3.Y) 
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
                     + (vector4.Y)
                 ) * cubed;
 
@@ -12085,8 +12213,6 @@ namespace Abacus.SinglePrecision
         {
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -12095,10 +12221,17 @@ namespace Abacus.SinglePrecision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector2.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector2.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Single two = 2;
+            Single three = 3;
 
             Single squared = amount * amount;
             Single cubed = amount * squared;
@@ -12196,6 +12329,8 @@ namespace Abacus.SinglePrecision
                 one - vector.X * vector.X - vector.Y * vector.Y);
         }
 
+
+#if (VARIANTS_ENABLED)
 
         // Variant Maths //---------------------------------------------------//
 
@@ -12677,13 +12812,16 @@ namespace Abacus.SinglePrecision
             return result;
         }
 
+
+#endif
+
     }
 
     /// <summary>
     /// Single precision Vector3.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Vector3 
+    public struct Vector3
         : IEquatable<Vector3>
     {
         /// <summary>
@@ -12702,7 +12840,7 @@ namespace Abacus.SinglePrecision
         public Single Z;
 
         /// <summary>
-        /// Initilises a new instance of Vector3 from three Single values 
+        /// Initilises a new instance of Vector3 from three Single values
         /// representing X, Y and Z respectively.
         /// </summary>
         public Vector3 (Single x, Single y, Single z)
@@ -12711,7 +12849,7 @@ namespace Abacus.SinglePrecision
             this.Y = y;
             this.Z = z;
         }
-        
+
         /// <summary>
         /// Initilises a new instance of Vector3 from one Vector2 value
         /// representing X and Y and one Single value representing Z.
@@ -12724,42 +12862,18 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector3.
-        /// </summary>
-        public Single Length ()
-        {
-            Single num = (this.X * this.X) + 
-                              (this.Y * this.Y) + 
-                              (this.Z * this.Z);
-
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector3 squared.
-        /// </summary>
-        public Single LengthSquared ()
-        {
-            return
-                (this.X * this.X) + 
-                (this.Y * this.Y) + 
-                (this.Z * this.Z);
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1} Z:{2}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString (), 
-                    this.Z.ToString () 
-                }
-                );
+                "{{X:{0} Y:{1} Z:{2}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString (),
+                    this.Z.ToString ()
+                });
         }
 
         /// <summary>
@@ -12768,20 +12882,39 @@ namespace Abacus.SinglePrecision
         public override Int32 GetHashCode ()
         {
             return (
-                this.X.GetHashCode () + 
-                this.Y.GetHashCode () + 
+                this.X.GetHashCode () +
+                this.Y.GetHashCode () +
                 this.Z.GetHashCode ()
                 );
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector3 is of unit length.
+        /// Determines whether or not this Vector3 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Single one = 1;
-            return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
+            Boolean flag = false;
+            if (obj is Vector3) {
+                flag = this.Equals ((Vector3)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector3>
+
+        /// <summary>
+        /// Determines whether or not this Vector3 object is equal to another
+        /// Vector3 object.
+        /// </summary>
+        public Boolean Equals (Vector3 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -13054,7 +13187,9 @@ namespace Abacus.SinglePrecision
             ref Vector3 normal,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -13152,7 +13287,9 @@ namespace Abacus.SinglePrecision
             ref Matrix44 matrix,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -13178,53 +13315,41 @@ namespace Abacus.SinglePrecision
             result.Z = z;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public static void Length (ref Vector3 vector, out Single result)
+        {
+            Single lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public static void LengthSquared (ref Vector3 vector, out Single result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+        }
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
-        /// Determines whether or not this Vector3 object is equal to another
-        /// object.
+        /// Determines whether or not two Vector3 objects are equal.
         /// </summary>
-        public override Boolean Equals (Object obj)
+        public static void Equals (
+            ref Vector3 value1, ref Vector3 vector2, out Boolean result)
         {
-            Boolean flag = false;
-            if (obj is Vector3) {
-                flag = this.Equals ((Vector3)obj);
-            }
-            return flag;
-        }
-
-        #region IEquatable<Vector3>
-
-        /// <summary>
-        /// Determines whether or not this Vector3 object is equal to another
-        /// Vector3 object.
-        /// </summary>
-        public Boolean Equals (Vector3 other)
-        {
-            return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Determines whether or not two Vector3 objects are equal using the
-        /// (X==Y) operator.
-        /// </summary>
-        public static Boolean operator == (Vector3 value1, Vector3 value2)
-        {
-            return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
-        }
-
-        /// <summary>
-        /// Determines whether or not two Vector3 objects are not equal using
-        /// the (X!=Y) operator.
-        /// </summary>
-        public static Boolean operator != (Vector3 value1, Vector3 value2)
-        {
-            if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
-                return !(value1.Z == value2.Z);
-            }
-            return true;
+            result =
+                (value1.X == vector2.X) &&
+                (value1.Y == vector2.Y) &&
+                (value1.Z == vector2.Z);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -13232,54 +13357,29 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Performs addition of two Vector3 objects.
         /// </summary>
-        public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Add (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
-            result.Z = value1.Z + value2.Z;
+            result.X = value1.X + vector2.X;
+            result.Y = value1.Y + vector2.Y;
+            result.Z = value1.Z + vector2.Z;
         }
-
-        /// <summary>
-        /// Performs addition of two Vector3 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector3 operator + (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            vector.Z = value1.Z + value2.Z;
-            return vector;
-        }
-
 
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector3 objects.
         /// </summary>
-        public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Subtract (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
-            result.Z = value1.Z - value2.Z;
+            result.X = value1.X - vector2.X;
+            result.Y = value1.Y - vector2.Y;
+            result.Z = value1.Z - vector2.Z;
         }
-
-        /// <summary>
-        /// Performs subtraction of two Vector3 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector3 operator - (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            vector.Z = value1.Z - value2.Z;
-            return vector;
-        }
-
 
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector3 object.
         /// </summary>
@@ -13290,78 +13390,29 @@ namespace Abacus.SinglePrecision
             result.Z = -value.Z;
         }
 
-        /// <summary>
-        /// Performs negation of a Vector3 object using the (-X) operator.
-        /// </summary>
-        public static Vector3 operator - (Vector3 value)
-        {
-            Vector3 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            vector.Z = -value.Z;
-            return vector;
-        }
-
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector3 objects.
         /// </summary>
-        public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Multiply (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X * value2.X;
-            result.Y = value1.Y * value2.Y;
-            result.Z = value1.Z * value2.Z;
+            result.X = value1.X * vector2.X;
+            result.Y = value1.Y * vector2.Y;
+            result.Z = value1.Z * vector2.Z;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector3 object and a Single
         /// precision scaling factor.
         /// </summary>
-        public static void Multiply (ref Vector3 value1, Single scaleFactor, out Vector3 result)
+        public static void Multiply (
+            ref Vector3 value1, ref Single scaleFactor, out Vector3 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
             result.Z = value1.Z * scaleFactor;
-        }
-
-        /// <summary>
-        /// Performs muliplication of two Vector3 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector3 operator * (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            vector.Z = value1.Z * value2.Z;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Vector3 object and a Single
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector3 operator * (Vector3 value, Single scaleFactor)
-        {
-            Vector3 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            vector.Z = value.Z * scaleFactor;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Single precision scaling factor 
-        /// and aVector3 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector3 operator * (Single scaleFactor, Vector3 value)
-        {
-            Vector3 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            vector.Z = value.Z * scaleFactor;
-            return vector;
         }
 
         // Division Operators //----------------------------------------------//
@@ -13369,54 +13420,28 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Performs division of two Vector3 objects.
         /// </summary>
-        public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Divide (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X / value2.X;
-            result.Y = value1.Y / value2.Y;
-            result.Z = value1.Z / value2.Z;
+            result.X = value1.X / vector2.X;
+            result.Y = value1.Y / vector2.Y;
+            result.Z = value1.Z / vector2.Z;
         }
 
         /// <summary>
         /// Performs division of a Vector3 object and a Single precision
         /// scaling factor.
         /// </summary>
-        public static void Divide (ref Vector3 value1, Single value2, out Vector3 result)
+        public static void Divide (
+            ref Vector3 value1, ref Single vector2, out Vector3 result)
         {
             Single one = 1;
-            Single num = one / value2;
+            Single num = one / vector2;
             result.X = value1.X * num;
             result.Y = value1.Y * num;
             result.Z = value1.Z * num;
         }
 
-        /// <summary>
-        /// Performs division of two Vector3 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector3 operator / (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            vector.Z = value1.Z / value2.Z;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs division of a Vector3 object and a Single precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector3 operator / (Vector3 value, Single divider)
-        {
-            Vector3 vector;
-            Single one = 1;
-
-            Single num = one / divider;
-            vector.X = value.X * num;
-            vector.Y = value.Y * num;
-            vector.Z = value.Z * num;
-            return vector;
-        }
-        
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -13425,19 +13450,20 @@ namespace Abacus.SinglePrecision
         public static void SmoothStep (
             ref Vector3 vector1,
             ref Vector3 vector2,
-            Single amount,
+            ref Single amount,
             out Vector3 result)
         {
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Single two = 2;
+            Single three = 3;
 
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
@@ -13462,16 +13488,11 @@ namespace Abacus.SinglePrecision
             ref Vector3 vector2,
             ref Vector3 vector3,
             ref Vector3 vector4,
-            Single amount,
+            ref Single amount,
             out Vector3 result)
         {
-            Single half; RealMaths.Half(out half);
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
-            Single four = 4;
-            Single five = 5;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -13479,26 +13500,110 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
+            Single two = 2;
+            Single three = 3;
+            Single four = 4;
+            Single five = 5;
+            Single half; RealMaths.Half(out half);
+
             Single squared = amount * amount;
             Single cubed = amount * squared;
 
-            result.X =
-                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
-                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
-                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
-                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y =
-                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
-                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
-                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
-                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
 
-            result.Z =
-                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
-                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
-                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
-                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
+
+            ///////
+            // Z //
+            ///////
+
+            // (2 * P2)
+            result.Z = (two * vector2.Z);
+
+            // (-P1 + P3) * t
+            result.Z += (
+                    - vector1.Z
+                    + vector3.Z
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Z += (
+                    + (two * vector1.Z)
+                    - (five * vector2.Z)
+                    + (four * vector3.Z)
+                    - (vector4.Z)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Z += (
+                    - (vector1.Z)
+                    + (three * vector2.Z)
+                    - (three * vector3.Z)
+                    + (vector4.Z)
+                ) * cubed;
+
+            // 0.5
+            result.Z *= half;
         }
 
         /// <summary>
@@ -13509,13 +13614,11 @@ namespace Abacus.SinglePrecision
             ref Vector3 tangent1,
             ref Vector3 vector2,
             ref Vector3 tangent2,
-            Single amount,
+            ref Single amount,
             out Vector3 result)
         {
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -13524,10 +13627,17 @@ namespace Abacus.SinglePrecision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector3.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector3.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Single two = 2;
+            Single three = 3;
 
             Single squared = amount * amount;
             Single cubed = amount * squared;
@@ -13553,7 +13663,7 @@ namespace Abacus.SinglePrecision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -13567,7 +13677,7 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -13579,7 +13689,7 @@ namespace Abacus.SinglePrecision
             result.Y = (a.Y > b.Y) ? a.Y : b.Y;
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -13609,7 +13719,7 @@ namespace Abacus.SinglePrecision
         public static void Lerp (
             ref Vector3 a,
             ref Vector3 b,
-            Single amount,
+            ref Single amount,
             out Vector3 result)
         {
             Single zero = 0;
@@ -13618,20 +13728,176 @@ namespace Abacus.SinglePrecision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector3 vector, out Boolean result)
+        {
+            Single one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z);
+        }
 
+#if (VARIANTS_ENABLED)
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector3 object using the (-X) operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a Single
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value, Single scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Single precision scaling factor
+        /// and a Vector3 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector3 operator * (Single scaleFactor, Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a Single precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value, Single divider)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Calculates the length of this Vector3.
+        /// </summary>
+        public Single Length ()
+        {
+            Single result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector3 squared.
+        /// </summary>
+        public Single LengthSquared ()
+        {
+            Single result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector3.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+#endif
     }
 
     /// <summary>
     /// Single precision Vector4.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Vector4 
+    public struct Vector4
         : IEquatable<Vector4>
     {
         /// <summary>
@@ -13655,13 +13921,13 @@ namespace Abacus.SinglePrecision
         public Single W;
 
         /// <summary>
-        /// Initilises a new instance of Vector4 from four Single values 
+        /// Initilises a new instance of Vector4 from four Single values
         /// representing X, Y, Z and W respectively.
         /// </summary>
         public Vector4 (
-            Single x, 
-            Single y, 
-            Single z, 
+            Single x,
+            Single y,
+            Single z,
             Single w)
         {
             this.X = x;
@@ -13696,45 +13962,19 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector4.
-        /// </summary>
-        public Single Length ()
-        {
-            Single num = (this.X * this.X) + 
-                              (this.Y * this.Y) + 
-                              (this.Z * this.Z) + 
-                              (this.W * this.W);
-            
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector4 squared.
-        /// </summary>
-        public Single LengthSquared ()
-        {
-            return 
-                (this.X * this.X) + 
-                (this.Y * this.Y) + 
-                (this.Z * this.Z) + 
-                (this.W * this.W);
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1} Z:{2} W:{3}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString (), 
-                    this.Z.ToString (), 
-                    this.W.ToString () 
-                }
-                );
+                "{{X:{0} Y:{1} Z:{2} W:{3}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString (),
+                    this.Z.ToString (),
+                    this.W.ToString ()
+                });
         }
 
         /// <summary>
@@ -13743,21 +13983,40 @@ namespace Abacus.SinglePrecision
         public override Int32 GetHashCode ()
         {
             return (
-                this.X.GetHashCode () + 
-                this.Y.GetHashCode () + 
-                this.Z.GetHashCode () + 
+                this.X.GetHashCode () +
+                this.Y.GetHashCode () +
+                this.Z.GetHashCode () +
                 this.W.GetHashCode ()
                 );
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector4 is of unit length.
+        /// Determines whether or not this Vector4 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Single one = 1;
-            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
+            Boolean flag = false;
+            if (obj is Vector4) {
+                flag = this.Equals ((Vector4)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector4>
+
+        /// <summary>
+        /// Determines whether or not this Vector4 object is equal to another
+        /// Vector4 object.
+        /// </summary>
+        public Boolean Equals (Vector4 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -14035,7 +14294,9 @@ namespace Abacus.SinglePrecision
             ref Matrix44 matrix,
             out Vector4 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector4.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -14063,53 +14324,46 @@ namespace Abacus.SinglePrecision
             result.W = w;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static void Length (ref Vector4 vector, out Single result)
+        {
+            Single lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static void LengthSquared (
+            ref Vector4 vector, out Single result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+        }
         // Equality Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Determines whether or not this Vector4 object is equal to another
-        /// object.
-        /// </summary>
-        public override Boolean Equals (Object obj)
-        {
-            Boolean flag = false;
-            if (obj is Vector4) {
-                flag = this.Equals ((Vector4)obj);
-            }
-            return flag;
-        }
-
-        #region IEquatable<Vector4>
-
-        /// <summary>
-        /// Determines whether or not this Vector4 object is equal to another
-        /// Vector4 object.
-        /// </summary>
-        public Boolean Equals (Vector4 other)
-        {
-            return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-        }
-
-        #endregion
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        public static void Equals (
+            ref Vector4 value1, ref Vector4 value2, out Boolean result)
         {
-            return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
-        }
-        
-        /// <summary>
-        /// Determines whether or not two Vector4 objects are not equal using
-        /// the (X!=Y) operator.
-        /// </summary>
-        public static Boolean operator != (Vector4 value1, Vector4 value2)
-        {
-            if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
-                return !(value1.W == value2.W);
-            }
-            return true;
+            result =
+                (value1.X == value2.X) &&
+                (value1.Y == value2.Y) &&
+                (value1.Z == value2.Z) &&
+                (value1.W == value2.W);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -14117,7 +14371,8 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Performs addition of two Vector4 objects.
         /// </summary>
-        public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Add (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X + value2.X;
             result.Y = value1.Y + value2.Y;
@@ -14125,25 +14380,13 @@ namespace Abacus.SinglePrecision
             result.W = value1.W + value2.W;
         }
 
-        /// <summary>
-        /// Performs addition of two Vector4 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector4 operator + (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            vector.Z = value1.Z + value2.Z;
-            vector.W = value1.W + value2.W;
-            return vector;
-        }
-
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector4 objects.
         /// </summary>
-        public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Subtract (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X - value2.X;
             result.Y = value1.Y - value2.Y;
@@ -14151,26 +14394,13 @@ namespace Abacus.SinglePrecision
             result.W = value1.W - value2.W;
         }
 
-        /// <summary>
-        /// Performs subtraction of two Vector4 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector4 operator - (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            vector.Z = value1.Z - value2.Z;
-            vector.W = value1.W - value2.W;
-            return vector;
-        }
-
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector4 object.
         /// </summary>
-        public static void Negate (ref Vector4 value, out Vector4 result)
+        public static void Negate (
+            ref Vector4 value, out Vector4 result)
         {
             result.X = -value.X;
             result.Y = -value.Y;
@@ -14178,25 +14408,13 @@ namespace Abacus.SinglePrecision
             result.W = -value.W;
         }
 
-        /// <summary>
-        /// Performs negation of a Vector4 object using the (-X) operator.
-        /// </summary>
-        public static Vector4 operator - (Vector4 value)
-        {
-            Vector4 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            vector.Z = -value.Z;
-            vector.W = -value.W;
-            return vector;
-        }
-        
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector4 objects.
         /// </summary>
-        public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Multiply (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X * value2.X;
             result.Y = value1.Y * value2.Y;
@@ -14208,7 +14426,8 @@ namespace Abacus.SinglePrecision
         /// Performs multiplication of a Vector4 object and a Single
         /// precision scaling factor.
         /// </summary>
-        public static void Multiply (ref Vector4 value1, Single scaleFactor, out Vector4 result)
+        public static void Multiply (
+            ref Vector4 value1, ref Single scaleFactor, out Vector4 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
@@ -14216,54 +14435,13 @@ namespace Abacus.SinglePrecision
             result.W = value1.W * scaleFactor;
         }
 
-        /// <summary>
-        /// Performs muliplication of two Vector4 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector4 operator * (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            vector.Z = value1.Z * value2.Z;
-            vector.W = value1.W * value2.W;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs multiplication of a Vector4 object and a Single
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector4 operator * (Vector4 value1, Single scaleFactor)
-        {
-            Vector4 vector;
-            vector.X = value1.X * scaleFactor;
-            vector.Y = value1.Y * scaleFactor;
-            vector.Z = value1.Z * scaleFactor;
-            vector.W = value1.W * scaleFactor;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs multiplication of a Single precision scaling factor 
-        /// and aVector4 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector4 operator * (Single scaleFactor, Vector4 value1)
-        {
-            Vector4 vector;
-            vector.X = value1.X * scaleFactor;
-            vector.Y = value1.Y * scaleFactor;
-            vector.Z = value1.Z * scaleFactor;
-            vector.W = value1.W * scaleFactor;
-            return vector;
-        }
-        
         // Division Operators //----------------------------------------------//
 
         /// <summary>
         /// Performs division of two Vector4 objects.
         /// </summary>
-        public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Divide (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X / value2.X;
             result.Y = value1.Y / value2.Y;
@@ -14275,7 +14453,8 @@ namespace Abacus.SinglePrecision
         /// Performs division of a Vector4 object and a Single precision
         /// scaling factor.
         /// </summary>
-        public static void Divide (ref Vector4 value1, Single divider, out Vector4 result)
+        public static void Divide (
+            ref Vector4 value1, ref Single divider, out Vector4 result)
         {
             Single one = 1;
             Single num = one / divider;
@@ -14283,35 +14462,6 @@ namespace Abacus.SinglePrecision
             result.Y = value1.Y * num;
             result.Z = value1.Z * num;
             result.W = value1.W * num;
-        }
-
-        /// <summary>
-        /// Performs division of two Vector4 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector4 operator / (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            vector.Z = value1.Z / value2.Z;
-            vector.W = value1.W / value2.W;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs division of a Vector4 object and a Single precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector4 operator / (Vector4 value1, Single divider)
-        {
-            Single one = 1;
-            Vector4 vector;
-            Single num = one / divider;
-            vector.X = value1.X * num;
-            vector.Y = value1.Y * num;
-            vector.Z = value1.Z * num;
-            vector.W = value1.W * num;
-            return vector;
         }
 
         // Splines //---------------------------------------------------------//
@@ -14322,19 +14472,20 @@ namespace Abacus.SinglePrecision
         public static void SmoothStep (
             ref Vector4 vector1,
             ref Vector4 vector2,
-            Single amount,
+            ref Single amount,
             out Vector4 result)
         {
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Single two = 2;
+            Single three = 3;
 
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
@@ -14360,16 +14511,11 @@ namespace Abacus.SinglePrecision
             ref Vector4 vector2,
             ref Vector4 vector3,
             ref Vector4 vector4,
-            Single amount,
+            ref Single amount,
             out Vector4 result)
         {
-            Single half; RealMaths.Half(out half);
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
-            Single four = 4;
-            Single five = 5;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -14377,32 +14523,142 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
+            Single two = 2;
+            Single three = 3;
+            Single four = 4;
+            Single five = 5;
+            Single half; RealMaths.Half(out half);
+
             Single squared = amount * amount;
             Single cubed = amount * squared;
 
-            result.X =
-                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
-                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
-                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
-                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y =
-                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
-                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
-                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
-                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
 
-            result.Z =
-                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
-                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
-                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
-                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X
+                    + vector3.X
+                ) * amount;
 
-            result.W =
-                half * ((((two * vector2.W) + ((-vector1.W + vector3.W) *
-                amount)) + (((((two * vector1.W) - (five * vector2.W)) + (four *
-                vector3.W)) - vector4.W) * squared)) + ((((-vector1.W + (three *
-                vector2.W)) - (three * vector3.W)) + vector4.W) * cubed));
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
+
+            ///////
+            // Z //
+            ///////
+
+            // (2 * P2)
+            result.Z = (two * vector2.Z);
+
+            // (-P1 + P3) * t
+            result.Z += (
+                    - vector1.Z
+                    + vector3.Z
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Z += (
+                    + (two * vector1.Z)
+                    - (five * vector2.Z)
+                    + (four * vector3.Z)
+                    - (vector4.Z)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Z += (
+                    - (vector1.Z)
+                    + (three * vector2.Z)
+                    - (three * vector3.Z)
+                    + (vector4.Z)
+                ) * cubed;
+
+            // 0.5
+            result.Z *= half;
+
+            ///////
+            // W //
+            ///////
+
+            // (2 * P2)
+            result.W = (two * vector2.W);
+
+            // (-P1 + P3) * t
+            result.W += (
+                    - vector1.W
+                    + vector3.W
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.W += (
+                    + (two * vector1.W)
+                    - (five * vector2.W)
+                    + (four * vector3.W)
+                    - (vector4.W)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.W += (
+                    - (vector1.W)
+                    + (three * vector2.W)
+                    - (three * vector3.W)
+                    + (vector4.W)
+                ) * cubed;
+
+            // 0.5
+            result.W *= half;
         }
 
         /// <summary>
@@ -14413,13 +14669,11 @@ namespace Abacus.SinglePrecision
             ref Vector4 tangent1,
             ref Vector4 vector2,
             ref Vector4 tangent2,
-            Single amount,
+            ref Single amount,
             out Vector4 result)
         {
             Single zero = 0;
             Single one = 1;
-            Single two = 2;
-            Single three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -14428,10 +14682,17 @@ namespace Abacus.SinglePrecision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector4.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector4.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Single two = 2;
+            Single three = 3;
 
             Single squared = amount * amount;
             Single cubed = amount * squared;
@@ -14461,7 +14722,7 @@ namespace Abacus.SinglePrecision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -14476,7 +14737,7 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -14489,7 +14750,7 @@ namespace Abacus.SinglePrecision
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
             result.W = (a.W > b.W) ? a.W : b.W;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -14516,7 +14777,7 @@ namespace Abacus.SinglePrecision
             result.Z = z;
             result.W = w;
         }
-        
+
         /// <summary>
         /// Performs a linear interpolation between two vectors.
         /// </summary>
@@ -14532,23 +14793,177 @@ namespace Abacus.SinglePrecision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
             result.W = a.W + ((b.W - a.W) * amount);
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector4 vector, out Boolean result)
+        {
+            Single one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z
+                - vector.W * vector.W);
+        }
 
 
+#if (VARIANTS_ENABLED)
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector4 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector4 operator + (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector4 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector4 object using the (-X) operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector4 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector4 object and a Single
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, Single scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Single precision scaling factor
+        /// and aVector4 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector4 operator * (Single scaleFactor, Vector4 value1)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector4 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector4 object and a Single precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, Single divider)
+        {
+            throw new NotImplementedException();
+        }
 
 
+        /// <summary>
+        /// Calculates the length of this Vector4.
+        /// </summary>
+        public Single Length ()
+        {
+            Single result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector4 squared.
+        /// </summary>
+        public Single LengthSquared ()
+        {
+            Single result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector4.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+#endif
     }
 
 }
 
 namespace Abacus.DoublePrecision
 {
+/*
     /// <summary>
     /// todo
     /// </summary>
@@ -14573,19 +14988,29 @@ namespace Abacus.DoublePrecision
             Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
             this.y [index] = newPoint;
-            this.yLengthSq [index] = newPoint.LengthSquared ();
+            Double newPointLs;
+            Vector3.LengthSquared(ref newPoint, out newPointLs);
+            this.yLengthSq [index] = newPointLs;
 
             for (Int32 i = BitsToIndices[this.simplexBits]; i != 0; i = i >> 3)
             {
-                Int32 num2 = (i & 7) - 1;
-                Vector3 vector = this.y [num2] - newPoint;
+                Int32 idx = (i & 7) - 1;
 
-                this.edges [num2] [index] = vector;
-                this.edges [index] [num2] = -vector;
+                Vector3 vector;
+                vector.X = this.y [idx].X - newPoint.X;
+                vector.Y = this.y [idx].Y - newPoint.Y;
+                vector.Z = this.y [idx].Z - newPoint.Z;
 
-                this.edgeLengthSq [index] [num2] = 
-                    this.edgeLengthSq [num2] [index] = 
-                        vector.LengthSquared ();
+                this.edges [idx] [index] = vector;
+                this.edges [index] [idx].X = -vector.X;
+                this.edges [index] [idx].Y = -vector.Y;
+                this.edges [index] [idx].Z = -vector.Z;
+
+                Double vectorLs;
+                Vector3.LengthSquared (ref vector, out vectorLs);
+
+                this.edgeLengthSq [index] [idx] = vectorLs;
+                this.edgeLengthSq [idx] [index] = vectorLs;
             }
 
             this.UpdateDeterminant (index);
@@ -14619,7 +15044,7 @@ namespace Abacus.DoublePrecision
         {
             get { return (this.simplexBits == 15); }
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -14641,27 +15066,27 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        Double[][] edgeLengthSq = 
-            new Double[][] 
-            { 
-                new Double[4], 
-                new Double[4], 
-                new Double[4], 
-                new Double[4] 
+        Double[][] edgeLengthSq =
+            new Double[][]
+            {
+                new Double[4],
+                new Double[4],
+                new Double[4],
+                new Double[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        Vector3[][] edges = 
-            new Vector3[][] 
-            { 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4] 
+        Vector3[][] edges =
+            new Vector3[][]
+            {
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -14685,11 +15110,11 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        static Int32[] BitsToIndices = 
-            new Int32[] 
-            { 
-                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
-                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+        static Int32[] BitsToIndices =
+            new Int32[]
+            {
+                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1,
+                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1
             };
 
         /// <summary>
@@ -14712,7 +15137,7 @@ namespace Abacus.DoublePrecision
                 num3 += num4;
                 zero += (Vector3)(this.y [index] * num4);
 
-                this.maxLengthSq = 
+                this.maxLengthSq =
                 RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
             }
 
@@ -14766,10 +15191,10 @@ namespace Abacus.DoublePrecision
                 Int32 num12 = ((int)1) << num;
                 Int32 num6 = num12 | index;
 
-                this.det [num6] [num] = 
+                this.det [num6] [num] =
                     Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
 
-                this.det [num6] [xmIdx] = 
+                this.det [num6] [xmIdx] =
                     Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
                 Int32 num11 = num14;
@@ -14781,20 +15206,20 @@ namespace Abacus.DoublePrecision
                     int num9 = num6 | num5;
                     int num4 = (this.edgeLengthSq [num] [num3] < this.edgeLengthSq [xmIdx] [num3]) ? num : xmIdx;
 
-                    this.det [num9] [num3] = 
-                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) + 
+                    this.det [num9] [num3] =
+                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) +
                         (this.det [num6] [xmIdx] * Dot (ref this.edges [num4] [num3], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num3] [num] < this.edgeLengthSq [xmIdx] [num]) ? num3 : xmIdx;
 
-                    this.det [num9] [num] = 
-                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) + 
+                    this.det [num9] [num] =
+                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) +
                         (this.det [num5 | index] [xmIdx] * Dot (ref this.edges [num4] [num], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num] [xmIdx] < this.edgeLengthSq [num3] [xmIdx]) ? num : num3;
 
-                    this.det [num9] [xmIdx] = 
-                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) + 
+                    this.det [num9] [xmIdx] =
+                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) +
                         (this.det [num12 | num5] [num] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num]));
 
                     num11 = num11 >> 3;
@@ -14805,44 +15230,44 @@ namespace Abacus.DoublePrecision
 
             if ((this.simplexBits | index) == 15)
             {
-                int num2 = 
-                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ? 
-                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) : 
+                int num2 =
+                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ?
+                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) :
                     ((this.edgeLengthSq [2] [0] < this.edgeLengthSq [3] [0]) ? 2 : 3);
 
-                this.det [15] [0] = 
-                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) + 
-                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) + 
+                this.det [15] [0] =
+                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) +
+                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) +
                     (this.det [14] [3] * Dot (ref this.edges [num2] [0], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ? 
-                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ?
+                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) :
                     ((this.edgeLengthSq [2] [1] < this.edgeLengthSq [3] [1]) ? 2 : 3);
 
-                this.det [15] [1] = 
-                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) + 
-                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) + 
+                this.det [15] [1] =
+                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) +
+                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) +
                     (this.det [13] [3] * Dot (ref this.edges [num2] [1], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ? 
-                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ?
+                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) :
                     ((this.edgeLengthSq [1] [2] < this.edgeLengthSq [3] [2]) ? 1 : 3);
 
-                this.det [15] [2] = 
-                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) + 
-                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) + 
+                this.det [15] [2] =
+                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) +
+                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) +
                     (this.det [11] [3] * Dot (ref this.edges [num2] [2], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ? 
-                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) : 
+                num2 =
+                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ?
+                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) :
                     ((this.edgeLengthSq [1] [3] < this.edgeLengthSq [2] [3]) ? 1 : 2);
 
-                this.det [15] [3] = 
-                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) + 
-                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) + 
+                this.det [15] [3] =
+                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) +
+                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) +
                     (this.det [7] [2] * Dot (ref this.edges [num2] [3], ref this.y [2]));
             }
         }
@@ -14889,11 +15314,12 @@ namespace Abacus.DoublePrecision
             return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
         }
     }
+*/
     /// <summary>
     /// Double precision Matrix44.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Matrix44 
+    public struct Matrix44
         : IEquatable<Matrix44>
     {
         /// <summary>
@@ -14975,27 +15401,27 @@ namespace Abacus.DoublePrecision
         /// Gets or sets (Row 4, Column 4) of the Matrix44.
         /// </summary>
         public Double M44;
-        
+
         /// <summary>
-        /// Initilises a new instance of Matrix44 from sixteen Double 
+        /// Initilises a new instance of Matrix44 from sixteen Double
         /// values representing the matrix, in row major order, respectively.
         /// </summary>
         public Matrix44 (
-            Double m11, 
-            Double m12, 
-            Double m13, 
-            Double m14, 
-            Double m21, 
-            Double m22, 
-            Double m23, 
-            Double m24, 
-            Double m31, 
-            Double m32, 
-            Double m33, 
-            Double m34, 
-            Double m41, 
-            Double m42, 
-            Double m43, 
+            Double m11,
+            Double m12,
+            Double m13,
+            Double m14,
+            Double m21,
+            Double m22,
+            Double m23,
+            Double m24,
+            Double m31,
+            Double m32,
+            Double m33,
+            Double m34,
+            Double m41,
+            Double m42,
+            Double m43,
             Double m44)
         {
             this.M11 = m11;
@@ -15021,44 +15447,44 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public override String ToString ()
         {
-            return 
+            return
                 (
-                    "{ " + 
-                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M11.ToString (), 
-                            this.M12.ToString (), 
-                            this.M13.ToString (), 
-                            this.M14.ToString () 
+                    "{ " +
+                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ",
+                        new Object[]
+                        {
+                            this.M11.ToString (),
+                            this.M12.ToString (),
+                            this.M13.ToString (),
+                            this.M14.ToString ()
                         }
-                    ) + 
-                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M21.ToString (), 
-                            this.M22.ToString (), 
-                            this.M23.ToString (), 
-                            this.M24.ToString () 
+                    ) +
+                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ",
+                        new Object[]
+                        {
+                            this.M21.ToString (),
+                            this.M22.ToString (),
+                            this.M23.ToString (),
+                            this.M24.ToString ()
                             }
-                    ) + 
-                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M31.ToString (), 
-                            this.M32.ToString (), 
-                            this.M33.ToString (), 
-                            this.M34.ToString () 
+                    ) +
+                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ",
+                        new Object[]
+                        {
+                            this.M31.ToString (),
+                            this.M32.ToString (),
+                            this.M33.ToString (),
+                            this.M34.ToString ()
                         }
-                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
-                    new Object[] 
-                    { 
-                        this.M41.ToString (), 
-                        this.M42.ToString (), 
-                        this.M43.ToString (), 
-                        this.M44.ToString () 
+                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ",
+                    new Object[]
+                    {
+                        this.M41.ToString (),
+                        this.M42.ToString (),
+                        this.M43.ToString (),
+                        this.M44.ToString ()
                     }
-                    ) + 
+                    ) +
                     "}"
                 );
         }
@@ -15068,24 +15494,23 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return 
-                (((((((((((((((
-                    this.M11.GetHashCode () + 
-                    this.M12.GetHashCode ()) + 
-                    this.M13.GetHashCode ()) + 
-                    this.M14.GetHashCode ()) + 
-                    this.M21.GetHashCode ()) + 
-                    this.M22.GetHashCode ()) + 
-                    this.M23.GetHashCode ()) + 
-                    this.M24.GetHashCode ()) + 
-                    this.M31.GetHashCode ()) + 
-                    this.M32.GetHashCode ()) + 
-                    this.M33.GetHashCode ()) + 
-                    this.M34.GetHashCode ()) + 
-                    this.M41.GetHashCode ()) + 
-                    this.M42.GetHashCode ()) + 
-                    this.M43.GetHashCode ()) + 
-                    this.M44.GetHashCode ());
+            return
+                this.M11.GetHashCode () +
+                this.M12.GetHashCode () +
+                this.M13.GetHashCode () +
+                this.M14.GetHashCode () +
+                this.M21.GetHashCode () +
+                this.M22.GetHashCode () +
+                this.M23.GetHashCode () +
+                this.M24.GetHashCode () +
+                this.M31.GetHashCode () +
+                this.M32.GetHashCode () +
+                this.M33.GetHashCode () +
+                this.M34.GetHashCode () +
+                this.M41.GetHashCode () +
+                this.M42.GetHashCode () +
+                this.M43.GetHashCode () +
+                this.M44.GetHashCode ();
         }
 
         /// <summary>
@@ -15284,12 +15709,12 @@ namespace Abacus.DoublePrecision
             result.M43 = position.Z;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateTranslation (Double xPosition, Double yPosition, Double zPosition, out Matrix44 result)
-        {   
+        {
             result.M11 = 1;
             result.M12 = 0;
             result.M13 = 0;
@@ -15307,7 +15732,7 @@ namespace Abacus.DoublePrecision
             result.M43 = zPosition;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// Creates a scaling matrix based on x, y, z.
         /// </summary>
@@ -15454,7 +15879,7 @@ namespace Abacus.DoublePrecision
             result.M43 = 0;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15497,13 +15922,17 @@ namespace Abacus.DoublePrecision
             result.M43 = 0;
             result.M44 = one;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
         {
-            if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
+            Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+
+            if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
@@ -15531,7 +15960,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
 
@@ -15551,12 +15980,15 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            if(!forward.IsUnit() || !up.IsUnit() )
+            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+
+            if(!isForwardUnit || !isUpUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 vector; Vector3.Normalise (ref backward, out vector);
 
@@ -15589,7 +16021,9 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
         {
-            if(!quaternion.IsUnit())
+            Boolean quaternionIsUnit;
+            Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
+            if(!quaternionIsUnit)
             {
                 throw new ArgumentException("Input quaternion must be normalised.");
             }
@@ -15598,7 +16032,7 @@ namespace Abacus.DoublePrecision
             Double one = 1;
 
 
-            Double xs = quaternion.X + quaternion.X;   
+            Double xs = quaternion.X + quaternion.X;
             Double ys = quaternion.Y + quaternion.Y;
             Double zs = quaternion.Z + quaternion.Z;
             Double wx = quaternion.W * xs;
@@ -15615,12 +16049,12 @@ namespace Abacus.DoublePrecision
             result.M21 = xy - wz;
             result.M31 = xz + wy;
             result.M41 = zero;
-    
+
             result.M12 = xy + wz;
             result.M22 = one - (xx + zz);
             result.M32 = yz - wx;
             result.M42 = zero;
-    
+
             result.M13 = xz - wy;
             result.M23 = yz + wx;
             result.M33 = one - (xx + yy);
@@ -15644,6 +16078,8 @@ namespace Abacus.DoublePrecision
             CreateFromQuaternion (ref quaternion, out result);
         }
 
+#if UNTESTED
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -15651,8 +16087,8 @@ namespace Abacus.DoublePrecision
         ////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Creates a cylindrical billboard that rotates around a specified axis.
-        /// This method computes the facing direction of the billboard from the object position and camera position. 
-        /// When the object and camera positions are too close, the matrix will not be accurate. 
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
         /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
         /// </summary>
         public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
@@ -15706,11 +16142,11 @@ namespace Abacus.DoublePrecision
         /// todo
         /// </summary>
         public static void CreateConstrainedBillboard (
-            ref Vector3 objectPosition, 
-            ref Vector3 cameraPosition, 
-            ref Vector3 rotateAxis, 
-            Vector3? cameraForwardVector, 
-            Vector3? objectForwardVector, 
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector,
             out Matrix44 result)
         {
             Double zero = 0;
@@ -15780,10 +16216,10 @@ namespace Abacus.DoublePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveFieldOfView (
-            Double fieldOfView, 
-            Double aspectRatio, 
-            Double nearPlaneDistance, 
-            Double farPlaneDistance, 
+            Double fieldOfView,
+            Double aspectRatio,
+            Double nearPlaneDistance,
+            Double farPlaneDistance,
             out Matrix44 result)
         {
             Double zero = 0;
@@ -15820,7 +16256,7 @@ namespace Abacus.DoublePrecision
             // where:
             //
             // yScale = cot(fovY/2)
-            //     
+            //
             // xScale = yScale / aspect ratio
             //
 
@@ -15834,7 +16270,7 @@ namespace Abacus.DoublePrecision
             result.M12 = zero;
             result.M13 = zero;
             result.M14 = zero;
-            
+
             result.M21 = zero;
             result.M22 = yScale;
             result.M23 = zero;
@@ -15862,10 +16298,10 @@ namespace Abacus.DoublePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspective (
-            Double width, 
-            Double height, 
-            Double nearPlaneDistance, 
-            Double farPlaneDistance, 
+            Double width,
+            Double height,
+            Double nearPlaneDistance,
+            Double farPlaneDistance,
             out Matrix44 result)
         {
             Double zero = 0;
@@ -15901,12 +16337,12 @@ namespace Abacus.DoublePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveOffCenter (
-            Double left, 
-            Double right, 
-            Double bottom, 
-            Double top, 
-            Double nearPlaneDistance, 
-            Double farPlaneDistance, 
+            Double left,
+            Double right,
+            Double bottom,
+            Double top,
+            Double nearPlaneDistance,
+            Double farPlaneDistance,
             out Matrix44 result)
         {
             Double zero = 0;
@@ -15933,7 +16369,7 @@ namespace Abacus.DoublePrecision
             result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
             result.M41 = result.M42 = result.M44 = zero;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -15943,10 +16379,10 @@ namespace Abacus.DoublePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographic (
-            Double width, 
-            Double height, 
-            Double zNearPlane, 
-            Double zFarPlane, 
+            Double width,
+            Double height,
+            Double zNearPlane,
+            Double zFarPlane,
             out Matrix44 result)
         {
             Double zero = 0;
@@ -15973,12 +16409,12 @@ namespace Abacus.DoublePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographicOffCenter (
-            Double left, 
-            Double right, 
-            Double bottom, 
-            Double top, 
-            Double zNearPlane, 
-            Double zFarPlane, 
+            Double left,
+            Double right,
+            Double bottom,
+            Double top,
+            Double zNearPlane,
+            Double zFarPlane,
             out Matrix44 result)
         {
             Double zero = 0;
@@ -15996,7 +16432,7 @@ namespace Abacus.DoublePrecision
             result.M43 = zNearPlane / (zNearPlane - zFarPlane);
             result.M44 = one;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -16006,9 +16442,9 @@ namespace Abacus.DoublePrecision
         /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
         /// </summary>
         public static void CreateLookAt (
-            ref Vector3 cameraPosition, 
-            ref Vector3 cameraTarget, 
-            ref Vector3 cameraUpVector, 
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
             out Matrix44 result)
         {
             Double zero = 0;
@@ -16018,13 +16454,13 @@ namespace Abacus.DoublePrecision
             Vector3.Normalise (ref forward, out forward);
 
             Vector3 right;
-            Vector3.Cross (ref cameraUpVector, ref forward, out right); 
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
             Vector3.Normalise (ref right, out right);
-            
+
             Vector3 up;
             Vector3.Cross (ref forward, ref right, out up);
             Vector3.Normalise (ref up, out up);
-            
+
             result.M11 = right.X;
             result.M12 = up.X;
             result.M13 = forward.X;
@@ -16047,14 +16483,14 @@ namespace Abacus.DoublePrecision
             Vector3.Dot (ref right, ref cameraPosition, out a);
             Vector3.Dot (ref up, ref cameraPosition, out b);
             Vector3.Dot (ref forward, ref cameraPosition, out c);
-            
+
             result.M41 = -a;
             result.M42 = -b;
             result.M43 = -c;
 
             result.M44 = one;
         }
-
+#endif
         /// <summary>
         /// todo
         /// </summary>
@@ -16103,12 +16539,12 @@ namespace Abacus.DoublePrecision
             Vector3 b = new Vector3(M12, M22, M32);
             Vector3 c = new Vector3(M13, M23, M33);
 
-            scale.X = a.Length();
-            scale.Y = b.Length();
-            scale.Z = c.Length();
+            Double aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
+            Double bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;
+            Double cLen; Vector3.Length(ref c, out cLen); scale.Z = cLen;
 
-            if ( RealMaths.IsZero(scale.X) || 
-                 RealMaths.IsZero(scale.Y) || 
+            if ( RealMaths.IsZero(scale.X) ||
+                 RealMaths.IsZero(scale.Y) ||
                  RealMaths.IsZero(scale.Z) )
             {
                 rotation = Quaternion.Identity;
@@ -16134,6 +16570,8 @@ namespace Abacus.DoublePrecision
 
             return true;
         }
+
+#if UNTESTED
 
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
@@ -16161,17 +16599,17 @@ namespace Abacus.DoublePrecision
             Double num3 = this.M42;
             Double num2 = this.M43;
             Double num = this.M44;
-            
+
             Double num18 = (num6 * num) - (num5 * num2);
             Double num17 = (num7 * num) - (num5 * num3);
             Double num16 = (num7 * num2) - (num6 * num3);
             Double num15 = (num8 * num) - (num5 * num4);
             Double num14 = (num8 * num2) - (num6 * num4);
             Double num13 = (num8 * num3) - (num7 * num4);
-            
+
             return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -16255,7 +16693,7 @@ namespace Abacus.DoublePrecision
             Double num21 = rotation.X + rotation.X;
             Double num11 = rotation.Y + rotation.Y;
             Double num10 = rotation.Z + rotation.Z;
-            
+
             Double num20 = rotation.W * num21;
             Double num19 = rotation.W * num11;
             Double num18 = rotation.W * num10;
@@ -16265,45 +16703,45 @@ namespace Abacus.DoublePrecision
             Double num14 = rotation.Y * num11;
             Double num13 = rotation.Y * num10;
             Double num12 = rotation.Z * num10;
-            
+
             Double num9 = (one - num14) - num12;
-            
+
             Double num8 = num16 - num18;
             Double num7 = num15 + num19;
             Double num6 = num16 + num18;
-            
+
             Double num5 = (one - num17) - num12;
-            
+
             Double num4 = num13 - num20;
             Double num3 = num15 - num19;
             Double num2 = num13 + num20;
-            
+
             Double num = (one - num17) - num14;
-            
+
             Double num37 = ((value.M11 * num9) + (value.M12 * num8)) + (value.M13 * num7);
             Double num36 = ((value.M11 * num6) + (value.M12 * num5)) + (value.M13 * num4);
             Double num35 = ((value.M11 * num3) + (value.M12 * num2)) + (value.M13 * num);
-            
+
             Double num34 = value.M14;
-            
+
             Double num33 = ((value.M21 * num9) + (value.M22 * num8)) + (value.M23 * num7);
             Double num32 = ((value.M21 * num6) + (value.M22 * num5)) + (value.M23 * num4);
             Double num31 = ((value.M21 * num3) + (value.M22 * num2)) + (value.M23 * num);
-            
+
             Double num30 = value.M24;
-            
+
             Double num29 = ((value.M31 * num9) + (value.M32 * num8)) + (value.M33 * num7);
             Double num28 = ((value.M31 * num6) + (value.M32 * num5)) + (value.M33 * num4);
             Double num27 = ((value.M31 * num3) + (value.M32 * num2)) + (value.M33 * num);
-            
+
             Double num26 = value.M34;
-            
+
             Double num25 = ((value.M41 * num9) + (value.M42 * num8)) + (value.M43 * num7);
             Double num24 = ((value.M41 * num6) + (value.M42 * num5)) + (value.M43 * num4);
             Double num23 = ((value.M41 * num3) + (value.M42 * num2)) + (value.M43 * num);
-            
+
             Double num22 = value.M44;
-            
+
             result.M11 = num37;
             result.M12 = num36;
             result.M13 = num35;
@@ -16321,6 +16759,8 @@ namespace Abacus.DoublePrecision
             result.M43 = num23;
             result.M44 = num22;
         }
+
+#endif
 
         // Equality Operators //----------------------------------------------//
 
@@ -16952,7 +17392,11 @@ namespace Abacus.DoublePrecision
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
         /// </summary>
-        public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Double amount, out Matrix44 result)
+        public static void Lerp (
+            ref Matrix44 matrix1,
+            ref Matrix44 matrix2,
+            Double amount,
+            out Matrix44 result)
         {
             Double zero = 0;
             Double one = 1;
@@ -16980,13 +17424,19 @@ namespace Abacus.DoublePrecision
         }
 
 
+
+#if (VARIANTS_ENABLED)
+
+
+
+#endif
     }
 
     /// <summary>
     /// Double precision Quaternion.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Quaternion 
+    public struct Quaternion
         : IEquatable<Quaternion>
     {
         /// <summary>
@@ -17047,56 +17497,7 @@ namespace Abacus.DoublePrecision
             return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Double LengthSquared ()
-        {
-            return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
-        }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Double Length ()
-        {
-            Double num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Normalise ()
-        {
-            Double one = 1;
-            Double num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            Double num = one / RealMaths.Sqrt (num2);
-            this.X *= num;
-            this.Y *= num;
-            this.Z *= num;
-            this.W *= num;
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Boolean IsUnit()
-        {
-            Double one = 1;
-
-            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Conjugate ()
-        {
-            this.X = -this.X;
-            this.Y = -this.Y;
-            this.Z = -this.Z;
-        }
 
         // Constants //-------------------------------------------------------//
 
@@ -17124,7 +17525,10 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromAxisAngle (ref Vector3 axis, Double angle, out Quaternion result)
+        public static void CreateFromAxisAngle (
+            ref Vector3 axis,
+            ref Double angle,
+            out Quaternion result)
         {
             Double half; RealMaths.Half(out half);
             Double theta = angle * half;
@@ -17142,7 +17546,11 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromYawPitchRoll (Double yaw, Double pitch, Double roll, out Quaternion result)
+        public static void CreateFromYawPitchRoll (
+            ref Double yaw,
+            ref Double pitch,
+            ref Double roll,
+            out Quaternion result)
         {
             Double half; RealMaths.Half(out half);
             Double num9 = roll * half;
@@ -17169,7 +17577,9 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
+        public static void CreateFromRotationMatrix (
+            ref Matrix44 matrix,
+            out Quaternion result)
         {
             Double zero = 0;
             Double half; RealMaths.Half(out half);
@@ -17217,24 +17627,76 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Conjugate (ref Quaternion value, out Quaternion result)
+        public static void LengthSquared (
+            ref Quaternion quaternion,
+            out Double result)
+        {
+            result =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Length (
+            ref Quaternion quaternion,
+            out Double result)
+        {
+            Double lengthSquared =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            Double one = 1;
+
+            result = RealMaths.IsZero(
+                one -
+                quaternion.W * quaternion.W -
+                quaternion.X * quaternion.X -
+                quaternion.Y * quaternion.Y -
+                quaternion.Z * quaternion.Z);
+        }
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Conjugate (
+            ref Quaternion value,
+            out Quaternion result)
         {
             result.X = -value.X;
             result.Y = -value.Y;
             result.Z = -value.Z;
             result.W = value.W;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Inverse (ref Quaternion quaternion, out Quaternion result)
+        public static void Inverse (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             Double one = 1;
             Double a =
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             Double b = one / a;
@@ -17244,23 +17706,29 @@ namespace Abacus.DoublePrecision
             result.Z = -quaternion.Z * b;
             result.W =  quaternion.W * b;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Double result)
+        public static void Dot (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            out Double result)
         {
-            result = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
+            result =
+                (quaternion1.X * quaternion2.X) +
+                (quaternion1.Y * quaternion2.Y) +
+                (quaternion1.Z * quaternion2.Z) +
                 (quaternion1.W * quaternion2.W);
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Concatenate (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        public static void Concatenate (
+            ref Quaternion value1,
+            ref Quaternion value2,
+            out Quaternion result)
         {
             Double x = value2.X;
             Double y = value2.Y;
@@ -17286,14 +17754,16 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Normalise (ref Quaternion quaternion, out Quaternion result)
+        public static void Normalise (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             Double one = 1;
 
-            Double a = 
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+            Double a =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             Double b = one / RealMaths.Sqrt (a);
@@ -17313,7 +17783,7 @@ namespace Abacus.DoublePrecision
         public override Boolean Equals (Object obj)
         {
             Boolean flag = false;
-            
+
             if (obj is Quaternion)
             {
                 flag = this.Equals ((Quaternion) obj);
@@ -17330,10 +17800,10 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public Boolean Equals (Quaternion other)
         {
-            return 
-                (this.X == other.X) && 
-                (this.Y == other.Y) && 
-                (this.Z == other.Z) && 
+            return
+                (this.X == other.X) &&
+                (this.Y == other.Y) &&
+                (this.Z == other.Z) &&
                 (this.W == other.W);
         }
 
@@ -17347,7 +17817,7 @@ namespace Abacus.DoublePrecision
         {
             return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
         }
-        
+
         /// <summary>
         /// Determines whether or not two Quaternion objects are not equal using
         /// the (X!=Y) operator.
@@ -17365,7 +17835,10 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Performs addition of two Quaternion objects.
         /// </summary>
-        public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        public static void Add (
+            ref Quaternion value1,
+            ref Quaternion value2,
+            out Quaternion result)
         {
             result.X = value1.X + value2.X;
             result.Y = value1.Y + value2.Y;
@@ -17374,7 +17847,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Performs addition of two Quaternion objects using the (X+Y) operator. 
+        /// Performs addition of two Quaternion objects using the (X+Y) operator.
         /// </summary>
         public static Quaternion operator + (Quaternion value1, Quaternion value2)
         {
@@ -17400,7 +17873,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Performs subtraction of two Quaternion objects using the (X-Y) 
+        /// Performs subtraction of two Quaternion objects using the (X-Y)
         /// operator.
         /// </summary>
         public static Quaternion operator - (Quaternion value1, Quaternion value2)
@@ -17414,7 +17887,7 @@ namespace Abacus.DoublePrecision
         }
 
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Quaternion object.
         /// </summary>
@@ -17438,7 +17911,7 @@ namespace Abacus.DoublePrecision
             quat.W = -value.W;
             return quat;
         }
-        
+
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
@@ -17486,7 +17959,7 @@ namespace Abacus.DoublePrecision
         public static Quaternion operator * (Quaternion value1, Quaternion value2)
         {
             Quaternion quaternion;
-            
+
             Double x1 = value1.X;
             Double y1 = value1.Y;
             Double z1 = value1.Z;
@@ -17509,7 +17982,7 @@ namespace Abacus.DoublePrecision
 
             return quaternion;
         }
-        
+
         /// <summary>
         /// Performs multiplication of a Quaternion object and a Double
         /// precision scaling factor using the (X*y) operator.
@@ -17523,9 +17996,9 @@ namespace Abacus.DoublePrecision
             quat.W = value1.W * scaleFactor;
             return quat;
         }
-        
+
         /// <summary>
-        /// Performs multiplication of a Double precision scaling factor 
+        /// Performs multiplication of a Double precision scaling factor
         /// and aQuaternion object using the (x*Y) operator.
         /// </summary>
         public static Quaternion operator * (Double scaleFactor, Quaternion value1)
@@ -17537,7 +18010,7 @@ namespace Abacus.DoublePrecision
             quat.W = value1.W * scaleFactor;
             return quat;
         }
-        
+
         // Division Operators //----------------------------------------------//
 
         /// <summary>
@@ -17552,10 +18025,10 @@ namespace Abacus.DoublePrecision
             Double z = value1.Z;
             Double w = value1.W;
 
-            Double a = 
-                (value2.X * value2.X) + 
+            Double a =
+                (value2.X * value2.X) +
                 (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) + 
+                (value2.Z * value2.Z) +
                 (value2.W * value2.W);
 
             Double b = one / a;
@@ -17605,10 +18078,10 @@ namespace Abacus.DoublePrecision
             Double z = value1.Z;
             Double w = value1.W;
 
-            Double a = 
-                (value2.X * value2.X) + 
+            Double a =
+                (value2.X * value2.X) +
                 (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) + 
+                (value2.Z * value2.Z) +
                 (value2.W * value2.W);
 
             Double b = one / a;
@@ -17630,7 +18103,7 @@ namespace Abacus.DoublePrecision
 
             return quaternion;
         }
-        
+
         /// <summary>
         /// Performs division of a Quaternion object and a Double precision
         /// scaling factor using the (X/y) operator.
@@ -17654,7 +18127,11 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Double amount, out Quaternion result)
+        public static void Slerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Double amount,
+            out Quaternion result)
         {
             Double zero = 0;
             Double one = 1;
@@ -17697,7 +18174,11 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Double amount, out Quaternion result)
+        public static void Lerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Double amount,
+            out Quaternion result)
         {
             Double zero = 0;
             Double one = 1;
@@ -17729,7 +18210,60 @@ namespace Abacus.DoublePrecision
             result.W *= num3;
         }
 
-    }    /// <summary>
+
+#if (VARIANTS_ENABLED)
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Double LengthSquared ()
+        {
+            Double result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Double Length ()
+        {
+            Double result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Conjugate ()
+        {
+            Conjugate (ref this, out this);
+        }
+
+
+#endif
+    }
+    /// <summary>
     /// Double precision Vector2.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
@@ -17947,7 +18481,9 @@ namespace Abacus.DoublePrecision
         public static void Reflect (
             ref Vector2 vector, ref Vector2 normal, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -17964,7 +18500,9 @@ namespace Abacus.DoublePrecision
 
             // Starting vector minus twice the length of the adjcent projected
             // along the normal.
-            result = vector - (twoDot * normal);
+            Vector2 m;
+            Vector2.Multiply (ref normal, ref twoDot, out m);
+            Vector2.Subtract (ref vector, ref m, out result);
         }
 
         /// <summary>
@@ -18024,7 +18562,9 @@ namespace Abacus.DoublePrecision
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -18066,7 +18606,7 @@ namespace Abacus.DoublePrecision
         public static void Equals (
             ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
         {
-            result = ((vector1.X == vector2.X) && (vector1.Y == vector2.Y));
+            result = (vector1.X == vector2.X) && (vector1.Y == vector2.Y);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -18165,14 +18705,15 @@ namespace Abacus.DoublePrecision
         {
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Double two = 2;
+            Double three = 3;
 
             amount = (amount * amount) * (three - (two * amount));
 
@@ -18207,11 +18748,11 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Double half; RealMaths.Half(out half);
             Double two = 2;
             Double three = 3;
             Double four = 4;
             Double five = 5;
+            Double half; RealMaths.Half(out half);
 
             Double squared = amount * amount;
             Double cubed = amount * squared;
@@ -18225,7 +18766,7 @@ namespace Abacus.DoublePrecision
 
             // (-P1 + P3) * t
             result.X += (
-                    - vector1.X 
+                    - vector1.X
                     + vector3.X
                 ) * amount;
 
@@ -18239,9 +18780,9 @@ namespace Abacus.DoublePrecision
 
             // (-P1 + 3*P2- 3*P3 + P4) * t^3
             result.X += (
-                    - (vector1.X) 
-                    + (three * vector2.X) 
-                    - (three * vector3.X) 
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
                     + (vector4.X)
                 ) * cubed;
 
@@ -18257,7 +18798,7 @@ namespace Abacus.DoublePrecision
 
             // (-P1 + P3) * t
             result.Y += (
-                    - vector1.Y 
+                    - vector1.Y
                     + vector3.Y
                 ) * amount;
 
@@ -18271,9 +18812,9 @@ namespace Abacus.DoublePrecision
 
             // (-P1 + 3*P2- 3*P3 + P4) * t^3
             result.Y += (
-                    - (vector1.Y) 
-                    + (three * vector2.Y) 
-                    - (three * vector3.Y) 
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
                     + (vector4.Y)
                 ) * cubed;
 
@@ -18294,8 +18835,6 @@ namespace Abacus.DoublePrecision
         {
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -18304,10 +18843,17 @@ namespace Abacus.DoublePrecision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector2.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector2.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Double two = 2;
+            Double three = 3;
 
             Double squared = amount * amount;
             Double cubed = amount * squared;
@@ -18405,6 +18951,8 @@ namespace Abacus.DoublePrecision
                 one - vector.X * vector.X - vector.Y * vector.Y);
         }
 
+
+#if (VARIANTS_ENABLED)
 
         // Variant Maths //---------------------------------------------------//
 
@@ -18886,13 +19434,16 @@ namespace Abacus.DoublePrecision
             return result;
         }
 
+
+#endif
+
     }
 
     /// <summary>
     /// Double precision Vector3.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Vector3 
+    public struct Vector3
         : IEquatable<Vector3>
     {
         /// <summary>
@@ -18911,7 +19462,7 @@ namespace Abacus.DoublePrecision
         public Double Z;
 
         /// <summary>
-        /// Initilises a new instance of Vector3 from three Double values 
+        /// Initilises a new instance of Vector3 from three Double values
         /// representing X, Y and Z respectively.
         /// </summary>
         public Vector3 (Double x, Double y, Double z)
@@ -18920,7 +19471,7 @@ namespace Abacus.DoublePrecision
             this.Y = y;
             this.Z = z;
         }
-        
+
         /// <summary>
         /// Initilises a new instance of Vector3 from one Vector2 value
         /// representing X and Y and one Double value representing Z.
@@ -18933,42 +19484,18 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector3.
-        /// </summary>
-        public Double Length ()
-        {
-            Double num = (this.X * this.X) + 
-                              (this.Y * this.Y) + 
-                              (this.Z * this.Z);
-
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector3 squared.
-        /// </summary>
-        public Double LengthSquared ()
-        {
-            return
-                (this.X * this.X) + 
-                (this.Y * this.Y) + 
-                (this.Z * this.Z);
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1} Z:{2}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString (), 
-                    this.Z.ToString () 
-                }
-                );
+                "{{X:{0} Y:{1} Z:{2}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString (),
+                    this.Z.ToString ()
+                });
         }
 
         /// <summary>
@@ -18977,20 +19504,39 @@ namespace Abacus.DoublePrecision
         public override Int32 GetHashCode ()
         {
             return (
-                this.X.GetHashCode () + 
-                this.Y.GetHashCode () + 
+                this.X.GetHashCode () +
+                this.Y.GetHashCode () +
                 this.Z.GetHashCode ()
                 );
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector3 is of unit length.
+        /// Determines whether or not this Vector3 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Double one = 1;
-            return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
+            Boolean flag = false;
+            if (obj is Vector3) {
+                flag = this.Equals ((Vector3)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector3>
+
+        /// <summary>
+        /// Determines whether or not this Vector3 object is equal to another
+        /// Vector3 object.
+        /// </summary>
+        public Boolean Equals (Vector3 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -19263,7 +19809,9 @@ namespace Abacus.DoublePrecision
             ref Vector3 normal,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -19361,7 +19909,9 @@ namespace Abacus.DoublePrecision
             ref Matrix44 matrix,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -19387,53 +19937,41 @@ namespace Abacus.DoublePrecision
             result.Z = z;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public static void Length (ref Vector3 vector, out Double result)
+        {
+            Double lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public static void LengthSquared (ref Vector3 vector, out Double result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+        }
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
-        /// Determines whether or not this Vector3 object is equal to another
-        /// object.
+        /// Determines whether or not two Vector3 objects are equal.
         /// </summary>
-        public override Boolean Equals (Object obj)
+        public static void Equals (
+            ref Vector3 value1, ref Vector3 vector2, out Boolean result)
         {
-            Boolean flag = false;
-            if (obj is Vector3) {
-                flag = this.Equals ((Vector3)obj);
-            }
-            return flag;
-        }
-
-        #region IEquatable<Vector3>
-
-        /// <summary>
-        /// Determines whether or not this Vector3 object is equal to another
-        /// Vector3 object.
-        /// </summary>
-        public Boolean Equals (Vector3 other)
-        {
-            return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Determines whether or not two Vector3 objects are equal using the
-        /// (X==Y) operator.
-        /// </summary>
-        public static Boolean operator == (Vector3 value1, Vector3 value2)
-        {
-            return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
-        }
-
-        /// <summary>
-        /// Determines whether or not two Vector3 objects are not equal using
-        /// the (X!=Y) operator.
-        /// </summary>
-        public static Boolean operator != (Vector3 value1, Vector3 value2)
-        {
-            if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
-                return !(value1.Z == value2.Z);
-            }
-            return true;
+            result =
+                (value1.X == vector2.X) &&
+                (value1.Y == vector2.Y) &&
+                (value1.Z == vector2.Z);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -19441,54 +19979,29 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Performs addition of two Vector3 objects.
         /// </summary>
-        public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Add (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
-            result.Z = value1.Z + value2.Z;
+            result.X = value1.X + vector2.X;
+            result.Y = value1.Y + vector2.Y;
+            result.Z = value1.Z + vector2.Z;
         }
-
-        /// <summary>
-        /// Performs addition of two Vector3 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector3 operator + (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            vector.Z = value1.Z + value2.Z;
-            return vector;
-        }
-
 
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector3 objects.
         /// </summary>
-        public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Subtract (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
-            result.Z = value1.Z - value2.Z;
+            result.X = value1.X - vector2.X;
+            result.Y = value1.Y - vector2.Y;
+            result.Z = value1.Z - vector2.Z;
         }
-
-        /// <summary>
-        /// Performs subtraction of two Vector3 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector3 operator - (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            vector.Z = value1.Z - value2.Z;
-            return vector;
-        }
-
 
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector3 object.
         /// </summary>
@@ -19499,78 +20012,29 @@ namespace Abacus.DoublePrecision
             result.Z = -value.Z;
         }
 
-        /// <summary>
-        /// Performs negation of a Vector3 object using the (-X) operator.
-        /// </summary>
-        public static Vector3 operator - (Vector3 value)
-        {
-            Vector3 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            vector.Z = -value.Z;
-            return vector;
-        }
-
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector3 objects.
         /// </summary>
-        public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Multiply (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X * value2.X;
-            result.Y = value1.Y * value2.Y;
-            result.Z = value1.Z * value2.Z;
+            result.X = value1.X * vector2.X;
+            result.Y = value1.Y * vector2.Y;
+            result.Z = value1.Z * vector2.Z;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector3 object and a Double
         /// precision scaling factor.
         /// </summary>
-        public static void Multiply (ref Vector3 value1, Double scaleFactor, out Vector3 result)
+        public static void Multiply (
+            ref Vector3 value1, ref Double scaleFactor, out Vector3 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
             result.Z = value1.Z * scaleFactor;
-        }
-
-        /// <summary>
-        /// Performs muliplication of two Vector3 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector3 operator * (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            vector.Z = value1.Z * value2.Z;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Vector3 object and a Double
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector3 operator * (Vector3 value, Double scaleFactor)
-        {
-            Vector3 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            vector.Z = value.Z * scaleFactor;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Double precision scaling factor 
-        /// and aVector3 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector3 operator * (Double scaleFactor, Vector3 value)
-        {
-            Vector3 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            vector.Z = value.Z * scaleFactor;
-            return vector;
         }
 
         // Division Operators //----------------------------------------------//
@@ -19578,54 +20042,28 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Performs division of two Vector3 objects.
         /// </summary>
-        public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Divide (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X / value2.X;
-            result.Y = value1.Y / value2.Y;
-            result.Z = value1.Z / value2.Z;
+            result.X = value1.X / vector2.X;
+            result.Y = value1.Y / vector2.Y;
+            result.Z = value1.Z / vector2.Z;
         }
 
         /// <summary>
         /// Performs division of a Vector3 object and a Double precision
         /// scaling factor.
         /// </summary>
-        public static void Divide (ref Vector3 value1, Double value2, out Vector3 result)
+        public static void Divide (
+            ref Vector3 value1, ref Double vector2, out Vector3 result)
         {
             Double one = 1;
-            Double num = one / value2;
+            Double num = one / vector2;
             result.X = value1.X * num;
             result.Y = value1.Y * num;
             result.Z = value1.Z * num;
         }
 
-        /// <summary>
-        /// Performs division of two Vector3 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector3 operator / (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            vector.Z = value1.Z / value2.Z;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs division of a Vector3 object and a Double precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector3 operator / (Vector3 value, Double divider)
-        {
-            Vector3 vector;
-            Double one = 1;
-
-            Double num = one / divider;
-            vector.X = value.X * num;
-            vector.Y = value.Y * num;
-            vector.Z = value.Z * num;
-            return vector;
-        }
-        
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -19634,19 +20072,20 @@ namespace Abacus.DoublePrecision
         public static void SmoothStep (
             ref Vector3 vector1,
             ref Vector3 vector2,
-            Double amount,
+            ref Double amount,
             out Vector3 result)
         {
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Double two = 2;
+            Double three = 3;
 
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
@@ -19671,16 +20110,11 @@ namespace Abacus.DoublePrecision
             ref Vector3 vector2,
             ref Vector3 vector3,
             ref Vector3 vector4,
-            Double amount,
+            ref Double amount,
             out Vector3 result)
         {
-            Double half; RealMaths.Half(out half);
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
-            Double four = 4;
-            Double five = 5;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -19688,26 +20122,110 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
+            Double two = 2;
+            Double three = 3;
+            Double four = 4;
+            Double five = 5;
+            Double half; RealMaths.Half(out half);
+
             Double squared = amount * amount;
             Double cubed = amount * squared;
 
-            result.X =
-                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
-                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
-                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
-                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y =
-                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
-                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
-                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
-                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
 
-            result.Z =
-                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
-                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
-                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
-                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
+
+            ///////
+            // Z //
+            ///////
+
+            // (2 * P2)
+            result.Z = (two * vector2.Z);
+
+            // (-P1 + P3) * t
+            result.Z += (
+                    - vector1.Z
+                    + vector3.Z
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Z += (
+                    + (two * vector1.Z)
+                    - (five * vector2.Z)
+                    + (four * vector3.Z)
+                    - (vector4.Z)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Z += (
+                    - (vector1.Z)
+                    + (three * vector2.Z)
+                    - (three * vector3.Z)
+                    + (vector4.Z)
+                ) * cubed;
+
+            // 0.5
+            result.Z *= half;
         }
 
         /// <summary>
@@ -19718,13 +20236,11 @@ namespace Abacus.DoublePrecision
             ref Vector3 tangent1,
             ref Vector3 vector2,
             ref Vector3 tangent2,
-            Double amount,
+            ref Double amount,
             out Vector3 result)
         {
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -19733,10 +20249,17 @@ namespace Abacus.DoublePrecision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector3.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector3.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Double two = 2;
+            Double three = 3;
 
             Double squared = amount * amount;
             Double cubed = amount * squared;
@@ -19762,7 +20285,7 @@ namespace Abacus.DoublePrecision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -19776,7 +20299,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -19788,7 +20311,7 @@ namespace Abacus.DoublePrecision
             result.Y = (a.Y > b.Y) ? a.Y : b.Y;
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -19818,7 +20341,7 @@ namespace Abacus.DoublePrecision
         public static void Lerp (
             ref Vector3 a,
             ref Vector3 b,
-            Double amount,
+            ref Double amount,
             out Vector3 result)
         {
             Double zero = 0;
@@ -19827,20 +20350,176 @@ namespace Abacus.DoublePrecision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector3 vector, out Boolean result)
+        {
+            Double one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z);
+        }
 
+#if (VARIANTS_ENABLED)
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector3 object using the (-X) operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a Double
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value, Double scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Double precision scaling factor
+        /// and a Vector3 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector3 operator * (Double scaleFactor, Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a Double precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value, Double divider)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Calculates the length of this Vector3.
+        /// </summary>
+        public Double Length ()
+        {
+            Double result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector3 squared.
+        /// </summary>
+        public Double LengthSquared ()
+        {
+            Double result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector3.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+#endif
     }
 
     /// <summary>
     /// Double precision Vector4.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Vector4 
+    public struct Vector4
         : IEquatable<Vector4>
     {
         /// <summary>
@@ -19864,13 +20543,13 @@ namespace Abacus.DoublePrecision
         public Double W;
 
         /// <summary>
-        /// Initilises a new instance of Vector4 from four Double values 
+        /// Initilises a new instance of Vector4 from four Double values
         /// representing X, Y, Z and W respectively.
         /// </summary>
         public Vector4 (
-            Double x, 
-            Double y, 
-            Double z, 
+            Double x,
+            Double y,
+            Double z,
             Double w)
         {
             this.X = x;
@@ -19905,45 +20584,19 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector4.
-        /// </summary>
-        public Double Length ()
-        {
-            Double num = (this.X * this.X) + 
-                              (this.Y * this.Y) + 
-                              (this.Z * this.Z) + 
-                              (this.W * this.W);
-            
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector4 squared.
-        /// </summary>
-        public Double LengthSquared ()
-        {
-            return 
-                (this.X * this.X) + 
-                (this.Y * this.Y) + 
-                (this.Z * this.Z) + 
-                (this.W * this.W);
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1} Z:{2} W:{3}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString (), 
-                    this.Z.ToString (), 
-                    this.W.ToString () 
-                }
-                );
+                "{{X:{0} Y:{1} Z:{2} W:{3}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString (),
+                    this.Z.ToString (),
+                    this.W.ToString ()
+                });
         }
 
         /// <summary>
@@ -19952,21 +20605,40 @@ namespace Abacus.DoublePrecision
         public override Int32 GetHashCode ()
         {
             return (
-                this.X.GetHashCode () + 
-                this.Y.GetHashCode () + 
-                this.Z.GetHashCode () + 
+                this.X.GetHashCode () +
+                this.Y.GetHashCode () +
+                this.Z.GetHashCode () +
                 this.W.GetHashCode ()
                 );
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector4 is of unit length.
+        /// Determines whether or not this Vector4 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Double one = 1;
-            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
+            Boolean flag = false;
+            if (obj is Vector4) {
+                flag = this.Equals ((Vector4)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector4>
+
+        /// <summary>
+        /// Determines whether or not this Vector4 object is equal to another
+        /// Vector4 object.
+        /// </summary>
+        public Boolean Equals (Vector4 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -20244,7 +20916,9 @@ namespace Abacus.DoublePrecision
             ref Matrix44 matrix,
             out Vector4 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector4.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -20272,53 +20946,46 @@ namespace Abacus.DoublePrecision
             result.W = w;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static void Length (ref Vector4 vector, out Double result)
+        {
+            Double lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static void LengthSquared (
+            ref Vector4 vector, out Double result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+        }
         // Equality Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Determines whether or not this Vector4 object is equal to another
-        /// object.
-        /// </summary>
-        public override Boolean Equals (Object obj)
-        {
-            Boolean flag = false;
-            if (obj is Vector4) {
-                flag = this.Equals ((Vector4)obj);
-            }
-            return flag;
-        }
-
-        #region IEquatable<Vector4>
-
-        /// <summary>
-        /// Determines whether or not this Vector4 object is equal to another
-        /// Vector4 object.
-        /// </summary>
-        public Boolean Equals (Vector4 other)
-        {
-            return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-        }
-
-        #endregion
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        public static void Equals (
+            ref Vector4 value1, ref Vector4 value2, out Boolean result)
         {
-            return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
-        }
-        
-        /// <summary>
-        /// Determines whether or not two Vector4 objects are not equal using
-        /// the (X!=Y) operator.
-        /// </summary>
-        public static Boolean operator != (Vector4 value1, Vector4 value2)
-        {
-            if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
-                return !(value1.W == value2.W);
-            }
-            return true;
+            result =
+                (value1.X == value2.X) &&
+                (value1.Y == value2.Y) &&
+                (value1.Z == value2.Z) &&
+                (value1.W == value2.W);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -20326,7 +20993,8 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Performs addition of two Vector4 objects.
         /// </summary>
-        public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Add (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X + value2.X;
             result.Y = value1.Y + value2.Y;
@@ -20334,25 +21002,13 @@ namespace Abacus.DoublePrecision
             result.W = value1.W + value2.W;
         }
 
-        /// <summary>
-        /// Performs addition of two Vector4 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector4 operator + (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            vector.Z = value1.Z + value2.Z;
-            vector.W = value1.W + value2.W;
-            return vector;
-        }
-
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector4 objects.
         /// </summary>
-        public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Subtract (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X - value2.X;
             result.Y = value1.Y - value2.Y;
@@ -20360,26 +21016,13 @@ namespace Abacus.DoublePrecision
             result.W = value1.W - value2.W;
         }
 
-        /// <summary>
-        /// Performs subtraction of two Vector4 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector4 operator - (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            vector.Z = value1.Z - value2.Z;
-            vector.W = value1.W - value2.W;
-            return vector;
-        }
-
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector4 object.
         /// </summary>
-        public static void Negate (ref Vector4 value, out Vector4 result)
+        public static void Negate (
+            ref Vector4 value, out Vector4 result)
         {
             result.X = -value.X;
             result.Y = -value.Y;
@@ -20387,25 +21030,13 @@ namespace Abacus.DoublePrecision
             result.W = -value.W;
         }
 
-        /// <summary>
-        /// Performs negation of a Vector4 object using the (-X) operator.
-        /// </summary>
-        public static Vector4 operator - (Vector4 value)
-        {
-            Vector4 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            vector.Z = -value.Z;
-            vector.W = -value.W;
-            return vector;
-        }
-        
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector4 objects.
         /// </summary>
-        public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Multiply (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X * value2.X;
             result.Y = value1.Y * value2.Y;
@@ -20417,7 +21048,8 @@ namespace Abacus.DoublePrecision
         /// Performs multiplication of a Vector4 object and a Double
         /// precision scaling factor.
         /// </summary>
-        public static void Multiply (ref Vector4 value1, Double scaleFactor, out Vector4 result)
+        public static void Multiply (
+            ref Vector4 value1, ref Double scaleFactor, out Vector4 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
@@ -20425,54 +21057,13 @@ namespace Abacus.DoublePrecision
             result.W = value1.W * scaleFactor;
         }
 
-        /// <summary>
-        /// Performs muliplication of two Vector4 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector4 operator * (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            vector.Z = value1.Z * value2.Z;
-            vector.W = value1.W * value2.W;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs multiplication of a Vector4 object and a Double
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector4 operator * (Vector4 value1, Double scaleFactor)
-        {
-            Vector4 vector;
-            vector.X = value1.X * scaleFactor;
-            vector.Y = value1.Y * scaleFactor;
-            vector.Z = value1.Z * scaleFactor;
-            vector.W = value1.W * scaleFactor;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs multiplication of a Double precision scaling factor 
-        /// and aVector4 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector4 operator * (Double scaleFactor, Vector4 value1)
-        {
-            Vector4 vector;
-            vector.X = value1.X * scaleFactor;
-            vector.Y = value1.Y * scaleFactor;
-            vector.Z = value1.Z * scaleFactor;
-            vector.W = value1.W * scaleFactor;
-            return vector;
-        }
-        
         // Division Operators //----------------------------------------------//
 
         /// <summary>
         /// Performs division of two Vector4 objects.
         /// </summary>
-        public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Divide (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X / value2.X;
             result.Y = value1.Y / value2.Y;
@@ -20484,7 +21075,8 @@ namespace Abacus.DoublePrecision
         /// Performs division of a Vector4 object and a Double precision
         /// scaling factor.
         /// </summary>
-        public static void Divide (ref Vector4 value1, Double divider, out Vector4 result)
+        public static void Divide (
+            ref Vector4 value1, ref Double divider, out Vector4 result)
         {
             Double one = 1;
             Double num = one / divider;
@@ -20492,35 +21084,6 @@ namespace Abacus.DoublePrecision
             result.Y = value1.Y * num;
             result.Z = value1.Z * num;
             result.W = value1.W * num;
-        }
-
-        /// <summary>
-        /// Performs division of two Vector4 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector4 operator / (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            vector.Z = value1.Z / value2.Z;
-            vector.W = value1.W / value2.W;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs division of a Vector4 object and a Double precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector4 operator / (Vector4 value1, Double divider)
-        {
-            Double one = 1;
-            Vector4 vector;
-            Double num = one / divider;
-            vector.X = value1.X * num;
-            vector.Y = value1.Y * num;
-            vector.Z = value1.Z * num;
-            vector.W = value1.W * num;
-            return vector;
         }
 
         // Splines //---------------------------------------------------------//
@@ -20531,19 +21094,20 @@ namespace Abacus.DoublePrecision
         public static void SmoothStep (
             ref Vector4 vector1,
             ref Vector4 vector2,
-            Double amount,
+            ref Double amount,
             out Vector4 result)
         {
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Double two = 2;
+            Double three = 3;
 
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
@@ -20569,16 +21133,11 @@ namespace Abacus.DoublePrecision
             ref Vector4 vector2,
             ref Vector4 vector3,
             ref Vector4 vector4,
-            Double amount,
+            ref Double amount,
             out Vector4 result)
         {
-            Double half; RealMaths.Half(out half);
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
-            Double four = 4;
-            Double five = 5;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -20586,32 +21145,142 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
+            Double two = 2;
+            Double three = 3;
+            Double four = 4;
+            Double five = 5;
+            Double half; RealMaths.Half(out half);
+
             Double squared = amount * amount;
             Double cubed = amount * squared;
 
-            result.X =
-                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
-                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
-                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
-                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y =
-                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
-                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
-                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
-                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
 
-            result.Z =
-                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
-                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
-                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
-                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X
+                    + vector3.X
+                ) * amount;
 
-            result.W =
-                half * ((((two * vector2.W) + ((-vector1.W + vector3.W) *
-                amount)) + (((((two * vector1.W) - (five * vector2.W)) + (four *
-                vector3.W)) - vector4.W) * squared)) + ((((-vector1.W + (three *
-                vector2.W)) - (three * vector3.W)) + vector4.W) * cubed));
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
+
+            ///////
+            // Z //
+            ///////
+
+            // (2 * P2)
+            result.Z = (two * vector2.Z);
+
+            // (-P1 + P3) * t
+            result.Z += (
+                    - vector1.Z
+                    + vector3.Z
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Z += (
+                    + (two * vector1.Z)
+                    - (five * vector2.Z)
+                    + (four * vector3.Z)
+                    - (vector4.Z)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Z += (
+                    - (vector1.Z)
+                    + (three * vector2.Z)
+                    - (three * vector3.Z)
+                    + (vector4.Z)
+                ) * cubed;
+
+            // 0.5
+            result.Z *= half;
+
+            ///////
+            // W //
+            ///////
+
+            // (2 * P2)
+            result.W = (two * vector2.W);
+
+            // (-P1 + P3) * t
+            result.W += (
+                    - vector1.W
+                    + vector3.W
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.W += (
+                    + (two * vector1.W)
+                    - (five * vector2.W)
+                    + (four * vector3.W)
+                    - (vector4.W)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.W += (
+                    - (vector1.W)
+                    + (three * vector2.W)
+                    - (three * vector3.W)
+                    + (vector4.W)
+                ) * cubed;
+
+            // 0.5
+            result.W *= half;
         }
 
         /// <summary>
@@ -20622,13 +21291,11 @@ namespace Abacus.DoublePrecision
             ref Vector4 tangent1,
             ref Vector4 vector2,
             ref Vector4 tangent2,
-            Double amount,
+            ref Double amount,
             out Vector4 result)
         {
             Double zero = 0;
             Double one = 1;
-            Double two = 2;
-            Double three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -20637,10 +21304,17 @@ namespace Abacus.DoublePrecision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector4.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector4.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Double two = 2;
+            Double three = 3;
 
             Double squared = amount * amount;
             Double cubed = amount * squared;
@@ -20670,7 +21344,7 @@ namespace Abacus.DoublePrecision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -20685,7 +21359,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -20698,7 +21372,7 @@ namespace Abacus.DoublePrecision
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
             result.W = (a.W > b.W) ? a.W : b.W;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -20725,7 +21399,7 @@ namespace Abacus.DoublePrecision
             result.Z = z;
             result.W = w;
         }
-        
+
         /// <summary>
         /// Performs a linear interpolation between two vectors.
         /// </summary>
@@ -20741,23 +21415,177 @@ namespace Abacus.DoublePrecision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
             result.W = a.W + ((b.W - a.W) * amount);
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector4 vector, out Boolean result)
+        {
+            Double one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z
+                - vector.W * vector.W);
+        }
 
 
+#if (VARIANTS_ENABLED)
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector4 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector4 operator + (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector4 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector4 object using the (-X) operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector4 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector4 object and a Double
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, Double scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Double precision scaling factor
+        /// and aVector4 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector4 operator * (Double scaleFactor, Vector4 value1)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector4 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector4 object and a Double precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, Double divider)
+        {
+            throw new NotImplementedException();
+        }
 
 
+        /// <summary>
+        /// Calculates the length of this Vector4.
+        /// </summary>
+        public Double Length ()
+        {
+            Double result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector4 squared.
+        /// </summary>
+        public Double LengthSquared ()
+        {
+            Double result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector4.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+#endif
     }
 
 }
 
 namespace Abacus.Fixed32Precision
 {
+/*
     /// <summary>
     /// todo
     /// </summary>
@@ -20782,19 +21610,29 @@ namespace Abacus.Fixed32Precision
             Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
 
             this.y [index] = newPoint;
-            this.yLengthSq [index] = newPoint.LengthSquared ();
+            Fixed32 newPointLs;
+            Vector3.LengthSquared(ref newPoint, out newPointLs);
+            this.yLengthSq [index] = newPointLs;
 
             for (Int32 i = BitsToIndices[this.simplexBits]; i != 0; i = i >> 3)
             {
-                Int32 num2 = (i & 7) - 1;
-                Vector3 vector = this.y [num2] - newPoint;
+                Int32 idx = (i & 7) - 1;
 
-                this.edges [num2] [index] = vector;
-                this.edges [index] [num2] = -vector;
+                Vector3 vector;
+                vector.X = this.y [idx].X - newPoint.X;
+                vector.Y = this.y [idx].Y - newPoint.Y;
+                vector.Z = this.y [idx].Z - newPoint.Z;
 
-                this.edgeLengthSq [index] [num2] = 
-                    this.edgeLengthSq [num2] [index] = 
-                        vector.LengthSquared ();
+                this.edges [idx] [index] = vector;
+                this.edges [index] [idx].X = -vector.X;
+                this.edges [index] [idx].Y = -vector.Y;
+                this.edges [index] [idx].Z = -vector.Z;
+
+                Fixed32 vectorLs;
+                Vector3.LengthSquared (ref vector, out vectorLs);
+
+                this.edgeLengthSq [index] [idx] = vectorLs;
+                this.edgeLengthSq [idx] [index] = vectorLs;
             }
 
             this.UpdateDeterminant (index);
@@ -20828,7 +21666,7 @@ namespace Abacus.Fixed32Precision
         {
             get { return (this.simplexBits == 15); }
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -20850,27 +21688,27 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        Fixed32[][] edgeLengthSq = 
-            new Fixed32[][] 
-            { 
-                new Fixed32[4], 
-                new Fixed32[4], 
-                new Fixed32[4], 
-                new Fixed32[4] 
+        Fixed32[][] edgeLengthSq =
+            new Fixed32[][]
+            {
+                new Fixed32[4],
+                new Fixed32[4],
+                new Fixed32[4],
+                new Fixed32[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        Vector3[][] edges = 
-            new Vector3[][] 
-            { 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4], 
-                new Vector3[4] 
+        Vector3[][] edges =
+            new Vector3[][]
+            {
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4]
             };
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -20894,11 +21732,11 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        static Int32[] BitsToIndices = 
-            new Int32[] 
-            { 
-                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1, 
-                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1 
+        static Int32[] BitsToIndices =
+            new Int32[]
+            {
+                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1,
+                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1
             };
 
         /// <summary>
@@ -20921,7 +21759,7 @@ namespace Abacus.Fixed32Precision
                 num3 += num4;
                 zero += (Vector3)(this.y [index] * num4);
 
-                this.maxLengthSq = 
+                this.maxLengthSq =
                 RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
             }
 
@@ -20975,10 +21813,10 @@ namespace Abacus.Fixed32Precision
                 Int32 num12 = ((int)1) << num;
                 Int32 num6 = num12 | index;
 
-                this.det [num6] [num] = 
+                this.det [num6] [num] =
                     Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
 
-                this.det [num6] [xmIdx] = 
+                this.det [num6] [xmIdx] =
                     Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
 
                 Int32 num11 = num14;
@@ -20990,20 +21828,20 @@ namespace Abacus.Fixed32Precision
                     int num9 = num6 | num5;
                     int num4 = (this.edgeLengthSq [num] [num3] < this.edgeLengthSq [xmIdx] [num3]) ? num : xmIdx;
 
-                    this.det [num9] [num3] = 
-                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) + 
+                    this.det [num9] [num3] =
+                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) +
                         (this.det [num6] [xmIdx] * Dot (ref this.edges [num4] [num3], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num3] [num] < this.edgeLengthSq [xmIdx] [num]) ? num3 : xmIdx;
 
-                    this.det [num9] [num] = 
-                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) + 
+                    this.det [num9] [num] =
+                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) +
                         (this.det [num5 | index] [xmIdx] * Dot (ref this.edges [num4] [num], ref this.y [xmIdx]));
 
                     num4 = (this.edgeLengthSq [num] [xmIdx] < this.edgeLengthSq [num3] [xmIdx]) ? num : num3;
 
-                    this.det [num9] [xmIdx] = 
-                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) + 
+                    this.det [num9] [xmIdx] =
+                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) +
                         (this.det [num12 | num5] [num] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num]));
 
                     num11 = num11 >> 3;
@@ -21014,44 +21852,44 @@ namespace Abacus.Fixed32Precision
 
             if ((this.simplexBits | index) == 15)
             {
-                int num2 = 
-                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ? 
-                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) : 
+                int num2 =
+                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ?
+                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) :
                     ((this.edgeLengthSq [2] [0] < this.edgeLengthSq [3] [0]) ? 2 : 3);
 
-                this.det [15] [0] = 
-                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) + 
-                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) + 
+                this.det [15] [0] =
+                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) +
+                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) +
                     (this.det [14] [3] * Dot (ref this.edges [num2] [0], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ? 
-                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ?
+                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) :
                     ((this.edgeLengthSq [2] [1] < this.edgeLengthSq [3] [1]) ? 2 : 3);
 
-                this.det [15] [1] = 
-                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) + 
-                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) + 
+                this.det [15] [1] =
+                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) +
+                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) +
                     (this.det [13] [3] * Dot (ref this.edges [num2] [1], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ? 
-                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) : 
+                num2 =
+                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ?
+                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) :
                     ((this.edgeLengthSq [1] [2] < this.edgeLengthSq [3] [2]) ? 1 : 3);
 
-                this.det [15] [2] = 
-                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) + 
-                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) + 
+                this.det [15] [2] =
+                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) +
+                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) +
                     (this.det [11] [3] * Dot (ref this.edges [num2] [2], ref this.y [3]));
 
-                num2 = 
-                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ? 
-                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) : 
+                num2 =
+                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ?
+                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) :
                     ((this.edgeLengthSq [1] [3] < this.edgeLengthSq [2] [3]) ? 1 : 2);
 
-                this.det [15] [3] = 
-                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) + 
-                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) + 
+                this.det [15] [3] =
+                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) +
+                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) +
                     (this.det [7] [2] * Dot (ref this.edges [num2] [3], ref this.y [2]));
             }
         }
@@ -21098,11 +21936,12 @@ namespace Abacus.Fixed32Precision
             return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
         }
     }
+*/
     /// <summary>
     /// Fixed32 precision Matrix44.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Matrix44 
+    public struct Matrix44
         : IEquatable<Matrix44>
     {
         /// <summary>
@@ -21184,27 +22023,27 @@ namespace Abacus.Fixed32Precision
         /// Gets or sets (Row 4, Column 4) of the Matrix44.
         /// </summary>
         public Fixed32 M44;
-        
+
         /// <summary>
-        /// Initilises a new instance of Matrix44 from sixteen Fixed32 
+        /// Initilises a new instance of Matrix44 from sixteen Fixed32
         /// values representing the matrix, in row major order, respectively.
         /// </summary>
         public Matrix44 (
-            Fixed32 m11, 
-            Fixed32 m12, 
-            Fixed32 m13, 
-            Fixed32 m14, 
-            Fixed32 m21, 
-            Fixed32 m22, 
-            Fixed32 m23, 
-            Fixed32 m24, 
-            Fixed32 m31, 
-            Fixed32 m32, 
-            Fixed32 m33, 
-            Fixed32 m34, 
-            Fixed32 m41, 
-            Fixed32 m42, 
-            Fixed32 m43, 
+            Fixed32 m11,
+            Fixed32 m12,
+            Fixed32 m13,
+            Fixed32 m14,
+            Fixed32 m21,
+            Fixed32 m22,
+            Fixed32 m23,
+            Fixed32 m24,
+            Fixed32 m31,
+            Fixed32 m32,
+            Fixed32 m33,
+            Fixed32 m34,
+            Fixed32 m41,
+            Fixed32 m42,
+            Fixed32 m43,
             Fixed32 m44)
         {
             this.M11 = m11;
@@ -21230,44 +22069,44 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override String ToString ()
         {
-            return 
+            return
                 (
-                    "{ " + 
-                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M11.ToString (), 
-                            this.M12.ToString (), 
-                            this.M13.ToString (), 
-                            this.M14.ToString () 
+                    "{ " +
+                    string.Format ("{{M11:{0} M12:{1} M13:{2} M14:{3}}} ",
+                        new Object[]
+                        {
+                            this.M11.ToString (),
+                            this.M12.ToString (),
+                            this.M13.ToString (),
+                            this.M14.ToString ()
                         }
-                    ) + 
-                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M21.ToString (), 
-                            this.M22.ToString (), 
-                            this.M23.ToString (), 
-                            this.M24.ToString () 
+                    ) +
+                    string.Format ("{{M21:{0} M22:{1} M23:{2} M24:{3}}} ",
+                        new Object[]
+                        {
+                            this.M21.ToString (),
+                            this.M22.ToString (),
+                            this.M23.ToString (),
+                            this.M24.ToString ()
                             }
-                    ) + 
-                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ", 
-                        new Object[] 
-                        { 
-                            this.M31.ToString (), 
-                            this.M32.ToString (), 
-                            this.M33.ToString (), 
-                            this.M34.ToString () 
+                    ) +
+                    string.Format ("{{M31:{0} M32:{1} M33:{2} M34:{3}}} ",
+                        new Object[]
+                        {
+                            this.M31.ToString (),
+                            this.M32.ToString (),
+                            this.M33.ToString (),
+                            this.M34.ToString ()
                         }
-                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ", 
-                    new Object[] 
-                    { 
-                        this.M41.ToString (), 
-                        this.M42.ToString (), 
-                        this.M43.ToString (), 
-                        this.M44.ToString () 
+                    ) + string.Format ("{{M41:{0} M42:{1} M43:{2} M44:{3}}} ",
+                    new Object[]
+                    {
+                        this.M41.ToString (),
+                        this.M42.ToString (),
+                        this.M43.ToString (),
+                        this.M44.ToString ()
                     }
-                    ) + 
+                    ) +
                     "}"
                 );
         }
@@ -21277,24 +22116,23 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return 
-                (((((((((((((((
-                    this.M11.GetHashCode () + 
-                    this.M12.GetHashCode ()) + 
-                    this.M13.GetHashCode ()) + 
-                    this.M14.GetHashCode ()) + 
-                    this.M21.GetHashCode ()) + 
-                    this.M22.GetHashCode ()) + 
-                    this.M23.GetHashCode ()) + 
-                    this.M24.GetHashCode ()) + 
-                    this.M31.GetHashCode ()) + 
-                    this.M32.GetHashCode ()) + 
-                    this.M33.GetHashCode ()) + 
-                    this.M34.GetHashCode ()) + 
-                    this.M41.GetHashCode ()) + 
-                    this.M42.GetHashCode ()) + 
-                    this.M43.GetHashCode ()) + 
-                    this.M44.GetHashCode ());
+            return
+                this.M11.GetHashCode () +
+                this.M12.GetHashCode () +
+                this.M13.GetHashCode () +
+                this.M14.GetHashCode () +
+                this.M21.GetHashCode () +
+                this.M22.GetHashCode () +
+                this.M23.GetHashCode () +
+                this.M24.GetHashCode () +
+                this.M31.GetHashCode () +
+                this.M32.GetHashCode () +
+                this.M33.GetHashCode () +
+                this.M34.GetHashCode () +
+                this.M41.GetHashCode () +
+                this.M42.GetHashCode () +
+                this.M43.GetHashCode () +
+                this.M44.GetHashCode ();
         }
 
         /// <summary>
@@ -21493,12 +22331,12 @@ namespace Abacus.Fixed32Precision
             result.M43 = position.Z;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateTranslation (Fixed32 xPosition, Fixed32 yPosition, Fixed32 zPosition, out Matrix44 result)
-        {   
+        {
             result.M11 = 1;
             result.M12 = 0;
             result.M13 = 0;
@@ -21516,7 +22354,7 @@ namespace Abacus.Fixed32Precision
             result.M43 = zPosition;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// Creates a scaling matrix based on x, y, z.
         /// </summary>
@@ -21663,7 +22501,7 @@ namespace Abacus.Fixed32Precision
             result.M43 = 0;
             result.M44 = 1;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
@@ -21706,13 +22544,17 @@ namespace Abacus.Fixed32Precision
             result.M43 = 0;
             result.M44 = one;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
         public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
         {
-            if(!right.IsUnit() || !up.IsUnit() || !backward.IsUnit() )
+            Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+
+            if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
@@ -21740,7 +22582,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
 
@@ -21760,12 +22602,15 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
         {
-            if(!forward.IsUnit() || !up.IsUnit() )
+            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+
+            if(!isForwardUnit || !isUpUnit )
             {
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            Vector3 backward = -forward;
+            Vector3 backward; Vector3.Negate (ref forward, out backward);
 
             Vector3 vector; Vector3.Normalise (ref backward, out vector);
 
@@ -21798,7 +22643,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
         {
-            if(!quaternion.IsUnit())
+            Boolean quaternionIsUnit;
+            Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
+            if(!quaternionIsUnit)
             {
                 throw new ArgumentException("Input quaternion must be normalised.");
             }
@@ -21807,7 +22654,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 one = 1;
 
 
-            Fixed32 xs = quaternion.X + quaternion.X;   
+            Fixed32 xs = quaternion.X + quaternion.X;
             Fixed32 ys = quaternion.Y + quaternion.Y;
             Fixed32 zs = quaternion.Z + quaternion.Z;
             Fixed32 wx = quaternion.W * xs;
@@ -21824,12 +22671,12 @@ namespace Abacus.Fixed32Precision
             result.M21 = xy - wz;
             result.M31 = xz + wy;
             result.M41 = zero;
-    
+
             result.M12 = xy + wz;
             result.M22 = one - (xx + zz);
             result.M32 = yz - wx;
             result.M42 = zero;
-    
+
             result.M13 = xz - wy;
             result.M23 = yz + wx;
             result.M33 = one - (xx + yy);
@@ -21853,6 +22700,8 @@ namespace Abacus.Fixed32Precision
             CreateFromQuaternion (ref quaternion, out result);
         }
 
+#if UNTESTED
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -21860,8 +22709,8 @@ namespace Abacus.Fixed32Precision
         ////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Creates a cylindrical billboard that rotates around a specified axis.
-        /// This method computes the facing direction of the billboard from the object position and camera position. 
-        /// When the object and camera positions are too close, the matrix will not be accurate. 
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
         /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
         /// </summary>
         public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
@@ -21915,11 +22764,11 @@ namespace Abacus.Fixed32Precision
         /// todo
         /// </summary>
         public static void CreateConstrainedBillboard (
-            ref Vector3 objectPosition, 
-            ref Vector3 cameraPosition, 
-            ref Vector3 rotateAxis, 
-            Vector3? cameraForwardVector, 
-            Vector3? objectForwardVector, 
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
@@ -21989,10 +22838,10 @@ namespace Abacus.Fixed32Precision
         /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveFieldOfView (
-            Fixed32 fieldOfView, 
-            Fixed32 aspectRatio, 
-            Fixed32 nearPlaneDistance, 
-            Fixed32 farPlaneDistance, 
+            Fixed32 fieldOfView,
+            Fixed32 aspectRatio,
+            Fixed32 nearPlaneDistance,
+            Fixed32 farPlaneDistance,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
@@ -22029,7 +22878,7 @@ namespace Abacus.Fixed32Precision
             // where:
             //
             // yScale = cot(fovY/2)
-            //     
+            //
             // xScale = yScale / aspect ratio
             //
 
@@ -22043,7 +22892,7 @@ namespace Abacus.Fixed32Precision
             result.M12 = zero;
             result.M13 = zero;
             result.M14 = zero;
-            
+
             result.M21 = zero;
             result.M22 = yScale;
             result.M23 = zero;
@@ -22071,10 +22920,10 @@ namespace Abacus.Fixed32Precision
         /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspective (
-            Fixed32 width, 
-            Fixed32 height, 
-            Fixed32 nearPlaneDistance, 
-            Fixed32 farPlaneDistance, 
+            Fixed32 width,
+            Fixed32 height,
+            Fixed32 nearPlaneDistance,
+            Fixed32 farPlaneDistance,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
@@ -22110,12 +22959,12 @@ namespace Abacus.Fixed32Precision
         /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveOffCenter (
-            Fixed32 left, 
-            Fixed32 right, 
-            Fixed32 bottom, 
-            Fixed32 top, 
-            Fixed32 nearPlaneDistance, 
-            Fixed32 farPlaneDistance, 
+            Fixed32 left,
+            Fixed32 right,
+            Fixed32 bottom,
+            Fixed32 top,
+            Fixed32 nearPlaneDistance,
+            Fixed32 farPlaneDistance,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
@@ -22142,7 +22991,7 @@ namespace Abacus.Fixed32Precision
             result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
             result.M41 = result.M42 = result.M44 = zero;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -22152,10 +23001,10 @@ namespace Abacus.Fixed32Precision
         /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographic (
-            Fixed32 width, 
-            Fixed32 height, 
-            Fixed32 zNearPlane, 
-            Fixed32 zFarPlane, 
+            Fixed32 width,
+            Fixed32 height,
+            Fixed32 zNearPlane,
+            Fixed32 zFarPlane,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
@@ -22182,12 +23031,12 @@ namespace Abacus.Fixed32Precision
         /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographicOffCenter (
-            Fixed32 left, 
-            Fixed32 right, 
-            Fixed32 bottom, 
-            Fixed32 top, 
-            Fixed32 zNearPlane, 
-            Fixed32 zFarPlane, 
+            Fixed32 left,
+            Fixed32 right,
+            Fixed32 bottom,
+            Fixed32 top,
+            Fixed32 zNearPlane,
+            Fixed32 zFarPlane,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
@@ -22205,7 +23054,7 @@ namespace Abacus.Fixed32Precision
             result.M43 = zNearPlane / (zNearPlane - zFarPlane);
             result.M44 = one;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -22215,9 +23064,9 @@ namespace Abacus.Fixed32Precision
         /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
         /// </summary>
         public static void CreateLookAt (
-            ref Vector3 cameraPosition, 
-            ref Vector3 cameraTarget, 
-            ref Vector3 cameraUpVector, 
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
@@ -22227,13 +23076,13 @@ namespace Abacus.Fixed32Precision
             Vector3.Normalise (ref forward, out forward);
 
             Vector3 right;
-            Vector3.Cross (ref cameraUpVector, ref forward, out right); 
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
             Vector3.Normalise (ref right, out right);
-            
+
             Vector3 up;
             Vector3.Cross (ref forward, ref right, out up);
             Vector3.Normalise (ref up, out up);
-            
+
             result.M11 = right.X;
             result.M12 = up.X;
             result.M13 = forward.X;
@@ -22256,14 +23105,14 @@ namespace Abacus.Fixed32Precision
             Vector3.Dot (ref right, ref cameraPosition, out a);
             Vector3.Dot (ref up, ref cameraPosition, out b);
             Vector3.Dot (ref forward, ref cameraPosition, out c);
-            
+
             result.M41 = -a;
             result.M42 = -b;
             result.M43 = -c;
 
             result.M44 = one;
         }
-
+#endif
         /// <summary>
         /// todo
         /// </summary>
@@ -22312,12 +23161,12 @@ namespace Abacus.Fixed32Precision
             Vector3 b = new Vector3(M12, M22, M32);
             Vector3 c = new Vector3(M13, M23, M33);
 
-            scale.X = a.Length();
-            scale.Y = b.Length();
-            scale.Z = c.Length();
+            Fixed32 aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
+            Fixed32 bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;
+            Fixed32 cLen; Vector3.Length(ref c, out cLen); scale.Z = cLen;
 
-            if ( RealMaths.IsZero(scale.X) || 
-                 RealMaths.IsZero(scale.Y) || 
+            if ( RealMaths.IsZero(scale.X) ||
+                 RealMaths.IsZero(scale.Y) ||
                  RealMaths.IsZero(scale.Z) )
             {
                 rotation = Quaternion.Identity;
@@ -22343,6 +23192,8 @@ namespace Abacus.Fixed32Precision
 
             return true;
         }
+
+#if UNTESTED
 
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
@@ -22370,17 +23221,17 @@ namespace Abacus.Fixed32Precision
             Fixed32 num3 = this.M42;
             Fixed32 num2 = this.M43;
             Fixed32 num = this.M44;
-            
+
             Fixed32 num18 = (num6 * num) - (num5 * num2);
             Fixed32 num17 = (num7 * num) - (num5 * num3);
             Fixed32 num16 = (num7 * num2) - (num6 * num3);
             Fixed32 num15 = (num8 * num) - (num5 * num4);
             Fixed32 num14 = (num8 * num2) - (num6 * num4);
             Fixed32 num13 = (num8 * num3) - (num7 * num4);
-            
+
             return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
         }
-        
+
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // TODO: FROM XNA, NEEDS REVIEW
@@ -22464,7 +23315,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 num21 = rotation.X + rotation.X;
             Fixed32 num11 = rotation.Y + rotation.Y;
             Fixed32 num10 = rotation.Z + rotation.Z;
-            
+
             Fixed32 num20 = rotation.W * num21;
             Fixed32 num19 = rotation.W * num11;
             Fixed32 num18 = rotation.W * num10;
@@ -22474,45 +23325,45 @@ namespace Abacus.Fixed32Precision
             Fixed32 num14 = rotation.Y * num11;
             Fixed32 num13 = rotation.Y * num10;
             Fixed32 num12 = rotation.Z * num10;
-            
+
             Fixed32 num9 = (one - num14) - num12;
-            
+
             Fixed32 num8 = num16 - num18;
             Fixed32 num7 = num15 + num19;
             Fixed32 num6 = num16 + num18;
-            
+
             Fixed32 num5 = (one - num17) - num12;
-            
+
             Fixed32 num4 = num13 - num20;
             Fixed32 num3 = num15 - num19;
             Fixed32 num2 = num13 + num20;
-            
+
             Fixed32 num = (one - num17) - num14;
-            
+
             Fixed32 num37 = ((value.M11 * num9) + (value.M12 * num8)) + (value.M13 * num7);
             Fixed32 num36 = ((value.M11 * num6) + (value.M12 * num5)) + (value.M13 * num4);
             Fixed32 num35 = ((value.M11 * num3) + (value.M12 * num2)) + (value.M13 * num);
-            
+
             Fixed32 num34 = value.M14;
-            
+
             Fixed32 num33 = ((value.M21 * num9) + (value.M22 * num8)) + (value.M23 * num7);
             Fixed32 num32 = ((value.M21 * num6) + (value.M22 * num5)) + (value.M23 * num4);
             Fixed32 num31 = ((value.M21 * num3) + (value.M22 * num2)) + (value.M23 * num);
-            
+
             Fixed32 num30 = value.M24;
-            
+
             Fixed32 num29 = ((value.M31 * num9) + (value.M32 * num8)) + (value.M33 * num7);
             Fixed32 num28 = ((value.M31 * num6) + (value.M32 * num5)) + (value.M33 * num4);
             Fixed32 num27 = ((value.M31 * num3) + (value.M32 * num2)) + (value.M33 * num);
-            
+
             Fixed32 num26 = value.M34;
-            
+
             Fixed32 num25 = ((value.M41 * num9) + (value.M42 * num8)) + (value.M43 * num7);
             Fixed32 num24 = ((value.M41 * num6) + (value.M42 * num5)) + (value.M43 * num4);
             Fixed32 num23 = ((value.M41 * num3) + (value.M42 * num2)) + (value.M43 * num);
-            
+
             Fixed32 num22 = value.M44;
-            
+
             result.M11 = num37;
             result.M12 = num36;
             result.M13 = num35;
@@ -22530,6 +23381,8 @@ namespace Abacus.Fixed32Precision
             result.M43 = num23;
             result.M44 = num22;
         }
+
+#endif
 
         // Equality Operators //----------------------------------------------//
 
@@ -23161,7 +24014,11 @@ namespace Abacus.Fixed32Precision
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
         /// </summary>
-        public static void Lerp (ref Matrix44 matrix1, ref Matrix44 matrix2, Fixed32 amount, out Matrix44 result)
+        public static void Lerp (
+            ref Matrix44 matrix1,
+            ref Matrix44 matrix2,
+            Fixed32 amount,
+            out Matrix44 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
@@ -23189,13 +24046,19 @@ namespace Abacus.Fixed32Precision
         }
 
 
+
+#if (VARIANTS_ENABLED)
+
+
+
+#endif
     }
 
     /// <summary>
     /// Fixed32 precision Quaternion.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Quaternion 
+    public struct Quaternion
         : IEquatable<Quaternion>
     {
         /// <summary>
@@ -23256,56 +24119,7 @@ namespace Abacus.Fixed32Precision
             return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Fixed32 LengthSquared ()
-        {
-            return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
-        }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Fixed32 Length ()
-        {
-            Fixed32 num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Normalise ()
-        {
-            Fixed32 one = 1;
-            Fixed32 num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
-            Fixed32 num = one / RealMaths.Sqrt (num2);
-            this.X *= num;
-            this.Y *= num;
-            this.Z *= num;
-            this.W *= num;
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public Boolean IsUnit()
-        {
-            Fixed32 one = 1;
-
-            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        public void Conjugate ()
-        {
-            this.X = -this.X;
-            this.Y = -this.Y;
-            this.Z = -this.Z;
-        }
 
         // Constants //-------------------------------------------------------//
 
@@ -23333,7 +24147,10 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromAxisAngle (ref Vector3 axis, Fixed32 angle, out Quaternion result)
+        public static void CreateFromAxisAngle (
+            ref Vector3 axis,
+            ref Fixed32 angle,
+            out Quaternion result)
         {
             Fixed32 half; RealMaths.Half(out half);
             Fixed32 theta = angle * half;
@@ -23351,7 +24168,11 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromYawPitchRoll (Fixed32 yaw, Fixed32 pitch, Fixed32 roll, out Quaternion result)
+        public static void CreateFromYawPitchRoll (
+            ref Fixed32 yaw,
+            ref Fixed32 pitch,
+            ref Fixed32 roll,
+            out Quaternion result)
         {
             Fixed32 half; RealMaths.Half(out half);
             Fixed32 num9 = roll * half;
@@ -23378,7 +24199,9 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromRotationMatrix (ref Matrix44 matrix, out Quaternion result)
+        public static void CreateFromRotationMatrix (
+            ref Matrix44 matrix,
+            out Quaternion result)
         {
             Fixed32 zero = 0;
             Fixed32 half; RealMaths.Half(out half);
@@ -23426,24 +24249,76 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Conjugate (ref Quaternion value, out Quaternion result)
+        public static void LengthSquared (
+            ref Quaternion quaternion,
+            out Fixed32 result)
+        {
+            result =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Length (
+            ref Quaternion quaternion,
+            out Fixed32 result)
+        {
+            Fixed32 lengthSquared =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
+                (quaternion.W * quaternion.W);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            Fixed32 one = 1;
+
+            result = RealMaths.IsZero(
+                one -
+                quaternion.W * quaternion.W -
+                quaternion.X * quaternion.X -
+                quaternion.Y * quaternion.Y -
+                quaternion.Z * quaternion.Z);
+        }
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Conjugate (
+            ref Quaternion value,
+            out Quaternion result)
         {
             result.X = -value.X;
             result.Y = -value.Y;
             result.Z = -value.Z;
             result.W = value.W;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Inverse (ref Quaternion quaternion, out Quaternion result)
+        public static void Inverse (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             Fixed32 one = 1;
             Fixed32 a =
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             Fixed32 b = one / a;
@@ -23453,23 +24328,29 @@ namespace Abacus.Fixed32Precision
             result.Z = -quaternion.Z * b;
             result.W =  quaternion.W * b;
         }
-        
+
         /// <summary>
         /// todo
         /// </summary>
-        public static void Dot (ref Quaternion quaternion1, ref Quaternion quaternion2, out Fixed32 result)
+        public static void Dot (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            out Fixed32 result)
         {
-            result = 
-                (quaternion1.X * quaternion2.X) + 
-                (quaternion1.Y * quaternion2.Y) + 
-                (quaternion1.Z * quaternion2.Z) + 
+            result =
+                (quaternion1.X * quaternion2.X) +
+                (quaternion1.Y * quaternion2.Y) +
+                (quaternion1.Z * quaternion2.Z) +
                 (quaternion1.W * quaternion2.W);
         }
 
         /// <summary>
         /// todo
         /// </summary>
-        public static void Concatenate (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        public static void Concatenate (
+            ref Quaternion value1,
+            ref Quaternion value2,
+            out Quaternion result)
         {
             Fixed32 x = value2.X;
             Fixed32 y = value2.Y;
@@ -23495,14 +24376,16 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Normalise (ref Quaternion quaternion, out Quaternion result)
+        public static void Normalise (
+            ref Quaternion quaternion,
+            out Quaternion result)
         {
             Fixed32 one = 1;
 
-            Fixed32 a = 
-                (quaternion.X * quaternion.X) + 
-                (quaternion.Y * quaternion.Y) + 
-                (quaternion.Z * quaternion.Z) + 
+            Fixed32 a =
+                (quaternion.X * quaternion.X) +
+                (quaternion.Y * quaternion.Y) +
+                (quaternion.Z * quaternion.Z) +
                 (quaternion.W * quaternion.W);
 
             Fixed32 b = one / RealMaths.Sqrt (a);
@@ -23522,7 +24405,7 @@ namespace Abacus.Fixed32Precision
         public override Boolean Equals (Object obj)
         {
             Boolean flag = false;
-            
+
             if (obj is Quaternion)
             {
                 flag = this.Equals ((Quaternion) obj);
@@ -23539,10 +24422,10 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public Boolean Equals (Quaternion other)
         {
-            return 
-                (this.X == other.X) && 
-                (this.Y == other.Y) && 
-                (this.Z == other.Z) && 
+            return
+                (this.X == other.X) &&
+                (this.Y == other.Y) &&
+                (this.Z == other.Z) &&
                 (this.W == other.W);
         }
 
@@ -23556,7 +24439,7 @@ namespace Abacus.Fixed32Precision
         {
             return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
         }
-        
+
         /// <summary>
         /// Determines whether or not two Quaternion objects are not equal using
         /// the (X!=Y) operator.
@@ -23574,7 +24457,10 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Performs addition of two Quaternion objects.
         /// </summary>
-        public static void Add (ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        public static void Add (
+            ref Quaternion value1,
+            ref Quaternion value2,
+            out Quaternion result)
         {
             result.X = value1.X + value2.X;
             result.Y = value1.Y + value2.Y;
@@ -23583,7 +24469,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Performs addition of two Quaternion objects using the (X+Y) operator. 
+        /// Performs addition of two Quaternion objects using the (X+Y) operator.
         /// </summary>
         public static Quaternion operator + (Quaternion value1, Quaternion value2)
         {
@@ -23609,7 +24495,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Performs subtraction of two Quaternion objects using the (X-Y) 
+        /// Performs subtraction of two Quaternion objects using the (X-Y)
         /// operator.
         /// </summary>
         public static Quaternion operator - (Quaternion value1, Quaternion value2)
@@ -23623,7 +24509,7 @@ namespace Abacus.Fixed32Precision
         }
 
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Quaternion object.
         /// </summary>
@@ -23647,7 +24533,7 @@ namespace Abacus.Fixed32Precision
             quat.W = -value.W;
             return quat;
         }
-        
+
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
@@ -23695,7 +24581,7 @@ namespace Abacus.Fixed32Precision
         public static Quaternion operator * (Quaternion value1, Quaternion value2)
         {
             Quaternion quaternion;
-            
+
             Fixed32 x1 = value1.X;
             Fixed32 y1 = value1.Y;
             Fixed32 z1 = value1.Z;
@@ -23718,7 +24604,7 @@ namespace Abacus.Fixed32Precision
 
             return quaternion;
         }
-        
+
         /// <summary>
         /// Performs multiplication of a Quaternion object and a Fixed32
         /// precision scaling factor using the (X*y) operator.
@@ -23732,9 +24618,9 @@ namespace Abacus.Fixed32Precision
             quat.W = value1.W * scaleFactor;
             return quat;
         }
-        
+
         /// <summary>
-        /// Performs multiplication of a Fixed32 precision scaling factor 
+        /// Performs multiplication of a Fixed32 precision scaling factor
         /// and aQuaternion object using the (x*Y) operator.
         /// </summary>
         public static Quaternion operator * (Fixed32 scaleFactor, Quaternion value1)
@@ -23746,7 +24632,7 @@ namespace Abacus.Fixed32Precision
             quat.W = value1.W * scaleFactor;
             return quat;
         }
-        
+
         // Division Operators //----------------------------------------------//
 
         /// <summary>
@@ -23761,10 +24647,10 @@ namespace Abacus.Fixed32Precision
             Fixed32 z = value1.Z;
             Fixed32 w = value1.W;
 
-            Fixed32 a = 
-                (value2.X * value2.X) + 
+            Fixed32 a =
+                (value2.X * value2.X) +
                 (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) + 
+                (value2.Z * value2.Z) +
                 (value2.W * value2.W);
 
             Fixed32 b = one / a;
@@ -23814,10 +24700,10 @@ namespace Abacus.Fixed32Precision
             Fixed32 z = value1.Z;
             Fixed32 w = value1.W;
 
-            Fixed32 a = 
-                (value2.X * value2.X) + 
+            Fixed32 a =
+                (value2.X * value2.X) +
                 (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) + 
+                (value2.Z * value2.Z) +
                 (value2.W * value2.W);
 
             Fixed32 b = one / a;
@@ -23839,7 +24725,7 @@ namespace Abacus.Fixed32Precision
 
             return quaternion;
         }
-        
+
         /// <summary>
         /// Performs division of a Quaternion object and a Fixed32 precision
         /// scaling factor using the (X/y) operator.
@@ -23863,7 +24749,11 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Slerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Fixed32 amount, out Quaternion result)
+        public static void Slerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Fixed32 amount,
+            out Quaternion result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
@@ -23906,7 +24796,11 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public static void Lerp (ref Quaternion quaternion1, ref Quaternion quaternion2, Fixed32 amount, out Quaternion result)
+        public static void Lerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Fixed32 amount,
+            out Quaternion result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
@@ -23938,7 +24832,60 @@ namespace Abacus.Fixed32Precision
             result.W *= num3;
         }
 
-    }    /// <summary>
+
+#if (VARIANTS_ENABLED)
+
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Fixed32 LengthSquared ()
+        {
+            Fixed32 result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Fixed32 Length ()
+        {
+            Fixed32 result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Conjugate ()
+        {
+            Conjugate (ref this, out this);
+        }
+
+
+#endif
+    }
+    /// <summary>
     /// Fixed32 precision Vector2.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
@@ -24156,7 +25103,9 @@ namespace Abacus.Fixed32Precision
         public static void Reflect (
             ref Vector2 vector, ref Vector2 normal, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -24173,7 +25122,9 @@ namespace Abacus.Fixed32Precision
 
             // Starting vector minus twice the length of the adjcent projected
             // along the normal.
-            result = vector - (twoDot * normal);
+            Vector2 m;
+            Vector2.Multiply (ref normal, ref twoDot, out m);
+            Vector2.Subtract (ref vector, ref m, out result);
         }
 
         /// <summary>
@@ -24233,7 +25184,9 @@ namespace Abacus.Fixed32Precision
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -24275,7 +25228,7 @@ namespace Abacus.Fixed32Precision
         public static void Equals (
             ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
         {
-            result = ((vector1.X == vector2.X) && (vector1.Y == vector2.Y));
+            result = (vector1.X == vector2.X) && (vector1.Y == vector2.Y);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -24374,14 +25327,15 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Fixed32 two = 2;
+            Fixed32 three = 3;
 
             amount = (amount * amount) * (three - (two * amount));
 
@@ -24416,11 +25370,11 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
-            Fixed32 half; RealMaths.Half(out half);
             Fixed32 two = 2;
             Fixed32 three = 3;
             Fixed32 four = 4;
             Fixed32 five = 5;
+            Fixed32 half; RealMaths.Half(out half);
 
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
@@ -24434,7 +25388,7 @@ namespace Abacus.Fixed32Precision
 
             // (-P1 + P3) * t
             result.X += (
-                    - vector1.X 
+                    - vector1.X
                     + vector3.X
                 ) * amount;
 
@@ -24448,9 +25402,9 @@ namespace Abacus.Fixed32Precision
 
             // (-P1 + 3*P2- 3*P3 + P4) * t^3
             result.X += (
-                    - (vector1.X) 
-                    + (three * vector2.X) 
-                    - (three * vector3.X) 
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
                     + (vector4.X)
                 ) * cubed;
 
@@ -24466,7 +25420,7 @@ namespace Abacus.Fixed32Precision
 
             // (-P1 + P3) * t
             result.Y += (
-                    - vector1.Y 
+                    - vector1.Y
                     + vector3.Y
                 ) * amount;
 
@@ -24480,9 +25434,9 @@ namespace Abacus.Fixed32Precision
 
             // (-P1 + 3*P2- 3*P3 + P4) * t^3
             result.Y += (
-                    - (vector1.Y) 
-                    + (three * vector2.Y) 
-                    - (three * vector3.Y) 
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
                     + (vector4.Y)
                 ) * cubed;
 
@@ -24503,8 +25457,6 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -24513,10 +25465,17 @@ namespace Abacus.Fixed32Precision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector2.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector2.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Fixed32 two = 2;
+            Fixed32 three = 3;
 
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
@@ -24614,6 +25573,8 @@ namespace Abacus.Fixed32Precision
                 one - vector.X * vector.X - vector.Y * vector.Y);
         }
 
+
+#if (VARIANTS_ENABLED)
 
         // Variant Maths //---------------------------------------------------//
 
@@ -25095,13 +26056,16 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
+
+#endif
+
     }
 
     /// <summary>
     /// Fixed32 precision Vector3.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Vector3 
+    public struct Vector3
         : IEquatable<Vector3>
     {
         /// <summary>
@@ -25120,7 +26084,7 @@ namespace Abacus.Fixed32Precision
         public Fixed32 Z;
 
         /// <summary>
-        /// Initilises a new instance of Vector3 from three Fixed32 values 
+        /// Initilises a new instance of Vector3 from three Fixed32 values
         /// representing X, Y and Z respectively.
         /// </summary>
         public Vector3 (Fixed32 x, Fixed32 y, Fixed32 z)
@@ -25129,7 +26093,7 @@ namespace Abacus.Fixed32Precision
             this.Y = y;
             this.Z = z;
         }
-        
+
         /// <summary>
         /// Initilises a new instance of Vector3 from one Vector2 value
         /// representing X and Y and one Fixed32 value representing Z.
@@ -25142,42 +26106,18 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector3.
-        /// </summary>
-        public Fixed32 Length ()
-        {
-            Fixed32 num = (this.X * this.X) + 
-                              (this.Y * this.Y) + 
-                              (this.Z * this.Z);
-
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector3 squared.
-        /// </summary>
-        public Fixed32 LengthSquared ()
-        {
-            return
-                (this.X * this.X) + 
-                (this.Y * this.Y) + 
-                (this.Z * this.Z);
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1} Z:{2}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString (), 
-                    this.Z.ToString () 
-                }
-                );
+                "{{X:{0} Y:{1} Z:{2}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString (),
+                    this.Z.ToString ()
+                });
         }
 
         /// <summary>
@@ -25186,20 +26126,39 @@ namespace Abacus.Fixed32Precision
         public override Int32 GetHashCode ()
         {
             return (
-                this.X.GetHashCode () + 
-                this.Y.GetHashCode () + 
+                this.X.GetHashCode () +
+                this.Y.GetHashCode () +
                 this.Z.GetHashCode ()
                 );
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector3 is of unit length.
+        /// Determines whether or not this Vector3 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Fixed32 one = 1;
-            return RealMaths.IsZero(one - X*X - Y*Y - Z*Z);
+            Boolean flag = false;
+            if (obj is Vector3) {
+                flag = this.Equals ((Vector3)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector3>
+
+        /// <summary>
+        /// Determines whether or not this Vector3 object is equal to another
+        /// Vector3 object.
+        /// </summary>
+        public Boolean Equals (Vector3 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -25472,7 +26431,9 @@ namespace Abacus.Fixed32Precision
             ref Vector3 normal,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -25570,7 +26531,9 @@ namespace Abacus.Fixed32Precision
             ref Matrix44 matrix,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -25596,53 +26559,41 @@ namespace Abacus.Fixed32Precision
             result.Z = z;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public static void Length (ref Vector3 vector, out Fixed32 result)
+        {
+            Fixed32 lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public static void LengthSquared (ref Vector3 vector, out Fixed32 result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+        }
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
-        /// Determines whether or not this Vector3 object is equal to another
-        /// object.
+        /// Determines whether or not two Vector3 objects are equal.
         /// </summary>
-        public override Boolean Equals (Object obj)
+        public static void Equals (
+            ref Vector3 value1, ref Vector3 vector2, out Boolean result)
         {
-            Boolean flag = false;
-            if (obj is Vector3) {
-                flag = this.Equals ((Vector3)obj);
-            }
-            return flag;
-        }
-
-        #region IEquatable<Vector3>
-
-        /// <summary>
-        /// Determines whether or not this Vector3 object is equal to another
-        /// Vector3 object.
-        /// </summary>
-        public Boolean Equals (Vector3 other)
-        {
-            return (((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z));
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Determines whether or not two Vector3 objects are equal using the
-        /// (X==Y) operator.
-        /// </summary>
-        public static Boolean operator == (Vector3 value1, Vector3 value2)
-        {
-            return (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z));
-        }
-
-        /// <summary>
-        /// Determines whether or not two Vector3 objects are not equal using
-        /// the (X!=Y) operator.
-        /// </summary>
-        public static Boolean operator != (Vector3 value1, Vector3 value2)
-        {
-            if ((value1.X == value2.X) && (value1.Y == value2.Y)) {
-                return !(value1.Z == value2.Z);
-            }
-            return true;
+            result =
+                (value1.X == vector2.X) &&
+                (value1.Y == vector2.Y) &&
+                (value1.Z == vector2.Z);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -25650,54 +26601,29 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Performs addition of two Vector3 objects.
         /// </summary>
-        public static void Add (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Add (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
-            result.Z = value1.Z + value2.Z;
+            result.X = value1.X + vector2.X;
+            result.Y = value1.Y + vector2.Y;
+            result.Z = value1.Z + vector2.Z;
         }
-
-        /// <summary>
-        /// Performs addition of two Vector3 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector3 operator + (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            vector.Z = value1.Z + value2.Z;
-            return vector;
-        }
-
 
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector3 objects.
         /// </summary>
-        public static void Subtract (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Subtract (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
-            result.Z = value1.Z - value2.Z;
+            result.X = value1.X - vector2.X;
+            result.Y = value1.Y - vector2.Y;
+            result.Z = value1.Z - vector2.Z;
         }
-
-        /// <summary>
-        /// Performs subtraction of two Vector3 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector3 operator - (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            vector.Z = value1.Z - value2.Z;
-            return vector;
-        }
-
 
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector3 object.
         /// </summary>
@@ -25708,78 +26634,29 @@ namespace Abacus.Fixed32Precision
             result.Z = -value.Z;
         }
 
-        /// <summary>
-        /// Performs negation of a Vector3 object using the (-X) operator.
-        /// </summary>
-        public static Vector3 operator - (Vector3 value)
-        {
-            Vector3 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            vector.Z = -value.Z;
-            return vector;
-        }
-
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector3 objects.
         /// </summary>
-        public static void Multiply (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Multiply (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X * value2.X;
-            result.Y = value1.Y * value2.Y;
-            result.Z = value1.Z * value2.Z;
+            result.X = value1.X * vector2.X;
+            result.Y = value1.Y * vector2.Y;
+            result.Z = value1.Z * vector2.Z;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector3 object and a Fixed32
         /// precision scaling factor.
         /// </summary>
-        public static void Multiply (ref Vector3 value1, Fixed32 scaleFactor, out Vector3 result)
+        public static void Multiply (
+            ref Vector3 value1, ref Fixed32 scaleFactor, out Vector3 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
             result.Z = value1.Z * scaleFactor;
-        }
-
-        /// <summary>
-        /// Performs muliplication of two Vector3 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector3 operator * (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            vector.Z = value1.Z * value2.Z;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Vector3 object and a Fixed32
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector3 operator * (Vector3 value, Fixed32 scaleFactor)
-        {
-            Vector3 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            vector.Z = value.Z * scaleFactor;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs multiplication of a Fixed32 precision scaling factor 
-        /// and aVector3 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector3 operator * (Fixed32 scaleFactor, Vector3 value)
-        {
-            Vector3 vector;
-            vector.X = value.X * scaleFactor;
-            vector.Y = value.Y * scaleFactor;
-            vector.Z = value.Z * scaleFactor;
-            return vector;
         }
 
         // Division Operators //----------------------------------------------//
@@ -25787,54 +26664,28 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Performs division of two Vector3 objects.
         /// </summary>
-        public static void Divide (ref Vector3 value1, ref Vector3 value2, out Vector3 result)
+        public static void Divide (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
         {
-            result.X = value1.X / value2.X;
-            result.Y = value1.Y / value2.Y;
-            result.Z = value1.Z / value2.Z;
+            result.X = value1.X / vector2.X;
+            result.Y = value1.Y / vector2.Y;
+            result.Z = value1.Z / vector2.Z;
         }
 
         /// <summary>
         /// Performs division of a Vector3 object and a Fixed32 precision
         /// scaling factor.
         /// </summary>
-        public static void Divide (ref Vector3 value1, Fixed32 value2, out Vector3 result)
+        public static void Divide (
+            ref Vector3 value1, ref Fixed32 vector2, out Vector3 result)
         {
             Fixed32 one = 1;
-            Fixed32 num = one / value2;
+            Fixed32 num = one / vector2;
             result.X = value1.X * num;
             result.Y = value1.Y * num;
             result.Z = value1.Z * num;
         }
 
-        /// <summary>
-        /// Performs division of two Vector3 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector3 operator / (Vector3 value1, Vector3 value2)
-        {
-            Vector3 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            vector.Z = value1.Z / value2.Z;
-            return vector;
-        }
-
-        /// <summary>
-        /// Performs division of a Vector3 object and a Fixed32 precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector3 operator / (Vector3 value, Fixed32 divider)
-        {
-            Vector3 vector;
-            Fixed32 one = 1;
-
-            Fixed32 num = one / divider;
-            vector.X = value.X * num;
-            vector.Y = value.Y * num;
-            vector.Z = value.Z * num;
-            return vector;
-        }
-        
         // Splines //---------------------------------------------------------//
 
         /// <summary>
@@ -25843,19 +26694,20 @@ namespace Abacus.Fixed32Precision
         public static void SmoothStep (
             ref Vector3 vector1,
             ref Vector3 vector2,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector3 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Fixed32 two = 2;
+            Fixed32 three = 3;
 
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
@@ -25880,16 +26732,11 @@ namespace Abacus.Fixed32Precision
             ref Vector3 vector2,
             ref Vector3 vector3,
             ref Vector3 vector4,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector3 result)
         {
-            Fixed32 half; RealMaths.Half(out half);
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
-            Fixed32 four = 4;
-            Fixed32 five = 5;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -25897,26 +26744,110 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
+            Fixed32 two = 2;
+            Fixed32 three = 3;
+            Fixed32 four = 4;
+            Fixed32 five = 5;
+            Fixed32 half; RealMaths.Half(out half);
+
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
 
-            result.X =
-                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
-                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
-                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
-                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y =
-                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
-                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
-                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
-                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
 
-            result.Z =
-                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
-                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
-                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
-                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
+
+            ///////
+            // Z //
+            ///////
+
+            // (2 * P2)
+            result.Z = (two * vector2.Z);
+
+            // (-P1 + P3) * t
+            result.Z += (
+                    - vector1.Z
+                    + vector3.Z
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Z += (
+                    + (two * vector1.Z)
+                    - (five * vector2.Z)
+                    + (four * vector3.Z)
+                    - (vector4.Z)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Z += (
+                    - (vector1.Z)
+                    + (three * vector2.Z)
+                    - (three * vector3.Z)
+                    + (vector4.Z)
+                ) * cubed;
+
+            // 0.5
+            result.Z *= half;
         }
 
         /// <summary>
@@ -25927,13 +26858,11 @@ namespace Abacus.Fixed32Precision
             ref Vector3 tangent1,
             ref Vector3 vector2,
             ref Vector3 tangent2,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector3 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -25942,10 +26871,17 @@ namespace Abacus.Fixed32Precision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector3.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector3.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Fixed32 two = 2;
+            Fixed32 three = 3;
 
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
@@ -25971,7 +26907,7 @@ namespace Abacus.Fixed32Precision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -25985,7 +26921,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -25997,7 +26933,7 @@ namespace Abacus.Fixed32Precision
             result.Y = (a.Y > b.Y) ? a.Y : b.Y;
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -26027,7 +26963,7 @@ namespace Abacus.Fixed32Precision
         public static void Lerp (
             ref Vector3 a,
             ref Vector3 b,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector3 result)
         {
             Fixed32 zero = 0;
@@ -26036,20 +26972,176 @@ namespace Abacus.Fixed32Precision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector3 vector, out Boolean result)
+        {
+            Fixed32 one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z);
+        }
 
+#if (VARIANTS_ENABLED)
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector3 object using the (-X) operator.
+        /// </summary>
+        public static Vector3 operator - (Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a Fixed32
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector3 operator * (Vector3 value, Fixed32 scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Fixed32 precision scaling factor
+        /// and a Vector3 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector3 operator * (Fixed32 scaleFactor, Vector3 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a Fixed32 precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector3 operator / (Vector3 value, Fixed32 divider)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Calculates the length of this Vector3.
+        /// </summary>
+        public Fixed32 Length ()
+        {
+            Fixed32 result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector3 squared.
+        /// </summary>
+        public Fixed32 LengthSquared ()
+        {
+            Fixed32 result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector3.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+#endif
     }
 
     /// <summary>
     /// Fixed32 precision Vector4.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Vector4 
+    public struct Vector4
         : IEquatable<Vector4>
     {
         /// <summary>
@@ -26073,13 +27165,13 @@ namespace Abacus.Fixed32Precision
         public Fixed32 W;
 
         /// <summary>
-        /// Initilises a new instance of Vector4 from four Fixed32 values 
+        /// Initilises a new instance of Vector4 from four Fixed32 values
         /// representing X, Y, Z and W respectively.
         /// </summary>
         public Vector4 (
-            Fixed32 x, 
-            Fixed32 y, 
-            Fixed32 z, 
+            Fixed32 x,
+            Fixed32 y,
+            Fixed32 z,
             Fixed32 w)
         {
             this.X = x;
@@ -26114,45 +27206,19 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Calculates the length of the Vector4.
-        /// </summary>
-        public Fixed32 Length ()
-        {
-            Fixed32 num = (this.X * this.X) + 
-                              (this.Y * this.Y) + 
-                              (this.Z * this.Z) + 
-                              (this.W * this.W);
-            
-            return RealMaths.Sqrt (num);
-        }
-
-        /// <summary>
-        /// Calculates the length of the Vector4 squared.
-        /// </summary>
-        public Fixed32 LengthSquared ()
-        {
-            return 
-                (this.X * this.X) + 
-                (this.Y * this.Y) + 
-                (this.Z * this.Z) + 
-                (this.W * this.W);
-        }
-
-        /// <summary>
         /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
             return string.Format (
-                "{{X:{0} Y:{1} Z:{2} W:{3}}}", 
-                new Object[] 
-                { 
-                    this.X.ToString (), 
-                    this.Y.ToString (), 
-                    this.Z.ToString (), 
-                    this.W.ToString () 
-                }
-                );
+                "{{X:{0} Y:{1} Z:{2} W:{3}}}",
+                new Object[]
+                {
+                    this.X.ToString (),
+                    this.Y.ToString (),
+                    this.Z.ToString (),
+                    this.W.ToString ()
+                });
         }
 
         /// <summary>
@@ -26161,21 +27227,40 @@ namespace Abacus.Fixed32Precision
         public override Int32 GetHashCode ()
         {
             return (
-                this.X.GetHashCode () + 
-                this.Y.GetHashCode () + 
-                this.Z.GetHashCode () + 
+                this.X.GetHashCode () +
+                this.Y.GetHashCode () +
+                this.Z.GetHashCode () +
                 this.W.GetHashCode ()
                 );
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector4 is of unit length.
+        /// Determines whether or not this Vector4 object is equal to another
+        /// object.
         /// </summary>
-        public Boolean IsUnit()
+        public override Boolean Equals (Object obj)
         {
-            Fixed32 one = 1;
-            return RealMaths.IsZero(one - W*W - X*X - Y*Y - Z*Z);
+            Boolean flag = false;
+            if (obj is Vector4) {
+                flag = this.Equals ((Vector4)obj);
+            }
+            return flag;
         }
+
+        #region IEquatable<Vector4>
+
+        /// <summary>
+        /// Determines whether or not this Vector4 object is equal to another
+        /// Vector4 object.
+        /// </summary>
+        public Boolean Equals (Vector4 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
 
         // Constants //-------------------------------------------------------//
 
@@ -26453,7 +27538,9 @@ namespace Abacus.Fixed32Precision
             ref Matrix44 matrix,
             out Vector4 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector4.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -26481,53 +27568,46 @@ namespace Abacus.Fixed32Precision
             result.W = w;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static void Length (ref Vector4 vector, out Fixed32 result)
+        {
+            Fixed32 lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static void LengthSquared (
+            ref Vector4 vector, out Fixed32 result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+        }
         // Equality Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Determines whether or not this Vector4 object is equal to another
-        /// object.
-        /// </summary>
-        public override Boolean Equals (Object obj)
-        {
-            Boolean flag = false;
-            if (obj is Vector4) {
-                flag = this.Equals ((Vector4)obj);
-            }
-            return flag;
-        }
-
-        #region IEquatable<Vector4>
-
-        /// <summary>
-        /// Determines whether or not this Vector4 object is equal to another
-        /// Vector4 object.
-        /// </summary>
-        public Boolean Equals (Vector4 other)
-        {
-            return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
-        }
-
-        #endregion
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        public static void Equals (
+            ref Vector4 value1, ref Vector4 value2, out Boolean result)
         {
-            return ((((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) && (value1.W == value2.W));
-        }
-        
-        /// <summary>
-        /// Determines whether or not two Vector4 objects are not equal using
-        /// the (X!=Y) operator.
-        /// </summary>
-        public static Boolean operator != (Vector4 value1, Vector4 value2)
-        {
-            if (((value1.X == value2.X) && (value1.Y == value2.Y)) && (value1.Z == value2.Z)) {
-                return !(value1.W == value2.W);
-            }
-            return true;
+            result =
+                (value1.X == value2.X) &&
+                (value1.Y == value2.Y) &&
+                (value1.Z == value2.Z) &&
+                (value1.W == value2.W);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -26535,7 +27615,8 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Performs addition of two Vector4 objects.
         /// </summary>
-        public static void Add (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Add (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X + value2.X;
             result.Y = value1.Y + value2.Y;
@@ -26543,25 +27624,13 @@ namespace Abacus.Fixed32Precision
             result.W = value1.W + value2.W;
         }
 
-        /// <summary>
-        /// Performs addition of two Vector4 objects using the (X+Y) operator. 
-        /// </summary>
-        public static Vector4 operator + (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X + value2.X;
-            vector.Y = value1.Y + value2.Y;
-            vector.Z = value1.Z + value2.Z;
-            vector.W = value1.W + value2.W;
-            return vector;
-        }
-
         // Subtraction Operators //-------------------------------------------//
 
         /// <summary>
         /// Performs subtraction of two Vector4 objects.
         /// </summary>
-        public static void Subtract (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Subtract (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X - value2.X;
             result.Y = value1.Y - value2.Y;
@@ -26569,26 +27638,13 @@ namespace Abacus.Fixed32Precision
             result.W = value1.W - value2.W;
         }
 
-        /// <summary>
-        /// Performs subtraction of two Vector4 objects using the (X-Y) 
-        /// operator.
-        /// </summary>
-        public static Vector4 operator - (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X - value2.X;
-            vector.Y = value1.Y - value2.Y;
-            vector.Z = value1.Z - value2.Z;
-            vector.W = value1.W - value2.W;
-            return vector;
-        }
-
         // Negation Operators //----------------------------------------------//
-        
+
         /// <summary>
         /// Performs negation of a Vector4 object.
         /// </summary>
-        public static void Negate (ref Vector4 value, out Vector4 result)
+        public static void Negate (
+            ref Vector4 value, out Vector4 result)
         {
             result.X = -value.X;
             result.Y = -value.Y;
@@ -26596,25 +27652,13 @@ namespace Abacus.Fixed32Precision
             result.W = -value.W;
         }
 
-        /// <summary>
-        /// Performs negation of a Vector4 object using the (-X) operator.
-        /// </summary>
-        public static Vector4 operator - (Vector4 value)
-        {
-            Vector4 vector;
-            vector.X = -value.X;
-            vector.Y = -value.Y;
-            vector.Z = -value.Z;
-            vector.W = -value.W;
-            return vector;
-        }
-        
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
         /// Performs muliplication of two Vector4 objects.
         /// </summary>
-        public static void Multiply (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Multiply (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X * value2.X;
             result.Y = value1.Y * value2.Y;
@@ -26626,7 +27670,8 @@ namespace Abacus.Fixed32Precision
         /// Performs multiplication of a Vector4 object and a Fixed32
         /// precision scaling factor.
         /// </summary>
-        public static void Multiply (ref Vector4 value1, Fixed32 scaleFactor, out Vector4 result)
+        public static void Multiply (
+            ref Vector4 value1, ref Fixed32 scaleFactor, out Vector4 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
@@ -26634,54 +27679,13 @@ namespace Abacus.Fixed32Precision
             result.W = value1.W * scaleFactor;
         }
 
-        /// <summary>
-        /// Performs muliplication of two Vector4 objects using the (X*Y)
-        /// operator.
-        /// </summary>
-        public static Vector4 operator * (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X * value2.X;
-            vector.Y = value1.Y * value2.Y;
-            vector.Z = value1.Z * value2.Z;
-            vector.W = value1.W * value2.W;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs multiplication of a Vector4 object and a Fixed32
-        /// precision scaling factor using the (X*y) operator.
-        /// </summary>
-        public static Vector4 operator * (Vector4 value1, Fixed32 scaleFactor)
-        {
-            Vector4 vector;
-            vector.X = value1.X * scaleFactor;
-            vector.Y = value1.Y * scaleFactor;
-            vector.Z = value1.Z * scaleFactor;
-            vector.W = value1.W * scaleFactor;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs multiplication of a Fixed32 precision scaling factor 
-        /// and aVector4 object using the (x*Y) operator.
-        /// </summary>
-        public static Vector4 operator * (Fixed32 scaleFactor, Vector4 value1)
-        {
-            Vector4 vector;
-            vector.X = value1.X * scaleFactor;
-            vector.Y = value1.Y * scaleFactor;
-            vector.Z = value1.Z * scaleFactor;
-            vector.W = value1.W * scaleFactor;
-            return vector;
-        }
-        
         // Division Operators //----------------------------------------------//
 
         /// <summary>
         /// Performs division of two Vector4 objects.
         /// </summary>
-        public static void Divide (ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        public static void Divide (
+            ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
             result.X = value1.X / value2.X;
             result.Y = value1.Y / value2.Y;
@@ -26693,7 +27697,8 @@ namespace Abacus.Fixed32Precision
         /// Performs division of a Vector4 object and a Fixed32 precision
         /// scaling factor.
         /// </summary>
-        public static void Divide (ref Vector4 value1, Fixed32 divider, out Vector4 result)
+        public static void Divide (
+            ref Vector4 value1, ref Fixed32 divider, out Vector4 result)
         {
             Fixed32 one = 1;
             Fixed32 num = one / divider;
@@ -26701,35 +27706,6 @@ namespace Abacus.Fixed32Precision
             result.Y = value1.Y * num;
             result.Z = value1.Z * num;
             result.W = value1.W * num;
-        }
-
-        /// <summary>
-        /// Performs division of two Vector4 objects using the (X/Y) operator.
-        /// </summary>
-        public static Vector4 operator / (Vector4 value1, Vector4 value2)
-        {
-            Vector4 vector;
-            vector.X = value1.X / value2.X;
-            vector.Y = value1.Y / value2.Y;
-            vector.Z = value1.Z / value2.Z;
-            vector.W = value1.W / value2.W;
-            return vector;
-        }
-        
-        /// <summary>
-        /// Performs division of a Vector4 object and a Fixed32 precision
-        /// scaling factor using the (X/y) operator.
-        /// </summary>
-        public static Vector4 operator / (Vector4 value1, Fixed32 divider)
-        {
-            Fixed32 one = 1;
-            Vector4 vector;
-            Fixed32 num = one / divider;
-            vector.X = value1.X * num;
-            vector.Y = value1.Y * num;
-            vector.Z = value1.Z * num;
-            vector.W = value1.W * num;
-            return vector;
         }
 
         // Splines //---------------------------------------------------------//
@@ -26740,19 +27716,20 @@ namespace Abacus.Fixed32Precision
         public static void SmoothStep (
             ref Vector4 vector1,
             ref Vector4 vector2,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector4 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Fixed32 two = 2;
+            Fixed32 three = 3;
 
             amount = (amount > one) ? one : ((amount < zero) ? zero : amount);
             amount = (amount * amount) * (three - (two * amount));
@@ -26778,16 +27755,11 @@ namespace Abacus.Fixed32Precision
             ref Vector4 vector2,
             ref Vector4 vector3,
             ref Vector4 vector4,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector4 result)
         {
-            Fixed32 half; RealMaths.Half(out half);
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
-            Fixed32 four = 4;
-            Fixed32 five = 5;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -26795,32 +27767,142 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
+            Fixed32 two = 2;
+            Fixed32 three = 3;
+            Fixed32 four = 4;
+            Fixed32 five = 5;
+            Fixed32 half; RealMaths.Half(out half);
+
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
 
-            result.X =
-                half * ((((two * vector2.X) + ((-vector1.X + vector3.X) *
-                amount)) + (((((two * vector1.X) - (five * vector2.X)) + (four *
-                vector3.X)) - vector4.X) * squared)) + ((((-vector1.X + (three *
-                vector2.X)) - (three * vector3.X)) + vector4.X) * cubed));
+            ///////
+            // X //
+            ///////
 
-            result.Y =
-                half * ((((two * vector2.Y) + ((-vector1.Y + vector3.Y) *
-                amount)) + (((((two * vector1.Y) - (five * vector2.Y)) + (four *
-                vector3.Y)) - vector4.Y) * squared)) + ((((-vector1.Y + (three *
-                vector2.Y)) - (three * vector3.Y)) + vector4.Y) * cubed));
+            // (2 * P2)
+            result.X = (two * vector2.X);
 
-            result.Z =
-                half * ((((two * vector2.Z) + ((-vector1.Z + vector3.Z) *
-                amount)) + (((((two * vector1.Z) - (five * vector2.Z)) + (four *
-                vector3.Z)) - vector4.Z) * squared)) + ((((-vector1.Z + (three *
-                vector2.Z)) - (three * vector3.Z)) + vector4.Z) * cubed));
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X
+                    + vector3.X
+                ) * amount;
 
-            result.W =
-                half * ((((two * vector2.W) + ((-vector1.W + vector3.W) *
-                amount)) + (((((two * vector1.W) - (five * vector2.W)) + (four *
-                vector3.W)) - vector4.W) * squared)) + ((((-vector1.W + (three *
-                vector2.W)) - (three * vector3.W)) + vector4.W) * cubed));
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
+
+            ///////
+            // Z //
+            ///////
+
+            // (2 * P2)
+            result.Z = (two * vector2.Z);
+
+            // (-P1 + P3) * t
+            result.Z += (
+                    - vector1.Z
+                    + vector3.Z
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Z += (
+                    + (two * vector1.Z)
+                    - (five * vector2.Z)
+                    + (four * vector3.Z)
+                    - (vector4.Z)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Z += (
+                    - (vector1.Z)
+                    + (three * vector2.Z)
+                    - (three * vector3.Z)
+                    + (vector4.Z)
+                ) * cubed;
+
+            // 0.5
+            result.Z *= half;
+
+            ///////
+            // W //
+            ///////
+
+            // (2 * P2)
+            result.W = (two * vector2.W);
+
+            // (-P1 + P3) * t
+            result.W += (
+                    - vector1.W
+                    + vector3.W
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.W += (
+                    + (two * vector1.W)
+                    - (five * vector2.W)
+                    + (four * vector3.W)
+                    - (vector4.W)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.W += (
+                    - (vector1.W)
+                    + (three * vector2.W)
+                    - (three * vector3.W)
+                    + (vector4.W)
+                ) * cubed;
+
+            // 0.5
+            result.W *= half;
         }
 
         /// <summary>
@@ -26831,13 +27913,11 @@ namespace Abacus.Fixed32Precision
             ref Vector4 tangent1,
             ref Vector4 vector2,
             ref Vector4 tangent2,
-            Fixed32 amount,
+            ref Fixed32 amount,
             out Vector4 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 three = 3;
 
             // Make sure that the weighting vector is within the supported range.
             if( amount < zero || amount > one )
@@ -26846,10 +27926,17 @@ namespace Abacus.Fixed32Precision
             }
 
             // Make sure that the tangents have been normalised.
-            if( !tangent1.IsUnit() || !tangent2.IsUnit() )
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector4.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector4.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Fixed32 two = 2;
+            Fixed32 three = 3;
 
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
@@ -26879,7 +27966,7 @@ namespace Abacus.Fixed32Precision
         // Utilities //-------------------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching 
+        /// Returns a vector that contains the lowest value from each matching
         /// pair of components.
         /// </summary>
         public static void Min (
@@ -26894,7 +27981,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching 
+        /// Returns a vector that contains the highest value from each matching
         /// pair of components.
         /// </summary>
         public static void Max (
@@ -26907,7 +27994,7 @@ namespace Abacus.Fixed32Precision
             result.Z = (a.Z > b.Z) ? a.Z : b.Z;
             result.W = (a.W > b.W) ? a.W : b.W;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -26934,7 +28021,7 @@ namespace Abacus.Fixed32Precision
             result.Z = z;
             result.W = w;
         }
-        
+
         /// <summary>
         /// Performs a linear interpolation between two vectors.
         /// </summary>
@@ -26950,17 +28037,170 @@ namespace Abacus.Fixed32Precision
             {
                 throw new ArgumentOutOfRangeException();
             }
-            
+
             result.X = a.X + ((b.X - a.X) * amount);
             result.Y = a.Y + ((b.Y - a.Y) * amount);
             result.Z = a.Z + ((b.Z - a.Z) * amount);
             result.W = a.W + ((b.W - a.W) * amount);
         }
 
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public static void IsUnit (ref Vector4 vector, out Boolean result)
+        {
+            Fixed32 one = 1;
+            result = RealMaths.IsZero(
+                one
+                - vector.X * vector.X
+                - vector.Y * vector.Y
+                - vector.Z * vector.Z
+                - vector.W * vector.W);
+        }
 
 
+#if (VARIANTS_ENABLED)
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector4 objects using the (X+Y) operator.
+        /// </summary>
+        public static Vector4 operator + (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector4 objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector4 object using the (-X) operator.
+        /// </summary>
+        public static Vector4 operator - (Vector4 value)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector4 objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector4 object and a Fixed32
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Vector4 operator * (Vector4 value1, Fixed32 scaleFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Fixed32 precision scaling factor
+        /// and aVector4 object using the (x*Y) operator.
+        /// </summary>
+        public static Vector4 operator * (Fixed32 scaleFactor, Vector4 value1)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector4 objects using the (X/Y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, Vector4 value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Performs division of a Vector4 object and a Fixed32 precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Vector4 operator / (Vector4 value1, Fixed32 divider)
+        {
+            throw new NotImplementedException();
+        }
 
 
+        /// <summary>
+        /// Calculates the length of this Vector4.
+        /// </summary>
+        public Fixed32 Length ()
+        {
+            Fixed32 result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector4 squared.
+        /// </summary>
+        public Fixed32 LengthSquared ()
+        {
+            Fixed32 result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector4.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+
+#endif
     }
 
 }

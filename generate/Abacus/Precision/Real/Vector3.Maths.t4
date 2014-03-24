@@ -101,7 +101,9 @@
             ref Vector3 normal,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -199,7 +201,9 @@
             ref Matrix44 matrix,
             out Vector3 result)
         {
-            if( !normal.IsUnit() )
+            Boolean normalIsUnit;
+            Vector3.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
             {
                 throw new ArgumentOutOfRangeException(
                     "The normal vector: " + normal + " must be normalised.");
@@ -225,3 +229,26 @@
             result.Z = z;
         }
 
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public static void Length (ref Vector3 vector, out <#= type #> result)
+        {
+            <#= type #> lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+
+            result = RealMaths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public static void LengthSquared (ref Vector3 vector, out <#= type #> result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z);
+        }

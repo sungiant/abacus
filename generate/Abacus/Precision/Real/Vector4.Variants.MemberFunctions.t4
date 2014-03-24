@@ -1,0 +1,38 @@
+        /// <summary>
+        /// Calculates the length of this Vector4.
+        /// </summary>
+        public <#= type #> Length ()
+        {
+            <#= type #> result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of this Vector4 squared.
+        /// </summary>
+        public <#= type #> LengthSquared ()
+        {
+            <#= type #> result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Normalises this Vector4.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
