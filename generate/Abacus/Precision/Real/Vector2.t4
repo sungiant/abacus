@@ -44,7 +44,9 @@
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return (this.X.GetHashCode () + this.Y.GetHashCode ());
+            return
+                this.X.GetHashCode () +
+                this.Y.GetHashCode ();
         }
 
         /// <summary>

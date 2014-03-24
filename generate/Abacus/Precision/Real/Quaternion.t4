@@ -28,7 +28,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        public Quaternion (<#= type #> x, <#= type #> y, <#= type #> z, <#= type #> w)
+        public Quaternion (
+            <#= type #> x,
+            <#= type #> y,
+            <#= type #> z,
+            <#= type #> w)
         {
             this.X = x;
             this.Y = y;
@@ -60,10 +64,45 @@
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return (((this.X.GetHashCode () + this.Y.GetHashCode ()) + this.Z.GetHashCode ()) + this.W.GetHashCode ());
+            return
+                this.X.GetHashCode () +
+                this.Y.GetHashCode () +
+                this.Z.GetHashCode () +
+                this.W.GetHashCode ();
         }
 
+        /// <summary>
+        /// Determines whether or not this Quaternion object is equal to another
+        /// object
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            Boolean flag = false;
 
+            if (obj is Quaternion)
+            {
+                flag = this.Equals ((Quaternion) obj);
+            }
+
+            return flag;
+        }
+
+        #region IEquatable<Quaternion>
+
+        /// <summary>
+        /// Determines whether or not this Quaternion object is equal to another
+        /// Quaternion object.
+        /// </summary>
+        public Boolean Equals (Quaternion other)
+        {
+            return
+                (this.X == other.X) &&
+                (this.Y == other.Y) &&
+                (this.Z == other.Z) &&
+                (this.W == other.W);
+        }
+
+        #endregion
 
 <#@ include file="Quaternion.Constants.t4"#>
 <#@ include file="Quaternion.Create.t4"#>

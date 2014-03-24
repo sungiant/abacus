@@ -1,7 +1,9 @@
 ﻿        /// <summary>
         /// todo
         /// </summary>
-        public static void CreateTranslation (ref Vector3 position, out Matrix44 result)
+        public static void CreateTranslation (
+            ref Vector3 position,
+            out Matrix44 result)
         {
             result.M11 = 1;
             result.M12 = 0;
@@ -24,7 +26,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateTranslation (<#= type #> xPosition, <#= type #> yPosition, <#= type #> zPosition, out Matrix44 result)
+        public static void CreateTranslation (
+            ref <#= type #> xPosition,
+            ref <#= type #> yPosition,
+            ref <#= type #> zPosition,
+            out Matrix44 result)
         {
             result.M11 = 1;
             result.M12 = 0;
@@ -47,7 +53,11 @@
         /// <summary>
         /// Creates a scaling matrix based on x, y, z.
         /// </summary>
-        public static void CreateScale (<#= type #> xScale, <#= type #> yScale, <#= type #> zScale, out Matrix44 result)
+        public static void CreateScale (
+            ref <#= type #> xScale,
+            ref <#= type #> yScale,
+            ref <#= type #> zScale,
+            out Matrix44 result)
         {
             result.M11 = xScale;
             result.M12 = 0;
@@ -70,7 +80,9 @@
         /// <summary>
         /// Creates a scaling matrix based on a vector.
         /// </summary>
-        public static void CreateScale (ref Vector3 scales, out Matrix44 result)
+        public static void CreateScale (
+            ref Vector3 scales,
+            out Matrix44 result)
         {
             result.M11 = scales.X;
             result.M12 = 0;
@@ -93,7 +105,9 @@
         /// <summary>
         /// Create a scaling matrix consistant along each axis
         /// </summary>
-        public static void CreateScale (<#= type #> scale, out Matrix44 result)
+        public static void CreateScale (
+            ref <#= type #> scale,
+            out Matrix44 result)
         {
             result.M11 = scale;
             result.M12 = 0;
@@ -116,7 +130,9 @@
         /// <summary>
         /// http://en.wikipedia.org/wiki/Rotation_matrix
         /// </summary>
-        public static void CreateRotationX (<#= type #> radians, out Matrix44 result)
+        public static void CreateRotationX (
+            ref <#= type #> radians,
+            out Matrix44 result)
         {
             <#= type #> cos = RealMaths.Cos (radians);
             <#= type #> sin = RealMaths.Sin (radians);
@@ -142,7 +158,9 @@
         /// <summary>
         /// http://en.wikipedia.org/wiki/Rotation_matrix
         /// </summary>
-        public static void CreateRotationY (<#= type #> radians, out Matrix44 result)
+        public static void CreateRotationY (
+            ref <#= type #> radians,
+            out Matrix44 result)
         {
             <#= type #> cos = RealMaths.Cos (radians);
             <#= type #> sin = RealMaths.Sin (radians);
@@ -168,7 +186,9 @@
         /// <summary>
         /// http://en.wikipedia.org/wiki/Rotation_matrix
         /// </summary>
-        public static void CreateRotationZ (<#= type #> radians, out Matrix44 result)
+        public static void CreateRotationZ (
+            ref <#= type #> radians,
+            out Matrix44 result)
         {
             <#= type #> cos = RealMaths.Cos (radians);
             <#= type #> sin = RealMaths.Sin (radians);
@@ -194,7 +214,10 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromAxisAngle (ref Vector3 axis, <#= type #> angle, out Matrix44 result)
+        public static void CreateFromAxisAngle (
+            ref Vector3 axis,
+            ref <#= type #> angle,
+            out Matrix44 result)
         {
             <#= type #> one = 1;
 
@@ -237,7 +260,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromAllAxis (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result)
+        public static void CreateFromAllAxis (
+            ref Vector3 right,
+            ref Vector3 up,
+            ref Vector3 backward,
+            out Matrix44 result)
         {
             Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
             Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
@@ -269,7 +296,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateWorldNew (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
+        public static void CreateWorldNew (
+            ref Vector3 position,
+            ref Vector3 forward,
+            ref Vector3 up,
+            out Matrix44 result)
         {
             Vector3 backward; Vector3.Negate (ref forward, out backward);
 
@@ -289,7 +320,11 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result)
+        public static void CreateWorld (
+            ref Vector3 position,
+            ref Vector3 forward,
+            ref Vector3 up,
+            out Matrix44 result)
         {
             Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
             Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
@@ -330,7 +365,9 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromQuaternion (ref Quaternion quaternion, out Matrix44 result)
+        public static void CreateFromQuaternion (
+            ref Quaternion quaternion,
+            out Matrix44 result)
         {
             Boolean quaternionIsUnit;
             Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
@@ -380,11 +417,15 @@
         /// <summary>
         /// todo
         /// </summary>
-        public static void CreateFromYawPitchRoll (<#= type #> yaw, <#= type #> pitch, <#= type #> roll, out Matrix44 result)
+        public static void CreateFromYawPitchRoll (
+            ref <#= type #> yaw,
+            ref <#= type #> pitch,
+            ref <#= type #> roll,
+            out Matrix44 result)
         {
             Quaternion quaternion;
 
-            Quaternion.CreateFromYawPitchRoll (yaw, pitch, roll, out quaternion);
+            Quaternion.CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out quaternion);
 
             CreateFromQuaternion (ref quaternion, out result);
         }
@@ -402,7 +443,12 @@
         /// When the object and camera positions are too close, the matrix will not be accurate.
         /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
         /// </summary>
-        public static void CreateBillboard (ref Vector3 ObjectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix44 result)
+        public static void CreateBillboard (
+            ref Vector3 ObjectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraUpVector,
+            ref Vector3? cameraForwardVector,
+            out Matrix44 result)
         {
             <#= type #> zero = 0;
             <#= type #> one = 1;
@@ -456,8 +502,8 @@
             ref Vector3 objectPosition,
             ref Vector3 cameraPosition,
             ref Vector3 rotateAxis,
-            Vector3? cameraForwardVector,
-            Vector3? objectForwardVector,
+            ref Vector3? cameraForwardVector,
+            ref Vector3? objectForwardVector,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -527,10 +573,10 @@
         /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveFieldOfView (
-            <#= type #> fieldOfView,
-            <#= type #> aspectRatio,
-            <#= type #> nearPlaneDistance,
-            <#= type #> farPlaneDistance,
+            ref <#= type #> fieldOfView,
+            ref <#= type #> aspectRatio,
+            ref <#= type #> nearPlaneDistance,
+            ref <#= type #> farPlaneDistance,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -609,10 +655,10 @@
         /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspective (
-            <#= type #> width,
-            <#= type #> height,
-            <#= type #> nearPlaneDistance,
-            <#= type #> farPlaneDistance,
+            ref <#= type #> width,
+            ref <#= type #> height,
+            ref <#= type #> nearPlaneDistance,
+            ref <#= type #> farPlaneDistance,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -648,12 +694,12 @@
         /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveOffCenter (
-            <#= type #> left,
-            <#= type #> right,
-            <#= type #> bottom,
-            <#= type #> top,
-            <#= type #> nearPlaneDistance,
-            <#= type #> farPlaneDistance,
+            ref <#= type #> left,
+            ref <#= type #> right,
+            ref <#= type #> bottom,
+            ref <#= type #> top,
+            ref<#= type #> nearPlaneDistance,
+            ref <#= type #> farPlaneDistance,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -690,10 +736,10 @@
         /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographic (
-            <#= type #> width,
-            <#= type #> height,
-            <#= type #> zNearPlane,
-            <#= type #> zFarPlane,
+            ref <#= type #> width,
+            ref <#= type #> height,
+            ref <#= type #> zNearPlane,
+            ref <#= type #> zFarPlane,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
@@ -720,12 +766,12 @@
         /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographicOffCenter (
-            <#= type #> left,
-            <#= type #> right,
-            <#= type #> bottom,
-            <#= type #> top,
-            <#= type #> zNearPlane,
-            <#= type #> zFarPlane,
+            ref <#= type #> left,
+            ref <#= type #> right,
+            ref <#= type #> bottom,
+            ref <#= type #> top,
+            ref <#= type #> zNearPlane,
+            ref <#= type #> zFarPlane,
             out Matrix44 result)
         {
             <#= type #> zero = 0;

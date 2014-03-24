@@ -5,7 +5,7 @@
         public static void Lerp (
             ref Matrix44 matrix1,
             ref Matrix44 matrix2,
-            <#= type #> amount,
+            ref <#= type #> amount,
             out Matrix44 result)
         {
             <#= type #> zero = 0;

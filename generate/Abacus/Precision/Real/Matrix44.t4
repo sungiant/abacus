@@ -196,6 +196,51 @@
                 this.M44.GetHashCode ();
         }
 
+        /// <summary>
+        /// Determines whether or not this Matrix44 object is equal to another
+        /// object
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            Boolean flag = false;
+
+            if (obj is Matrix44)
+            {
+                flag = this.Equals ((Matrix44) obj);
+            }
+
+            return flag;
+        }
+
+        #region IEquatable<Matrix44>
+
+        /// <summary>
+        /// Determines whether or not this Matrix44 object is equal to another
+        /// Matrix44 object.
+        /// </summary>
+        public Boolean Equals (Matrix44 other)
+        {
+            return
+                (this.M11 == other.M11) &&
+                (this.M22 == other.M22) &&
+                (this.M33 == other.M33) &&
+                (this.M44 == other.M44) &&
+                (this.M12 == other.M12) &&
+                (this.M13 == other.M13) &&
+                (this.M14 == other.M14) &&
+                (this.M21 == other.M21) &&
+                (this.M23 == other.M23) &&
+                (this.M24 == other.M24) &&
+                (this.M31 == other.M31) &&
+                (this.M32 == other.M32) &&
+                (this.M34 == other.M34) &&
+                (this.M41 == other.M41) &&
+                (this.M42 == other.M42) &&
+                (this.M43 == other.M43);
+        }
+
+        #endregion
+
 <#@ include file="Matrix44.Accessors.t4"#>
 <#@ include file="Matrix44.Constants.t4"#>
 <#@ include file="Matrix44.Create.t4"#>

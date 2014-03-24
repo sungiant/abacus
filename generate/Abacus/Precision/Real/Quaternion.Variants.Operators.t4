@@ -1,0 +1,215 @@
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Quaternion objects are equal.
+        /// </summary>
+        public static Boolean Equals (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Boolean result;
+            Equals (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Determines whether or not two Quaternion objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static Boolean operator == (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Boolean result;
+            Equals (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Determines whether or not two Quaternion objects are not equal using
+        /// the (X!=Y) operator.
+        /// </summary>
+        public static Boolean operator != (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Boolean result;
+            Equals (ref quaternion1, ref quaternion2, out result);
+            return !result;
+        }
+
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Quaternion objects.
+        /// </summary>
+        public static Quaternion Add (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Add (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs addition of two Quaternion objects using the (X+Y) operator.
+        /// </summary>
+        public static Quaternion operator + (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Add (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        // Variant Subtraction Operators //-----------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Quaternion objects.
+        /// </summary>
+        public static Quaternion Subtract (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Subtract (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs subtraction of two Quaternion objects using the (X-Y)
+        /// operator.
+        /// </summary>
+        public static Quaternion operator - (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Subtract (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        // Variant Negation Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Quaternion object.
+        /// </summary>
+        public static Quaternion Negate (Quaternion quaternion)
+        {
+            Quaternion result;
+            Negate (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs negation of a Quaternion object using the (-X) operator.
+        /// </summary>
+        public static Quaternion operator - (Quaternion quaternion)
+        {
+            Quaternion result;
+            Negate (ref quaternion, out result);
+            return result;
+        }
+
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Quaternion objects.
+        /// </summary>
+        public static Quaternion Multiply (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Multiply (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Quaternion object and a <#= type #>
+        /// precision scaling factor.
+        /// </summary>
+        public static Quaternion Multiply (
+            Quaternion quaternion, <#= type #> scaleFactor)
+        {
+            Quaternion result;
+            Multiply (ref quaternion, ref scaleFactor, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs muliplication of two Quaternion objects using the (X*Y)
+        /// operator.
+        /// </summary>
+        public static Quaternion operator * (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Multiply (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Quaternion object and a <#= type #>
+        /// precision scaling factor using the (X*y) operator.
+        /// </summary>
+        public static Quaternion operator * (
+            Quaternion quaternion, <#= type #> scaleFactor)
+        {
+            Quaternion result;
+            Multiply (ref quaternion, ref scaleFactor, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a <#= type #> precision scaling factor
+        /// and aQuaternion object using the (x*Y) operator.
+        /// </summary>
+        public static Quaternion operator * (
+            <#= type #> scaleFactor, Quaternion quaternion)
+        {
+            Quaternion result;
+            Multiply (ref quaternion, ref scaleFactor, out result);
+            return result;
+        }
+
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Quaternion objects.
+        /// </summary>
+        public static Quaternion Divide (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Divide (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Quaternion object and a <#= type #> precision
+        /// scaling factor.
+        /// </summary>
+        public static Quaternion Divide (
+            Quaternion quaternion1, <#= type #> divider)
+        {
+            Quaternion result;
+            Divide (ref quaternion1, ref divider, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of two Quaternion objects using the (X/Y) operator.
+        /// </summary>
+        public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Divide (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Quaternion object and a <#= type #> precision
+        /// scaling factor using the (X/y) operator.
+        /// </summary>
+        public static Quaternion operator / (Quaternion quaternion1, <#= type #> divider)
+        {
+            Quaternion result;
+            Divide (ref quaternion1, ref divider, out result);
+            return result;
+        }
+

@@ -88,7 +88,7 @@
         /// <summary>
         /// todo
         /// </summary>
-        public <#= type #> Determinant ()
+        public void Determinant (out <#= type #> result)
         {
             <#= type #> num22 = this.M11;
             <#= type #> num21 = this.M12;
@@ -114,7 +114,7 @@
             <#= type #> num14 = (num8 * num2) - (num6 * num4);
             <#= type #> num13 = (num8 * num3) - (num7 * num4);
 
-            return ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+            result = ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
         }
 
         ////////////////////////////////////////////////////////////////////////
