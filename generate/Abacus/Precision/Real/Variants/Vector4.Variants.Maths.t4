@@ -1,0 +1,105 @@
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static <#= type #> Distance (
+            Vector4 vector1, Vector4 vector2)
+        {
+            <#= type #> result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static <#= type #> DistanceSquared (
+            Vector4 vector1, Vector4 vector2)
+        {
+            <#= type #> result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static <#= type #> Dot (
+            Vector4 vector1, Vector4 vector2)
+        {
+            <#= type #> result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector4 Normalise (Vector4 vector)
+        {
+            Vector4 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix44.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Matrix44 matrix)
+        {
+            Vector4 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Quaternion.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Quaternion rotation)
+        {
+            Vector4 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix.
+        /// </summary>
+        public static Vector4 TransformNormal (
+            Vector4 normal, Matrix44 matrix)
+        {
+            Vector4 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static <#= type #> Length (Vector4 vector)
+        {
+            <#= type #> result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static <#= type #> LengthSquared (Vector4 vector)
+        {
+            <#= type #> result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+

@@ -1,0 +1,64 @@
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Min (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Max (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector3 Clamp (
+            Vector3 vector,
+            Vector3 min,
+            Vector3 max)
+        {
+            Vector3 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector3 Lerp (
+            Vector3 vector1,
+            Vector3 vector2,
+            <#= type #> amount)
+        {
+            Vector3 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static Boolean IsUnit (Vector3 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
+        }
+

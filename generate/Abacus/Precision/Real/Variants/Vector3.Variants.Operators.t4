@@ -1,101 +1,210 @@
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
+        /// Determines whether or not two Vector3 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector3 vector1, Vector3 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
         /// Determines whether or not two Vector3 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        public static Boolean operator == (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Determines whether or not two Vector3 objects are not equal using
         /// the (X!=Y) operator.
         /// </summary>
-        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        public static Boolean operator != (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Add (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs addition of two Vector3 objects using the (X+Y) operator.
         /// </summary>
-        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        public static Vector3 operator + (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Subtraction Operators //-----------------------------------//
 
-        // Subtraction Operators //-------------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Subtract (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs subtraction of two Vector3 objects using the (X-Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        public static Vector3 operator - (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Negation Operators //--------------------------------------//
 
-        // Negation Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs negation of a Vector3 object.
+        /// </summary>
+        public static Vector3 Negate (Vector3 vector)
+        {
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs negation of a Vector3 object using the (-X) operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value)
+        public static Vector3 operator - (Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a <#= type #>
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector, <#= type #> scaleFactor)
+        {
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs muliplication of two Vector3 objects using the (X*Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        public static Vector3 operator * (
+            Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector3 object and a <#= type #>
         /// precision scaling factor using the (X*y) operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value, <#= type #> scaleFactor)
+        public static Vector3 operator * (
+            Vector3 vector, <#= type #> scaleFactor)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a <#= type #> precision scaling factor
-        /// and a Vector3 object using the (x*Y) operator.
+        /// and aVector3 object using the (x*Y) operator.
         /// </summary>
-        public static Vector3 operator * (<#= type #> scaleFactor, Vector3 value)
+        public static Vector3 operator * (
+            <#= type #> scaleFactor, Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a <#= type #> precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, <#= type #> divider)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs division of two Vector3 objects using the (X/Y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        public static Vector3 operator / (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs division of a Vector3 object and a <#= type #> precision
         /// scaling factor using the (X/y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value, <#= type #> divider)
+        public static Vector3 operator / (Vector3 vector1, <#= type #> divider)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
         }
 

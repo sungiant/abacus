@@ -13808,105 +13808,445 @@ namespace Abacus.SinglePrecision
 
 #if (VARIANTS_ENABLED)
 
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Single Distance (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Single result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Single DistanceSquared (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Single result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Single Dot (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Single result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector3 Normalise (Vector3 vector)
+        {
+            Vector3 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static Vector3 Reflect (
+            Vector3 vector, Vector3 normal)
+        {
+            Vector3 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Matrix44.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Matrix44 matrix)
+        {
+            Vector3 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Quaternion.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Quaternion rotation)
+        {
+            Vector3 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Matrix.
+        /// </summary>
+        public static Vector3 TransformNormal (
+            Vector3 normal, Matrix44 matrix)
+        {
+            Vector3 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public static Single Length (Vector3 vector)
+        {
+            Single result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public static Single LengthSquared (Vector3 vector)
+        {
+            Single result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector3 vector1, Vector3 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Determines whether or not two Vector3 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        public static Boolean operator == (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Determines whether or not two Vector3 objects are not equal using
         /// the (X!=Y) operator.
         /// </summary>
-        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        public static Boolean operator != (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Add (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs addition of two Vector3 objects using the (X+Y) operator.
         /// </summary>
-        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        public static Vector3 operator + (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Subtraction Operators //-----------------------------------//
 
-        // Subtraction Operators //-------------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Subtract (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs subtraction of two Vector3 objects using the (X-Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        public static Vector3 operator - (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Negation Operators //--------------------------------------//
 
-        // Negation Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs negation of a Vector3 object.
+        /// </summary>
+        public static Vector3 Negate (Vector3 vector)
+        {
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs negation of a Vector3 object using the (-X) operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value)
+        public static Vector3 operator - (Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a Single
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector, Single scaleFactor)
+        {
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs muliplication of two Vector3 objects using the (X*Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        public static Vector3 operator * (
+            Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector3 object and a Single
         /// precision scaling factor using the (X*y) operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value, Single scaleFactor)
+        public static Vector3 operator * (
+            Vector3 vector, Single scaleFactor)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Single precision scaling factor
-        /// and a Vector3 object using the (x*Y) operator.
+        /// and aVector3 object using the (x*Y) operator.
         /// </summary>
-        public static Vector3 operator * (Single scaleFactor, Vector3 value)
+        public static Vector3 operator * (
+            Single scaleFactor, Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a Single precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Single divider)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs division of two Vector3 objects using the (X/Y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        public static Vector3 operator / (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs division of a Vector3 object and a Single precision
         /// scaling factor using the (X/y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value, Single divider)
+        public static Vector3 operator / (Vector3 vector1, Single divider)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector3 SmoothStep (
+            Vector3 vector1,
+            Vector3 vector2,
+            Single amount)
+        {
+            Vector3 result;
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector3 CatmullRom (
+            Vector3 vector1,
+            Vector3 vector2,
+            Vector3 vector3,
+            Vector3 vector4,
+            Single amount)
+        {
+            Vector3 result;
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4,
+                ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector3 Hermite (
+            Vector3 vector1,
+            Vector3 tangent1,
+            Vector3 vector2,
+            Vector3 tangent2,
+            Single amount)
+        {
+            Vector3 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                ref amount, out result);
+            return result;
+        }
+
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Min (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Max (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector3 Clamp (
+            Vector3 vector,
+            Vector3 min,
+            Vector3 max)
+        {
+            Vector3 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector3 Lerp (
+            Vector3 vector1,
+            Vector3 vector2,
+            Single amount)
+        {
+            Vector3 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static Boolean IsUnit (Vector3 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
         }
 
 
@@ -14876,103 +15216,433 @@ namespace Abacus.SinglePrecision
 
 #if (VARIANTS_ENABLED)
 
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Single Distance (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Single result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Single DistanceSquared (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Single result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Single Dot (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Single result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector4 Normalise (Vector4 vector)
+        {
+            Vector4 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix44.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Matrix44 matrix)
+        {
+            Vector4 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Quaternion.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Quaternion rotation)
+        {
+            Vector4 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix.
+        /// </summary>
+        public static Vector4 TransformNormal (
+            Vector4 normal, Matrix44 matrix)
+        {
+            Vector4 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static Single Length (Vector4 vector)
+        {
+            Single result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static Single LengthSquared (Vector4 vector)
+        {
+            Single result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector4 vector1, Vector4 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        public static Boolean operator == (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are not equal using
         /// the (X!=Y) operator.
         /// </summary>
-        public static Boolean operator != (Vector4 value1, Vector4 value2)
+        public static Boolean operator != (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Add (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs addition of two Vector4 objects using the (X+Y) operator.
         /// </summary>
-        public static Vector4 operator + (Vector4 value1, Vector4 value2)
+        public static Vector4 operator + (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
         }
 
-        // Subtraction Operators //-------------------------------------------//
+        // Variant Subtraction Operators //-----------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Subtract (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs subtraction of two Vector4 objects using the (X-Y)
         /// operator.
         /// </summary>
-        public static Vector4 operator - (Vector4 value1, Vector4 value2)
+        public static Vector4 operator - (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
         }
 
-        // Negation Operators //----------------------------------------------//
+        // Variant Negation Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector4 object.
+        /// </summary>
+        public static Vector4 Negate (Vector4 vector)
+        {
+            Vector4 result;
+            Negate (ref vector, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs negation of a Vector4 object using the (-X) operator.
         /// </summary>
-        public static Vector4 operator - (Vector4 value)
+        public static Vector4 operator - (Vector4 vector)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Negate (ref vector, out result);
+            return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Multiply (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector4 object and a Single
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector4 Multiply (
+            Vector4 vector, Single scaleFactor)
+        {
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs muliplication of two Vector4 objects using the (X*Y)
         /// operator.
         /// </summary>
-        public static Vector4 operator * (Vector4 value1, Vector4 value2)
+        public static Vector4 operator * (
+            Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector4 object and a Single
         /// precision scaling factor using the (X*y) operator.
         /// </summary>
-        public static Vector4 operator * (Vector4 value1, Single scaleFactor)
+        public static Vector4 operator * (
+            Vector4 vector, Single scaleFactor)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Single precision scaling factor
         /// and aVector4 object using the (x*Y) operator.
         /// </summary>
-        public static Vector4 operator * (Single scaleFactor, Vector4 value1)
+        public static Vector4 operator * (
+            Single scaleFactor, Vector4 vector)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Divide (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector4 object and a Single precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector4 Divide (
+            Vector4 vector1, Single divider)
+        {
+            Vector4 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs division of two Vector4 objects using the (X/Y) operator.
         /// </summary>
-        public static Vector4 operator / (Vector4 value1, Vector4 value2)
+        public static Vector4 operator / (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs division of a Vector4 object and a Single precision
         /// scaling factor using the (X/y) operator.
         /// </summary>
-        public static Vector4 operator / (Vector4 value1, Single divider)
+        public static Vector4 operator / (Vector4 vector1, Single divider)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector4 SmoothStep (
+            Vector4 vector1,
+            Vector4 vector2,
+            Single amount)
+        {
+            Vector4 result;
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector4 CatmullRom (
+            Vector4 vector1,
+            Vector4 vector2,
+            Vector4 vector3,
+            Vector4 vector4,
+            Single amount)
+        {
+            Vector4 result;
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4,
+                ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector4 Hermite (
+            Vector4 vector1,
+            Vector4 tangent1,
+            Vector4 vector2,
+            Vector4 tangent2,
+            Single amount)
+        {
+            Vector4 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                ref amount, out result);
+            return result;
+        }
+
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector4 Min (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector4 Max (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector4 Clamp (
+            Vector4 vector,
+            Vector4 min,
+            Vector4 max)
+        {
+            Vector4 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector4 Lerp (
+            Vector4 vector1,
+            Vector4 vector2,
+            Single amount)
+        {
+            Vector4 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public static Boolean IsUnit (Vector4 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
         }
 
 
@@ -20486,105 +21156,445 @@ namespace Abacus.DoublePrecision
 
 #if (VARIANTS_ENABLED)
 
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Double Distance (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Double result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Double DistanceSquared (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Double result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Double Dot (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Double result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector3 Normalise (Vector3 vector)
+        {
+            Vector3 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static Vector3 Reflect (
+            Vector3 vector, Vector3 normal)
+        {
+            Vector3 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Matrix44.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Matrix44 matrix)
+        {
+            Vector3 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Quaternion.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Quaternion rotation)
+        {
+            Vector3 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Matrix.
+        /// </summary>
+        public static Vector3 TransformNormal (
+            Vector3 normal, Matrix44 matrix)
+        {
+            Vector3 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public static Double Length (Vector3 vector)
+        {
+            Double result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public static Double LengthSquared (Vector3 vector)
+        {
+            Double result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector3 vector1, Vector3 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Determines whether or not two Vector3 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        public static Boolean operator == (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Determines whether or not two Vector3 objects are not equal using
         /// the (X!=Y) operator.
         /// </summary>
-        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        public static Boolean operator != (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Add (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs addition of two Vector3 objects using the (X+Y) operator.
         /// </summary>
-        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        public static Vector3 operator + (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Subtraction Operators //-----------------------------------//
 
-        // Subtraction Operators //-------------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Subtract (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs subtraction of two Vector3 objects using the (X-Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        public static Vector3 operator - (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Negation Operators //--------------------------------------//
 
-        // Negation Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs negation of a Vector3 object.
+        /// </summary>
+        public static Vector3 Negate (Vector3 vector)
+        {
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs negation of a Vector3 object using the (-X) operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value)
+        public static Vector3 operator - (Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a Double
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector, Double scaleFactor)
+        {
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs muliplication of two Vector3 objects using the (X*Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        public static Vector3 operator * (
+            Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector3 object and a Double
         /// precision scaling factor using the (X*y) operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value, Double scaleFactor)
+        public static Vector3 operator * (
+            Vector3 vector, Double scaleFactor)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Double precision scaling factor
-        /// and a Vector3 object using the (x*Y) operator.
+        /// and aVector3 object using the (x*Y) operator.
         /// </summary>
-        public static Vector3 operator * (Double scaleFactor, Vector3 value)
+        public static Vector3 operator * (
+            Double scaleFactor, Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a Double precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Double divider)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs division of two Vector3 objects using the (X/Y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        public static Vector3 operator / (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs division of a Vector3 object and a Double precision
         /// scaling factor using the (X/y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value, Double divider)
+        public static Vector3 operator / (Vector3 vector1, Double divider)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector3 SmoothStep (
+            Vector3 vector1,
+            Vector3 vector2,
+            Double amount)
+        {
+            Vector3 result;
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector3 CatmullRom (
+            Vector3 vector1,
+            Vector3 vector2,
+            Vector3 vector3,
+            Vector3 vector4,
+            Double amount)
+        {
+            Vector3 result;
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4,
+                ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector3 Hermite (
+            Vector3 vector1,
+            Vector3 tangent1,
+            Vector3 vector2,
+            Vector3 tangent2,
+            Double amount)
+        {
+            Vector3 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                ref amount, out result);
+            return result;
+        }
+
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Min (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Max (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector3 Clamp (
+            Vector3 vector,
+            Vector3 min,
+            Vector3 max)
+        {
+            Vector3 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector3 Lerp (
+            Vector3 vector1,
+            Vector3 vector2,
+            Double amount)
+        {
+            Vector3 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static Boolean IsUnit (Vector3 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
         }
 
 
@@ -21554,103 +22564,433 @@ namespace Abacus.DoublePrecision
 
 #if (VARIANTS_ENABLED)
 
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Double Distance (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Double result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Double DistanceSquared (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Double result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Double Dot (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Double result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector4 Normalise (Vector4 vector)
+        {
+            Vector4 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix44.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Matrix44 matrix)
+        {
+            Vector4 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Quaternion.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Quaternion rotation)
+        {
+            Vector4 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix.
+        /// </summary>
+        public static Vector4 TransformNormal (
+            Vector4 normal, Matrix44 matrix)
+        {
+            Vector4 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static Double Length (Vector4 vector)
+        {
+            Double result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static Double LengthSquared (Vector4 vector)
+        {
+            Double result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector4 vector1, Vector4 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        public static Boolean operator == (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are not equal using
         /// the (X!=Y) operator.
         /// </summary>
-        public static Boolean operator != (Vector4 value1, Vector4 value2)
+        public static Boolean operator != (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Add (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs addition of two Vector4 objects using the (X+Y) operator.
         /// </summary>
-        public static Vector4 operator + (Vector4 value1, Vector4 value2)
+        public static Vector4 operator + (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
         }
 
-        // Subtraction Operators //-------------------------------------------//
+        // Variant Subtraction Operators //-----------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Subtract (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs subtraction of two Vector4 objects using the (X-Y)
         /// operator.
         /// </summary>
-        public static Vector4 operator - (Vector4 value1, Vector4 value2)
+        public static Vector4 operator - (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
         }
 
-        // Negation Operators //----------------------------------------------//
+        // Variant Negation Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector4 object.
+        /// </summary>
+        public static Vector4 Negate (Vector4 vector)
+        {
+            Vector4 result;
+            Negate (ref vector, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs negation of a Vector4 object using the (-X) operator.
         /// </summary>
-        public static Vector4 operator - (Vector4 value)
+        public static Vector4 operator - (Vector4 vector)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Negate (ref vector, out result);
+            return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Multiply (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector4 object and a Double
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector4 Multiply (
+            Vector4 vector, Double scaleFactor)
+        {
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs muliplication of two Vector4 objects using the (X*Y)
         /// operator.
         /// </summary>
-        public static Vector4 operator * (Vector4 value1, Vector4 value2)
+        public static Vector4 operator * (
+            Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector4 object and a Double
         /// precision scaling factor using the (X*y) operator.
         /// </summary>
-        public static Vector4 operator * (Vector4 value1, Double scaleFactor)
+        public static Vector4 operator * (
+            Vector4 vector, Double scaleFactor)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Double precision scaling factor
         /// and aVector4 object using the (x*Y) operator.
         /// </summary>
-        public static Vector4 operator * (Double scaleFactor, Vector4 value1)
+        public static Vector4 operator * (
+            Double scaleFactor, Vector4 vector)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Divide (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector4 object and a Double precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector4 Divide (
+            Vector4 vector1, Double divider)
+        {
+            Vector4 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs division of two Vector4 objects using the (X/Y) operator.
         /// </summary>
-        public static Vector4 operator / (Vector4 value1, Vector4 value2)
+        public static Vector4 operator / (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs division of a Vector4 object and a Double precision
         /// scaling factor using the (X/y) operator.
         /// </summary>
-        public static Vector4 operator / (Vector4 value1, Double divider)
+        public static Vector4 operator / (Vector4 vector1, Double divider)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector4 SmoothStep (
+            Vector4 vector1,
+            Vector4 vector2,
+            Double amount)
+        {
+            Vector4 result;
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector4 CatmullRom (
+            Vector4 vector1,
+            Vector4 vector2,
+            Vector4 vector3,
+            Vector4 vector4,
+            Double amount)
+        {
+            Vector4 result;
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4,
+                ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector4 Hermite (
+            Vector4 vector1,
+            Vector4 tangent1,
+            Vector4 vector2,
+            Vector4 tangent2,
+            Double amount)
+        {
+            Vector4 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                ref amount, out result);
+            return result;
+        }
+
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector4 Min (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector4 Max (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector4 Clamp (
+            Vector4 vector,
+            Vector4 min,
+            Vector4 max)
+        {
+            Vector4 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector4 Lerp (
+            Vector4 vector1,
+            Vector4 vector2,
+            Double amount)
+        {
+            Vector4 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public static Boolean IsUnit (Vector4 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
         }
 
 
@@ -27164,105 +28504,445 @@ namespace Abacus.Fixed32Precision
 
 #if (VARIANTS_ENABLED)
 
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Fixed32 Distance (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Fixed32 result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Fixed32 DistanceSquared (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Fixed32 result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Fixed32 Dot (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Fixed32 result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector3 Normalise (Vector3 vector)
+        {
+            Vector3 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static Vector3 Reflect (
+            Vector3 vector, Vector3 normal)
+        {
+            Vector3 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Matrix44.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Matrix44 matrix)
+        {
+            Vector3 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Quaternion.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Quaternion rotation)
+        {
+            Vector3 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector3 by the specified Matrix.
+        /// </summary>
+        public static Vector3 TransformNormal (
+            Vector3 normal, Matrix44 matrix)
+        {
+            Vector3 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3.
+        /// </summary>
+        public static Fixed32 Length (Vector3 vector)
+        {
+            Fixed32 result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector3 squared.
+        /// </summary>
+        public static Fixed32 LengthSquared (Vector3 vector)
+        {
+            Fixed32 result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector3 vector1, Vector3 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Determines whether or not two Vector3 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector3 value1, Vector3 value2)
+        public static Boolean operator == (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Determines whether or not two Vector3 objects are not equal using
         /// the (X!=Y) operator.
         /// </summary>
-        public static Boolean operator != (Vector3 value1, Vector3 value2)
+        public static Boolean operator != (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Add (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs addition of two Vector3 objects using the (X+Y) operator.
         /// </summary>
-        public static Vector3 operator + (Vector3 value1, Vector3 value2)
+        public static Vector3 operator + (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Subtraction Operators //-----------------------------------//
 
-        // Subtraction Operators //-------------------------------------------//
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Subtract (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs subtraction of two Vector3 objects using the (X-Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value1, Vector3 value2)
+        public static Vector3 operator - (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
         }
 
+        // Variant Negation Operators //--------------------------------------//
 
-        // Negation Operators //----------------------------------------------//
+        /// <summary>
+        /// Performs negation of a Vector3 object.
+        /// </summary>
+        public static Vector3 Negate (Vector3 vector)
+        {
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs negation of a Vector3 object using the (-X) operator.
         /// </summary>
-        public static Vector3 operator - (Vector3 value)
+        public static Vector3 operator - (Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a Fixed32
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector, Fixed32 scaleFactor)
+        {
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs muliplication of two Vector3 objects using the (X*Y)
         /// operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value1, Vector3 value2)
+        public static Vector3 operator * (
+            Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector3 object and a Fixed32
         /// precision scaling factor using the (X*y) operator.
         /// </summary>
-        public static Vector3 operator * (Vector3 value, Fixed32 scaleFactor)
+        public static Vector3 operator * (
+            Vector3 vector, Fixed32 scaleFactor)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Fixed32 precision scaling factor
-        /// and a Vector3 object using the (x*Y) operator.
+        /// and aVector3 object using the (x*Y) operator.
         /// </summary>
-        public static Vector3 operator * (Fixed32 scaleFactor, Vector3 value)
+        public static Vector3 operator * (
+            Fixed32 scaleFactor, Vector3 vector)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a Fixed32 precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Fixed32 divider)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs division of two Vector3 objects using the (X/Y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value1, Vector3 value2)
+        public static Vector3 operator / (Vector3 vector1, Vector3 vector2)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs division of a Vector3 object and a Fixed32 precision
         /// scaling factor using the (X/y) operator.
         /// </summary>
-        public static Vector3 operator / (Vector3 value, Fixed32 divider)
+        public static Vector3 operator / (Vector3 vector1, Fixed32 divider)
         {
-            throw new NotImplementedException();
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector3 SmoothStep (
+            Vector3 vector1,
+            Vector3 vector2,
+            Fixed32 amount)
+        {
+            Vector3 result;
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector3 CatmullRom (
+            Vector3 vector1,
+            Vector3 vector2,
+            Vector3 vector3,
+            Vector3 vector4,
+            Fixed32 amount)
+        {
+            Vector3 result;
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4,
+                ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector3 Hermite (
+            Vector3 vector1,
+            Vector3 tangent1,
+            Vector3 vector2,
+            Vector3 tangent2,
+            Fixed32 amount)
+        {
+            Vector3 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                ref amount, out result);
+            return result;
+        }
+
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Min (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector3 Max (
+            Vector3 vector1,
+            Vector3 vector2)
+        {
+            Vector3 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector3 Clamp (
+            Vector3 vector,
+            Vector3 min,
+            Vector3 max)
+        {
+            Vector3 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector3 Lerp (
+            Vector3 vector1,
+            Vector3 vector2,
+            Fixed32 amount)
+        {
+            Vector3 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector3 is of unit length.
+        /// </summary>
+        public static Boolean IsUnit (Vector3 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
         }
 
 
@@ -28232,103 +29912,433 @@ namespace Abacus.Fixed32Precision
 
 #if (VARIANTS_ENABLED)
 
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static Fixed32 Distance (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Fixed32 result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static Fixed32 DistanceSquared (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Fixed32 result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static Fixed32 Dot (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Fixed32 result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static Vector4 Normalise (Vector4 vector)
+        {
+            Vector4 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix44.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Matrix44 matrix)
+        {
+            Vector4 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Quaternion.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Quaternion rotation)
+        {
+            Vector4 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix.
+        /// </summary>
+        public static Vector4 TransformNormal (
+            Vector4 normal, Matrix44 matrix)
+        {
+            Vector4 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static Fixed32 Length (Vector4 vector)
+        {
+            Fixed32 result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static Fixed32 LengthSquared (Vector4 vector)
+        {
+            Fixed32 result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector4 objects are equal.
+        /// </summary>
+        public static Boolean Equals (Vector4 vector1, Vector4 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are equal using the
         /// (X==Y) operator.
         /// </summary>
-        public static Boolean operator == (Vector4 value1, Vector4 value2)
+        public static Boolean operator == (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Determines whether or not two Vector4 objects are not equal using
         /// the (X!=Y) operator.
         /// </summary>
-        public static Boolean operator != (Vector4 value1, Vector4 value2)
+        public static Boolean operator != (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
         }
 
-        // Addition Operators //----------------------------------------------//
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Add (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs addition of two Vector4 objects using the (X+Y) operator.
         /// </summary>
-        public static Vector4 operator + (Vector4 value1, Vector4 value2)
+        public static Vector4 operator + (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
         }
 
-        // Subtraction Operators //-------------------------------------------//
+        // Variant Subtraction Operators //-----------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Subtract (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs subtraction of two Vector4 objects using the (X-Y)
         /// operator.
         /// </summary>
-        public static Vector4 operator - (Vector4 value1, Vector4 value2)
+        public static Vector4 operator - (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
         }
 
-        // Negation Operators //----------------------------------------------//
+        // Variant Negation Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector4 object.
+        /// </summary>
+        public static Vector4 Negate (Vector4 vector)
+        {
+            Vector4 result;
+            Negate (ref vector, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs negation of a Vector4 object using the (-X) operator.
         /// </summary>
-        public static Vector4 operator - (Vector4 value)
+        public static Vector4 operator - (Vector4 vector)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Negate (ref vector, out result);
+            return result;
         }
 
-        // Multiplication Operators //----------------------------------------//
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Multiply (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector4 object and a Fixed32
+        /// precision scaling factor.
+        /// </summary>
+        public static Vector4 Multiply (
+            Vector4 vector, Fixed32 scaleFactor)
+        {
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs muliplication of two Vector4 objects using the (X*Y)
         /// operator.
         /// </summary>
-        public static Vector4 operator * (Vector4 value1, Vector4 value2)
+        public static Vector4 operator * (
+            Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Vector4 object and a Fixed32
         /// precision scaling factor using the (X*y) operator.
         /// </summary>
-        public static Vector4 operator * (Vector4 value1, Fixed32 scaleFactor)
+        public static Vector4 operator * (
+            Vector4 vector, Fixed32 scaleFactor)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs multiplication of a Fixed32 precision scaling factor
         /// and aVector4 object using the (x*Y) operator.
         /// </summary>
-        public static Vector4 operator * (Fixed32 scaleFactor, Vector4 value1)
+        public static Vector4 operator * (
+            Fixed32 scaleFactor, Vector4 vector)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
         }
 
-        // Division Operators //----------------------------------------------//
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector4 objects.
+        /// </summary>
+        public static Vector4 Divide (
+            Vector4 vector1, Vector4 vector2)
+        {
+            Vector4 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector4 object and a Fixed32 precision
+        /// scaling factor.
+        /// </summary>
+        public static Vector4 Divide (
+            Vector4 vector1, Fixed32 divider)
+        {
+            Vector4 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
 
         /// <summary>
         /// Performs division of two Vector4 objects using the (X/Y) operator.
         /// </summary>
-        public static Vector4 operator / (Vector4 value1, Vector4 value2)
+        public static Vector4 operator / (Vector4 vector1, Vector4 vector2)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
         }
 
         /// <summary>
         /// Performs division of a Vector4 object and a Fixed32 precision
         /// scaling factor using the (X/y) operator.
         /// </summary>
-        public static Vector4 operator / (Vector4 value1, Fixed32 divider)
+        public static Vector4 operator / (Vector4 vector1, Fixed32 divider)
         {
-            throw new NotImplementedException();
+            Vector4 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+
+        // Variant Splines //-------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static Vector4 SmoothStep (
+            Vector4 vector1,
+            Vector4 vector2,
+            Fixed32 amount)
+        {
+            Vector4 result;
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        public static Vector4 CatmullRom (
+            Vector4 vector1,
+            Vector4 vector2,
+            Vector4 vector3,
+            Vector4 vector4,
+            Fixed32 amount)
+        {
+            Vector4 result;
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4,
+                ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static Vector4 Hermite (
+            Vector4 vector1,
+            Vector4 tangent1,
+            Vector4 vector2,
+            Vector4 tangent2,
+            Fixed32 amount)
+        {
+            Vector4 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                ref amount, out result);
+            return result;
+        }
+
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Returns a vector that contains the lowest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector4 Min (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a vector that contains the highest value from each matching
+        /// pair of components.
+        /// </summary>
+        public static Vector4 Max (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Restricts a value to be within a specified range.
+        /// </summary>
+        public static Vector4 Clamp (
+            Vector4 vector,
+            Vector4 min,
+            Vector4 max)
+        {
+            Vector4 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a linear interpolation between two vectors.
+        /// </summary>
+        public static Vector4 Lerp (
+            Vector4 vector1,
+            Vector4 vector2,
+            Fixed32 amount)
+        {
+            Vector4 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector4 is of unit length.
+        /// </summary>
+        public static Boolean IsUnit (Vector4 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
         }
 
 
