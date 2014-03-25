@@ -9399,8 +9399,9 @@ namespace Abacus.SinglePrecision.Tests
             Assert.That(bIsUnit, Is.EqualTo(true));
             Assert.That(cIsUnit, Is.EqualTo(true));
             Assert.That(dIsUnit, Is.EqualTo(true));
-            Assert.That(eIsUnit, Is.EqualTo(true));
-            Assert.That(fIsUnit, Is.EqualTo(true));
+
+            Assert.That(eIsUnit, Is.EqualTo(false));
+            Assert.That(fIsUnit, Is.EqualTo(false));
         }
 
         /// <summary>
@@ -17604,8 +17605,9 @@ namespace Abacus.DoublePrecision.Tests
             Assert.That(bIsUnit, Is.EqualTo(true));
             Assert.That(cIsUnit, Is.EqualTo(true));
             Assert.That(dIsUnit, Is.EqualTo(true));
-            Assert.That(eIsUnit, Is.EqualTo(true));
-            Assert.That(fIsUnit, Is.EqualTo(true));
+
+            Assert.That(eIsUnit, Is.EqualTo(false));
+            Assert.That(fIsUnit, Is.EqualTo(false));
         }
 
         /// <summary>
@@ -25809,8 +25811,9 @@ namespace Abacus.Fixed32Precision.Tests
             Assert.That(bIsUnit, Is.EqualTo(true));
             Assert.That(cIsUnit, Is.EqualTo(true));
             Assert.That(dIsUnit, Is.EqualTo(true));
-            Assert.That(eIsUnit, Is.EqualTo(true));
-            Assert.That(fIsUnit, Is.EqualTo(true));
+
+            Assert.That(eIsUnit, Is.EqualTo(false));
+            Assert.That(fIsUnit, Is.EqualTo(false));
         }
 
         /// <summary>
