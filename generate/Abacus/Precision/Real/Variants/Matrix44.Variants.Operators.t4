@@ -1,7 +1,7 @@
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
-        /// Determines whether or not two Matrix44 objects are equal.
+        /// Variant function.
         /// </summary>
         public static Boolean Equals (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -12,8 +12,7 @@
         }
 
         /// <summary>
-        /// Determines whether or not two Matrix44 objects are equal using the
-        /// (X==Y) operator.
+        /// Variant function.
         /// </summary>
         public static Boolean operator == (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -24,8 +23,7 @@
         }
 
         /// <summary>
-        /// Determines whether or not two Matrix44 objects are not equal using
-        /// the (X!=Y) operator.
+        /// Variant function.
         /// </summary>
         public static Boolean operator != (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -38,7 +36,7 @@
         // Variant Addition Operators //--------------------------------------//
 
         /// <summary>
-        /// Performs addition of two Matrix44 objects.
+        /// Variant function.
         /// </summary>
         public static Matrix44 Add (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -49,7 +47,7 @@
         }
 
         /// <summary>
-        /// Performs addition of two Matrix44 objects using the (X+Y) operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
         {
@@ -61,7 +59,7 @@
         // Variant Subtraction Operators //-----------------------------------//
 
         /// <summary>
-        /// Performs subtraction of two Matrix44 objects.
+        /// Variant function.
         /// </summary>
         public static Matrix44 Subtract (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -72,8 +70,7 @@
         }
 
         /// <summary>
-        /// Performs subtraction of two Matrix44 objects using the (X-Y)
-        /// operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
         {
@@ -85,7 +82,7 @@
         // Variant Negation Operators //--------------------------------------//
 
         /// <summary>
-        /// Performs negation of a Matrix44 object.
+        /// Variant function.
         /// </summary>
         public static Matrix44 Negate (Matrix44 matrix)
         {
@@ -95,7 +92,7 @@
         }
 
         /// <summary>
-        /// Performs negation of a Matrix44 object using the (-X) operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator - (Matrix44 matrix)
         {
@@ -107,7 +104,7 @@
         // Variant Multiplication Operators //--------------------------------//
 
         /// <summary>
-        /// Performs muliplication of two Matrix44 objects.
+        /// Variant function.
         /// </summary>
         public static Matrix44 Multiply (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -118,8 +115,7 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a Matrix44 object and a <#= type #>
-        /// precision scaling factor.
+        /// Variant function.
         /// </summary>
         public static Matrix44 Multiply (
             Matrix44 matrix, <#= type #> scaleFactor)
@@ -130,8 +126,7 @@
         }
 
         /// <summary>
-        /// Performs muliplication of two Matrix44 objects using the (X*Y)
-        /// operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator * (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -142,8 +137,7 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a Matrix44 object and a <#= type #>
-        /// precision scaling factor using the (X*y) operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator * (
             Matrix44 matrix, <#= type #> scaleFactor)
@@ -154,8 +148,7 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a <#= type #> precision scaling factor
-        /// and aMatrix44 object using the (x*Y) operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator * (
             <#= type #> scaleFactor, Matrix44 matrix)
@@ -168,7 +161,7 @@
         // Variant Division Operators //--------------------------------------//
 
         /// <summary>
-        /// Performs division of two Matrix44 objects.
+        /// Variant function.
         /// </summary>
         public static Matrix44 Divide (
             Matrix44 matrix1, Matrix44 matrix2)
@@ -179,8 +172,7 @@
         }
 
         /// <summary>
-        /// Performs division of a Matrix44 object and a <#= type #> precision
-        /// scaling factor.
+        /// Variant function.
         /// </summary>
         public static Matrix44 Divide (
             Matrix44 matrix1, <#= type #> divider)
@@ -191,7 +183,7 @@
         }
 
         /// <summary>
-        /// Performs division of two Matrix44 objects using the (X/Y) operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
         {
@@ -201,8 +193,7 @@
         }
 
         /// <summary>
-        /// Performs division of a Matrix44 object and a <#= type #> precision
-        /// scaling factor using the (X/y) operator.
+        /// Variant function.
         /// </summary>
         public static Matrix44 operator / (Matrix44 matrix1, <#= type #> divider)
         {

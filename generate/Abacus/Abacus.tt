@@ -158,7 +158,6 @@ namespace Abacus.<#= type #>Precision
 <# foreach( var type in GetRealTypes() ) { #>
 namespace Abacus.<#= type #>Precision
 {
-<#@ include file="Precision/Real/GjkDistance.t4"#>
 <#@ include file="Precision/Real/Matrix44.t4"#>
 <#@ include file="Precision/Real/Quaternion.t4"#>
 <#@ include file="Precision/Real/Vector2.t4"#>

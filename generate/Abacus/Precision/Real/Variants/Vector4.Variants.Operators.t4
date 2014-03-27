@@ -1,7 +1,7 @@
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
-        /// Determines whether or not two Vector4 objects are equal.
+        /// Variant function.
         /// </summary>
         public static Boolean Equals (Vector4 vector1, Vector4 vector2)
         {
@@ -11,8 +11,7 @@
         }
 
         /// <summary>
-        /// Determines whether or not two Vector4 objects are equal using the
-        /// (X==Y) operator.
+        /// Variant function.
         /// </summary>
         public static Boolean operator == (Vector4 vector1, Vector4 vector2)
         {
@@ -22,8 +21,7 @@
         }
 
         /// <summary>
-        /// Determines whether or not two Vector4 objects are not equal using
-        /// the (X!=Y) operator.
+        /// Variant function.
         /// </summary>
         public static Boolean operator != (Vector4 vector1, Vector4 vector2)
         {
@@ -35,7 +33,7 @@
         // Variant Addition Operators //--------------------------------------//
 
         /// <summary>
-        /// Performs addition of two Vector4 objects.
+        /// Variant function.
         /// </summary>
         public static Vector4 Add (
             Vector4 vector1, Vector4 vector2)
@@ -46,7 +44,7 @@
         }
 
         /// <summary>
-        /// Performs addition of two Vector4 objects using the (X+Y) operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator + (Vector4 vector1, Vector4 vector2)
         {
@@ -58,7 +56,7 @@
         // Variant Subtraction Operators //-----------------------------------//
 
         /// <summary>
-        /// Performs subtraction of two Vector4 objects.
+        /// Variant function.
         /// </summary>
         public static Vector4 Subtract (
             Vector4 vector1, Vector4 vector2)
@@ -69,8 +67,7 @@
         }
 
         /// <summary>
-        /// Performs subtraction of two Vector4 objects using the (X-Y)
-        /// operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator - (Vector4 vector1, Vector4 vector2)
         {
@@ -82,7 +79,7 @@
         // Variant Negation Operators //--------------------------------------//
 
         /// <summary>
-        /// Performs negation of a Vector4 object.
+        /// Variant function.
         /// </summary>
         public static Vector4 Negate (Vector4 vector)
         {
@@ -92,7 +89,7 @@
         }
 
         /// <summary>
-        /// Performs negation of a Vector4 object using the (-X) operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator - (Vector4 vector)
         {
@@ -104,7 +101,7 @@
         // Variant Multiplication Operators //--------------------------------//
 
         /// <summary>
-        /// Performs muliplication of two Vector4 objects.
+        /// Variant function.
         /// </summary>
         public static Vector4 Multiply (
             Vector4 vector1, Vector4 vector2)
@@ -115,8 +112,7 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a Vector4 object and a <#= type #>
-        /// precision scaling factor.
+        /// Variant function.
         /// </summary>
         public static Vector4 Multiply (
             Vector4 vector, <#= type #> scaleFactor)
@@ -127,8 +123,7 @@
         }
 
         /// <summary>
-        /// Performs muliplication of two Vector4 objects using the (X*Y)
-        /// operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator * (
             Vector4 vector1, Vector4 vector2)
@@ -139,8 +134,7 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a Vector4 object and a <#= type #>
-        /// precision scaling factor using the (X*y) operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator * (
             Vector4 vector, <#= type #> scaleFactor)
@@ -151,8 +145,7 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a <#= type #> precision scaling factor
-        /// and aVector4 object using the (x*Y) operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator * (
             <#= type #> scaleFactor, Vector4 vector)
@@ -165,7 +158,7 @@
         // Variant Division Operators //--------------------------------------//
 
         /// <summary>
-        /// Performs division of two Vector4 objects.
+        /// Variant function.
         /// </summary>
         public static Vector4 Divide (
             Vector4 vector1, Vector4 vector2)
@@ -176,8 +169,7 @@
         }
 
         /// <summary>
-        /// Performs division of a Vector4 object and a <#= type #> precision
-        /// scaling factor.
+        /// Variant function.
         /// </summary>
         public static Vector4 Divide (
             Vector4 vector1, <#= type #> divider)
@@ -188,7 +180,7 @@
         }
 
         /// <summary>
-        /// Performs division of two Vector4 objects using the (X/Y) operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator / (Vector4 vector1, Vector4 vector2)
         {
@@ -198,8 +190,7 @@
         }
 
         /// <summary>
-        /// Performs division of a Vector4 object and a <#= type #> precision
-        /// scaling factor using the (X/y) operator.
+        /// Variant function.
         /// </summary>
         public static Vector4 operator / (Vector4 vector1, <#= type #> divider)
         {

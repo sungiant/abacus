@@ -1,8 +1,7 @@
         // Variant Utilities //-----------------------------------------------//
 
         /// <summary>
-        /// Returns a vector that contains the lowest value from each matching
-        /// pair of components.
+        /// Variant function.
         /// </summary>
         public static Vector2 Min (
             Vector2 vector1,
@@ -14,8 +13,7 @@
         }
 
         /// <summary>
-        /// Returns a vector that contains the highest value from each matching
-        /// pair of components.
+        /// Variant function.
         /// </summary>
         public static Vector2 Max (
             Vector2 vector1,
@@ -27,7 +25,7 @@
         }
 
         /// <summary>
-        /// Restricts a value to be within a specified range.
+        /// Variant function.
         /// </summary>
         public static Vector2 Clamp (
             Vector2 vector,
@@ -40,7 +38,7 @@
         }
 
         /// <summary>
-        /// Performs a linear interpolation between two vectors.
+        /// Variant function.
         /// </summary>
         public static Vector2 Lerp (
             Vector2 vector1,
@@ -53,7 +51,7 @@
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector2 is of unit length.
+        /// Variant function.
         /// </summary>
         public static Boolean IsUnit (Vector2 vector)
         {

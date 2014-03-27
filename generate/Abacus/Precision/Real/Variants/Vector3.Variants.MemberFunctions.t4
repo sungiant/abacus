@@ -1,5 +1,5 @@
         /// <summary>
-        /// Calculates the length of this Vector3.
+        /// Variant function.
         /// </summary>
         public <#= type #> Length ()
         {
@@ -9,7 +9,7 @@
         }
 
         /// <summary>
-        /// Calculates the length of this Vector3 squared.
+        /// Variant function.
         /// </summary>
         public <#= type #> LengthSquared ()
         {
@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Normalises this Vector3.
+        /// Variant function.
         /// </summary>
         public void Normalise ()
         {
@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// Detemines whether or not the Vector3 is of unit length.
+        /// Variant function.
         /// </summary>
         public Boolean IsUnit()
         {

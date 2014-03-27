@@ -1,0 +1,152 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateTranslation (Vector3 position)
+        {
+            Matrix44 result;
+            CreateTranslation (ref position, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateTranslation (
+            <#= type #> xPosition,
+            <#= type #> yPosition,
+            <#= type #> zPosition)
+        {
+            Matrix44 result;
+            CreateTranslation (
+                ref xPosition, ref yPosition, ref zPosition,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateScale (
+            <#= type #> xScale,
+            <#= type #> yScale,
+            <#= type #> zScale)
+        {
+            Matrix44 result;
+            CreateScale (
+                ref xScale, ref yScale, ref zScale,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateScale (Vector3 scales)
+        {
+            Matrix44 result;
+            CreateScale (ref scales, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateScale (<#= type #> scale)
+        {
+            Matrix44 result;
+            CreateScale (ref scale, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateRotationX (<#= type #> radians)
+        {
+            Matrix44 result;
+            CreateRotationX (ref radians, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateRotationY (<#= type #> radians)
+        {
+            Matrix44 result;
+            CreateRotationY (ref radians, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateRotationZ (<#= type #> radians)
+        {
+            Matrix44 result;
+            CreateRotationZ (ref radians, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromAxisAngle (
+            Vector3 axis,
+            <#= type #> angle)
+        {
+            Matrix44 result;
+            CreateFromAxisAngle (ref axis, ref angle, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromAllAxis (
+            Vector3 right,
+            Vector3 up,
+            Vector3 backward)
+        {
+            Matrix44 result;
+            CreateFromAllAxis (
+                ref right, ref up, ref backward, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateWorld (
+            Vector3 position,
+            Vector3 forward,
+            Vector3 up)
+        {
+            Matrix44 result;
+            CreateWorld (ref position, ref forward, ref up, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromQuaternion (Quaternion quaternion)
+        {
+            Matrix44 result;
+            CreateFromQuaternion (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromYawPitchRoll (
+            <#= type #> yaw,
+            <#= type #> pitch,
+            <#= type #> roll)
+        {
+            Matrix44 result;
+            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
+            return result;
+        }
+

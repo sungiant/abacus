@@ -1,7 +1,7 @@
         // Variant Splines //-------------------------------------------------//
 
         /// <summary>
-        /// Interpolates between two vectors using a cubic equation.
+        /// Variant function.
         /// </summary>
         public static Vector3 SmoothStep (
             Vector3 vector1,
@@ -14,7 +14,7 @@
         }
 
         /// <summary>
-        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// Variant function.
         /// </summary>
         public static Vector3 CatmullRom (
             Vector3 vector1,
@@ -31,7 +31,7 @@
         }
 
         /// <summary>
-        /// Performs a Hermite spline interpolation.
+        /// Variant function.
         /// </summary>
         public static Vector3 Hermite (
             Vector3 vector1,

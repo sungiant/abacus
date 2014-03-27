@@ -1,5 +1,5 @@
         /// <summary>
-        /// todo
+        /// Variant function.
         /// </summary>
         public <#= type #> LengthSquared ()
         {
@@ -9,7 +9,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Variant function.
         /// </summary>
         public <#= type #> Length ()
         {
@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Variant function.
         /// </summary>
         public void Normalise ()
         {
@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Variant function.
         /// </summary>
         public Boolean IsUnit()
         {
@@ -37,7 +37,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Variant function.
         /// </summary>
         public void Conjugate ()
         {

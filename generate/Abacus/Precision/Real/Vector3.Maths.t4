@@ -232,7 +232,8 @@
         /// <summary>
         /// Calculates the length of the Vector3.
         /// </summary>
-        public static void Length (ref Vector3 vector, out <#= type #> result)
+        public static void Length (
+            ref Vector3 vector, out <#= type #> result)
         {
             <#= type #> lengthSquared =
                 (vector.X * vector.X) +
@@ -245,7 +246,8 @@
         /// <summary>
         /// Calculates the length of the Vector3 squared.
         /// </summary>
-        public static void LengthSquared (ref Vector3 vector, out <#= type #> result)
+        public static void LengthSquared (
+            ref Vector3 vector, out <#= type #> result)
         {
             result =
                 (vector.X * vector.X) +

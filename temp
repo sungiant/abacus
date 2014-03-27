@@ -1,0 +1,1276 @@
+Matrix44.Maths
+==============
+
+#if UNTESTED
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Determinant (ref Matrix44 matrix, out <#= type #> result)
+        {
+            <#= type #> num22 = matrix.M11;
+            <#= type #> num21 = matrix.M12;
+            <#= type #> num20 = matrix.M13;
+            <#= type #> num19 = matrix.M14;
+            <#= type #> num12 = matrix.M21;
+            <#= type #> num11 = matrix.M22;
+            <#= type #> num10 = matrix.M23;
+            <#= type #> num9 = matrix.M24;
+            <#= type #> num8 = matrix.M31;
+            <#= type #> num7 = matrix.M32;
+            <#= type #> num6 = matrix.M33;
+            <#= type #> num5 = matrix.M34;
+            <#= type #> num4 = matrix.M41;
+            <#= type #> num3 = matrix.M42;
+            <#= type #> num2 = matrix.M43;
+            <#= type #> num = matrix.M44;
+
+            <#= type #> num18 = (num6 * num) - (num5 * num2);
+            <#= type #> num17 = (num7 * num) - (num5 * num3);
+            <#= type #> num16 = (num7 * num2) - (num6 * num3);
+            <#= type #> num15 = (num8 * num) - (num5 * num4);
+            <#= type #> num14 = (num8 * num2) - (num6 * num4);
+            <#= type #> num13 = (num8 * num3) - (num7 * num4);
+
+            result = ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Invert (ref Matrix44 matrix, out Matrix44 result)
+        {
+            <#= type #> one = 1;
+            <#= type #> num5 = matrix.M11;
+            <#= type #> num4 = matrix.M12;
+            <#= type #> num3 = matrix.M13;
+            <#= type #> num2 = matrix.M14;
+            <#= type #> num9 = matrix.M21;
+            <#= type #> num8 = matrix.M22;
+            <#= type #> num7 = matrix.M23;
+            <#= type #> num6 = matrix.M24;
+            <#= type #> num17 = matrix.M31;
+            <#= type #> num16 = matrix.M32;
+            <#= type #> num15 = matrix.M33;
+            <#= type #> num14 = matrix.M34;
+            <#= type #> num13 = matrix.M41;
+            <#= type #> num12 = matrix.M42;
+            <#= type #> num11 = matrix.M43;
+            <#= type #> num10 = matrix.M44;
+            <#= type #> num23 = (num15 * num10) - (num14 * num11);
+            <#= type #> num22 = (num16 * num10) - (num14 * num12);
+            <#= type #> num21 = (num16 * num11) - (num15 * num12);
+            <#= type #> num20 = (num17 * num10) - (num14 * num13);
+            <#= type #> num19 = (num17 * num11) - (num15 * num13);
+            <#= type #> num18 = (num17 * num12) - (num16 * num13);
+            <#= type #> num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
+            <#= type #> num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
+            <#= type #> num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
+            <#= type #> num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
+            <#= type #> num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+            result.M11 = num39 * num;
+            result.M21 = num38 * num;
+            result.M31 = num37 * num;
+            result.M41 = num36 * num;
+            result.M12 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
+            result.M22 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
+            result.M32 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
+            result.M42 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
+            <#= type #> num35 = (num7 * num10) - (num6 * num11);
+            <#= type #> num34 = (num8 * num10) - (num6 * num12);
+            <#= type #> num33 = (num8 * num11) - (num7 * num12);
+            <#= type #> num32 = (num9 * num10) - (num6 * num13);
+            <#= type #> num31 = (num9 * num11) - (num7 * num13);
+            <#= type #> num30 = (num9 * num12) - (num8 * num13);
+            result.M13 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
+            result.M23 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
+            result.M33 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
+            result.M43 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
+            <#= type #> num29 = (num7 * num14) - (num6 * num15);
+            <#= type #> num28 = (num8 * num14) - (num6 * num16);
+            <#= type #> num27 = (num8 * num15) - (num7 * num16);
+            <#= type #> num26 = (num9 * num14) - (num6 * num17);
+            <#= type #> num25 = (num9 * num15) - (num7 * num17);
+            <#= type #> num24 = (num9 * num16) - (num8 * num17);
+            result.M14 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
+            result.M24 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
+            result.M34 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
+            result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Transforms a Matrix by applying a Quaternion rotation.
+        /// </summary>
+        public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
+        {
+            <#= type #> one = 1;
+
+            <#= type #> num21 = rotation.X + rotation.X;
+            <#= type #> num11 = rotation.Y + rotation.Y;
+            <#= type #> num10 = rotation.Z + rotation.Z;
+
+            <#= type #> num20 = rotation.W * num21;
+            <#= type #> num19 = rotation.W * num11;
+            <#= type #> num18 = rotation.W * num10;
+            <#= type #> num17 = rotation.X * num21;
+            <#= type #> num16 = rotation.X * num11;
+            <#= type #> num15 = rotation.X * num10;
+            <#= type #> num14 = rotation.Y * num11;
+            <#= type #> num13 = rotation.Y * num10;
+            <#= type #> num12 = rotation.Z * num10;
+
+            <#= type #> num9 = (one - num14) - num12;
+
+            <#= type #> num8 = num16 - num18;
+            <#= type #> num7 = num15 + num19;
+            <#= type #> num6 = num16 + num18;
+
+            <#= type #> num5 = (one - num17) - num12;
+
+            <#= type #> num4 = num13 - num20;
+            <#= type #> num3 = num15 - num19;
+            <#= type #> num2 = num13 + num20;
+
+            <#= type #> num = (one - num17) - num14;
+
+            <#= type #> num37 = ((value.M11 * num9) + (value.M12 * num8)) + (value.M13 * num7);
+            <#= type #> num36 = ((value.M11 * num6) + (value.M12 * num5)) + (value.M13 * num4);
+            <#= type #> num35 = ((value.M11 * num3) + (value.M12 * num2)) + (value.M13 * num);
+
+            <#= type #> num34 = value.M14;
+
+            <#= type #> num33 = ((value.M21 * num9) + (value.M22 * num8)) + (value.M23 * num7);
+            <#= type #> num32 = ((value.M21 * num6) + (value.M22 * num5)) + (value.M23 * num4);
+            <#= type #> num31 = ((value.M21 * num3) + (value.M22 * num2)) + (value.M23 * num);
+
+            <#= type #> num30 = value.M24;
+
+            <#= type #> num29 = ((value.M31 * num9) + (value.M32 * num8)) + (value.M33 * num7);
+            <#= type #> num28 = ((value.M31 * num6) + (value.M32 * num5)) + (value.M33 * num4);
+            <#= type #> num27 = ((value.M31 * num3) + (value.M32 * num2)) + (value.M33 * num);
+
+            <#= type #> num26 = value.M34;
+
+            <#= type #> num25 = ((value.M41 * num9) + (value.M42 * num8)) + (value.M43 * num7);
+            <#= type #> num24 = ((value.M41 * num6) + (value.M42 * num5)) + (value.M43 * num4);
+            <#= type #> num23 = ((value.M41 * num3) + (value.M42 * num2)) + (value.M43 * num);
+
+            <#= type #> num22 = value.M44;
+
+            result.M11 = num37;
+            result.M12 = num36;
+            result.M13 = num35;
+            result.M14 = num34;
+            result.M21 = num33;
+            result.M22 = num32;
+            result.M23 = num31;
+            result.M24 = num30;
+            result.M31 = num29;
+            result.M32 = num28;
+            result.M33 = num27;
+            result.M34 = num26;
+            result.M41 = num25;
+            result.M42 = num24;
+            result.M43 = num23;
+            result.M44 = num22;
+        }
+
+#endif
+
+
+
+#if UNTESTED
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public <#= type #> result Determinant (Matrix44 matrix)
+        {
+            <#= type #> result;
+            Determinant (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Invert (Matrix44 matrix)
+        {
+            Matrix44 result;
+            Invert (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Transform (Matrix44 value, Quaternion rotation)
+        {
+            Matrix44 result;
+            Transform (ref value, ref rotation, out result);
+            return result;
+        }
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Matrix44.Create
+===============
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if UNTESTED
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Creates a cylindrical billboard that rotates around a specified axis.
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
+        /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+        /// </summary>
+        public static void CreateBillboard (
+            ref Vector3 ObjectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraUpVector,
+            ref Vector3? cameraForwardVector,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector.X = ObjectPosition.X - cameraPosition.X;
+            vector.Y = ObjectPosition.Y - cameraPosition.Y;
+            vector.Z = ObjectPosition.Z - cameraPosition.Z;
+            <#= type #> num = vector.LengthSquared ();
+            <#= type #> limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num < limit) {
+                vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                Vector3.Multiply (ref vector, (<#= type #>)(one / (RealMaths.Sqrt (num))), out vector);
+            }
+            Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
+
+            Vector3.Normalise (ref vector3, out vector3);
+
+            Vector3.Cross (ref vector, ref vector3, out vector2);
+            result.M11 = vector3.X;
+            result.M12 = vector3.Y;
+            result.M13 = vector3.Z;
+            result.M14 = zero;
+            result.M21 = vector2.X;
+            result.M22 = vector2.Y;
+            result.M23 = vector2.Z;
+            result.M24 = zero;
+            result.M31 = vector.X;
+            result.M32 = vector.Y;
+            result.M33 = vector.Z;
+            result.M34 = zero;
+            result.M41 = ObjectPosition.X;
+            result.M42 = ObjectPosition.Y;
+            result.M43 = ObjectPosition.Z;
+            result.M44 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateConstrainedBillboard (
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            ref Vector3? cameraForwardVector,
+            ref Vector3? objectForwardVector,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+
+            <#= type #> num;
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector2.X = objectPosition.X - cameraPosition.X;
+            vector2.Y = objectPosition.Y - cameraPosition.Y;
+            vector2.Z = objectPosition.Z - cameraPosition.Z;
+            <#= type #> num2 = vector2.LengthSquared ();
+            <#= type #> limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num2 < limit) {
+                vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                Vector3.Multiply (ref vector2, (<#= type #>)(one / (RealMaths.Sqrt (num2))), out vector2);
+            }
+            Vector3 vector4 = rotateAxis;
+            Vector3.Dot (ref rotateAxis, ref vector2, out num);
+
+            <#= type #> realHorrid; RealMaths.FromString("0.9982547", out realHorrid);
+
+            if (RealMaths.Abs (num) > realHorrid) {
+                if (objectForwardVector.HasValue) {
+                    vector = objectForwardVector.Value;
+                    Vector3.Dot (ref rotateAxis, ref vector, out num);
+                    if (RealMaths.Abs (num) > realHorrid) {
+                        num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                        vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                    }
+                } else {
+                    num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                    vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                }
+                Vector3.Cross (ref rotateAxis, ref vector, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref rotateAxis, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            } else {
+                Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref vector4, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            }
+            result.M11 = vector3.X;
+            result.M12 = vector3.Y;
+            result.M13 = vector3.Z;
+            result.M14 = zero;
+            result.M21 = vector4.X;
+            result.M22 = vector4.Y;
+            result.M23 = vector4.Z;
+            result.M24 = zero;
+            result.M31 = vector.X;
+            result.M32 = vector.Y;
+            result.M33 = vector.Z;
+            result.M34 = zero;
+            result.M41 = objectPosition.X;
+            result.M42 = objectPosition.Y;
+            result.M43 = objectPosition.Z;
+            result.M44 = one;
+        }
+
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveFieldOfView (
+            ref <#= type #> fieldOfView,
+            ref <#= type #> aspectRatio,
+            ref <#= type #> nearPlaneDistance,
+            ref <#= type #> farPlaneDistance,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> half; RealMaths.Half(out half);
+            <#= type #> one = 1;
+            <#= type #> pi; RealMaths.Pi(out pi);
+
+            if ((fieldOfView <= zero) || (fieldOfView >= pi))
+            {
+                throw new ArgumentOutOfRangeException ("fieldOfView");
+            }
+
+            if (nearPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            if (farPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            //
+            // xScale     0          0              0
+            // 0        yScale       0              0
+            // 0        0        zf/(zn-zf)        -1
+            // 0        0        zn*zf/(zn-zf)      0
+            //
+            // where:
+            //
+            // yScale = cot(fovY/2)
+            //
+            // xScale = yScale / aspect ratio
+            //
+
+            // yScale = cot(fovY/2)
+            <#= type #> yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+            // xScale = yScale / aspect ratio
+            <#= type #> xScale = yScale / aspectRatio;
+
+            result.M11 = xScale;
+            result.M12 = zero;
+            result.M13 = zero;
+            result.M14 = zero;
+
+            result.M21 = zero;
+            result.M22 = yScale;
+            result.M23 = zero;
+            result.M24 = zero;
+
+            result.M31 = zero;
+            result.M32 = zero;
+            result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
+            result.M34 = -one;
+
+            result.M41 = zero;
+            result.M42 = zero;
+            result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+            result.M44 = zero;
+        }
+
+
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspective (
+            ref <#= type #> width,
+            ref <#= type #> height,
+            ref <#= type #> nearPlaneDistance,
+            ref <#= type #> farPlaneDistance,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.M11 = (two * nearPlaneDistance) / width;
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = (two * nearPlaneDistance) / height;
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.M31 = result.M32 = zero;
+            result.M34 = -one;
+            result.M41 = result.M42 = result.M44 = zero;
+            result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveOffCenter (
+            ref <#= type #> left,
+            ref <#= type #> right,
+            ref <#= type #> bottom,
+            ref <#= type #> top,
+            ref<#= type #> nearPlaneDistance,
+            ref <#= type #> farPlaneDistance,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.M11 = (two * nearPlaneDistance) / (right - left);
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = (two * nearPlaneDistance) / (top - bottom);
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M31 = (left + right) / (right - left);
+            result.M32 = (top + bottom) / (top - bottom);
+            result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.M34 = -one;
+            result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.M41 = result.M42 = result.M44 = zero;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographic (
+            ref <#= type #> width,
+            ref <#= type #> height,
+            ref <#= type #> zNearPlane,
+            ref <#= type #> zFarPlane,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
+
+            result.M11 = two / width;
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = two / height;
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M33 = one / (zNearPlane - zFarPlane);
+            result.M31 = result.M32 = result.M34 = zero;
+            result.M41 = result.M42 = zero;
+            result.M43 = zNearPlane / (zNearPlane - zFarPlane);
+            result.M44 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographicOffCenter (
+            ref <#= type #> left,
+            ref <#= type #> right,
+            ref <#= type #> bottom,
+            ref <#= type #> top,
+            ref <#= type #> zNearPlane,
+            ref <#= type #> zFarPlane,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+            <#= type #> two = 2;
+
+            result.M11 = two / (right - left);
+            result.M12 = result.M13 = result.M14 = zero;
+            result.M22 = two / (top - bottom);
+            result.M21 = result.M23 = result.M24 = zero;
+            result.M33 = one / (zNearPlane - zFarPlane);
+            result.M31 = result.M32 = result.M34 = zero;
+            result.M41 = (left + right) / (left - right);
+            result.M42 = (top + bottom) / (bottom - top);
+            result.M43 = zNearPlane / (zNearPlane - zFarPlane);
+            result.M44 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+        /// </summary>
+        public static void CreateLookAt (
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
+            out Matrix44 result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
+
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
+            Vector3.Normalise (ref right, out right);
+
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+
+            result.M11 = right.X;
+            result.M12 = up.X;
+            result.M13 = forward.X;
+            result.M14 = zero;
+
+            result.M21 = right.Y;
+            result.M22 = up.Y;
+            result.M23 = forward.Y;
+            result.M24 = zero;
+
+            result.M31 = right.Z;
+            result.M32 = up.Z;
+            result.M33 = forward.Z;
+            result.M34 = zero;
+
+            <#= type #> a;
+            <#= type #> b;
+            <#= type #> c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
+
+            result.M41 = -a;
+            result.M42 = -b;
+            result.M43 = -c;
+
+            result.M44 = one;
+        }
+#endif
+
+
+#if UNTESTED
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 cameraUpVector,
+            Vector3? cameraForwardVector)
+        {
+            Matrix44 result;
+            CreateBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref cameraUpVector, ref cameraForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateConstrainedBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector)
+        {
+            Matrix44 result;
+            CreateConstrainedBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref rotateAxis, ref cameraForwardVector, ref objectForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveFieldOfView (
+            <#= type #> fieldOfView,
+            <#= type #> aspectRatio,
+            <#= type #> nearPlane,
+            <#= type #> farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveFieldOfView (
+                ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspective (
+            <#= type #> width,
+            <#= type #> height,
+            <#= type #> nearPlane,
+            <#= type #> farPlane)
+        {
+            Matrix44 result;
+            CreatePerspective (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveOffCenter (
+            <#= type #> left,
+            <#= type #> right,
+            <#= type #> bottom,
+            <#= type #> top,
+            <#= type #> nearPlane,
+            <#= type #> farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographic (
+            <#= type #> width,
+            <#= type #> height,
+            <#= type #> nearPlane,
+            <#= type #> farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographic (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographicOffCenter (
+            <#= type #> left,
+            <#= type #> right,
+            <#= type #> bottom,
+            <#= type #> top,
+            <#= type #> nearPlane,
+            <#= type #> farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographicOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateLookAt (
+            Vector3 cameraPosition,
+            Vector3 cameraTarget,
+            Vector3 cameraUpVector)
+        {
+            Matrix44 result;
+            CreateLookAt (
+                ref cameraPosition, ref cameraTarget, ref cameraUpVector,
+                out result);
+            return result;
+        }
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    /// <summary>
+    /// todo
+    /// </summary>
+    internal class GjkDistance
+    {
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal GjkDistance ()
+        {
+            for (Int32 i = 0; i < 0x10; i++)
+            {
+                this.det [i] = new <#= type #>[4];
+            }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal Boolean AddSupportPoint (ref Vector3 newPoint)
+        {
+            Int32 index = (BitsToIndices [this.simplexBits ^ 15] & 7) - 1;
+
+            this.y [index] = newPoint;
+            <#= type #> newPointLs;
+            Vector3.LengthSquared(ref newPoint, out newPointLs);
+            this.yLengthSq [index] = newPointLs;
+
+            for (Int32 i = BitsToIndices[this.simplexBits]; i != 0; i = i >> 3)
+            {
+                Int32 idx = (i & 7) - 1;
+
+                Vector3 vector;
+                vector.X = this.y [idx].X - newPoint.X;
+                vector.Y = this.y [idx].Y - newPoint.Y;
+                vector.Z = this.y [idx].Z - newPoint.Z;
+
+                this.edges [idx] [index] = vector;
+                this.edges [index] [idx].X = -vector.X;
+                this.edges [index] [idx].Y = -vector.Y;
+                this.edges [index] [idx].Z = -vector.Z;
+
+                <#= type #> vectorLs;
+                Vector3.LengthSquared (ref vector, out vectorLs);
+
+                this.edgeLengthSq [index] [idx] = vectorLs;
+                this.edgeLengthSq [idx] [index] = vectorLs;
+            }
+
+            this.UpdateDeterminant (index);
+
+            return this.UpdateSimplex (index);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal void Reset ()
+        {
+            <#= type #> zero = 0;
+
+            this.simplexBits = 0;
+            this.maxLengthSq = zero;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal Vector3 ClosestPoint
+        {
+            get { return this.closestPoint; }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal Boolean FullSimplex
+        {
+            get { return (this.simplexBits == 15); }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        internal <#= type #> MaxLengthSquared
+        {
+            get { return this.maxLengthSq; }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        Vector3 closestPoint;
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        <#= type #>[][] det = new <#= type #>[0x10][];
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        <#= type #>[][] edgeLengthSq =
+            new <#= type #>[][]
+            {
+                new <#= type #>[4],
+                new <#= type #>[4],
+                new <#= type #>[4],
+                new <#= type #>[4]
+            };
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        Vector3[][] edges =
+            new Vector3[][]
+            {
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4],
+                new Vector3[4]
+            };
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        <#= type #> maxLengthSq;
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        Int32 simplexBits;
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        Vector3[] y = new Vector3[4];
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        <#= type #>[] yLengthSq = new <#= type #>[4];
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        static Int32[] BitsToIndices =
+            new Int32[]
+            {
+                0, 1, 2, 0x11, 3, 0x19, 0x1a, 0xd1,
+                4, 0x21, 0x22, 0x111, 0x23, 0x119, 0x11a, 0x8d1
+            };
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        Vector3 ComputeClosestPoint ()
+        {
+            <#= type #> fzero; RealMaths.Zero(out fzero);
+
+            <#= type #> num3 = fzero;
+            Vector3 zero = Vector3.Zero;
+
+            this.maxLengthSq = fzero;
+
+            for (Int32 i = BitsToIndices[this.simplexBits]; i != 0; i = i >> 3)
+            {
+                Int32 index = (i & 7) - 1;
+                <#= type #> num4 = this.det [this.simplexBits] [index];
+
+                num3 += num4;
+                zero += (Vector3)(this.y [index] * num4);
+
+                this.maxLengthSq =
+                RealMaths.Max (this.maxLengthSq, this.yLengthSq [index]);
+            }
+
+            return (Vector3)(zero / num3);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        Boolean IsSatisfiesRule (Int32 xBits, Int32 yBits)
+        {
+            <#= type #> fzero; RealMaths.Zero(out fzero);
+
+            for (Int32 i = BitsToIndices[yBits]; i != 0; i = i >> 3)
+            {
+                Int32 index = (i & 7) - 1;
+                Int32 num3 = ((Int32)1) << index;
+
+                if ((num3 & xBits) != 0)
+                {
+                    if (this.det [xBits] [index] <= fzero)
+                    {
+                        return false;
+                    }
+                }
+                else if (this.det [xBits | num3] [index] > fzero)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        void UpdateDeterminant (Int32 xmIdx)
+        {
+            <#= type #> fone; RealMaths.One(out fone);
+            Int32 index = ((Int32)1) << xmIdx;
+
+            this.det [index] [xmIdx] = fone;
+
+            Int32 num14 = BitsToIndices [this.simplexBits];
+            Int32 num8 = num14;
+
+            for (Int32 i = 0; num8 != 0; i++)
+            {
+                Int32 num = (num8 & 7) - 1;
+                Int32 num12 = ((int)1) << num;
+                Int32 num6 = num12 | index;
+
+                this.det [num6] [num] =
+                    Dot (ref this.edges [xmIdx] [num], ref this.y [xmIdx]);
+
+                this.det [num6] [xmIdx] =
+                    Dot (ref this.edges [num] [xmIdx], ref this.y [num]);
+
+                Int32 num11 = num14;
+
+                for (Int32 j = 0; j < i; j++)
+                {
+                    int num3 = (num11 & 7) - 1;
+                    int num5 = ((int)1) << num3;
+                    int num9 = num6 | num5;
+                    int num4 = (this.edgeLengthSq [num] [num3] < this.edgeLengthSq [xmIdx] [num3]) ? num : xmIdx;
+
+                    this.det [num9] [num3] =
+                        (this.det [num6] [num] * Dot (ref this.edges [num4] [num3], ref this.y [num])) +
+                        (this.det [num6] [xmIdx] * Dot (ref this.edges [num4] [num3], ref this.y [xmIdx]));
+
+                    num4 = (this.edgeLengthSq [num3] [num] < this.edgeLengthSq [xmIdx] [num]) ? num3 : xmIdx;
+
+                    this.det [num9] [num] =
+                        (this.det [num5 | index] [num3] * Dot (ref this.edges [num4] [num], ref this.y [num3])) +
+                        (this.det [num5 | index] [xmIdx] * Dot (ref this.edges [num4] [num], ref this.y [xmIdx]));
+
+                    num4 = (this.edgeLengthSq [num] [xmIdx] < this.edgeLengthSq [num3] [xmIdx]) ? num : num3;
+
+                    this.det [num9] [xmIdx] =
+                        (this.det [num12 | num5] [num3] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num3])) +
+                        (this.det [num12 | num5] [num] * Dot (ref this.edges [num4] [xmIdx], ref this.y [num]));
+
+                    num11 = num11 >> 3;
+                }
+
+                num8 = num8 >> 3;
+            }
+
+            if ((this.simplexBits | index) == 15)
+            {
+                int num2 =
+                    (this.edgeLengthSq [1] [0] < this.edgeLengthSq [2] [0]) ?
+                    ((this.edgeLengthSq [1] [0] < this.edgeLengthSq [3] [0]) ? 1 : 3) :
+                    ((this.edgeLengthSq [2] [0] < this.edgeLengthSq [3] [0]) ? 2 : 3);
+
+                this.det [15] [0] =
+                    ((this.det [14] [1] * Dot (ref this.edges [num2] [0], ref this.y [1])) +
+                    (this.det [14] [2] * Dot (ref this.edges [num2] [0], ref this.y [2]))) +
+                    (this.det [14] [3] * Dot (ref this.edges [num2] [0], ref this.y [3]));
+
+                num2 =
+                    (this.edgeLengthSq [0] [1] < this.edgeLengthSq [2] [1]) ?
+                    ((this.edgeLengthSq [0] [1] < this.edgeLengthSq [3] [1]) ? 0 : 3) :
+                    ((this.edgeLengthSq [2] [1] < this.edgeLengthSq [3] [1]) ? 2 : 3);
+
+                this.det [15] [1] =
+                    ((this.det [13] [0] * Dot (ref this.edges [num2] [1], ref this.y [0])) +
+                    (this.det [13] [2] * Dot (ref this.edges [num2] [1], ref this.y [2]))) +
+                    (this.det [13] [3] * Dot (ref this.edges [num2] [1], ref this.y [3]));
+
+                num2 =
+                    (this.edgeLengthSq [0] [2] < this.edgeLengthSq [1] [2]) ?
+                    ((this.edgeLengthSq [0] [2] < this.edgeLengthSq [3] [2]) ? 0 : 3) :
+                    ((this.edgeLengthSq [1] [2] < this.edgeLengthSq [3] [2]) ? 1 : 3);
+
+                this.det [15] [2] =
+                    ((this.det [11] [0] * Dot (ref this.edges [num2] [2], ref this.y [0])) +
+                    (this.det [11] [1] * Dot (ref this.edges [num2] [2], ref this.y [1]))) +
+                    (this.det [11] [3] * Dot (ref this.edges [num2] [2], ref this.y [3]));
+
+                num2 =
+                    (this.edgeLengthSq [0] [3] < this.edgeLengthSq [1] [3]) ?
+                    ((this.edgeLengthSq [0] [3] < this.edgeLengthSq [2] [3]) ? 0 : 2) :
+                    ((this.edgeLengthSq [1] [3] < this.edgeLengthSq [2] [3]) ? 1 : 2);
+
+                this.det [15] [3] =
+                    ((this.det [7] [0] * Dot (ref this.edges [num2] [3], ref this.y [0])) +
+                    (this.det [7] [1] * Dot (ref this.edges [num2] [3], ref this.y [1]))) +
+                    (this.det [7] [2] * Dot (ref this.edges [num2] [3], ref this.y [2]));
+            }
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        Boolean UpdateSimplex (Int32 newIndex)
+        {
+            Int32 yBits = this.simplexBits | (((Int32)1) << newIndex);
+
+            Int32 xBits = ((Int32)1) << newIndex;
+
+            for (Int32 i = this.simplexBits; i != 0; i--)
+            {
+                if (((i & yBits) == i) && this.IsSatisfiesRule (i | xBits, yBits))
+                {
+                    this.simplexBits = i | xBits;
+                    this.closestPoint = this.ComputeClosestPoint ();
+
+                    return true;
+                }
+            }
+
+            Boolean flag = false;
+
+            if (this.IsSatisfiesRule (xBits, yBits))
+            {
+                this.simplexBits = xBits;
+                this.closestPoint = this.y [newIndex];
+                this.maxLengthSq = this.yLengthSq [newIndex];
+
+                flag = true;
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        static <#= type #> Dot (ref Vector3 a, ref Vector3 b)
+        {
+            return (((a.X * b.X) + (a.Y * b.Y)) + (a.Z * b.Z));
+        }
+    }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

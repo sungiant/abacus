@@ -7704,7 +7704,8 @@ namespace Abacus.SinglePrecision.Tests
             Quaternion outRotation;
             Vector3 outTranslation;
 
-            m.Decompose(out outScale, out outRotation, out outTranslation);
+            Boolean decomposeOk;
+            Matrix44.Decompose(ref m, out outScale, out outRotation, out outTranslation, out decomposeOk);
 
             Matrix44 mat;
             Matrix44.CreateFromQuaternion(ref outRotation, out mat);
@@ -15910,7 +15911,8 @@ namespace Abacus.DoublePrecision.Tests
             Quaternion outRotation;
             Vector3 outTranslation;
 
-            m.Decompose(out outScale, out outRotation, out outTranslation);
+            Boolean decomposeOk;
+            Matrix44.Decompose(ref m, out outScale, out outRotation, out outTranslation, out decomposeOk);
 
             Matrix44 mat;
             Matrix44.CreateFromQuaternion(ref outRotation, out mat);
@@ -24116,7 +24118,8 @@ namespace Abacus.Fixed32Precision.Tests
             Quaternion outRotation;
             Vector3 outTranslation;
 
-            m.Decompose(out outScale, out outRotation, out outTranslation);
+            Boolean decomposeOk;
+            Matrix44.Decompose(ref m, out outScale, out outRotation, out outTranslation, out decomposeOk);
 
             Matrix44 mat;
             Matrix44.CreateFromQuaternion(ref outRotation, out mat);
