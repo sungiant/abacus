@@ -10678,6 +10678,126 @@ namespace Abacus.SinglePrecision
 
 #if (VARIANTS_ENABLED)
 
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromAxisAngle (
+            Vector3 axis,
+            Single angle)
+        {
+            Quaternion result;
+            CreateFromAxisAngle (ref axis, ref angle, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromYawPitchRoll (
+            Single yaw,
+            Single pitch,
+            Single roll)
+        {
+            Quaternion result;
+            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromRotationMatrix (
+            Matrix44 matrix)
+        {
+            Quaternion result;
+            CreateFromRotationMatrix (ref matrix, out result);
+            return result;
+        }
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Single LengthSquared (Quaternion quaternion)
+        {
+            Single result;
+            LengthSquared (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Single Length (Quaternion quaternion)
+        {
+            Single result;
+            Length (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean IsUnit (Quaternion quaternion)
+        {
+            Boolean result;
+            IsUnit (ref quaternion, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Conjugate (Quaternion quaternion)
+        {
+            Quaternion result;
+            Conjugate (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Inverse (Quaternion quaternion)
+        {
+            Quaternion result;
+            Inverse (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Single Dot (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Single result;
+            Dot (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Concatenate (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Quaternion result;
+            Concatenate (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Normalise (Quaternion quaternion)
+        {
+            Quaternion result;
+            Normalise (ref quaternion, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -10881,6 +11001,32 @@ namespace Abacus.SinglePrecision
         {
             Quaternion result;
             Divide (ref quaternion1, ref divider, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Slerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Single amount)
+        {
+            Quaternion result;
+            Slerp (ref quaternion1, ref quaternion2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Lerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Single amount)
+        {
+            Quaternion result;
+            Lerp (ref quaternion1, ref quaternion2, ref amount, out result);
             return result;
         }
 
@@ -17208,6 +17354,126 @@ namespace Abacus.DoublePrecision
 
 #if (VARIANTS_ENABLED)
 
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromAxisAngle (
+            Vector3 axis,
+            Double angle)
+        {
+            Quaternion result;
+            CreateFromAxisAngle (ref axis, ref angle, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromYawPitchRoll (
+            Double yaw,
+            Double pitch,
+            Double roll)
+        {
+            Quaternion result;
+            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromRotationMatrix (
+            Matrix44 matrix)
+        {
+            Quaternion result;
+            CreateFromRotationMatrix (ref matrix, out result);
+            return result;
+        }
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Double LengthSquared (Quaternion quaternion)
+        {
+            Double result;
+            LengthSquared (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Double Length (Quaternion quaternion)
+        {
+            Double result;
+            Length (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean IsUnit (Quaternion quaternion)
+        {
+            Boolean result;
+            IsUnit (ref quaternion, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Conjugate (Quaternion quaternion)
+        {
+            Quaternion result;
+            Conjugate (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Inverse (Quaternion quaternion)
+        {
+            Quaternion result;
+            Inverse (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Double Dot (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Double result;
+            Dot (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Concatenate (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Quaternion result;
+            Concatenate (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Normalise (Quaternion quaternion)
+        {
+            Quaternion result;
+            Normalise (ref quaternion, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -17411,6 +17677,32 @@ namespace Abacus.DoublePrecision
         {
             Quaternion result;
             Divide (ref quaternion1, ref divider, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Slerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Double amount)
+        {
+            Quaternion result;
+            Slerp (ref quaternion1, ref quaternion2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Lerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Double amount)
+        {
+            Quaternion result;
+            Lerp (ref quaternion1, ref quaternion2, ref amount, out result);
             return result;
         }
 
@@ -23738,6 +24030,126 @@ namespace Abacus.Fixed32Precision
 
 #if (VARIANTS_ENABLED)
 
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromAxisAngle (
+            Vector3 axis,
+            Fixed32 angle)
+        {
+            Quaternion result;
+            CreateFromAxisAngle (ref axis, ref angle, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromYawPitchRoll (
+            Fixed32 yaw,
+            Fixed32 pitch,
+            Fixed32 roll)
+        {
+            Quaternion result;
+            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromRotationMatrix (
+            Matrix44 matrix)
+        {
+            Quaternion result;
+            CreateFromRotationMatrix (ref matrix, out result);
+            return result;
+        }
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Fixed32 LengthSquared (Quaternion quaternion)
+        {
+            Fixed32 result;
+            LengthSquared (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Fixed32 Length (Quaternion quaternion)
+        {
+            Fixed32 result;
+            Length (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean IsUnit (Quaternion quaternion)
+        {
+            Boolean result;
+            IsUnit (ref quaternion, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Conjugate (Quaternion quaternion)
+        {
+            Quaternion result;
+            Conjugate (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Inverse (Quaternion quaternion)
+        {
+            Quaternion result;
+            Inverse (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Fixed32 Dot (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Fixed32 result;
+            Dot (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Concatenate (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Quaternion result;
+            Concatenate (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Normalise (Quaternion quaternion)
+        {
+            Quaternion result;
+            Normalise (ref quaternion, out result);
+            return result;
+        }
+
         // Equality Operators //----------------------------------------------//
 
         /// <summary>
@@ -23941,6 +24353,32 @@ namespace Abacus.Fixed32Precision
         {
             Quaternion result;
             Divide (ref quaternion1, ref divider, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Slerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Fixed32 amount)
+        {
+            Quaternion result;
+            Slerp (ref quaternion1, ref quaternion2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Lerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Fixed32 amount)
+        {
+            Quaternion result;
+            Lerp (ref quaternion1, ref quaternion2, ref amount, out result);
             return result;
         }
 
