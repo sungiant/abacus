@@ -8463,12 +8463,12 @@ namespace Abacus.SinglePrecision.Tests
         /// </summary>
         internal static Quaternion GetNextRandomQuaternion ()
         {
-            Single a = GetNextRandomSingle();
-            Single b = GetNextRandomSingle();
-            Single c = GetNextRandomSingle();
-            Single d = GetNextRandomSingle();
+            Single i = GetNextRandomSingle();
+            Single j = GetNextRandomSingle();
+            Single k = GetNextRandomSingle();
+            Single u = GetNextRandomSingle();
 
-            return new Quaternion(a, b, c, d);
+            return new Quaternion(i, j, k, u);
         }
 
         /// <summary>
@@ -8478,12 +8478,12 @@ namespace Abacus.SinglePrecision.Tests
         {
             Single tolerance; RealMaths.TestTolerance(out tolerance);
 
-            Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
-            Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
-            Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
-            Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+            Assert.That(a.I, Is.EqualTo(b.I).Within(tolerance));
+            Assert.That(a.J, Is.EqualTo(b.J).Within(tolerance));
+            Assert.That(a.K, Is.EqualTo(b.K).Within(tolerance));
+            Assert.That(a.U, Is.EqualTo(b.U).Within(tolerance));
         }
-        
+
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -8523,10 +8523,10 @@ namespace Abacus.SinglePrecision.Tests
                 //     dev branch there will be need for an extension method for
                 //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
-                Assert.That(data[0], Is.EqualTo(quat.X));
-                Assert.That(data[1], Is.EqualTo(quat.Y));
-                Assert.That(data[2], Is.EqualTo(quat.Z));
-                Assert.That(data[3], Is.EqualTo(quat.W));
+                Assert.That(data[0], Is.EqualTo(quat.I));
+                Assert.That(data[1], Is.EqualTo(quat.J));
+                Assert.That(data[2], Is.EqualTo(quat.K));
+                Assert.That(data[3], Is.EqualTo(quat.U));
 
                 h_quat.Free();
             }
@@ -8671,14 +8671,14 @@ namespace Abacus.SinglePrecision.Tests
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -8691,7 +8691,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -8707,7 +8707,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -8722,8 +8722,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Quaternion objects.
         /// </summary>
         [Test]
@@ -8756,7 +8756,7 @@ namespace Abacus.SinglePrecision.Tests
 
             Quaternion result_1b; Quaternion.Add(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -8779,7 +8779,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the 
+        /// Assert that, for a known example involving the zero quaternion, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -8793,7 +8793,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the 
+        /// Assert that, for a known example involving two zero quaternions, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -8803,7 +8803,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -8816,14 +8816,14 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
+                    a.I + b.I, a.J + b.J, a.K + b.K, a.U + b.U);
 
                 this.TestAddition(a, b, expected);
             }
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -8838,7 +8838,7 @@ namespace Abacus.SinglePrecision.Tests
 
             Quaternion result_1b; Quaternion.Subtract(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -8862,8 +8862,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -8873,7 +8873,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -8886,14 +8886,14 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
+                    a.I - b.I, a.J - b.J, a.K - b.K, a.U - b.U);
 
                 this.TestSubtraction(a, b, expected);
             }
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -8905,7 +8905,7 @@ namespace Abacus.SinglePrecision.Tests
             var result_1a = -a;
 
             Quaternion result_1b; Quaternion.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -8932,7 +8932,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the 
+        /// Assert that, for known examples involving the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -8951,7 +8951,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when negating the zero quaternion, all the 
+        /// Assert that when negating the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -8961,7 +8961,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -8991,7 +8991,7 @@ namespace Abacus.SinglePrecision.Tests
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -9022,7 +9022,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -9035,7 +9035,7 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W);
+                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
 
                 this.TestMultiplication(a, b, c);
             }
@@ -9055,13 +9055,13 @@ namespace Abacus.SinglePrecision.Tests
             var result_1a = a / b;
 
             Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -9084,7 +9084,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -9107,7 +9107,7 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -9120,7 +9120,7 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X / b.X, a.Y / b.Y, a.Z / b.Z, a.W / b.W);
+                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
 
                 this.TestDivision(a, b, c);
             }
@@ -16670,12 +16670,12 @@ namespace Abacus.DoublePrecision.Tests
         /// </summary>
         internal static Quaternion GetNextRandomQuaternion ()
         {
-            Double a = GetNextRandomDouble();
-            Double b = GetNextRandomDouble();
-            Double c = GetNextRandomDouble();
-            Double d = GetNextRandomDouble();
+            Double i = GetNextRandomDouble();
+            Double j = GetNextRandomDouble();
+            Double k = GetNextRandomDouble();
+            Double u = GetNextRandomDouble();
 
-            return new Quaternion(a, b, c, d);
+            return new Quaternion(i, j, k, u);
         }
 
         /// <summary>
@@ -16685,12 +16685,12 @@ namespace Abacus.DoublePrecision.Tests
         {
             Double tolerance; RealMaths.TestTolerance(out tolerance);
 
-            Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
-            Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
-            Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
-            Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+            Assert.That(a.I, Is.EqualTo(b.I).Within(tolerance));
+            Assert.That(a.J, Is.EqualTo(b.J).Within(tolerance));
+            Assert.That(a.K, Is.EqualTo(b.K).Within(tolerance));
+            Assert.That(a.U, Is.EqualTo(b.U).Within(tolerance));
         }
-        
+
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -16730,10 +16730,10 @@ namespace Abacus.DoublePrecision.Tests
                 //     dev branch there will be need for an extension method for
                 //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
-                Assert.That(data[0], Is.EqualTo(quat.X));
-                Assert.That(data[1], Is.EqualTo(quat.Y));
-                Assert.That(data[2], Is.EqualTo(quat.Z));
-                Assert.That(data[3], Is.EqualTo(quat.W));
+                Assert.That(data[0], Is.EqualTo(quat.I));
+                Assert.That(data[1], Is.EqualTo(quat.J));
+                Assert.That(data[2], Is.EqualTo(quat.K));
+                Assert.That(data[3], Is.EqualTo(quat.U));
 
                 h_quat.Free();
             }
@@ -16878,14 +16878,14 @@ namespace Abacus.DoublePrecision.Tests
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -16898,7 +16898,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -16914,7 +16914,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -16929,8 +16929,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Quaternion objects.
         /// </summary>
         [Test]
@@ -16963,7 +16963,7 @@ namespace Abacus.DoublePrecision.Tests
 
             Quaternion result_1b; Quaternion.Add(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -16986,7 +16986,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the 
+        /// Assert that, for a known example involving the zero quaternion, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -17000,7 +17000,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the 
+        /// Assert that, for a known example involving two zero quaternions, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -17010,7 +17010,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -17023,14 +17023,14 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
+                    a.I + b.I, a.J + b.J, a.K + b.K, a.U + b.U);
 
                 this.TestAddition(a, b, expected);
             }
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -17045,7 +17045,7 @@ namespace Abacus.DoublePrecision.Tests
 
             Quaternion result_1b; Quaternion.Subtract(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -17069,8 +17069,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -17080,7 +17080,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -17093,14 +17093,14 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
+                    a.I - b.I, a.J - b.J, a.K - b.K, a.U - b.U);
 
                 this.TestSubtraction(a, b, expected);
             }
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -17112,7 +17112,7 @@ namespace Abacus.DoublePrecision.Tests
             var result_1a = -a;
 
             Quaternion result_1b; Quaternion.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -17139,7 +17139,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the 
+        /// Assert that, for known examples involving the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -17158,7 +17158,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that when negating the zero quaternion, all the 
+        /// Assert that when negating the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -17168,7 +17168,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -17198,7 +17198,7 @@ namespace Abacus.DoublePrecision.Tests
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -17229,7 +17229,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -17242,7 +17242,7 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W);
+                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
 
                 this.TestMultiplication(a, b, c);
             }
@@ -17262,13 +17262,13 @@ namespace Abacus.DoublePrecision.Tests
             var result_1a = a / b;
 
             Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -17291,7 +17291,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -17314,7 +17314,7 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -17327,7 +17327,7 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X / b.X, a.Y / b.Y, a.Z / b.Z, a.W / b.W);
+                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
 
                 this.TestDivision(a, b, c);
             }
@@ -24877,12 +24877,12 @@ namespace Abacus.Fixed32Precision.Tests
         /// </summary>
         internal static Quaternion GetNextRandomQuaternion ()
         {
-            Fixed32 a = GetNextRandomFixed32();
-            Fixed32 b = GetNextRandomFixed32();
-            Fixed32 c = GetNextRandomFixed32();
-            Fixed32 d = GetNextRandomFixed32();
+            Fixed32 i = GetNextRandomFixed32();
+            Fixed32 j = GetNextRandomFixed32();
+            Fixed32 k = GetNextRandomFixed32();
+            Fixed32 u = GetNextRandomFixed32();
 
-            return new Quaternion(a, b, c, d);
+            return new Quaternion(i, j, k, u);
         }
 
         /// <summary>
@@ -24892,12 +24892,12 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Fixed32 tolerance; RealMaths.TestTolerance(out tolerance);
 
-            Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
-            Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
-            Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
-            Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+            Assert.That(a.I, Is.EqualTo(b.I).Within(tolerance));
+            Assert.That(a.J, Is.EqualTo(b.J).Within(tolerance));
+            Assert.That(a.K, Is.EqualTo(b.K).Within(tolerance));
+            Assert.That(a.U, Is.EqualTo(b.U).Within(tolerance));
         }
-        
+
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -24937,10 +24937,10 @@ namespace Abacus.Fixed32Precision.Tests
                 //     dev branch there will be need for an extension method for
                 //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
-                Assert.That(data[0], Is.EqualTo(quat.X));
-                Assert.That(data[1], Is.EqualTo(quat.Y));
-                Assert.That(data[2], Is.EqualTo(quat.Z));
-                Assert.That(data[3], Is.EqualTo(quat.W));
+                Assert.That(data[0], Is.EqualTo(quat.I));
+                Assert.That(data[1], Is.EqualTo(quat.J));
+                Assert.That(data[2], Is.EqualTo(quat.K));
+                Assert.That(data[3], Is.EqualTo(quat.U));
 
                 h_quat.Free();
             }
@@ -25085,14 +25085,14 @@ namespace Abacus.Fixed32Precision.Tests
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -25105,7 +25105,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -25121,7 +25121,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -25136,8 +25136,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Quaternion objects.
         /// </summary>
         [Test]
@@ -25170,7 +25170,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             Quaternion result_1b; Quaternion.Add(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -25193,7 +25193,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the 
+        /// Assert that, for a known example involving the zero quaternion, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -25207,7 +25207,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the 
+        /// Assert that, for a known example involving two zero quaternions, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -25217,7 +25217,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -25230,14 +25230,14 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
+                    a.I + b.I, a.J + b.J, a.K + b.K, a.U + b.U);
 
                 this.TestAddition(a, b, expected);
             }
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -25252,7 +25252,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             Quaternion result_1b; Quaternion.Subtract(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -25276,8 +25276,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -25287,7 +25287,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -25300,14 +25300,14 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
+                    a.I - b.I, a.J - b.J, a.K - b.K, a.U - b.U);
 
                 this.TestSubtraction(a, b, expected);
             }
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -25319,7 +25319,7 @@ namespace Abacus.Fixed32Precision.Tests
             var result_1a = -a;
 
             Quaternion result_1b; Quaternion.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -25346,7 +25346,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the 
+        /// Assert that, for known examples involving the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -25365,7 +25365,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that when negating the zero quaternion, all the 
+        /// Assert that when negating the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -25375,7 +25375,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -25405,7 +25405,7 @@ namespace Abacus.Fixed32Precision.Tests
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -25436,7 +25436,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -25449,7 +25449,7 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W);
+                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
 
                 this.TestMultiplication(a, b, c);
             }
@@ -25469,13 +25469,13 @@ namespace Abacus.Fixed32Precision.Tests
             var result_1a = a / b;
 
             Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -25498,7 +25498,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -25521,7 +25521,7 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -25534,7 +25534,7 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X / b.X, a.Y / b.Y, a.Z / b.Z, a.W / b.W);
+                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
 
                 this.TestDivision(a, b, c);
             }

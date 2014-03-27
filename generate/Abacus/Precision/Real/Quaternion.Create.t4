@@ -12,11 +12,11 @@
             <#= type #> sin = RealMaths.Sin (theta);
             <#= type #> cos = RealMaths.Cos (theta);
 
-            result.X = axis.X * sin;
-            result.Y = axis.Y * sin;
-            result.Z = axis.Z * sin;
+            result.I = axis.X * sin;
+            result.J = axis.Y * sin;
+            result.K = axis.Z * sin;
 
-            result.W = cos;
+            result.U = cos;
         }
 
         /// <summary>
@@ -44,10 +44,10 @@
             <#= type #> num2 = RealMaths.Sin (num7);
             <#= type #> num = RealMaths.Cos (num7);
 
-            result.X = ((num * num4) * num5) + ((num2 * num3) * num6);
-            result.Y = ((num2 * num3) * num5) - ((num * num4) * num6);
-            result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
-            result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
+            result.I = ((num * num4) * num5) + ((num2 * num3) * num6);
+            result.J = ((num2 * num3) * num5) - ((num * num4) * num6);
+            result.K = ((num * num3) * num6) - ((num2 * num4) * num5);
+            result.U = ((num * num3) * num5) + ((num2 * num4) * num6);
         }
 
         /// <summary>
@@ -66,37 +66,37 @@
             if (num8 > zero)
             {
                 <#= type #> num = RealMaths.Sqrt (num8 + one);
-                result.W = num * half;
+                result.U = num * half;
                 num = half / num;
-                result.X = (matrix.M12 - matrix.M21) * num;
-                result.Y = (matrix.M20 - matrix.M02) * num;
-                result.Z = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.M12 - matrix.M21) * num;
+                result.J = (matrix.M20 - matrix.M02) * num;
+                result.K = (matrix.M01 - matrix.M10) * num;
             }
             else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
             {
                 <#= type #> num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
                 <#= type #> num4 = half / num7;
-                result.X = half * num7;
-                result.Y = (matrix.M01 + matrix.M10) * num4;
-                result.Z = (matrix.M02 + matrix.M20) * num4;
-                result.W = (matrix.M12 - matrix.M21) * num4;
+                result.I = half * num7;
+                result.J = (matrix.M01 + matrix.M10) * num4;
+                result.K = (matrix.M02 + matrix.M20) * num4;
+                result.U = (matrix.M12 - matrix.M21) * num4;
             }
             else if (matrix.M11 > matrix.M22)
             {
                 <#= type #> num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
                 <#= type #> num3 = half / num6;
-                result.X = (matrix.M10 + matrix.M01) * num3;
-                result.Y = half * num6;
-                result.Z = (matrix.M21 + matrix.M12) * num3;
-                result.W = (matrix.M20 - matrix.M02) * num3;
+                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.J = half * num6;
+                result.K = (matrix.M21 + matrix.M12) * num3;
+                result.U = (matrix.M20 - matrix.M02) * num3;
             }
             else
             {
                 <#= type #> num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
                 <#= type #> num2 = half / num5;
-                result.X = (matrix.M20 + matrix.M02) * num2;
-                result.Y = (matrix.M21 + matrix.M12) * num2;
-                result.Z = half * num5;
-                result.W = (matrix.M01 - matrix.M10) * num2;
+                result.I = (matrix.M20 + matrix.M02) * num2;
+                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.K = half * num5;
+                result.U = (matrix.M01 - matrix.M10) * num2;
             }
         }

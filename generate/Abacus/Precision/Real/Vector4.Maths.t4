@@ -135,39 +135,39 @@
         {
             <#= type #> two = 2;
 
-            <#= type #> x = rotation.X;
-            <#= type #> y = rotation.Y;
-            <#= type #> z = rotation.Z;
-            <#= type #> w = rotation.W;
+            <#= type #> i = rotation.I;
+            <#= type #> j = rotation.J;
+            <#= type #> k = rotation.K;
+            <#= type #> u = rotation.U;
 
-            <#= type #> xx = x * x;
-            <#= type #> yy = y * y;
-            <#= type #> zz = z * z;
+            <#= type #> ii = i * i;
+            <#= type #> jj = j * j;
+            <#= type #> kk = k * k;
 
-            <#= type #> wx = w * x;
-            <#= type #> wy = w * y;
-            <#= type #> wz = w * z;
-            <#= type #> xy = x * y;
-            <#= type #> xz = x * z;
-            <#= type #> yz = y * z;
+            <#= type #> ui = u * i;
+            <#= type #> uj = u * j;
+            <#= type #> uk = u * k;
+            <#= type #> ij = i * j;
+            <#= type #> ik = i * k;
+            <#= type #> jk = j * k;
 
             result.X =
                 + vector.X
-                - (two * vector.X * (yy + zz))
-                + (two * vector.Y * (xy - wz))
-                + (two * vector.Z * (xz + wy));
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz))
-                + (two * vector.Z * (yz - wx));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
 
             result.Z =
                 + vector.Z
-                + (two * vector.X * (xz - wy))
-                + (two * vector.Y * (yz + wx))
-                - (two * vector.Z * (xx + yy));
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
 
             result.W = vector.W;
         }

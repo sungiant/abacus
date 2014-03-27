@@ -9142,33 +9142,33 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
+            Single ii = quaternion.I + quaternion.I;
+            Single jj = quaternion.J + quaternion.J;
+            Single kk = quaternion.K + quaternion.K;
 
-            Single xs = quaternion.X + quaternion.X;
-            Single ys = quaternion.Y + quaternion.Y;
-            Single zs = quaternion.Z + quaternion.Z;
-            Single wx = quaternion.W * xs;
-            Single wy = quaternion.W * ys;
-            Single wz = quaternion.W * zs;
-            Single xx = quaternion.X * xs;
-            Single xy = quaternion.X * ys;
-            Single xz = quaternion.X * zs;
-            Single yy = quaternion.Y * ys;
-            Single yz = quaternion.Y * zs;
-            Single zz = quaternion.Z * zs;
+            Single uii = quaternion.U * ii;
+            Single ujj = quaternion.U * jj;
+            Single ukk = quaternion.U * kk;
+            Single iii = quaternion.I * ii;
+            Single ijj = quaternion.I * jj;
+            Single ikk = quaternion.I * kk;
+            Single jjj = quaternion.J * jj;
+            Single jkk = quaternion.J * kk;
+            Single kkk = quaternion.K * kk;
 
-            result.M00 = one - (yy + zz);
-            result.M10 = xy - wz;
-            result.M20 = xz + wy;
+            result.M00 = one - (jjj + kkk);
+            result.M10 = ijj - ukk;
+            result.M20 = ikk + ujj;
             result.M30 = zero;
 
-            result.M01 = xy + wz;
-            result.M11 = one - (xx + zz);
-            result.M21 = yz - wx;
+            result.M01 = ijj + ukk;
+            result.M11 = one - (iii + kkk);
+            result.M21 = jkk - uii;
             result.M31 = zero;
 
-            result.M02 = xz - wy;
-            result.M12 = yz + wx;
-            result.M22 = one - (xx + yy);
+            result.M02 = ikk - ujj;
+            result.M12 = jkk + uii;
+            result.M22 = one - (iii + jjj);
             result.M32 = zero;
 
             result.M03 = zero;
@@ -10048,36 +10048,36 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public Single X;
+        public Single I;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Single Y;
+        public Single J;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Single Z;
+        public Single K;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Single W;
+        public Single U;
 
         /// <summary>
         /// todo
         /// </summary>
         public Quaternion (
-            Single x,
-            Single y,
-            Single z,
-            Single w)
+            Single i,
+            Single j,
+            Single k,
+            Single u)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            this.I = i;
+            this.J = j;
+            this.K = k;
+            this.U = u;
         }
 
         /// <summary>
@@ -10085,10 +10085,10 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public Quaternion (Vector3 vectorPart, Single scalarPart)
         {
-            this.X = vectorPart.X;
-            this.Y = vectorPart.Y;
-            this.Z = vectorPart.Z;
-            this.W = scalarPart;
+            this.I = vectorPart.X;
+            this.J = vectorPart.Y;
+            this.K = vectorPart.Z;
+            this.U = scalarPart;
         }
 
         /// <summary>
@@ -10096,7 +10096,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
+            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
         }
 
         /// <summary>
@@ -10105,10 +10105,10 @@ namespace Abacus.SinglePrecision
         public override Int32 GetHashCode ()
         {
             return
-                this.X.GetHashCode () +
-                this.Y.GetHashCode () +
-                this.Z.GetHashCode () +
-                this.W.GetHashCode ();
+                this.I.GetHashCode () +
+                this.J.GetHashCode () +
+                this.K.GetHashCode () +
+                this.U.GetHashCode ();
         }
 
         /// <summary>
@@ -10136,10 +10136,10 @@ namespace Abacus.SinglePrecision
         public Boolean Equals (Quaternion other)
         {
             return
-                (this.X == other.X) &&
-                (this.Y == other.Y) &&
-                (this.Z == other.Z) &&
-                (this.W == other.W);
+                (this.I == other.I) &&
+                (this.J == other.J) &&
+                (this.K == other.K) &&
+                (this.U == other.U);
         }
 
         #endregion
@@ -10181,11 +10181,11 @@ namespace Abacus.SinglePrecision
             Single sin = RealMaths.Sin (theta);
             Single cos = RealMaths.Cos (theta);
 
-            result.X = axis.X * sin;
-            result.Y = axis.Y * sin;
-            result.Z = axis.Z * sin;
+            result.I = axis.X * sin;
+            result.J = axis.Y * sin;
+            result.K = axis.Z * sin;
 
-            result.W = cos;
+            result.U = cos;
         }
 
         /// <summary>
@@ -10213,10 +10213,10 @@ namespace Abacus.SinglePrecision
             Single num2 = RealMaths.Sin (num7);
             Single num = RealMaths.Cos (num7);
 
-            result.X = ((num * num4) * num5) + ((num2 * num3) * num6);
-            result.Y = ((num2 * num3) * num5) - ((num * num4) * num6);
-            result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
-            result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
+            result.I = ((num * num4) * num5) + ((num2 * num3) * num6);
+            result.J = ((num2 * num3) * num5) - ((num * num4) * num6);
+            result.K = ((num * num3) * num6) - ((num2 * num4) * num5);
+            result.U = ((num * num3) * num5) + ((num2 * num4) * num6);
         }
 
         /// <summary>
@@ -10235,38 +10235,38 @@ namespace Abacus.SinglePrecision
             if (num8 > zero)
             {
                 Single num = RealMaths.Sqrt (num8 + one);
-                result.W = num * half;
+                result.U = num * half;
                 num = half / num;
-                result.X = (matrix.M12 - matrix.M21) * num;
-                result.Y = (matrix.M20 - matrix.M02) * num;
-                result.Z = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.M12 - matrix.M21) * num;
+                result.J = (matrix.M20 - matrix.M02) * num;
+                result.K = (matrix.M01 - matrix.M10) * num;
             }
             else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
             {
                 Single num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
                 Single num4 = half / num7;
-                result.X = half * num7;
-                result.Y = (matrix.M01 + matrix.M10) * num4;
-                result.Z = (matrix.M02 + matrix.M20) * num4;
-                result.W = (matrix.M12 - matrix.M21) * num4;
+                result.I = half * num7;
+                result.J = (matrix.M01 + matrix.M10) * num4;
+                result.K = (matrix.M02 + matrix.M20) * num4;
+                result.U = (matrix.M12 - matrix.M21) * num4;
             }
             else if (matrix.M11 > matrix.M22)
             {
                 Single num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
                 Single num3 = half / num6;
-                result.X = (matrix.M10 + matrix.M01) * num3;
-                result.Y = half * num6;
-                result.Z = (matrix.M21 + matrix.M12) * num3;
-                result.W = (matrix.M20 - matrix.M02) * num3;
+                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.J = half * num6;
+                result.K = (matrix.M21 + matrix.M12) * num3;
+                result.U = (matrix.M20 - matrix.M02) * num3;
             }
             else
             {
                 Single num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
                 Single num2 = half / num5;
-                result.X = (matrix.M20 + matrix.M02) * num2;
-                result.Y = (matrix.M21 + matrix.M12) * num2;
-                result.Z = half * num5;
-                result.W = (matrix.M01 - matrix.M10) * num2;
+                result.I = (matrix.M20 + matrix.M02) * num2;
+                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.K = half * num5;
+                result.U = (matrix.M01 - matrix.M10) * num2;
             }
         }
         /// <summary>
@@ -10277,10 +10277,10 @@ namespace Abacus.SinglePrecision
             out Single result)
         {
             result =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
         }
 
         /// <summary>
@@ -10291,10 +10291,10 @@ namespace Abacus.SinglePrecision
             out Single result)
         {
             Single lengthSquared =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             result = RealMaths.Sqrt (lengthSquared);
         }
@@ -10310,10 +10310,10 @@ namespace Abacus.SinglePrecision
 
             result = RealMaths.IsZero(
                 one -
-                quaternion.W * quaternion.W -
-                quaternion.X * quaternion.X -
-                quaternion.Y * quaternion.Y -
-                quaternion.Z * quaternion.Z);
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
         }
 
 
@@ -10324,10 +10324,10 @@ namespace Abacus.SinglePrecision
             ref Quaternion value,
             out Quaternion result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
-            result.Z = -value.Z;
-            result.W = value.W;
+            result.I = -value.I;
+            result.J = -value.J;
+            result.K = -value.K;
+            result.U = value.U;
         }
 
         /// <summary>
@@ -10339,17 +10339,17 @@ namespace Abacus.SinglePrecision
         {
             Single one = 1;
             Single a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             Single b = one / a;
 
-            result.X = -quaternion.X * b;
-            result.Y = -quaternion.Y * b;
-            result.Z = -quaternion.Z * b;
-            result.W =  quaternion.W * b;
+            result.I = -quaternion.I * b;
+            result.J = -quaternion.J * b;
+            result.K = -quaternion.K * b;
+            result.U =  quaternion.U * b;
         }
 
         /// <summary>
@@ -10361,10 +10361,10 @@ namespace Abacus.SinglePrecision
             out Single result)
         {
             result =
-                (quaternion1.X * quaternion2.X) +
-                (quaternion1.Y * quaternion2.Y) +
-                (quaternion1.Z * quaternion2.Z) +
-                (quaternion1.W * quaternion2.W);
+                (quaternion1.I * quaternion2.I) +
+                (quaternion1.J * quaternion2.J) +
+                (quaternion1.K * quaternion2.K) +
+                (quaternion1.U * quaternion2.U);
         }
 
         /// <summary>
@@ -10375,25 +10375,25 @@ namespace Abacus.SinglePrecision
             ref Quaternion value2,
             out Quaternion result)
         {
-            Single x = value2.X;
-            Single y = value2.Y;
-            Single z = value2.Z;
-            Single w = value2.W;
+            Single i1 = value1.I;
+            Single j1 = value1.J;
+            Single k1 = value1.K;
+            Single u1 = value1.U;
 
-            Single a = value1.X;
-            Single b = value1.Y;
-            Single c = value1.Z;
-            Single d = value1.W;
+            Single i2 = value2.I;
+            Single j2 = value2.J;
+            Single k2 = value2.K;
+            Single u2 = value2.U;
 
-            Single e = (y * c) - (z * b);
-            Single f = (z * a) - (x * c);
-            Single g = (x * b) - (y * a);
-            Single h = ((x * a) + (y * b)) + (z * c);
+            Single a = (j2 * k1) - (k2 * j1);
+            Single b = (k2 * i1) - (i2 * k1);
+            Single c = (i2 * j1) - (j2 * i1);
+            Single d = (i2 * i1) - (j2 * j1);
 
-            result.X = (x * d) + (a * w) + e;
-            result.Y = (y * d) + (b * w) + f;
-            result.Z = (z * d) + (c * w) + g;
-            result.W = (w * d) - h;
+            result.I = (i2 * u1) + (i1 * u2) + a;
+            result.J = (j2 * u1) + (j1 * u2) + b;
+            result.K = (k2 * u1) + (k1 * u2) + c;
+            result.U = (u2 * u1) - (k2 * k1) - d;
         }
 
         /// <summary>
@@ -10406,17 +10406,17 @@ namespace Abacus.SinglePrecision
             Single one = 1;
 
             Single a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             Single b = one / RealMaths.Sqrt (a);
 
-            result.X = quaternion.X * b;
-            result.Y = quaternion.Y * b;
-            result.Z = quaternion.Z * b;
-            result.W = quaternion.W * b;
+            result.I = quaternion.I * b;
+            result.J = quaternion.J * b;
+            result.K = quaternion.K * b;
+            result.U = quaternion.U * b;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -10426,15 +10426,15 @@ namespace Abacus.SinglePrecision
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Boolean result)
         {
             result =
-                (value1.X == value2.X) &&
-                (value1.Y == value2.Y) &&
-                (value1.Z == value2.Z) &&
-                (value1.W == value2.W);
+                (quaternion1.I == quaternion2.I) &&
+                (quaternion1.J == quaternion2.J) &&
+                (quaternion1.K == quaternion2.K) &&
+                (quaternion1.U == quaternion2.U);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -10443,14 +10443,14 @@ namespace Abacus.SinglePrecision
         /// Performs addition of two Quaternion objects.
         /// </summary>
         public static void Add (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
-            result.Z = value1.Z + value2.Z;
-            result.W = value1.W + value2.W;
+            result.I = quaternion1.I + quaternion2.I;
+            result.J = quaternion1.J + quaternion2.J;
+            result.K = quaternion1.K + quaternion2.K;
+            result.U = quaternion1.U + quaternion2.U;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -10459,14 +10459,14 @@ namespace Abacus.SinglePrecision
         /// Performs subtraction of two Quaternion objects.
         /// </summary>
         public static void Subtract (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
-            result.Z = value1.Z - value2.Z;
-            result.W = value1.W - value2.W;
+            result.I = quaternion1.I - quaternion2.I;
+            result.J = quaternion1.J - quaternion2.J;
+            result.K = quaternion1.K - quaternion2.K;
+            result.U = quaternion1.U - quaternion2.U;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -10475,13 +10475,13 @@ namespace Abacus.SinglePrecision
         /// Performs negation of a Quaternion object.
         /// </summary>
         public static void Negate (
-            ref Quaternion value,
+            ref Quaternion quaternion,
             out Quaternion result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
-            result.Z = -value.Z;
-            result.W = -value.W;
+            result.I = -quaternion.I;
+            result.J = -quaternion.J;
+            result.K = -quaternion.K;
+            result.U = -quaternion.U;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -10490,29 +10490,29 @@ namespace Abacus.SinglePrecision
         /// Performs muliplication of two Quaternion objects.
         /// </summary>
         public static void Multiply (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            Single x1 = value1.X;
-            Single y1 = value1.Y;
-            Single z1 = value1.Z;
-            Single w1 = value1.W;
+            Single x1 = quaternion1.I;
+            Single y1 = quaternion1.J;
+            Single z1 = quaternion1.K;
+            Single w1 = quaternion1.U;
 
-            Single x2 = value2.X;
-            Single y2 = value2.Y;
-            Single z2 = value2.Z;
-            Single w2 = value2.W;
+            Single x2 = quaternion2.I;
+            Single y2 = quaternion2.J;
+            Single z2 = quaternion2.K;
+            Single w2 = quaternion2.U;
 
             Single a = (y1 * z2) - (z1 * y2);
             Single b = (z1 * x2) - (x1 * z2);
             Single c = (x1 * y2) - (y1 * x2);
             Single d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
 
-            result.X = ((x1 * w2) + (x2 * w1)) + a;
-            result.Y = ((y1 * w2) + (y2 * w1)) + b;
-            result.Z = ((z1 * w2) + (z2 * w1)) + c;
-            result.W = (w1 * w2) - d;
+            result.I = ((x1 * w2) + (x2 * w1)) + a;
+            result.J = ((y1 * w2) + (y2 * w1)) + b;
+            result.K = ((z1 * w2) + (z2 * w1)) + c;
+            result.U = (w1 * w2) - d;
         }
 
         /// <summary>
@@ -10520,14 +10520,14 @@ namespace Abacus.SinglePrecision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Quaternion value1,
+            ref Quaternion quaternion1,
             ref Single scaleFactor,
             out Quaternion result)
         {
-            result.X = value1.X * scaleFactor;
-            result.Y = value1.Y * scaleFactor;
-            result.Z = value1.Z * scaleFactor;
-            result.W = value1.W * scaleFactor;
+            result.I = quaternion1.I * scaleFactor;
+            result.J = quaternion1.J * scaleFactor;
+            result.K = quaternion1.K * scaleFactor;
+            result.U = quaternion1.U * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -10536,39 +10536,39 @@ namespace Abacus.SinglePrecision
         /// Performs division of two Quaternion objects.
         /// </summary>
         public static void Divide (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
             Single one = 1;
 
-            Single x = value1.X;
-            Single y = value1.Y;
-            Single z = value1.Z;
-            Single w = value1.W;
+            Single x = quaternion1.I;
+            Single y = quaternion1.J;
+            Single z = quaternion1.K;
+            Single w = quaternion1.U;
 
             Single a =
-                (value2.X * value2.X) +
-                (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) +
-                (value2.W * value2.W);
+                (quaternion2.I * quaternion2.I) +
+                (quaternion2.J * quaternion2.J) +
+                (quaternion2.K * quaternion2.K) +
+                (quaternion2.U * quaternion2.U);
 
             Single b = one / a;
 
-            Single c = -value2.X * b;
-            Single d = -value2.Y * b;
-            Single e = -value2.Z * b;
-            Single f = value2.W * b;
+            Single c = -quaternion2.I * b;
+            Single d = -quaternion2.J * b;
+            Single e = -quaternion2.K * b;
+            Single f = quaternion2.U * b;
 
             Single g = (y * e) - (z * d);
             Single h = (z * c) - (x * e);
             Single i = (x * d) - (y * c);
             Single j = ((x * c) + (y * d)) + (z * e);
 
-            result.X = (x * f) + (c * w) + g;
-            result.Y = (y * f) + (d * w) + h;
-            result.Z = (z * f) + (e * w) + i;
-            result.W = (w * f) - j;
+            result.I = (x * f) + (c * w) + g;
+            result.J = (y * f) + (d * w) + h;
+            result.K = (z * f) + (e * w) + i;
+            result.U = (w * f) - j;
         }
 
         /// <summary>
@@ -10576,17 +10576,17 @@ namespace Abacus.SinglePrecision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Quaternion value1,
+            ref Quaternion quaternion1,
             ref Single divider,
             out Quaternion result)
         {
             Single one = 1;
             Single a = one / divider;
 
-            result.X = value1.X * a;
-            result.Y = value1.Y * a;
-            result.Z = value1.Z * a;
-            result.W = value1.W * a;
+            result.I = quaternion1.I * a;
+            result.J = quaternion1.J * a;
+            result.K = quaternion1.K * a;
+            result.U = quaternion1.U * a;
         }
 
         /// <summary>
@@ -10611,7 +10611,7 @@ namespace Abacus.SinglePrecision
             Single num2;
             Single num3;
             Single num = amount;
-            Single num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Single num4 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             Boolean flag = false;
             if (num4 < zero) {
                 flag = true;
@@ -10630,10 +10630,10 @@ namespace Abacus.SinglePrecision
 
                 num2 = flag ? -RealMaths.Sin (num * num5) * num6 : RealMaths.Sin (num * num5) * num6;
             }
-            result.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
-            result.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
-            result.Z = (num3 * quaternion1.Z) + (num2 * quaternion2.Z);
-            result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
+            result.I = (num3 * quaternion1.I) + (num2 * quaternion2.I);
+            result.J = (num3 * quaternion1.J) + (num2 * quaternion2.J);
+            result.K = (num3 * quaternion1.K) + (num2 * quaternion2.K);
+            result.U = (num3 * quaternion1.U) + (num2 * quaternion2.U);
         }
 
         /// <summary>
@@ -10655,24 +10655,24 @@ namespace Abacus.SinglePrecision
 
             Single num = amount;
             Single num2 = one - num;
-            Single num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Single num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             if (num5 >= zero) {
-                result.X = (num2 * quaternion1.X) + (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) + (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) + (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) + (num * quaternion2.U);
             } else {
-                result.X = (num2 * quaternion1.X) - (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) - (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) - (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) - (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) - (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) - (num * quaternion2.U);
             }
-            Single num4 = (((result.X * result.X) + (result.Y * result.Y)) + (result.Z * result.Z)) + (result.W * result.W);
+            Single num4 = (((result.I * result.I) + (result.J * result.J)) + (result.K * result.K)) + (result.U * result.U);
             Single num3 = one / RealMaths.Sqrt (num4);
-            result.X *= num3;
-            result.Y *= num3;
-            result.Z *= num3;
-            result.W *= num3;
+            result.I *= num3;
+            result.J *= num3;
+            result.K *= num3;
+            result.U *= num3;
         }
 
 
@@ -11352,31 +11352,31 @@ namespace Abacus.SinglePrecision
         {
             Single two = 2;
 
-            Single x = rotation.X;
-            Single y = rotation.Y;
-            Single z = rotation.Z;
-            Single w = rotation.W;
+            Single i = rotation.I;
+            Single j = rotation.J;
+            Single k = rotation.K;
+            Single u = rotation.U;
 
-            Single xx = x * x;
-            Single yy = y * y;
-            Single zz = z * z;
+            Single ii = i * i;
+            Single jj = j * j;
+            Single kk = k * k;
 
-            Single wz = w * z;
-            Single xy = x * y;
+            Single uk = u * k;
+            Single ij = i * j;
 
             result.X =
                 + vector.X
-                - (two * vector.X  * (yy + zz))
-                + (two * vector.Y  * (xy - wz));
+                - (two * vector.X  * (jj + kk))
+                + (two * vector.Y  * (ij - uk));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk));
         }
 
         /// <summary>
-        /// Transforms a Vector2 by the specified Matrix.
+        /// Transforms a normalised Vector2 by the specified Matrix.
         /// </summary>
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
@@ -12666,39 +12666,39 @@ namespace Abacus.SinglePrecision
         {
             Single two = 2;
 
-            Single x = rotation.X;
-            Single y = rotation.Y;
-            Single z = rotation.Z;
-            Single w = rotation.W;
+            Single i = rotation.I;
+            Single j = rotation.J;
+            Single k = rotation.K;
+            Single u = rotation.U;
 
-            Single xx = x * x;
-            Single yy = y * y;
-            Single zz = z * z;
+            Single ii = i * i;
+            Single jj = j * j;
+            Single kk = k * k;
 
-            Single wx = w * x;
-            Single wy = w * y;
-            Single wz = w * z;
-            Single xy = x * y;
-            Single xz = x * z;
-            Single yz = y * z;
+            Single ui = u * i;
+            Single uj = u * j;
+            Single uk = u * k;
+            Single ij = i * j;
+            Single ik = i * k;
+            Single jk = j * k;
 
             result.X =
                 + vector.X
-                - (two * vector.X * (yy + zz))
-                + (two * vector.Y * (xy - wz))
-                + (two * vector.Z * (xz + wy));
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz))
-                + (two * vector.Z * (yz - wx));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
 
             result.Z =
                 + vector.Z
-                + (two * vector.X * (xz - wy))
-                + (two * vector.Y * (yz + wx))
-                - (two * vector.Z * (xx + yy));
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
         }
 
         /// <summary>
@@ -13994,39 +13994,39 @@ namespace Abacus.SinglePrecision
         {
             Single two = 2;
 
-            Single x = rotation.X;
-            Single y = rotation.Y;
-            Single z = rotation.Z;
-            Single w = rotation.W;
+            Single i = rotation.I;
+            Single j = rotation.J;
+            Single k = rotation.K;
+            Single u = rotation.U;
 
-            Single xx = x * x;
-            Single yy = y * y;
-            Single zz = z * z;
+            Single ii = i * i;
+            Single jj = j * j;
+            Single kk = k * k;
 
-            Single wx = w * x;
-            Single wy = w * y;
-            Single wz = w * z;
-            Single xy = x * y;
-            Single xz = x * z;
-            Single yz = y * z;
+            Single ui = u * i;
+            Single uj = u * j;
+            Single uk = u * k;
+            Single ij = i * j;
+            Single ik = i * k;
+            Single jk = j * k;
 
             result.X =
                 + vector.X
-                - (two * vector.X * (yy + zz))
-                + (two * vector.Y * (xy - wz))
-                + (two * vector.Z * (xz + wy));
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz))
-                + (two * vector.Z * (yz - wx));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
 
             result.Z =
                 + vector.Z
-                + (two * vector.X * (xz - wy))
-                + (two * vector.Y * (yz + wx))
-                - (two * vector.Z * (xx + yy));
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
 
             result.W = vector.W;
         }
@@ -15818,33 +15818,33 @@ namespace Abacus.DoublePrecision
             Double zero = 0;
             Double one = 1;
 
+            Double ii = quaternion.I + quaternion.I;
+            Double jj = quaternion.J + quaternion.J;
+            Double kk = quaternion.K + quaternion.K;
 
-            Double xs = quaternion.X + quaternion.X;
-            Double ys = quaternion.Y + quaternion.Y;
-            Double zs = quaternion.Z + quaternion.Z;
-            Double wx = quaternion.W * xs;
-            Double wy = quaternion.W * ys;
-            Double wz = quaternion.W * zs;
-            Double xx = quaternion.X * xs;
-            Double xy = quaternion.X * ys;
-            Double xz = quaternion.X * zs;
-            Double yy = quaternion.Y * ys;
-            Double yz = quaternion.Y * zs;
-            Double zz = quaternion.Z * zs;
+            Double uii = quaternion.U * ii;
+            Double ujj = quaternion.U * jj;
+            Double ukk = quaternion.U * kk;
+            Double iii = quaternion.I * ii;
+            Double ijj = quaternion.I * jj;
+            Double ikk = quaternion.I * kk;
+            Double jjj = quaternion.J * jj;
+            Double jkk = quaternion.J * kk;
+            Double kkk = quaternion.K * kk;
 
-            result.M00 = one - (yy + zz);
-            result.M10 = xy - wz;
-            result.M20 = xz + wy;
+            result.M00 = one - (jjj + kkk);
+            result.M10 = ijj - ukk;
+            result.M20 = ikk + ujj;
             result.M30 = zero;
 
-            result.M01 = xy + wz;
-            result.M11 = one - (xx + zz);
-            result.M21 = yz - wx;
+            result.M01 = ijj + ukk;
+            result.M11 = one - (iii + kkk);
+            result.M21 = jkk - uii;
             result.M31 = zero;
 
-            result.M02 = xz - wy;
-            result.M12 = yz + wx;
-            result.M22 = one - (xx + yy);
+            result.M02 = ikk - ujj;
+            result.M12 = jkk + uii;
+            result.M22 = one - (iii + jjj);
             result.M32 = zero;
 
             result.M03 = zero;
@@ -16724,36 +16724,36 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// todo
         /// </summary>
-        public Double X;
+        public Double I;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Double Y;
+        public Double J;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Double Z;
+        public Double K;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Double W;
+        public Double U;
 
         /// <summary>
         /// todo
         /// </summary>
         public Quaternion (
-            Double x,
-            Double y,
-            Double z,
-            Double w)
+            Double i,
+            Double j,
+            Double k,
+            Double u)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            this.I = i;
+            this.J = j;
+            this.K = k;
+            this.U = u;
         }
 
         /// <summary>
@@ -16761,10 +16761,10 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public Quaternion (Vector3 vectorPart, Double scalarPart)
         {
-            this.X = vectorPart.X;
-            this.Y = vectorPart.Y;
-            this.Z = vectorPart.Z;
-            this.W = scalarPart;
+            this.I = vectorPart.X;
+            this.J = vectorPart.Y;
+            this.K = vectorPart.Z;
+            this.U = scalarPart;
         }
 
         /// <summary>
@@ -16772,7 +16772,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
+            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
         }
 
         /// <summary>
@@ -16781,10 +16781,10 @@ namespace Abacus.DoublePrecision
         public override Int32 GetHashCode ()
         {
             return
-                this.X.GetHashCode () +
-                this.Y.GetHashCode () +
-                this.Z.GetHashCode () +
-                this.W.GetHashCode ();
+                this.I.GetHashCode () +
+                this.J.GetHashCode () +
+                this.K.GetHashCode () +
+                this.U.GetHashCode ();
         }
 
         /// <summary>
@@ -16812,10 +16812,10 @@ namespace Abacus.DoublePrecision
         public Boolean Equals (Quaternion other)
         {
             return
-                (this.X == other.X) &&
-                (this.Y == other.Y) &&
-                (this.Z == other.Z) &&
-                (this.W == other.W);
+                (this.I == other.I) &&
+                (this.J == other.J) &&
+                (this.K == other.K) &&
+                (this.U == other.U);
         }
 
         #endregion
@@ -16857,11 +16857,11 @@ namespace Abacus.DoublePrecision
             Double sin = RealMaths.Sin (theta);
             Double cos = RealMaths.Cos (theta);
 
-            result.X = axis.X * sin;
-            result.Y = axis.Y * sin;
-            result.Z = axis.Z * sin;
+            result.I = axis.X * sin;
+            result.J = axis.Y * sin;
+            result.K = axis.Z * sin;
 
-            result.W = cos;
+            result.U = cos;
         }
 
         /// <summary>
@@ -16889,10 +16889,10 @@ namespace Abacus.DoublePrecision
             Double num2 = RealMaths.Sin (num7);
             Double num = RealMaths.Cos (num7);
 
-            result.X = ((num * num4) * num5) + ((num2 * num3) * num6);
-            result.Y = ((num2 * num3) * num5) - ((num * num4) * num6);
-            result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
-            result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
+            result.I = ((num * num4) * num5) + ((num2 * num3) * num6);
+            result.J = ((num2 * num3) * num5) - ((num * num4) * num6);
+            result.K = ((num * num3) * num6) - ((num2 * num4) * num5);
+            result.U = ((num * num3) * num5) + ((num2 * num4) * num6);
         }
 
         /// <summary>
@@ -16911,38 +16911,38 @@ namespace Abacus.DoublePrecision
             if (num8 > zero)
             {
                 Double num = RealMaths.Sqrt (num8 + one);
-                result.W = num * half;
+                result.U = num * half;
                 num = half / num;
-                result.X = (matrix.M12 - matrix.M21) * num;
-                result.Y = (matrix.M20 - matrix.M02) * num;
-                result.Z = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.M12 - matrix.M21) * num;
+                result.J = (matrix.M20 - matrix.M02) * num;
+                result.K = (matrix.M01 - matrix.M10) * num;
             }
             else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
             {
                 Double num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
                 Double num4 = half / num7;
-                result.X = half * num7;
-                result.Y = (matrix.M01 + matrix.M10) * num4;
-                result.Z = (matrix.M02 + matrix.M20) * num4;
-                result.W = (matrix.M12 - matrix.M21) * num4;
+                result.I = half * num7;
+                result.J = (matrix.M01 + matrix.M10) * num4;
+                result.K = (matrix.M02 + matrix.M20) * num4;
+                result.U = (matrix.M12 - matrix.M21) * num4;
             }
             else if (matrix.M11 > matrix.M22)
             {
                 Double num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
                 Double num3 = half / num6;
-                result.X = (matrix.M10 + matrix.M01) * num3;
-                result.Y = half * num6;
-                result.Z = (matrix.M21 + matrix.M12) * num3;
-                result.W = (matrix.M20 - matrix.M02) * num3;
+                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.J = half * num6;
+                result.K = (matrix.M21 + matrix.M12) * num3;
+                result.U = (matrix.M20 - matrix.M02) * num3;
             }
             else
             {
                 Double num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
                 Double num2 = half / num5;
-                result.X = (matrix.M20 + matrix.M02) * num2;
-                result.Y = (matrix.M21 + matrix.M12) * num2;
-                result.Z = half * num5;
-                result.W = (matrix.M01 - matrix.M10) * num2;
+                result.I = (matrix.M20 + matrix.M02) * num2;
+                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.K = half * num5;
+                result.U = (matrix.M01 - matrix.M10) * num2;
             }
         }
         /// <summary>
@@ -16953,10 +16953,10 @@ namespace Abacus.DoublePrecision
             out Double result)
         {
             result =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
         }
 
         /// <summary>
@@ -16967,10 +16967,10 @@ namespace Abacus.DoublePrecision
             out Double result)
         {
             Double lengthSquared =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             result = RealMaths.Sqrt (lengthSquared);
         }
@@ -16986,10 +16986,10 @@ namespace Abacus.DoublePrecision
 
             result = RealMaths.IsZero(
                 one -
-                quaternion.W * quaternion.W -
-                quaternion.X * quaternion.X -
-                quaternion.Y * quaternion.Y -
-                quaternion.Z * quaternion.Z);
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
         }
 
 
@@ -17000,10 +17000,10 @@ namespace Abacus.DoublePrecision
             ref Quaternion value,
             out Quaternion result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
-            result.Z = -value.Z;
-            result.W = value.W;
+            result.I = -value.I;
+            result.J = -value.J;
+            result.K = -value.K;
+            result.U = value.U;
         }
 
         /// <summary>
@@ -17015,17 +17015,17 @@ namespace Abacus.DoublePrecision
         {
             Double one = 1;
             Double a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             Double b = one / a;
 
-            result.X = -quaternion.X * b;
-            result.Y = -quaternion.Y * b;
-            result.Z = -quaternion.Z * b;
-            result.W =  quaternion.W * b;
+            result.I = -quaternion.I * b;
+            result.J = -quaternion.J * b;
+            result.K = -quaternion.K * b;
+            result.U =  quaternion.U * b;
         }
 
         /// <summary>
@@ -17037,10 +17037,10 @@ namespace Abacus.DoublePrecision
             out Double result)
         {
             result =
-                (quaternion1.X * quaternion2.X) +
-                (quaternion1.Y * quaternion2.Y) +
-                (quaternion1.Z * quaternion2.Z) +
-                (quaternion1.W * quaternion2.W);
+                (quaternion1.I * quaternion2.I) +
+                (quaternion1.J * quaternion2.J) +
+                (quaternion1.K * quaternion2.K) +
+                (quaternion1.U * quaternion2.U);
         }
 
         /// <summary>
@@ -17051,25 +17051,25 @@ namespace Abacus.DoublePrecision
             ref Quaternion value2,
             out Quaternion result)
         {
-            Double x = value2.X;
-            Double y = value2.Y;
-            Double z = value2.Z;
-            Double w = value2.W;
+            Double i1 = value1.I;
+            Double j1 = value1.J;
+            Double k1 = value1.K;
+            Double u1 = value1.U;
 
-            Double a = value1.X;
-            Double b = value1.Y;
-            Double c = value1.Z;
-            Double d = value1.W;
+            Double i2 = value2.I;
+            Double j2 = value2.J;
+            Double k2 = value2.K;
+            Double u2 = value2.U;
 
-            Double e = (y * c) - (z * b);
-            Double f = (z * a) - (x * c);
-            Double g = (x * b) - (y * a);
-            Double h = ((x * a) + (y * b)) + (z * c);
+            Double a = (j2 * k1) - (k2 * j1);
+            Double b = (k2 * i1) - (i2 * k1);
+            Double c = (i2 * j1) - (j2 * i1);
+            Double d = (i2 * i1) - (j2 * j1);
 
-            result.X = (x * d) + (a * w) + e;
-            result.Y = (y * d) + (b * w) + f;
-            result.Z = (z * d) + (c * w) + g;
-            result.W = (w * d) - h;
+            result.I = (i2 * u1) + (i1 * u2) + a;
+            result.J = (j2 * u1) + (j1 * u2) + b;
+            result.K = (k2 * u1) + (k1 * u2) + c;
+            result.U = (u2 * u1) - (k2 * k1) - d;
         }
 
         /// <summary>
@@ -17082,17 +17082,17 @@ namespace Abacus.DoublePrecision
             Double one = 1;
 
             Double a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             Double b = one / RealMaths.Sqrt (a);
 
-            result.X = quaternion.X * b;
-            result.Y = quaternion.Y * b;
-            result.Z = quaternion.Z * b;
-            result.W = quaternion.W * b;
+            result.I = quaternion.I * b;
+            result.J = quaternion.J * b;
+            result.K = quaternion.K * b;
+            result.U = quaternion.U * b;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -17102,15 +17102,15 @@ namespace Abacus.DoublePrecision
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Boolean result)
         {
             result =
-                (value1.X == value2.X) &&
-                (value1.Y == value2.Y) &&
-                (value1.Z == value2.Z) &&
-                (value1.W == value2.W);
+                (quaternion1.I == quaternion2.I) &&
+                (quaternion1.J == quaternion2.J) &&
+                (quaternion1.K == quaternion2.K) &&
+                (quaternion1.U == quaternion2.U);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -17119,14 +17119,14 @@ namespace Abacus.DoublePrecision
         /// Performs addition of two Quaternion objects.
         /// </summary>
         public static void Add (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
-            result.Z = value1.Z + value2.Z;
-            result.W = value1.W + value2.W;
+            result.I = quaternion1.I + quaternion2.I;
+            result.J = quaternion1.J + quaternion2.J;
+            result.K = quaternion1.K + quaternion2.K;
+            result.U = quaternion1.U + quaternion2.U;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -17135,14 +17135,14 @@ namespace Abacus.DoublePrecision
         /// Performs subtraction of two Quaternion objects.
         /// </summary>
         public static void Subtract (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
-            result.Z = value1.Z - value2.Z;
-            result.W = value1.W - value2.W;
+            result.I = quaternion1.I - quaternion2.I;
+            result.J = quaternion1.J - quaternion2.J;
+            result.K = quaternion1.K - quaternion2.K;
+            result.U = quaternion1.U - quaternion2.U;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -17151,13 +17151,13 @@ namespace Abacus.DoublePrecision
         /// Performs negation of a Quaternion object.
         /// </summary>
         public static void Negate (
-            ref Quaternion value,
+            ref Quaternion quaternion,
             out Quaternion result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
-            result.Z = -value.Z;
-            result.W = -value.W;
+            result.I = -quaternion.I;
+            result.J = -quaternion.J;
+            result.K = -quaternion.K;
+            result.U = -quaternion.U;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -17166,29 +17166,29 @@ namespace Abacus.DoublePrecision
         /// Performs muliplication of two Quaternion objects.
         /// </summary>
         public static void Multiply (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            Double x1 = value1.X;
-            Double y1 = value1.Y;
-            Double z1 = value1.Z;
-            Double w1 = value1.W;
+            Double x1 = quaternion1.I;
+            Double y1 = quaternion1.J;
+            Double z1 = quaternion1.K;
+            Double w1 = quaternion1.U;
 
-            Double x2 = value2.X;
-            Double y2 = value2.Y;
-            Double z2 = value2.Z;
-            Double w2 = value2.W;
+            Double x2 = quaternion2.I;
+            Double y2 = quaternion2.J;
+            Double z2 = quaternion2.K;
+            Double w2 = quaternion2.U;
 
             Double a = (y1 * z2) - (z1 * y2);
             Double b = (z1 * x2) - (x1 * z2);
             Double c = (x1 * y2) - (y1 * x2);
             Double d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
 
-            result.X = ((x1 * w2) + (x2 * w1)) + a;
-            result.Y = ((y1 * w2) + (y2 * w1)) + b;
-            result.Z = ((z1 * w2) + (z2 * w1)) + c;
-            result.W = (w1 * w2) - d;
+            result.I = ((x1 * w2) + (x2 * w1)) + a;
+            result.J = ((y1 * w2) + (y2 * w1)) + b;
+            result.K = ((z1 * w2) + (z2 * w1)) + c;
+            result.U = (w1 * w2) - d;
         }
 
         /// <summary>
@@ -17196,14 +17196,14 @@ namespace Abacus.DoublePrecision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Quaternion value1,
+            ref Quaternion quaternion1,
             ref Double scaleFactor,
             out Quaternion result)
         {
-            result.X = value1.X * scaleFactor;
-            result.Y = value1.Y * scaleFactor;
-            result.Z = value1.Z * scaleFactor;
-            result.W = value1.W * scaleFactor;
+            result.I = quaternion1.I * scaleFactor;
+            result.J = quaternion1.J * scaleFactor;
+            result.K = quaternion1.K * scaleFactor;
+            result.U = quaternion1.U * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -17212,39 +17212,39 @@ namespace Abacus.DoublePrecision
         /// Performs division of two Quaternion objects.
         /// </summary>
         public static void Divide (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
             Double one = 1;
 
-            Double x = value1.X;
-            Double y = value1.Y;
-            Double z = value1.Z;
-            Double w = value1.W;
+            Double x = quaternion1.I;
+            Double y = quaternion1.J;
+            Double z = quaternion1.K;
+            Double w = quaternion1.U;
 
             Double a =
-                (value2.X * value2.X) +
-                (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) +
-                (value2.W * value2.W);
+                (quaternion2.I * quaternion2.I) +
+                (quaternion2.J * quaternion2.J) +
+                (quaternion2.K * quaternion2.K) +
+                (quaternion2.U * quaternion2.U);
 
             Double b = one / a;
 
-            Double c = -value2.X * b;
-            Double d = -value2.Y * b;
-            Double e = -value2.Z * b;
-            Double f = value2.W * b;
+            Double c = -quaternion2.I * b;
+            Double d = -quaternion2.J * b;
+            Double e = -quaternion2.K * b;
+            Double f = quaternion2.U * b;
 
             Double g = (y * e) - (z * d);
             Double h = (z * c) - (x * e);
             Double i = (x * d) - (y * c);
             Double j = ((x * c) + (y * d)) + (z * e);
 
-            result.X = (x * f) + (c * w) + g;
-            result.Y = (y * f) + (d * w) + h;
-            result.Z = (z * f) + (e * w) + i;
-            result.W = (w * f) - j;
+            result.I = (x * f) + (c * w) + g;
+            result.J = (y * f) + (d * w) + h;
+            result.K = (z * f) + (e * w) + i;
+            result.U = (w * f) - j;
         }
 
         /// <summary>
@@ -17252,17 +17252,17 @@ namespace Abacus.DoublePrecision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Quaternion value1,
+            ref Quaternion quaternion1,
             ref Double divider,
             out Quaternion result)
         {
             Double one = 1;
             Double a = one / divider;
 
-            result.X = value1.X * a;
-            result.Y = value1.Y * a;
-            result.Z = value1.Z * a;
-            result.W = value1.W * a;
+            result.I = quaternion1.I * a;
+            result.J = quaternion1.J * a;
+            result.K = quaternion1.K * a;
+            result.U = quaternion1.U * a;
         }
 
         /// <summary>
@@ -17287,7 +17287,7 @@ namespace Abacus.DoublePrecision
             Double num2;
             Double num3;
             Double num = amount;
-            Double num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Double num4 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             Boolean flag = false;
             if (num4 < zero) {
                 flag = true;
@@ -17306,10 +17306,10 @@ namespace Abacus.DoublePrecision
 
                 num2 = flag ? -RealMaths.Sin (num * num5) * num6 : RealMaths.Sin (num * num5) * num6;
             }
-            result.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
-            result.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
-            result.Z = (num3 * quaternion1.Z) + (num2 * quaternion2.Z);
-            result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
+            result.I = (num3 * quaternion1.I) + (num2 * quaternion2.I);
+            result.J = (num3 * quaternion1.J) + (num2 * quaternion2.J);
+            result.K = (num3 * quaternion1.K) + (num2 * quaternion2.K);
+            result.U = (num3 * quaternion1.U) + (num2 * quaternion2.U);
         }
 
         /// <summary>
@@ -17331,24 +17331,24 @@ namespace Abacus.DoublePrecision
 
             Double num = amount;
             Double num2 = one - num;
-            Double num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Double num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             if (num5 >= zero) {
-                result.X = (num2 * quaternion1.X) + (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) + (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) + (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) + (num * quaternion2.U);
             } else {
-                result.X = (num2 * quaternion1.X) - (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) - (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) - (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) - (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) - (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) - (num * quaternion2.U);
             }
-            Double num4 = (((result.X * result.X) + (result.Y * result.Y)) + (result.Z * result.Z)) + (result.W * result.W);
+            Double num4 = (((result.I * result.I) + (result.J * result.J)) + (result.K * result.K)) + (result.U * result.U);
             Double num3 = one / RealMaths.Sqrt (num4);
-            result.X *= num3;
-            result.Y *= num3;
-            result.Z *= num3;
-            result.W *= num3;
+            result.I *= num3;
+            result.J *= num3;
+            result.K *= num3;
+            result.U *= num3;
         }
 
 
@@ -18028,31 +18028,31 @@ namespace Abacus.DoublePrecision
         {
             Double two = 2;
 
-            Double x = rotation.X;
-            Double y = rotation.Y;
-            Double z = rotation.Z;
-            Double w = rotation.W;
+            Double i = rotation.I;
+            Double j = rotation.J;
+            Double k = rotation.K;
+            Double u = rotation.U;
 
-            Double xx = x * x;
-            Double yy = y * y;
-            Double zz = z * z;
+            Double ii = i * i;
+            Double jj = j * j;
+            Double kk = k * k;
 
-            Double wz = w * z;
-            Double xy = x * y;
+            Double uk = u * k;
+            Double ij = i * j;
 
             result.X =
                 + vector.X
-                - (two * vector.X  * (yy + zz))
-                + (two * vector.Y  * (xy - wz));
+                - (two * vector.X  * (jj + kk))
+                + (two * vector.Y  * (ij - uk));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk));
         }
 
         /// <summary>
-        /// Transforms a Vector2 by the specified Matrix.
+        /// Transforms a normalised Vector2 by the specified Matrix.
         /// </summary>
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
@@ -19342,39 +19342,39 @@ namespace Abacus.DoublePrecision
         {
             Double two = 2;
 
-            Double x = rotation.X;
-            Double y = rotation.Y;
-            Double z = rotation.Z;
-            Double w = rotation.W;
+            Double i = rotation.I;
+            Double j = rotation.J;
+            Double k = rotation.K;
+            Double u = rotation.U;
 
-            Double xx = x * x;
-            Double yy = y * y;
-            Double zz = z * z;
+            Double ii = i * i;
+            Double jj = j * j;
+            Double kk = k * k;
 
-            Double wx = w * x;
-            Double wy = w * y;
-            Double wz = w * z;
-            Double xy = x * y;
-            Double xz = x * z;
-            Double yz = y * z;
+            Double ui = u * i;
+            Double uj = u * j;
+            Double uk = u * k;
+            Double ij = i * j;
+            Double ik = i * k;
+            Double jk = j * k;
 
             result.X =
                 + vector.X
-                - (two * vector.X * (yy + zz))
-                + (two * vector.Y * (xy - wz))
-                + (two * vector.Z * (xz + wy));
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz))
-                + (two * vector.Z * (yz - wx));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
 
             result.Z =
                 + vector.Z
-                + (two * vector.X * (xz - wy))
-                + (two * vector.Y * (yz + wx))
-                - (two * vector.Z * (xx + yy));
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
         }
 
         /// <summary>
@@ -20670,39 +20670,39 @@ namespace Abacus.DoublePrecision
         {
             Double two = 2;
 
-            Double x = rotation.X;
-            Double y = rotation.Y;
-            Double z = rotation.Z;
-            Double w = rotation.W;
+            Double i = rotation.I;
+            Double j = rotation.J;
+            Double k = rotation.K;
+            Double u = rotation.U;
 
-            Double xx = x * x;
-            Double yy = y * y;
-            Double zz = z * z;
+            Double ii = i * i;
+            Double jj = j * j;
+            Double kk = k * k;
 
-            Double wx = w * x;
-            Double wy = w * y;
-            Double wz = w * z;
-            Double xy = x * y;
-            Double xz = x * z;
-            Double yz = y * z;
+            Double ui = u * i;
+            Double uj = u * j;
+            Double uk = u * k;
+            Double ij = i * j;
+            Double ik = i * k;
+            Double jk = j * k;
 
             result.X =
                 + vector.X
-                - (two * vector.X * (yy + zz))
-                + (two * vector.Y * (xy - wz))
-                + (two * vector.Z * (xz + wy));
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz))
-                + (two * vector.Z * (yz - wx));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
 
             result.Z =
                 + vector.Z
-                + (two * vector.X * (xz - wy))
-                + (two * vector.Y * (yz + wx))
-                - (two * vector.Z * (xx + yy));
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
 
             result.W = vector.W;
         }
@@ -22494,33 +22494,33 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
+            Fixed32 ii = quaternion.I + quaternion.I;
+            Fixed32 jj = quaternion.J + quaternion.J;
+            Fixed32 kk = quaternion.K + quaternion.K;
 
-            Fixed32 xs = quaternion.X + quaternion.X;
-            Fixed32 ys = quaternion.Y + quaternion.Y;
-            Fixed32 zs = quaternion.Z + quaternion.Z;
-            Fixed32 wx = quaternion.W * xs;
-            Fixed32 wy = quaternion.W * ys;
-            Fixed32 wz = quaternion.W * zs;
-            Fixed32 xx = quaternion.X * xs;
-            Fixed32 xy = quaternion.X * ys;
-            Fixed32 xz = quaternion.X * zs;
-            Fixed32 yy = quaternion.Y * ys;
-            Fixed32 yz = quaternion.Y * zs;
-            Fixed32 zz = quaternion.Z * zs;
+            Fixed32 uii = quaternion.U * ii;
+            Fixed32 ujj = quaternion.U * jj;
+            Fixed32 ukk = quaternion.U * kk;
+            Fixed32 iii = quaternion.I * ii;
+            Fixed32 ijj = quaternion.I * jj;
+            Fixed32 ikk = quaternion.I * kk;
+            Fixed32 jjj = quaternion.J * jj;
+            Fixed32 jkk = quaternion.J * kk;
+            Fixed32 kkk = quaternion.K * kk;
 
-            result.M00 = one - (yy + zz);
-            result.M10 = xy - wz;
-            result.M20 = xz + wy;
+            result.M00 = one - (jjj + kkk);
+            result.M10 = ijj - ukk;
+            result.M20 = ikk + ujj;
             result.M30 = zero;
 
-            result.M01 = xy + wz;
-            result.M11 = one - (xx + zz);
-            result.M21 = yz - wx;
+            result.M01 = ijj + ukk;
+            result.M11 = one - (iii + kkk);
+            result.M21 = jkk - uii;
             result.M31 = zero;
 
-            result.M02 = xz - wy;
-            result.M12 = yz + wx;
-            result.M22 = one - (xx + yy);
+            result.M02 = ikk - ujj;
+            result.M12 = jkk + uii;
+            result.M22 = one - (iii + jjj);
             result.M32 = zero;
 
             result.M03 = zero;
@@ -23400,36 +23400,36 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// todo
         /// </summary>
-        public Fixed32 X;
+        public Fixed32 I;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Fixed32 Y;
+        public Fixed32 J;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Fixed32 Z;
+        public Fixed32 K;
 
         /// <summary>
         /// todo
         /// </summary>
-        public Fixed32 W;
+        public Fixed32 U;
 
         /// <summary>
         /// todo
         /// </summary>
         public Quaternion (
-            Fixed32 x,
-            Fixed32 y,
-            Fixed32 z,
-            Fixed32 w)
+            Fixed32 i,
+            Fixed32 j,
+            Fixed32 k,
+            Fixed32 u)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            this.I = i;
+            this.J = j;
+            this.K = k;
+            this.U = u;
         }
 
         /// <summary>
@@ -23437,10 +23437,10 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public Quaternion (Vector3 vectorPart, Fixed32 scalarPart)
         {
-            this.X = vectorPart.X;
-            this.Y = vectorPart.Y;
-            this.Z = vectorPart.Z;
-            this.W = scalarPart;
+            this.I = vectorPart.X;
+            this.J = vectorPart.Y;
+            this.K = vectorPart.Z;
+            this.U = scalarPart;
         }
 
         /// <summary>
@@ -23448,7 +23448,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
+            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
         }
 
         /// <summary>
@@ -23457,10 +23457,10 @@ namespace Abacus.Fixed32Precision
         public override Int32 GetHashCode ()
         {
             return
-                this.X.GetHashCode () +
-                this.Y.GetHashCode () +
-                this.Z.GetHashCode () +
-                this.W.GetHashCode ();
+                this.I.GetHashCode () +
+                this.J.GetHashCode () +
+                this.K.GetHashCode () +
+                this.U.GetHashCode ();
         }
 
         /// <summary>
@@ -23488,10 +23488,10 @@ namespace Abacus.Fixed32Precision
         public Boolean Equals (Quaternion other)
         {
             return
-                (this.X == other.X) &&
-                (this.Y == other.Y) &&
-                (this.Z == other.Z) &&
-                (this.W == other.W);
+                (this.I == other.I) &&
+                (this.J == other.J) &&
+                (this.K == other.K) &&
+                (this.U == other.U);
         }
 
         #endregion
@@ -23533,11 +23533,11 @@ namespace Abacus.Fixed32Precision
             Fixed32 sin = RealMaths.Sin (theta);
             Fixed32 cos = RealMaths.Cos (theta);
 
-            result.X = axis.X * sin;
-            result.Y = axis.Y * sin;
-            result.Z = axis.Z * sin;
+            result.I = axis.X * sin;
+            result.J = axis.Y * sin;
+            result.K = axis.Z * sin;
 
-            result.W = cos;
+            result.U = cos;
         }
 
         /// <summary>
@@ -23565,10 +23565,10 @@ namespace Abacus.Fixed32Precision
             Fixed32 num2 = RealMaths.Sin (num7);
             Fixed32 num = RealMaths.Cos (num7);
 
-            result.X = ((num * num4) * num5) + ((num2 * num3) * num6);
-            result.Y = ((num2 * num3) * num5) - ((num * num4) * num6);
-            result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
-            result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
+            result.I = ((num * num4) * num5) + ((num2 * num3) * num6);
+            result.J = ((num2 * num3) * num5) - ((num * num4) * num6);
+            result.K = ((num * num3) * num6) - ((num2 * num4) * num5);
+            result.U = ((num * num3) * num5) + ((num2 * num4) * num6);
         }
 
         /// <summary>
@@ -23587,38 +23587,38 @@ namespace Abacus.Fixed32Precision
             if (num8 > zero)
             {
                 Fixed32 num = RealMaths.Sqrt (num8 + one);
-                result.W = num * half;
+                result.U = num * half;
                 num = half / num;
-                result.X = (matrix.M12 - matrix.M21) * num;
-                result.Y = (matrix.M20 - matrix.M02) * num;
-                result.Z = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.M12 - matrix.M21) * num;
+                result.J = (matrix.M20 - matrix.M02) * num;
+                result.K = (matrix.M01 - matrix.M10) * num;
             }
             else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
             {
                 Fixed32 num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
                 Fixed32 num4 = half / num7;
-                result.X = half * num7;
-                result.Y = (matrix.M01 + matrix.M10) * num4;
-                result.Z = (matrix.M02 + matrix.M20) * num4;
-                result.W = (matrix.M12 - matrix.M21) * num4;
+                result.I = half * num7;
+                result.J = (matrix.M01 + matrix.M10) * num4;
+                result.K = (matrix.M02 + matrix.M20) * num4;
+                result.U = (matrix.M12 - matrix.M21) * num4;
             }
             else if (matrix.M11 > matrix.M22)
             {
                 Fixed32 num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
                 Fixed32 num3 = half / num6;
-                result.X = (matrix.M10 + matrix.M01) * num3;
-                result.Y = half * num6;
-                result.Z = (matrix.M21 + matrix.M12) * num3;
-                result.W = (matrix.M20 - matrix.M02) * num3;
+                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.J = half * num6;
+                result.K = (matrix.M21 + matrix.M12) * num3;
+                result.U = (matrix.M20 - matrix.M02) * num3;
             }
             else
             {
                 Fixed32 num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
                 Fixed32 num2 = half / num5;
-                result.X = (matrix.M20 + matrix.M02) * num2;
-                result.Y = (matrix.M21 + matrix.M12) * num2;
-                result.Z = half * num5;
-                result.W = (matrix.M01 - matrix.M10) * num2;
+                result.I = (matrix.M20 + matrix.M02) * num2;
+                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.K = half * num5;
+                result.U = (matrix.M01 - matrix.M10) * num2;
             }
         }
         /// <summary>
@@ -23629,10 +23629,10 @@ namespace Abacus.Fixed32Precision
             out Fixed32 result)
         {
             result =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
         }
 
         /// <summary>
@@ -23643,10 +23643,10 @@ namespace Abacus.Fixed32Precision
             out Fixed32 result)
         {
             Fixed32 lengthSquared =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             result = RealMaths.Sqrt (lengthSquared);
         }
@@ -23662,10 +23662,10 @@ namespace Abacus.Fixed32Precision
 
             result = RealMaths.IsZero(
                 one -
-                quaternion.W * quaternion.W -
-                quaternion.X * quaternion.X -
-                quaternion.Y * quaternion.Y -
-                quaternion.Z * quaternion.Z);
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
         }
 
 
@@ -23676,10 +23676,10 @@ namespace Abacus.Fixed32Precision
             ref Quaternion value,
             out Quaternion result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
-            result.Z = -value.Z;
-            result.W = value.W;
+            result.I = -value.I;
+            result.J = -value.J;
+            result.K = -value.K;
+            result.U = value.U;
         }
 
         /// <summary>
@@ -23691,17 +23691,17 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 one = 1;
             Fixed32 a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             Fixed32 b = one / a;
 
-            result.X = -quaternion.X * b;
-            result.Y = -quaternion.Y * b;
-            result.Z = -quaternion.Z * b;
-            result.W =  quaternion.W * b;
+            result.I = -quaternion.I * b;
+            result.J = -quaternion.J * b;
+            result.K = -quaternion.K * b;
+            result.U =  quaternion.U * b;
         }
 
         /// <summary>
@@ -23713,10 +23713,10 @@ namespace Abacus.Fixed32Precision
             out Fixed32 result)
         {
             result =
-                (quaternion1.X * quaternion2.X) +
-                (quaternion1.Y * quaternion2.Y) +
-                (quaternion1.Z * quaternion2.Z) +
-                (quaternion1.W * quaternion2.W);
+                (quaternion1.I * quaternion2.I) +
+                (quaternion1.J * quaternion2.J) +
+                (quaternion1.K * quaternion2.K) +
+                (quaternion1.U * quaternion2.U);
         }
 
         /// <summary>
@@ -23727,25 +23727,25 @@ namespace Abacus.Fixed32Precision
             ref Quaternion value2,
             out Quaternion result)
         {
-            Fixed32 x = value2.X;
-            Fixed32 y = value2.Y;
-            Fixed32 z = value2.Z;
-            Fixed32 w = value2.W;
+            Fixed32 i1 = value1.I;
+            Fixed32 j1 = value1.J;
+            Fixed32 k1 = value1.K;
+            Fixed32 u1 = value1.U;
 
-            Fixed32 a = value1.X;
-            Fixed32 b = value1.Y;
-            Fixed32 c = value1.Z;
-            Fixed32 d = value1.W;
+            Fixed32 i2 = value2.I;
+            Fixed32 j2 = value2.J;
+            Fixed32 k2 = value2.K;
+            Fixed32 u2 = value2.U;
 
-            Fixed32 e = (y * c) - (z * b);
-            Fixed32 f = (z * a) - (x * c);
-            Fixed32 g = (x * b) - (y * a);
-            Fixed32 h = ((x * a) + (y * b)) + (z * c);
+            Fixed32 a = (j2 * k1) - (k2 * j1);
+            Fixed32 b = (k2 * i1) - (i2 * k1);
+            Fixed32 c = (i2 * j1) - (j2 * i1);
+            Fixed32 d = (i2 * i1) - (j2 * j1);
 
-            result.X = (x * d) + (a * w) + e;
-            result.Y = (y * d) + (b * w) + f;
-            result.Z = (z * d) + (c * w) + g;
-            result.W = (w * d) - h;
+            result.I = (i2 * u1) + (i1 * u2) + a;
+            result.J = (j2 * u1) + (j1 * u2) + b;
+            result.K = (k2 * u1) + (k1 * u2) + c;
+            result.U = (u2 * u1) - (k2 * k1) - d;
         }
 
         /// <summary>
@@ -23758,17 +23758,17 @@ namespace Abacus.Fixed32Precision
             Fixed32 one = 1;
 
             Fixed32 a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             Fixed32 b = one / RealMaths.Sqrt (a);
 
-            result.X = quaternion.X * b;
-            result.Y = quaternion.Y * b;
-            result.Z = quaternion.Z * b;
-            result.W = quaternion.W * b;
+            result.I = quaternion.I * b;
+            result.J = quaternion.J * b;
+            result.K = quaternion.K * b;
+            result.U = quaternion.U * b;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -23778,15 +23778,15 @@ namespace Abacus.Fixed32Precision
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Boolean result)
         {
             result =
-                (value1.X == value2.X) &&
-                (value1.Y == value2.Y) &&
-                (value1.Z == value2.Z) &&
-                (value1.W == value2.W);
+                (quaternion1.I == quaternion2.I) &&
+                (quaternion1.J == quaternion2.J) &&
+                (quaternion1.K == quaternion2.K) &&
+                (quaternion1.U == quaternion2.U);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -23795,14 +23795,14 @@ namespace Abacus.Fixed32Precision
         /// Performs addition of two Quaternion objects.
         /// </summary>
         public static void Add (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            result.X = value1.X + value2.X;
-            result.Y = value1.Y + value2.Y;
-            result.Z = value1.Z + value2.Z;
-            result.W = value1.W + value2.W;
+            result.I = quaternion1.I + quaternion2.I;
+            result.J = quaternion1.J + quaternion2.J;
+            result.K = quaternion1.K + quaternion2.K;
+            result.U = quaternion1.U + quaternion2.U;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -23811,14 +23811,14 @@ namespace Abacus.Fixed32Precision
         /// Performs subtraction of two Quaternion objects.
         /// </summary>
         public static void Subtract (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            result.X = value1.X - value2.X;
-            result.Y = value1.Y - value2.Y;
-            result.Z = value1.Z - value2.Z;
-            result.W = value1.W - value2.W;
+            result.I = quaternion1.I - quaternion2.I;
+            result.J = quaternion1.J - quaternion2.J;
+            result.K = quaternion1.K - quaternion2.K;
+            result.U = quaternion1.U - quaternion2.U;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -23827,13 +23827,13 @@ namespace Abacus.Fixed32Precision
         /// Performs negation of a Quaternion object.
         /// </summary>
         public static void Negate (
-            ref Quaternion value,
+            ref Quaternion quaternion,
             out Quaternion result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
-            result.Z = -value.Z;
-            result.W = -value.W;
+            result.I = -quaternion.I;
+            result.J = -quaternion.J;
+            result.K = -quaternion.K;
+            result.U = -quaternion.U;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -23842,29 +23842,29 @@ namespace Abacus.Fixed32Precision
         /// Performs muliplication of two Quaternion objects.
         /// </summary>
         public static void Multiply (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
-            Fixed32 x1 = value1.X;
-            Fixed32 y1 = value1.Y;
-            Fixed32 z1 = value1.Z;
-            Fixed32 w1 = value1.W;
+            Fixed32 x1 = quaternion1.I;
+            Fixed32 y1 = quaternion1.J;
+            Fixed32 z1 = quaternion1.K;
+            Fixed32 w1 = quaternion1.U;
 
-            Fixed32 x2 = value2.X;
-            Fixed32 y2 = value2.Y;
-            Fixed32 z2 = value2.Z;
-            Fixed32 w2 = value2.W;
+            Fixed32 x2 = quaternion2.I;
+            Fixed32 y2 = quaternion2.J;
+            Fixed32 z2 = quaternion2.K;
+            Fixed32 w2 = quaternion2.U;
 
             Fixed32 a = (y1 * z2) - (z1 * y2);
             Fixed32 b = (z1 * x2) - (x1 * z2);
             Fixed32 c = (x1 * y2) - (y1 * x2);
             Fixed32 d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
 
-            result.X = ((x1 * w2) + (x2 * w1)) + a;
-            result.Y = ((y1 * w2) + (y2 * w1)) + b;
-            result.Z = ((z1 * w2) + (z2 * w1)) + c;
-            result.W = (w1 * w2) - d;
+            result.I = ((x1 * w2) + (x2 * w1)) + a;
+            result.J = ((y1 * w2) + (y2 * w1)) + b;
+            result.K = ((z1 * w2) + (z2 * w1)) + c;
+            result.U = (w1 * w2) - d;
         }
 
         /// <summary>
@@ -23872,14 +23872,14 @@ namespace Abacus.Fixed32Precision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Quaternion value1,
+            ref Quaternion quaternion1,
             ref Fixed32 scaleFactor,
             out Quaternion result)
         {
-            result.X = value1.X * scaleFactor;
-            result.Y = value1.Y * scaleFactor;
-            result.Z = value1.Z * scaleFactor;
-            result.W = value1.W * scaleFactor;
+            result.I = quaternion1.I * scaleFactor;
+            result.J = quaternion1.J * scaleFactor;
+            result.K = quaternion1.K * scaleFactor;
+            result.U = quaternion1.U * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -23888,39 +23888,39 @@ namespace Abacus.Fixed32Precision
         /// Performs division of two Quaternion objects.
         /// </summary>
         public static void Divide (
-            ref Quaternion value1,
-            ref Quaternion value2,
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
             out Quaternion result)
         {
             Fixed32 one = 1;
 
-            Fixed32 x = value1.X;
-            Fixed32 y = value1.Y;
-            Fixed32 z = value1.Z;
-            Fixed32 w = value1.W;
+            Fixed32 x = quaternion1.I;
+            Fixed32 y = quaternion1.J;
+            Fixed32 z = quaternion1.K;
+            Fixed32 w = quaternion1.U;
 
             Fixed32 a =
-                (value2.X * value2.X) +
-                (value2.Y * value2.Y) +
-                (value2.Z * value2.Z) +
-                (value2.W * value2.W);
+                (quaternion2.I * quaternion2.I) +
+                (quaternion2.J * quaternion2.J) +
+                (quaternion2.K * quaternion2.K) +
+                (quaternion2.U * quaternion2.U);
 
             Fixed32 b = one / a;
 
-            Fixed32 c = -value2.X * b;
-            Fixed32 d = -value2.Y * b;
-            Fixed32 e = -value2.Z * b;
-            Fixed32 f = value2.W * b;
+            Fixed32 c = -quaternion2.I * b;
+            Fixed32 d = -quaternion2.J * b;
+            Fixed32 e = -quaternion2.K * b;
+            Fixed32 f = quaternion2.U * b;
 
             Fixed32 g = (y * e) - (z * d);
             Fixed32 h = (z * c) - (x * e);
             Fixed32 i = (x * d) - (y * c);
             Fixed32 j = ((x * c) + (y * d)) + (z * e);
 
-            result.X = (x * f) + (c * w) + g;
-            result.Y = (y * f) + (d * w) + h;
-            result.Z = (z * f) + (e * w) + i;
-            result.W = (w * f) - j;
+            result.I = (x * f) + (c * w) + g;
+            result.J = (y * f) + (d * w) + h;
+            result.K = (z * f) + (e * w) + i;
+            result.U = (w * f) - j;
         }
 
         /// <summary>
@@ -23928,17 +23928,17 @@ namespace Abacus.Fixed32Precision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Quaternion value1,
+            ref Quaternion quaternion1,
             ref Fixed32 divider,
             out Quaternion result)
         {
             Fixed32 one = 1;
             Fixed32 a = one / divider;
 
-            result.X = value1.X * a;
-            result.Y = value1.Y * a;
-            result.Z = value1.Z * a;
-            result.W = value1.W * a;
+            result.I = quaternion1.I * a;
+            result.J = quaternion1.J * a;
+            result.K = quaternion1.K * a;
+            result.U = quaternion1.U * a;
         }
 
         /// <summary>
@@ -23963,7 +23963,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 num2;
             Fixed32 num3;
             Fixed32 num = amount;
-            Fixed32 num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Fixed32 num4 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             Boolean flag = false;
             if (num4 < zero) {
                 flag = true;
@@ -23982,10 +23982,10 @@ namespace Abacus.Fixed32Precision
 
                 num2 = flag ? -RealMaths.Sin (num * num5) * num6 : RealMaths.Sin (num * num5) * num6;
             }
-            result.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
-            result.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
-            result.Z = (num3 * quaternion1.Z) + (num2 * quaternion2.Z);
-            result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
+            result.I = (num3 * quaternion1.I) + (num2 * quaternion2.I);
+            result.J = (num3 * quaternion1.J) + (num2 * quaternion2.J);
+            result.K = (num3 * quaternion1.K) + (num2 * quaternion2.K);
+            result.U = (num3 * quaternion1.U) + (num2 * quaternion2.U);
         }
 
         /// <summary>
@@ -24007,24 +24007,24 @@ namespace Abacus.Fixed32Precision
 
             Fixed32 num = amount;
             Fixed32 num2 = one - num;
-            Fixed32 num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Fixed32 num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             if (num5 >= zero) {
-                result.X = (num2 * quaternion1.X) + (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) + (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) + (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) + (num * quaternion2.U);
             } else {
-                result.X = (num2 * quaternion1.X) - (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) - (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) - (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) - (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) - (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) - (num * quaternion2.U);
             }
-            Fixed32 num4 = (((result.X * result.X) + (result.Y * result.Y)) + (result.Z * result.Z)) + (result.W * result.W);
+            Fixed32 num4 = (((result.I * result.I) + (result.J * result.J)) + (result.K * result.K)) + (result.U * result.U);
             Fixed32 num3 = one / RealMaths.Sqrt (num4);
-            result.X *= num3;
-            result.Y *= num3;
-            result.Z *= num3;
-            result.W *= num3;
+            result.I *= num3;
+            result.J *= num3;
+            result.K *= num3;
+            result.U *= num3;
         }
 
 
@@ -24704,31 +24704,31 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 two = 2;
 
-            Fixed32 x = rotation.X;
-            Fixed32 y = rotation.Y;
-            Fixed32 z = rotation.Z;
-            Fixed32 w = rotation.W;
+            Fixed32 i = rotation.I;
+            Fixed32 j = rotation.J;
+            Fixed32 k = rotation.K;
+            Fixed32 u = rotation.U;
 
-            Fixed32 xx = x * x;
-            Fixed32 yy = y * y;
-            Fixed32 zz = z * z;
+            Fixed32 ii = i * i;
+            Fixed32 jj = j * j;
+            Fixed32 kk = k * k;
 
-            Fixed32 wz = w * z;
-            Fixed32 xy = x * y;
+            Fixed32 uk = u * k;
+            Fixed32 ij = i * j;
 
             result.X =
                 + vector.X
-                - (two * vector.X  * (yy + zz))
-                + (two * vector.Y  * (xy - wz));
+                - (two * vector.X  * (jj + kk))
+                + (two * vector.Y  * (ij - uk));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk));
         }
 
         /// <summary>
-        /// Transforms a Vector2 by the specified Matrix.
+        /// Transforms a normalised Vector2 by the specified Matrix.
         /// </summary>
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
@@ -26018,39 +26018,39 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 two = 2;
 
-            Fixed32 x = rotation.X;
-            Fixed32 y = rotation.Y;
-            Fixed32 z = rotation.Z;
-            Fixed32 w = rotation.W;
+            Fixed32 i = rotation.I;
+            Fixed32 j = rotation.J;
+            Fixed32 k = rotation.K;
+            Fixed32 u = rotation.U;
 
-            Fixed32 xx = x * x;
-            Fixed32 yy = y * y;
-            Fixed32 zz = z * z;
+            Fixed32 ii = i * i;
+            Fixed32 jj = j * j;
+            Fixed32 kk = k * k;
 
-            Fixed32 wx = w * x;
-            Fixed32 wy = w * y;
-            Fixed32 wz = w * z;
-            Fixed32 xy = x * y;
-            Fixed32 xz = x * z;
-            Fixed32 yz = y * z;
+            Fixed32 ui = u * i;
+            Fixed32 uj = u * j;
+            Fixed32 uk = u * k;
+            Fixed32 ij = i * j;
+            Fixed32 ik = i * k;
+            Fixed32 jk = j * k;
 
             result.X =
                 + vector.X
-                - (two * vector.X * (yy + zz))
-                + (two * vector.Y * (xy - wz))
-                + (two * vector.Z * (xz + wy));
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz))
-                + (two * vector.Z * (yz - wx));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
 
             result.Z =
                 + vector.Z
-                + (two * vector.X * (xz - wy))
-                + (two * vector.Y * (yz + wx))
-                - (two * vector.Z * (xx + yy));
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
         }
 
         /// <summary>
@@ -27346,39 +27346,39 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 two = 2;
 
-            Fixed32 x = rotation.X;
-            Fixed32 y = rotation.Y;
-            Fixed32 z = rotation.Z;
-            Fixed32 w = rotation.W;
+            Fixed32 i = rotation.I;
+            Fixed32 j = rotation.J;
+            Fixed32 k = rotation.K;
+            Fixed32 u = rotation.U;
 
-            Fixed32 xx = x * x;
-            Fixed32 yy = y * y;
-            Fixed32 zz = z * z;
+            Fixed32 ii = i * i;
+            Fixed32 jj = j * j;
+            Fixed32 kk = k * k;
 
-            Fixed32 wx = w * x;
-            Fixed32 wy = w * y;
-            Fixed32 wz = w * z;
-            Fixed32 xy = x * y;
-            Fixed32 xz = x * z;
-            Fixed32 yz = y * z;
+            Fixed32 ui = u * i;
+            Fixed32 uj = u * j;
+            Fixed32 uk = u * k;
+            Fixed32 ij = i * j;
+            Fixed32 ik = i * k;
+            Fixed32 jk = j * k;
 
             result.X =
                 + vector.X
-                - (two * vector.X * (yy + zz))
-                + (two * vector.Y * (xy - wz))
-                + (two * vector.Z * (xz + wy));
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz))
-                + (two * vector.Z * (yz - wx));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
 
             result.Z =
                 + vector.Z
-                + (two * vector.X * (xz - wy))
-                + (two * vector.Y * (yz + wx))
-                - (two * vector.Z * (xx + yy));
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
 
             result.W = vector.W;
         }

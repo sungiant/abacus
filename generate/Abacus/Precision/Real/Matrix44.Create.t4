@@ -379,33 +379,33 @@
             <#= type #> zero = 0;
             <#= type #> one = 1;
 
+            <#= type #> ii = quaternion.I + quaternion.I;
+            <#= type #> jj = quaternion.J + quaternion.J;
+            <#= type #> kk = quaternion.K + quaternion.K;
 
-            <#= type #> xs = quaternion.X + quaternion.X;
-            <#= type #> ys = quaternion.Y + quaternion.Y;
-            <#= type #> zs = quaternion.Z + quaternion.Z;
-            <#= type #> wx = quaternion.W * xs;
-            <#= type #> wy = quaternion.W * ys;
-            <#= type #> wz = quaternion.W * zs;
-            <#= type #> xx = quaternion.X * xs;
-            <#= type #> xy = quaternion.X * ys;
-            <#= type #> xz = quaternion.X * zs;
-            <#= type #> yy = quaternion.Y * ys;
-            <#= type #> yz = quaternion.Y * zs;
-            <#= type #> zz = quaternion.Z * zs;
+            <#= type #> uii = quaternion.U * ii;
+            <#= type #> ujj = quaternion.U * jj;
+            <#= type #> ukk = quaternion.U * kk;
+            <#= type #> iii = quaternion.I * ii;
+            <#= type #> ijj = quaternion.I * jj;
+            <#= type #> ikk = quaternion.I * kk;
+            <#= type #> jjj = quaternion.J * jj;
+            <#= type #> jkk = quaternion.J * kk;
+            <#= type #> kkk = quaternion.K * kk;
 
-            result.M00 = one - (yy + zz);
-            result.M10 = xy - wz;
-            result.M20 = xz + wy;
+            result.M00 = one - (jjj + kkk);
+            result.M10 = ijj - ukk;
+            result.M20 = ikk + ujj;
             result.M30 = zero;
 
-            result.M01 = xy + wz;
-            result.M11 = one - (xx + zz);
-            result.M21 = yz - wx;
+            result.M01 = ijj + ukk;
+            result.M11 = one - (iii + kkk);
+            result.M21 = jkk - uii;
             result.M31 = zero;
 
-            result.M02 = xz - wy;
-            result.M12 = yz + wx;
-            result.M22 = one - (xx + yy);
+            result.M02 = ikk - ujj;
+            result.M12 = jkk + uii;
+            result.M22 = one - (iii + jjj);
             result.M32 = zero;
 
             result.M03 = zero;

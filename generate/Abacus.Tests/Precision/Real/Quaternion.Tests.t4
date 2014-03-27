@@ -44,10 +44,10 @@
                 //     dev branch there will be need for an extension method for
                 //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(quatAddress, data, 0, 4);
-                Assert.That(data[0], Is.EqualTo(quat.X));
-                Assert.That(data[1], Is.EqualTo(quat.Y));
-                Assert.That(data[2], Is.EqualTo(quat.Z));
-                Assert.That(data[3], Is.EqualTo(quat.W));
+                Assert.That(data[0], Is.EqualTo(quat.I));
+                Assert.That(data[1], Is.EqualTo(quat.J));
+                Assert.That(data[2], Is.EqualTo(quat.K));
+                Assert.That(data[3], Is.EqualTo(quat.U));
 
                 h_quat.Free();
             }

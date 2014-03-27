@@ -125,31 +125,31 @@
         {
             <#= type #> two = 2;
 
-            <#= type #> x = rotation.X;
-            <#= type #> y = rotation.Y;
-            <#= type #> z = rotation.Z;
-            <#= type #> w = rotation.W;
+            <#= type #> i = rotation.I;
+            <#= type #> j = rotation.J;
+            <#= type #> k = rotation.K;
+            <#= type #> u = rotation.U;
 
-            <#= type #> xx = x * x;
-            <#= type #> yy = y * y;
-            <#= type #> zz = z * z;
+            <#= type #> ii = i * i;
+            <#= type #> jj = j * j;
+            <#= type #> kk = k * k;
 
-            <#= type #> wz = w * z;
-            <#= type #> xy = x * y;
+            <#= type #> uk = u * k;
+            <#= type #> ij = i * j;
 
             result.X =
                 + vector.X
-                - (two * vector.X  * (yy + zz))
-                + (two * vector.Y  * (xy - wz));
+                - (two * vector.X  * (jj + kk))
+                + (two * vector.Y  * (ij - uk));
 
             result.Y =
                 + vector.Y
-                + (two * vector.X * (xy + wz))
-                - (two * vector.Y * (xx + zz));
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk));
         }
 
         /// <summary>
-        /// Transforms a Vector2 by the specified Matrix.
+        /// Transforms a normalised Vector2 by the specified Matrix.
         /// </summary>
         public static void TransformNormal (
             ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)

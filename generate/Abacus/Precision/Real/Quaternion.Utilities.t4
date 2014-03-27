@@ -20,7 +20,7 @@
             <#= type #> num2;
             <#= type #> num3;
             <#= type #> num = amount;
-            <#= type #> num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            <#= type #> num4 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             Boolean flag = false;
             if (num4 < zero) {
                 flag = true;
@@ -39,10 +39,10 @@
 
                 num2 = flag ? -RealMaths.Sin (num * num5) * num6 : RealMaths.Sin (num * num5) * num6;
             }
-            result.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
-            result.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
-            result.Z = (num3 * quaternion1.Z) + (num2 * quaternion2.Z);
-            result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
+            result.I = (num3 * quaternion1.I) + (num2 * quaternion2.I);
+            result.J = (num3 * quaternion1.J) + (num2 * quaternion2.J);
+            result.K = (num3 * quaternion1.K) + (num2 * quaternion2.K);
+            result.U = (num3 * quaternion1.U) + (num2 * quaternion2.U);
         }
 
         /// <summary>
@@ -64,23 +64,23 @@
 
             <#= type #> num = amount;
             <#= type #> num2 = one - num;
-            <#= type #> num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            <#= type #> num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
             if (num5 >= zero) {
-                result.X = (num2 * quaternion1.X) + (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) + (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) + (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) + (num * quaternion2.U);
             } else {
-                result.X = (num2 * quaternion1.X) - (num * quaternion2.X);
-                result.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
-                result.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
-                result.W = (num2 * quaternion1.W) - (num * quaternion2.W);
+                result.I = (num2 * quaternion1.I) - (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) - (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) - (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) - (num * quaternion2.U);
             }
-            <#= type #> num4 = (((result.X * result.X) + (result.Y * result.Y)) + (result.Z * result.Z)) + (result.W * result.W);
+            <#= type #> num4 = (((result.I * result.I) + (result.J * result.J)) + (result.K * result.K)) + (result.U * result.U);
             <#= type #> num3 = one / RealMaths.Sqrt (num4);
-            result.X *= num3;
-            result.Y *= num3;
-            result.Z *= num3;
-            result.W *= num3;
+            result.I *= num3;
+            result.J *= num3;
+            result.K *= num3;
+            result.U *= num3;
         }
 

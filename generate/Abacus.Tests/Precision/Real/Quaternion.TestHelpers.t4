@@ -38,12 +38,12 @@
         /// </summary>
         internal static Quaternion GetNextRandomQuaternion ()
         {
-            <#= type #> a = GetNextRandom<#= type #>();
-            <#= type #> b = GetNextRandom<#= type #>();
-            <#= type #> c = GetNextRandom<#= type #>();
-            <#= type #> d = GetNextRandom<#= type #>();
+            <#= type #> i = GetNextRandom<#= type #>();
+            <#= type #> j = GetNextRandom<#= type #>();
+            <#= type #> k = GetNextRandom<#= type #>();
+            <#= type #> u = GetNextRandom<#= type #>();
 
-            return new Quaternion(a, b, c, d);
+            return new Quaternion(i, j, k, u);
         }
 
         /// <summary>
@@ -53,9 +53,9 @@
         {
             <#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
 
-            Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
-            Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
-            Assert.That(a.Z, Is.EqualTo(b.Z).Within(tolerance));
-            Assert.That(a.W, Is.EqualTo(b.W).Within(tolerance));
+            Assert.That(a.I, Is.EqualTo(b.I).Within(tolerance));
+            Assert.That(a.J, Is.EqualTo(b.J).Within(tolerance));
+            Assert.That(a.K, Is.EqualTo(b.K).Within(tolerance));
+            Assert.That(a.U, Is.EqualTo(b.U).Within(tolerance));
         }
-        
+

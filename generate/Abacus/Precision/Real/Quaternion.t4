@@ -8,36 +8,36 @@
         /// <summary>
         /// todo
         /// </summary>
-        public <#= type #> X;
+        public <#= type #> I;
 
         /// <summary>
         /// todo
         /// </summary>
-        public <#= type #> Y;
+        public <#= type #> J;
 
         /// <summary>
         /// todo
         /// </summary>
-        public <#= type #> Z;
+        public <#= type #> K;
 
         /// <summary>
         /// todo
         /// </summary>
-        public <#= type #> W;
+        public <#= type #> U;
 
         /// <summary>
         /// todo
         /// </summary>
         public Quaternion (
-            <#= type #> x,
-            <#= type #> y,
-            <#= type #> z,
-            <#= type #> w)
+            <#= type #> i,
+            <#= type #> j,
+            <#= type #> k,
+            <#= type #> u)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            this.I = i;
+            this.J = j;
+            this.K = k;
+            this.U = u;
         }
 
         /// <summary>
@@ -45,10 +45,10 @@
         /// </summary>
         public Quaternion (Vector3 vectorPart, <#= type #> scalarPart)
         {
-            this.X = vectorPart.X;
-            this.Y = vectorPart.Y;
-            this.Z = vectorPart.Z;
-            this.W = scalarPart;
+            this.I = vectorPart.X;
+            this.J = vectorPart.Y;
+            this.K = vectorPart.Z;
+            this.U = scalarPart;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}", new Object[] { this.X.ToString (), this.Y.ToString (), this.Z.ToString (), this.W.ToString () });
+            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
         }
 
         /// <summary>
@@ -65,10 +65,10 @@
         public override Int32 GetHashCode ()
         {
             return
-                this.X.GetHashCode () +
-                this.Y.GetHashCode () +
-                this.Z.GetHashCode () +
-                this.W.GetHashCode ();
+                this.I.GetHashCode () +
+                this.J.GetHashCode () +
+                this.K.GetHashCode () +
+                this.U.GetHashCode ();
         }
 
         /// <summary>
@@ -96,10 +96,10 @@
         public Boolean Equals (Quaternion other)
         {
             return
-                (this.X == other.X) &&
-                (this.Y == other.Y) &&
-                (this.Z == other.Z) &&
-                (this.W == other.W);
+                (this.I == other.I) &&
+                (this.J == other.J) &&
+                (this.K == other.K) &&
+                (this.U == other.U);
         }
 
         #endregion

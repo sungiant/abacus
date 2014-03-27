@@ -14,14 +14,14 @@
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -34,7 +34,7 @@
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -50,7 +50,7 @@
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Quaternion objects are compared.
         /// </summary>
         [Test]
@@ -65,8 +65,8 @@
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Quaternion objects.
         /// </summary>
         [Test]
@@ -99,7 +99,7 @@
 
             Quaternion result_1b; Quaternion.Add(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -122,7 +122,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the 
+        /// Assert that, for a known example involving the zero quaternion, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -136,7 +136,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the 
+        /// Assert that, for a known example involving two zero quaternions, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -146,7 +146,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -159,14 +159,14 @@
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
+                    a.I + b.I, a.J + b.J, a.K + b.K, a.U + b.U);
 
                 this.TestAddition(a, b, expected);
             }
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -181,7 +181,7 @@
 
             Quaternion result_1b; Quaternion.Subtract(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -205,8 +205,8 @@
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -216,7 +216,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -229,14 +229,14 @@
                 var b = GetNextRandomQuaternion();
 
                 var expected = new Quaternion(
-                    a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
+                    a.I - b.I, a.J - b.J, a.K - b.K, a.U - b.U);
 
                 this.TestSubtraction(a, b, expected);
             }
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -248,7 +248,7 @@
             var result_1a = -a;
 
             Quaternion result_1b; Quaternion.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -275,7 +275,7 @@
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the 
+        /// Assert that, for known examples involving the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -294,7 +294,7 @@
         }
 
         /// <summary>
-        /// Assert that when negating the zero quaternion, all the 
+        /// Assert that when negating the zero quaternion, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -304,7 +304,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -334,7 +334,7 @@
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
             Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -365,7 +365,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -378,7 +378,7 @@
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W);
+                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
 
                 this.TestMultiplication(a, b, c);
             }
@@ -398,13 +398,13 @@
             var result_1a = a / b;
 
             Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -427,7 +427,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -450,7 +450,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -463,7 +463,7 @@
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.X / b.X, a.Y / b.Y, a.Z / b.Z, a.W / b.W);
+                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
 
                 this.TestDivision(a, b, c);
             }

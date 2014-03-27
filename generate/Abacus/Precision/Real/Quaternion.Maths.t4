@@ -6,10 +6,10 @@
             out <#= type #> result)
         {
             result =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
         }
 
         /// <summary>
@@ -20,10 +20,10 @@
             out <#= type #> result)
         {
             <#= type #> lengthSquared =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             result = RealMaths.Sqrt (lengthSquared);
         }
@@ -39,10 +39,10 @@
 
             result = RealMaths.IsZero(
                 one -
-                quaternion.W * quaternion.W -
-                quaternion.X * quaternion.X -
-                quaternion.Y * quaternion.Y -
-                quaternion.Z * quaternion.Z);
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
         }
 
 
@@ -53,10 +53,10 @@
             ref Quaternion value,
             out Quaternion result)
         {
-            result.X = -value.X;
-            result.Y = -value.Y;
-            result.Z = -value.Z;
-            result.W = value.W;
+            result.I = -value.I;
+            result.J = -value.J;
+            result.K = -value.K;
+            result.U = value.U;
         }
 
         /// <summary>
@@ -68,17 +68,17 @@
         {
             <#= type #> one = 1;
             <#= type #> a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             <#= type #> b = one / a;
 
-            result.X = -quaternion.X * b;
-            result.Y = -quaternion.Y * b;
-            result.Z = -quaternion.Z * b;
-            result.W =  quaternion.W * b;
+            result.I = -quaternion.I * b;
+            result.J = -quaternion.J * b;
+            result.K = -quaternion.K * b;
+            result.U =  quaternion.U * b;
         }
 
         /// <summary>
@@ -90,10 +90,10 @@
             out <#= type #> result)
         {
             result =
-                (quaternion1.X * quaternion2.X) +
-                (quaternion1.Y * quaternion2.Y) +
-                (quaternion1.Z * quaternion2.Z) +
-                (quaternion1.W * quaternion2.W);
+                (quaternion1.I * quaternion2.I) +
+                (quaternion1.J * quaternion2.J) +
+                (quaternion1.K * quaternion2.K) +
+                (quaternion1.U * quaternion2.U);
         }
 
         /// <summary>
@@ -104,25 +104,25 @@
             ref Quaternion value2,
             out Quaternion result)
         {
-            <#= type #> x = value2.X;
-            <#= type #> y = value2.Y;
-            <#= type #> z = value2.Z;
-            <#= type #> w = value2.W;
+            <#= type #> i1 = value1.I;
+            <#= type #> j1 = value1.J;
+            <#= type #> k1 = value1.K;
+            <#= type #> u1 = value1.U;
 
-            <#= type #> a = value1.X;
-            <#= type #> b = value1.Y;
-            <#= type #> c = value1.Z;
-            <#= type #> d = value1.W;
+            <#= type #> i2 = value2.I;
+            <#= type #> j2 = value2.J;
+            <#= type #> k2 = value2.K;
+            <#= type #> u2 = value2.U;
 
-            <#= type #> e = (y * c) - (z * b);
-            <#= type #> f = (z * a) - (x * c);
-            <#= type #> g = (x * b) - (y * a);
-            <#= type #> h = ((x * a) + (y * b)) + (z * c);
+            <#= type #> a = (j2 * k1) - (k2 * j1);
+            <#= type #> b = (k2 * i1) - (i2 * k1);
+            <#= type #> c = (i2 * j1) - (j2 * i1);
+            <#= type #> d = (i2 * i1) - (j2 * j1);
 
-            result.X = (x * d) + (a * w) + e;
-            result.Y = (y * d) + (b * w) + f;
-            result.Z = (z * d) + (c * w) + g;
-            result.W = (w * d) - h;
+            result.I = (i2 * u1) + (i1 * u2) + a;
+            result.J = (j2 * u1) + (j1 * u2) + b;
+            result.K = (k2 * u1) + (k1 * u2) + c;
+            result.U = (u2 * u1) - (k2 * k1) - d;
         }
 
         /// <summary>
@@ -135,16 +135,16 @@
             <#= type #> one = 1;
 
             <#= type #> a =
-                (quaternion.X * quaternion.X) +
-                (quaternion.Y * quaternion.Y) +
-                (quaternion.Z * quaternion.Z) +
-                (quaternion.W * quaternion.W);
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
 
             <#= type #> b = one / RealMaths.Sqrt (a);
 
-            result.X = quaternion.X * b;
-            result.Y = quaternion.Y * b;
-            result.Z = quaternion.Z * b;
-            result.W = quaternion.W * b;
+            result.I = quaternion.I * b;
+            result.J = quaternion.J * b;
+            result.K = quaternion.K * b;
+            result.U = quaternion.U * b;
         }
 
