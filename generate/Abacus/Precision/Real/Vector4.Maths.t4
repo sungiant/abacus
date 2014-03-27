@@ -96,28 +96,28 @@
             out Vector4 result)
         {
             <#= type #> x =
-                (vector.X * matrix.M11) +
-                (vector.Y * matrix.M21) +
-                (vector.Z * matrix.M31) +
-                (vector.W * matrix.M41);
+                (vector.X * matrix.M00) +
+                (vector.Y * matrix.M10) +
+                (vector.Z * matrix.M20) +
+                (vector.W * matrix.M30);
 
             <#= type #> y =
-                (vector.X * matrix.M12) +
-                (vector.Y * matrix.M22) +
-                (vector.Z * matrix.M32) +
-                (vector.W * matrix.M42);
+                (vector.X * matrix.M01) +
+                (vector.Y * matrix.M11) +
+                (vector.Z * matrix.M21) +
+                (vector.W * matrix.M31);
 
             <#= type #> z =
-                (vector.X * matrix.M13) +
-                (vector.Y * matrix.M23) +
-                (vector.Z * matrix.M33) +
-                (vector.W * matrix.M43);
+                (vector.X * matrix.M02) +
+                (vector.Y * matrix.M12) +
+                (vector.Z * matrix.M22) +
+                (vector.W * matrix.M32);
 
             <#= type #> w =
-                (vector.X * matrix.M14) +
-                (vector.Y * matrix.M24) +
-                (vector.Z * matrix.M34) +
-                (vector.W * matrix.M44);
+                (vector.X * matrix.M03) +
+                (vector.Y * matrix.M13) +
+                (vector.Z * matrix.M23) +
+                (vector.W * matrix.M33);
 
             result.X = x;
             result.Y = y;
@@ -189,20 +189,20 @@
             }
 
             <#= type #> x =
-                (normal.X * matrix.M11) + (normal.Y * matrix.M21) +
-                (normal.Z * matrix.M31) + (normal.W * matrix.M41);
+                (normal.X * matrix.M00) + (normal.Y * matrix.M10) +
+                (normal.Z * matrix.M20) + (normal.W * matrix.M30);
 
             <#= type #> y =
-                (normal.X * matrix.M12) + (normal.Y * matrix.M22) +
-                (normal.Z * matrix.M32) + (normal.W * matrix.M42);
+                (normal.X * matrix.M01) + (normal.Y * matrix.M11) +
+                (normal.Z * matrix.M21) + (normal.W * matrix.M31);
 
             <#= type #> z =
-                (normal.X * matrix.M13) + (normal.Y * matrix.M23) +
-                (normal.Z * matrix.M33) + (normal.W * matrix.M43);
+                (normal.X * matrix.M02) + (normal.Y * matrix.M12) +
+                (normal.Z * matrix.M22) + (normal.W * matrix.M32);
 
             <#= type #> w =
-                (normal.X * matrix.M14) + (normal.Y * matrix.M24) +
-                (normal.Z * matrix.M34) + (normal.W * matrix.M44);
+                (normal.X * matrix.M03) + (normal.Y * matrix.M13) +
+                (normal.Z * matrix.M23) + (normal.W * matrix.M33);
 
             result.X = x;
             result.Y = y;

@@ -65,21 +65,21 @@
         {
             <#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
 
+            Assert.That(a.M00, Is.EqualTo(b.M00).Within(tolerance));
+            Assert.That(a.M01, Is.EqualTo(b.M01).Within(tolerance));
+            Assert.That(a.M02, Is.EqualTo(b.M02).Within(tolerance));
+            Assert.That(a.M03, Is.EqualTo(b.M03).Within(tolerance));
+            Assert.That(a.M10, Is.EqualTo(b.M10).Within(tolerance));
             Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
             Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
             Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
-            Assert.That(a.M14, Is.EqualTo(b.M14).Within(tolerance));
+            Assert.That(a.M20, Is.EqualTo(b.M20).Within(tolerance));
             Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
             Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
             Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
-            Assert.That(a.M24, Is.EqualTo(b.M24).Within(tolerance));
+            Assert.That(a.M30, Is.EqualTo(b.M30).Within(tolerance));
             Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
             Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
             Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
-            Assert.That(a.M34, Is.EqualTo(b.M34).Within(tolerance));
-            Assert.That(a.M41, Is.EqualTo(b.M41).Within(tolerance));
-            Assert.That(a.M42, Is.EqualTo(b.M42).Within(tolerance));
-            Assert.That(a.M43, Is.EqualTo(b.M43).Within(tolerance));
-            Assert.That(a.M44, Is.EqualTo(b.M44).Within(tolerance));
         }
-        
+

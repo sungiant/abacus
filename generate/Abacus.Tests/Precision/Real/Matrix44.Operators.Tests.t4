@@ -148,10 +148,10 @@
                  44, -34, - 3,  12);
 
             var expected = a;
+            expected.M00++;
             expected.M11++;
             expected.M22++;
             expected.M33++;
-            expected.M44++;
 
             this.TestAddition(a, Matrix44.Identity, expected);
         }
@@ -188,22 +188,22 @@
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
+                    a.M00 + b.M00,
+                    a.M01 + b.M01,
+                    a.M02 + b.M02,
+                    a.M03 + b.M03,
+                    a.M10 + b.M10,
                     a.M11 + b.M11,
                     a.M12 + b.M12,
                     a.M13 + b.M13,
-                    a.M14 + b.M14,
+                    a.M20 + b.M20,
                     a.M21 + b.M21,
                     a.M22 + b.M22,
                     a.M23 + b.M23,
-                    a.M24 + b.M24,
+                    a.M30 + b.M30,
                     a.M31 + b.M31,
                     a.M32 + b.M32,
-                    a.M33 + b.M33,
-                    a.M34 + b.M34,
-                    a.M41 + b.M41,
-                    a.M42 + b.M42,
-                    a.M43 + b.M43,
-                    a.M44 + b.M44
+                    a.M33 + b.M33
                     );
 
                 this.TestAddition(a, b, expected);
@@ -274,22 +274,22 @@
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
+                    a.M00 - b.M00,
+                    a.M01 - b.M01,
+                    a.M02 - b.M02,
+                    a.M03 - b.M03,
+                    a.M10 - b.M10,
                     a.M11 - b.M11,
                     a.M12 - b.M12,
                     a.M13 - b.M13,
-                    a.M14 - b.M14,
+                    a.M20 - b.M20,
                     a.M21 - b.M21,
                     a.M22 - b.M22,
                     a.M23 - b.M23,
-                    a.M24 - b.M24,
+                    a.M30 - b.M30,
                     a.M31 - b.M31,
                     a.M32 - b.M32,
-                    a.M33 - b.M33,
-                    a.M34 - b.M34,
-                    a.M41 - b.M41,
-                    a.M42 - b.M42,
-                    a.M43 - b.M43,
-                    a.M44 - b.M44
+                    a.M33 - b.M33
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -411,46 +411,46 @@
         public void TestOperator_Multiplication_i ()
         {
             var a = new Matrix44();
-            a.M11 = -27;
-            a.M12 = 36;
+            a.M00 = -27;
+            a.M01 = 36;
+            a.M02 = 9;
+            a.M03 = -54;
+
+            a.M10 = 36;
+            a.M11 = 3;
+            a.M12 = 9;
             a.M13 = 9;
-            a.M14 = -54;
 
-            a.M21 = 36;
-            a.M22 = 3;
-            a.M23 = 9;
-            a.M24 = 9;
+            a.M20 = 9;
+            a.M21 = 9;
+            a.M22 = -36;
+            a.M23 = 6;
 
+            a.M30 = -24;
             a.M31 = 9;
-            a.M32 = 9;
-            a.M33 = -36;
-            a.M34 = 6;
-
-            a.M41 = -24;
-            a.M42 = 9;
-            a.M43 = 36;
-            a.M44 = -12;
+            a.M32 = 36;
+            a.M33 = -12;
 
             var b = new Matrix44();
-            b.M11 = 3402;
-            b.M12 = -1269;
-            b.M13 = -2187;
-            b.M14 = 2484;
+            b.M00 = 3402;
+            b.M01 = -1269;
+            b.M02 = -2187;
+            b.M03 = 2484;
 
-            b.M21 = -999;
-            b.M22 = 1467;
-            b.M23 = 351;
-            b.M24 = -1971;
+            b.M10 = -999;
+            b.M11 = 1467;
+            b.M12 = 351;
+            b.M13 = -1971;
 
-            b.M31 = -387;
-            b.M32 = 81;
-            b.M33 = 1674;
-            b.M34 = -693;
+            b.M20 = -387;
+            b.M21 = 81;
+            b.M22 = 1674;
+            b.M23 = -693;
 
-            b.M41 = 1584;
-            b.M42 = -621;
-            b.M43 = -1863;
-            b.M44 = 1737;
+            b.M30 = 1584;
+            b.M31 = -621;
+            b.M32 = -1863;
+            b.M33 = 1737;
 
             this.TestMultiplication(a, a, b);
         }
@@ -469,22 +469,22 @@
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
+                    a.M00 * b.M00,
+                    a.M01 * b.M01,
+                    a.M02 * b.M02,
+                    a.M03 * b.M03,
+                    a.M10 * b.M10,
                     a.M11 * b.M11,
                     a.M12 * b.M12,
                     a.M13 * b.M13,
-                    a.M14 * b.M14,
+                    a.M20 * b.M20,
                     a.M21 * b.M21,
                     a.M22 * b.M22,
                     a.M23 * b.M23,
-                    a.M24 * b.M24,
+                    a.M30 * b.M30,
                     a.M31 * b.M31,
                     a.M32 * b.M32,
-                    a.M33 * b.M33,
-                    a.M34 * b.M34,
-                    a.M41 * b.M41,
-                    a.M42 * b.M42,
-                    a.M43 * b.M43,
-                    a.M44 * b.M44
+                    a.M33 * b.M33
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -590,22 +590,22 @@
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
+                    a.M00 / b.M00,
+                    a.M01 / b.M01,
+                    a.M02 / b.M02,
+                    a.M03 / b.M03,
+                    a.M10 / b.M10,
                     a.M11 / b.M11,
                     a.M12 / b.M12,
                     a.M13 / b.M13,
-                    a.M14 / b.M14,
+                    a.M20 / b.M20,
                     a.M21 / b.M21,
                     a.M22 / b.M22,
                     a.M23 / b.M23,
-                    a.M24 / b.M24,
+                    a.M30 / b.M30,
                     a.M31 / b.M31,
                     a.M32 / b.M32,
-                    a.M33 / b.M33,
-                    a.M34 / b.M34,
-                    a.M41 / b.M41,
-                    a.M42 / b.M42,
-                    a.M43 / b.M43,
-                    a.M44 / b.M44
+                    a.M33 / b.M33
                     );
 
                 this.TestDivision(a, b, c);

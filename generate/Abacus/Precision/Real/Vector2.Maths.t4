@@ -104,14 +104,14 @@
             ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             <#= type #> x =
-                (vector.X * matrix.M11) +
-                (vector.Y * matrix.M21) +
-                matrix.M41;
+                (vector.X * matrix.M00) +
+                (vector.Y * matrix.M10) +
+                matrix.M30;
 
             <#= type #> y =
-                (vector.X * matrix.M12) +
-                (vector.Y * matrix.M22) +
-                matrix.M42;
+                (vector.X * matrix.M01) +
+                (vector.Y * matrix.M11) +
+                matrix.M31;
 
             result.X = x;
             result.Y = y;
@@ -162,8 +162,8 @@
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            <#= type #> x = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
-            <#= type #> y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+            <#= type #> x = (normal.X * matrix.M00) + (normal.Y * matrix.M10);
+            <#= type #> y = (normal.X * matrix.M01) + (normal.Y * matrix.M11);
 
             result.X = x;
             result.Y = y;
