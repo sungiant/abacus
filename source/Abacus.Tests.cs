@@ -8573,13 +8573,30 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestMemberFn_ToString ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Quaternion a = new Quaternion(42, -17, 13, 44);
+
+            String result = a.ToString();
+
+            String expected = "{I:42 J:-17 K:13 U:44}";
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            throw new InconclusiveException("Not Implemented");
+            var hs1 = new System.Collections.Generic.HashSet<Quaternion>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -16812,13 +16829,30 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestMemberFn_ToString ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Quaternion a = new Quaternion(42, -17, 13, 44);
+
+            String result = a.ToString();
+
+            String expected = "{I:42 J:-17 K:13 U:44}";
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            throw new InconclusiveException("Not Implemented");
+            var hs1 = new System.Collections.Generic.HashSet<Quaternion>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -25051,13 +25085,30 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestMemberFn_ToString ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Quaternion a = new Quaternion(42, -17, 13, 44);
+
+            String result = a.ToString();
+
+            String expected = "{I:42 J:-17 K:13 U:44}";
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            throw new InconclusiveException("Not Implemented");
+            var hs1 = new System.Collections.Generic.HashSet<Quaternion>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
         }
 
         // Test Constant: Identity //-----------------------------------------//

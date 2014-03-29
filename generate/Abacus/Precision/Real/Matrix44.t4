@@ -133,7 +133,7 @@
             return
                 (
                     "{ " +
-                    string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
+                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
                         new Object[]
                         {
                             this.R0C0.ToString (),
@@ -142,7 +142,7 @@
                             this.R0C3.ToString ()
                         }
                     ) +
-                    string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
+                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
                         new Object[]
                         {
                             this.R1C0.ToString (),
@@ -151,7 +151,7 @@
                             this.R1C3.ToString ()
                             }
                     ) +
-                    string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
+                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
                         new Object[]
                         {
                             this.R2C0.ToString (),
@@ -159,7 +159,8 @@
                             this.R2C2.ToString (),
                             this.R2C3.ToString ()
                         }
-                    ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
+                    ) +
+                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
                     new Object[]
                     {
                         this.R3C0.ToString (),

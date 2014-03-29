@@ -8479,7 +8479,7 @@ namespace Abacus.SinglePrecision
             return
                 (
                     "{ " +
-                    string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
+                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
                         new Object[]
                         {
                             this.R0C0.ToString (),
@@ -8488,7 +8488,7 @@ namespace Abacus.SinglePrecision
                             this.R0C3.ToString ()
                         }
                     ) +
-                    string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
+                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
                         new Object[]
                         {
                             this.R1C0.ToString (),
@@ -8497,7 +8497,7 @@ namespace Abacus.SinglePrecision
                             this.R1C3.ToString ()
                             }
                     ) +
-                    string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
+                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
                         new Object[]
                         {
                             this.R2C0.ToString (),
@@ -8505,7 +8505,8 @@ namespace Abacus.SinglePrecision
                             this.R2C2.ToString (),
                             this.R2C3.ToString ()
                         }
-                    ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
+                    ) +
+                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
                     new Object[]
                     {
                         this.R3C0.ToString (),
@@ -10046,27 +10047,29 @@ namespace Abacus.SinglePrecision
         : IEquatable<Quaternion>
     {
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary I-component of the Quaternion.
         /// </summary>
         public Single I;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary J-component of the Quaternion.
         /// </summary>
         public Single J;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary K-component of the Quaternion.
         /// </summary>
         public Single K;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the real U-component of the Quaternion.
         /// </summary>
         public Single U;
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from three imaginary
+        /// Single values and one real Single value representing
+        /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
             Single i,
@@ -10081,7 +10084,10 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from a Vector3 representing
+        /// the imaginary parts of the quaternion (I, J & K) and one
+        /// Single value representing the real part of the
+        /// Quaternion (U).
         /// </summary>
         public Quaternion (Vector3 vectorPart, Single scalarPart)
         {
@@ -10092,15 +10098,21 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
+            return String.Format (
+                "{{I:{0} J:{1} K:{2} U:{3}}}",
+                new Object[] {
+                    this.I.ToString (),
+                    this.J.ToString (),
+                    this.K.ToString (),
+                    this.U.ToString () });
         }
 
         /// <summary>
-        /// todo
+        /// Gets the hash code of the Quaternion object.
         /// </summary>
         public override Int32 GetHashCode ()
         {
@@ -15156,7 +15168,7 @@ namespace Abacus.DoublePrecision
             return
                 (
                     "{ " +
-                    string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
+                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
                         new Object[]
                         {
                             this.R0C0.ToString (),
@@ -15165,7 +15177,7 @@ namespace Abacus.DoublePrecision
                             this.R0C3.ToString ()
                         }
                     ) +
-                    string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
+                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
                         new Object[]
                         {
                             this.R1C0.ToString (),
@@ -15174,7 +15186,7 @@ namespace Abacus.DoublePrecision
                             this.R1C3.ToString ()
                             }
                     ) +
-                    string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
+                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
                         new Object[]
                         {
                             this.R2C0.ToString (),
@@ -15182,7 +15194,8 @@ namespace Abacus.DoublePrecision
                             this.R2C2.ToString (),
                             this.R2C3.ToString ()
                         }
-                    ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
+                    ) +
+                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
                     new Object[]
                     {
                         this.R3C0.ToString (),
@@ -16723,27 +16736,29 @@ namespace Abacus.DoublePrecision
         : IEquatable<Quaternion>
     {
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary I-component of the Quaternion.
         /// </summary>
         public Double I;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary J-component of the Quaternion.
         /// </summary>
         public Double J;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary K-component of the Quaternion.
         /// </summary>
         public Double K;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the real U-component of the Quaternion.
         /// </summary>
         public Double U;
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from three imaginary
+        /// Double values and one real Double value representing
+        /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
             Double i,
@@ -16758,7 +16773,10 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from a Vector3 representing
+        /// the imaginary parts of the quaternion (I, J & K) and one
+        /// Double value representing the real part of the
+        /// Quaternion (U).
         /// </summary>
         public Quaternion (Vector3 vectorPart, Double scalarPart)
         {
@@ -16769,15 +16787,21 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
+            return String.Format (
+                "{{I:{0} J:{1} K:{2} U:{3}}}",
+                new Object[] {
+                    this.I.ToString (),
+                    this.J.ToString (),
+                    this.K.ToString (),
+                    this.U.ToString () });
         }
 
         /// <summary>
-        /// todo
+        /// Gets the hash code of the Quaternion object.
         /// </summary>
         public override Int32 GetHashCode ()
         {
@@ -21833,7 +21857,7 @@ namespace Abacus.Fixed32Precision
             return
                 (
                     "{ " +
-                    string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
+                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
                         new Object[]
                         {
                             this.R0C0.ToString (),
@@ -21842,7 +21866,7 @@ namespace Abacus.Fixed32Precision
                             this.R0C3.ToString ()
                         }
                     ) +
-                    string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
+                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
                         new Object[]
                         {
                             this.R1C0.ToString (),
@@ -21851,7 +21875,7 @@ namespace Abacus.Fixed32Precision
                             this.R1C3.ToString ()
                             }
                     ) +
-                    string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
+                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
                         new Object[]
                         {
                             this.R2C0.ToString (),
@@ -21859,7 +21883,8 @@ namespace Abacus.Fixed32Precision
                             this.R2C2.ToString (),
                             this.R2C3.ToString ()
                         }
-                    ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
+                    ) +
+                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
                     new Object[]
                     {
                         this.R3C0.ToString (),
@@ -23400,27 +23425,29 @@ namespace Abacus.Fixed32Precision
         : IEquatable<Quaternion>
     {
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary I-component of the Quaternion.
         /// </summary>
         public Fixed32 I;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary J-component of the Quaternion.
         /// </summary>
         public Fixed32 J;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary K-component of the Quaternion.
         /// </summary>
         public Fixed32 K;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the real U-component of the Quaternion.
         /// </summary>
         public Fixed32 U;
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from three imaginary
+        /// Fixed32 values and one real Fixed32 value representing
+        /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
             Fixed32 i,
@@ -23435,7 +23462,10 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from a Vector3 representing
+        /// the imaginary parts of the quaternion (I, J & K) and one
+        /// Fixed32 value representing the real part of the
+        /// Quaternion (U).
         /// </summary>
         public Quaternion (Vector3 vectorPart, Fixed32 scalarPart)
         {
@@ -23446,15 +23476,21 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
+            return String.Format (
+                "{{I:{0} J:{1} K:{2} U:{3}}}",
+                new Object[] {
+                    this.I.ToString (),
+                    this.J.ToString (),
+                    this.K.ToString (),
+                    this.U.ToString () });
         }
 
         /// <summary>
-        /// todo
+        /// Gets the hash code of the Quaternion object.
         /// </summary>
         public override Int32 GetHashCode ()
         {

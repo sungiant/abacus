@@ -6,27 +6,29 @@
         : IEquatable<Quaternion>
     {
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary I-component of the Quaternion.
         /// </summary>
         public <#= type #> I;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary J-component of the Quaternion.
         /// </summary>
         public <#= type #> J;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the imaginary K-component of the Quaternion.
         /// </summary>
         public <#= type #> K;
 
         /// <summary>
-        /// todo
+        /// Gets or sets the real U-component of the Quaternion.
         /// </summary>
         public <#= type #> U;
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from three imaginary
+        /// <#= type #> values and one real <#= type #> value representing
+        /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
             <#= type #> i,
@@ -41,7 +43,10 @@
         }
 
         /// <summary>
-        /// todo
+        /// Initilises a new instance of Quaternion from a Vector3 representing
+        /// the imaginary parts of the quaternion (I, J & K) and one
+        /// <#= type #> value representing the real part of the
+        /// Quaternion (U).
         /// </summary>
         public Quaternion (Vector3 vectorPart, <#= type #> scalarPart)
         {
@@ -52,15 +57,21 @@
         }
 
         /// <summary>
-        /// todo
+        /// Retrieves a string representation of the current object.
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{I:{0} J:{1} K:{2} U:{3}}}", new Object[] { this.I.ToString (), this.J.ToString (), this.K.ToString (), this.U.ToString () });
+            return String.Format (
+                "{{I:{0} J:{1} K:{2} U:{3}}}",
+                new Object[] {
+                    this.I.ToString (),
+                    this.J.ToString (),
+                    this.K.ToString (),
+                    this.U.ToString () });
         }
 
         /// <summary>
-        /// todo
+        /// Gets the hash code of the Quaternion object.
         /// </summary>
         public override Int32 GetHashCode ()
         {
