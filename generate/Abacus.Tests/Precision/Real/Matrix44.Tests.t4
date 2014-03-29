@@ -28,7 +28,39 @@
         [Test]
         public unsafe void Test_StructLayout_ii ()
         {
-            throw new InconclusiveException("Not Implemented");
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Matrix44 mat = GetNextRandomMatrix44();
+
+                GCHandle h_vec = GCHandle.Alloc(mat, GCHandleType.Pinned);
+
+                IntPtr vecAddress = h_vec.AddrOfPinnedObject();
+
+                <#= type #>[] data = new <#= type #>[16];
+
+                // nb: when Fixed32 and Half are moved back into the main
+                //     dev branch there will be need for an extension method for
+                //     Marshal that will perform the copy for those types.
+                MarshalHelper.Copy(vecAddress, data, 0, 16);
+                Assert.That(data[0], Is.EqualTo(mat.M00));
+                Assert.That(data[1], Is.EqualTo(mat.M01));
+                Assert.That(data[2], Is.EqualTo(mat.M02));
+                Assert.That(data[3], Is.EqualTo(mat.M03));
+                Assert.That(data[4], Is.EqualTo(mat.M10));
+                Assert.That(data[5], Is.EqualTo(mat.M11));
+                Assert.That(data[6], Is.EqualTo(mat.M12));
+                Assert.That(data[7], Is.EqualTo(mat.M13));
+                Assert.That(data[8], Is.EqualTo(mat.M20));
+                Assert.That(data[9], Is.EqualTo(mat.M21));
+                Assert.That(data[10], Is.EqualTo(mat.M22));
+                Assert.That(data[11], Is.EqualTo(mat.M23));
+                Assert.That(data[12], Is.EqualTo(mat.M30));
+                Assert.That(data[13], Is.EqualTo(mat.M31));
+                Assert.That(data[14], Is.EqualTo(mat.M32));
+                Assert.That(data[15], Is.EqualTo(mat.M33));
+
+                h_vec.Free();
+            }
         }
 
         [Test]
