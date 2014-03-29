@@ -5,22 +5,22 @@
             ref Vector3 position,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -32,22 +32,22 @@
             ref <#= type #> zPosition,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = xPosition;
-            result.M31 = yPosition;
-            result.M32 = zPosition;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = xPosition;
+            result.R3C1 = yPosition;
+            result.R3C2 = zPosition;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -59,22 +59,22 @@
             ref <#= type #> zScale,
             out Matrix44 result)
         {
-            result.M00 = xScale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = yScale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = zScale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = xScale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = yScale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = zScale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -84,22 +84,22 @@
             ref Vector3 scales,
             out Matrix44 result)
         {
-            result.M00 = scales.X;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scales.Y;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scales.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scales.X;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scales.Y;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scales.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -109,22 +109,22 @@
             ref <#= type #> scale,
             out Matrix44 result)
         {
-            result.M00 = scale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -137,22 +137,22 @@
             <#= type #> cos = RealMaths.Cos (radians);
             <#= type #> sin = RealMaths.Sin (radians);
 
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = cos;
-            result.M12 = sin;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = -sin;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = cos;
+            result.R1C2 = sin;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = -sin;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -165,22 +165,22 @@
             <#= type #> cos = RealMaths.Cos (radians);
             <#= type #> sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = 0;
-            result.M02 = -sin;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = sin;
-            result.M21 = 0;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = 0;
+            result.R0C2 = -sin;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = sin;
+            result.R2C1 = 0;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -193,22 +193,22 @@
             <#= type #> cos = RealMaths.Cos (radians);
             <#= type #> sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = sin;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = -sin;
-            result.M11 = cos;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = sin;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = -sin;
+            result.R1C1 = cos;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -236,25 +236,25 @@
             <#= type #> xz = x * z;
             <#= type #> yz = y * z;
 
-            result.M00 = xx + (cos * (one - xx));
-            result.M01 = (xy - (cos * xy)) + (sin * z);
-            result.M02 = (xz - (cos * xz)) - (sin * y);
-            result.M03 = 0;
+            result.R0C0 = xx + (cos * (one - xx));
+            result.R0C1 = (xy - (cos * xy)) + (sin * z);
+            result.R0C2 = (xz - (cos * xz)) - (sin * y);
+            result.R0C3 = 0;
 
-            result.M10 = (xy - (cos * xy)) - (sin * z);
-            result.M11 = yy + (cos * (one - yy));
-            result.M12 = (yz - (cos * yz)) + (sin * x);
-            result.M13 = 0;
+            result.R1C0 = (xy - (cos * xy)) - (sin * z);
+            result.R1C1 = yy + (cos * (one - yy));
+            result.R1C2 = (yz - (cos * yz)) + (sin * x);
+            result.R1C3 = 0;
 
-            result.M20 = (xz - (cos * xz)) + (sin * y);
-            result.M21 = (yz - (cos * yz)) - (sin * x);
-            result.M22 = zz + (cos * (one - zz));
-            result.M23 = 0;
+            result.R2C0 = (xz - (cos * xz)) + (sin * y);
+            result.R2C1 = (yz - (cos * yz)) - (sin * x);
+            result.R2C2 = zz + (cos * (one - zz));
+            result.R2C3 = 0;
 
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = one;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -275,22 +275,22 @@
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            result.M00 = right.X;
-            result.M01 = right.Y;
-            result.M02 = right.Z;
-            result.M03 = 0;
-            result.M10 = up.X;
-            result.M11 = up.Y;
-            result.M12 = up.Z;
-            result.M13 = 0;
-            result.M20 = backward.X;
-            result.M21 = backward.Y;
-            result.M22 = backward.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = right.X;
+            result.R0C1 = right.Y;
+            result.R0C2 = right.Z;
+            result.R0C3 = 0;
+            result.R1C0 = up.X;
+            result.R1C1 = up.Y;
+            result.R1C2 = up.Z;
+            result.R1C3 = 0;
+            result.R2C0 = backward.X;
+            result.R2C1 = backward.Y;
+            result.R2C2 = backward.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -312,9 +312,9 @@
 
             Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
         }
 
         /// <summary>
@@ -344,22 +344,22 @@
 
             Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
 
-            result.M00 = vector2.X;
-            result.M01 = vector2.Y;
-            result.M02 = vector2.Z;
-            result.M03 = 0;
-            result.M10 = vector3.X;
-            result.M11 = vector3.Y;
-            result.M12 = vector3.Z;
-            result.M13 = 0;
-            result.M20 = vector.X;
-            result.M21 = vector.Y;
-            result.M22 = vector.Z;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = vector2.X;
+            result.R0C1 = vector2.Y;
+            result.R0C2 = vector2.Z;
+            result.R0C3 = 0;
+            result.R1C0 = vector3.X;
+            result.R1C1 = vector3.Y;
+            result.R1C2 = vector3.Z;
+            result.R1C3 = 0;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -393,25 +393,25 @@
             <#= type #> jkk = quaternion.J * kk;
             <#= type #> kkk = quaternion.K * kk;
 
-            result.M00 = one - (jjj + kkk);
-            result.M10 = ijj - ukk;
-            result.M20 = ikk + ujj;
-            result.M30 = zero;
+            result.R0C0 = one - (jjj + kkk);
+            result.R1C0 = ijj - ukk;
+            result.R2C0 = ikk + ujj;
+            result.R3C0 = zero;
 
-            result.M01 = ijj + ukk;
-            result.M11 = one - (iii + kkk);
-            result.M21 = jkk - uii;
-            result.M31 = zero;
+            result.R0C1 = ijj + ukk;
+            result.R1C1 = one - (iii + kkk);
+            result.R2C1 = jkk - uii;
+            result.R3C1 = zero;
 
-            result.M02 = ikk - ujj;
-            result.M12 = jkk + uii;
-            result.M22 = one - (iii + jjj);
-            result.M32 = zero;
+            result.R0C2 = ikk - ujj;
+            result.R1C2 = jkk + uii;
+            result.R2C2 = one - (iii + jjj);
+            result.R3C2 = zero;
 
-            result.M03 = zero;
-            result.M13 = zero;
-            result.M23 = zero;
-            result.M33 = one;
+            result.R0C3 = zero;
+            result.R1C3 = zero;
+            result.R2C3 = zero;
+            result.R3C3 = one;
         }
 
         /// <summary>

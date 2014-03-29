@@ -3,34 +3,34 @@
         /// </summary>
         public static void Transpose (ref Matrix44 input, out Matrix44 output)
         {
-            output.M00 = input.M00;
-            output.M11 = input.M11;
-            output.M22 = input.M22;
-            output.M33 = input.M33;
+            output.R0C0 = input.R0C0;
+            output.R1C1 = input.R1C1;
+            output.R2C2 = input.R2C2;
+            output.R3C3 = input.R3C3;
 
-            <#= type #> temp = input.M01;
-            output.M01 = input.M10;
-            output.M10 = temp;
+            <#= type #> temp = input.R0C1;
+            output.R0C1 = input.R1C0;
+            output.R1C0 = temp;
 
-            temp = input.M02;
-            output.M02 = input.M20;
-            output.M20 = temp;
+            temp = input.R0C2;
+            output.R0C2 = input.R2C0;
+            output.R2C0 = temp;
 
-            temp = input.M03;
-            output.M03 = input.M30;
-            output.M30 = temp;
+            temp = input.R0C3;
+            output.R0C3 = input.R3C0;
+            output.R3C0 = temp;
 
-            temp = input.M12;
-            output.M12 = input.M21;
-            output.M21 = temp;
+            temp = input.R1C2;
+            output.R1C2 = input.R2C1;
+            output.R2C1 = temp;
 
-            temp = input.M13;
-            output.M13 = input.M31;
-            output.M31 = temp;
+            temp = input.R1C3;
+            output.R1C3 = input.R3C1;
+            output.R3C1 = temp;
 
-            temp =  input.M23;
-            output.M23 = input.M32;
-            output.M32 = temp;
+            temp =  input.R2C3;
+            output.R2C3 = input.R3C2;
+            output.R3C2 = temp;
         }
 
         /// <summary>
@@ -38,13 +38,13 @@
         /// </summary>
         public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
         {
-            translation.X = matrix.M30;
-            translation.Y = matrix.M31;
-            translation.Z = matrix.M32;
+            translation.X = matrix.R3C0;
+            translation.Y = matrix.R3C1;
+            translation.Z = matrix.R3C2;
 
-            Vector3 a = new Vector3(matrix.M00, matrix.M10, matrix.M20);
-            Vector3 b = new Vector3(matrix.M01, matrix.M11, matrix.M21);
-            Vector3 c = new Vector3(matrix.M02, matrix.M12, matrix.M22);
+            Vector3 a = new Vector3(matrix.R0C0, matrix.R1C0, matrix.R2C0);
+            Vector3 b = new Vector3(matrix.R0C1, matrix.R1C1, matrix.R2C1);
+            Vector3 c = new Vector3(matrix.R0C2, matrix.R1C2, matrix.R2C2);
 
             <#= type #> aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
             <#= type #> bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;

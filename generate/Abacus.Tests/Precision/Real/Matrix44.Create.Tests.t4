@@ -122,22 +122,22 @@
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
 
             Matrix44 expected = new Matrix44 ();
-            expected.M00 = <#= type #>.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
-            expected.M01 = <#= type #>.Parse("0.9238795");
-            expected.M02 = <#= type #>.Parse("-0.270598");
-            expected.M03 = 0;
-            expected.M10 = <#= type #>.Parse("-0.7071067");
-            expected.M11 = <#= type #>.Parse("6.705523E-08");
-            expected.M12 = <#= type #>.Parse("0.7071067");
-            expected.M13 = 0;
-            expected.M20 = <#= type #>.Parse("0.6532815");
-            expected.M21 = <#= type #>.Parse("0.3826834");
-            expected.M22 = <#= type #>.Parse("0.6532815");
-            expected.M23 = 0;
-            expected.M30 = 0;
-            expected.M31 = 0;
-            expected.M32 = 0;
-            expected.M33 = 1;
+            expected.R0C0 = <#= type #>.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+            expected.R0C1 = <#= type #>.Parse("0.9238795");
+            expected.R0C2 = <#= type #>.Parse("-0.270598");
+            expected.R0C3 = 0;
+            expected.R1C0 = <#= type #>.Parse("-0.7071067");
+            expected.R1C1 = <#= type #>.Parse("6.705523E-08");
+            expected.R1C2 = <#= type #>.Parse("0.7071067");
+            expected.R1C3 = 0;
+            expected.R2C0 = <#= type #>.Parse("0.6532815");
+            expected.R2C1 = <#= type #>.Parse("0.3826834");
+            expected.R2C2 = <#= type #>.Parse("0.6532815");
+            expected.R2C3 = 0;
+            expected.R3C0 = 0;
+            expected.R3C1 = 0;
+            expected.R3C2 = 0;
+            expected.R3C3 = 1;
 
 
             AssertEqualWithinReason(m, expected);

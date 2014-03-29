@@ -8,82 +8,82 @@
         /// <summary>
         /// Gets or sets (Row 0, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> M00;
+        public <#= type #> R0C0;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> M01;
+        public <#= type #> R0C1;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> M02;
+        public <#= type #> R0C2;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> M03;
+        public <#= type #> R0C3;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> M10;
+        public <#= type #> R1C0;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> M11;
+        public <#= type #> R1C1;
 
         /// <summary>
         /// Gets or sets (ow 1, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> M12;
+        public <#= type #> R1C2;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> M13;
+        public <#= type #> R1C3;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> M20;
+        public <#= type #> R2C0;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> M21;
+        public <#= type #> R2C1;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> M22;
+        public <#= type #> R2C2;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> M23;
+        public <#= type #> R2C3;
 
         /// <summary>
         /// Gets or sets (Row 3, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> M30; // translation.x
+        public <#= type #> R3C0; // translation.x
 
         /// <summary>
         /// Gets or sets (Row 3, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> M31; // translation.y
+        public <#= type #> R3C1; // translation.y
 
         /// <summary>
         /// Gets or sets (Row 3, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> M32; // translation.z
+        public <#= type #> R3C2; // translation.z
 
         /// <summary>
         /// Gets or sets (Row 3, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> M33;
+        public <#= type #> R3C3;
 
         /// <summary>
         /// Initilises a new instance of Matrix44 from sixteen <#= type #>
@@ -107,22 +107,22 @@
             <#= type #> m32,
             <#= type #> m33)
         {
-            this.M00 = m00;
-            this.M01 = m01;
-            this.M02 = m02;
-            this.M03 = m03;
-            this.M10 = m10;
-            this.M11 = m11;
-            this.M12 = m12;
-            this.M13 = m13;
-            this.M20 = m20;
-            this.M21 = m21;
-            this.M22 = m22;
-            this.M23 = m23;
-            this.M30 = m30;
-            this.M31 = m31;
-            this.M32 = m32;
-            this.M33 = m33;
+            this.R0C0 = m00;
+            this.R0C1 = m01;
+            this.R0C2 = m02;
+            this.R0C3 = m03;
+            this.R1C0 = m10;
+            this.R1C1 = m11;
+            this.R1C2 = m12;
+            this.R1C3 = m13;
+            this.R2C0 = m20;
+            this.R2C1 = m21;
+            this.R2C2 = m22;
+            this.R2C3 = m23;
+            this.R3C0 = m30;
+            this.R3C1 = m31;
+            this.R3C2 = m32;
+            this.R3C3 = m33;
         }
 
         /// <summary>
@@ -136,36 +136,36 @@
                     string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
                         new Object[]
                         {
-                            this.M00.ToString (),
-                            this.M01.ToString (),
-                            this.M02.ToString (),
-                            this.M03.ToString ()
+                            this.R0C0.ToString (),
+                            this.R0C1.ToString (),
+                            this.R0C2.ToString (),
+                            this.R0C3.ToString ()
                         }
                     ) +
                     string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
                         new Object[]
                         {
-                            this.M10.ToString (),
-                            this.M11.ToString (),
-                            this.M12.ToString (),
-                            this.M13.ToString ()
+                            this.R1C0.ToString (),
+                            this.R1C1.ToString (),
+                            this.R1C2.ToString (),
+                            this.R1C3.ToString ()
                             }
                     ) +
                     string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
                         new Object[]
                         {
-                            this.M20.ToString (),
-                            this.M21.ToString (),
-                            this.M22.ToString (),
-                            this.M23.ToString ()
+                            this.R2C0.ToString (),
+                            this.R2C1.ToString (),
+                            this.R2C2.ToString (),
+                            this.R2C3.ToString ()
                         }
                     ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
                     new Object[]
                     {
-                        this.M30.ToString (),
-                        this.M31.ToString (),
-                        this.M32.ToString (),
-                        this.M33.ToString ()
+                        this.R3C0.ToString (),
+                        this.R3C1.ToString (),
+                        this.R3C2.ToString (),
+                        this.R3C3.ToString ()
                     }
                     ) +
                     "}"
@@ -178,22 +178,22 @@
         public override Int32 GetHashCode ()
         {
             return
-                this.M00.GetHashCode () +
-                this.M01.GetHashCode () +
-                this.M02.GetHashCode () +
-                this.M03.GetHashCode () +
-                this.M10.GetHashCode () +
-                this.M11.GetHashCode () +
-                this.M12.GetHashCode () +
-                this.M13.GetHashCode () +
-                this.M20.GetHashCode () +
-                this.M21.GetHashCode () +
-                this.M22.GetHashCode () +
-                this.M23.GetHashCode () +
-                this.M30.GetHashCode () +
-                this.M31.GetHashCode () +
-                this.M32.GetHashCode () +
-                this.M33.GetHashCode ();
+                this.R0C0.GetHashCode () +
+                this.R0C1.GetHashCode () +
+                this.R0C2.GetHashCode () +
+                this.R0C3.GetHashCode () +
+                this.R1C0.GetHashCode () +
+                this.R1C1.GetHashCode () +
+                this.R1C2.GetHashCode () +
+                this.R1C3.GetHashCode () +
+                this.R2C0.GetHashCode () +
+                this.R2C1.GetHashCode () +
+                this.R2C2.GetHashCode () +
+                this.R2C3.GetHashCode () +
+                this.R3C0.GetHashCode () +
+                this.R3C1.GetHashCode () +
+                this.R3C2.GetHashCode () +
+                this.R3C3.GetHashCode ();
         }
 
         /// <summary>
@@ -221,22 +221,22 @@
         public Boolean Equals (Matrix44 other)
         {
             return
-                (this.M00 == other.M00) &&
-                (this.M11 == other.M11) &&
-                (this.M22 == other.M22) &&
-                (this.M33 == other.M33) &&
-                (this.M01 == other.M01) &&
-                (this.M02 == other.M02) &&
-                (this.M03 == other.M03) &&
-                (this.M10 == other.M10) &&
-                (this.M12 == other.M12) &&
-                (this.M13 == other.M13) &&
-                (this.M20 == other.M20) &&
-                (this.M21 == other.M21) &&
-                (this.M23 == other.M23) &&
-                (this.M30 == other.M30) &&
-                (this.M31 == other.M31) &&
-                (this.M32 == other.M32);
+                (this.R0C0 == other.R0C0) &&
+                (this.R1C1 == other.R1C1) &&
+                (this.R2C2 == other.R2C2) &&
+                (this.R3C3 == other.R3C3) &&
+                (this.R0C1 == other.R0C1) &&
+                (this.R0C2 == other.R0C2) &&
+                (this.R0C3 == other.R0C3) &&
+                (this.R1C0 == other.R1C0) &&
+                (this.R1C2 == other.R1C2) &&
+                (this.R1C3 == other.R1C3) &&
+                (this.R2C0 == other.R2C0) &&
+                (this.R2C1 == other.R2C1) &&
+                (this.R2C3 == other.R2C3) &&
+                (this.R3C0 == other.R3C0) &&
+                (this.R3C1 == other.R3C1) &&
+                (this.R3C2 == other.R3C2);
         }
 
         #endregion

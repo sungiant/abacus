@@ -13,22 +13,22 @@ Matrix44.Maths
         /// </summary>
         public void Determinant (ref Matrix44 matrix, out <#= type #> result)
         {
-            <#= type #> num22 = matrix.M00;
-            <#= type #> num21 = matrix.M01;
-            <#= type #> num20 = matrix.M02;
-            <#= type #> num19 = matrix.M03;
-            <#= type #> num12 = matrix.M10;
-            <#= type #> num11 = matrix.M11;
-            <#= type #> num10 = matrix.M12;
-            <#= type #> num9 = matrix.M13;
-            <#= type #> num8 = matrix.M20;
-            <#= type #> num7 = matrix.M21;
-            <#= type #> num6 = matrix.M22;
-            <#= type #> num5 = matrix.M23;
-            <#= type #> num4 = matrix.M30;
-            <#= type #> num3 = matrix.M31;
-            <#= type #> num2 = matrix.M32;
-            <#= type #> num = matrix.M33;
+            <#= type #> num22 = matrix.R0C0;
+            <#= type #> num21 = matrix.R0C1;
+            <#= type #> num20 = matrix.R0C2;
+            <#= type #> num19 = matrix.R0C3;
+            <#= type #> num12 = matrix.R1C0;
+            <#= type #> num11 = matrix.R1C1;
+            <#= type #> num10 = matrix.R1C2;
+            <#= type #> num9 = matrix.R1C3;
+            <#= type #> num8 = matrix.R2C0;
+            <#= type #> num7 = matrix.R2C1;
+            <#= type #> num6 = matrix.R2C2;
+            <#= type #> num5 = matrix.R2C3;
+            <#= type #> num4 = matrix.R3C0;
+            <#= type #> num3 = matrix.R3C1;
+            <#= type #> num2 = matrix.R3C2;
+            <#= type #> num = matrix.R3C3;
 
             <#= type #> num18 = (num6 * num) - (num5 * num2);
             <#= type #> num17 = (num7 * num) - (num5 * num3);
@@ -51,22 +51,22 @@ Matrix44.Maths
         public static void Invert (ref Matrix44 matrix, out Matrix44 result)
         {
             <#= type #> one = 1;
-            <#= type #> num5 = matrix.M00;
-            <#= type #> num4 = matrix.M01;
-            <#= type #> num3 = matrix.M02;
-            <#= type #> num2 = matrix.M03;
-            <#= type #> num9 = matrix.M10;
-            <#= type #> num8 = matrix.M11;
-            <#= type #> num7 = matrix.M12;
-            <#= type #> num6 = matrix.M13;
-            <#= type #> num17 = matrix.M20;
-            <#= type #> num16 = matrix.M21;
-            <#= type #> num15 = matrix.M22;
-            <#= type #> num14 = matrix.M23;
-            <#= type #> num13 = matrix.M30;
-            <#= type #> num12 = matrix.M31;
-            <#= type #> num11 = matrix.M32;
-            <#= type #> num10 = matrix.M33;
+            <#= type #> num5 = matrix.R0C0;
+            <#= type #> num4 = matrix.R0C1;
+            <#= type #> num3 = matrix.R0C2;
+            <#= type #> num2 = matrix.R0C3;
+            <#= type #> num9 = matrix.R1C0;
+            <#= type #> num8 = matrix.R1C1;
+            <#= type #> num7 = matrix.R1C2;
+            <#= type #> num6 = matrix.R1C3;
+            <#= type #> num17 = matrix.R2C0;
+            <#= type #> num16 = matrix.R2C1;
+            <#= type #> num15 = matrix.R2C2;
+            <#= type #> num14 = matrix.R2C3;
+            <#= type #> num13 = matrix.R3C0;
+            <#= type #> num12 = matrix.R3C1;
+            <#= type #> num11 = matrix.R3C2;
+            <#= type #> num10 = matrix.R3C3;
             <#= type #> num23 = (num15 * num10) - (num14 * num11);
             <#= type #> num22 = (num16 * num10) - (num14 * num12);
             <#= type #> num21 = (num16 * num11) - (num15 * num12);
@@ -78,34 +78,34 @@ Matrix44.Maths
             <#= type #> num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
             <#= type #> num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
             <#= type #> num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
-            result.M00 = num39 * num;
-            result.M10 = num38 * num;
-            result.M20 = num37 * num;
-            result.M30 = num36 * num;
-            result.M01 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
-            result.M11 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
-            result.M21 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
-            result.M31 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
+            result.R0C0 = num39 * num;
+            result.R1C0 = num38 * num;
+            result.R2C0 = num37 * num;
+            result.R3C0 = num36 * num;
+            result.R0C1 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
+            result.R1C1 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
+            result.R2C1 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
+            result.R3C1 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
             <#= type #> num35 = (num7 * num10) - (num6 * num11);
             <#= type #> num34 = (num8 * num10) - (num6 * num12);
             <#= type #> num33 = (num8 * num11) - (num7 * num12);
             <#= type #> num32 = (num9 * num10) - (num6 * num13);
             <#= type #> num31 = (num9 * num11) - (num7 * num13);
             <#= type #> num30 = (num9 * num12) - (num8 * num13);
-            result.M02 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
-            result.M12 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
-            result.M22 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
-            result.M32 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
+            result.R0C2 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
+            result.R1C2 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
+            result.R2C2 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
+            result.R3C2 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
             <#= type #> num29 = (num7 * num14) - (num6 * num15);
             <#= type #> num28 = (num8 * num14) - (num6 * num16);
             <#= type #> num27 = (num8 * num15) - (num7 * num16);
             <#= type #> num26 = (num9 * num14) - (num6 * num17);
             <#= type #> num25 = (num9 * num15) - (num7 * num17);
             <#= type #> num24 = (num9 * num16) - (num8 * num17);
-            result.M03 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
-            result.M13 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
-            result.M23 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
-            result.M33 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+            result.R0C3 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
+            result.R1C3 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
+            result.R2C3 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
+            result.R3C3 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -148,46 +148,46 @@ Matrix44.Maths
 
             <#= type #> num = (one - num17) - num14;
 
-            <#= type #> num37 = ((value.M00 * num9) + (value.M01 * num8)) + (value.M02 * num7);
-            <#= type #> num36 = ((value.M00 * num6) + (value.M01 * num5)) + (value.M02 * num4);
-            <#= type #> num35 = ((value.M00 * num3) + (value.M01 * num2)) + (value.M02 * num);
+            <#= type #> num37 = ((value.R0C0 * num9) + (value.R0C1 * num8)) + (value.R0C2 * num7);
+            <#= type #> num36 = ((value.R0C0 * num6) + (value.R0C1 * num5)) + (value.R0C2 * num4);
+            <#= type #> num35 = ((value.R0C0 * num3) + (value.R0C1 * num2)) + (value.R0C2 * num);
 
-            <#= type #> num34 = value.M03;
+            <#= type #> num34 = value.R0C3;
 
-            <#= type #> num33 = ((value.M10 * num9) + (value.M11 * num8)) + (value.M12 * num7);
-            <#= type #> num32 = ((value.M10 * num6) + (value.M11 * num5)) + (value.M12 * num4);
-            <#= type #> num31 = ((value.M10 * num3) + (value.M11 * num2)) + (value.M12 * num);
+            <#= type #> num33 = ((value.R1C0 * num9) + (value.R1C1 * num8)) + (value.R1C2 * num7);
+            <#= type #> num32 = ((value.R1C0 * num6) + (value.R1C1 * num5)) + (value.R1C2 * num4);
+            <#= type #> num31 = ((value.R1C0 * num3) + (value.R1C1 * num2)) + (value.R1C2 * num);
 
-            <#= type #> num30 = value.M13;
+            <#= type #> num30 = value.R1C3;
 
-            <#= type #> num29 = ((value.M20 * num9) + (value.M21 * num8)) + (value.M22 * num7);
-            <#= type #> num28 = ((value.M20 * num6) + (value.M21 * num5)) + (value.M22 * num4);
-            <#= type #> num27 = ((value.M20 * num3) + (value.M21 * num2)) + (value.M22 * num);
+            <#= type #> num29 = ((value.R2C0 * num9) + (value.R2C1 * num8)) + (value.R2C2 * num7);
+            <#= type #> num28 = ((value.R2C0 * num6) + (value.R2C1 * num5)) + (value.R2C2 * num4);
+            <#= type #> num27 = ((value.R2C0 * num3) + (value.R2C1 * num2)) + (value.R2C2 * num);
 
-            <#= type #> num26 = value.M23;
+            <#= type #> num26 = value.R2C3;
 
-            <#= type #> num25 = ((value.M30 * num9) + (value.M31 * num8)) + (value.M32 * num7);
-            <#= type #> num24 = ((value.M30 * num6) + (value.M31 * num5)) + (value.M32 * num4);
-            <#= type #> num23 = ((value.M30 * num3) + (value.M31 * num2)) + (value.M32 * num);
+            <#= type #> num25 = ((value.R3C0 * num9) + (value.R3C1 * num8)) + (value.R3C2 * num7);
+            <#= type #> num24 = ((value.R3C0 * num6) + (value.R3C1 * num5)) + (value.R3C2 * num4);
+            <#= type #> num23 = ((value.R3C0 * num3) + (value.R3C1 * num2)) + (value.R3C2 * num);
 
-            <#= type #> num22 = value.M33;
+            <#= type #> num22 = value.R3C3;
 
-            result.M00 = num37;
-            result.M01 = num36;
-            result.M02 = num35;
-            result.M03 = num34;
-            result.M10 = num33;
-            result.M11 = num32;
-            result.M12 = num31;
-            result.M13 = num30;
-            result.M20 = num29;
-            result.M21 = num28;
-            result.M22 = num27;
-            result.M23 = num26;
-            result.M30 = num25;
-            result.M31 = num24;
-            result.M32 = num23;
-            result.M33 = num22;
+            result.R0C0 = num37;
+            result.R0C1 = num36;
+            result.R0C2 = num35;
+            result.R0C3 = num34;
+            result.R1C0 = num33;
+            result.R1C1 = num32;
+            result.R1C2 = num31;
+            result.R1C3 = num30;
+            result.R2C0 = num29;
+            result.R2C1 = num28;
+            result.R2C2 = num27;
+            result.R2C3 = num26;
+            result.R3C0 = num25;
+            result.R3C1 = num24;
+            result.R3C2 = num23;
+            result.R3C3 = num22;
         }
 
 #endif
@@ -326,22 +326,22 @@ Matrix44.Create
             Vector3.Normalise (ref vector3, out vector3);
 
             Vector3.Cross (ref vector, ref vector3, out vector2);
-            result.M00 = vector3.X;
-            result.M01 = vector3.Y;
-            result.M02 = vector3.Z;
-            result.M03 = zero;
-            result.M10 = vector2.X;
-            result.M11 = vector2.Y;
-            result.M12 = vector2.Z;
-            result.M13 = zero;
-            result.M20 = vector.X;
-            result.M21 = vector.Y;
-            result.M22 = vector.Z;
-            result.M23 = zero;
-            result.M30 = ObjectPosition.X;
-            result.M31 = ObjectPosition.Y;
-            result.M32 = ObjectPosition.Z;
-            result.M33 = one;
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector2.X;
+            result.R1C1 = vector2.Y;
+            result.R1C2 = vector2.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = ObjectPosition.X;
+            result.R3C1 = ObjectPosition.Y;
+            result.R3C2 = ObjectPosition.Z;
+            result.R3C3 = one;
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -405,22 +405,22 @@ Matrix44.Create
                 Vector3.Cross (ref vector3, ref vector4, out vector);
                 Vector3.Normalise (ref vector, out vector);
             }
-            result.M00 = vector3.X;
-            result.M01 = vector3.Y;
-            result.M02 = vector3.Z;
-            result.M03 = zero;
-            result.M10 = vector4.X;
-            result.M11 = vector4.Y;
-            result.M12 = vector4.Z;
-            result.M13 = zero;
-            result.M20 = vector.X;
-            result.M21 = vector.Y;
-            result.M22 = vector.Z;
-            result.M23 = zero;
-            result.M30 = objectPosition.X;
-            result.M31 = objectPosition.Y;
-            result.M32 = objectPosition.Z;
-            result.M33 = one;
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector4.X;
+            result.R1C1 = vector4.Y;
+            result.R1C2 = vector4.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = objectPosition.X;
+            result.R3C1 = objectPosition.Y;
+            result.R3C2 = objectPosition.Z;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -477,25 +477,25 @@ Matrix44.Create
             // xScale = yScale / aspect ratio
             <#= type #> xScale = yScale / aspectRatio;
 
-            result.M00 = xScale;
-            result.M01 = zero;
-            result.M02 = zero;
-            result.M03 = zero;
+            result.R0C0 = xScale;
+            result.R0C1 = zero;
+            result.R0C2 = zero;
+            result.R0C3 = zero;
 
-            result.M10 = zero;
-            result.M11 = yScale;
-            result.M12 = zero;
-            result.M13 = zero;
+            result.R1C0 = zero;
+            result.R1C1 = yScale;
+            result.R1C2 = zero;
+            result.R1C3 = zero;
 
-            result.M20 = zero;
-            result.M21 = zero;
-            result.M22 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
-            result.M23 = -one;
+            result.R2C0 = zero;
+            result.R2C1 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
+            result.R2C3 = -one;
 
-            result.M30 = zero;
-            result.M31 = zero;
-            result.M32 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
-            result.M33 = zero;
+            result.R3C0 = zero;
+            result.R3C1 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+            result.R3C3 = zero;
         }
 
 
@@ -528,15 +528,15 @@ Matrix44.Create
             if (nearPlaneDistance >= farPlaneDistance) {
                 throw new ArgumentOutOfRangeException ("nearPlaneDistance");
             }
-            result.M00 = (two * nearPlaneDistance) / width;
-            result.M01 = result.M02 = result.M03 = zero;
-            result.M11 = (two * nearPlaneDistance) / height;
-            result.M10 = result.M12 = result.M13 = zero;
-            result.M22 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-            result.M20 = result.M21 = zero;
-            result.M23 = -one;
-            result.M30 = result.M31 = result.M33 = zero;
-            result.M32 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R0C0 = (two * nearPlaneDistance) / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C0 = result.R2C1 = zero;
+            result.R2C3 = -one;
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -569,16 +569,16 @@ Matrix44.Create
             if (nearPlaneDistance >= farPlaneDistance) {
                 throw new ArgumentOutOfRangeException ("nearPlaneDistance");
             }
-            result.M00 = (two * nearPlaneDistance) / (right - left);
-            result.M01 = result.M02 = result.M03 = zero;
-            result.M11 = (two * nearPlaneDistance) / (top - bottom);
-            result.M10 = result.M12 = result.M13 = zero;
-            result.M20 = (left + right) / (right - left);
-            result.M21 = (top + bottom) / (top - bottom);
-            result.M22 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-            result.M23 = -one;
-            result.M32 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-            result.M30 = result.M31 = result.M33 = zero;
+            result.R0C0 = (two * nearPlaneDistance) / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C0 = (left + right) / (right - left);
+            result.R2C1 = (top + bottom) / (top - bottom);
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C3 = -one;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -600,15 +600,15 @@ Matrix44.Create
             <#= type #> one = 1;
             <#= type #> two = 2;
 
-            result.M00 = two / width;
-            result.M01 = result.M02 = result.M03 = zero;
-            result.M11 = two / height;
-            result.M10 = result.M12 = result.M13 = zero;
-            result.M22 = one / (zNearPlane - zFarPlane);
-            result.M20 = result.M21 = result.M23 = zero;
-            result.M30 = result.M31 = zero;
-            result.M32 = zNearPlane / (zNearPlane - zFarPlane);
-            result.M33 = one;
+            result.R0C0 = two / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = result.R3C1 = zero;
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -632,16 +632,16 @@ Matrix44.Create
             <#= type #> one = 1;
             <#= type #> two = 2;
 
-            result.M00 = two / (right - left);
-            result.M01 = result.M02 = result.M03 = zero;
-            result.M11 = two / (top - bottom);
-            result.M10 = result.M12 = result.M13 = zero;
-            result.M22 = one / (zNearPlane - zFarPlane);
-            result.M20 = result.M21 = result.M23 = zero;
-            result.M30 = (left + right) / (left - right);
-            result.M31 = (top + bottom) / (bottom - top);
-            result.M32 = zNearPlane / (zNearPlane - zFarPlane);
-            result.M33 = one;
+            result.R0C0 = two / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = (left + right) / (left - right);
+            result.R3C1 = (top + bottom) / (bottom - top);
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -672,20 +672,20 @@ Matrix44.Create
             Vector3.Cross (ref forward, ref right, out up);
             Vector3.Normalise (ref up, out up);
 
-            result.M00 = right.X;
-            result.M01 = up.X;
-            result.M02 = forward.X;
-            result.M03 = zero;
+            result.R0C0 = right.X;
+            result.R0C1 = up.X;
+            result.R0C2 = forward.X;
+            result.R0C3 = zero;
 
-            result.M10 = right.Y;
-            result.M11 = up.Y;
-            result.M12 = forward.Y;
-            result.M13 = zero;
+            result.R1C0 = right.Y;
+            result.R1C1 = up.Y;
+            result.R1C2 = forward.Y;
+            result.R1C3 = zero;
 
-            result.M20 = right.Z;
-            result.M21 = up.Z;
-            result.M22 = forward.Z;
-            result.M23 = zero;
+            result.R2C0 = right.Z;
+            result.R2C1 = up.Z;
+            result.R2C2 = forward.Z;
+            result.R2C3 = zero;
 
             <#= type #> a;
             <#= type #> b;
@@ -695,11 +695,11 @@ Matrix44.Create
             Vector3.Dot (ref up, ref cameraPosition, out b);
             Vector3.Dot (ref forward, ref cameraPosition, out c);
 
-            result.M30 = -a;
-            result.M31 = -b;
-            result.M32 = -c;
+            result.R3C0 = -a;
+            result.R3C1 = -b;
+            result.R3C2 = -c;
 
-            result.M33 = one;
+            result.R3C3 = one;
         }
 #endif
 

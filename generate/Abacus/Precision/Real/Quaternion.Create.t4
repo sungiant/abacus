@@ -61,42 +61,42 @@
             <#= type #> half; RealMaths.Half(out half);
             <#= type #> one = 1;
 
-            <#= type #> num8 = (matrix.M00 + matrix.M11) + matrix.M22;
+            <#= type #> num8 = (matrix.R0C0 + matrix.R1C1) + matrix.R2C2;
 
             if (num8 > zero)
             {
                 <#= type #> num = RealMaths.Sqrt (num8 + one);
                 result.U = num * half;
                 num = half / num;
-                result.I = (matrix.M12 - matrix.M21) * num;
-                result.J = (matrix.M20 - matrix.M02) * num;
-                result.K = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.R1C2 - matrix.R2C1) * num;
+                result.J = (matrix.R2C0 - matrix.R0C2) * num;
+                result.K = (matrix.R0C1 - matrix.R1C0) * num;
             }
-            else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
+            else if ((matrix.R0C0 >= matrix.R1C1) && (matrix.R0C0 >= matrix.R2C2))
             {
-                <#= type #> num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
+                <#= type #> num7 = RealMaths.Sqrt (((one + matrix.R0C0) - matrix.R1C1) - matrix.R2C2);
                 <#= type #> num4 = half / num7;
                 result.I = half * num7;
-                result.J = (matrix.M01 + matrix.M10) * num4;
-                result.K = (matrix.M02 + matrix.M20) * num4;
-                result.U = (matrix.M12 - matrix.M21) * num4;
+                result.J = (matrix.R0C1 + matrix.R1C0) * num4;
+                result.K = (matrix.R0C2 + matrix.R2C0) * num4;
+                result.U = (matrix.R1C2 - matrix.R2C1) * num4;
             }
-            else if (matrix.M11 > matrix.M22)
+            else if (matrix.R1C1 > matrix.R2C2)
             {
-                <#= type #> num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
+                <#= type #> num6 =RealMaths.Sqrt (((one + matrix.R1C1) - matrix.R0C0) - matrix.R2C2);
                 <#= type #> num3 = half / num6;
-                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.I = (matrix.R1C0 + matrix.R0C1) * num3;
                 result.J = half * num6;
-                result.K = (matrix.M21 + matrix.M12) * num3;
-                result.U = (matrix.M20 - matrix.M02) * num3;
+                result.K = (matrix.R2C1 + matrix.R1C2) * num3;
+                result.U = (matrix.R2C0 - matrix.R0C2) * num3;
             }
             else
             {
-                <#= type #> num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
+                <#= type #> num5 = RealMaths.Sqrt (((one + matrix.R2C2) - matrix.R0C0) - matrix.R1C1);
                 <#= type #> num2 = half / num5;
-                result.I = (matrix.M20 + matrix.M02) * num2;
-                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.I = (matrix.R2C0 + matrix.R0C2) * num2;
+                result.J = (matrix.R2C1 + matrix.R1C2) * num2;
                 result.K = half * num5;
-                result.U = (matrix.M01 - matrix.M10) * num2;
+                result.U = (matrix.R0C1 - matrix.R1C0) * num2;
             }
         }

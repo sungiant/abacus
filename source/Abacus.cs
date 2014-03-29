@@ -8354,82 +8354,82 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Gets or sets (Row 0, Column 0) of the Matrix44.
         /// </summary>
-        public Single M00;
+        public Single R0C0;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 1) of the Matrix44.
         /// </summary>
-        public Single M01;
+        public Single R0C1;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 2) of the Matrix44.
         /// </summary>
-        public Single M02;
+        public Single R0C2;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 3) of the Matrix44.
         /// </summary>
-        public Single M03;
+        public Single R0C3;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 0) of the Matrix44.
         /// </summary>
-        public Single M10;
+        public Single R1C0;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 1) of the Matrix44.
         /// </summary>
-        public Single M11;
+        public Single R1C1;
 
         /// <summary>
         /// Gets or sets (ow 1, Column 2) of the Matrix44.
         /// </summary>
-        public Single M12;
+        public Single R1C2;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 3) of the Matrix44.
         /// </summary>
-        public Single M13;
+        public Single R1C3;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 0) of the Matrix44.
         /// </summary>
-        public Single M20;
+        public Single R2C0;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 1) of the Matrix44.
         /// </summary>
-        public Single M21;
+        public Single R2C1;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 2) of the Matrix44.
         /// </summary>
-        public Single M22;
+        public Single R2C2;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 3) of the Matrix44.
         /// </summary>
-        public Single M23;
+        public Single R2C3;
 
         /// <summary>
         /// Gets or sets (Row 3, Column 0) of the Matrix44.
         /// </summary>
-        public Single M30; // translation.x
+        public Single R3C0; // translation.x
 
         /// <summary>
         /// Gets or sets (Row 3, Column 1) of the Matrix44.
         /// </summary>
-        public Single M31; // translation.y
+        public Single R3C1; // translation.y
 
         /// <summary>
         /// Gets or sets (Row 3, Column 2) of the Matrix44.
         /// </summary>
-        public Single M32; // translation.z
+        public Single R3C2; // translation.z
 
         /// <summary>
         /// Gets or sets (Row 3, Column 3) of the Matrix44.
         /// </summary>
-        public Single M33;
+        public Single R3C3;
 
         /// <summary>
         /// Initilises a new instance of Matrix44 from sixteen Single
@@ -8453,22 +8453,22 @@ namespace Abacus.SinglePrecision
             Single m32,
             Single m33)
         {
-            this.M00 = m00;
-            this.M01 = m01;
-            this.M02 = m02;
-            this.M03 = m03;
-            this.M10 = m10;
-            this.M11 = m11;
-            this.M12 = m12;
-            this.M13 = m13;
-            this.M20 = m20;
-            this.M21 = m21;
-            this.M22 = m22;
-            this.M23 = m23;
-            this.M30 = m30;
-            this.M31 = m31;
-            this.M32 = m32;
-            this.M33 = m33;
+            this.R0C0 = m00;
+            this.R0C1 = m01;
+            this.R0C2 = m02;
+            this.R0C3 = m03;
+            this.R1C0 = m10;
+            this.R1C1 = m11;
+            this.R1C2 = m12;
+            this.R1C3 = m13;
+            this.R2C0 = m20;
+            this.R2C1 = m21;
+            this.R2C2 = m22;
+            this.R2C3 = m23;
+            this.R3C0 = m30;
+            this.R3C1 = m31;
+            this.R3C2 = m32;
+            this.R3C3 = m33;
         }
 
         /// <summary>
@@ -8482,36 +8482,36 @@ namespace Abacus.SinglePrecision
                     string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
                         new Object[]
                         {
-                            this.M00.ToString (),
-                            this.M01.ToString (),
-                            this.M02.ToString (),
-                            this.M03.ToString ()
+                            this.R0C0.ToString (),
+                            this.R0C1.ToString (),
+                            this.R0C2.ToString (),
+                            this.R0C3.ToString ()
                         }
                     ) +
                     string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
                         new Object[]
                         {
-                            this.M10.ToString (),
-                            this.M11.ToString (),
-                            this.M12.ToString (),
-                            this.M13.ToString ()
+                            this.R1C0.ToString (),
+                            this.R1C1.ToString (),
+                            this.R1C2.ToString (),
+                            this.R1C3.ToString ()
                             }
                     ) +
                     string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
                         new Object[]
                         {
-                            this.M20.ToString (),
-                            this.M21.ToString (),
-                            this.M22.ToString (),
-                            this.M23.ToString ()
+                            this.R2C0.ToString (),
+                            this.R2C1.ToString (),
+                            this.R2C2.ToString (),
+                            this.R2C3.ToString ()
                         }
                     ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
                     new Object[]
                     {
-                        this.M30.ToString (),
-                        this.M31.ToString (),
-                        this.M32.ToString (),
-                        this.M33.ToString ()
+                        this.R3C0.ToString (),
+                        this.R3C1.ToString (),
+                        this.R3C2.ToString (),
+                        this.R3C3.ToString ()
                     }
                     ) +
                     "}"
@@ -8524,22 +8524,22 @@ namespace Abacus.SinglePrecision
         public override Int32 GetHashCode ()
         {
             return
-                this.M00.GetHashCode () +
-                this.M01.GetHashCode () +
-                this.M02.GetHashCode () +
-                this.M03.GetHashCode () +
-                this.M10.GetHashCode () +
-                this.M11.GetHashCode () +
-                this.M12.GetHashCode () +
-                this.M13.GetHashCode () +
-                this.M20.GetHashCode () +
-                this.M21.GetHashCode () +
-                this.M22.GetHashCode () +
-                this.M23.GetHashCode () +
-                this.M30.GetHashCode () +
-                this.M31.GetHashCode () +
-                this.M32.GetHashCode () +
-                this.M33.GetHashCode ();
+                this.R0C0.GetHashCode () +
+                this.R0C1.GetHashCode () +
+                this.R0C2.GetHashCode () +
+                this.R0C3.GetHashCode () +
+                this.R1C0.GetHashCode () +
+                this.R1C1.GetHashCode () +
+                this.R1C2.GetHashCode () +
+                this.R1C3.GetHashCode () +
+                this.R2C0.GetHashCode () +
+                this.R2C1.GetHashCode () +
+                this.R2C2.GetHashCode () +
+                this.R2C3.GetHashCode () +
+                this.R3C0.GetHashCode () +
+                this.R3C1.GetHashCode () +
+                this.R3C2.GetHashCode () +
+                this.R3C3.GetHashCode ();
         }
 
         /// <summary>
@@ -8567,22 +8567,22 @@ namespace Abacus.SinglePrecision
         public Boolean Equals (Matrix44 other)
         {
             return
-                (this.M00 == other.M00) &&
-                (this.M11 == other.M11) &&
-                (this.M22 == other.M22) &&
-                (this.M33 == other.M33) &&
-                (this.M01 == other.M01) &&
-                (this.M02 == other.M02) &&
-                (this.M03 == other.M03) &&
-                (this.M10 == other.M10) &&
-                (this.M12 == other.M12) &&
-                (this.M13 == other.M13) &&
-                (this.M20 == other.M20) &&
-                (this.M21 == other.M21) &&
-                (this.M23 == other.M23) &&
-                (this.M30 == other.M30) &&
-                (this.M31 == other.M31) &&
-                (this.M32 == other.M32);
+                (this.R0C0 == other.R0C0) &&
+                (this.R1C1 == other.R1C1) &&
+                (this.R2C2 == other.R2C2) &&
+                (this.R3C3 == other.R3C3) &&
+                (this.R0C1 == other.R0C1) &&
+                (this.R0C2 == other.R0C2) &&
+                (this.R0C3 == other.R0C3) &&
+                (this.R1C0 == other.R1C0) &&
+                (this.R1C2 == other.R1C2) &&
+                (this.R1C3 == other.R1C3) &&
+                (this.R2C0 == other.R2C0) &&
+                (this.R2C1 == other.R2C1) &&
+                (this.R2C3 == other.R2C3) &&
+                (this.R3C0 == other.R3C0) &&
+                (this.R3C1 == other.R3C1) &&
+                (this.R3C2 == other.R3C2);
         }
 
         #endregion
@@ -8595,16 +8595,16 @@ namespace Abacus.SinglePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M10;
-                vector.Y = this.M11;
-                vector.Z = this.M12;
+                vector.X = this.R1C0;
+                vector.Y = this.R1C1;
+                vector.Z = this.R1C2;
                 return vector;
             }
             set
             {
-                this.M10 = value.X;
-                this.M11 = value.Y;
-                this.M12 = value.Z;
+                this.R1C0 = value.X;
+                this.R1C1 = value.Y;
+                this.R1C2 = value.Z;
             }
         }
 
@@ -8616,16 +8616,16 @@ namespace Abacus.SinglePrecision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M10;
-                vector.Y = -this.M11;
-                vector.Z = -this.M12;
+                vector.X = -this.R1C0;
+                vector.Y = -this.R1C1;
+                vector.Z = -this.R1C2;
                 return vector;
             }
             set
             {
-                this.M10 = -value.X;
-                this.M11 = -value.Y;
-                this.M12 = -value.Z;
+                this.R1C0 = -value.X;
+                this.R1C1 = -value.Y;
+                this.R1C2 = -value.Z;
             }
         }
 
@@ -8637,16 +8637,16 @@ namespace Abacus.SinglePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M00;
-                vector.Y = this.M01;
-                vector.Z = this.M02;
+                vector.X = this.R0C0;
+                vector.Y = this.R0C1;
+                vector.Z = this.R0C2;
                 return vector;
             }
             set
             {
-                this.M00 = value.X;
-                this.M01 = value.Y;
-                this.M02 = value.Z;
+                this.R0C0 = value.X;
+                this.R0C1 = value.Y;
+                this.R0C2 = value.Z;
             }
         }
 
@@ -8658,16 +8658,16 @@ namespace Abacus.SinglePrecision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M00;
-                vector.Y = -this.M01;
-                vector.Z = -this.M02;
+                vector.X = -this.R0C0;
+                vector.Y = -this.R0C1;
+                vector.Z = -this.R0C2;
                 return vector;
             }
             set
             {
-                this.M00 = -value.X;
-                this.M01 = -value.Y;
-                this.M02 = -value.Z;
+                this.R0C0 = -value.X;
+                this.R0C1 = -value.Y;
+                this.R0C2 = -value.Z;
             }
         }
 
@@ -8679,16 +8679,16 @@ namespace Abacus.SinglePrecision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M20;
-                vector.Y = -this.M21;
-                vector.Z = -this.M22;
+                vector.X = -this.R2C0;
+                vector.Y = -this.R2C1;
+                vector.Z = -this.R2C2;
                 return vector;
             }
             set
             {
-                this.M20 = -value.X;
-                this.M21 = -value.Y;
-                this.M22 = -value.Z;
+                this.R2C0 = -value.X;
+                this.R2C1 = -value.Y;
+                this.R2C2 = -value.Z;
             }
         }
 
@@ -8700,16 +8700,16 @@ namespace Abacus.SinglePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M20;
-                vector.Y = this.M21;
-                vector.Z = this.M22;
+                vector.X = this.R2C0;
+                vector.Y = this.R2C1;
+                vector.Z = this.R2C2;
                 return vector;
             }
             set
             {
-                this.M20 = value.X;
-                this.M21 = value.Y;
-                this.M22 = value.Z;
+                this.R2C0 = value.X;
+                this.R2C1 = value.Y;
+                this.R2C2 = value.Z;
             }
         }
 
@@ -8721,16 +8721,16 @@ namespace Abacus.SinglePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M30;
-                vector.Y = this.M31;
-                vector.Z = this.M32;
+                vector.X = this.R3C0;
+                vector.Y = this.R3C1;
+                vector.Z = this.R3C2;
                 return vector;
             }
             set
             {
-                this.M30 = value.X;
-                this.M31 = value.Y;
-                this.M32 = value.Z;
+                this.R3C0 = value.X;
+                this.R3C1 = value.Y;
+                this.R3C2 = value.Z;
             }
         }
 
@@ -8768,22 +8768,22 @@ namespace Abacus.SinglePrecision
             ref Vector3 position,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8795,22 +8795,22 @@ namespace Abacus.SinglePrecision
             ref Single zPosition,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = xPosition;
-            result.M31 = yPosition;
-            result.M32 = zPosition;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = xPosition;
+            result.R3C1 = yPosition;
+            result.R3C2 = zPosition;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8822,22 +8822,22 @@ namespace Abacus.SinglePrecision
             ref Single zScale,
             out Matrix44 result)
         {
-            result.M00 = xScale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = yScale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = zScale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = xScale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = yScale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = zScale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8847,22 +8847,22 @@ namespace Abacus.SinglePrecision
             ref Vector3 scales,
             out Matrix44 result)
         {
-            result.M00 = scales.X;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scales.Y;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scales.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scales.X;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scales.Y;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scales.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8872,22 +8872,22 @@ namespace Abacus.SinglePrecision
             ref Single scale,
             out Matrix44 result)
         {
-            result.M00 = scale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8900,22 +8900,22 @@ namespace Abacus.SinglePrecision
             Single cos = RealMaths.Cos (radians);
             Single sin = RealMaths.Sin (radians);
 
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = cos;
-            result.M12 = sin;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = -sin;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = cos;
+            result.R1C2 = sin;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = -sin;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8928,22 +8928,22 @@ namespace Abacus.SinglePrecision
             Single cos = RealMaths.Cos (radians);
             Single sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = 0;
-            result.M02 = -sin;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = sin;
-            result.M21 = 0;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = 0;
+            result.R0C2 = -sin;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = sin;
+            result.R2C1 = 0;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8956,22 +8956,22 @@ namespace Abacus.SinglePrecision
             Single cos = RealMaths.Cos (radians);
             Single sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = sin;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = -sin;
-            result.M11 = cos;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = sin;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = -sin;
+            result.R1C1 = cos;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -8999,25 +8999,25 @@ namespace Abacus.SinglePrecision
             Single xz = x * z;
             Single yz = y * z;
 
-            result.M00 = xx + (cos * (one - xx));
-            result.M01 = (xy - (cos * xy)) + (sin * z);
-            result.M02 = (xz - (cos * xz)) - (sin * y);
-            result.M03 = 0;
+            result.R0C0 = xx + (cos * (one - xx));
+            result.R0C1 = (xy - (cos * xy)) + (sin * z);
+            result.R0C2 = (xz - (cos * xz)) - (sin * y);
+            result.R0C3 = 0;
 
-            result.M10 = (xy - (cos * xy)) - (sin * z);
-            result.M11 = yy + (cos * (one - yy));
-            result.M12 = (yz - (cos * yz)) + (sin * x);
-            result.M13 = 0;
+            result.R1C0 = (xy - (cos * xy)) - (sin * z);
+            result.R1C1 = yy + (cos * (one - yy));
+            result.R1C2 = (yz - (cos * yz)) + (sin * x);
+            result.R1C3 = 0;
 
-            result.M20 = (xz - (cos * xz)) + (sin * y);
-            result.M21 = (yz - (cos * yz)) - (sin * x);
-            result.M22 = zz + (cos * (one - zz));
-            result.M23 = 0;
+            result.R2C0 = (xz - (cos * xz)) + (sin * y);
+            result.R2C1 = (yz - (cos * yz)) - (sin * x);
+            result.R2C2 = zz + (cos * (one - zz));
+            result.R2C3 = 0;
 
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = one;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -9038,22 +9038,22 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            result.M00 = right.X;
-            result.M01 = right.Y;
-            result.M02 = right.Z;
-            result.M03 = 0;
-            result.M10 = up.X;
-            result.M11 = up.Y;
-            result.M12 = up.Z;
-            result.M13 = 0;
-            result.M20 = backward.X;
-            result.M21 = backward.Y;
-            result.M22 = backward.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = right.X;
+            result.R0C1 = right.Y;
+            result.R0C2 = right.Z;
+            result.R0C3 = 0;
+            result.R1C0 = up.X;
+            result.R1C1 = up.Y;
+            result.R1C2 = up.Z;
+            result.R1C3 = 0;
+            result.R2C0 = backward.X;
+            result.R2C1 = backward.Y;
+            result.R2C2 = backward.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -9075,9 +9075,9 @@ namespace Abacus.SinglePrecision
 
             Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
         }
 
         /// <summary>
@@ -9107,22 +9107,22 @@ namespace Abacus.SinglePrecision
 
             Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
 
-            result.M00 = vector2.X;
-            result.M01 = vector2.Y;
-            result.M02 = vector2.Z;
-            result.M03 = 0;
-            result.M10 = vector3.X;
-            result.M11 = vector3.Y;
-            result.M12 = vector3.Z;
-            result.M13 = 0;
-            result.M20 = vector.X;
-            result.M21 = vector.Y;
-            result.M22 = vector.Z;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = vector2.X;
+            result.R0C1 = vector2.Y;
+            result.R0C2 = vector2.Z;
+            result.R0C3 = 0;
+            result.R1C0 = vector3.X;
+            result.R1C1 = vector3.Y;
+            result.R1C2 = vector3.Z;
+            result.R1C3 = 0;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -9156,25 +9156,25 @@ namespace Abacus.SinglePrecision
             Single jkk = quaternion.J * kk;
             Single kkk = quaternion.K * kk;
 
-            result.M00 = one - (jjj + kkk);
-            result.M10 = ijj - ukk;
-            result.M20 = ikk + ujj;
-            result.M30 = zero;
+            result.R0C0 = one - (jjj + kkk);
+            result.R1C0 = ijj - ukk;
+            result.R2C0 = ikk + ujj;
+            result.R3C0 = zero;
 
-            result.M01 = ijj + ukk;
-            result.M11 = one - (iii + kkk);
-            result.M21 = jkk - uii;
-            result.M31 = zero;
+            result.R0C1 = ijj + ukk;
+            result.R1C1 = one - (iii + kkk);
+            result.R2C1 = jkk - uii;
+            result.R3C1 = zero;
 
-            result.M02 = ikk - ujj;
-            result.M12 = jkk + uii;
-            result.M22 = one - (iii + jjj);
-            result.M32 = zero;
+            result.R0C2 = ikk - ujj;
+            result.R1C2 = jkk + uii;
+            result.R2C2 = one - (iii + jjj);
+            result.R3C2 = zero;
 
-            result.M03 = zero;
-            result.M13 = zero;
-            result.M23 = zero;
-            result.M33 = one;
+            result.R0C3 = zero;
+            result.R1C3 = zero;
+            result.R2C3 = zero;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -9230,34 +9230,34 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Transpose (ref Matrix44 input, out Matrix44 output)
         {
-            output.M00 = input.M00;
-            output.M11 = input.M11;
-            output.M22 = input.M22;
-            output.M33 = input.M33;
+            output.R0C0 = input.R0C0;
+            output.R1C1 = input.R1C1;
+            output.R2C2 = input.R2C2;
+            output.R3C3 = input.R3C3;
 
-            Single temp = input.M01;
-            output.M01 = input.M10;
-            output.M10 = temp;
+            Single temp = input.R0C1;
+            output.R0C1 = input.R1C0;
+            output.R1C0 = temp;
 
-            temp = input.M02;
-            output.M02 = input.M20;
-            output.M20 = temp;
+            temp = input.R0C2;
+            output.R0C2 = input.R2C0;
+            output.R2C0 = temp;
 
-            temp = input.M03;
-            output.M03 = input.M30;
-            output.M30 = temp;
+            temp = input.R0C3;
+            output.R0C3 = input.R3C0;
+            output.R3C0 = temp;
 
-            temp = input.M12;
-            output.M12 = input.M21;
-            output.M21 = temp;
+            temp = input.R1C2;
+            output.R1C2 = input.R2C1;
+            output.R2C1 = temp;
 
-            temp = input.M13;
-            output.M13 = input.M31;
-            output.M31 = temp;
+            temp = input.R1C3;
+            output.R1C3 = input.R3C1;
+            output.R3C1 = temp;
 
-            temp =  input.M23;
-            output.M23 = input.M32;
-            output.M32 = temp;
+            temp =  input.R2C3;
+            output.R2C3 = input.R3C2;
+            output.R3C2 = temp;
         }
 
         /// <summary>
@@ -9265,13 +9265,13 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
         {
-            translation.X = matrix.M30;
-            translation.Y = matrix.M31;
-            translation.Z = matrix.M32;
+            translation.X = matrix.R3C0;
+            translation.Y = matrix.R3C1;
+            translation.Z = matrix.R3C2;
 
-            Vector3 a = new Vector3(matrix.M00, matrix.M10, matrix.M20);
-            Vector3 b = new Vector3(matrix.M01, matrix.M11, matrix.M21);
-            Vector3 c = new Vector3(matrix.M02, matrix.M12, matrix.M22);
+            Vector3 a = new Vector3(matrix.R0C0, matrix.R1C0, matrix.R2C0);
+            Vector3 b = new Vector3(matrix.R0C1, matrix.R1C1, matrix.R2C1);
+            Vector3 c = new Vector3(matrix.R0C2, matrix.R1C2, matrix.R2C2);
 
             Single aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
             Single bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;
@@ -9317,22 +9317,22 @@ namespace Abacus.SinglePrecision
             out Boolean result)
         {
             result =
-                (value1.M00 == value2.M00) &&
-                (value1.M11 == value2.M11) &&
-                (value1.M22 == value2.M22) &&
-                (value1.M33 == value2.M33) &&
-                (value1.M01 == value2.M01) &&
-                (value1.M02 == value2.M02) &&
-                (value1.M03 == value2.M03) &&
-                (value1.M10 == value2.M10) &&
-                (value1.M12 == value2.M12) &&
-                (value1.M13 == value2.M13) &&
-                (value1.M20 == value2.M20) &&
-                (value1.M21 == value2.M21) &&
-                (value1.M23 == value2.M23) &&
-                (value1.M30 == value2.M30) &&
-                (value1.M31 == value2.M31) &&
-                (value1.M32 == value2.M32);
+                (value1.R0C0 == value2.R0C0) &&
+                (value1.R1C1 == value2.R1C1) &&
+                (value1.R2C2 == value2.R2C2) &&
+                (value1.R3C3 == value2.R3C3) &&
+                (value1.R0C1 == value2.R0C1) &&
+                (value1.R0C2 == value2.R0C2) &&
+                (value1.R0C3 == value2.R0C3) &&
+                (value1.R1C0 == value2.R1C0) &&
+                (value1.R1C2 == value2.R1C2) &&
+                (value1.R1C3 == value2.R1C3) &&
+                (value1.R2C0 == value2.R2C0) &&
+                (value1.R2C1 == value2.R2C1) &&
+                (value1.R2C3 == value2.R2C3) &&
+                (value1.R3C0 == value2.R3C0) &&
+                (value1.R3C1 == value2.R3C1) &&
+                (value1.R3C2 == value2.R3C2);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -9345,22 +9345,22 @@ namespace Abacus.SinglePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 + matrix2.M00;
-            result.M01 = matrix1.M01 + matrix2.M01;
-            result.M02 = matrix1.M02 + matrix2.M02;
-            result.M03 = matrix1.M03 + matrix2.M03;
-            result.M10 = matrix1.M10 + matrix2.M10;
-            result.M11 = matrix1.M11 + matrix2.M11;
-            result.M12 = matrix1.M12 + matrix2.M12;
-            result.M13 = matrix1.M13 + matrix2.M13;
-            result.M20 = matrix1.M20 + matrix2.M20;
-            result.M21 = matrix1.M21 + matrix2.M21;
-            result.M22 = matrix1.M22 + matrix2.M22;
-            result.M23 = matrix1.M23 + matrix2.M23;
-            result.M30 = matrix1.M30 + matrix2.M30;
-            result.M31 = matrix1.M31 + matrix2.M31;
-            result.M32 = matrix1.M32 + matrix2.M32;
-            result.M33 = matrix1.M33 + matrix2.M33;
+            result.R0C0 = matrix1.R0C0 + matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 + matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 + matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 + matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 + matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 + matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 + matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 + matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 + matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 + matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 + matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 + matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 + matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 + matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 + matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 + matrix2.R3C3;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -9373,22 +9373,22 @@ namespace Abacus.SinglePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 - matrix2.M00;
-            result.M01 = matrix1.M01 - matrix2.M01;
-            result.M02 = matrix1.M02 - matrix2.M02;
-            result.M03 = matrix1.M03 - matrix2.M03;
-            result.M10 = matrix1.M10 - matrix2.M10;
-            result.M11 = matrix1.M11 - matrix2.M11;
-            result.M12 = matrix1.M12 - matrix2.M12;
-            result.M13 = matrix1.M13 - matrix2.M13;
-            result.M20 = matrix1.M20 - matrix2.M20;
-            result.M21 = matrix1.M21 - matrix2.M21;
-            result.M22 = matrix1.M22 - matrix2.M22;
-            result.M23 = matrix1.M23 - matrix2.M23;
-            result.M30 = matrix1.M30 - matrix2.M30;
-            result.M31 = matrix1.M31 - matrix2.M31;
-            result.M32 = matrix1.M32 - matrix2.M32;
-            result.M33 = matrix1.M33 - matrix2.M33;
+            result.R0C0 = matrix1.R0C0 - matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 - matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 - matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 - matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 - matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 - matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 - matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 - matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 - matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 - matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 - matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 - matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 - matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 - matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 - matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 - matrix2.R3C3;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -9398,22 +9398,22 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Negate (ref Matrix44 matrix, out Matrix44 result)
         {
-            result.M00 = -matrix.M00;
-            result.M01 = -matrix.M01;
-            result.M02 = -matrix.M02;
-            result.M03 = -matrix.M03;
-            result.M10 = -matrix.M10;
-            result.M11 = -matrix.M11;
-            result.M12 = -matrix.M12;
-            result.M13 = -matrix.M13;
-            result.M20 = -matrix.M20;
-            result.M21 = -matrix.M21;
-            result.M22 = -matrix.M22;
-            result.M23 = -matrix.M23;
-            result.M30 = -matrix.M30;
-            result.M31 = -matrix.M31;
-            result.M32 = -matrix.M32;
-            result.M33 = -matrix.M33;
+            result.R0C0 = -matrix.R0C0;
+            result.R0C1 = -matrix.R0C1;
+            result.R0C2 = -matrix.R0C2;
+            result.R0C3 = -matrix.R0C3;
+            result.R1C0 = -matrix.R1C0;
+            result.R1C1 = -matrix.R1C1;
+            result.R1C2 = -matrix.R1C2;
+            result.R1C3 = -matrix.R1C3;
+            result.R2C0 = -matrix.R2C0;
+            result.R2C1 = -matrix.R2C1;
+            result.R2C2 = -matrix.R2C2;
+            result.R2C3 = -matrix.R2C3;
+            result.R3C0 = -matrix.R3C0;
+            result.R3C1 = -matrix.R3C1;
+            result.R3C2 = -matrix.R3C2;
+            result.R3C3 = -matrix.R3C3;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -9426,101 +9426,101 @@ namespace Abacus.SinglePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 =
-                (matrix1.M00 * matrix2.M00) +
-                (matrix1.M01 * matrix2.M10) +
-                (matrix1.M02 * matrix2.M20) +
-                (matrix1.M03 * matrix2.M30);
+            result.R0C0 =
+                (matrix1.R0C0 * matrix2.R0C0) +
+                (matrix1.R0C1 * matrix2.R1C0) +
+                (matrix1.R0C2 * matrix2.R2C0) +
+                (matrix1.R0C3 * matrix2.R3C0);
 
-            result.M01 =
-                (matrix1.M00 * matrix2.M01) +
-                (matrix1.M01 * matrix2.M11) +
-                (matrix1.M02 * matrix2.M21) +
-                (matrix1.M03 * matrix2.M31);
+            result.R0C1 =
+                (matrix1.R0C0 * matrix2.R0C1) +
+                (matrix1.R0C1 * matrix2.R1C1) +
+                (matrix1.R0C2 * matrix2.R2C1) +
+                (matrix1.R0C3 * matrix2.R3C1);
 
-            result.M02 =
-                (matrix1.M00 * matrix2.M02) +
-                (matrix1.M01 * matrix2.M12) +
-                (matrix1.M02 * matrix2.M22) +
-                (matrix1.M03 * matrix2.M32);
+            result.R0C2 =
+                (matrix1.R0C0 * matrix2.R0C2) +
+                (matrix1.R0C1 * matrix2.R1C2) +
+                (matrix1.R0C2 * matrix2.R2C2) +
+                (matrix1.R0C3 * matrix2.R3C2);
 
-            result.M03 =
-                (matrix1.M00 * matrix2.M03) +
-                (matrix1.M01 * matrix2.M13) +
-                (matrix1.M02 * matrix2.M23) +
-                (matrix1.M03 * matrix2.M33);
+            result.R0C3 =
+                (matrix1.R0C0 * matrix2.R0C3) +
+                (matrix1.R0C1 * matrix2.R1C3) +
+                (matrix1.R0C2 * matrix2.R2C3) +
+                (matrix1.R0C3 * matrix2.R3C3);
 
-            result.M10 =
-                (matrix1.M10 * matrix2.M00) +
-                (matrix1.M11 * matrix2.M10) +
-                (matrix1.M12 * matrix2.M20) +
-                (matrix1.M13 * matrix2.M30);
+            result.R1C0 =
+                (matrix1.R1C0 * matrix2.R0C0) +
+                (matrix1.R1C1 * matrix2.R1C0) +
+                (matrix1.R1C2 * matrix2.R2C0) +
+                (matrix1.R1C3 * matrix2.R3C0);
 
-            result.M11 =
-                (matrix1.M10 * matrix2.M01) +
-                (matrix1.M11 * matrix2.M11) +
-                (matrix1.M12 * matrix2.M21) +
-                (matrix1.M13 * matrix2.M31);
+            result.R1C1 =
+                (matrix1.R1C0 * matrix2.R0C1) +
+                (matrix1.R1C1 * matrix2.R1C1) +
+                (matrix1.R1C2 * matrix2.R2C1) +
+                (matrix1.R1C3 * matrix2.R3C1);
 
-            result.M12 =
-                (matrix1.M10 * matrix2.M02) +
-                (matrix1.M11 * matrix2.M12) +
-                (matrix1.M12 * matrix2.M22) +
-                (matrix1.M13 * matrix2.M32);
+            result.R1C2 =
+                (matrix1.R1C0 * matrix2.R0C2) +
+                (matrix1.R1C1 * matrix2.R1C2) +
+                (matrix1.R1C2 * matrix2.R2C2) +
+                (matrix1.R1C3 * matrix2.R3C2);
 
-            result.M13 =
-                (matrix1.M10 * matrix2.M03) +
-                (matrix1.M11 * matrix2.M13) +
-                (matrix1.M12 * matrix2.M23) +
-                (matrix1.M13 * matrix2.M33);
+            result.R1C3 =
+                (matrix1.R1C0 * matrix2.R0C3) +
+                (matrix1.R1C1 * matrix2.R1C3) +
+                (matrix1.R1C2 * matrix2.R2C3) +
+                (matrix1.R1C3 * matrix2.R3C3);
 
-            result.M20 =
-                (matrix1.M20 * matrix2.M00) +
-                (matrix1.M21 * matrix2.M10) +
-                (matrix1.M22 * matrix2.M20) +
-                (matrix1.M23 * matrix2.M30);
+            result.R2C0 =
+                (matrix1.R2C0 * matrix2.R0C0) +
+                (matrix1.R2C1 * matrix2.R1C0) +
+                (matrix1.R2C2 * matrix2.R2C0) +
+                (matrix1.R2C3 * matrix2.R3C0);
 
-            result.M21 =
-                (matrix1.M20 * matrix2.M01) +
-                (matrix1.M21 * matrix2.M11) +
-                (matrix1.M22 * matrix2.M21) +
-                (matrix1.M23 * matrix2.M31);
+            result.R2C1 =
+                (matrix1.R2C0 * matrix2.R0C1) +
+                (matrix1.R2C1 * matrix2.R1C1) +
+                (matrix1.R2C2 * matrix2.R2C1) +
+                (matrix1.R2C3 * matrix2.R3C1);
 
-            result.M22 =
-                (matrix1.M20 * matrix2.M02) +
-                (matrix1.M21 * matrix2.M12) +
-                (matrix1.M22 * matrix2.M22) +
-                (matrix1.M23 * matrix2.M32);
+            result.R2C2 =
+                (matrix1.R2C0 * matrix2.R0C2) +
+                (matrix1.R2C1 * matrix2.R1C2) +
+                (matrix1.R2C2 * matrix2.R2C2) +
+                (matrix1.R2C3 * matrix2.R3C2);
 
-            result.M23 =
-                (matrix1.M20 * matrix2.M03) +
-                (matrix1.M21 * matrix2.M13) +
-                (matrix1.M22 * matrix2.M23) +
-                (matrix1.M23 * matrix2.M33);
+            result.R2C3 =
+                (matrix1.R2C0 * matrix2.R0C3) +
+                (matrix1.R2C1 * matrix2.R1C3) +
+                (matrix1.R2C2 * matrix2.R2C3) +
+                (matrix1.R2C3 * matrix2.R3C3);
 
-            result.M30 =
-                (matrix1.M30 * matrix2.M00) +
-                (matrix1.M31 * matrix2.M10) +
-                (matrix1.M32 * matrix2.M20) +
-                (matrix1.M33 * matrix2.M30);
+            result.R3C0 =
+                (matrix1.R3C0 * matrix2.R0C0) +
+                (matrix1.R3C1 * matrix2.R1C0) +
+                (matrix1.R3C2 * matrix2.R2C0) +
+                (matrix1.R3C3 * matrix2.R3C0);
 
-            result.M31 =
-                (matrix1.M30 * matrix2.M01) +
-                (matrix1.M31 * matrix2.M11) +
-                (matrix1.M32 * matrix2.M21) +
-                (matrix1.M33 * matrix2.M31);
+            result.R3C1 =
+                (matrix1.R3C0 * matrix2.R0C1) +
+                (matrix1.R3C1 * matrix2.R1C1) +
+                (matrix1.R3C2 * matrix2.R2C1) +
+                (matrix1.R3C3 * matrix2.R3C1);
 
-            result.M32 =
-                (matrix1.M30 * matrix2.M02) +
-                (matrix1.M31 * matrix2.M12) +
-                (matrix1.M32 * matrix2.M22) +
-                (matrix1.M33 * matrix2.M32);
+            result.R3C2 =
+                (matrix1.R3C0 * matrix2.R0C2) +
+                (matrix1.R3C1 * matrix2.R1C2) +
+                (matrix1.R3C2 * matrix2.R2C2) +
+                (matrix1.R3C3 * matrix2.R3C2);
 
-            result.M33 =
-                (matrix1.M30 * matrix2.M03) +
-                (matrix1.M31 * matrix2.M13) +
-                (matrix1.M32 * matrix2.M23) +
-                (matrix1.M33 * matrix2.M33);
+            result.R3C3 =
+                (matrix1.R3C0 * matrix2.R0C3) +
+                (matrix1.R3C1 * matrix2.R1C3) +
+                (matrix1.R3C2 * matrix2.R2C3) +
+                (matrix1.R3C3 * matrix2.R3C3);
         }
 
         /// <summary>
@@ -9532,22 +9532,22 @@ namespace Abacus.SinglePrecision
             ref Single scaleFactor,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 * scaleFactor;
-            result.M01 = matrix1.M01 * scaleFactor;
-            result.M02 = matrix1.M02 * scaleFactor;
-            result.M03 = matrix1.M03 * scaleFactor;
-            result.M10 = matrix1.M10 * scaleFactor;
-            result.M11 = matrix1.M11 * scaleFactor;
-            result.M12 = matrix1.M12 * scaleFactor;
-            result.M13 = matrix1.M13 * scaleFactor;
-            result.M20 = matrix1.M20 * scaleFactor;
-            result.M21 = matrix1.M21 * scaleFactor;
-            result.M22 = matrix1.M22 * scaleFactor;
-            result.M23 = matrix1.M23 * scaleFactor;
-            result.M30 = matrix1.M30 * scaleFactor;
-            result.M31 = matrix1.M31 * scaleFactor;
-            result.M32 = matrix1.M32 * scaleFactor;
-            result.M33 = matrix1.M33 * scaleFactor;
+            result.R0C0 = matrix1.R0C0 * scaleFactor;
+            result.R0C1 = matrix1.R0C1 * scaleFactor;
+            result.R0C2 = matrix1.R0C2 * scaleFactor;
+            result.R0C3 = matrix1.R0C3 * scaleFactor;
+            result.R1C0 = matrix1.R1C0 * scaleFactor;
+            result.R1C1 = matrix1.R1C1 * scaleFactor;
+            result.R1C2 = matrix1.R1C2 * scaleFactor;
+            result.R1C3 = matrix1.R1C3 * scaleFactor;
+            result.R2C0 = matrix1.R2C0 * scaleFactor;
+            result.R2C1 = matrix1.R2C1 * scaleFactor;
+            result.R2C2 = matrix1.R2C2 * scaleFactor;
+            result.R2C3 = matrix1.R2C3 * scaleFactor;
+            result.R3C0 = matrix1.R3C0 * scaleFactor;
+            result.R3C1 = matrix1.R3C1 * scaleFactor;
+            result.R3C2 = matrix1.R3C2 * scaleFactor;
+            result.R3C3 = matrix1.R3C3 * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -9560,22 +9560,22 @@ namespace Abacus.SinglePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 / matrix2.M00;
-            result.M01 = matrix1.M01 / matrix2.M01;
-            result.M02 = matrix1.M02 / matrix2.M02;
-            result.M03 = matrix1.M03 / matrix2.M03;
-            result.M10 = matrix1.M10 / matrix2.M10;
-            result.M11 = matrix1.M11 / matrix2.M11;
-            result.M12 = matrix1.M12 / matrix2.M12;
-            result.M13 = matrix1.M13 / matrix2.M13;
-            result.M20 = matrix1.M20 / matrix2.M20;
-            result.M21 = matrix1.M21 / matrix2.M21;
-            result.M22 = matrix1.M22 / matrix2.M22;
-            result.M23 = matrix1.M23 / matrix2.M23;
-            result.M30 = matrix1.M30 / matrix2.M30;
-            result.M31 = matrix1.M31 / matrix2.M31;
-            result.M32 = matrix1.M32 / matrix2.M32;
-            result.M33 = matrix1.M33 / matrix2.M33;
+            result.R0C0 = matrix1.R0C0 / matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 / matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 / matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 / matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 / matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 / matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 / matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 / matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 / matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 / matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 / matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 / matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 / matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 / matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 / matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 / matrix2.R3C3;
         }
 
         /// <summary>
@@ -9587,22 +9587,22 @@ namespace Abacus.SinglePrecision
             ref Single divider,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 / divider;
-            result.M01 = matrix1.M01 / divider;
-            result.M02 = matrix1.M02 / divider;
-            result.M03 = matrix1.M03 / divider;
-            result.M10 = matrix1.M10 / divider;
-            result.M11 = matrix1.M11 / divider;
-            result.M12 = matrix1.M12 / divider;
-            result.M13 = matrix1.M13 / divider;
-            result.M20 = matrix1.M20 / divider;
-            result.M21 = matrix1.M21 / divider;
-            result.M22 = matrix1.M22 / divider;
-            result.M23 = matrix1.M23 / divider;
-            result.M30 = matrix1.M30 / divider;
-            result.M31 = matrix1.M31 / divider;
-            result.M32 = matrix1.M32 / divider;
-            result.M33 = matrix1.M33 / divider;
+            result.R0C0 = matrix1.R0C0 / divider;
+            result.R0C1 = matrix1.R0C1 / divider;
+            result.R0C2 = matrix1.R0C2 / divider;
+            result.R0C3 = matrix1.R0C3 / divider;
+            result.R1C0 = matrix1.R1C0 / divider;
+            result.R1C1 = matrix1.R1C1 / divider;
+            result.R1C2 = matrix1.R1C2 / divider;
+            result.R1C3 = matrix1.R1C3 / divider;
+            result.R2C0 = matrix1.R2C0 / divider;
+            result.R2C1 = matrix1.R2C1 / divider;
+            result.R2C2 = matrix1.R2C2 / divider;
+            result.R2C3 = matrix1.R2C3 / divider;
+            result.R3C0 = matrix1.R3C0 / divider;
+            result.R3C1 = matrix1.R3C1 / divider;
+            result.R3C2 = matrix1.R3C2 / divider;
+            result.R3C3 = matrix1.R3C3 / divider;
         }
 
         /// <summary>
@@ -9622,22 +9622,22 @@ namespace Abacus.SinglePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            result.M00 = matrix1.M00 + ((matrix2.M00 - matrix1.M00) * amount);
-            result.M01 = matrix1.M01 + ((matrix2.M01 - matrix1.M01) * amount);
-            result.M02 = matrix1.M02 + ((matrix2.M02 - matrix1.M02) * amount);
-            result.M03 = matrix1.M03 + ((matrix2.M03 - matrix1.M03) * amount);
-            result.M10 = matrix1.M10 + ((matrix2.M10 - matrix1.M10) * amount);
-            result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
-            result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
-            result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
-            result.M20 = matrix1.M20 + ((matrix2.M20 - matrix1.M20) * amount);
-            result.M21 = matrix1.M21 + ((matrix2.M21 - matrix1.M21) * amount);
-            result.M22 = matrix1.M22 + ((matrix2.M22 - matrix1.M22) * amount);
-            result.M23 = matrix1.M23 + ((matrix2.M23 - matrix1.M23) * amount);
-            result.M30 = matrix1.M30 + ((matrix2.M30 - matrix1.M30) * amount);
-            result.M31 = matrix1.M31 + ((matrix2.M31 - matrix1.M31) * amount);
-            result.M32 = matrix1.M32 + ((matrix2.M32 - matrix1.M32) * amount);
-            result.M33 = matrix1.M33 + ((matrix2.M33 - matrix1.M33) * amount);
+            result.R0C0 = matrix1.R0C0 + ((matrix2.R0C0 - matrix1.R0C0) * amount);
+            result.R0C1 = matrix1.R0C1 + ((matrix2.R0C1 - matrix1.R0C1) * amount);
+            result.R0C2 = matrix1.R0C2 + ((matrix2.R0C2 - matrix1.R0C2) * amount);
+            result.R0C3 = matrix1.R0C3 + ((matrix2.R0C3 - matrix1.R0C3) * amount);
+            result.R1C0 = matrix1.R1C0 + ((matrix2.R1C0 - matrix1.R1C0) * amount);
+            result.R1C1 = matrix1.R1C1 + ((matrix2.R1C1 - matrix1.R1C1) * amount);
+            result.R1C2 = matrix1.R1C2 + ((matrix2.R1C2 - matrix1.R1C2) * amount);
+            result.R1C3 = matrix1.R1C3 + ((matrix2.R1C3 - matrix1.R1C3) * amount);
+            result.R2C0 = matrix1.R2C0 + ((matrix2.R2C0 - matrix1.R2C0) * amount);
+            result.R2C1 = matrix1.R2C1 + ((matrix2.R2C1 - matrix1.R2C1) * amount);
+            result.R2C2 = matrix1.R2C2 + ((matrix2.R2C2 - matrix1.R2C2) * amount);
+            result.R2C3 = matrix1.R2C3 + ((matrix2.R2C3 - matrix1.R2C3) * amount);
+            result.R3C0 = matrix1.R3C0 + ((matrix2.R3C0 - matrix1.R3C0) * amount);
+            result.R3C1 = matrix1.R3C1 + ((matrix2.R3C1 - matrix1.R3C1) * amount);
+            result.R3C2 = matrix1.R3C2 + ((matrix2.R3C2 - matrix1.R3C2) * amount);
+            result.R3C3 = matrix1.R3C3 + ((matrix2.R3C3 - matrix1.R3C3) * amount);
         }
 
 
@@ -10230,43 +10230,43 @@ namespace Abacus.SinglePrecision
             Single half; RealMaths.Half(out half);
             Single one = 1;
 
-            Single num8 = (matrix.M00 + matrix.M11) + matrix.M22;
+            Single num8 = (matrix.R0C0 + matrix.R1C1) + matrix.R2C2;
 
             if (num8 > zero)
             {
                 Single num = RealMaths.Sqrt (num8 + one);
                 result.U = num * half;
                 num = half / num;
-                result.I = (matrix.M12 - matrix.M21) * num;
-                result.J = (matrix.M20 - matrix.M02) * num;
-                result.K = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.R1C2 - matrix.R2C1) * num;
+                result.J = (matrix.R2C0 - matrix.R0C2) * num;
+                result.K = (matrix.R0C1 - matrix.R1C0) * num;
             }
-            else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
+            else if ((matrix.R0C0 >= matrix.R1C1) && (matrix.R0C0 >= matrix.R2C2))
             {
-                Single num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
+                Single num7 = RealMaths.Sqrt (((one + matrix.R0C0) - matrix.R1C1) - matrix.R2C2);
                 Single num4 = half / num7;
                 result.I = half * num7;
-                result.J = (matrix.M01 + matrix.M10) * num4;
-                result.K = (matrix.M02 + matrix.M20) * num4;
-                result.U = (matrix.M12 - matrix.M21) * num4;
+                result.J = (matrix.R0C1 + matrix.R1C0) * num4;
+                result.K = (matrix.R0C2 + matrix.R2C0) * num4;
+                result.U = (matrix.R1C2 - matrix.R2C1) * num4;
             }
-            else if (matrix.M11 > matrix.M22)
+            else if (matrix.R1C1 > matrix.R2C2)
             {
-                Single num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
+                Single num6 =RealMaths.Sqrt (((one + matrix.R1C1) - matrix.R0C0) - matrix.R2C2);
                 Single num3 = half / num6;
-                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.I = (matrix.R1C0 + matrix.R0C1) * num3;
                 result.J = half * num6;
-                result.K = (matrix.M21 + matrix.M12) * num3;
-                result.U = (matrix.M20 - matrix.M02) * num3;
+                result.K = (matrix.R2C1 + matrix.R1C2) * num3;
+                result.U = (matrix.R2C0 - matrix.R0C2) * num3;
             }
             else
             {
-                Single num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
+                Single num5 = RealMaths.Sqrt (((one + matrix.R2C2) - matrix.R0C0) - matrix.R1C1);
                 Single num2 = half / num5;
-                result.I = (matrix.M20 + matrix.M02) * num2;
-                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.I = (matrix.R2C0 + matrix.R0C2) * num2;
+                result.J = (matrix.R2C1 + matrix.R1C2) * num2;
                 result.K = half * num5;
-                result.U = (matrix.M01 - matrix.M10) * num2;
+                result.U = (matrix.R0C1 - matrix.R1C0) * num2;
             }
         }
         /// <summary>
@@ -11332,14 +11332,14 @@ namespace Abacus.SinglePrecision
             ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             Single x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                matrix.M30;
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                matrix.R3C0;
 
             Single y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                matrix.M31;
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                matrix.R3C1;
 
             result.X = x;
             result.Y = y;
@@ -11390,8 +11390,8 @@ namespace Abacus.SinglePrecision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Single x = (normal.X * matrix.M00) + (normal.Y * matrix.M10);
-            Single y = (normal.X * matrix.M01) + (normal.Y * matrix.M11);
+            Single x = (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0);
+            Single y = (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1);
 
             result.X = x;
             result.Y = y;
@@ -12638,19 +12638,19 @@ namespace Abacus.SinglePrecision
             out Vector3 result)
         {
             Single x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                (vector.Z * matrix.M20) + matrix.M30;
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                (vector.Z * matrix.R2C0) + matrix.R3C0;
 
             Single y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                (vector.Z * matrix.M21) + matrix.M31;
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                (vector.Z * matrix.R2C1) + matrix.R3C1;
 
             Single z =
-                (vector.X * matrix.M02) +
-                (vector.Y * matrix.M12) +
-                (vector.Z * matrix.M22) + matrix.M32;
+                (vector.X * matrix.R0C2) +
+                (vector.Y * matrix.R1C2) +
+                (vector.Z * matrix.R2C2) + matrix.R3C2;
 
             result.X = x;
             result.Y = y;
@@ -12719,19 +12719,19 @@ namespace Abacus.SinglePrecision
             }
 
             Single x =
-                (normal.X * matrix.M00) +
-                (normal.Y * matrix.M10) +
-                (normal.Z * matrix.M20);
+                (normal.X * matrix.R0C0) +
+                (normal.Y * matrix.R1C0) +
+                (normal.Z * matrix.R2C0);
 
             Single y =
-                (normal.X * matrix.M01) +
-                (normal.Y * matrix.M11) +
-                (normal.Z * matrix.M21);
+                (normal.X * matrix.R0C1) +
+                (normal.Y * matrix.R1C1) +
+                (normal.Z * matrix.R2C1);
 
             Single z =
-                (normal.X * matrix.M02) +
-                (normal.Y * matrix.M12) +
-                (normal.Z * matrix.M22);
+                (normal.X * matrix.R0C2) +
+                (normal.Y * matrix.R1C2) +
+                (normal.Z * matrix.R2C2);
 
             result.X = x;
             result.Y = y;
@@ -13956,28 +13956,28 @@ namespace Abacus.SinglePrecision
             out Vector4 result)
         {
             Single x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                (vector.Z * matrix.M20) +
-                (vector.W * matrix.M30);
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                (vector.Z * matrix.R2C0) +
+                (vector.W * matrix.R3C0);
 
             Single y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                (vector.Z * matrix.M21) +
-                (vector.W * matrix.M31);
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                (vector.Z * matrix.R2C1) +
+                (vector.W * matrix.R3C1);
 
             Single z =
-                (vector.X * matrix.M02) +
-                (vector.Y * matrix.M12) +
-                (vector.Z * matrix.M22) +
-                (vector.W * matrix.M32);
+                (vector.X * matrix.R0C2) +
+                (vector.Y * matrix.R1C2) +
+                (vector.Z * matrix.R2C2) +
+                (vector.W * matrix.R3C2);
 
             Single w =
-                (vector.X * matrix.M03) +
-                (vector.Y * matrix.M13) +
-                (vector.Z * matrix.M23) +
-                (vector.W * matrix.M33);
+                (vector.X * matrix.R0C3) +
+                (vector.Y * matrix.R1C3) +
+                (vector.Z * matrix.R2C3) +
+                (vector.W * matrix.R3C3);
 
             result.X = x;
             result.Y = y;
@@ -14049,20 +14049,20 @@ namespace Abacus.SinglePrecision
             }
 
             Single x =
-                (normal.X * matrix.M00) + (normal.Y * matrix.M10) +
-                (normal.Z * matrix.M20) + (normal.W * matrix.M30);
+                (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0) +
+                (normal.Z * matrix.R2C0) + (normal.W * matrix.R3C0);
 
             Single y =
-                (normal.X * matrix.M01) + (normal.Y * matrix.M11) +
-                (normal.Z * matrix.M21) + (normal.W * matrix.M31);
+                (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1) +
+                (normal.Z * matrix.R2C1) + (normal.W * matrix.R3C1);
 
             Single z =
-                (normal.X * matrix.M02) + (normal.Y * matrix.M12) +
-                (normal.Z * matrix.M22) + (normal.W * matrix.M32);
+                (normal.X * matrix.R0C2) + (normal.Y * matrix.R1C2) +
+                (normal.Z * matrix.R2C2) + (normal.W * matrix.R3C2);
 
             Single w =
-                (normal.X * matrix.M03) + (normal.Y * matrix.M13) +
-                (normal.Z * matrix.M23) + (normal.W * matrix.M33);
+                (normal.X * matrix.R0C3) + (normal.Y * matrix.R1C3) +
+                (normal.Z * matrix.R2C3) + (normal.W * matrix.R3C3);
 
             result.X = x;
             result.Y = y;
@@ -15031,82 +15031,82 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Gets or sets (Row 0, Column 0) of the Matrix44.
         /// </summary>
-        public Double M00;
+        public Double R0C0;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 1) of the Matrix44.
         /// </summary>
-        public Double M01;
+        public Double R0C1;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 2) of the Matrix44.
         /// </summary>
-        public Double M02;
+        public Double R0C2;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 3) of the Matrix44.
         /// </summary>
-        public Double M03;
+        public Double R0C3;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 0) of the Matrix44.
         /// </summary>
-        public Double M10;
+        public Double R1C0;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 1) of the Matrix44.
         /// </summary>
-        public Double M11;
+        public Double R1C1;
 
         /// <summary>
         /// Gets or sets (ow 1, Column 2) of the Matrix44.
         /// </summary>
-        public Double M12;
+        public Double R1C2;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 3) of the Matrix44.
         /// </summary>
-        public Double M13;
+        public Double R1C3;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 0) of the Matrix44.
         /// </summary>
-        public Double M20;
+        public Double R2C0;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 1) of the Matrix44.
         /// </summary>
-        public Double M21;
+        public Double R2C1;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 2) of the Matrix44.
         /// </summary>
-        public Double M22;
+        public Double R2C2;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 3) of the Matrix44.
         /// </summary>
-        public Double M23;
+        public Double R2C3;
 
         /// <summary>
         /// Gets or sets (Row 3, Column 0) of the Matrix44.
         /// </summary>
-        public Double M30; // translation.x
+        public Double R3C0; // translation.x
 
         /// <summary>
         /// Gets or sets (Row 3, Column 1) of the Matrix44.
         /// </summary>
-        public Double M31; // translation.y
+        public Double R3C1; // translation.y
 
         /// <summary>
         /// Gets or sets (Row 3, Column 2) of the Matrix44.
         /// </summary>
-        public Double M32; // translation.z
+        public Double R3C2; // translation.z
 
         /// <summary>
         /// Gets or sets (Row 3, Column 3) of the Matrix44.
         /// </summary>
-        public Double M33;
+        public Double R3C3;
 
         /// <summary>
         /// Initilises a new instance of Matrix44 from sixteen Double
@@ -15130,22 +15130,22 @@ namespace Abacus.DoublePrecision
             Double m32,
             Double m33)
         {
-            this.M00 = m00;
-            this.M01 = m01;
-            this.M02 = m02;
-            this.M03 = m03;
-            this.M10 = m10;
-            this.M11 = m11;
-            this.M12 = m12;
-            this.M13 = m13;
-            this.M20 = m20;
-            this.M21 = m21;
-            this.M22 = m22;
-            this.M23 = m23;
-            this.M30 = m30;
-            this.M31 = m31;
-            this.M32 = m32;
-            this.M33 = m33;
+            this.R0C0 = m00;
+            this.R0C1 = m01;
+            this.R0C2 = m02;
+            this.R0C3 = m03;
+            this.R1C0 = m10;
+            this.R1C1 = m11;
+            this.R1C2 = m12;
+            this.R1C3 = m13;
+            this.R2C0 = m20;
+            this.R2C1 = m21;
+            this.R2C2 = m22;
+            this.R2C3 = m23;
+            this.R3C0 = m30;
+            this.R3C1 = m31;
+            this.R3C2 = m32;
+            this.R3C3 = m33;
         }
 
         /// <summary>
@@ -15159,36 +15159,36 @@ namespace Abacus.DoublePrecision
                     string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
                         new Object[]
                         {
-                            this.M00.ToString (),
-                            this.M01.ToString (),
-                            this.M02.ToString (),
-                            this.M03.ToString ()
+                            this.R0C0.ToString (),
+                            this.R0C1.ToString (),
+                            this.R0C2.ToString (),
+                            this.R0C3.ToString ()
                         }
                     ) +
                     string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
                         new Object[]
                         {
-                            this.M10.ToString (),
-                            this.M11.ToString (),
-                            this.M12.ToString (),
-                            this.M13.ToString ()
+                            this.R1C0.ToString (),
+                            this.R1C1.ToString (),
+                            this.R1C2.ToString (),
+                            this.R1C3.ToString ()
                             }
                     ) +
                     string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
                         new Object[]
                         {
-                            this.M20.ToString (),
-                            this.M21.ToString (),
-                            this.M22.ToString (),
-                            this.M23.ToString ()
+                            this.R2C0.ToString (),
+                            this.R2C1.ToString (),
+                            this.R2C2.ToString (),
+                            this.R2C3.ToString ()
                         }
                     ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
                     new Object[]
                     {
-                        this.M30.ToString (),
-                        this.M31.ToString (),
-                        this.M32.ToString (),
-                        this.M33.ToString ()
+                        this.R3C0.ToString (),
+                        this.R3C1.ToString (),
+                        this.R3C2.ToString (),
+                        this.R3C3.ToString ()
                     }
                     ) +
                     "}"
@@ -15201,22 +15201,22 @@ namespace Abacus.DoublePrecision
         public override Int32 GetHashCode ()
         {
             return
-                this.M00.GetHashCode () +
-                this.M01.GetHashCode () +
-                this.M02.GetHashCode () +
-                this.M03.GetHashCode () +
-                this.M10.GetHashCode () +
-                this.M11.GetHashCode () +
-                this.M12.GetHashCode () +
-                this.M13.GetHashCode () +
-                this.M20.GetHashCode () +
-                this.M21.GetHashCode () +
-                this.M22.GetHashCode () +
-                this.M23.GetHashCode () +
-                this.M30.GetHashCode () +
-                this.M31.GetHashCode () +
-                this.M32.GetHashCode () +
-                this.M33.GetHashCode ();
+                this.R0C0.GetHashCode () +
+                this.R0C1.GetHashCode () +
+                this.R0C2.GetHashCode () +
+                this.R0C3.GetHashCode () +
+                this.R1C0.GetHashCode () +
+                this.R1C1.GetHashCode () +
+                this.R1C2.GetHashCode () +
+                this.R1C3.GetHashCode () +
+                this.R2C0.GetHashCode () +
+                this.R2C1.GetHashCode () +
+                this.R2C2.GetHashCode () +
+                this.R2C3.GetHashCode () +
+                this.R3C0.GetHashCode () +
+                this.R3C1.GetHashCode () +
+                this.R3C2.GetHashCode () +
+                this.R3C3.GetHashCode ();
         }
 
         /// <summary>
@@ -15244,22 +15244,22 @@ namespace Abacus.DoublePrecision
         public Boolean Equals (Matrix44 other)
         {
             return
-                (this.M00 == other.M00) &&
-                (this.M11 == other.M11) &&
-                (this.M22 == other.M22) &&
-                (this.M33 == other.M33) &&
-                (this.M01 == other.M01) &&
-                (this.M02 == other.M02) &&
-                (this.M03 == other.M03) &&
-                (this.M10 == other.M10) &&
-                (this.M12 == other.M12) &&
-                (this.M13 == other.M13) &&
-                (this.M20 == other.M20) &&
-                (this.M21 == other.M21) &&
-                (this.M23 == other.M23) &&
-                (this.M30 == other.M30) &&
-                (this.M31 == other.M31) &&
-                (this.M32 == other.M32);
+                (this.R0C0 == other.R0C0) &&
+                (this.R1C1 == other.R1C1) &&
+                (this.R2C2 == other.R2C2) &&
+                (this.R3C3 == other.R3C3) &&
+                (this.R0C1 == other.R0C1) &&
+                (this.R0C2 == other.R0C2) &&
+                (this.R0C3 == other.R0C3) &&
+                (this.R1C0 == other.R1C0) &&
+                (this.R1C2 == other.R1C2) &&
+                (this.R1C3 == other.R1C3) &&
+                (this.R2C0 == other.R2C0) &&
+                (this.R2C1 == other.R2C1) &&
+                (this.R2C3 == other.R2C3) &&
+                (this.R3C0 == other.R3C0) &&
+                (this.R3C1 == other.R3C1) &&
+                (this.R3C2 == other.R3C2);
         }
 
         #endregion
@@ -15272,16 +15272,16 @@ namespace Abacus.DoublePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M10;
-                vector.Y = this.M11;
-                vector.Z = this.M12;
+                vector.X = this.R1C0;
+                vector.Y = this.R1C1;
+                vector.Z = this.R1C2;
                 return vector;
             }
             set
             {
-                this.M10 = value.X;
-                this.M11 = value.Y;
-                this.M12 = value.Z;
+                this.R1C0 = value.X;
+                this.R1C1 = value.Y;
+                this.R1C2 = value.Z;
             }
         }
 
@@ -15293,16 +15293,16 @@ namespace Abacus.DoublePrecision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M10;
-                vector.Y = -this.M11;
-                vector.Z = -this.M12;
+                vector.X = -this.R1C0;
+                vector.Y = -this.R1C1;
+                vector.Z = -this.R1C2;
                 return vector;
             }
             set
             {
-                this.M10 = -value.X;
-                this.M11 = -value.Y;
-                this.M12 = -value.Z;
+                this.R1C0 = -value.X;
+                this.R1C1 = -value.Y;
+                this.R1C2 = -value.Z;
             }
         }
 
@@ -15314,16 +15314,16 @@ namespace Abacus.DoublePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M00;
-                vector.Y = this.M01;
-                vector.Z = this.M02;
+                vector.X = this.R0C0;
+                vector.Y = this.R0C1;
+                vector.Z = this.R0C2;
                 return vector;
             }
             set
             {
-                this.M00 = value.X;
-                this.M01 = value.Y;
-                this.M02 = value.Z;
+                this.R0C0 = value.X;
+                this.R0C1 = value.Y;
+                this.R0C2 = value.Z;
             }
         }
 
@@ -15335,16 +15335,16 @@ namespace Abacus.DoublePrecision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M00;
-                vector.Y = -this.M01;
-                vector.Z = -this.M02;
+                vector.X = -this.R0C0;
+                vector.Y = -this.R0C1;
+                vector.Z = -this.R0C2;
                 return vector;
             }
             set
             {
-                this.M00 = -value.X;
-                this.M01 = -value.Y;
-                this.M02 = -value.Z;
+                this.R0C0 = -value.X;
+                this.R0C1 = -value.Y;
+                this.R0C2 = -value.Z;
             }
         }
 
@@ -15356,16 +15356,16 @@ namespace Abacus.DoublePrecision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M20;
-                vector.Y = -this.M21;
-                vector.Z = -this.M22;
+                vector.X = -this.R2C0;
+                vector.Y = -this.R2C1;
+                vector.Z = -this.R2C2;
                 return vector;
             }
             set
             {
-                this.M20 = -value.X;
-                this.M21 = -value.Y;
-                this.M22 = -value.Z;
+                this.R2C0 = -value.X;
+                this.R2C1 = -value.Y;
+                this.R2C2 = -value.Z;
             }
         }
 
@@ -15377,16 +15377,16 @@ namespace Abacus.DoublePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M20;
-                vector.Y = this.M21;
-                vector.Z = this.M22;
+                vector.X = this.R2C0;
+                vector.Y = this.R2C1;
+                vector.Z = this.R2C2;
                 return vector;
             }
             set
             {
-                this.M20 = value.X;
-                this.M21 = value.Y;
-                this.M22 = value.Z;
+                this.R2C0 = value.X;
+                this.R2C1 = value.Y;
+                this.R2C2 = value.Z;
             }
         }
 
@@ -15398,16 +15398,16 @@ namespace Abacus.DoublePrecision
             get
             {
                 Vector3 vector;
-                vector.X = this.M30;
-                vector.Y = this.M31;
-                vector.Z = this.M32;
+                vector.X = this.R3C0;
+                vector.Y = this.R3C1;
+                vector.Z = this.R3C2;
                 return vector;
             }
             set
             {
-                this.M30 = value.X;
-                this.M31 = value.Y;
-                this.M32 = value.Z;
+                this.R3C0 = value.X;
+                this.R3C1 = value.Y;
+                this.R3C2 = value.Z;
             }
         }
 
@@ -15445,22 +15445,22 @@ namespace Abacus.DoublePrecision
             ref Vector3 position,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15472,22 +15472,22 @@ namespace Abacus.DoublePrecision
             ref Double zPosition,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = xPosition;
-            result.M31 = yPosition;
-            result.M32 = zPosition;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = xPosition;
+            result.R3C1 = yPosition;
+            result.R3C2 = zPosition;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15499,22 +15499,22 @@ namespace Abacus.DoublePrecision
             ref Double zScale,
             out Matrix44 result)
         {
-            result.M00 = xScale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = yScale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = zScale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = xScale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = yScale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = zScale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15524,22 +15524,22 @@ namespace Abacus.DoublePrecision
             ref Vector3 scales,
             out Matrix44 result)
         {
-            result.M00 = scales.X;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scales.Y;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scales.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scales.X;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scales.Y;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scales.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15549,22 +15549,22 @@ namespace Abacus.DoublePrecision
             ref Double scale,
             out Matrix44 result)
         {
-            result.M00 = scale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15577,22 +15577,22 @@ namespace Abacus.DoublePrecision
             Double cos = RealMaths.Cos (radians);
             Double sin = RealMaths.Sin (radians);
 
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = cos;
-            result.M12 = sin;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = -sin;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = cos;
+            result.R1C2 = sin;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = -sin;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15605,22 +15605,22 @@ namespace Abacus.DoublePrecision
             Double cos = RealMaths.Cos (radians);
             Double sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = 0;
-            result.M02 = -sin;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = sin;
-            result.M21 = 0;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = 0;
+            result.R0C2 = -sin;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = sin;
+            result.R2C1 = 0;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15633,22 +15633,22 @@ namespace Abacus.DoublePrecision
             Double cos = RealMaths.Cos (radians);
             Double sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = sin;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = -sin;
-            result.M11 = cos;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = sin;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = -sin;
+            result.R1C1 = cos;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15676,25 +15676,25 @@ namespace Abacus.DoublePrecision
             Double xz = x * z;
             Double yz = y * z;
 
-            result.M00 = xx + (cos * (one - xx));
-            result.M01 = (xy - (cos * xy)) + (sin * z);
-            result.M02 = (xz - (cos * xz)) - (sin * y);
-            result.M03 = 0;
+            result.R0C0 = xx + (cos * (one - xx));
+            result.R0C1 = (xy - (cos * xy)) + (sin * z);
+            result.R0C2 = (xz - (cos * xz)) - (sin * y);
+            result.R0C3 = 0;
 
-            result.M10 = (xy - (cos * xy)) - (sin * z);
-            result.M11 = yy + (cos * (one - yy));
-            result.M12 = (yz - (cos * yz)) + (sin * x);
-            result.M13 = 0;
+            result.R1C0 = (xy - (cos * xy)) - (sin * z);
+            result.R1C1 = yy + (cos * (one - yy));
+            result.R1C2 = (yz - (cos * yz)) + (sin * x);
+            result.R1C3 = 0;
 
-            result.M20 = (xz - (cos * xz)) + (sin * y);
-            result.M21 = (yz - (cos * yz)) - (sin * x);
-            result.M22 = zz + (cos * (one - zz));
-            result.M23 = 0;
+            result.R2C0 = (xz - (cos * xz)) + (sin * y);
+            result.R2C1 = (yz - (cos * yz)) - (sin * x);
+            result.R2C2 = zz + (cos * (one - zz));
+            result.R2C3 = 0;
 
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = one;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -15715,22 +15715,22 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            result.M00 = right.X;
-            result.M01 = right.Y;
-            result.M02 = right.Z;
-            result.M03 = 0;
-            result.M10 = up.X;
-            result.M11 = up.Y;
-            result.M12 = up.Z;
-            result.M13 = 0;
-            result.M20 = backward.X;
-            result.M21 = backward.Y;
-            result.M22 = backward.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = right.X;
+            result.R0C1 = right.Y;
+            result.R0C2 = right.Z;
+            result.R0C3 = 0;
+            result.R1C0 = up.X;
+            result.R1C1 = up.Y;
+            result.R1C2 = up.Z;
+            result.R1C3 = 0;
+            result.R2C0 = backward.X;
+            result.R2C1 = backward.Y;
+            result.R2C2 = backward.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15752,9 +15752,9 @@ namespace Abacus.DoublePrecision
 
             Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
         }
 
         /// <summary>
@@ -15784,22 +15784,22 @@ namespace Abacus.DoublePrecision
 
             Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
 
-            result.M00 = vector2.X;
-            result.M01 = vector2.Y;
-            result.M02 = vector2.Z;
-            result.M03 = 0;
-            result.M10 = vector3.X;
-            result.M11 = vector3.Y;
-            result.M12 = vector3.Z;
-            result.M13 = 0;
-            result.M20 = vector.X;
-            result.M21 = vector.Y;
-            result.M22 = vector.Z;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = vector2.X;
+            result.R0C1 = vector2.Y;
+            result.R0C2 = vector2.Z;
+            result.R0C3 = 0;
+            result.R1C0 = vector3.X;
+            result.R1C1 = vector3.Y;
+            result.R1C2 = vector3.Z;
+            result.R1C3 = 0;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -15833,25 +15833,25 @@ namespace Abacus.DoublePrecision
             Double jkk = quaternion.J * kk;
             Double kkk = quaternion.K * kk;
 
-            result.M00 = one - (jjj + kkk);
-            result.M10 = ijj - ukk;
-            result.M20 = ikk + ujj;
-            result.M30 = zero;
+            result.R0C0 = one - (jjj + kkk);
+            result.R1C0 = ijj - ukk;
+            result.R2C0 = ikk + ujj;
+            result.R3C0 = zero;
 
-            result.M01 = ijj + ukk;
-            result.M11 = one - (iii + kkk);
-            result.M21 = jkk - uii;
-            result.M31 = zero;
+            result.R0C1 = ijj + ukk;
+            result.R1C1 = one - (iii + kkk);
+            result.R2C1 = jkk - uii;
+            result.R3C1 = zero;
 
-            result.M02 = ikk - ujj;
-            result.M12 = jkk + uii;
-            result.M22 = one - (iii + jjj);
-            result.M32 = zero;
+            result.R0C2 = ikk - ujj;
+            result.R1C2 = jkk + uii;
+            result.R2C2 = one - (iii + jjj);
+            result.R3C2 = zero;
 
-            result.M03 = zero;
-            result.M13 = zero;
-            result.M23 = zero;
-            result.M33 = one;
+            result.R0C3 = zero;
+            result.R1C3 = zero;
+            result.R2C3 = zero;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -15907,34 +15907,34 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Transpose (ref Matrix44 input, out Matrix44 output)
         {
-            output.M00 = input.M00;
-            output.M11 = input.M11;
-            output.M22 = input.M22;
-            output.M33 = input.M33;
+            output.R0C0 = input.R0C0;
+            output.R1C1 = input.R1C1;
+            output.R2C2 = input.R2C2;
+            output.R3C3 = input.R3C3;
 
-            Double temp = input.M01;
-            output.M01 = input.M10;
-            output.M10 = temp;
+            Double temp = input.R0C1;
+            output.R0C1 = input.R1C0;
+            output.R1C0 = temp;
 
-            temp = input.M02;
-            output.M02 = input.M20;
-            output.M20 = temp;
+            temp = input.R0C2;
+            output.R0C2 = input.R2C0;
+            output.R2C0 = temp;
 
-            temp = input.M03;
-            output.M03 = input.M30;
-            output.M30 = temp;
+            temp = input.R0C3;
+            output.R0C3 = input.R3C0;
+            output.R3C0 = temp;
 
-            temp = input.M12;
-            output.M12 = input.M21;
-            output.M21 = temp;
+            temp = input.R1C2;
+            output.R1C2 = input.R2C1;
+            output.R2C1 = temp;
 
-            temp = input.M13;
-            output.M13 = input.M31;
-            output.M31 = temp;
+            temp = input.R1C3;
+            output.R1C3 = input.R3C1;
+            output.R3C1 = temp;
 
-            temp =  input.M23;
-            output.M23 = input.M32;
-            output.M32 = temp;
+            temp =  input.R2C3;
+            output.R2C3 = input.R3C2;
+            output.R3C2 = temp;
         }
 
         /// <summary>
@@ -15942,13 +15942,13 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
         {
-            translation.X = matrix.M30;
-            translation.Y = matrix.M31;
-            translation.Z = matrix.M32;
+            translation.X = matrix.R3C0;
+            translation.Y = matrix.R3C1;
+            translation.Z = matrix.R3C2;
 
-            Vector3 a = new Vector3(matrix.M00, matrix.M10, matrix.M20);
-            Vector3 b = new Vector3(matrix.M01, matrix.M11, matrix.M21);
-            Vector3 c = new Vector3(matrix.M02, matrix.M12, matrix.M22);
+            Vector3 a = new Vector3(matrix.R0C0, matrix.R1C0, matrix.R2C0);
+            Vector3 b = new Vector3(matrix.R0C1, matrix.R1C1, matrix.R2C1);
+            Vector3 c = new Vector3(matrix.R0C2, matrix.R1C2, matrix.R2C2);
 
             Double aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
             Double bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;
@@ -15994,22 +15994,22 @@ namespace Abacus.DoublePrecision
             out Boolean result)
         {
             result =
-                (value1.M00 == value2.M00) &&
-                (value1.M11 == value2.M11) &&
-                (value1.M22 == value2.M22) &&
-                (value1.M33 == value2.M33) &&
-                (value1.M01 == value2.M01) &&
-                (value1.M02 == value2.M02) &&
-                (value1.M03 == value2.M03) &&
-                (value1.M10 == value2.M10) &&
-                (value1.M12 == value2.M12) &&
-                (value1.M13 == value2.M13) &&
-                (value1.M20 == value2.M20) &&
-                (value1.M21 == value2.M21) &&
-                (value1.M23 == value2.M23) &&
-                (value1.M30 == value2.M30) &&
-                (value1.M31 == value2.M31) &&
-                (value1.M32 == value2.M32);
+                (value1.R0C0 == value2.R0C0) &&
+                (value1.R1C1 == value2.R1C1) &&
+                (value1.R2C2 == value2.R2C2) &&
+                (value1.R3C3 == value2.R3C3) &&
+                (value1.R0C1 == value2.R0C1) &&
+                (value1.R0C2 == value2.R0C2) &&
+                (value1.R0C3 == value2.R0C3) &&
+                (value1.R1C0 == value2.R1C0) &&
+                (value1.R1C2 == value2.R1C2) &&
+                (value1.R1C3 == value2.R1C3) &&
+                (value1.R2C0 == value2.R2C0) &&
+                (value1.R2C1 == value2.R2C1) &&
+                (value1.R2C3 == value2.R2C3) &&
+                (value1.R3C0 == value2.R3C0) &&
+                (value1.R3C1 == value2.R3C1) &&
+                (value1.R3C2 == value2.R3C2);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -16022,22 +16022,22 @@ namespace Abacus.DoublePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 + matrix2.M00;
-            result.M01 = matrix1.M01 + matrix2.M01;
-            result.M02 = matrix1.M02 + matrix2.M02;
-            result.M03 = matrix1.M03 + matrix2.M03;
-            result.M10 = matrix1.M10 + matrix2.M10;
-            result.M11 = matrix1.M11 + matrix2.M11;
-            result.M12 = matrix1.M12 + matrix2.M12;
-            result.M13 = matrix1.M13 + matrix2.M13;
-            result.M20 = matrix1.M20 + matrix2.M20;
-            result.M21 = matrix1.M21 + matrix2.M21;
-            result.M22 = matrix1.M22 + matrix2.M22;
-            result.M23 = matrix1.M23 + matrix2.M23;
-            result.M30 = matrix1.M30 + matrix2.M30;
-            result.M31 = matrix1.M31 + matrix2.M31;
-            result.M32 = matrix1.M32 + matrix2.M32;
-            result.M33 = matrix1.M33 + matrix2.M33;
+            result.R0C0 = matrix1.R0C0 + matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 + matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 + matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 + matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 + matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 + matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 + matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 + matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 + matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 + matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 + matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 + matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 + matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 + matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 + matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 + matrix2.R3C3;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -16050,22 +16050,22 @@ namespace Abacus.DoublePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 - matrix2.M00;
-            result.M01 = matrix1.M01 - matrix2.M01;
-            result.M02 = matrix1.M02 - matrix2.M02;
-            result.M03 = matrix1.M03 - matrix2.M03;
-            result.M10 = matrix1.M10 - matrix2.M10;
-            result.M11 = matrix1.M11 - matrix2.M11;
-            result.M12 = matrix1.M12 - matrix2.M12;
-            result.M13 = matrix1.M13 - matrix2.M13;
-            result.M20 = matrix1.M20 - matrix2.M20;
-            result.M21 = matrix1.M21 - matrix2.M21;
-            result.M22 = matrix1.M22 - matrix2.M22;
-            result.M23 = matrix1.M23 - matrix2.M23;
-            result.M30 = matrix1.M30 - matrix2.M30;
-            result.M31 = matrix1.M31 - matrix2.M31;
-            result.M32 = matrix1.M32 - matrix2.M32;
-            result.M33 = matrix1.M33 - matrix2.M33;
+            result.R0C0 = matrix1.R0C0 - matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 - matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 - matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 - matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 - matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 - matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 - matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 - matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 - matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 - matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 - matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 - matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 - matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 - matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 - matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 - matrix2.R3C3;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -16075,22 +16075,22 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Negate (ref Matrix44 matrix, out Matrix44 result)
         {
-            result.M00 = -matrix.M00;
-            result.M01 = -matrix.M01;
-            result.M02 = -matrix.M02;
-            result.M03 = -matrix.M03;
-            result.M10 = -matrix.M10;
-            result.M11 = -matrix.M11;
-            result.M12 = -matrix.M12;
-            result.M13 = -matrix.M13;
-            result.M20 = -matrix.M20;
-            result.M21 = -matrix.M21;
-            result.M22 = -matrix.M22;
-            result.M23 = -matrix.M23;
-            result.M30 = -matrix.M30;
-            result.M31 = -matrix.M31;
-            result.M32 = -matrix.M32;
-            result.M33 = -matrix.M33;
+            result.R0C0 = -matrix.R0C0;
+            result.R0C1 = -matrix.R0C1;
+            result.R0C2 = -matrix.R0C2;
+            result.R0C3 = -matrix.R0C3;
+            result.R1C0 = -matrix.R1C0;
+            result.R1C1 = -matrix.R1C1;
+            result.R1C2 = -matrix.R1C2;
+            result.R1C3 = -matrix.R1C3;
+            result.R2C0 = -matrix.R2C0;
+            result.R2C1 = -matrix.R2C1;
+            result.R2C2 = -matrix.R2C2;
+            result.R2C3 = -matrix.R2C3;
+            result.R3C0 = -matrix.R3C0;
+            result.R3C1 = -matrix.R3C1;
+            result.R3C2 = -matrix.R3C2;
+            result.R3C3 = -matrix.R3C3;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -16103,101 +16103,101 @@ namespace Abacus.DoublePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 =
-                (matrix1.M00 * matrix2.M00) +
-                (matrix1.M01 * matrix2.M10) +
-                (matrix1.M02 * matrix2.M20) +
-                (matrix1.M03 * matrix2.M30);
+            result.R0C0 =
+                (matrix1.R0C0 * matrix2.R0C0) +
+                (matrix1.R0C1 * matrix2.R1C0) +
+                (matrix1.R0C2 * matrix2.R2C0) +
+                (matrix1.R0C3 * matrix2.R3C0);
 
-            result.M01 =
-                (matrix1.M00 * matrix2.M01) +
-                (matrix1.M01 * matrix2.M11) +
-                (matrix1.M02 * matrix2.M21) +
-                (matrix1.M03 * matrix2.M31);
+            result.R0C1 =
+                (matrix1.R0C0 * matrix2.R0C1) +
+                (matrix1.R0C1 * matrix2.R1C1) +
+                (matrix1.R0C2 * matrix2.R2C1) +
+                (matrix1.R0C3 * matrix2.R3C1);
 
-            result.M02 =
-                (matrix1.M00 * matrix2.M02) +
-                (matrix1.M01 * matrix2.M12) +
-                (matrix1.M02 * matrix2.M22) +
-                (matrix1.M03 * matrix2.M32);
+            result.R0C2 =
+                (matrix1.R0C0 * matrix2.R0C2) +
+                (matrix1.R0C1 * matrix2.R1C2) +
+                (matrix1.R0C2 * matrix2.R2C2) +
+                (matrix1.R0C3 * matrix2.R3C2);
 
-            result.M03 =
-                (matrix1.M00 * matrix2.M03) +
-                (matrix1.M01 * matrix2.M13) +
-                (matrix1.M02 * matrix2.M23) +
-                (matrix1.M03 * matrix2.M33);
+            result.R0C3 =
+                (matrix1.R0C0 * matrix2.R0C3) +
+                (matrix1.R0C1 * matrix2.R1C3) +
+                (matrix1.R0C2 * matrix2.R2C3) +
+                (matrix1.R0C3 * matrix2.R3C3);
 
-            result.M10 =
-                (matrix1.M10 * matrix2.M00) +
-                (matrix1.M11 * matrix2.M10) +
-                (matrix1.M12 * matrix2.M20) +
-                (matrix1.M13 * matrix2.M30);
+            result.R1C0 =
+                (matrix1.R1C0 * matrix2.R0C0) +
+                (matrix1.R1C1 * matrix2.R1C0) +
+                (matrix1.R1C2 * matrix2.R2C0) +
+                (matrix1.R1C3 * matrix2.R3C0);
 
-            result.M11 =
-                (matrix1.M10 * matrix2.M01) +
-                (matrix1.M11 * matrix2.M11) +
-                (matrix1.M12 * matrix2.M21) +
-                (matrix1.M13 * matrix2.M31);
+            result.R1C1 =
+                (matrix1.R1C0 * matrix2.R0C1) +
+                (matrix1.R1C1 * matrix2.R1C1) +
+                (matrix1.R1C2 * matrix2.R2C1) +
+                (matrix1.R1C3 * matrix2.R3C1);
 
-            result.M12 =
-                (matrix1.M10 * matrix2.M02) +
-                (matrix1.M11 * matrix2.M12) +
-                (matrix1.M12 * matrix2.M22) +
-                (matrix1.M13 * matrix2.M32);
+            result.R1C2 =
+                (matrix1.R1C0 * matrix2.R0C2) +
+                (matrix1.R1C1 * matrix2.R1C2) +
+                (matrix1.R1C2 * matrix2.R2C2) +
+                (matrix1.R1C3 * matrix2.R3C2);
 
-            result.M13 =
-                (matrix1.M10 * matrix2.M03) +
-                (matrix1.M11 * matrix2.M13) +
-                (matrix1.M12 * matrix2.M23) +
-                (matrix1.M13 * matrix2.M33);
+            result.R1C3 =
+                (matrix1.R1C0 * matrix2.R0C3) +
+                (matrix1.R1C1 * matrix2.R1C3) +
+                (matrix1.R1C2 * matrix2.R2C3) +
+                (matrix1.R1C3 * matrix2.R3C3);
 
-            result.M20 =
-                (matrix1.M20 * matrix2.M00) +
-                (matrix1.M21 * matrix2.M10) +
-                (matrix1.M22 * matrix2.M20) +
-                (matrix1.M23 * matrix2.M30);
+            result.R2C0 =
+                (matrix1.R2C0 * matrix2.R0C0) +
+                (matrix1.R2C1 * matrix2.R1C0) +
+                (matrix1.R2C2 * matrix2.R2C0) +
+                (matrix1.R2C3 * matrix2.R3C0);
 
-            result.M21 =
-                (matrix1.M20 * matrix2.M01) +
-                (matrix1.M21 * matrix2.M11) +
-                (matrix1.M22 * matrix2.M21) +
-                (matrix1.M23 * matrix2.M31);
+            result.R2C1 =
+                (matrix1.R2C0 * matrix2.R0C1) +
+                (matrix1.R2C1 * matrix2.R1C1) +
+                (matrix1.R2C2 * matrix2.R2C1) +
+                (matrix1.R2C3 * matrix2.R3C1);
 
-            result.M22 =
-                (matrix1.M20 * matrix2.M02) +
-                (matrix1.M21 * matrix2.M12) +
-                (matrix1.M22 * matrix2.M22) +
-                (matrix1.M23 * matrix2.M32);
+            result.R2C2 =
+                (matrix1.R2C0 * matrix2.R0C2) +
+                (matrix1.R2C1 * matrix2.R1C2) +
+                (matrix1.R2C2 * matrix2.R2C2) +
+                (matrix1.R2C3 * matrix2.R3C2);
 
-            result.M23 =
-                (matrix1.M20 * matrix2.M03) +
-                (matrix1.M21 * matrix2.M13) +
-                (matrix1.M22 * matrix2.M23) +
-                (matrix1.M23 * matrix2.M33);
+            result.R2C3 =
+                (matrix1.R2C0 * matrix2.R0C3) +
+                (matrix1.R2C1 * matrix2.R1C3) +
+                (matrix1.R2C2 * matrix2.R2C3) +
+                (matrix1.R2C3 * matrix2.R3C3);
 
-            result.M30 =
-                (matrix1.M30 * matrix2.M00) +
-                (matrix1.M31 * matrix2.M10) +
-                (matrix1.M32 * matrix2.M20) +
-                (matrix1.M33 * matrix2.M30);
+            result.R3C0 =
+                (matrix1.R3C0 * matrix2.R0C0) +
+                (matrix1.R3C1 * matrix2.R1C0) +
+                (matrix1.R3C2 * matrix2.R2C0) +
+                (matrix1.R3C3 * matrix2.R3C0);
 
-            result.M31 =
-                (matrix1.M30 * matrix2.M01) +
-                (matrix1.M31 * matrix2.M11) +
-                (matrix1.M32 * matrix2.M21) +
-                (matrix1.M33 * matrix2.M31);
+            result.R3C1 =
+                (matrix1.R3C0 * matrix2.R0C1) +
+                (matrix1.R3C1 * matrix2.R1C1) +
+                (matrix1.R3C2 * matrix2.R2C1) +
+                (matrix1.R3C3 * matrix2.R3C1);
 
-            result.M32 =
-                (matrix1.M30 * matrix2.M02) +
-                (matrix1.M31 * matrix2.M12) +
-                (matrix1.M32 * matrix2.M22) +
-                (matrix1.M33 * matrix2.M32);
+            result.R3C2 =
+                (matrix1.R3C0 * matrix2.R0C2) +
+                (matrix1.R3C1 * matrix2.R1C2) +
+                (matrix1.R3C2 * matrix2.R2C2) +
+                (matrix1.R3C3 * matrix2.R3C2);
 
-            result.M33 =
-                (matrix1.M30 * matrix2.M03) +
-                (matrix1.M31 * matrix2.M13) +
-                (matrix1.M32 * matrix2.M23) +
-                (matrix1.M33 * matrix2.M33);
+            result.R3C3 =
+                (matrix1.R3C0 * matrix2.R0C3) +
+                (matrix1.R3C1 * matrix2.R1C3) +
+                (matrix1.R3C2 * matrix2.R2C3) +
+                (matrix1.R3C3 * matrix2.R3C3);
         }
 
         /// <summary>
@@ -16209,22 +16209,22 @@ namespace Abacus.DoublePrecision
             ref Double scaleFactor,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 * scaleFactor;
-            result.M01 = matrix1.M01 * scaleFactor;
-            result.M02 = matrix1.M02 * scaleFactor;
-            result.M03 = matrix1.M03 * scaleFactor;
-            result.M10 = matrix1.M10 * scaleFactor;
-            result.M11 = matrix1.M11 * scaleFactor;
-            result.M12 = matrix1.M12 * scaleFactor;
-            result.M13 = matrix1.M13 * scaleFactor;
-            result.M20 = matrix1.M20 * scaleFactor;
-            result.M21 = matrix1.M21 * scaleFactor;
-            result.M22 = matrix1.M22 * scaleFactor;
-            result.M23 = matrix1.M23 * scaleFactor;
-            result.M30 = matrix1.M30 * scaleFactor;
-            result.M31 = matrix1.M31 * scaleFactor;
-            result.M32 = matrix1.M32 * scaleFactor;
-            result.M33 = matrix1.M33 * scaleFactor;
+            result.R0C0 = matrix1.R0C0 * scaleFactor;
+            result.R0C1 = matrix1.R0C1 * scaleFactor;
+            result.R0C2 = matrix1.R0C2 * scaleFactor;
+            result.R0C3 = matrix1.R0C3 * scaleFactor;
+            result.R1C0 = matrix1.R1C0 * scaleFactor;
+            result.R1C1 = matrix1.R1C1 * scaleFactor;
+            result.R1C2 = matrix1.R1C2 * scaleFactor;
+            result.R1C3 = matrix1.R1C3 * scaleFactor;
+            result.R2C0 = matrix1.R2C0 * scaleFactor;
+            result.R2C1 = matrix1.R2C1 * scaleFactor;
+            result.R2C2 = matrix1.R2C2 * scaleFactor;
+            result.R2C3 = matrix1.R2C3 * scaleFactor;
+            result.R3C0 = matrix1.R3C0 * scaleFactor;
+            result.R3C1 = matrix1.R3C1 * scaleFactor;
+            result.R3C2 = matrix1.R3C2 * scaleFactor;
+            result.R3C3 = matrix1.R3C3 * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -16237,22 +16237,22 @@ namespace Abacus.DoublePrecision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 / matrix2.M00;
-            result.M01 = matrix1.M01 / matrix2.M01;
-            result.M02 = matrix1.M02 / matrix2.M02;
-            result.M03 = matrix1.M03 / matrix2.M03;
-            result.M10 = matrix1.M10 / matrix2.M10;
-            result.M11 = matrix1.M11 / matrix2.M11;
-            result.M12 = matrix1.M12 / matrix2.M12;
-            result.M13 = matrix1.M13 / matrix2.M13;
-            result.M20 = matrix1.M20 / matrix2.M20;
-            result.M21 = matrix1.M21 / matrix2.M21;
-            result.M22 = matrix1.M22 / matrix2.M22;
-            result.M23 = matrix1.M23 / matrix2.M23;
-            result.M30 = matrix1.M30 / matrix2.M30;
-            result.M31 = matrix1.M31 / matrix2.M31;
-            result.M32 = matrix1.M32 / matrix2.M32;
-            result.M33 = matrix1.M33 / matrix2.M33;
+            result.R0C0 = matrix1.R0C0 / matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 / matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 / matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 / matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 / matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 / matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 / matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 / matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 / matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 / matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 / matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 / matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 / matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 / matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 / matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 / matrix2.R3C3;
         }
 
         /// <summary>
@@ -16264,22 +16264,22 @@ namespace Abacus.DoublePrecision
             ref Double divider,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 / divider;
-            result.M01 = matrix1.M01 / divider;
-            result.M02 = matrix1.M02 / divider;
-            result.M03 = matrix1.M03 / divider;
-            result.M10 = matrix1.M10 / divider;
-            result.M11 = matrix1.M11 / divider;
-            result.M12 = matrix1.M12 / divider;
-            result.M13 = matrix1.M13 / divider;
-            result.M20 = matrix1.M20 / divider;
-            result.M21 = matrix1.M21 / divider;
-            result.M22 = matrix1.M22 / divider;
-            result.M23 = matrix1.M23 / divider;
-            result.M30 = matrix1.M30 / divider;
-            result.M31 = matrix1.M31 / divider;
-            result.M32 = matrix1.M32 / divider;
-            result.M33 = matrix1.M33 / divider;
+            result.R0C0 = matrix1.R0C0 / divider;
+            result.R0C1 = matrix1.R0C1 / divider;
+            result.R0C2 = matrix1.R0C2 / divider;
+            result.R0C3 = matrix1.R0C3 / divider;
+            result.R1C0 = matrix1.R1C0 / divider;
+            result.R1C1 = matrix1.R1C1 / divider;
+            result.R1C2 = matrix1.R1C2 / divider;
+            result.R1C3 = matrix1.R1C3 / divider;
+            result.R2C0 = matrix1.R2C0 / divider;
+            result.R2C1 = matrix1.R2C1 / divider;
+            result.R2C2 = matrix1.R2C2 / divider;
+            result.R2C3 = matrix1.R2C3 / divider;
+            result.R3C0 = matrix1.R3C0 / divider;
+            result.R3C1 = matrix1.R3C1 / divider;
+            result.R3C2 = matrix1.R3C2 / divider;
+            result.R3C3 = matrix1.R3C3 / divider;
         }
 
         /// <summary>
@@ -16299,22 +16299,22 @@ namespace Abacus.DoublePrecision
                 throw new ArgumentOutOfRangeException();
             }
 
-            result.M00 = matrix1.M00 + ((matrix2.M00 - matrix1.M00) * amount);
-            result.M01 = matrix1.M01 + ((matrix2.M01 - matrix1.M01) * amount);
-            result.M02 = matrix1.M02 + ((matrix2.M02 - matrix1.M02) * amount);
-            result.M03 = matrix1.M03 + ((matrix2.M03 - matrix1.M03) * amount);
-            result.M10 = matrix1.M10 + ((matrix2.M10 - matrix1.M10) * amount);
-            result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
-            result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
-            result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
-            result.M20 = matrix1.M20 + ((matrix2.M20 - matrix1.M20) * amount);
-            result.M21 = matrix1.M21 + ((matrix2.M21 - matrix1.M21) * amount);
-            result.M22 = matrix1.M22 + ((matrix2.M22 - matrix1.M22) * amount);
-            result.M23 = matrix1.M23 + ((matrix2.M23 - matrix1.M23) * amount);
-            result.M30 = matrix1.M30 + ((matrix2.M30 - matrix1.M30) * amount);
-            result.M31 = matrix1.M31 + ((matrix2.M31 - matrix1.M31) * amount);
-            result.M32 = matrix1.M32 + ((matrix2.M32 - matrix1.M32) * amount);
-            result.M33 = matrix1.M33 + ((matrix2.M33 - matrix1.M33) * amount);
+            result.R0C0 = matrix1.R0C0 + ((matrix2.R0C0 - matrix1.R0C0) * amount);
+            result.R0C1 = matrix1.R0C1 + ((matrix2.R0C1 - matrix1.R0C1) * amount);
+            result.R0C2 = matrix1.R0C2 + ((matrix2.R0C2 - matrix1.R0C2) * amount);
+            result.R0C3 = matrix1.R0C3 + ((matrix2.R0C3 - matrix1.R0C3) * amount);
+            result.R1C0 = matrix1.R1C0 + ((matrix2.R1C0 - matrix1.R1C0) * amount);
+            result.R1C1 = matrix1.R1C1 + ((matrix2.R1C1 - matrix1.R1C1) * amount);
+            result.R1C2 = matrix1.R1C2 + ((matrix2.R1C2 - matrix1.R1C2) * amount);
+            result.R1C3 = matrix1.R1C3 + ((matrix2.R1C3 - matrix1.R1C3) * amount);
+            result.R2C0 = matrix1.R2C0 + ((matrix2.R2C0 - matrix1.R2C0) * amount);
+            result.R2C1 = matrix1.R2C1 + ((matrix2.R2C1 - matrix1.R2C1) * amount);
+            result.R2C2 = matrix1.R2C2 + ((matrix2.R2C2 - matrix1.R2C2) * amount);
+            result.R2C3 = matrix1.R2C3 + ((matrix2.R2C3 - matrix1.R2C3) * amount);
+            result.R3C0 = matrix1.R3C0 + ((matrix2.R3C0 - matrix1.R3C0) * amount);
+            result.R3C1 = matrix1.R3C1 + ((matrix2.R3C1 - matrix1.R3C1) * amount);
+            result.R3C2 = matrix1.R3C2 + ((matrix2.R3C2 - matrix1.R3C2) * amount);
+            result.R3C3 = matrix1.R3C3 + ((matrix2.R3C3 - matrix1.R3C3) * amount);
         }
 
 
@@ -16907,43 +16907,43 @@ namespace Abacus.DoublePrecision
             Double half; RealMaths.Half(out half);
             Double one = 1;
 
-            Double num8 = (matrix.M00 + matrix.M11) + matrix.M22;
+            Double num8 = (matrix.R0C0 + matrix.R1C1) + matrix.R2C2;
 
             if (num8 > zero)
             {
                 Double num = RealMaths.Sqrt (num8 + one);
                 result.U = num * half;
                 num = half / num;
-                result.I = (matrix.M12 - matrix.M21) * num;
-                result.J = (matrix.M20 - matrix.M02) * num;
-                result.K = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.R1C2 - matrix.R2C1) * num;
+                result.J = (matrix.R2C0 - matrix.R0C2) * num;
+                result.K = (matrix.R0C1 - matrix.R1C0) * num;
             }
-            else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
+            else if ((matrix.R0C0 >= matrix.R1C1) && (matrix.R0C0 >= matrix.R2C2))
             {
-                Double num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
+                Double num7 = RealMaths.Sqrt (((one + matrix.R0C0) - matrix.R1C1) - matrix.R2C2);
                 Double num4 = half / num7;
                 result.I = half * num7;
-                result.J = (matrix.M01 + matrix.M10) * num4;
-                result.K = (matrix.M02 + matrix.M20) * num4;
-                result.U = (matrix.M12 - matrix.M21) * num4;
+                result.J = (matrix.R0C1 + matrix.R1C0) * num4;
+                result.K = (matrix.R0C2 + matrix.R2C0) * num4;
+                result.U = (matrix.R1C2 - matrix.R2C1) * num4;
             }
-            else if (matrix.M11 > matrix.M22)
+            else if (matrix.R1C1 > matrix.R2C2)
             {
-                Double num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
+                Double num6 =RealMaths.Sqrt (((one + matrix.R1C1) - matrix.R0C0) - matrix.R2C2);
                 Double num3 = half / num6;
-                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.I = (matrix.R1C0 + matrix.R0C1) * num3;
                 result.J = half * num6;
-                result.K = (matrix.M21 + matrix.M12) * num3;
-                result.U = (matrix.M20 - matrix.M02) * num3;
+                result.K = (matrix.R2C1 + matrix.R1C2) * num3;
+                result.U = (matrix.R2C0 - matrix.R0C2) * num3;
             }
             else
             {
-                Double num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
+                Double num5 = RealMaths.Sqrt (((one + matrix.R2C2) - matrix.R0C0) - matrix.R1C1);
                 Double num2 = half / num5;
-                result.I = (matrix.M20 + matrix.M02) * num2;
-                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.I = (matrix.R2C0 + matrix.R0C2) * num2;
+                result.J = (matrix.R2C1 + matrix.R1C2) * num2;
                 result.K = half * num5;
-                result.U = (matrix.M01 - matrix.M10) * num2;
+                result.U = (matrix.R0C1 - matrix.R1C0) * num2;
             }
         }
         /// <summary>
@@ -18009,14 +18009,14 @@ namespace Abacus.DoublePrecision
             ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             Double x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                matrix.M30;
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                matrix.R3C0;
 
             Double y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                matrix.M31;
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                matrix.R3C1;
 
             result.X = x;
             result.Y = y;
@@ -18067,8 +18067,8 @@ namespace Abacus.DoublePrecision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Double x = (normal.X * matrix.M00) + (normal.Y * matrix.M10);
-            Double y = (normal.X * matrix.M01) + (normal.Y * matrix.M11);
+            Double x = (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0);
+            Double y = (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1);
 
             result.X = x;
             result.Y = y;
@@ -19315,19 +19315,19 @@ namespace Abacus.DoublePrecision
             out Vector3 result)
         {
             Double x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                (vector.Z * matrix.M20) + matrix.M30;
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                (vector.Z * matrix.R2C0) + matrix.R3C0;
 
             Double y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                (vector.Z * matrix.M21) + matrix.M31;
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                (vector.Z * matrix.R2C1) + matrix.R3C1;
 
             Double z =
-                (vector.X * matrix.M02) +
-                (vector.Y * matrix.M12) +
-                (vector.Z * matrix.M22) + matrix.M32;
+                (vector.X * matrix.R0C2) +
+                (vector.Y * matrix.R1C2) +
+                (vector.Z * matrix.R2C2) + matrix.R3C2;
 
             result.X = x;
             result.Y = y;
@@ -19396,19 +19396,19 @@ namespace Abacus.DoublePrecision
             }
 
             Double x =
-                (normal.X * matrix.M00) +
-                (normal.Y * matrix.M10) +
-                (normal.Z * matrix.M20);
+                (normal.X * matrix.R0C0) +
+                (normal.Y * matrix.R1C0) +
+                (normal.Z * matrix.R2C0);
 
             Double y =
-                (normal.X * matrix.M01) +
-                (normal.Y * matrix.M11) +
-                (normal.Z * matrix.M21);
+                (normal.X * matrix.R0C1) +
+                (normal.Y * matrix.R1C1) +
+                (normal.Z * matrix.R2C1);
 
             Double z =
-                (normal.X * matrix.M02) +
-                (normal.Y * matrix.M12) +
-                (normal.Z * matrix.M22);
+                (normal.X * matrix.R0C2) +
+                (normal.Y * matrix.R1C2) +
+                (normal.Z * matrix.R2C2);
 
             result.X = x;
             result.Y = y;
@@ -20633,28 +20633,28 @@ namespace Abacus.DoublePrecision
             out Vector4 result)
         {
             Double x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                (vector.Z * matrix.M20) +
-                (vector.W * matrix.M30);
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                (vector.Z * matrix.R2C0) +
+                (vector.W * matrix.R3C0);
 
             Double y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                (vector.Z * matrix.M21) +
-                (vector.W * matrix.M31);
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                (vector.Z * matrix.R2C1) +
+                (vector.W * matrix.R3C1);
 
             Double z =
-                (vector.X * matrix.M02) +
-                (vector.Y * matrix.M12) +
-                (vector.Z * matrix.M22) +
-                (vector.W * matrix.M32);
+                (vector.X * matrix.R0C2) +
+                (vector.Y * matrix.R1C2) +
+                (vector.Z * matrix.R2C2) +
+                (vector.W * matrix.R3C2);
 
             Double w =
-                (vector.X * matrix.M03) +
-                (vector.Y * matrix.M13) +
-                (vector.Z * matrix.M23) +
-                (vector.W * matrix.M33);
+                (vector.X * matrix.R0C3) +
+                (vector.Y * matrix.R1C3) +
+                (vector.Z * matrix.R2C3) +
+                (vector.W * matrix.R3C3);
 
             result.X = x;
             result.Y = y;
@@ -20726,20 +20726,20 @@ namespace Abacus.DoublePrecision
             }
 
             Double x =
-                (normal.X * matrix.M00) + (normal.Y * matrix.M10) +
-                (normal.Z * matrix.M20) + (normal.W * matrix.M30);
+                (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0) +
+                (normal.Z * matrix.R2C0) + (normal.W * matrix.R3C0);
 
             Double y =
-                (normal.X * matrix.M01) + (normal.Y * matrix.M11) +
-                (normal.Z * matrix.M21) + (normal.W * matrix.M31);
+                (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1) +
+                (normal.Z * matrix.R2C1) + (normal.W * matrix.R3C1);
 
             Double z =
-                (normal.X * matrix.M02) + (normal.Y * matrix.M12) +
-                (normal.Z * matrix.M22) + (normal.W * matrix.M32);
+                (normal.X * matrix.R0C2) + (normal.Y * matrix.R1C2) +
+                (normal.Z * matrix.R2C2) + (normal.W * matrix.R3C2);
 
             Double w =
-                (normal.X * matrix.M03) + (normal.Y * matrix.M13) +
-                (normal.Z * matrix.M23) + (normal.W * matrix.M33);
+                (normal.X * matrix.R0C3) + (normal.Y * matrix.R1C3) +
+                (normal.Z * matrix.R2C3) + (normal.W * matrix.R3C3);
 
             result.X = x;
             result.Y = y;
@@ -21708,82 +21708,82 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Gets or sets (Row 0, Column 0) of the Matrix44.
         /// </summary>
-        public Fixed32 M00;
+        public Fixed32 R0C0;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 1) of the Matrix44.
         /// </summary>
-        public Fixed32 M01;
+        public Fixed32 R0C1;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 2) of the Matrix44.
         /// </summary>
-        public Fixed32 M02;
+        public Fixed32 R0C2;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 3) of the Matrix44.
         /// </summary>
-        public Fixed32 M03;
+        public Fixed32 R0C3;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 0) of the Matrix44.
         /// </summary>
-        public Fixed32 M10;
+        public Fixed32 R1C0;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 1) of the Matrix44.
         /// </summary>
-        public Fixed32 M11;
+        public Fixed32 R1C1;
 
         /// <summary>
         /// Gets or sets (ow 1, Column 2) of the Matrix44.
         /// </summary>
-        public Fixed32 M12;
+        public Fixed32 R1C2;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 3) of the Matrix44.
         /// </summary>
-        public Fixed32 M13;
+        public Fixed32 R1C3;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 0) of the Matrix44.
         /// </summary>
-        public Fixed32 M20;
+        public Fixed32 R2C0;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 1) of the Matrix44.
         /// </summary>
-        public Fixed32 M21;
+        public Fixed32 R2C1;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 2) of the Matrix44.
         /// </summary>
-        public Fixed32 M22;
+        public Fixed32 R2C2;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 3) of the Matrix44.
         /// </summary>
-        public Fixed32 M23;
+        public Fixed32 R2C3;
 
         /// <summary>
         /// Gets or sets (Row 3, Column 0) of the Matrix44.
         /// </summary>
-        public Fixed32 M30; // translation.x
+        public Fixed32 R3C0; // translation.x
 
         /// <summary>
         /// Gets or sets (Row 3, Column 1) of the Matrix44.
         /// </summary>
-        public Fixed32 M31; // translation.y
+        public Fixed32 R3C1; // translation.y
 
         /// <summary>
         /// Gets or sets (Row 3, Column 2) of the Matrix44.
         /// </summary>
-        public Fixed32 M32; // translation.z
+        public Fixed32 R3C2; // translation.z
 
         /// <summary>
         /// Gets or sets (Row 3, Column 3) of the Matrix44.
         /// </summary>
-        public Fixed32 M33;
+        public Fixed32 R3C3;
 
         /// <summary>
         /// Initilises a new instance of Matrix44 from sixteen Fixed32
@@ -21807,22 +21807,22 @@ namespace Abacus.Fixed32Precision
             Fixed32 m32,
             Fixed32 m33)
         {
-            this.M00 = m00;
-            this.M01 = m01;
-            this.M02 = m02;
-            this.M03 = m03;
-            this.M10 = m10;
-            this.M11 = m11;
-            this.M12 = m12;
-            this.M13 = m13;
-            this.M20 = m20;
-            this.M21 = m21;
-            this.M22 = m22;
-            this.M23 = m23;
-            this.M30 = m30;
-            this.M31 = m31;
-            this.M32 = m32;
-            this.M33 = m33;
+            this.R0C0 = m00;
+            this.R0C1 = m01;
+            this.R0C2 = m02;
+            this.R0C3 = m03;
+            this.R1C0 = m10;
+            this.R1C1 = m11;
+            this.R1C2 = m12;
+            this.R1C3 = m13;
+            this.R2C0 = m20;
+            this.R2C1 = m21;
+            this.R2C2 = m22;
+            this.R2C3 = m23;
+            this.R3C0 = m30;
+            this.R3C1 = m31;
+            this.R3C2 = m32;
+            this.R3C3 = m33;
         }
 
         /// <summary>
@@ -21836,36 +21836,36 @@ namespace Abacus.Fixed32Precision
                     string.Format ("{{M00:{0} M01:{1} M02:{2} M03:{3}}} ",
                         new Object[]
                         {
-                            this.M00.ToString (),
-                            this.M01.ToString (),
-                            this.M02.ToString (),
-                            this.M03.ToString ()
+                            this.R0C0.ToString (),
+                            this.R0C1.ToString (),
+                            this.R0C2.ToString (),
+                            this.R0C3.ToString ()
                         }
                     ) +
                     string.Format ("{{M10:{0} M11:{1} M12:{2} M13:{3}}} ",
                         new Object[]
                         {
-                            this.M10.ToString (),
-                            this.M11.ToString (),
-                            this.M12.ToString (),
-                            this.M13.ToString ()
+                            this.R1C0.ToString (),
+                            this.R1C1.ToString (),
+                            this.R1C2.ToString (),
+                            this.R1C3.ToString ()
                             }
                     ) +
                     string.Format ("{{M20:{0} M21:{1} M22:{2} M23:{3}}} ",
                         new Object[]
                         {
-                            this.M20.ToString (),
-                            this.M21.ToString (),
-                            this.M22.ToString (),
-                            this.M23.ToString ()
+                            this.R2C0.ToString (),
+                            this.R2C1.ToString (),
+                            this.R2C2.ToString (),
+                            this.R2C3.ToString ()
                         }
                     ) + string.Format ("{{M30:{0} M31:{1} M32:{2} M33:{3}}} ",
                     new Object[]
                     {
-                        this.M30.ToString (),
-                        this.M31.ToString (),
-                        this.M32.ToString (),
-                        this.M33.ToString ()
+                        this.R3C0.ToString (),
+                        this.R3C1.ToString (),
+                        this.R3C2.ToString (),
+                        this.R3C3.ToString ()
                     }
                     ) +
                     "}"
@@ -21878,22 +21878,22 @@ namespace Abacus.Fixed32Precision
         public override Int32 GetHashCode ()
         {
             return
-                this.M00.GetHashCode () +
-                this.M01.GetHashCode () +
-                this.M02.GetHashCode () +
-                this.M03.GetHashCode () +
-                this.M10.GetHashCode () +
-                this.M11.GetHashCode () +
-                this.M12.GetHashCode () +
-                this.M13.GetHashCode () +
-                this.M20.GetHashCode () +
-                this.M21.GetHashCode () +
-                this.M22.GetHashCode () +
-                this.M23.GetHashCode () +
-                this.M30.GetHashCode () +
-                this.M31.GetHashCode () +
-                this.M32.GetHashCode () +
-                this.M33.GetHashCode ();
+                this.R0C0.GetHashCode () +
+                this.R0C1.GetHashCode () +
+                this.R0C2.GetHashCode () +
+                this.R0C3.GetHashCode () +
+                this.R1C0.GetHashCode () +
+                this.R1C1.GetHashCode () +
+                this.R1C2.GetHashCode () +
+                this.R1C3.GetHashCode () +
+                this.R2C0.GetHashCode () +
+                this.R2C1.GetHashCode () +
+                this.R2C2.GetHashCode () +
+                this.R2C3.GetHashCode () +
+                this.R3C0.GetHashCode () +
+                this.R3C1.GetHashCode () +
+                this.R3C2.GetHashCode () +
+                this.R3C3.GetHashCode ();
         }
 
         /// <summary>
@@ -21921,22 +21921,22 @@ namespace Abacus.Fixed32Precision
         public Boolean Equals (Matrix44 other)
         {
             return
-                (this.M00 == other.M00) &&
-                (this.M11 == other.M11) &&
-                (this.M22 == other.M22) &&
-                (this.M33 == other.M33) &&
-                (this.M01 == other.M01) &&
-                (this.M02 == other.M02) &&
-                (this.M03 == other.M03) &&
-                (this.M10 == other.M10) &&
-                (this.M12 == other.M12) &&
-                (this.M13 == other.M13) &&
-                (this.M20 == other.M20) &&
-                (this.M21 == other.M21) &&
-                (this.M23 == other.M23) &&
-                (this.M30 == other.M30) &&
-                (this.M31 == other.M31) &&
-                (this.M32 == other.M32);
+                (this.R0C0 == other.R0C0) &&
+                (this.R1C1 == other.R1C1) &&
+                (this.R2C2 == other.R2C2) &&
+                (this.R3C3 == other.R3C3) &&
+                (this.R0C1 == other.R0C1) &&
+                (this.R0C2 == other.R0C2) &&
+                (this.R0C3 == other.R0C3) &&
+                (this.R1C0 == other.R1C0) &&
+                (this.R1C2 == other.R1C2) &&
+                (this.R1C3 == other.R1C3) &&
+                (this.R2C0 == other.R2C0) &&
+                (this.R2C1 == other.R2C1) &&
+                (this.R2C3 == other.R2C3) &&
+                (this.R3C0 == other.R3C0) &&
+                (this.R3C1 == other.R3C1) &&
+                (this.R3C2 == other.R3C2);
         }
 
         #endregion
@@ -21949,16 +21949,16 @@ namespace Abacus.Fixed32Precision
             get
             {
                 Vector3 vector;
-                vector.X = this.M10;
-                vector.Y = this.M11;
-                vector.Z = this.M12;
+                vector.X = this.R1C0;
+                vector.Y = this.R1C1;
+                vector.Z = this.R1C2;
                 return vector;
             }
             set
             {
-                this.M10 = value.X;
-                this.M11 = value.Y;
-                this.M12 = value.Z;
+                this.R1C0 = value.X;
+                this.R1C1 = value.Y;
+                this.R1C2 = value.Z;
             }
         }
 
@@ -21970,16 +21970,16 @@ namespace Abacus.Fixed32Precision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M10;
-                vector.Y = -this.M11;
-                vector.Z = -this.M12;
+                vector.X = -this.R1C0;
+                vector.Y = -this.R1C1;
+                vector.Z = -this.R1C2;
                 return vector;
             }
             set
             {
-                this.M10 = -value.X;
-                this.M11 = -value.Y;
-                this.M12 = -value.Z;
+                this.R1C0 = -value.X;
+                this.R1C1 = -value.Y;
+                this.R1C2 = -value.Z;
             }
         }
 
@@ -21991,16 +21991,16 @@ namespace Abacus.Fixed32Precision
             get
             {
                 Vector3 vector;
-                vector.X = this.M00;
-                vector.Y = this.M01;
-                vector.Z = this.M02;
+                vector.X = this.R0C0;
+                vector.Y = this.R0C1;
+                vector.Z = this.R0C2;
                 return vector;
             }
             set
             {
-                this.M00 = value.X;
-                this.M01 = value.Y;
-                this.M02 = value.Z;
+                this.R0C0 = value.X;
+                this.R0C1 = value.Y;
+                this.R0C2 = value.Z;
             }
         }
 
@@ -22012,16 +22012,16 @@ namespace Abacus.Fixed32Precision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M00;
-                vector.Y = -this.M01;
-                vector.Z = -this.M02;
+                vector.X = -this.R0C0;
+                vector.Y = -this.R0C1;
+                vector.Z = -this.R0C2;
                 return vector;
             }
             set
             {
-                this.M00 = -value.X;
-                this.M01 = -value.Y;
-                this.M02 = -value.Z;
+                this.R0C0 = -value.X;
+                this.R0C1 = -value.Y;
+                this.R0C2 = -value.Z;
             }
         }
 
@@ -22033,16 +22033,16 @@ namespace Abacus.Fixed32Precision
             get
             {
                 Vector3 vector;
-                vector.X = -this.M20;
-                vector.Y = -this.M21;
-                vector.Z = -this.M22;
+                vector.X = -this.R2C0;
+                vector.Y = -this.R2C1;
+                vector.Z = -this.R2C2;
                 return vector;
             }
             set
             {
-                this.M20 = -value.X;
-                this.M21 = -value.Y;
-                this.M22 = -value.Z;
+                this.R2C0 = -value.X;
+                this.R2C1 = -value.Y;
+                this.R2C2 = -value.Z;
             }
         }
 
@@ -22054,16 +22054,16 @@ namespace Abacus.Fixed32Precision
             get
             {
                 Vector3 vector;
-                vector.X = this.M20;
-                vector.Y = this.M21;
-                vector.Z = this.M22;
+                vector.X = this.R2C0;
+                vector.Y = this.R2C1;
+                vector.Z = this.R2C2;
                 return vector;
             }
             set
             {
-                this.M20 = value.X;
-                this.M21 = value.Y;
-                this.M22 = value.Z;
+                this.R2C0 = value.X;
+                this.R2C1 = value.Y;
+                this.R2C2 = value.Z;
             }
         }
 
@@ -22075,16 +22075,16 @@ namespace Abacus.Fixed32Precision
             get
             {
                 Vector3 vector;
-                vector.X = this.M30;
-                vector.Y = this.M31;
-                vector.Z = this.M32;
+                vector.X = this.R3C0;
+                vector.Y = this.R3C1;
+                vector.Z = this.R3C2;
                 return vector;
             }
             set
             {
-                this.M30 = value.X;
-                this.M31 = value.Y;
-                this.M32 = value.Z;
+                this.R3C0 = value.X;
+                this.R3C1 = value.Y;
+                this.R3C2 = value.Z;
             }
         }
 
@@ -22122,22 +22122,22 @@ namespace Abacus.Fixed32Precision
             ref Vector3 position,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22149,22 +22149,22 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 zPosition,
             out Matrix44 result)
         {
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = xPosition;
-            result.M31 = yPosition;
-            result.M32 = zPosition;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = xPosition;
+            result.R3C1 = yPosition;
+            result.R3C2 = zPosition;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22176,22 +22176,22 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 zScale,
             out Matrix44 result)
         {
-            result.M00 = xScale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = yScale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = zScale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = xScale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = yScale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = zScale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22201,22 +22201,22 @@ namespace Abacus.Fixed32Precision
             ref Vector3 scales,
             out Matrix44 result)
         {
-            result.M00 = scales.X;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scales.Y;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scales.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scales.X;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scales.Y;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scales.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22226,22 +22226,22 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 scale,
             out Matrix44 result)
         {
-            result.M00 = scale;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = scale;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = scale;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = scale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22254,22 +22254,22 @@ namespace Abacus.Fixed32Precision
             Fixed32 cos = RealMaths.Cos (radians);
             Fixed32 sin = RealMaths.Sin (radians);
 
-            result.M00 = 1;
-            result.M01 = 0;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = cos;
-            result.M12 = sin;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = -sin;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = cos;
+            result.R1C2 = sin;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = -sin;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22282,22 +22282,22 @@ namespace Abacus.Fixed32Precision
             Fixed32 cos = RealMaths.Cos (radians);
             Fixed32 sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = 0;
-            result.M02 = -sin;
-            result.M03 = 0;
-            result.M10 = 0;
-            result.M11 = 1;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = sin;
-            result.M21 = 0;
-            result.M22 = cos;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = 0;
+            result.R0C2 = -sin;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = sin;
+            result.R2C1 = 0;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22310,22 +22310,22 @@ namespace Abacus.Fixed32Precision
             Fixed32 cos = RealMaths.Cos (radians);
             Fixed32 sin = RealMaths.Sin (radians);
 
-            result.M00 = cos;
-            result.M01 = sin;
-            result.M02 = 0;
-            result.M03 = 0;
-            result.M10 = -sin;
-            result.M11 = cos;
-            result.M12 = 0;
-            result.M13 = 0;
-            result.M20 = 0;
-            result.M21 = 0;
-            result.M22 = 1;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = cos;
+            result.R0C1 = sin;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = -sin;
+            result.R1C1 = cos;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22353,25 +22353,25 @@ namespace Abacus.Fixed32Precision
             Fixed32 xz = x * z;
             Fixed32 yz = y * z;
 
-            result.M00 = xx + (cos * (one - xx));
-            result.M01 = (xy - (cos * xy)) + (sin * z);
-            result.M02 = (xz - (cos * xz)) - (sin * y);
-            result.M03 = 0;
+            result.R0C0 = xx + (cos * (one - xx));
+            result.R0C1 = (xy - (cos * xy)) + (sin * z);
+            result.R0C2 = (xz - (cos * xz)) - (sin * y);
+            result.R0C3 = 0;
 
-            result.M10 = (xy - (cos * xy)) - (sin * z);
-            result.M11 = yy + (cos * (one - yy));
-            result.M12 = (yz - (cos * yz)) + (sin * x);
-            result.M13 = 0;
+            result.R1C0 = (xy - (cos * xy)) - (sin * z);
+            result.R1C1 = yy + (cos * (one - yy));
+            result.R1C2 = (yz - (cos * yz)) + (sin * x);
+            result.R1C3 = 0;
 
-            result.M20 = (xz - (cos * xz)) + (sin * y);
-            result.M21 = (yz - (cos * yz)) - (sin * x);
-            result.M22 = zz + (cos * (one - zz));
-            result.M23 = 0;
+            result.R2C0 = (xz - (cos * xz)) + (sin * y);
+            result.R2C1 = (yz - (cos * yz)) - (sin * x);
+            result.R2C2 = zz + (cos * (one - zz));
+            result.R2C3 = 0;
 
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = one;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -22392,22 +22392,22 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentException("The input vertors must be normalised.");
             }
 
-            result.M00 = right.X;
-            result.M01 = right.Y;
-            result.M02 = right.Z;
-            result.M03 = 0;
-            result.M10 = up.X;
-            result.M11 = up.Y;
-            result.M12 = up.Z;
-            result.M13 = 0;
-            result.M20 = backward.X;
-            result.M21 = backward.Y;
-            result.M22 = backward.Z;
-            result.M23 = 0;
-            result.M30 = 0;
-            result.M31 = 0;
-            result.M32 = 0;
-            result.M33 = 1;
+            result.R0C0 = right.X;
+            result.R0C1 = right.Y;
+            result.R0C2 = right.Z;
+            result.R0C3 = 0;
+            result.R1C0 = up.X;
+            result.R1C1 = up.Y;
+            result.R1C2 = up.Z;
+            result.R1C3 = 0;
+            result.R2C0 = backward.X;
+            result.R2C1 = backward.Y;
+            result.R2C2 = backward.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22429,9 +22429,9 @@ namespace Abacus.Fixed32Precision
 
             Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
 
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
         }
 
         /// <summary>
@@ -22461,22 +22461,22 @@ namespace Abacus.Fixed32Precision
 
             Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
 
-            result.M00 = vector2.X;
-            result.M01 = vector2.Y;
-            result.M02 = vector2.Z;
-            result.M03 = 0;
-            result.M10 = vector3.X;
-            result.M11 = vector3.Y;
-            result.M12 = vector3.Z;
-            result.M13 = 0;
-            result.M20 = vector.X;
-            result.M21 = vector.Y;
-            result.M22 = vector.Z;
-            result.M23 = 0;
-            result.M30 = position.X;
-            result.M31 = position.Y;
-            result.M32 = position.Z;
-            result.M33 = 1;
+            result.R0C0 = vector2.X;
+            result.R0C1 = vector2.Y;
+            result.R0C2 = vector2.Z;
+            result.R0C3 = 0;
+            result.R1C0 = vector3.X;
+            result.R1C1 = vector3.Y;
+            result.R1C2 = vector3.Z;
+            result.R1C3 = 0;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
         }
 
         /// <summary>
@@ -22510,25 +22510,25 @@ namespace Abacus.Fixed32Precision
             Fixed32 jkk = quaternion.J * kk;
             Fixed32 kkk = quaternion.K * kk;
 
-            result.M00 = one - (jjj + kkk);
-            result.M10 = ijj - ukk;
-            result.M20 = ikk + ujj;
-            result.M30 = zero;
+            result.R0C0 = one - (jjj + kkk);
+            result.R1C0 = ijj - ukk;
+            result.R2C0 = ikk + ujj;
+            result.R3C0 = zero;
 
-            result.M01 = ijj + ukk;
-            result.M11 = one - (iii + kkk);
-            result.M21 = jkk - uii;
-            result.M31 = zero;
+            result.R0C1 = ijj + ukk;
+            result.R1C1 = one - (iii + kkk);
+            result.R2C1 = jkk - uii;
+            result.R3C1 = zero;
 
-            result.M02 = ikk - ujj;
-            result.M12 = jkk + uii;
-            result.M22 = one - (iii + jjj);
-            result.M32 = zero;
+            result.R0C2 = ikk - ujj;
+            result.R1C2 = jkk + uii;
+            result.R2C2 = one - (iii + jjj);
+            result.R3C2 = zero;
 
-            result.M03 = zero;
-            result.M13 = zero;
-            result.M23 = zero;
-            result.M33 = one;
+            result.R0C3 = zero;
+            result.R1C3 = zero;
+            result.R2C3 = zero;
+            result.R3C3 = one;
         }
 
         /// <summary>
@@ -22584,34 +22584,34 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Transpose (ref Matrix44 input, out Matrix44 output)
         {
-            output.M00 = input.M00;
-            output.M11 = input.M11;
-            output.M22 = input.M22;
-            output.M33 = input.M33;
+            output.R0C0 = input.R0C0;
+            output.R1C1 = input.R1C1;
+            output.R2C2 = input.R2C2;
+            output.R3C3 = input.R3C3;
 
-            Fixed32 temp = input.M01;
-            output.M01 = input.M10;
-            output.M10 = temp;
+            Fixed32 temp = input.R0C1;
+            output.R0C1 = input.R1C0;
+            output.R1C0 = temp;
 
-            temp = input.M02;
-            output.M02 = input.M20;
-            output.M20 = temp;
+            temp = input.R0C2;
+            output.R0C2 = input.R2C0;
+            output.R2C0 = temp;
 
-            temp = input.M03;
-            output.M03 = input.M30;
-            output.M30 = temp;
+            temp = input.R0C3;
+            output.R0C3 = input.R3C0;
+            output.R3C0 = temp;
 
-            temp = input.M12;
-            output.M12 = input.M21;
-            output.M21 = temp;
+            temp = input.R1C2;
+            output.R1C2 = input.R2C1;
+            output.R2C1 = temp;
 
-            temp = input.M13;
-            output.M13 = input.M31;
-            output.M31 = temp;
+            temp = input.R1C3;
+            output.R1C3 = input.R3C1;
+            output.R3C1 = temp;
 
-            temp =  input.M23;
-            output.M23 = input.M32;
-            output.M32 = temp;
+            temp =  input.R2C3;
+            output.R2C3 = input.R3C2;
+            output.R3C2 = temp;
         }
 
         /// <summary>
@@ -22619,13 +22619,13 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
         {
-            translation.X = matrix.M30;
-            translation.Y = matrix.M31;
-            translation.Z = matrix.M32;
+            translation.X = matrix.R3C0;
+            translation.Y = matrix.R3C1;
+            translation.Z = matrix.R3C2;
 
-            Vector3 a = new Vector3(matrix.M00, matrix.M10, matrix.M20);
-            Vector3 b = new Vector3(matrix.M01, matrix.M11, matrix.M21);
-            Vector3 c = new Vector3(matrix.M02, matrix.M12, matrix.M22);
+            Vector3 a = new Vector3(matrix.R0C0, matrix.R1C0, matrix.R2C0);
+            Vector3 b = new Vector3(matrix.R0C1, matrix.R1C1, matrix.R2C1);
+            Vector3 c = new Vector3(matrix.R0C2, matrix.R1C2, matrix.R2C2);
 
             Fixed32 aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
             Fixed32 bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;
@@ -22671,22 +22671,22 @@ namespace Abacus.Fixed32Precision
             out Boolean result)
         {
             result =
-                (value1.M00 == value2.M00) &&
-                (value1.M11 == value2.M11) &&
-                (value1.M22 == value2.M22) &&
-                (value1.M33 == value2.M33) &&
-                (value1.M01 == value2.M01) &&
-                (value1.M02 == value2.M02) &&
-                (value1.M03 == value2.M03) &&
-                (value1.M10 == value2.M10) &&
-                (value1.M12 == value2.M12) &&
-                (value1.M13 == value2.M13) &&
-                (value1.M20 == value2.M20) &&
-                (value1.M21 == value2.M21) &&
-                (value1.M23 == value2.M23) &&
-                (value1.M30 == value2.M30) &&
-                (value1.M31 == value2.M31) &&
-                (value1.M32 == value2.M32);
+                (value1.R0C0 == value2.R0C0) &&
+                (value1.R1C1 == value2.R1C1) &&
+                (value1.R2C2 == value2.R2C2) &&
+                (value1.R3C3 == value2.R3C3) &&
+                (value1.R0C1 == value2.R0C1) &&
+                (value1.R0C2 == value2.R0C2) &&
+                (value1.R0C3 == value2.R0C3) &&
+                (value1.R1C0 == value2.R1C0) &&
+                (value1.R1C2 == value2.R1C2) &&
+                (value1.R1C3 == value2.R1C3) &&
+                (value1.R2C0 == value2.R2C0) &&
+                (value1.R2C1 == value2.R2C1) &&
+                (value1.R2C3 == value2.R2C3) &&
+                (value1.R3C0 == value2.R3C0) &&
+                (value1.R3C1 == value2.R3C1) &&
+                (value1.R3C2 == value2.R3C2);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -22699,22 +22699,22 @@ namespace Abacus.Fixed32Precision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 + matrix2.M00;
-            result.M01 = matrix1.M01 + matrix2.M01;
-            result.M02 = matrix1.M02 + matrix2.M02;
-            result.M03 = matrix1.M03 + matrix2.M03;
-            result.M10 = matrix1.M10 + matrix2.M10;
-            result.M11 = matrix1.M11 + matrix2.M11;
-            result.M12 = matrix1.M12 + matrix2.M12;
-            result.M13 = matrix1.M13 + matrix2.M13;
-            result.M20 = matrix1.M20 + matrix2.M20;
-            result.M21 = matrix1.M21 + matrix2.M21;
-            result.M22 = matrix1.M22 + matrix2.M22;
-            result.M23 = matrix1.M23 + matrix2.M23;
-            result.M30 = matrix1.M30 + matrix2.M30;
-            result.M31 = matrix1.M31 + matrix2.M31;
-            result.M32 = matrix1.M32 + matrix2.M32;
-            result.M33 = matrix1.M33 + matrix2.M33;
+            result.R0C0 = matrix1.R0C0 + matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 + matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 + matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 + matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 + matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 + matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 + matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 + matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 + matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 + matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 + matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 + matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 + matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 + matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 + matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 + matrix2.R3C3;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -22727,22 +22727,22 @@ namespace Abacus.Fixed32Precision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 - matrix2.M00;
-            result.M01 = matrix1.M01 - matrix2.M01;
-            result.M02 = matrix1.M02 - matrix2.M02;
-            result.M03 = matrix1.M03 - matrix2.M03;
-            result.M10 = matrix1.M10 - matrix2.M10;
-            result.M11 = matrix1.M11 - matrix2.M11;
-            result.M12 = matrix1.M12 - matrix2.M12;
-            result.M13 = matrix1.M13 - matrix2.M13;
-            result.M20 = matrix1.M20 - matrix2.M20;
-            result.M21 = matrix1.M21 - matrix2.M21;
-            result.M22 = matrix1.M22 - matrix2.M22;
-            result.M23 = matrix1.M23 - matrix2.M23;
-            result.M30 = matrix1.M30 - matrix2.M30;
-            result.M31 = matrix1.M31 - matrix2.M31;
-            result.M32 = matrix1.M32 - matrix2.M32;
-            result.M33 = matrix1.M33 - matrix2.M33;
+            result.R0C0 = matrix1.R0C0 - matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 - matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 - matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 - matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 - matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 - matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 - matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 - matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 - matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 - matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 - matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 - matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 - matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 - matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 - matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 - matrix2.R3C3;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -22752,22 +22752,22 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Negate (ref Matrix44 matrix, out Matrix44 result)
         {
-            result.M00 = -matrix.M00;
-            result.M01 = -matrix.M01;
-            result.M02 = -matrix.M02;
-            result.M03 = -matrix.M03;
-            result.M10 = -matrix.M10;
-            result.M11 = -matrix.M11;
-            result.M12 = -matrix.M12;
-            result.M13 = -matrix.M13;
-            result.M20 = -matrix.M20;
-            result.M21 = -matrix.M21;
-            result.M22 = -matrix.M22;
-            result.M23 = -matrix.M23;
-            result.M30 = -matrix.M30;
-            result.M31 = -matrix.M31;
-            result.M32 = -matrix.M32;
-            result.M33 = -matrix.M33;
+            result.R0C0 = -matrix.R0C0;
+            result.R0C1 = -matrix.R0C1;
+            result.R0C2 = -matrix.R0C2;
+            result.R0C3 = -matrix.R0C3;
+            result.R1C0 = -matrix.R1C0;
+            result.R1C1 = -matrix.R1C1;
+            result.R1C2 = -matrix.R1C2;
+            result.R1C3 = -matrix.R1C3;
+            result.R2C0 = -matrix.R2C0;
+            result.R2C1 = -matrix.R2C1;
+            result.R2C2 = -matrix.R2C2;
+            result.R2C3 = -matrix.R2C3;
+            result.R3C0 = -matrix.R3C0;
+            result.R3C1 = -matrix.R3C1;
+            result.R3C2 = -matrix.R3C2;
+            result.R3C3 = -matrix.R3C3;
         }
 
         // Multiplication Operators //----------------------------------------//
@@ -22780,101 +22780,101 @@ namespace Abacus.Fixed32Precision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 =
-                (matrix1.M00 * matrix2.M00) +
-                (matrix1.M01 * matrix2.M10) +
-                (matrix1.M02 * matrix2.M20) +
-                (matrix1.M03 * matrix2.M30);
+            result.R0C0 =
+                (matrix1.R0C0 * matrix2.R0C0) +
+                (matrix1.R0C1 * matrix2.R1C0) +
+                (matrix1.R0C2 * matrix2.R2C0) +
+                (matrix1.R0C3 * matrix2.R3C0);
 
-            result.M01 =
-                (matrix1.M00 * matrix2.M01) +
-                (matrix1.M01 * matrix2.M11) +
-                (matrix1.M02 * matrix2.M21) +
-                (matrix1.M03 * matrix2.M31);
+            result.R0C1 =
+                (matrix1.R0C0 * matrix2.R0C1) +
+                (matrix1.R0C1 * matrix2.R1C1) +
+                (matrix1.R0C2 * matrix2.R2C1) +
+                (matrix1.R0C3 * matrix2.R3C1);
 
-            result.M02 =
-                (matrix1.M00 * matrix2.M02) +
-                (matrix1.M01 * matrix2.M12) +
-                (matrix1.M02 * matrix2.M22) +
-                (matrix1.M03 * matrix2.M32);
+            result.R0C2 =
+                (matrix1.R0C0 * matrix2.R0C2) +
+                (matrix1.R0C1 * matrix2.R1C2) +
+                (matrix1.R0C2 * matrix2.R2C2) +
+                (matrix1.R0C3 * matrix2.R3C2);
 
-            result.M03 =
-                (matrix1.M00 * matrix2.M03) +
-                (matrix1.M01 * matrix2.M13) +
-                (matrix1.M02 * matrix2.M23) +
-                (matrix1.M03 * matrix2.M33);
+            result.R0C3 =
+                (matrix1.R0C0 * matrix2.R0C3) +
+                (matrix1.R0C1 * matrix2.R1C3) +
+                (matrix1.R0C2 * matrix2.R2C3) +
+                (matrix1.R0C3 * matrix2.R3C3);
 
-            result.M10 =
-                (matrix1.M10 * matrix2.M00) +
-                (matrix1.M11 * matrix2.M10) +
-                (matrix1.M12 * matrix2.M20) +
-                (matrix1.M13 * matrix2.M30);
+            result.R1C0 =
+                (matrix1.R1C0 * matrix2.R0C0) +
+                (matrix1.R1C1 * matrix2.R1C0) +
+                (matrix1.R1C2 * matrix2.R2C0) +
+                (matrix1.R1C3 * matrix2.R3C0);
 
-            result.M11 =
-                (matrix1.M10 * matrix2.M01) +
-                (matrix1.M11 * matrix2.M11) +
-                (matrix1.M12 * matrix2.M21) +
-                (matrix1.M13 * matrix2.M31);
+            result.R1C1 =
+                (matrix1.R1C0 * matrix2.R0C1) +
+                (matrix1.R1C1 * matrix2.R1C1) +
+                (matrix1.R1C2 * matrix2.R2C1) +
+                (matrix1.R1C3 * matrix2.R3C1);
 
-            result.M12 =
-                (matrix1.M10 * matrix2.M02) +
-                (matrix1.M11 * matrix2.M12) +
-                (matrix1.M12 * matrix2.M22) +
-                (matrix1.M13 * matrix2.M32);
+            result.R1C2 =
+                (matrix1.R1C0 * matrix2.R0C2) +
+                (matrix1.R1C1 * matrix2.R1C2) +
+                (matrix1.R1C2 * matrix2.R2C2) +
+                (matrix1.R1C3 * matrix2.R3C2);
 
-            result.M13 =
-                (matrix1.M10 * matrix2.M03) +
-                (matrix1.M11 * matrix2.M13) +
-                (matrix1.M12 * matrix2.M23) +
-                (matrix1.M13 * matrix2.M33);
+            result.R1C3 =
+                (matrix1.R1C0 * matrix2.R0C3) +
+                (matrix1.R1C1 * matrix2.R1C3) +
+                (matrix1.R1C2 * matrix2.R2C3) +
+                (matrix1.R1C3 * matrix2.R3C3);
 
-            result.M20 =
-                (matrix1.M20 * matrix2.M00) +
-                (matrix1.M21 * matrix2.M10) +
-                (matrix1.M22 * matrix2.M20) +
-                (matrix1.M23 * matrix2.M30);
+            result.R2C0 =
+                (matrix1.R2C0 * matrix2.R0C0) +
+                (matrix1.R2C1 * matrix2.R1C0) +
+                (matrix1.R2C2 * matrix2.R2C0) +
+                (matrix1.R2C3 * matrix2.R3C0);
 
-            result.M21 =
-                (matrix1.M20 * matrix2.M01) +
-                (matrix1.M21 * matrix2.M11) +
-                (matrix1.M22 * matrix2.M21) +
-                (matrix1.M23 * matrix2.M31);
+            result.R2C1 =
+                (matrix1.R2C0 * matrix2.R0C1) +
+                (matrix1.R2C1 * matrix2.R1C1) +
+                (matrix1.R2C2 * matrix2.R2C1) +
+                (matrix1.R2C3 * matrix2.R3C1);
 
-            result.M22 =
-                (matrix1.M20 * matrix2.M02) +
-                (matrix1.M21 * matrix2.M12) +
-                (matrix1.M22 * matrix2.M22) +
-                (matrix1.M23 * matrix2.M32);
+            result.R2C2 =
+                (matrix1.R2C0 * matrix2.R0C2) +
+                (matrix1.R2C1 * matrix2.R1C2) +
+                (matrix1.R2C2 * matrix2.R2C2) +
+                (matrix1.R2C3 * matrix2.R3C2);
 
-            result.M23 =
-                (matrix1.M20 * matrix2.M03) +
-                (matrix1.M21 * matrix2.M13) +
-                (matrix1.M22 * matrix2.M23) +
-                (matrix1.M23 * matrix2.M33);
+            result.R2C3 =
+                (matrix1.R2C0 * matrix2.R0C3) +
+                (matrix1.R2C1 * matrix2.R1C3) +
+                (matrix1.R2C2 * matrix2.R2C3) +
+                (matrix1.R2C3 * matrix2.R3C3);
 
-            result.M30 =
-                (matrix1.M30 * matrix2.M00) +
-                (matrix1.M31 * matrix2.M10) +
-                (matrix1.M32 * matrix2.M20) +
-                (matrix1.M33 * matrix2.M30);
+            result.R3C0 =
+                (matrix1.R3C0 * matrix2.R0C0) +
+                (matrix1.R3C1 * matrix2.R1C0) +
+                (matrix1.R3C2 * matrix2.R2C0) +
+                (matrix1.R3C3 * matrix2.R3C0);
 
-            result.M31 =
-                (matrix1.M30 * matrix2.M01) +
-                (matrix1.M31 * matrix2.M11) +
-                (matrix1.M32 * matrix2.M21) +
-                (matrix1.M33 * matrix2.M31);
+            result.R3C1 =
+                (matrix1.R3C0 * matrix2.R0C1) +
+                (matrix1.R3C1 * matrix2.R1C1) +
+                (matrix1.R3C2 * matrix2.R2C1) +
+                (matrix1.R3C3 * matrix2.R3C1);
 
-            result.M32 =
-                (matrix1.M30 * matrix2.M02) +
-                (matrix1.M31 * matrix2.M12) +
-                (matrix1.M32 * matrix2.M22) +
-                (matrix1.M33 * matrix2.M32);
+            result.R3C2 =
+                (matrix1.R3C0 * matrix2.R0C2) +
+                (matrix1.R3C1 * matrix2.R1C2) +
+                (matrix1.R3C2 * matrix2.R2C2) +
+                (matrix1.R3C3 * matrix2.R3C2);
 
-            result.M33 =
-                (matrix1.M30 * matrix2.M03) +
-                (matrix1.M31 * matrix2.M13) +
-                (matrix1.M32 * matrix2.M23) +
-                (matrix1.M33 * matrix2.M33);
+            result.R3C3 =
+                (matrix1.R3C0 * matrix2.R0C3) +
+                (matrix1.R3C1 * matrix2.R1C3) +
+                (matrix1.R3C2 * matrix2.R2C3) +
+                (matrix1.R3C3 * matrix2.R3C3);
         }
 
         /// <summary>
@@ -22886,22 +22886,22 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 scaleFactor,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 * scaleFactor;
-            result.M01 = matrix1.M01 * scaleFactor;
-            result.M02 = matrix1.M02 * scaleFactor;
-            result.M03 = matrix1.M03 * scaleFactor;
-            result.M10 = matrix1.M10 * scaleFactor;
-            result.M11 = matrix1.M11 * scaleFactor;
-            result.M12 = matrix1.M12 * scaleFactor;
-            result.M13 = matrix1.M13 * scaleFactor;
-            result.M20 = matrix1.M20 * scaleFactor;
-            result.M21 = matrix1.M21 * scaleFactor;
-            result.M22 = matrix1.M22 * scaleFactor;
-            result.M23 = matrix1.M23 * scaleFactor;
-            result.M30 = matrix1.M30 * scaleFactor;
-            result.M31 = matrix1.M31 * scaleFactor;
-            result.M32 = matrix1.M32 * scaleFactor;
-            result.M33 = matrix1.M33 * scaleFactor;
+            result.R0C0 = matrix1.R0C0 * scaleFactor;
+            result.R0C1 = matrix1.R0C1 * scaleFactor;
+            result.R0C2 = matrix1.R0C2 * scaleFactor;
+            result.R0C3 = matrix1.R0C3 * scaleFactor;
+            result.R1C0 = matrix1.R1C0 * scaleFactor;
+            result.R1C1 = matrix1.R1C1 * scaleFactor;
+            result.R1C2 = matrix1.R1C2 * scaleFactor;
+            result.R1C3 = matrix1.R1C3 * scaleFactor;
+            result.R2C0 = matrix1.R2C0 * scaleFactor;
+            result.R2C1 = matrix1.R2C1 * scaleFactor;
+            result.R2C2 = matrix1.R2C2 * scaleFactor;
+            result.R2C3 = matrix1.R2C3 * scaleFactor;
+            result.R3C0 = matrix1.R3C0 * scaleFactor;
+            result.R3C1 = matrix1.R3C1 * scaleFactor;
+            result.R3C2 = matrix1.R3C2 * scaleFactor;
+            result.R3C3 = matrix1.R3C3 * scaleFactor;
         }
 
         // Division Operators //----------------------------------------------//
@@ -22914,22 +22914,22 @@ namespace Abacus.Fixed32Precision
             ref Matrix44 matrix2,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 / matrix2.M00;
-            result.M01 = matrix1.M01 / matrix2.M01;
-            result.M02 = matrix1.M02 / matrix2.M02;
-            result.M03 = matrix1.M03 / matrix2.M03;
-            result.M10 = matrix1.M10 / matrix2.M10;
-            result.M11 = matrix1.M11 / matrix2.M11;
-            result.M12 = matrix1.M12 / matrix2.M12;
-            result.M13 = matrix1.M13 / matrix2.M13;
-            result.M20 = matrix1.M20 / matrix2.M20;
-            result.M21 = matrix1.M21 / matrix2.M21;
-            result.M22 = matrix1.M22 / matrix2.M22;
-            result.M23 = matrix1.M23 / matrix2.M23;
-            result.M30 = matrix1.M30 / matrix2.M30;
-            result.M31 = matrix1.M31 / matrix2.M31;
-            result.M32 = matrix1.M32 / matrix2.M32;
-            result.M33 = matrix1.M33 / matrix2.M33;
+            result.R0C0 = matrix1.R0C0 / matrix2.R0C0;
+            result.R0C1 = matrix1.R0C1 / matrix2.R0C1;
+            result.R0C2 = matrix1.R0C2 / matrix2.R0C2;
+            result.R0C3 = matrix1.R0C3 / matrix2.R0C3;
+            result.R1C0 = matrix1.R1C0 / matrix2.R1C0;
+            result.R1C1 = matrix1.R1C1 / matrix2.R1C1;
+            result.R1C2 = matrix1.R1C2 / matrix2.R1C2;
+            result.R1C3 = matrix1.R1C3 / matrix2.R1C3;
+            result.R2C0 = matrix1.R2C0 / matrix2.R2C0;
+            result.R2C1 = matrix1.R2C1 / matrix2.R2C1;
+            result.R2C2 = matrix1.R2C2 / matrix2.R2C2;
+            result.R2C3 = matrix1.R2C3 / matrix2.R2C3;
+            result.R3C0 = matrix1.R3C0 / matrix2.R3C0;
+            result.R3C1 = matrix1.R3C1 / matrix2.R3C1;
+            result.R3C2 = matrix1.R3C2 / matrix2.R3C2;
+            result.R3C3 = matrix1.R3C3 / matrix2.R3C3;
         }
 
         /// <summary>
@@ -22941,22 +22941,22 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 divider,
             out Matrix44 result)
         {
-            result.M00 = matrix1.M00 / divider;
-            result.M01 = matrix1.M01 / divider;
-            result.M02 = matrix1.M02 / divider;
-            result.M03 = matrix1.M03 / divider;
-            result.M10 = matrix1.M10 / divider;
-            result.M11 = matrix1.M11 / divider;
-            result.M12 = matrix1.M12 / divider;
-            result.M13 = matrix1.M13 / divider;
-            result.M20 = matrix1.M20 / divider;
-            result.M21 = matrix1.M21 / divider;
-            result.M22 = matrix1.M22 / divider;
-            result.M23 = matrix1.M23 / divider;
-            result.M30 = matrix1.M30 / divider;
-            result.M31 = matrix1.M31 / divider;
-            result.M32 = matrix1.M32 / divider;
-            result.M33 = matrix1.M33 / divider;
+            result.R0C0 = matrix1.R0C0 / divider;
+            result.R0C1 = matrix1.R0C1 / divider;
+            result.R0C2 = matrix1.R0C2 / divider;
+            result.R0C3 = matrix1.R0C3 / divider;
+            result.R1C0 = matrix1.R1C0 / divider;
+            result.R1C1 = matrix1.R1C1 / divider;
+            result.R1C2 = matrix1.R1C2 / divider;
+            result.R1C3 = matrix1.R1C3 / divider;
+            result.R2C0 = matrix1.R2C0 / divider;
+            result.R2C1 = matrix1.R2C1 / divider;
+            result.R2C2 = matrix1.R2C2 / divider;
+            result.R2C3 = matrix1.R2C3 / divider;
+            result.R3C0 = matrix1.R3C0 / divider;
+            result.R3C1 = matrix1.R3C1 / divider;
+            result.R3C2 = matrix1.R3C2 / divider;
+            result.R3C3 = matrix1.R3C3 / divider;
         }
 
         /// <summary>
@@ -22976,22 +22976,22 @@ namespace Abacus.Fixed32Precision
                 throw new ArgumentOutOfRangeException();
             }
 
-            result.M00 = matrix1.M00 + ((matrix2.M00 - matrix1.M00) * amount);
-            result.M01 = matrix1.M01 + ((matrix2.M01 - matrix1.M01) * amount);
-            result.M02 = matrix1.M02 + ((matrix2.M02 - matrix1.M02) * amount);
-            result.M03 = matrix1.M03 + ((matrix2.M03 - matrix1.M03) * amount);
-            result.M10 = matrix1.M10 + ((matrix2.M10 - matrix1.M10) * amount);
-            result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
-            result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
-            result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
-            result.M20 = matrix1.M20 + ((matrix2.M20 - matrix1.M20) * amount);
-            result.M21 = matrix1.M21 + ((matrix2.M21 - matrix1.M21) * amount);
-            result.M22 = matrix1.M22 + ((matrix2.M22 - matrix1.M22) * amount);
-            result.M23 = matrix1.M23 + ((matrix2.M23 - matrix1.M23) * amount);
-            result.M30 = matrix1.M30 + ((matrix2.M30 - matrix1.M30) * amount);
-            result.M31 = matrix1.M31 + ((matrix2.M31 - matrix1.M31) * amount);
-            result.M32 = matrix1.M32 + ((matrix2.M32 - matrix1.M32) * amount);
-            result.M33 = matrix1.M33 + ((matrix2.M33 - matrix1.M33) * amount);
+            result.R0C0 = matrix1.R0C0 + ((matrix2.R0C0 - matrix1.R0C0) * amount);
+            result.R0C1 = matrix1.R0C1 + ((matrix2.R0C1 - matrix1.R0C1) * amount);
+            result.R0C2 = matrix1.R0C2 + ((matrix2.R0C2 - matrix1.R0C2) * amount);
+            result.R0C3 = matrix1.R0C3 + ((matrix2.R0C3 - matrix1.R0C3) * amount);
+            result.R1C0 = matrix1.R1C0 + ((matrix2.R1C0 - matrix1.R1C0) * amount);
+            result.R1C1 = matrix1.R1C1 + ((matrix2.R1C1 - matrix1.R1C1) * amount);
+            result.R1C2 = matrix1.R1C2 + ((matrix2.R1C2 - matrix1.R1C2) * amount);
+            result.R1C3 = matrix1.R1C3 + ((matrix2.R1C3 - matrix1.R1C3) * amount);
+            result.R2C0 = matrix1.R2C0 + ((matrix2.R2C0 - matrix1.R2C0) * amount);
+            result.R2C1 = matrix1.R2C1 + ((matrix2.R2C1 - matrix1.R2C1) * amount);
+            result.R2C2 = matrix1.R2C2 + ((matrix2.R2C2 - matrix1.R2C2) * amount);
+            result.R2C3 = matrix1.R2C3 + ((matrix2.R2C3 - matrix1.R2C3) * amount);
+            result.R3C0 = matrix1.R3C0 + ((matrix2.R3C0 - matrix1.R3C0) * amount);
+            result.R3C1 = matrix1.R3C1 + ((matrix2.R3C1 - matrix1.R3C1) * amount);
+            result.R3C2 = matrix1.R3C2 + ((matrix2.R3C2 - matrix1.R3C2) * amount);
+            result.R3C3 = matrix1.R3C3 + ((matrix2.R3C3 - matrix1.R3C3) * amount);
         }
 
 
@@ -23584,43 +23584,43 @@ namespace Abacus.Fixed32Precision
             Fixed32 half; RealMaths.Half(out half);
             Fixed32 one = 1;
 
-            Fixed32 num8 = (matrix.M00 + matrix.M11) + matrix.M22;
+            Fixed32 num8 = (matrix.R0C0 + matrix.R1C1) + matrix.R2C2;
 
             if (num8 > zero)
             {
                 Fixed32 num = RealMaths.Sqrt (num8 + one);
                 result.U = num * half;
                 num = half / num;
-                result.I = (matrix.M12 - matrix.M21) * num;
-                result.J = (matrix.M20 - matrix.M02) * num;
-                result.K = (matrix.M01 - matrix.M10) * num;
+                result.I = (matrix.R1C2 - matrix.R2C1) * num;
+                result.J = (matrix.R2C0 - matrix.R0C2) * num;
+                result.K = (matrix.R0C1 - matrix.R1C0) * num;
             }
-            else if ((matrix.M00 >= matrix.M11) && (matrix.M00 >= matrix.M22))
+            else if ((matrix.R0C0 >= matrix.R1C1) && (matrix.R0C0 >= matrix.R2C2))
             {
-                Fixed32 num7 = RealMaths.Sqrt (((one + matrix.M00) - matrix.M11) - matrix.M22);
+                Fixed32 num7 = RealMaths.Sqrt (((one + matrix.R0C0) - matrix.R1C1) - matrix.R2C2);
                 Fixed32 num4 = half / num7;
                 result.I = half * num7;
-                result.J = (matrix.M01 + matrix.M10) * num4;
-                result.K = (matrix.M02 + matrix.M20) * num4;
-                result.U = (matrix.M12 - matrix.M21) * num4;
+                result.J = (matrix.R0C1 + matrix.R1C0) * num4;
+                result.K = (matrix.R0C2 + matrix.R2C0) * num4;
+                result.U = (matrix.R1C2 - matrix.R2C1) * num4;
             }
-            else if (matrix.M11 > matrix.M22)
+            else if (matrix.R1C1 > matrix.R2C2)
             {
-                Fixed32 num6 =RealMaths.Sqrt (((one + matrix.M11) - matrix.M00) - matrix.M22);
+                Fixed32 num6 =RealMaths.Sqrt (((one + matrix.R1C1) - matrix.R0C0) - matrix.R2C2);
                 Fixed32 num3 = half / num6;
-                result.I = (matrix.M10 + matrix.M01) * num3;
+                result.I = (matrix.R1C0 + matrix.R0C1) * num3;
                 result.J = half * num6;
-                result.K = (matrix.M21 + matrix.M12) * num3;
-                result.U = (matrix.M20 - matrix.M02) * num3;
+                result.K = (matrix.R2C1 + matrix.R1C2) * num3;
+                result.U = (matrix.R2C0 - matrix.R0C2) * num3;
             }
             else
             {
-                Fixed32 num5 = RealMaths.Sqrt (((one + matrix.M22) - matrix.M00) - matrix.M11);
+                Fixed32 num5 = RealMaths.Sqrt (((one + matrix.R2C2) - matrix.R0C0) - matrix.R1C1);
                 Fixed32 num2 = half / num5;
-                result.I = (matrix.M20 + matrix.M02) * num2;
-                result.J = (matrix.M21 + matrix.M12) * num2;
+                result.I = (matrix.R2C0 + matrix.R0C2) * num2;
+                result.J = (matrix.R2C1 + matrix.R1C2) * num2;
                 result.K = half * num5;
-                result.U = (matrix.M01 - matrix.M10) * num2;
+                result.U = (matrix.R0C1 - matrix.R1C0) * num2;
             }
         }
         /// <summary>
@@ -24686,14 +24686,14 @@ namespace Abacus.Fixed32Precision
             ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
             Fixed32 x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                matrix.M30;
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                matrix.R3C0;
 
             Fixed32 y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                matrix.M31;
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                matrix.R3C1;
 
             result.X = x;
             result.Y = y;
@@ -24744,8 +24744,8 @@ namespace Abacus.Fixed32Precision
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            Fixed32 x = (normal.X * matrix.M00) + (normal.Y * matrix.M10);
-            Fixed32 y = (normal.X * matrix.M01) + (normal.Y * matrix.M11);
+            Fixed32 x = (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0);
+            Fixed32 y = (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1);
 
             result.X = x;
             result.Y = y;
@@ -25992,19 +25992,19 @@ namespace Abacus.Fixed32Precision
             out Vector3 result)
         {
             Fixed32 x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                (vector.Z * matrix.M20) + matrix.M30;
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                (vector.Z * matrix.R2C0) + matrix.R3C0;
 
             Fixed32 y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                (vector.Z * matrix.M21) + matrix.M31;
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                (vector.Z * matrix.R2C1) + matrix.R3C1;
 
             Fixed32 z =
-                (vector.X * matrix.M02) +
-                (vector.Y * matrix.M12) +
-                (vector.Z * matrix.M22) + matrix.M32;
+                (vector.X * matrix.R0C2) +
+                (vector.Y * matrix.R1C2) +
+                (vector.Z * matrix.R2C2) + matrix.R3C2;
 
             result.X = x;
             result.Y = y;
@@ -26073,19 +26073,19 @@ namespace Abacus.Fixed32Precision
             }
 
             Fixed32 x =
-                (normal.X * matrix.M00) +
-                (normal.Y * matrix.M10) +
-                (normal.Z * matrix.M20);
+                (normal.X * matrix.R0C0) +
+                (normal.Y * matrix.R1C0) +
+                (normal.Z * matrix.R2C0);
 
             Fixed32 y =
-                (normal.X * matrix.M01) +
-                (normal.Y * matrix.M11) +
-                (normal.Z * matrix.M21);
+                (normal.X * matrix.R0C1) +
+                (normal.Y * matrix.R1C1) +
+                (normal.Z * matrix.R2C1);
 
             Fixed32 z =
-                (normal.X * matrix.M02) +
-                (normal.Y * matrix.M12) +
-                (normal.Z * matrix.M22);
+                (normal.X * matrix.R0C2) +
+                (normal.Y * matrix.R1C2) +
+                (normal.Z * matrix.R2C2);
 
             result.X = x;
             result.Y = y;
@@ -27310,28 +27310,28 @@ namespace Abacus.Fixed32Precision
             out Vector4 result)
         {
             Fixed32 x =
-                (vector.X * matrix.M00) +
-                (vector.Y * matrix.M10) +
-                (vector.Z * matrix.M20) +
-                (vector.W * matrix.M30);
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                (vector.Z * matrix.R2C0) +
+                (vector.W * matrix.R3C0);
 
             Fixed32 y =
-                (vector.X * matrix.M01) +
-                (vector.Y * matrix.M11) +
-                (vector.Z * matrix.M21) +
-                (vector.W * matrix.M31);
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                (vector.Z * matrix.R2C1) +
+                (vector.W * matrix.R3C1);
 
             Fixed32 z =
-                (vector.X * matrix.M02) +
-                (vector.Y * matrix.M12) +
-                (vector.Z * matrix.M22) +
-                (vector.W * matrix.M32);
+                (vector.X * matrix.R0C2) +
+                (vector.Y * matrix.R1C2) +
+                (vector.Z * matrix.R2C2) +
+                (vector.W * matrix.R3C2);
 
             Fixed32 w =
-                (vector.X * matrix.M03) +
-                (vector.Y * matrix.M13) +
-                (vector.Z * matrix.M23) +
-                (vector.W * matrix.M33);
+                (vector.X * matrix.R0C3) +
+                (vector.Y * matrix.R1C3) +
+                (vector.Z * matrix.R2C3) +
+                (vector.W * matrix.R3C3);
 
             result.X = x;
             result.Y = y;
@@ -27403,20 +27403,20 @@ namespace Abacus.Fixed32Precision
             }
 
             Fixed32 x =
-                (normal.X * matrix.M00) + (normal.Y * matrix.M10) +
-                (normal.Z * matrix.M20) + (normal.W * matrix.M30);
+                (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0) +
+                (normal.Z * matrix.R2C0) + (normal.W * matrix.R3C0);
 
             Fixed32 y =
-                (normal.X * matrix.M01) + (normal.Y * matrix.M11) +
-                (normal.Z * matrix.M21) + (normal.W * matrix.M31);
+                (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1) +
+                (normal.Z * matrix.R2C1) + (normal.W * matrix.R3C1);
 
             Fixed32 z =
-                (normal.X * matrix.M02) + (normal.Y * matrix.M12) +
-                (normal.Z * matrix.M22) + (normal.W * matrix.M32);
+                (normal.X * matrix.R0C2) + (normal.Y * matrix.R1C2) +
+                (normal.Z * matrix.R2C2) + (normal.W * matrix.R3C2);
 
             Fixed32 w =
-                (normal.X * matrix.M03) + (normal.Y * matrix.M13) +
-                (normal.Z * matrix.M23) + (normal.W * matrix.M33);
+                (normal.X * matrix.R0C3) + (normal.Y * matrix.R1C3) +
+                (normal.Z * matrix.R2C3) + (normal.W * matrix.R3C3);
 
             result.X = x;
             result.Y = y;

@@ -7309,22 +7309,22 @@ namespace Abacus.SinglePrecision.Tests
         {
             Single tolerance; RealMaths.TestTolerance(out tolerance);
 
-            Assert.That(a.M00, Is.EqualTo(b.M00).Within(tolerance));
-            Assert.That(a.M01, Is.EqualTo(b.M01).Within(tolerance));
-            Assert.That(a.M02, Is.EqualTo(b.M02).Within(tolerance));
-            Assert.That(a.M03, Is.EqualTo(b.M03).Within(tolerance));
-            Assert.That(a.M10, Is.EqualTo(b.M10).Within(tolerance));
-            Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
-            Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
-            Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
-            Assert.That(a.M20, Is.EqualTo(b.M20).Within(tolerance));
-            Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
-            Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
-            Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
-            Assert.That(a.M30, Is.EqualTo(b.M30).Within(tolerance));
-            Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
-            Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
-            Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
+            Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
+            Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
+            Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
+            Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+            Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
+            Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
+            Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
+            Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+            Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
+            Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
+            Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
+            Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+            Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
+            Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
+            Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));
+            Assert.That(a.R3C3, Is.EqualTo(b.R3C3).Within(tolerance));
         }
 
 
@@ -7364,22 +7364,22 @@ namespace Abacus.SinglePrecision.Tests
                 //     dev branch there will be need for an extension method for
                 //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 16);
-                Assert.That(data[0], Is.EqualTo(mat.M00));
-                Assert.That(data[1], Is.EqualTo(mat.M01));
-                Assert.That(data[2], Is.EqualTo(mat.M02));
-                Assert.That(data[3], Is.EqualTo(mat.M03));
-                Assert.That(data[4], Is.EqualTo(mat.M10));
-                Assert.That(data[5], Is.EqualTo(mat.M11));
-                Assert.That(data[6], Is.EqualTo(mat.M12));
-                Assert.That(data[7], Is.EqualTo(mat.M13));
-                Assert.That(data[8], Is.EqualTo(mat.M20));
-                Assert.That(data[9], Is.EqualTo(mat.M21));
-                Assert.That(data[10], Is.EqualTo(mat.M22));
-                Assert.That(data[11], Is.EqualTo(mat.M23));
-                Assert.That(data[12], Is.EqualTo(mat.M30));
-                Assert.That(data[13], Is.EqualTo(mat.M31));
-                Assert.That(data[14], Is.EqualTo(mat.M32));
-                Assert.That(data[15], Is.EqualTo(mat.M33));
+                Assert.That(data[0], Is.EqualTo(mat.R0C0));
+                Assert.That(data[1], Is.EqualTo(mat.R0C1));
+                Assert.That(data[2], Is.EqualTo(mat.R0C2));
+                Assert.That(data[3], Is.EqualTo(mat.R0C3));
+                Assert.That(data[4], Is.EqualTo(mat.R1C0));
+                Assert.That(data[5], Is.EqualTo(mat.R1C1));
+                Assert.That(data[6], Is.EqualTo(mat.R1C2));
+                Assert.That(data[7], Is.EqualTo(mat.R1C3));
+                Assert.That(data[8], Is.EqualTo(mat.R2C0));
+                Assert.That(data[9], Is.EqualTo(mat.R2C1));
+                Assert.That(data[10], Is.EqualTo(mat.R2C2));
+                Assert.That(data[11], Is.EqualTo(mat.R2C3));
+                Assert.That(data[12], Is.EqualTo(mat.R3C0));
+                Assert.That(data[13], Is.EqualTo(mat.R3C1));
+                Assert.That(data[14], Is.EqualTo(mat.R3C2));
+                Assert.That(data[15], Is.EqualTo(mat.R3C3));
 
                 h_vec.Free();
             }
@@ -7544,22 +7544,22 @@ namespace Abacus.SinglePrecision.Tests
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
 
             Matrix44 expected = new Matrix44 ();
-            expected.M00 = Single.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
-            expected.M01 = Single.Parse("0.9238795");
-            expected.M02 = Single.Parse("-0.270598");
-            expected.M03 = 0;
-            expected.M10 = Single.Parse("-0.7071067");
-            expected.M11 = Single.Parse("6.705523E-08");
-            expected.M12 = Single.Parse("0.7071067");
-            expected.M13 = 0;
-            expected.M20 = Single.Parse("0.6532815");
-            expected.M21 = Single.Parse("0.3826834");
-            expected.M22 = Single.Parse("0.6532815");
-            expected.M23 = 0;
-            expected.M30 = 0;
-            expected.M31 = 0;
-            expected.M32 = 0;
-            expected.M33 = 1;
+            expected.R0C0 = Single.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+            expected.R0C1 = Single.Parse("0.9238795");
+            expected.R0C2 = Single.Parse("-0.270598");
+            expected.R0C3 = 0;
+            expected.R1C0 = Single.Parse("-0.7071067");
+            expected.R1C1 = Single.Parse("6.705523E-08");
+            expected.R1C2 = Single.Parse("0.7071067");
+            expected.R1C3 = 0;
+            expected.R2C0 = Single.Parse("0.6532815");
+            expected.R2C1 = Single.Parse("0.3826834");
+            expected.R2C2 = Single.Parse("0.6532815");
+            expected.R2C3 = 0;
+            expected.R3C0 = 0;
+            expected.R3C1 = 0;
+            expected.R3C2 = 0;
+            expected.R3C3 = 1;
 
 
             AssertEqualWithinReason(m, expected);
@@ -7929,10 +7929,10 @@ namespace Abacus.SinglePrecision.Tests
                  44, -34, - 3,  12);
 
             var expected = a;
-            expected.M00++;
-            expected.M11++;
-            expected.M22++;
-            expected.M33++;
+            expected.R0C0++;
+            expected.R1C1++;
+            expected.R2C2++;
+            expected.R3C3++;
 
             this.TestAddition(a, Matrix44.Identity, expected);
         }
@@ -7969,22 +7969,22 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M00 + b.M00,
-                    a.M01 + b.M01,
-                    a.M02 + b.M02,
-                    a.M03 + b.M03,
-                    a.M10 + b.M10,
-                    a.M11 + b.M11,
-                    a.M12 + b.M12,
-                    a.M13 + b.M13,
-                    a.M20 + b.M20,
-                    a.M21 + b.M21,
-                    a.M22 + b.M22,
-                    a.M23 + b.M23,
-                    a.M30 + b.M30,
-                    a.M31 + b.M31,
-                    a.M32 + b.M32,
-                    a.M33 + b.M33
+                    a.R0C0 + b.R0C0,
+                    a.R0C1 + b.R0C1,
+                    a.R0C2 + b.R0C2,
+                    a.R0C3 + b.R0C3,
+                    a.R1C0 + b.R1C0,
+                    a.R1C1 + b.R1C1,
+                    a.R1C2 + b.R1C2,
+                    a.R1C3 + b.R1C3,
+                    a.R2C0 + b.R2C0,
+                    a.R2C1 + b.R2C1,
+                    a.R2C2 + b.R2C2,
+                    a.R2C3 + b.R2C3,
+                    a.R3C0 + b.R3C0,
+                    a.R3C1 + b.R3C1,
+                    a.R3C2 + b.R3C2,
+                    a.R3C3 + b.R3C3
                     );
 
                 this.TestAddition(a, b, expected);
@@ -8055,22 +8055,22 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M00 - b.M00,
-                    a.M01 - b.M01,
-                    a.M02 - b.M02,
-                    a.M03 - b.M03,
-                    a.M10 - b.M10,
-                    a.M11 - b.M11,
-                    a.M12 - b.M12,
-                    a.M13 - b.M13,
-                    a.M20 - b.M20,
-                    a.M21 - b.M21,
-                    a.M22 - b.M22,
-                    a.M23 - b.M23,
-                    a.M30 - b.M30,
-                    a.M31 - b.M31,
-                    a.M32 - b.M32,
-                    a.M33 - b.M33
+                    a.R0C0 - b.R0C0,
+                    a.R0C1 - b.R0C1,
+                    a.R0C2 - b.R0C2,
+                    a.R0C3 - b.R0C3,
+                    a.R1C0 - b.R1C0,
+                    a.R1C1 - b.R1C1,
+                    a.R1C2 - b.R1C2,
+                    a.R1C3 - b.R1C3,
+                    a.R2C0 - b.R2C0,
+                    a.R2C1 - b.R2C1,
+                    a.R2C2 - b.R2C2,
+                    a.R2C3 - b.R2C3,
+                    a.R3C0 - b.R3C0,
+                    a.R3C1 - b.R3C1,
+                    a.R3C2 - b.R3C2,
+                    a.R3C3 - b.R3C3
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -8192,46 +8192,46 @@ namespace Abacus.SinglePrecision.Tests
         public void TestOperator_Multiplication_i ()
         {
             var a = new Matrix44();
-            a.M00 = -27;
-            a.M01 = 36;
-            a.M02 = 9;
-            a.M03 = -54;
+            a.R0C0 = -27;
+            a.R0C1 = 36;
+            a.R0C2 = 9;
+            a.R0C3 = -54;
 
-            a.M10 = 36;
-            a.M11 = 3;
-            a.M12 = 9;
-            a.M13 = 9;
+            a.R1C0 = 36;
+            a.R1C1 = 3;
+            a.R1C2 = 9;
+            a.R1C3 = 9;
 
-            a.M20 = 9;
-            a.M21 = 9;
-            a.M22 = -36;
-            a.M23 = 6;
+            a.R2C0 = 9;
+            a.R2C1 = 9;
+            a.R2C2 = -36;
+            a.R2C3 = 6;
 
-            a.M30 = -24;
-            a.M31 = 9;
-            a.M32 = 36;
-            a.M33 = -12;
+            a.R3C0 = -24;
+            a.R3C1 = 9;
+            a.R3C2 = 36;
+            a.R3C3 = -12;
 
             var b = new Matrix44();
-            b.M00 = 3402;
-            b.M01 = -1269;
-            b.M02 = -2187;
-            b.M03 = 2484;
+            b.R0C0 = 3402;
+            b.R0C1 = -1269;
+            b.R0C2 = -2187;
+            b.R0C3 = 2484;
 
-            b.M10 = -999;
-            b.M11 = 1467;
-            b.M12 = 351;
-            b.M13 = -1971;
+            b.R1C0 = -999;
+            b.R1C1 = 1467;
+            b.R1C2 = 351;
+            b.R1C3 = -1971;
 
-            b.M20 = -387;
-            b.M21 = 81;
-            b.M22 = 1674;
-            b.M23 = -693;
+            b.R2C0 = -387;
+            b.R2C1 = 81;
+            b.R2C2 = 1674;
+            b.R2C3 = -693;
 
-            b.M30 = 1584;
-            b.M31 = -621;
-            b.M32 = -1863;
-            b.M33 = 1737;
+            b.R3C0 = 1584;
+            b.R3C1 = -621;
+            b.R3C2 = -1863;
+            b.R3C3 = 1737;
 
             this.TestMultiplication(a, a, b);
         }
@@ -8250,22 +8250,22 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M00 * b.M00,
-                    a.M01 * b.M01,
-                    a.M02 * b.M02,
-                    a.M03 * b.M03,
-                    a.M10 * b.M10,
-                    a.M11 * b.M11,
-                    a.M12 * b.M12,
-                    a.M13 * b.M13,
-                    a.M20 * b.M20,
-                    a.M21 * b.M21,
-                    a.M22 * b.M22,
-                    a.M23 * b.M23,
-                    a.M30 * b.M30,
-                    a.M31 * b.M31,
-                    a.M32 * b.M32,
-                    a.M33 * b.M33
+                    a.R0C0 * b.R0C0,
+                    a.R0C1 * b.R0C1,
+                    a.R0C2 * b.R0C2,
+                    a.R0C3 * b.R0C3,
+                    a.R1C0 * b.R1C0,
+                    a.R1C1 * b.R1C1,
+                    a.R1C2 * b.R1C2,
+                    a.R1C3 * b.R1C3,
+                    a.R2C0 * b.R2C0,
+                    a.R2C1 * b.R2C1,
+                    a.R2C2 * b.R2C2,
+                    a.R2C3 * b.R2C3,
+                    a.R3C0 * b.R3C0,
+                    a.R3C1 * b.R3C1,
+                    a.R3C2 * b.R3C2,
+                    a.R3C3 * b.R3C3
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -8371,22 +8371,22 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M00 / b.M00,
-                    a.M01 / b.M01,
-                    a.M02 / b.M02,
-                    a.M03 / b.M03,
-                    a.M10 / b.M10,
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M20 / b.M20,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M30 / b.M30,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33
+                    a.R0C0 / b.R0C0,
+                    a.R0C1 / b.R0C1,
+                    a.R0C2 / b.R0C2,
+                    a.R0C3 / b.R0C3,
+                    a.R1C0 / b.R1C0,
+                    a.R1C1 / b.R1C1,
+                    a.R1C2 / b.R1C2,
+                    a.R1C3 / b.R1C3,
+                    a.R2C0 / b.R2C0,
+                    a.R2C1 / b.R2C1,
+                    a.R2C2 / b.R2C2,
+                    a.R2C3 / b.R2C3,
+                    a.R3C0 / b.R3C0,
+                    a.R3C1 / b.R3C1,
+                    a.R3C2 / b.R3C2,
+                    a.R3C3 / b.R3C3
                     );
 
                 this.TestDivision(a, b, c);
@@ -15548,22 +15548,22 @@ namespace Abacus.DoublePrecision.Tests
         {
             Double tolerance; RealMaths.TestTolerance(out tolerance);
 
-            Assert.That(a.M00, Is.EqualTo(b.M00).Within(tolerance));
-            Assert.That(a.M01, Is.EqualTo(b.M01).Within(tolerance));
-            Assert.That(a.M02, Is.EqualTo(b.M02).Within(tolerance));
-            Assert.That(a.M03, Is.EqualTo(b.M03).Within(tolerance));
-            Assert.That(a.M10, Is.EqualTo(b.M10).Within(tolerance));
-            Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
-            Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
-            Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
-            Assert.That(a.M20, Is.EqualTo(b.M20).Within(tolerance));
-            Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
-            Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
-            Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
-            Assert.That(a.M30, Is.EqualTo(b.M30).Within(tolerance));
-            Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
-            Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
-            Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
+            Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
+            Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
+            Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
+            Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+            Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
+            Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
+            Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
+            Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+            Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
+            Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
+            Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
+            Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+            Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
+            Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
+            Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));
+            Assert.That(a.R3C3, Is.EqualTo(b.R3C3).Within(tolerance));
         }
 
 
@@ -15603,22 +15603,22 @@ namespace Abacus.DoublePrecision.Tests
                 //     dev branch there will be need for an extension method for
                 //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 16);
-                Assert.That(data[0], Is.EqualTo(mat.M00));
-                Assert.That(data[1], Is.EqualTo(mat.M01));
-                Assert.That(data[2], Is.EqualTo(mat.M02));
-                Assert.That(data[3], Is.EqualTo(mat.M03));
-                Assert.That(data[4], Is.EqualTo(mat.M10));
-                Assert.That(data[5], Is.EqualTo(mat.M11));
-                Assert.That(data[6], Is.EqualTo(mat.M12));
-                Assert.That(data[7], Is.EqualTo(mat.M13));
-                Assert.That(data[8], Is.EqualTo(mat.M20));
-                Assert.That(data[9], Is.EqualTo(mat.M21));
-                Assert.That(data[10], Is.EqualTo(mat.M22));
-                Assert.That(data[11], Is.EqualTo(mat.M23));
-                Assert.That(data[12], Is.EqualTo(mat.M30));
-                Assert.That(data[13], Is.EqualTo(mat.M31));
-                Assert.That(data[14], Is.EqualTo(mat.M32));
-                Assert.That(data[15], Is.EqualTo(mat.M33));
+                Assert.That(data[0], Is.EqualTo(mat.R0C0));
+                Assert.That(data[1], Is.EqualTo(mat.R0C1));
+                Assert.That(data[2], Is.EqualTo(mat.R0C2));
+                Assert.That(data[3], Is.EqualTo(mat.R0C3));
+                Assert.That(data[4], Is.EqualTo(mat.R1C0));
+                Assert.That(data[5], Is.EqualTo(mat.R1C1));
+                Assert.That(data[6], Is.EqualTo(mat.R1C2));
+                Assert.That(data[7], Is.EqualTo(mat.R1C3));
+                Assert.That(data[8], Is.EqualTo(mat.R2C0));
+                Assert.That(data[9], Is.EqualTo(mat.R2C1));
+                Assert.That(data[10], Is.EqualTo(mat.R2C2));
+                Assert.That(data[11], Is.EqualTo(mat.R2C3));
+                Assert.That(data[12], Is.EqualTo(mat.R3C0));
+                Assert.That(data[13], Is.EqualTo(mat.R3C1));
+                Assert.That(data[14], Is.EqualTo(mat.R3C2));
+                Assert.That(data[15], Is.EqualTo(mat.R3C3));
 
                 h_vec.Free();
             }
@@ -15783,22 +15783,22 @@ namespace Abacus.DoublePrecision.Tests
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
 
             Matrix44 expected = new Matrix44 ();
-            expected.M00 = Double.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
-            expected.M01 = Double.Parse("0.9238795");
-            expected.M02 = Double.Parse("-0.270598");
-            expected.M03 = 0;
-            expected.M10 = Double.Parse("-0.7071067");
-            expected.M11 = Double.Parse("6.705523E-08");
-            expected.M12 = Double.Parse("0.7071067");
-            expected.M13 = 0;
-            expected.M20 = Double.Parse("0.6532815");
-            expected.M21 = Double.Parse("0.3826834");
-            expected.M22 = Double.Parse("0.6532815");
-            expected.M23 = 0;
-            expected.M30 = 0;
-            expected.M31 = 0;
-            expected.M32 = 0;
-            expected.M33 = 1;
+            expected.R0C0 = Double.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+            expected.R0C1 = Double.Parse("0.9238795");
+            expected.R0C2 = Double.Parse("-0.270598");
+            expected.R0C3 = 0;
+            expected.R1C0 = Double.Parse("-0.7071067");
+            expected.R1C1 = Double.Parse("6.705523E-08");
+            expected.R1C2 = Double.Parse("0.7071067");
+            expected.R1C3 = 0;
+            expected.R2C0 = Double.Parse("0.6532815");
+            expected.R2C1 = Double.Parse("0.3826834");
+            expected.R2C2 = Double.Parse("0.6532815");
+            expected.R2C3 = 0;
+            expected.R3C0 = 0;
+            expected.R3C1 = 0;
+            expected.R3C2 = 0;
+            expected.R3C3 = 1;
 
 
             AssertEqualWithinReason(m, expected);
@@ -16168,10 +16168,10 @@ namespace Abacus.DoublePrecision.Tests
                  44, -34, - 3,  12);
 
             var expected = a;
-            expected.M00++;
-            expected.M11++;
-            expected.M22++;
-            expected.M33++;
+            expected.R0C0++;
+            expected.R1C1++;
+            expected.R2C2++;
+            expected.R3C3++;
 
             this.TestAddition(a, Matrix44.Identity, expected);
         }
@@ -16208,22 +16208,22 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M00 + b.M00,
-                    a.M01 + b.M01,
-                    a.M02 + b.M02,
-                    a.M03 + b.M03,
-                    a.M10 + b.M10,
-                    a.M11 + b.M11,
-                    a.M12 + b.M12,
-                    a.M13 + b.M13,
-                    a.M20 + b.M20,
-                    a.M21 + b.M21,
-                    a.M22 + b.M22,
-                    a.M23 + b.M23,
-                    a.M30 + b.M30,
-                    a.M31 + b.M31,
-                    a.M32 + b.M32,
-                    a.M33 + b.M33
+                    a.R0C0 + b.R0C0,
+                    a.R0C1 + b.R0C1,
+                    a.R0C2 + b.R0C2,
+                    a.R0C3 + b.R0C3,
+                    a.R1C0 + b.R1C0,
+                    a.R1C1 + b.R1C1,
+                    a.R1C2 + b.R1C2,
+                    a.R1C3 + b.R1C3,
+                    a.R2C0 + b.R2C0,
+                    a.R2C1 + b.R2C1,
+                    a.R2C2 + b.R2C2,
+                    a.R2C3 + b.R2C3,
+                    a.R3C0 + b.R3C0,
+                    a.R3C1 + b.R3C1,
+                    a.R3C2 + b.R3C2,
+                    a.R3C3 + b.R3C3
                     );
 
                 this.TestAddition(a, b, expected);
@@ -16294,22 +16294,22 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M00 - b.M00,
-                    a.M01 - b.M01,
-                    a.M02 - b.M02,
-                    a.M03 - b.M03,
-                    a.M10 - b.M10,
-                    a.M11 - b.M11,
-                    a.M12 - b.M12,
-                    a.M13 - b.M13,
-                    a.M20 - b.M20,
-                    a.M21 - b.M21,
-                    a.M22 - b.M22,
-                    a.M23 - b.M23,
-                    a.M30 - b.M30,
-                    a.M31 - b.M31,
-                    a.M32 - b.M32,
-                    a.M33 - b.M33
+                    a.R0C0 - b.R0C0,
+                    a.R0C1 - b.R0C1,
+                    a.R0C2 - b.R0C2,
+                    a.R0C3 - b.R0C3,
+                    a.R1C0 - b.R1C0,
+                    a.R1C1 - b.R1C1,
+                    a.R1C2 - b.R1C2,
+                    a.R1C3 - b.R1C3,
+                    a.R2C0 - b.R2C0,
+                    a.R2C1 - b.R2C1,
+                    a.R2C2 - b.R2C2,
+                    a.R2C3 - b.R2C3,
+                    a.R3C0 - b.R3C0,
+                    a.R3C1 - b.R3C1,
+                    a.R3C2 - b.R3C2,
+                    a.R3C3 - b.R3C3
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -16431,46 +16431,46 @@ namespace Abacus.DoublePrecision.Tests
         public void TestOperator_Multiplication_i ()
         {
             var a = new Matrix44();
-            a.M00 = -27;
-            a.M01 = 36;
-            a.M02 = 9;
-            a.M03 = -54;
+            a.R0C0 = -27;
+            a.R0C1 = 36;
+            a.R0C2 = 9;
+            a.R0C3 = -54;
 
-            a.M10 = 36;
-            a.M11 = 3;
-            a.M12 = 9;
-            a.M13 = 9;
+            a.R1C0 = 36;
+            a.R1C1 = 3;
+            a.R1C2 = 9;
+            a.R1C3 = 9;
 
-            a.M20 = 9;
-            a.M21 = 9;
-            a.M22 = -36;
-            a.M23 = 6;
+            a.R2C0 = 9;
+            a.R2C1 = 9;
+            a.R2C2 = -36;
+            a.R2C3 = 6;
 
-            a.M30 = -24;
-            a.M31 = 9;
-            a.M32 = 36;
-            a.M33 = -12;
+            a.R3C0 = -24;
+            a.R3C1 = 9;
+            a.R3C2 = 36;
+            a.R3C3 = -12;
 
             var b = new Matrix44();
-            b.M00 = 3402;
-            b.M01 = -1269;
-            b.M02 = -2187;
-            b.M03 = 2484;
+            b.R0C0 = 3402;
+            b.R0C1 = -1269;
+            b.R0C2 = -2187;
+            b.R0C3 = 2484;
 
-            b.M10 = -999;
-            b.M11 = 1467;
-            b.M12 = 351;
-            b.M13 = -1971;
+            b.R1C0 = -999;
+            b.R1C1 = 1467;
+            b.R1C2 = 351;
+            b.R1C3 = -1971;
 
-            b.M20 = -387;
-            b.M21 = 81;
-            b.M22 = 1674;
-            b.M23 = -693;
+            b.R2C0 = -387;
+            b.R2C1 = 81;
+            b.R2C2 = 1674;
+            b.R2C3 = -693;
 
-            b.M30 = 1584;
-            b.M31 = -621;
-            b.M32 = -1863;
-            b.M33 = 1737;
+            b.R3C0 = 1584;
+            b.R3C1 = -621;
+            b.R3C2 = -1863;
+            b.R3C3 = 1737;
 
             this.TestMultiplication(a, a, b);
         }
@@ -16489,22 +16489,22 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M00 * b.M00,
-                    a.M01 * b.M01,
-                    a.M02 * b.M02,
-                    a.M03 * b.M03,
-                    a.M10 * b.M10,
-                    a.M11 * b.M11,
-                    a.M12 * b.M12,
-                    a.M13 * b.M13,
-                    a.M20 * b.M20,
-                    a.M21 * b.M21,
-                    a.M22 * b.M22,
-                    a.M23 * b.M23,
-                    a.M30 * b.M30,
-                    a.M31 * b.M31,
-                    a.M32 * b.M32,
-                    a.M33 * b.M33
+                    a.R0C0 * b.R0C0,
+                    a.R0C1 * b.R0C1,
+                    a.R0C2 * b.R0C2,
+                    a.R0C3 * b.R0C3,
+                    a.R1C0 * b.R1C0,
+                    a.R1C1 * b.R1C1,
+                    a.R1C2 * b.R1C2,
+                    a.R1C3 * b.R1C3,
+                    a.R2C0 * b.R2C0,
+                    a.R2C1 * b.R2C1,
+                    a.R2C2 * b.R2C2,
+                    a.R2C3 * b.R2C3,
+                    a.R3C0 * b.R3C0,
+                    a.R3C1 * b.R3C1,
+                    a.R3C2 * b.R3C2,
+                    a.R3C3 * b.R3C3
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -16610,22 +16610,22 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M00 / b.M00,
-                    a.M01 / b.M01,
-                    a.M02 / b.M02,
-                    a.M03 / b.M03,
-                    a.M10 / b.M10,
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M20 / b.M20,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M30 / b.M30,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33
+                    a.R0C0 / b.R0C0,
+                    a.R0C1 / b.R0C1,
+                    a.R0C2 / b.R0C2,
+                    a.R0C3 / b.R0C3,
+                    a.R1C0 / b.R1C0,
+                    a.R1C1 / b.R1C1,
+                    a.R1C2 / b.R1C2,
+                    a.R1C3 / b.R1C3,
+                    a.R2C0 / b.R2C0,
+                    a.R2C1 / b.R2C1,
+                    a.R2C2 / b.R2C2,
+                    a.R2C3 / b.R2C3,
+                    a.R3C0 / b.R3C0,
+                    a.R3C1 / b.R3C1,
+                    a.R3C2 / b.R3C2,
+                    a.R3C3 / b.R3C3
                     );
 
                 this.TestDivision(a, b, c);
@@ -23787,22 +23787,22 @@ namespace Abacus.Fixed32Precision.Tests
         {
             Fixed32 tolerance; RealMaths.TestTolerance(out tolerance);
 
-            Assert.That(a.M00, Is.EqualTo(b.M00).Within(tolerance));
-            Assert.That(a.M01, Is.EqualTo(b.M01).Within(tolerance));
-            Assert.That(a.M02, Is.EqualTo(b.M02).Within(tolerance));
-            Assert.That(a.M03, Is.EqualTo(b.M03).Within(tolerance));
-            Assert.That(a.M10, Is.EqualTo(b.M10).Within(tolerance));
-            Assert.That(a.M11, Is.EqualTo(b.M11).Within(tolerance));
-            Assert.That(a.M12, Is.EqualTo(b.M12).Within(tolerance));
-            Assert.That(a.M13, Is.EqualTo(b.M13).Within(tolerance));
-            Assert.That(a.M20, Is.EqualTo(b.M20).Within(tolerance));
-            Assert.That(a.M21, Is.EqualTo(b.M21).Within(tolerance));
-            Assert.That(a.M22, Is.EqualTo(b.M22).Within(tolerance));
-            Assert.That(a.M23, Is.EqualTo(b.M23).Within(tolerance));
-            Assert.That(a.M30, Is.EqualTo(b.M30).Within(tolerance));
-            Assert.That(a.M31, Is.EqualTo(b.M31).Within(tolerance));
-            Assert.That(a.M32, Is.EqualTo(b.M32).Within(tolerance));
-            Assert.That(a.M33, Is.EqualTo(b.M33).Within(tolerance));
+            Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
+            Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
+            Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
+            Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+            Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
+            Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
+            Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
+            Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+            Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
+            Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
+            Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
+            Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+            Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
+            Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
+            Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));
+            Assert.That(a.R3C3, Is.EqualTo(b.R3C3).Within(tolerance));
         }
 
 
@@ -23842,22 +23842,22 @@ namespace Abacus.Fixed32Precision.Tests
                 //     dev branch there will be need for an extension method for
                 //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 16);
-                Assert.That(data[0], Is.EqualTo(mat.M00));
-                Assert.That(data[1], Is.EqualTo(mat.M01));
-                Assert.That(data[2], Is.EqualTo(mat.M02));
-                Assert.That(data[3], Is.EqualTo(mat.M03));
-                Assert.That(data[4], Is.EqualTo(mat.M10));
-                Assert.That(data[5], Is.EqualTo(mat.M11));
-                Assert.That(data[6], Is.EqualTo(mat.M12));
-                Assert.That(data[7], Is.EqualTo(mat.M13));
-                Assert.That(data[8], Is.EqualTo(mat.M20));
-                Assert.That(data[9], Is.EqualTo(mat.M21));
-                Assert.That(data[10], Is.EqualTo(mat.M22));
-                Assert.That(data[11], Is.EqualTo(mat.M23));
-                Assert.That(data[12], Is.EqualTo(mat.M30));
-                Assert.That(data[13], Is.EqualTo(mat.M31));
-                Assert.That(data[14], Is.EqualTo(mat.M32));
-                Assert.That(data[15], Is.EqualTo(mat.M33));
+                Assert.That(data[0], Is.EqualTo(mat.R0C0));
+                Assert.That(data[1], Is.EqualTo(mat.R0C1));
+                Assert.That(data[2], Is.EqualTo(mat.R0C2));
+                Assert.That(data[3], Is.EqualTo(mat.R0C3));
+                Assert.That(data[4], Is.EqualTo(mat.R1C0));
+                Assert.That(data[5], Is.EqualTo(mat.R1C1));
+                Assert.That(data[6], Is.EqualTo(mat.R1C2));
+                Assert.That(data[7], Is.EqualTo(mat.R1C3));
+                Assert.That(data[8], Is.EqualTo(mat.R2C0));
+                Assert.That(data[9], Is.EqualTo(mat.R2C1));
+                Assert.That(data[10], Is.EqualTo(mat.R2C2));
+                Assert.That(data[11], Is.EqualTo(mat.R2C3));
+                Assert.That(data[12], Is.EqualTo(mat.R3C0));
+                Assert.That(data[13], Is.EqualTo(mat.R3C1));
+                Assert.That(data[14], Is.EqualTo(mat.R3C2));
+                Assert.That(data[15], Is.EqualTo(mat.R3C3));
 
                 h_vec.Free();
             }
@@ -24022,22 +24022,22 @@ namespace Abacus.Fixed32Precision.Tests
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
 
             Matrix44 expected = new Matrix44 ();
-            expected.M00 = Fixed32.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
-            expected.M01 = Fixed32.Parse("0.9238795");
-            expected.M02 = Fixed32.Parse("-0.270598");
-            expected.M03 = 0;
-            expected.M10 = Fixed32.Parse("-0.7071067");
-            expected.M11 = Fixed32.Parse("6.705523E-08");
-            expected.M12 = Fixed32.Parse("0.7071067");
-            expected.M13 = 0;
-            expected.M20 = Fixed32.Parse("0.6532815");
-            expected.M21 = Fixed32.Parse("0.3826834");
-            expected.M22 = Fixed32.Parse("0.6532815");
-            expected.M23 = 0;
-            expected.M30 = 0;
-            expected.M31 = 0;
-            expected.M32 = 0;
-            expected.M33 = 1;
+            expected.R0C0 = Fixed32.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+            expected.R0C1 = Fixed32.Parse("0.9238795");
+            expected.R0C2 = Fixed32.Parse("-0.270598");
+            expected.R0C3 = 0;
+            expected.R1C0 = Fixed32.Parse("-0.7071067");
+            expected.R1C1 = Fixed32.Parse("6.705523E-08");
+            expected.R1C2 = Fixed32.Parse("0.7071067");
+            expected.R1C3 = 0;
+            expected.R2C0 = Fixed32.Parse("0.6532815");
+            expected.R2C1 = Fixed32.Parse("0.3826834");
+            expected.R2C2 = Fixed32.Parse("0.6532815");
+            expected.R2C3 = 0;
+            expected.R3C0 = 0;
+            expected.R3C1 = 0;
+            expected.R3C2 = 0;
+            expected.R3C3 = 1;
 
 
             AssertEqualWithinReason(m, expected);
@@ -24407,10 +24407,10 @@ namespace Abacus.Fixed32Precision.Tests
                  44, -34, - 3,  12);
 
             var expected = a;
-            expected.M00++;
-            expected.M11++;
-            expected.M22++;
-            expected.M33++;
+            expected.R0C0++;
+            expected.R1C1++;
+            expected.R2C2++;
+            expected.R3C3++;
 
             this.TestAddition(a, Matrix44.Identity, expected);
         }
@@ -24447,22 +24447,22 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M00 + b.M00,
-                    a.M01 + b.M01,
-                    a.M02 + b.M02,
-                    a.M03 + b.M03,
-                    a.M10 + b.M10,
-                    a.M11 + b.M11,
-                    a.M12 + b.M12,
-                    a.M13 + b.M13,
-                    a.M20 + b.M20,
-                    a.M21 + b.M21,
-                    a.M22 + b.M22,
-                    a.M23 + b.M23,
-                    a.M30 + b.M30,
-                    a.M31 + b.M31,
-                    a.M32 + b.M32,
-                    a.M33 + b.M33
+                    a.R0C0 + b.R0C0,
+                    a.R0C1 + b.R0C1,
+                    a.R0C2 + b.R0C2,
+                    a.R0C3 + b.R0C3,
+                    a.R1C0 + b.R1C0,
+                    a.R1C1 + b.R1C1,
+                    a.R1C2 + b.R1C2,
+                    a.R1C3 + b.R1C3,
+                    a.R2C0 + b.R2C0,
+                    a.R2C1 + b.R2C1,
+                    a.R2C2 + b.R2C2,
+                    a.R2C3 + b.R2C3,
+                    a.R3C0 + b.R3C0,
+                    a.R3C1 + b.R3C1,
+                    a.R3C2 + b.R3C2,
+                    a.R3C3 + b.R3C3
                     );
 
                 this.TestAddition(a, b, expected);
@@ -24533,22 +24533,22 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var expected = new Matrix44(
-                    a.M00 - b.M00,
-                    a.M01 - b.M01,
-                    a.M02 - b.M02,
-                    a.M03 - b.M03,
-                    a.M10 - b.M10,
-                    a.M11 - b.M11,
-                    a.M12 - b.M12,
-                    a.M13 - b.M13,
-                    a.M20 - b.M20,
-                    a.M21 - b.M21,
-                    a.M22 - b.M22,
-                    a.M23 - b.M23,
-                    a.M30 - b.M30,
-                    a.M31 - b.M31,
-                    a.M32 - b.M32,
-                    a.M33 - b.M33
+                    a.R0C0 - b.R0C0,
+                    a.R0C1 - b.R0C1,
+                    a.R0C2 - b.R0C2,
+                    a.R0C3 - b.R0C3,
+                    a.R1C0 - b.R1C0,
+                    a.R1C1 - b.R1C1,
+                    a.R1C2 - b.R1C2,
+                    a.R1C3 - b.R1C3,
+                    a.R2C0 - b.R2C0,
+                    a.R2C1 - b.R2C1,
+                    a.R2C2 - b.R2C2,
+                    a.R2C3 - b.R2C3,
+                    a.R3C0 - b.R3C0,
+                    a.R3C1 - b.R3C1,
+                    a.R3C2 - b.R3C2,
+                    a.R3C3 - b.R3C3
                     );
 
                 this.TestSubtraction(a, b, expected);
@@ -24670,46 +24670,46 @@ namespace Abacus.Fixed32Precision.Tests
         public void TestOperator_Multiplication_i ()
         {
             var a = new Matrix44();
-            a.M00 = -27;
-            a.M01 = 36;
-            a.M02 = 9;
-            a.M03 = -54;
+            a.R0C0 = -27;
+            a.R0C1 = 36;
+            a.R0C2 = 9;
+            a.R0C3 = -54;
 
-            a.M10 = 36;
-            a.M11 = 3;
-            a.M12 = 9;
-            a.M13 = 9;
+            a.R1C0 = 36;
+            a.R1C1 = 3;
+            a.R1C2 = 9;
+            a.R1C3 = 9;
 
-            a.M20 = 9;
-            a.M21 = 9;
-            a.M22 = -36;
-            a.M23 = 6;
+            a.R2C0 = 9;
+            a.R2C1 = 9;
+            a.R2C2 = -36;
+            a.R2C3 = 6;
 
-            a.M30 = -24;
-            a.M31 = 9;
-            a.M32 = 36;
-            a.M33 = -12;
+            a.R3C0 = -24;
+            a.R3C1 = 9;
+            a.R3C2 = 36;
+            a.R3C3 = -12;
 
             var b = new Matrix44();
-            b.M00 = 3402;
-            b.M01 = -1269;
-            b.M02 = -2187;
-            b.M03 = 2484;
+            b.R0C0 = 3402;
+            b.R0C1 = -1269;
+            b.R0C2 = -2187;
+            b.R0C3 = 2484;
 
-            b.M10 = -999;
-            b.M11 = 1467;
-            b.M12 = 351;
-            b.M13 = -1971;
+            b.R1C0 = -999;
+            b.R1C1 = 1467;
+            b.R1C2 = 351;
+            b.R1C3 = -1971;
 
-            b.M20 = -387;
-            b.M21 = 81;
-            b.M22 = 1674;
-            b.M23 = -693;
+            b.R2C0 = -387;
+            b.R2C1 = 81;
+            b.R2C2 = 1674;
+            b.R2C3 = -693;
 
-            b.M30 = 1584;
-            b.M31 = -621;
-            b.M32 = -1863;
-            b.M33 = 1737;
+            b.R3C0 = 1584;
+            b.R3C1 = -621;
+            b.R3C2 = -1863;
+            b.R3C3 = 1737;
 
             this.TestMultiplication(a, a, b);
         }
@@ -24728,22 +24728,22 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M00 * b.M00,
-                    a.M01 * b.M01,
-                    a.M02 * b.M02,
-                    a.M03 * b.M03,
-                    a.M10 * b.M10,
-                    a.M11 * b.M11,
-                    a.M12 * b.M12,
-                    a.M13 * b.M13,
-                    a.M20 * b.M20,
-                    a.M21 * b.M21,
-                    a.M22 * b.M22,
-                    a.M23 * b.M23,
-                    a.M30 * b.M30,
-                    a.M31 * b.M31,
-                    a.M32 * b.M32,
-                    a.M33 * b.M33
+                    a.R0C0 * b.R0C0,
+                    a.R0C1 * b.R0C1,
+                    a.R0C2 * b.R0C2,
+                    a.R0C3 * b.R0C3,
+                    a.R1C0 * b.R1C0,
+                    a.R1C1 * b.R1C1,
+                    a.R1C2 * b.R1C2,
+                    a.R1C3 * b.R1C3,
+                    a.R2C0 * b.R2C0,
+                    a.R2C1 * b.R2C1,
+                    a.R2C2 * b.R2C2,
+                    a.R2C3 * b.R2C3,
+                    a.R3C0 * b.R3C0,
+                    a.R3C1 * b.R3C1,
+                    a.R3C2 * b.R3C2,
+                    a.R3C3 * b.R3C3
                     );
 
                 this.TestMultiplication(a, b, c);
@@ -24849,22 +24849,22 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.M00 / b.M00,
-                    a.M01 / b.M01,
-                    a.M02 / b.M02,
-                    a.M03 / b.M03,
-                    a.M10 / b.M10,
-                    a.M11 / b.M11,
-                    a.M12 / b.M12,
-                    a.M13 / b.M13,
-                    a.M20 / b.M20,
-                    a.M21 / b.M21,
-                    a.M22 / b.M22,
-                    a.M23 / b.M23,
-                    a.M30 / b.M30,
-                    a.M31 / b.M31,
-                    a.M32 / b.M32,
-                    a.M33 / b.M33
+                    a.R0C0 / b.R0C0,
+                    a.R0C1 / b.R0C1,
+                    a.R0C2 / b.R0C2,
+                    a.R0C3 / b.R0C3,
+                    a.R1C0 / b.R1C0,
+                    a.R1C1 / b.R1C1,
+                    a.R1C2 / b.R1C2,
+                    a.R1C3 / b.R1C3,
+                    a.R2C0 / b.R2C0,
+                    a.R2C1 / b.R2C1,
+                    a.R2C2 / b.R2C2,
+                    a.R2C3 / b.R2C3,
+                    a.R3C0 / b.R3C0,
+                    a.R3C1 / b.R3C1,
+                    a.R3C2 / b.R3C2,
+                    a.R3C3 / b.R3C3
                     );
 
                 this.TestDivision(a, b, c);

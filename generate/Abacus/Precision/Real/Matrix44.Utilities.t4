@@ -15,22 +15,22 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            result.M00 = matrix1.M00 + ((matrix2.M00 - matrix1.M00) * amount);
-            result.M01 = matrix1.M01 + ((matrix2.M01 - matrix1.M01) * amount);
-            result.M02 = matrix1.M02 + ((matrix2.M02 - matrix1.M02) * amount);
-            result.M03 = matrix1.M03 + ((matrix2.M03 - matrix1.M03) * amount);
-            result.M10 = matrix1.M10 + ((matrix2.M10 - matrix1.M10) * amount);
-            result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
-            result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
-            result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
-            result.M20 = matrix1.M20 + ((matrix2.M20 - matrix1.M20) * amount);
-            result.M21 = matrix1.M21 + ((matrix2.M21 - matrix1.M21) * amount);
-            result.M22 = matrix1.M22 + ((matrix2.M22 - matrix1.M22) * amount);
-            result.M23 = matrix1.M23 + ((matrix2.M23 - matrix1.M23) * amount);
-            result.M30 = matrix1.M30 + ((matrix2.M30 - matrix1.M30) * amount);
-            result.M31 = matrix1.M31 + ((matrix2.M31 - matrix1.M31) * amount);
-            result.M32 = matrix1.M32 + ((matrix2.M32 - matrix1.M32) * amount);
-            result.M33 = matrix1.M33 + ((matrix2.M33 - matrix1.M33) * amount);
+            result.R0C0 = matrix1.R0C0 + ((matrix2.R0C0 - matrix1.R0C0) * amount);
+            result.R0C1 = matrix1.R0C1 + ((matrix2.R0C1 - matrix1.R0C1) * amount);
+            result.R0C2 = matrix1.R0C2 + ((matrix2.R0C2 - matrix1.R0C2) * amount);
+            result.R0C3 = matrix1.R0C3 + ((matrix2.R0C3 - matrix1.R0C3) * amount);
+            result.R1C0 = matrix1.R1C0 + ((matrix2.R1C0 - matrix1.R1C0) * amount);
+            result.R1C1 = matrix1.R1C1 + ((matrix2.R1C1 - matrix1.R1C1) * amount);
+            result.R1C2 = matrix1.R1C2 + ((matrix2.R1C2 - matrix1.R1C2) * amount);
+            result.R1C3 = matrix1.R1C3 + ((matrix2.R1C3 - matrix1.R1C3) * amount);
+            result.R2C0 = matrix1.R2C0 + ((matrix2.R2C0 - matrix1.R2C0) * amount);
+            result.R2C1 = matrix1.R2C1 + ((matrix2.R2C1 - matrix1.R2C1) * amount);
+            result.R2C2 = matrix1.R2C2 + ((matrix2.R2C2 - matrix1.R2C2) * amount);
+            result.R2C3 = matrix1.R2C3 + ((matrix2.R2C3 - matrix1.R2C3) * amount);
+            result.R3C0 = matrix1.R3C0 + ((matrix2.R3C0 - matrix1.R3C0) * amount);
+            result.R3C1 = matrix1.R3C1 + ((matrix2.R3C1 - matrix1.R3C1) * amount);
+            result.R3C2 = matrix1.R3C2 + ((matrix2.R3C2 - matrix1.R3C2) * amount);
+            result.R3C3 = matrix1.R3C3 + ((matrix2.R3C3 - matrix1.R3C3) * amount);
         }
 
 
