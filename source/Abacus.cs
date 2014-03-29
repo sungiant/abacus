@@ -10487,7 +10487,8 @@ namespace Abacus.SinglePrecision
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
-        /// Performs muliplication of two Quaternion objects.
+        /// Performs muliplication of two Quaternion objects,
+        /// (Quaternion multiplication is not commutative).
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
@@ -17163,7 +17164,8 @@ namespace Abacus.DoublePrecision
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
-        /// Performs muliplication of two Quaternion objects.
+        /// Performs muliplication of two Quaternion objects,
+        /// (Quaternion multiplication is not commutative).
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
@@ -23839,7 +23841,8 @@ namespace Abacus.Fixed32Precision
         // Multiplication Operators //----------------------------------------//
 
         /// <summary>
-        /// Performs muliplication of two Quaternion objects.
+        /// Performs muliplication of two Quaternion objects,
+        /// (Quaternion multiplication is not commutative).
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
