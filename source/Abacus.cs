@@ -10516,6 +10516,12 @@ namespace Abacus.SinglePrecision
         /// Performs muliplication of two Quaternion objects,
         /// (Quaternion multiplication is not commutative),
         /// (i^2 = j^2 = k^2 = i j k = -1).
+        ///
+        /// For Quaternion division the notation q1 / q2 is not ideal, since
+        /// Quaternion multiplication is not commutative we need to be able
+        /// to distinguish between q1*(q2^-1) and (q2^-1)*q1. This is why
+        /// Abacus does not have a division opperator.  If you need
+        /// a divide operation just multiply by the inverse.
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
@@ -10540,83 +10546,6 @@ namespace Abacus.SinglePrecision
             result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
 
-/* Should not be
-
-
-        /// <summary>
-        /// Performs multiplication of a Quaternion object and a Single
-        /// precision scaling factor.
-        /// </summary>
-        public static void Multiply (
-            ref Quaternion quaternion1,
-            ref Single scaleFactor,
-            out Quaternion result)
-        {
-            result.I = quaternion1.I * scaleFactor;
-            result.J = quaternion1.J * scaleFactor;
-            result.K = quaternion1.K * scaleFactor;
-            result.U = quaternion1.U * scaleFactor;
-        }
-
-        // Division Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs division of two Quaternion objects.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
-        {
-            Single one = 1;
-
-            Single x = quaternion1.I;
-            Single y = quaternion1.J;
-            Single z = quaternion1.K;
-            Single w = quaternion1.U;
-
-            Single a =
-                (quaternion2.I * quaternion2.I) +
-                (quaternion2.J * quaternion2.J) +
-                (quaternion2.K * quaternion2.K) +
-                (quaternion2.U * quaternion2.U);
-
-            Single b = one / a;
-
-            Single c = -quaternion2.I * b;
-            Single d = -quaternion2.J * b;
-            Single e = -quaternion2.K * b;
-            Single f = quaternion2.U * b;
-
-            Single g = (y * e) - (z * d);
-            Single h = (z * c) - (x * e);
-            Single i = (x * d) - (y * c);
-            Single j = ((x * c) + (y * d)) + (z * e);
-
-            result.I = (x * f) + (c * w) + g;
-            result.J = (y * f) + (d * w) + h;
-            result.K = (z * f) + (e * w) + i;
-            result.U = (w * f) - j;
-        }
-
-        /// <summary>
-        /// Performs division of a Quaternion object and a Single precision
-        /// scaling factor.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref Single divider,
-            out Quaternion result)
-        {
-            Single one = 1;
-            Single a = one / divider;
-
-            result.I = quaternion1.I * a;
-            result.J = quaternion1.J * a;
-            result.K = quaternion1.K * a;
-            result.U = quaternion1.U * a;
-        }
-*/
         /// <summary>
         /// todo
         /// </summary>
@@ -10943,18 +10872,7 @@ namespace Abacus.SinglePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Multiply (
-            Quaternion quaternion, Single scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-*/
+
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -10965,73 +10883,7 @@ namespace Abacus.SinglePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Quaternion quaternion, Single scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
 
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Single scaleFactor, Quaternion quaternion)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-
-        // Variant Division Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, Single divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, Single divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -17220,6 +17072,12 @@ namespace Abacus.DoublePrecision
         /// Performs muliplication of two Quaternion objects,
         /// (Quaternion multiplication is not commutative),
         /// (i^2 = j^2 = k^2 = i j k = -1).
+        ///
+        /// For Quaternion division the notation q1 / q2 is not ideal, since
+        /// Quaternion multiplication is not commutative we need to be able
+        /// to distinguish between q1*(q2^-1) and (q2^-1)*q1. This is why
+        /// Abacus does not have a division opperator.  If you need
+        /// a divide operation just multiply by the inverse.
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
@@ -17244,83 +17102,6 @@ namespace Abacus.DoublePrecision
             result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
 
-/* Should not be
-
-
-        /// <summary>
-        /// Performs multiplication of a Quaternion object and a Double
-        /// precision scaling factor.
-        /// </summary>
-        public static void Multiply (
-            ref Quaternion quaternion1,
-            ref Double scaleFactor,
-            out Quaternion result)
-        {
-            result.I = quaternion1.I * scaleFactor;
-            result.J = quaternion1.J * scaleFactor;
-            result.K = quaternion1.K * scaleFactor;
-            result.U = quaternion1.U * scaleFactor;
-        }
-
-        // Division Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs division of two Quaternion objects.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
-        {
-            Double one = 1;
-
-            Double x = quaternion1.I;
-            Double y = quaternion1.J;
-            Double z = quaternion1.K;
-            Double w = quaternion1.U;
-
-            Double a =
-                (quaternion2.I * quaternion2.I) +
-                (quaternion2.J * quaternion2.J) +
-                (quaternion2.K * quaternion2.K) +
-                (quaternion2.U * quaternion2.U);
-
-            Double b = one / a;
-
-            Double c = -quaternion2.I * b;
-            Double d = -quaternion2.J * b;
-            Double e = -quaternion2.K * b;
-            Double f = quaternion2.U * b;
-
-            Double g = (y * e) - (z * d);
-            Double h = (z * c) - (x * e);
-            Double i = (x * d) - (y * c);
-            Double j = ((x * c) + (y * d)) + (z * e);
-
-            result.I = (x * f) + (c * w) + g;
-            result.J = (y * f) + (d * w) + h;
-            result.K = (z * f) + (e * w) + i;
-            result.U = (w * f) - j;
-        }
-
-        /// <summary>
-        /// Performs division of a Quaternion object and a Double precision
-        /// scaling factor.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref Double divider,
-            out Quaternion result)
-        {
-            Double one = 1;
-            Double a = one / divider;
-
-            result.I = quaternion1.I * a;
-            result.J = quaternion1.J * a;
-            result.K = quaternion1.K * a;
-            result.U = quaternion1.U * a;
-        }
-*/
         /// <summary>
         /// todo
         /// </summary>
@@ -17647,18 +17428,7 @@ namespace Abacus.DoublePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Multiply (
-            Quaternion quaternion, Double scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-*/
+
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -17669,73 +17439,7 @@ namespace Abacus.DoublePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Quaternion quaternion, Double scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
 
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Double scaleFactor, Quaternion quaternion)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-
-        // Variant Division Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, Double divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, Double divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -23924,6 +23628,12 @@ namespace Abacus.Fixed32Precision
         /// Performs muliplication of two Quaternion objects,
         /// (Quaternion multiplication is not commutative),
         /// (i^2 = j^2 = k^2 = i j k = -1).
+        ///
+        /// For Quaternion division the notation q1 / q2 is not ideal, since
+        /// Quaternion multiplication is not commutative we need to be able
+        /// to distinguish between q1*(q2^-1) and (q2^-1)*q1. This is why
+        /// Abacus does not have a division opperator.  If you need
+        /// a divide operation just multiply by the inverse.
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
@@ -23948,83 +23658,6 @@ namespace Abacus.Fixed32Precision
             result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
 
-/* Should not be
-
-
-        /// <summary>
-        /// Performs multiplication of a Quaternion object and a Fixed32
-        /// precision scaling factor.
-        /// </summary>
-        public static void Multiply (
-            ref Quaternion quaternion1,
-            ref Fixed32 scaleFactor,
-            out Quaternion result)
-        {
-            result.I = quaternion1.I * scaleFactor;
-            result.J = quaternion1.J * scaleFactor;
-            result.K = quaternion1.K * scaleFactor;
-            result.U = quaternion1.U * scaleFactor;
-        }
-
-        // Division Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs division of two Quaternion objects.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
-        {
-            Fixed32 one = 1;
-
-            Fixed32 x = quaternion1.I;
-            Fixed32 y = quaternion1.J;
-            Fixed32 z = quaternion1.K;
-            Fixed32 w = quaternion1.U;
-
-            Fixed32 a =
-                (quaternion2.I * quaternion2.I) +
-                (quaternion2.J * quaternion2.J) +
-                (quaternion2.K * quaternion2.K) +
-                (quaternion2.U * quaternion2.U);
-
-            Fixed32 b = one / a;
-
-            Fixed32 c = -quaternion2.I * b;
-            Fixed32 d = -quaternion2.J * b;
-            Fixed32 e = -quaternion2.K * b;
-            Fixed32 f = quaternion2.U * b;
-
-            Fixed32 g = (y * e) - (z * d);
-            Fixed32 h = (z * c) - (x * e);
-            Fixed32 i = (x * d) - (y * c);
-            Fixed32 j = ((x * c) + (y * d)) + (z * e);
-
-            result.I = (x * f) + (c * w) + g;
-            result.J = (y * f) + (d * w) + h;
-            result.K = (z * f) + (e * w) + i;
-            result.U = (w * f) - j;
-        }
-
-        /// <summary>
-        /// Performs division of a Quaternion object and a Fixed32 precision
-        /// scaling factor.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref Fixed32 divider,
-            out Quaternion result)
-        {
-            Fixed32 one = 1;
-            Fixed32 a = one / divider;
-
-            result.I = quaternion1.I * a;
-            result.J = quaternion1.J * a;
-            result.K = quaternion1.K * a;
-            result.U = quaternion1.U * a;
-        }
-*/
         /// <summary>
         /// todo
         /// </summary>
@@ -24351,18 +23984,7 @@ namespace Abacus.Fixed32Precision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Multiply (
-            Quaternion quaternion, Fixed32 scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-*/
+
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -24373,73 +23995,7 @@ namespace Abacus.Fixed32Precision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Quaternion quaternion, Fixed32 scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
 
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Fixed32 scaleFactor, Quaternion quaternion)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-
-        // Variant Division Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, Fixed32 divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, Fixed32 divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-*/
         /// <summary>
         /// Variant function.
         /// </summary>

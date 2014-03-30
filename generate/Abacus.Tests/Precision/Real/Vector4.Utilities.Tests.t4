@@ -156,3 +156,116 @@
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector4 a = new Vector4( 1,  0,  0,  0);
+            Vector4 b = new Vector4(-1,  0,  0,  0);
+            Vector4 c = new Vector4( 0,  1,  0,  0);
+            Vector4 d = new Vector4( 0, -1,  0,  0);
+            Vector4 e = new Vector4( 0,  0,  1,  0);
+            Vector4 f = new Vector4( 0,  0, -1,  0);
+            Vector4 g = new Vector4( 0,  0,  0,  1);
+            Vector4 h = new Vector4( 0,  0,  0, -1);
+            Vector4 i = new Vector4( 1,  1,  1,  1);
+            Vector4 j = new Vector4( 0,  0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+            Assert.That(g.IsUnit(), Is.EqualTo(true));
+            Assert.That(h.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(i.IsUnit(), Is.EqualTo(false));
+            Assert.That(j.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Vector4 b; Vector4.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            <#= type #> radius = 1;
+
+            <#= type #> pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 10; ++ i)
+            {
+                for( Int32 j = 0; j <= 10; ++ j)
+                {
+                    for( Int32 k = 0; k <= 10; ++ k)
+                    {
+                        <#= type #> theta = 2 * pi * i / 100;
+                        <#= type #> phi = 2 * pi * j / 100;
+                        <#= type #> gamma = 2 * pi * k / 100;
+
+                        <#= type #> x =
+                            RealMaths.Cos(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        <#= type #> y =
+                            RealMaths.Sin(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        <#= type #> z =
+                            RealMaths.Cos(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        <#= type #> w =
+                            RealMaths.Cos(gamma) * radius;
+
+                        Assert.That(
+                            new Vector4(x, y,  z, w).IsUnit(),
+                            Is.EqualTo(true));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
+            }
+        }
+

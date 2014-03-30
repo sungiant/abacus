@@ -9047,91 +9047,6 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
-/*
-        // Test Operator: Division //-----------------------------------------//
-
-        /// <summary>
-        /// Helper method for testing division.
-        /// </summary>
-        void TestDivision (Quaternion a, Quaternion b, Quaternion expected )
-        {
-            // This test asserts the following:
-            //   a / b == expected
-
-            var result_1a = a / b;
-
-            Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_1b, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using whole numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_i ()
-        {
-            Single r = 10;
-            Single s = -40;
-            Single t = 1;
-            Single u = -400;
-
-            Single x = 2000;
-            Single y = 200;
-            Single z = -5;
-
-            var a = new Quaternion(x, y, x, x);
-            var b = new Quaternion(y, z, x, z);
-            var c = new Quaternion(r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            Single s = 4;
-            Single t = ((Single) 1 ) / ((Single) 10);
-            Single u = ((Single) (-1) ) / ((Single) 40 );
-            Single v = -20;
-            Single w = 100;
-            Single x = 2000;
-            Single y = 200;
-            Single z = -5;
-
-            var a = new Quaternion(y, z, w, v);
-            var b = new Quaternion(x, y, z, z);
-            var c = new Quaternion(t, u, v, s);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the
-        /// division opperators and functions yield the same results as a
-        /// manual addition division.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_iii ()
-        {
-            for(Int32 i = 0; i < 100; ++i)
-            {
-                var a = GetNextRandomQuaternion();
-                var b = GetNextRandomQuaternion();
-
-                var c = new Quaternion(
-                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
-
-                this.TestDivision(a, b, c);
-            }
-        }
-*/
         // Test: StructLayout //----------------------------------------------//
 
         /// <summary>
@@ -9327,147 +9242,6 @@ namespace Abacus.SinglePrecision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector2 a = new Vector2(3, -4);
-
-            Single expected = 5;
-
-            Single result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector2 a = new Vector2(3, -4);
-
-            Single expected = 25;
-
-            Single result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector2 a = new Vector2( 1,  0);
-            Vector2 b = new Vector2(-1,  0);
-            Vector2 c = new Vector2( 0,  1);
-            Vector2 d = new Vector2( 0, -1);
-            Vector2 e = new Vector2( 1,  1);
-            Vector2 f = new Vector2( 0,  0);
-
-            Boolean aIsUnit;
-            Boolean bIsUnit;
-            Boolean cIsUnit;
-            Boolean dIsUnit;
-            Boolean eIsUnit;
-            Boolean fIsUnit;
-
-            Vector2.IsUnit(ref a, out aIsUnit);
-            Vector2.IsUnit(ref b, out bIsUnit);
-            Vector2.IsUnit(ref c, out cIsUnit);
-            Vector2.IsUnit(ref d, out dIsUnit);
-            Vector2.IsUnit(ref e, out eIsUnit);
-            Vector2.IsUnit(ref f, out fIsUnit);
-
-            Assert.That(aIsUnit, Is.EqualTo(true));
-            Assert.That(bIsUnit, Is.EqualTo(true));
-            Assert.That(cIsUnit, Is.EqualTo(true));
-            Assert.That(dIsUnit, Is.EqualTo(true));
-
-            Assert.That(eIsUnit, Is.EqualTo(false));
-            Assert.That(fIsUnit, Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector2 a = GetNextRandomVector2();
-
-                Vector2 b; Vector2.Normalise(ref a, out b);
-
-                Boolean bIsUnit;
-                Vector2.IsUnit(ref b, out bIsUnit);
-
-                Assert.That(bIsUnit, Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Single radius = 1;
-
-            Single pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 1000; ++ i)
-            {
-                Single theta = 2 * pi * i * radius / 100;
-
-                Single x = RealMaths.Sin(theta);
-                Single y = RealMaths.Cos(theta);
-
-                Vector2 a = new Vector2(x,  y);
-                Boolean aIsUnit;
-                Vector2.IsUnit(ref a, out aIsUnit);
-
-                Assert.That(aIsUnit, Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector2 a = GetNextRandomVector2();
-                Boolean aIsUnit;
-                Vector2.IsUnit(ref a, out aIsUnit);
-                Assert.That(aIsUnit, Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -10096,6 +9870,38 @@ namespace Abacus.SinglePrecision.Tests
                 Vector2.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            Single expected = 5;
+
+            Single result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            Single expected = 25;
+
+            Single result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -11191,6 +10997,109 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector2 a = new Vector2( 1,  0);
+            Vector2 b = new Vector2(-1,  0);
+            Vector2 c = new Vector2( 0,  1);
+            Vector2 d = new Vector2( 0, -1);
+            Vector2 e = new Vector2( 1,  1);
+            Vector2 f = new Vector2( 0,  0);
+
+            Boolean aIsUnit;
+            Boolean bIsUnit;
+            Boolean cIsUnit;
+            Boolean dIsUnit;
+            Boolean eIsUnit;
+            Boolean fIsUnit;
+
+            Vector2.IsUnit(ref a, out aIsUnit);
+            Vector2.IsUnit(ref b, out bIsUnit);
+            Vector2.IsUnit(ref c, out cIsUnit);
+            Vector2.IsUnit(ref d, out dIsUnit);
+            Vector2.IsUnit(ref e, out eIsUnit);
+            Vector2.IsUnit(ref f, out fIsUnit);
+
+            Assert.That(aIsUnit, Is.EqualTo(true));
+            Assert.That(bIsUnit, Is.EqualTo(true));
+            Assert.That(cIsUnit, Is.EqualTo(true));
+            Assert.That(dIsUnit, Is.EqualTo(true));
+
+            Assert.That(eIsUnit, Is.EqualTo(false));
+            Assert.That(fIsUnit, Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+
+                Vector2 b; Vector2.Normalise(ref a, out b);
+
+                Boolean bIsUnit;
+                Vector2.IsUnit(ref b, out bIsUnit);
+
+                Assert.That(bIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Single radius = 1;
+
+            Single pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 1000; ++ i)
+            {
+                Single theta = 2 * pi * i * radius / 100;
+
+                Single x = RealMaths.Sin(theta);
+                Single y = RealMaths.Cos(theta);
+
+                Vector2 a = new Vector2(x,  y);
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+
+                Assert.That(aIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+                Assert.That(aIsUnit, Is.EqualTo(false));
+            }
+        }
+
 
     }
     /// <summary>
@@ -11380,143 +11289,6 @@ namespace Abacus.SinglePrecision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector3 a = new Vector3(3, -4, 12);
-
-            Single expected = 13;
-
-            Single result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector3 a = new Vector3(3, -4, 12);
-
-            Single expected = 169;
-
-            Single result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector3 a = new Vector3( 1,  0,  0);
-            Vector3 b = new Vector3(-1,  0,  0);
-            Vector3 c = new Vector3( 0,  1,  0);
-            Vector3 d = new Vector3( 0, -1,  0);
-            Vector3 e = new Vector3( 0,  0,  1);
-            Vector3 f = new Vector3( 0,  0, -1);
-            Vector3 g = new Vector3( 1,  1,  1);
-            Vector3 h = new Vector3( 0,  0,  0);
-
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
-            Assert.That(e.IsUnit(), Is.EqualTo(true));
-            Assert.That(f.IsUnit(), Is.EqualTo(true));
-
-            Assert.That(g.IsUnit(), Is.EqualTo(false));
-            Assert.That(h.IsUnit(), Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector3 a = GetNextRandomVector3();
-
-                Vector3 b; Vector3.Normalise(ref a, out b);
-
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Single radius = 1;
-
-            Single pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 31; ++ i)
-            {
-                for( Int32 j = 0; j <= 31; ++ j)
-                {
-                    Single theta = 2 * pi * i / 100;
-                    Single phi = 2 * pi * j / 100;
-
-                    Single x =
-                        RealMaths.Cos(theta) *
-                        RealMaths.Sin(phi) * radius;
-
-                    Single y =
-                        RealMaths.Sin(theta) *
-                        RealMaths.Sin(phi) * radius;
-
-                    Single z =
-                        RealMaths.Cos(phi) * radius;
-
-                    Assert.That(
-                        new Vector3( x,  y,  z).IsUnit(),
-                        Is.EqualTo(true));
-                }
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector3 a = GetNextRandomVector3();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -12264,6 +12036,38 @@ namespace Abacus.SinglePrecision.Tests
                 Vector3.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            Single expected = 13;
+
+            Single result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            Single expected = 169;
+
+            Single result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -13367,6 +13171,105 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector3 a = new Vector3( 1,  0,  0);
+            Vector3 b = new Vector3(-1,  0,  0);
+            Vector3 c = new Vector3( 0,  1,  0);
+            Vector3 d = new Vector3( 0, -1,  0);
+            Vector3 e = new Vector3( 0,  0,  1);
+            Vector3 f = new Vector3( 0,  0, -1);
+            Vector3 g = new Vector3( 1,  1,  1);
+            Vector3 h = new Vector3( 0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(g.IsUnit(), Is.EqualTo(false));
+            Assert.That(h.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Vector3 b; Vector3.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Single radius = 1;
+
+            Single pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 31; ++ i)
+            {
+                for( Int32 j = 0; j <= 31; ++ j)
+                {
+                    Single theta = 2 * pi * i / 100;
+                    Single phi = 2 * pi * j / 100;
+
+                    Single x =
+                        RealMaths.Cos(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    Single y =
+                        RealMaths.Sin(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    Single z =
+                        RealMaths.Cos(phi) * radius;
+
+                    Assert.That(
+                        new Vector3( x,  y,  z).IsUnit(),
+                        Is.EqualTo(true));
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
+            }
+        }
+
 
     }
     /// <summary>
@@ -13573,157 +13476,6 @@ namespace Abacus.SinglePrecision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector4 a = new Vector4(3, -4, 12, 84);
-
-            Single expected = 85;
-
-            Single result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector4 a = new Vector4(3, -4, 12, 84);
-
-            Single expected = 7225;
-
-            Single result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector4 a = new Vector4( 1,  0,  0,  0);
-            Vector4 b = new Vector4(-1,  0,  0,  0);
-            Vector4 c = new Vector4( 0,  1,  0,  0);
-            Vector4 d = new Vector4( 0, -1,  0,  0);
-            Vector4 e = new Vector4( 0,  0,  1,  0);
-            Vector4 f = new Vector4( 0,  0, -1,  0);
-            Vector4 g = new Vector4( 0,  0,  0,  1);
-            Vector4 h = new Vector4( 0,  0,  0, -1);
-            Vector4 i = new Vector4( 1,  1,  1,  1);
-            Vector4 j = new Vector4( 0,  0,  0,  0);
-
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
-            Assert.That(e.IsUnit(), Is.EqualTo(true));
-            Assert.That(f.IsUnit(), Is.EqualTo(true));
-            Assert.That(g.IsUnit(), Is.EqualTo(true));
-            Assert.That(h.IsUnit(), Is.EqualTo(true));
-
-            Assert.That(i.IsUnit(), Is.EqualTo(false));
-            Assert.That(j.IsUnit(), Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector4 a = GetNextRandomVector4();
-
-                Vector4 b; Vector4.Normalise(ref a, out b);
-
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Single radius = 1;
-
-            Single pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 10; ++ i)
-            {
-                for( Int32 j = 0; j <= 10; ++ j)
-                {
-                    for( Int32 k = 0; k <= 10; ++ k)
-                    {
-                        Single theta = 2 * pi * i / 100;
-                        Single phi = 2 * pi * j / 100;
-                        Single gamma = 2 * pi * k / 100;
-
-                        Single x =
-                            RealMaths.Cos(theta) *
-                            RealMaths.Sin(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Single y =
-                            RealMaths.Sin(theta) *
-                            RealMaths.Sin(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Single z =
-                            RealMaths.Cos(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Single w =
-                            RealMaths.Cos(gamma) * radius;
-
-                        Assert.That(
-                            new Vector4(x, y,  z, w).IsUnit(),
-                            Is.EqualTo(true));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector4 a = GetNextRandomVector4();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -14307,6 +14059,38 @@ namespace Abacus.SinglePrecision.Tests
                 Vector4.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector4 a = new Vector4(3, -4, 12, 84);
+
+            Single expected = 85;
+
+            Single result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector4 a = new Vector4(3, -4, 12, 84);
+
+            Single expected = 7225;
+
+            Single result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -15418,6 +15202,119 @@ namespace Abacus.SinglePrecision.Tests
                         Vector4.Lerp (
                             ref a, ref b, ref tests[i], out result)
                     );
+            }
+        }
+
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector4 a = new Vector4( 1,  0,  0,  0);
+            Vector4 b = new Vector4(-1,  0,  0,  0);
+            Vector4 c = new Vector4( 0,  1,  0,  0);
+            Vector4 d = new Vector4( 0, -1,  0,  0);
+            Vector4 e = new Vector4( 0,  0,  1,  0);
+            Vector4 f = new Vector4( 0,  0, -1,  0);
+            Vector4 g = new Vector4( 0,  0,  0,  1);
+            Vector4 h = new Vector4( 0,  0,  0, -1);
+            Vector4 i = new Vector4( 1,  1,  1,  1);
+            Vector4 j = new Vector4( 0,  0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+            Assert.That(g.IsUnit(), Is.EqualTo(true));
+            Assert.That(h.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(i.IsUnit(), Is.EqualTo(false));
+            Assert.That(j.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Vector4 b; Vector4.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Single radius = 1;
+
+            Single pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 10; ++ i)
+            {
+                for( Int32 j = 0; j <= 10; ++ j)
+                {
+                    for( Int32 k = 0; k <= 10; ++ k)
+                    {
+                        Single theta = 2 * pi * i / 100;
+                        Single phi = 2 * pi * j / 100;
+                        Single gamma = 2 * pi * k / 100;
+
+                        Single x =
+                            RealMaths.Cos(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Single y =
+                            RealMaths.Sin(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Single z =
+                            RealMaths.Cos(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Single w =
+                            RealMaths.Cos(gamma) * radius;
+
+                        Assert.That(
+                            new Vector4(x, y,  z, w).IsUnit(),
+                            Is.EqualTo(true));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
 
@@ -17238,91 +17135,6 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
-/*
-        // Test Operator: Division //-----------------------------------------//
-
-        /// <summary>
-        /// Helper method for testing division.
-        /// </summary>
-        void TestDivision (Quaternion a, Quaternion b, Quaternion expected )
-        {
-            // This test asserts the following:
-            //   a / b == expected
-
-            var result_1a = a / b;
-
-            Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_1b, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using whole numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_i ()
-        {
-            Double r = 10;
-            Double s = -40;
-            Double t = 1;
-            Double u = -400;
-
-            Double x = 2000;
-            Double y = 200;
-            Double z = -5;
-
-            var a = new Quaternion(x, y, x, x);
-            var b = new Quaternion(y, z, x, z);
-            var c = new Quaternion(r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            Double s = 4;
-            Double t = ((Double) 1 ) / ((Double) 10);
-            Double u = ((Double) (-1) ) / ((Double) 40 );
-            Double v = -20;
-            Double w = 100;
-            Double x = 2000;
-            Double y = 200;
-            Double z = -5;
-
-            var a = new Quaternion(y, z, w, v);
-            var b = new Quaternion(x, y, z, z);
-            var c = new Quaternion(t, u, v, s);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the
-        /// division opperators and functions yield the same results as a
-        /// manual addition division.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_iii ()
-        {
-            for(Int32 i = 0; i < 100; ++i)
-            {
-                var a = GetNextRandomQuaternion();
-                var b = GetNextRandomQuaternion();
-
-                var c = new Quaternion(
-                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
-
-                this.TestDivision(a, b, c);
-            }
-        }
-*/
         // Test: StructLayout //----------------------------------------------//
 
         /// <summary>
@@ -17518,147 +17330,6 @@ namespace Abacus.DoublePrecision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector2 a = new Vector2(3, -4);
-
-            Double expected = 5;
-
-            Double result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector2 a = new Vector2(3, -4);
-
-            Double expected = 25;
-
-            Double result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector2 a = new Vector2( 1,  0);
-            Vector2 b = new Vector2(-1,  0);
-            Vector2 c = new Vector2( 0,  1);
-            Vector2 d = new Vector2( 0, -1);
-            Vector2 e = new Vector2( 1,  1);
-            Vector2 f = new Vector2( 0,  0);
-
-            Boolean aIsUnit;
-            Boolean bIsUnit;
-            Boolean cIsUnit;
-            Boolean dIsUnit;
-            Boolean eIsUnit;
-            Boolean fIsUnit;
-
-            Vector2.IsUnit(ref a, out aIsUnit);
-            Vector2.IsUnit(ref b, out bIsUnit);
-            Vector2.IsUnit(ref c, out cIsUnit);
-            Vector2.IsUnit(ref d, out dIsUnit);
-            Vector2.IsUnit(ref e, out eIsUnit);
-            Vector2.IsUnit(ref f, out fIsUnit);
-
-            Assert.That(aIsUnit, Is.EqualTo(true));
-            Assert.That(bIsUnit, Is.EqualTo(true));
-            Assert.That(cIsUnit, Is.EqualTo(true));
-            Assert.That(dIsUnit, Is.EqualTo(true));
-
-            Assert.That(eIsUnit, Is.EqualTo(false));
-            Assert.That(fIsUnit, Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector2 a = GetNextRandomVector2();
-
-                Vector2 b; Vector2.Normalise(ref a, out b);
-
-                Boolean bIsUnit;
-                Vector2.IsUnit(ref b, out bIsUnit);
-
-                Assert.That(bIsUnit, Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Double radius = 1;
-
-            Double pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 1000; ++ i)
-            {
-                Double theta = 2 * pi * i * radius / 100;
-
-                Double x = RealMaths.Sin(theta);
-                Double y = RealMaths.Cos(theta);
-
-                Vector2 a = new Vector2(x,  y);
-                Boolean aIsUnit;
-                Vector2.IsUnit(ref a, out aIsUnit);
-
-                Assert.That(aIsUnit, Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector2 a = GetNextRandomVector2();
-                Boolean aIsUnit;
-                Vector2.IsUnit(ref a, out aIsUnit);
-                Assert.That(aIsUnit, Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -18287,6 +17958,38 @@ namespace Abacus.DoublePrecision.Tests
                 Vector2.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            Double expected = 5;
+
+            Double result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            Double expected = 25;
+
+            Double result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -19382,6 +19085,109 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector2 a = new Vector2( 1,  0);
+            Vector2 b = new Vector2(-1,  0);
+            Vector2 c = new Vector2( 0,  1);
+            Vector2 d = new Vector2( 0, -1);
+            Vector2 e = new Vector2( 1,  1);
+            Vector2 f = new Vector2( 0,  0);
+
+            Boolean aIsUnit;
+            Boolean bIsUnit;
+            Boolean cIsUnit;
+            Boolean dIsUnit;
+            Boolean eIsUnit;
+            Boolean fIsUnit;
+
+            Vector2.IsUnit(ref a, out aIsUnit);
+            Vector2.IsUnit(ref b, out bIsUnit);
+            Vector2.IsUnit(ref c, out cIsUnit);
+            Vector2.IsUnit(ref d, out dIsUnit);
+            Vector2.IsUnit(ref e, out eIsUnit);
+            Vector2.IsUnit(ref f, out fIsUnit);
+
+            Assert.That(aIsUnit, Is.EqualTo(true));
+            Assert.That(bIsUnit, Is.EqualTo(true));
+            Assert.That(cIsUnit, Is.EqualTo(true));
+            Assert.That(dIsUnit, Is.EqualTo(true));
+
+            Assert.That(eIsUnit, Is.EqualTo(false));
+            Assert.That(fIsUnit, Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+
+                Vector2 b; Vector2.Normalise(ref a, out b);
+
+                Boolean bIsUnit;
+                Vector2.IsUnit(ref b, out bIsUnit);
+
+                Assert.That(bIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Double radius = 1;
+
+            Double pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 1000; ++ i)
+            {
+                Double theta = 2 * pi * i * radius / 100;
+
+                Double x = RealMaths.Sin(theta);
+                Double y = RealMaths.Cos(theta);
+
+                Vector2 a = new Vector2(x,  y);
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+
+                Assert.That(aIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+                Assert.That(aIsUnit, Is.EqualTo(false));
+            }
+        }
+
 
     }
     /// <summary>
@@ -19571,143 +19377,6 @@ namespace Abacus.DoublePrecision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector3 a = new Vector3(3, -4, 12);
-
-            Double expected = 13;
-
-            Double result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector3 a = new Vector3(3, -4, 12);
-
-            Double expected = 169;
-
-            Double result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector3 a = new Vector3( 1,  0,  0);
-            Vector3 b = new Vector3(-1,  0,  0);
-            Vector3 c = new Vector3( 0,  1,  0);
-            Vector3 d = new Vector3( 0, -1,  0);
-            Vector3 e = new Vector3( 0,  0,  1);
-            Vector3 f = new Vector3( 0,  0, -1);
-            Vector3 g = new Vector3( 1,  1,  1);
-            Vector3 h = new Vector3( 0,  0,  0);
-
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
-            Assert.That(e.IsUnit(), Is.EqualTo(true));
-            Assert.That(f.IsUnit(), Is.EqualTo(true));
-
-            Assert.That(g.IsUnit(), Is.EqualTo(false));
-            Assert.That(h.IsUnit(), Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector3 a = GetNextRandomVector3();
-
-                Vector3 b; Vector3.Normalise(ref a, out b);
-
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Double radius = 1;
-
-            Double pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 31; ++ i)
-            {
-                for( Int32 j = 0; j <= 31; ++ j)
-                {
-                    Double theta = 2 * pi * i / 100;
-                    Double phi = 2 * pi * j / 100;
-
-                    Double x =
-                        RealMaths.Cos(theta) *
-                        RealMaths.Sin(phi) * radius;
-
-                    Double y =
-                        RealMaths.Sin(theta) *
-                        RealMaths.Sin(phi) * radius;
-
-                    Double z =
-                        RealMaths.Cos(phi) * radius;
-
-                    Assert.That(
-                        new Vector3( x,  y,  z).IsUnit(),
-                        Is.EqualTo(true));
-                }
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector3 a = GetNextRandomVector3();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -20455,6 +20124,38 @@ namespace Abacus.DoublePrecision.Tests
                 Vector3.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            Double expected = 13;
+
+            Double result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            Double expected = 169;
+
+            Double result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -21558,6 +21259,105 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector3 a = new Vector3( 1,  0,  0);
+            Vector3 b = new Vector3(-1,  0,  0);
+            Vector3 c = new Vector3( 0,  1,  0);
+            Vector3 d = new Vector3( 0, -1,  0);
+            Vector3 e = new Vector3( 0,  0,  1);
+            Vector3 f = new Vector3( 0,  0, -1);
+            Vector3 g = new Vector3( 1,  1,  1);
+            Vector3 h = new Vector3( 0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(g.IsUnit(), Is.EqualTo(false));
+            Assert.That(h.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Vector3 b; Vector3.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Double radius = 1;
+
+            Double pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 31; ++ i)
+            {
+                for( Int32 j = 0; j <= 31; ++ j)
+                {
+                    Double theta = 2 * pi * i / 100;
+                    Double phi = 2 * pi * j / 100;
+
+                    Double x =
+                        RealMaths.Cos(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    Double y =
+                        RealMaths.Sin(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    Double z =
+                        RealMaths.Cos(phi) * radius;
+
+                    Assert.That(
+                        new Vector3( x,  y,  z).IsUnit(),
+                        Is.EqualTo(true));
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
+            }
+        }
+
 
     }
     /// <summary>
@@ -21764,157 +21564,6 @@ namespace Abacus.DoublePrecision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector4 a = new Vector4(3, -4, 12, 84);
-
-            Double expected = 85;
-
-            Double result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector4 a = new Vector4(3, -4, 12, 84);
-
-            Double expected = 7225;
-
-            Double result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector4 a = new Vector4( 1,  0,  0,  0);
-            Vector4 b = new Vector4(-1,  0,  0,  0);
-            Vector4 c = new Vector4( 0,  1,  0,  0);
-            Vector4 d = new Vector4( 0, -1,  0,  0);
-            Vector4 e = new Vector4( 0,  0,  1,  0);
-            Vector4 f = new Vector4( 0,  0, -1,  0);
-            Vector4 g = new Vector4( 0,  0,  0,  1);
-            Vector4 h = new Vector4( 0,  0,  0, -1);
-            Vector4 i = new Vector4( 1,  1,  1,  1);
-            Vector4 j = new Vector4( 0,  0,  0,  0);
-
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
-            Assert.That(e.IsUnit(), Is.EqualTo(true));
-            Assert.That(f.IsUnit(), Is.EqualTo(true));
-            Assert.That(g.IsUnit(), Is.EqualTo(true));
-            Assert.That(h.IsUnit(), Is.EqualTo(true));
-
-            Assert.That(i.IsUnit(), Is.EqualTo(false));
-            Assert.That(j.IsUnit(), Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector4 a = GetNextRandomVector4();
-
-                Vector4 b; Vector4.Normalise(ref a, out b);
-
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Double radius = 1;
-
-            Double pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 10; ++ i)
-            {
-                for( Int32 j = 0; j <= 10; ++ j)
-                {
-                    for( Int32 k = 0; k <= 10; ++ k)
-                    {
-                        Double theta = 2 * pi * i / 100;
-                        Double phi = 2 * pi * j / 100;
-                        Double gamma = 2 * pi * k / 100;
-
-                        Double x =
-                            RealMaths.Cos(theta) *
-                            RealMaths.Sin(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Double y =
-                            RealMaths.Sin(theta) *
-                            RealMaths.Sin(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Double z =
-                            RealMaths.Cos(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Double w =
-                            RealMaths.Cos(gamma) * radius;
-
-                        Assert.That(
-                            new Vector4(x, y,  z, w).IsUnit(),
-                            Is.EqualTo(true));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector4 a = GetNextRandomVector4();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -22498,6 +22147,38 @@ namespace Abacus.DoublePrecision.Tests
                 Vector4.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector4 a = new Vector4(3, -4, 12, 84);
+
+            Double expected = 85;
+
+            Double result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector4 a = new Vector4(3, -4, 12, 84);
+
+            Double expected = 7225;
+
+            Double result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -23609,6 +23290,119 @@ namespace Abacus.DoublePrecision.Tests
                         Vector4.Lerp (
                             ref a, ref b, ref tests[i], out result)
                     );
+            }
+        }
+
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector4 a = new Vector4( 1,  0,  0,  0);
+            Vector4 b = new Vector4(-1,  0,  0,  0);
+            Vector4 c = new Vector4( 0,  1,  0,  0);
+            Vector4 d = new Vector4( 0, -1,  0,  0);
+            Vector4 e = new Vector4( 0,  0,  1,  0);
+            Vector4 f = new Vector4( 0,  0, -1,  0);
+            Vector4 g = new Vector4( 0,  0,  0,  1);
+            Vector4 h = new Vector4( 0,  0,  0, -1);
+            Vector4 i = new Vector4( 1,  1,  1,  1);
+            Vector4 j = new Vector4( 0,  0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+            Assert.That(g.IsUnit(), Is.EqualTo(true));
+            Assert.That(h.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(i.IsUnit(), Is.EqualTo(false));
+            Assert.That(j.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Vector4 b; Vector4.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Double radius = 1;
+
+            Double pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 10; ++ i)
+            {
+                for( Int32 j = 0; j <= 10; ++ j)
+                {
+                    for( Int32 k = 0; k <= 10; ++ k)
+                    {
+                        Double theta = 2 * pi * i / 100;
+                        Double phi = 2 * pi * j / 100;
+                        Double gamma = 2 * pi * k / 100;
+
+                        Double x =
+                            RealMaths.Cos(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Double y =
+                            RealMaths.Sin(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Double z =
+                            RealMaths.Cos(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Double w =
+                            RealMaths.Cos(gamma) * radius;
+
+                        Assert.That(
+                            new Vector4(x, y,  z, w).IsUnit(),
+                            Is.EqualTo(true));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
 
@@ -25429,91 +25223,6 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
-/*
-        // Test Operator: Division //-----------------------------------------//
-
-        /// <summary>
-        /// Helper method for testing division.
-        /// </summary>
-        void TestDivision (Quaternion a, Quaternion b, Quaternion expected )
-        {
-            // This test asserts the following:
-            //   a / b == expected
-
-            var result_1a = a / b;
-
-            Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_1b, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using whole numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_i ()
-        {
-            Fixed32 r = 10;
-            Fixed32 s = -40;
-            Fixed32 t = 1;
-            Fixed32 u = -400;
-
-            Fixed32 x = 2000;
-            Fixed32 y = 200;
-            Fixed32 z = -5;
-
-            var a = new Quaternion(x, y, x, x);
-            var b = new Quaternion(y, z, x, z);
-            var c = new Quaternion(r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            Fixed32 s = 4;
-            Fixed32 t = ((Fixed32) 1 ) / ((Fixed32) 10);
-            Fixed32 u = ((Fixed32) (-1) ) / ((Fixed32) 40 );
-            Fixed32 v = -20;
-            Fixed32 w = 100;
-            Fixed32 x = 2000;
-            Fixed32 y = 200;
-            Fixed32 z = -5;
-
-            var a = new Quaternion(y, z, w, v);
-            var b = new Quaternion(x, y, z, z);
-            var c = new Quaternion(t, u, v, s);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the
-        /// division opperators and functions yield the same results as a
-        /// manual addition division.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_iii ()
-        {
-            for(Int32 i = 0; i < 100; ++i)
-            {
-                var a = GetNextRandomQuaternion();
-                var b = GetNextRandomQuaternion();
-
-                var c = new Quaternion(
-                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
-
-                this.TestDivision(a, b, c);
-            }
-        }
-*/
         // Test: StructLayout //----------------------------------------------//
 
         /// <summary>
@@ -25709,147 +25418,6 @@ namespace Abacus.Fixed32Precision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector2 a = new Vector2(3, -4);
-
-            Fixed32 expected = 5;
-
-            Fixed32 result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector2 a = new Vector2(3, -4);
-
-            Fixed32 expected = 25;
-
-            Fixed32 result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector2 a = new Vector2( 1,  0);
-            Vector2 b = new Vector2(-1,  0);
-            Vector2 c = new Vector2( 0,  1);
-            Vector2 d = new Vector2( 0, -1);
-            Vector2 e = new Vector2( 1,  1);
-            Vector2 f = new Vector2( 0,  0);
-
-            Boolean aIsUnit;
-            Boolean bIsUnit;
-            Boolean cIsUnit;
-            Boolean dIsUnit;
-            Boolean eIsUnit;
-            Boolean fIsUnit;
-
-            Vector2.IsUnit(ref a, out aIsUnit);
-            Vector2.IsUnit(ref b, out bIsUnit);
-            Vector2.IsUnit(ref c, out cIsUnit);
-            Vector2.IsUnit(ref d, out dIsUnit);
-            Vector2.IsUnit(ref e, out eIsUnit);
-            Vector2.IsUnit(ref f, out fIsUnit);
-
-            Assert.That(aIsUnit, Is.EqualTo(true));
-            Assert.That(bIsUnit, Is.EqualTo(true));
-            Assert.That(cIsUnit, Is.EqualTo(true));
-            Assert.That(dIsUnit, Is.EqualTo(true));
-
-            Assert.That(eIsUnit, Is.EqualTo(false));
-            Assert.That(fIsUnit, Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector2 a = GetNextRandomVector2();
-
-                Vector2 b; Vector2.Normalise(ref a, out b);
-
-                Boolean bIsUnit;
-                Vector2.IsUnit(ref b, out bIsUnit);
-
-                Assert.That(bIsUnit, Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Fixed32 radius = 1;
-
-            Fixed32 pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 1000; ++ i)
-            {
-                Fixed32 theta = 2 * pi * i * radius / 100;
-
-                Fixed32 x = RealMaths.Sin(theta);
-                Fixed32 y = RealMaths.Cos(theta);
-
-                Vector2 a = new Vector2(x,  y);
-                Boolean aIsUnit;
-                Vector2.IsUnit(ref a, out aIsUnit);
-
-                Assert.That(aIsUnit, Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector2 a = GetNextRandomVector2();
-                Boolean aIsUnit;
-                Vector2.IsUnit(ref a, out aIsUnit);
-                Assert.That(aIsUnit, Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -26478,6 +26046,38 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector2.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            Fixed32 expected = 5;
+
+            Fixed32 result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            Fixed32 expected = 25;
+
+            Fixed32 result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -27573,6 +27173,109 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector2 a = new Vector2( 1,  0);
+            Vector2 b = new Vector2(-1,  0);
+            Vector2 c = new Vector2( 0,  1);
+            Vector2 d = new Vector2( 0, -1);
+            Vector2 e = new Vector2( 1,  1);
+            Vector2 f = new Vector2( 0,  0);
+
+            Boolean aIsUnit;
+            Boolean bIsUnit;
+            Boolean cIsUnit;
+            Boolean dIsUnit;
+            Boolean eIsUnit;
+            Boolean fIsUnit;
+
+            Vector2.IsUnit(ref a, out aIsUnit);
+            Vector2.IsUnit(ref b, out bIsUnit);
+            Vector2.IsUnit(ref c, out cIsUnit);
+            Vector2.IsUnit(ref d, out dIsUnit);
+            Vector2.IsUnit(ref e, out eIsUnit);
+            Vector2.IsUnit(ref f, out fIsUnit);
+
+            Assert.That(aIsUnit, Is.EqualTo(true));
+            Assert.That(bIsUnit, Is.EqualTo(true));
+            Assert.That(cIsUnit, Is.EqualTo(true));
+            Assert.That(dIsUnit, Is.EqualTo(true));
+
+            Assert.That(eIsUnit, Is.EqualTo(false));
+            Assert.That(fIsUnit, Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+
+                Vector2 b; Vector2.Normalise(ref a, out b);
+
+                Boolean bIsUnit;
+                Vector2.IsUnit(ref b, out bIsUnit);
+
+                Assert.That(bIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Fixed32 radius = 1;
+
+            Fixed32 pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 1000; ++ i)
+            {
+                Fixed32 theta = 2 * pi * i * radius / 100;
+
+                Fixed32 x = RealMaths.Sin(theta);
+                Fixed32 y = RealMaths.Cos(theta);
+
+                Vector2 a = new Vector2(x,  y);
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+
+                Assert.That(aIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+                Assert.That(aIsUnit, Is.EqualTo(false));
+            }
+        }
+
 
     }
     /// <summary>
@@ -27762,143 +27465,6 @@ namespace Abacus.Fixed32Precision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector3 a = new Vector3(3, -4, 12);
-
-            Fixed32 expected = 13;
-
-            Fixed32 result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector3 a = new Vector3(3, -4, 12);
-
-            Fixed32 expected = 169;
-
-            Fixed32 result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector3 a = new Vector3( 1,  0,  0);
-            Vector3 b = new Vector3(-1,  0,  0);
-            Vector3 c = new Vector3( 0,  1,  0);
-            Vector3 d = new Vector3( 0, -1,  0);
-            Vector3 e = new Vector3( 0,  0,  1);
-            Vector3 f = new Vector3( 0,  0, -1);
-            Vector3 g = new Vector3( 1,  1,  1);
-            Vector3 h = new Vector3( 0,  0,  0);
-
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
-            Assert.That(e.IsUnit(), Is.EqualTo(true));
-            Assert.That(f.IsUnit(), Is.EqualTo(true));
-
-            Assert.That(g.IsUnit(), Is.EqualTo(false));
-            Assert.That(h.IsUnit(), Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector3 a = GetNextRandomVector3();
-
-                Vector3 b; Vector3.Normalise(ref a, out b);
-
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Fixed32 radius = 1;
-
-            Fixed32 pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 31; ++ i)
-            {
-                for( Int32 j = 0; j <= 31; ++ j)
-                {
-                    Fixed32 theta = 2 * pi * i / 100;
-                    Fixed32 phi = 2 * pi * j / 100;
-
-                    Fixed32 x =
-                        RealMaths.Cos(theta) *
-                        RealMaths.Sin(phi) * radius;
-
-                    Fixed32 y =
-                        RealMaths.Sin(theta) *
-                        RealMaths.Sin(phi) * radius;
-
-                    Fixed32 z =
-                        RealMaths.Cos(phi) * radius;
-
-                    Assert.That(
-                        new Vector3( x,  y,  z).IsUnit(),
-                        Is.EqualTo(true));
-                }
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector3 a = GetNextRandomVector3();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -28646,6 +28212,38 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector3.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            Fixed32 expected = 13;
+
+            Fixed32 result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            Fixed32 expected = 169;
+
+            Fixed32 result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -29749,6 +29347,105 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector3 a = new Vector3( 1,  0,  0);
+            Vector3 b = new Vector3(-1,  0,  0);
+            Vector3 c = new Vector3( 0,  1,  0);
+            Vector3 d = new Vector3( 0, -1,  0);
+            Vector3 e = new Vector3( 0,  0,  1);
+            Vector3 f = new Vector3( 0,  0, -1);
+            Vector3 g = new Vector3( 1,  1,  1);
+            Vector3 h = new Vector3( 0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(g.IsUnit(), Is.EqualTo(false));
+            Assert.That(h.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Vector3 b; Vector3.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Fixed32 radius = 1;
+
+            Fixed32 pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 31; ++ i)
+            {
+                for( Int32 j = 0; j <= 31; ++ j)
+                {
+                    Fixed32 theta = 2 * pi * i / 100;
+                    Fixed32 phi = 2 * pi * j / 100;
+
+                    Fixed32 x =
+                        RealMaths.Cos(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    Fixed32 y =
+                        RealMaths.Sin(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    Fixed32 z =
+                        RealMaths.Cos(phi) * radius;
+
+                    Assert.That(
+                        new Vector3( x,  y,  z).IsUnit(),
+                        Is.EqualTo(true));
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
+            }
+        }
+
 
     }
     /// <summary>
@@ -29955,157 +29652,6 @@ namespace Abacus.Fixed32Precision.Tests
             }
 
             Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
-        }
-
-        // Test Member Fn: Length //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the Length member function yields
-        /// the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_Length_i ()
-        {
-            Vector4 a = new Vector4(3, -4, 12, 84);
-
-            Fixed32 expected = 85;
-
-            Fixed32 result = a.Length();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: LengthSquared //-----------------------------------//
-
-        /// <summary>
-        /// Tests that for a known example the LengthSquared member function
-        /// yields the correct result.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_LengthSquared_i ()
-        {
-            Vector4 a = new Vector4(3, -4, 12, 84);
-
-            Fixed32 expected = 7225;
-
-            Fixed32 result = a.LengthSquared();
-
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        // Test Member Fn: IsUnit //------------------------------------------//
-
-        /// <summary>
-        /// Tests that for the simple vectors the IsUnit member function
-        /// returns the correct result of TRUE.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_i ()
-        {
-            Vector4 a = new Vector4( 1,  0,  0,  0);
-            Vector4 b = new Vector4(-1,  0,  0,  0);
-            Vector4 c = new Vector4( 0,  1,  0,  0);
-            Vector4 d = new Vector4( 0, -1,  0,  0);
-            Vector4 e = new Vector4( 0,  0,  1,  0);
-            Vector4 f = new Vector4( 0,  0, -1,  0);
-            Vector4 g = new Vector4( 0,  0,  0,  1);
-            Vector4 h = new Vector4( 0,  0,  0, -1);
-            Vector4 i = new Vector4( 1,  1,  1,  1);
-            Vector4 j = new Vector4( 0,  0,  0,  0);
-
-            Assert.That(a.IsUnit(), Is.EqualTo(true));
-            Assert.That(b.IsUnit(), Is.EqualTo(true));
-            Assert.That(c.IsUnit(), Is.EqualTo(true));
-            Assert.That(d.IsUnit(), Is.EqualTo(true));
-            Assert.That(e.IsUnit(), Is.EqualTo(true));
-            Assert.That(f.IsUnit(), Is.EqualTo(true));
-            Assert.That(g.IsUnit(), Is.EqualTo(true));
-            Assert.That(h.IsUnit(), Is.EqualTo(true));
-
-            Assert.That(i.IsUnit(), Is.EqualTo(false));
-            Assert.That(j.IsUnit(), Is.EqualTo(false));
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of TRUE for a number of scenarios where the test
-        /// vector is both random and normalised.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_ii ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector4 a = GetNextRandomVector4();
-
-                Vector4 b; Vector4.Normalise(ref a, out b);
-
-                Assert.That(b.IsUnit(), Is.EqualTo(true));
-            }
-        }
-
-        /// <summary>
-        /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit
-        /// length.
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iii ()
-        {
-            Fixed32 radius = 1;
-
-            Fixed32 pi; RealMaths.Pi(out pi);
-
-            for( Int32 i = 0; i <= 10; ++ i)
-            {
-                for( Int32 j = 0; j <= 10; ++ j)
-                {
-                    for( Int32 k = 0; k <= 10; ++ k)
-                    {
-                        Fixed32 theta = 2 * pi * i / 100;
-                        Fixed32 phi = 2 * pi * j / 100;
-                        Fixed32 gamma = 2 * pi * k / 100;
-
-                        Fixed32 x =
-                            RealMaths.Cos(theta) *
-                            RealMaths.Sin(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Fixed32 y =
-                            RealMaths.Sin(theta) *
-                            RealMaths.Sin(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Fixed32 z =
-                            RealMaths.Cos(phi) *
-                            RealMaths.Sin(gamma) * radius;
-
-                        Fixed32 w =
-                            RealMaths.Cos(gamma) * radius;
-
-                        Assert.That(
-                            new Vector4(x, y,  z, w).IsUnit(),
-                            Is.EqualTo(true));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// This test makes sure that the IsUnit member function returns the
-        /// correct result of FALSE for a number of scenarios where the test
-        /// vector is randomly generated and not normalised.  It's highly
-        /// unlikely that the random generator will create a unit vector!
-        /// </summary>
-        [Test]
-        public void TestMemberFn_IsUnit_iv ()
-        {
-            for( Int32 i = 0; i < 100; ++ i)
-            {
-                Vector4 a = GetNextRandomVector4();
-
-                Assert.That(a.IsUnit(), Is.EqualTo(false));
-            }
         }
 
         // Test Constant: Zero //---------------------------------------------//
@@ -30689,6 +30235,38 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector4.Transform (ref vec, ref trans, out result);
                 AssertEqualWithinReason(result, expected);
             }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector4 a = new Vector4(3, -4, 12, 84);
+
+            Fixed32 expected = 85;
+
+            Fixed32 result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector4 a = new Vector4(3, -4, 12, 84);
+
+            Fixed32 expected = 7225;
+
+            Fixed32 result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         // Test Operator: Equality //-----------------------------------------//
@@ -31800,6 +31378,119 @@ namespace Abacus.Fixed32Precision.Tests
                         Vector4.Lerp (
                             ref a, ref b, ref tests[i], out result)
                     );
+            }
+        }
+
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector4 a = new Vector4( 1,  0,  0,  0);
+            Vector4 b = new Vector4(-1,  0,  0,  0);
+            Vector4 c = new Vector4( 0,  1,  0,  0);
+            Vector4 d = new Vector4( 0, -1,  0,  0);
+            Vector4 e = new Vector4( 0,  0,  1,  0);
+            Vector4 f = new Vector4( 0,  0, -1,  0);
+            Vector4 g = new Vector4( 0,  0,  0,  1);
+            Vector4 h = new Vector4( 0,  0,  0, -1);
+            Vector4 i = new Vector4( 1,  1,  1,  1);
+            Vector4 j = new Vector4( 0,  0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+            Assert.That(g.IsUnit(), Is.EqualTo(true));
+            Assert.That(h.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(i.IsUnit(), Is.EqualTo(false));
+            Assert.That(j.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Vector4 b; Vector4.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            Fixed32 radius = 1;
+
+            Fixed32 pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 10; ++ i)
+            {
+                for( Int32 j = 0; j <= 10; ++ j)
+                {
+                    for( Int32 k = 0; k <= 10; ++ k)
+                    {
+                        Fixed32 theta = 2 * pi * i / 100;
+                        Fixed32 phi = 2 * pi * j / 100;
+                        Fixed32 gamma = 2 * pi * k / 100;
+
+                        Fixed32 x =
+                            RealMaths.Cos(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Fixed32 y =
+                            RealMaths.Sin(theta) *
+                            RealMaths.Sin(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Fixed32 z =
+                            RealMaths.Cos(phi) *
+                            RealMaths.Sin(gamma) * radius;
+
+                        Fixed32 w =
+                            RealMaths.Cos(gamma) * radius;
+
+                        Assert.That(
+                            new Vector4(x, y,  z, w).IsUnit(),
+                            Is.EqualTo(true));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector4 a = GetNextRandomVector4();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
 

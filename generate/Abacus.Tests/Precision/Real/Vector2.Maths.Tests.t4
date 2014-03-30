@@ -570,3 +570,35 @@
             }
         }
 
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            <#= type #> expected = 5;
+
+            <#= type #> result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector2 a = new Vector2(3, -4);
+
+            <#= type #> expected = 25;
+
+            <#= type #> result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+

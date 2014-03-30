@@ -152,3 +152,102 @@
             }
         }
 
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector3 a = new Vector3( 1,  0,  0);
+            Vector3 b = new Vector3(-1,  0,  0);
+            Vector3 c = new Vector3( 0,  1,  0);
+            Vector3 d = new Vector3( 0, -1,  0);
+            Vector3 e = new Vector3( 0,  0,  1);
+            Vector3 f = new Vector3( 0,  0, -1);
+            Vector3 g = new Vector3( 1,  1,  1);
+            Vector3 h = new Vector3( 0,  0,  0);
+
+            Assert.That(a.IsUnit(), Is.EqualTo(true));
+            Assert.That(b.IsUnit(), Is.EqualTo(true));
+            Assert.That(c.IsUnit(), Is.EqualTo(true));
+            Assert.That(d.IsUnit(), Is.EqualTo(true));
+            Assert.That(e.IsUnit(), Is.EqualTo(true));
+            Assert.That(f.IsUnit(), Is.EqualTo(true));
+
+            Assert.That(g.IsUnit(), Is.EqualTo(false));
+            Assert.That(h.IsUnit(), Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Vector3 b; Vector3.Normalise(ref a, out b);
+
+                Assert.That(b.IsUnit(), Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            <#= type #> radius = 1;
+
+            <#= type #> pi; RealMaths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 31; ++ i)
+            {
+                for( Int32 j = 0; j <= 31; ++ j)
+                {
+                    <#= type #> theta = 2 * pi * i / 100;
+                    <#= type #> phi = 2 * pi * j / 100;
+
+                    <#= type #> x =
+                        RealMaths.Cos(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    <#= type #> y =
+                        RealMaths.Sin(theta) *
+                        RealMaths.Sin(phi) * radius;
+
+                    <#= type #> z =
+                        RealMaths.Cos(phi) * radius;
+
+                    Assert.That(
+                        new Vector3( x,  y,  z).IsUnit(),
+                        Is.EqualTo(true));
+                }
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Assert.That(a.IsUnit(), Is.EqualTo(false));
+            }
+        }
+
