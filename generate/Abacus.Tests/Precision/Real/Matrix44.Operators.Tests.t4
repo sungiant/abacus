@@ -240,13 +240,33 @@
         [Test]
         public void TestOperator_Subtraction_i ()
         {
-            var a = new Matrix44(12, -4, 14, 18, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var b = new Matrix44(15, 11, 7, 27, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var expected = new Matrix44(-3, -15, 7, -9, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                12, -4, 14, 18,
+                44, -6, -2, -11,
+                34, 54, 4, 5,
+                4, -6, 2, 2);
+
+            var b = new Matrix44(
+                15, 11, 7, 27,
+                4, 1, -4, 11,
+                3, 21, -22, 19,
+                6, -5, 23, 11);
+
+            var expected = new Matrix44(
+                -3, -15, 7, -9,
+                40, -7, 2, -22,
+                31, 33, 26, -14,
+                -2, -1, -21, -9);
+
             this.TestSubtraction(a, b, expected);
 
-            var c = new Matrix44(-423, 342, 7, -800, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            this.TestSubtraction(c, Matrix44.Identity, c);
+            var c = new Matrix44(
+                -423, 342, 7, -800,
+                44, -54, -22, 11,
+                44, -54, -22, 11,
+                44, -54, -22, 11);
+
+            this.TestSubtraction(c, Matrix44.Zero, c);
         }
 
         /// <summary>
@@ -257,7 +277,8 @@
         [Test]
         public void TestOperator_Subtraction_ii ()
         {
-            this.TestSubtraction(Matrix44.Identity, Matrix44.Identity, Matrix44.Identity);
+            this.TestSubtraction(
+                Matrix44.Identity, Matrix44.Zero, Matrix44.Identity);
         }
 
         /// <summary>
@@ -327,10 +348,29 @@
             <#= type #> t = -3432;
             <#= type #> u = 6218;
 
-            var a = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(u, t, s, r, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            var b = new Matrix44(
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r);
+
+            var c = new Matrix44(
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s);
+
+            var d = new Matrix44(
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t);
 
             this.TestNegation(a, c);
             this.TestNegation(b, d);
@@ -348,11 +388,20 @@
             <#= type #> r = 3432;
             <#= type #> s = -6218;
 
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var c = new Matrix44(
+                t, u, r, s,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
 
-            this.TestNegation(c, Matrix44.Identity - c);
-            this.TestNegation(d, Matrix44.Identity - d);
+            var d = new Matrix44(
+                s, r, u, t,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            this.TestNegation(c, Matrix44.Zero - c);
+            this.TestNegation(d, Matrix44.Zero - d);
         }
 
         /// <summary>
@@ -362,7 +411,7 @@
         [Test]
         public void TestOperator_Negation_iii ()
         {
-            this.TestNegation(Matrix44.Identity, Matrix44.Identity);
+            this.TestNegation(Matrix44.Zero, Matrix44.Zero);
         }
 
         /// <summary>
@@ -376,7 +425,7 @@
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomMatrix44();
-                this.TestNegation(a, Matrix44.Identity - a);
+                this.TestNegation(a, Matrix44.Zero - a);
             }
         }
 
@@ -553,36 +602,12 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            <#= type #> r = 5;
-            <#= type #> s = 4;
-            <#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
-            <#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
-            <#= type #> v = -20;
-            <#= type #> w = 100;
-            <#= type #> x = 2000;
-            <#= type #> y = 200;
-            <#= type #> z = -5;
-
-            var a = new Matrix44(y, z, w, v, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(x, y, z, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, v, s, r, s, t, u, r, s, t, u, r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
         [Test]
-        public void TestOperator_Division_iii ()
+        public void TestOperator_Division_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {

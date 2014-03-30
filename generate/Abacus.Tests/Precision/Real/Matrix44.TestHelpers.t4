@@ -42,20 +42,27 @@
             <#= type #> b = GetNextRandom<#= type #>();
             <#= type #> c = GetNextRandom<#= type #>();
             <#= type #> d = GetNextRandom<#= type #>();
+
             <#= type #> e = GetNextRandom<#= type #>();
             <#= type #> f = GetNextRandom<#= type #>();
             <#= type #> g = GetNextRandom<#= type #>();
             <#= type #> h = GetNextRandom<#= type #>();
+
             <#= type #> i = GetNextRandom<#= type #>();
             <#= type #> j = GetNextRandom<#= type #>();
             <#= type #> k = GetNextRandom<#= type #>();
             <#= type #> l = GetNextRandom<#= type #>();
+
             <#= type #> m = GetNextRandom<#= type #>();
             <#= type #> n = GetNextRandom<#= type #>();
             <#= type #> o = GetNextRandom<#= type #>();
             <#= type #> p = GetNextRandom<#= type #>();
 
-            return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+            return new Matrix44(
+                a, b, c, d,
+                e, f, g, h,
+                i, j, k, l,
+                m, n, o, p);
         }
 
         /// <summary>
@@ -63,20 +70,24 @@
         /// </summary>
         internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
         {
-            <#= type #> tolerance; RealMaths.TestTolerance(out tolerance);
+            <#= type #> tolerance;
+            RealMaths.TestTolerance(out tolerance);
 
             Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
             Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
             Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
             Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+
             Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
             Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
             Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
             Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+
             Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
             Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
             Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
             Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+
             Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
             Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
             Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));

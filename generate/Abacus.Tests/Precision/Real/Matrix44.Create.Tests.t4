@@ -139,9 +139,7 @@
             expected.R3C2 = 0;
             expected.R3C3 = 1;
 
-
             AssertEqualWithinReason(m, expected);
-
         }
 
         /// <summary>

@@ -7286,20 +7286,27 @@ namespace Abacus.SinglePrecision.Tests
             Single b = GetNextRandomSingle();
             Single c = GetNextRandomSingle();
             Single d = GetNextRandomSingle();
+
             Single e = GetNextRandomSingle();
             Single f = GetNextRandomSingle();
             Single g = GetNextRandomSingle();
             Single h = GetNextRandomSingle();
+
             Single i = GetNextRandomSingle();
             Single j = GetNextRandomSingle();
             Single k = GetNextRandomSingle();
             Single l = GetNextRandomSingle();
+
             Single m = GetNextRandomSingle();
             Single n = GetNextRandomSingle();
             Single o = GetNextRandomSingle();
             Single p = GetNextRandomSingle();
 
-            return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+            return new Matrix44(
+                a, b, c, d,
+                e, f, g, h,
+                i, j, k, l,
+                m, n, o, p);
         }
 
         /// <summary>
@@ -7307,20 +7314,24 @@ namespace Abacus.SinglePrecision.Tests
         /// </summary>
         internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
         {
-            Single tolerance; RealMaths.TestTolerance(out tolerance);
+            Single tolerance;
+            RealMaths.TestTolerance(out tolerance);
 
             Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
             Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
             Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
             Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+
             Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
             Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
             Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
             Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+
             Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
             Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
             Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
             Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+
             Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
             Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
             Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));
@@ -7650,9 +7661,7 @@ namespace Abacus.SinglePrecision.Tests
             expected.R3C2 = 0;
             expected.R3C3 = 1;
 
-
             AssertEqualWithinReason(m, expected);
-
         }
 
         /// <summary>
@@ -8110,13 +8119,33 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestOperator_Subtraction_i ()
         {
-            var a = new Matrix44(12, -4, 14, 18, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var b = new Matrix44(15, 11, 7, 27, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var expected = new Matrix44(-3, -15, 7, -9, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                12, -4, 14, 18,
+                44, -6, -2, -11,
+                34, 54, 4, 5,
+                4, -6, 2, 2);
+
+            var b = new Matrix44(
+                15, 11, 7, 27,
+                4, 1, -4, 11,
+                3, 21, -22, 19,
+                6, -5, 23, 11);
+
+            var expected = new Matrix44(
+                -3, -15, 7, -9,
+                40, -7, 2, -22,
+                31, 33, 26, -14,
+                -2, -1, -21, -9);
+
             this.TestSubtraction(a, b, expected);
 
-            var c = new Matrix44(-423, 342, 7, -800, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            this.TestSubtraction(c, Matrix44.Identity, c);
+            var c = new Matrix44(
+                -423, 342, 7, -800,
+                44, -54, -22, 11,
+                44, -54, -22, 11,
+                44, -54, -22, 11);
+
+            this.TestSubtraction(c, Matrix44.Zero, c);
         }
 
         /// <summary>
@@ -8127,7 +8156,8 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestOperator_Subtraction_ii ()
         {
-            this.TestSubtraction(Matrix44.Identity, Matrix44.Identity, Matrix44.Identity);
+            this.TestSubtraction(
+                Matrix44.Identity, Matrix44.Zero, Matrix44.Identity);
         }
 
         /// <summary>
@@ -8197,10 +8227,29 @@ namespace Abacus.SinglePrecision.Tests
             Single t = -3432;
             Single u = 6218;
 
-            var a = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(u, t, s, r, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            var b = new Matrix44(
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r);
+
+            var c = new Matrix44(
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s);
+
+            var d = new Matrix44(
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t);
 
             this.TestNegation(a, c);
             this.TestNegation(b, d);
@@ -8218,11 +8267,20 @@ namespace Abacus.SinglePrecision.Tests
             Single r = 3432;
             Single s = -6218;
 
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var c = new Matrix44(
+                t, u, r, s,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
 
-            this.TestNegation(c, Matrix44.Identity - c);
-            this.TestNegation(d, Matrix44.Identity - d);
+            var d = new Matrix44(
+                s, r, u, t,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            this.TestNegation(c, Matrix44.Zero - c);
+            this.TestNegation(d, Matrix44.Zero - d);
         }
 
         /// <summary>
@@ -8232,7 +8290,7 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestOperator_Negation_iii ()
         {
-            this.TestNegation(Matrix44.Identity, Matrix44.Identity);
+            this.TestNegation(Matrix44.Zero, Matrix44.Zero);
         }
 
         /// <summary>
@@ -8246,7 +8304,7 @@ namespace Abacus.SinglePrecision.Tests
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomMatrix44();
-                this.TestNegation(a, Matrix44.Identity - a);
+                this.TestNegation(a, Matrix44.Zero - a);
             }
         }
 
@@ -8423,36 +8481,12 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            Single r = 5;
-            Single s = 4;
-            Single t = ((Single) 1 ) / ((Single) 10);
-            Single u = ((Single) (-1) ) / ((Single) 40 );
-            Single v = -20;
-            Single w = 100;
-            Single x = 2000;
-            Single y = 200;
-            Single z = -5;
-
-            var a = new Matrix44(y, z, w, v, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(x, y, z, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, v, s, r, s, t, u, r, s, t, u, r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
         [Test]
-        public void TestOperator_Division_iii ()
+        public void TestOperator_Division_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -15454,20 +15488,27 @@ namespace Abacus.DoublePrecision.Tests
             Double b = GetNextRandomDouble();
             Double c = GetNextRandomDouble();
             Double d = GetNextRandomDouble();
+
             Double e = GetNextRandomDouble();
             Double f = GetNextRandomDouble();
             Double g = GetNextRandomDouble();
             Double h = GetNextRandomDouble();
+
             Double i = GetNextRandomDouble();
             Double j = GetNextRandomDouble();
             Double k = GetNextRandomDouble();
             Double l = GetNextRandomDouble();
+
             Double m = GetNextRandomDouble();
             Double n = GetNextRandomDouble();
             Double o = GetNextRandomDouble();
             Double p = GetNextRandomDouble();
 
-            return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+            return new Matrix44(
+                a, b, c, d,
+                e, f, g, h,
+                i, j, k, l,
+                m, n, o, p);
         }
 
         /// <summary>
@@ -15475,20 +15516,24 @@ namespace Abacus.DoublePrecision.Tests
         /// </summary>
         internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
         {
-            Double tolerance; RealMaths.TestTolerance(out tolerance);
+            Double tolerance;
+            RealMaths.TestTolerance(out tolerance);
 
             Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
             Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
             Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
             Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+
             Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
             Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
             Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
             Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+
             Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
             Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
             Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
             Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+
             Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
             Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
             Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));
@@ -15818,9 +15863,7 @@ namespace Abacus.DoublePrecision.Tests
             expected.R3C2 = 0;
             expected.R3C3 = 1;
 
-
             AssertEqualWithinReason(m, expected);
-
         }
 
         /// <summary>
@@ -16278,13 +16321,33 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestOperator_Subtraction_i ()
         {
-            var a = new Matrix44(12, -4, 14, 18, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var b = new Matrix44(15, 11, 7, 27, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var expected = new Matrix44(-3, -15, 7, -9, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                12, -4, 14, 18,
+                44, -6, -2, -11,
+                34, 54, 4, 5,
+                4, -6, 2, 2);
+
+            var b = new Matrix44(
+                15, 11, 7, 27,
+                4, 1, -4, 11,
+                3, 21, -22, 19,
+                6, -5, 23, 11);
+
+            var expected = new Matrix44(
+                -3, -15, 7, -9,
+                40, -7, 2, -22,
+                31, 33, 26, -14,
+                -2, -1, -21, -9);
+
             this.TestSubtraction(a, b, expected);
 
-            var c = new Matrix44(-423, 342, 7, -800, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            this.TestSubtraction(c, Matrix44.Identity, c);
+            var c = new Matrix44(
+                -423, 342, 7, -800,
+                44, -54, -22, 11,
+                44, -54, -22, 11,
+                44, -54, -22, 11);
+
+            this.TestSubtraction(c, Matrix44.Zero, c);
         }
 
         /// <summary>
@@ -16295,7 +16358,8 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestOperator_Subtraction_ii ()
         {
-            this.TestSubtraction(Matrix44.Identity, Matrix44.Identity, Matrix44.Identity);
+            this.TestSubtraction(
+                Matrix44.Identity, Matrix44.Zero, Matrix44.Identity);
         }
 
         /// <summary>
@@ -16365,10 +16429,29 @@ namespace Abacus.DoublePrecision.Tests
             Double t = -3432;
             Double u = 6218;
 
-            var a = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(u, t, s, r, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            var b = new Matrix44(
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r);
+
+            var c = new Matrix44(
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s);
+
+            var d = new Matrix44(
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t);
 
             this.TestNegation(a, c);
             this.TestNegation(b, d);
@@ -16386,11 +16469,20 @@ namespace Abacus.DoublePrecision.Tests
             Double r = 3432;
             Double s = -6218;
 
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var c = new Matrix44(
+                t, u, r, s,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
 
-            this.TestNegation(c, Matrix44.Identity - c);
-            this.TestNegation(d, Matrix44.Identity - d);
+            var d = new Matrix44(
+                s, r, u, t,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            this.TestNegation(c, Matrix44.Zero - c);
+            this.TestNegation(d, Matrix44.Zero - d);
         }
 
         /// <summary>
@@ -16400,7 +16492,7 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestOperator_Negation_iii ()
         {
-            this.TestNegation(Matrix44.Identity, Matrix44.Identity);
+            this.TestNegation(Matrix44.Zero, Matrix44.Zero);
         }
 
         /// <summary>
@@ -16414,7 +16506,7 @@ namespace Abacus.DoublePrecision.Tests
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomMatrix44();
-                this.TestNegation(a, Matrix44.Identity - a);
+                this.TestNegation(a, Matrix44.Zero - a);
             }
         }
 
@@ -16591,36 +16683,12 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            Double r = 5;
-            Double s = 4;
-            Double t = ((Double) 1 ) / ((Double) 10);
-            Double u = ((Double) (-1) ) / ((Double) 40 );
-            Double v = -20;
-            Double w = 100;
-            Double x = 2000;
-            Double y = 200;
-            Double z = -5;
-
-            var a = new Matrix44(y, z, w, v, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(x, y, z, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, v, s, r, s, t, u, r, s, t, u, r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
         [Test]
-        public void TestOperator_Division_iii ()
+        public void TestOperator_Division_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -23622,20 +23690,27 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 b = GetNextRandomFixed32();
             Fixed32 c = GetNextRandomFixed32();
             Fixed32 d = GetNextRandomFixed32();
+
             Fixed32 e = GetNextRandomFixed32();
             Fixed32 f = GetNextRandomFixed32();
             Fixed32 g = GetNextRandomFixed32();
             Fixed32 h = GetNextRandomFixed32();
+
             Fixed32 i = GetNextRandomFixed32();
             Fixed32 j = GetNextRandomFixed32();
             Fixed32 k = GetNextRandomFixed32();
             Fixed32 l = GetNextRandomFixed32();
+
             Fixed32 m = GetNextRandomFixed32();
             Fixed32 n = GetNextRandomFixed32();
             Fixed32 o = GetNextRandomFixed32();
             Fixed32 p = GetNextRandomFixed32();
 
-            return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+            return new Matrix44(
+                a, b, c, d,
+                e, f, g, h,
+                i, j, k, l,
+                m, n, o, p);
         }
 
         /// <summary>
@@ -23643,20 +23718,24 @@ namespace Abacus.Fixed32Precision.Tests
         /// </summary>
         internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
         {
-            Fixed32 tolerance; RealMaths.TestTolerance(out tolerance);
+            Fixed32 tolerance;
+            RealMaths.TestTolerance(out tolerance);
 
             Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
             Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
             Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
             Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+
             Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
             Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
             Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
             Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+
             Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
             Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
             Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
             Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+
             Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
             Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
             Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));
@@ -23986,9 +24065,7 @@ namespace Abacus.Fixed32Precision.Tests
             expected.R3C2 = 0;
             expected.R3C3 = 1;
 
-
             AssertEqualWithinReason(m, expected);
-
         }
 
         /// <summary>
@@ -24446,13 +24523,33 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestOperator_Subtraction_i ()
         {
-            var a = new Matrix44(12, -4, 14, 18, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var b = new Matrix44(15, 11, 7, 27, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            var expected = new Matrix44(-3, -15, 7, -9, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
+            var a = new Matrix44(
+                12, -4, 14, 18,
+                44, -6, -2, -11,
+                34, 54, 4, 5,
+                4, -6, 2, 2);
+
+            var b = new Matrix44(
+                15, 11, 7, 27,
+                4, 1, -4, 11,
+                3, 21, -22, 19,
+                6, -5, 23, 11);
+
+            var expected = new Matrix44(
+                -3, -15, 7, -9,
+                40, -7, 2, -22,
+                31, 33, 26, -14,
+                -2, -1, -21, -9);
+
             this.TestSubtraction(a, b, expected);
 
-            var c = new Matrix44(-423, 342, 7, -800, 44, -54, -22, 11, 44, -54, -22, 11, 44, -54, -22, 11);
-            this.TestSubtraction(c, Matrix44.Identity, c);
+            var c = new Matrix44(
+                -423, 342, 7, -800,
+                44, -54, -22, 11,
+                44, -54, -22, 11,
+                44, -54, -22, 11);
+
+            this.TestSubtraction(c, Matrix44.Zero, c);
         }
 
         /// <summary>
@@ -24463,7 +24560,8 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestOperator_Subtraction_ii ()
         {
-            this.TestSubtraction(Matrix44.Identity, Matrix44.Identity, Matrix44.Identity);
+            this.TestSubtraction(
+                Matrix44.Identity, Matrix44.Zero, Matrix44.Identity);
         }
 
         /// <summary>
@@ -24533,10 +24631,29 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 t = -3432;
             Fixed32 u = 6218;
 
-            var a = new Matrix44(r, s, t, u, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(u, t, s, r, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var a = new Matrix44(
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            var b = new Matrix44(
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r,
+                u, t, s, r);
+
+            var c = new Matrix44(
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s,
+                t, u, r, s);
+
+            var d = new Matrix44(
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t,
+                s, r, u, t);
 
             this.TestNegation(a, c);
             this.TestNegation(b, d);
@@ -24554,11 +24671,20 @@ namespace Abacus.Fixed32Precision.Tests
             Fixed32 r = 3432;
             Fixed32 s = -6218;
 
-            var c = new Matrix44(t, u, r, s, r, s, t, u, r, s, t, u, r, s, t, u);
-            var d = new Matrix44(s, r, u, t, r, s, t, u, r, s, t, u, r, s, t, u);
+            var c = new Matrix44(
+                t, u, r, s,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
 
-            this.TestNegation(c, Matrix44.Identity - c);
-            this.TestNegation(d, Matrix44.Identity - d);
+            var d = new Matrix44(
+                s, r, u, t,
+                r, s, t, u,
+                r, s, t, u,
+                r, s, t, u);
+
+            this.TestNegation(c, Matrix44.Zero - c);
+            this.TestNegation(d, Matrix44.Zero - d);
         }
 
         /// <summary>
@@ -24568,7 +24694,7 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestOperator_Negation_iii ()
         {
-            this.TestNegation(Matrix44.Identity, Matrix44.Identity);
+            this.TestNegation(Matrix44.Zero, Matrix44.Zero);
         }
 
         /// <summary>
@@ -24582,7 +24708,7 @@ namespace Abacus.Fixed32Precision.Tests
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomMatrix44();
-                this.TestNegation(a, Matrix44.Identity - a);
+                this.TestNegation(a, Matrix44.Zero - a);
             }
         }
 
@@ -24759,36 +24885,12 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            Fixed32 r = 5;
-            Fixed32 s = 4;
-            Fixed32 t = ((Fixed32) 1 ) / ((Fixed32) 10);
-            Fixed32 u = ((Fixed32) (-1) ) / ((Fixed32) 40 );
-            Fixed32 v = -20;
-            Fixed32 w = 100;
-            Fixed32 x = 2000;
-            Fixed32 y = 200;
-            Fixed32 z = -5;
-
-            var a = new Matrix44(y, z, w, v, r, s, t, u, r, s, t, u, r, s, t, u);
-            var b = new Matrix44(x, y, z, z, r, s, t, u, r, s, t, u, r, s, t, u);
-            var c = new Matrix44(t, u, v, s, r, s, t, u, r, s, t, u, r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
         [Test]
-        public void TestOperator_Division_iii ()
+        public void TestOperator_Division_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
