@@ -7456,7 +7456,23 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestMemberFn_ToString ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Matrix44 a = new Matrix44(
+                42, -17, 13, -44,
+                46, -23, -22, 90,
+                34, -21, 52, 33,
+                88, -12, -78, 50);
+
+            String result = a.ToString();
+
+            String expected =
+                "{ " +
+                "{R0C0:42 R0C1:-17 R0C2:13 R0C3:-44} " +
+                "{R1C0:46 R1C1:-23 R1C2:-22 R1C3:90} " +
+                "{R2C0:34 R2C1:-21 R2C2:52 R2C3:33} " +
+                "{R3C0:88 R3C1:-12 R3C2:-78 R3C3:50} " +
+                "}";
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -15608,7 +15624,23 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestMemberFn_ToString ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Matrix44 a = new Matrix44(
+                42, -17, 13, -44,
+                46, -23, -22, 90,
+                34, -21, 52, 33,
+                88, -12, -78, 50);
+
+            String result = a.ToString();
+
+            String expected =
+                "{ " +
+                "{R0C0:42 R0C1:-17 R0C2:13 R0C3:-44} " +
+                "{R1C0:46 R1C1:-23 R1C2:-22 R1C3:90} " +
+                "{R2C0:34 R2C1:-21 R2C2:52 R2C3:33} " +
+                "{R3C0:88 R3C1:-12 R3C2:-78 R3C3:50} " +
+                "}";
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -23760,7 +23792,23 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestMemberFn_ToString ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Matrix44 a = new Matrix44(
+                42, -17, 13, -44,
+                46, -23, -22, 90,
+                34, -21, 52, 33,
+                88, -12, -78, 50);
+
+            String result = a.ToString();
+
+            String expected =
+                "{ " +
+                "{R0C0:42 R0C1:-17 R0C2:13 R0C3:-44} " +
+                "{R1C0:46 R1C1:-23 R1C2:-22 R1C3:90} " +
+                "{R2C0:34 R2C1:-21 R2C2:52 R2C3:33} " +
+                "{R3C0:88 R3C1:-12 R3C2:-78 R3C3:50} " +
+                "}";
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
