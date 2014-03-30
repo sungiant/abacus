@@ -63,10 +63,72 @@
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
         public void Test_Constructors ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Matrix44 a = new Matrix44();
+                Assert.That(a, Is.EqualTo(Matrix44.Zero));
+            }
+            {
+                // Test Matrix44(
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #>,
+                //     <#= type #> )
+                <#= type #> a = -18759;
+                <#= type #> b = 345;
+                <#= type #> c = 774;
+                <#= type #> d = -3431;
+                <#= type #> e = -55;
+                <#= type #> f = 47;
+                <#= type #> g = 45;
+                <#= type #> h = 3461;
+                <#= type #> i = -4;
+                <#= type #> j = 453;
+                <#= type #> k = -3;
+                <#= type #> l = -3441;
+                <#= type #> m = -189;
+                <#= type #> n = 5;
+                <#= type #> o = -87;
+                <#= type #> p = 341;
+
+                Matrix44 expected = new Matrix44(
+                    a, b, c, d,
+                    e, f, g, h,
+                    i, j, k, l,
+                    m, n, o, p);
+
+                Assert.That(expected.R0C0, Is.EqualTo(a));
+                Assert.That(expected.R0C1, Is.EqualTo(b));
+                Assert.That(expected.R0C2, Is.EqualTo(c));
+                Assert.That(expected.R0C3, Is.EqualTo(d));
+                Assert.That(expected.R1C0, Is.EqualTo(e));
+                Assert.That(expected.R1C1, Is.EqualTo(f));
+                Assert.That(expected.R1C2, Is.EqualTo(g));
+                Assert.That(expected.R1C3, Is.EqualTo(h));
+                Assert.That(expected.R2C0, Is.EqualTo(i));
+                Assert.That(expected.R2C1, Is.EqualTo(j));
+                Assert.That(expected.R2C2, Is.EqualTo(k));
+                Assert.That(expected.R2C3, Is.EqualTo(l));
+                Assert.That(expected.R3C0, Is.EqualTo(m));
+                Assert.That(expected.R3C1, Is.EqualTo(n));
+                Assert.That(expected.R3C2, Is.EqualTo(o));
+                Assert.That(expected.R3C3, Is.EqualTo(p));
+            }
         }
 
         [Test]

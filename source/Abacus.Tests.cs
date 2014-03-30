@@ -7385,10 +7385,72 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
         public void Test_Constructors ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Matrix44 a = new Matrix44();
+                Assert.That(a, Is.EqualTo(Matrix44.Zero));
+            }
+            {
+                // Test Matrix44(
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single,
+                //     Single )
+                Single a = -18759;
+                Single b = 345;
+                Single c = 774;
+                Single d = -3431;
+                Single e = -55;
+                Single f = 47;
+                Single g = 45;
+                Single h = 3461;
+                Single i = -4;
+                Single j = 453;
+                Single k = -3;
+                Single l = -3441;
+                Single m = -189;
+                Single n = 5;
+                Single o = -87;
+                Single p = 341;
+
+                Matrix44 expected = new Matrix44(
+                    a, b, c, d,
+                    e, f, g, h,
+                    i, j, k, l,
+                    m, n, o, p);
+
+                Assert.That(expected.R0C0, Is.EqualTo(a));
+                Assert.That(expected.R0C1, Is.EqualTo(b));
+                Assert.That(expected.R0C2, Is.EqualTo(c));
+                Assert.That(expected.R0C3, Is.EqualTo(d));
+                Assert.That(expected.R1C0, Is.EqualTo(e));
+                Assert.That(expected.R1C1, Is.EqualTo(f));
+                Assert.That(expected.R1C2, Is.EqualTo(g));
+                Assert.That(expected.R1C3, Is.EqualTo(h));
+                Assert.That(expected.R2C0, Is.EqualTo(i));
+                Assert.That(expected.R2C1, Is.EqualTo(j));
+                Assert.That(expected.R2C2, Is.EqualTo(k));
+                Assert.That(expected.R2C3, Is.EqualTo(l));
+                Assert.That(expected.R3C0, Is.EqualTo(m));
+                Assert.That(expected.R3C1, Is.EqualTo(n));
+                Assert.That(expected.R3C2, Is.EqualTo(o));
+                Assert.That(expected.R3C3, Is.EqualTo(p));
+            }
         }
 
         [Test]
@@ -15475,10 +15537,72 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
         public void Test_Constructors ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Matrix44 a = new Matrix44();
+                Assert.That(a, Is.EqualTo(Matrix44.Zero));
+            }
+            {
+                // Test Matrix44(
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double,
+                //     Double )
+                Double a = -18759;
+                Double b = 345;
+                Double c = 774;
+                Double d = -3431;
+                Double e = -55;
+                Double f = 47;
+                Double g = 45;
+                Double h = 3461;
+                Double i = -4;
+                Double j = 453;
+                Double k = -3;
+                Double l = -3441;
+                Double m = -189;
+                Double n = 5;
+                Double o = -87;
+                Double p = 341;
+
+                Matrix44 expected = new Matrix44(
+                    a, b, c, d,
+                    e, f, g, h,
+                    i, j, k, l,
+                    m, n, o, p);
+
+                Assert.That(expected.R0C0, Is.EqualTo(a));
+                Assert.That(expected.R0C1, Is.EqualTo(b));
+                Assert.That(expected.R0C2, Is.EqualTo(c));
+                Assert.That(expected.R0C3, Is.EqualTo(d));
+                Assert.That(expected.R1C0, Is.EqualTo(e));
+                Assert.That(expected.R1C1, Is.EqualTo(f));
+                Assert.That(expected.R1C2, Is.EqualTo(g));
+                Assert.That(expected.R1C3, Is.EqualTo(h));
+                Assert.That(expected.R2C0, Is.EqualTo(i));
+                Assert.That(expected.R2C1, Is.EqualTo(j));
+                Assert.That(expected.R2C2, Is.EqualTo(k));
+                Assert.That(expected.R2C3, Is.EqualTo(l));
+                Assert.That(expected.R3C0, Is.EqualTo(m));
+                Assert.That(expected.R3C1, Is.EqualTo(n));
+                Assert.That(expected.R3C2, Is.EqualTo(o));
+                Assert.That(expected.R3C3, Is.EqualTo(p));
+            }
         }
 
         [Test]
@@ -23565,10 +23689,72 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
         public void Test_Constructors ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Matrix44 a = new Matrix44();
+                Assert.That(a, Is.EqualTo(Matrix44.Zero));
+            }
+            {
+                // Test Matrix44(
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32,
+                //     Fixed32 )
+                Fixed32 a = -18759;
+                Fixed32 b = 345;
+                Fixed32 c = 774;
+                Fixed32 d = -3431;
+                Fixed32 e = -55;
+                Fixed32 f = 47;
+                Fixed32 g = 45;
+                Fixed32 h = 3461;
+                Fixed32 i = -4;
+                Fixed32 j = 453;
+                Fixed32 k = -3;
+                Fixed32 l = -3441;
+                Fixed32 m = -189;
+                Fixed32 n = 5;
+                Fixed32 o = -87;
+                Fixed32 p = 341;
+
+                Matrix44 expected = new Matrix44(
+                    a, b, c, d,
+                    e, f, g, h,
+                    i, j, k, l,
+                    m, n, o, p);
+
+                Assert.That(expected.R0C0, Is.EqualTo(a));
+                Assert.That(expected.R0C1, Is.EqualTo(b));
+                Assert.That(expected.R0C2, Is.EqualTo(c));
+                Assert.That(expected.R0C3, Is.EqualTo(d));
+                Assert.That(expected.R1C0, Is.EqualTo(e));
+                Assert.That(expected.R1C1, Is.EqualTo(f));
+                Assert.That(expected.R1C2, Is.EqualTo(g));
+                Assert.That(expected.R1C3, Is.EqualTo(h));
+                Assert.That(expected.R2C0, Is.EqualTo(i));
+                Assert.That(expected.R2C1, Is.EqualTo(j));
+                Assert.That(expected.R2C2, Is.EqualTo(k));
+                Assert.That(expected.R2C3, Is.EqualTo(l));
+                Assert.That(expected.R3C0, Is.EqualTo(m));
+                Assert.That(expected.R3C1, Is.EqualTo(n));
+                Assert.That(expected.R3C2, Is.EqualTo(o));
+                Assert.That(expected.R3C3, Is.EqualTo(p));
+            }
         }
 
         [Test]
