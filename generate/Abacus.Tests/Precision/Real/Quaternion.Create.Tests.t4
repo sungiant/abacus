@@ -2,15 +2,6 @@
         /// todo
         /// </summary>
         [Test]
-        public void TestStaticFn_CreateTranslation_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
             throw new InconclusiveException("Not Implemented");

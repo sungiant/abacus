@@ -8647,15 +8647,6 @@ namespace Abacus.SinglePrecision.Tests
         /// todo
         /// </summary>
         [Test]
-        public void TestStaticFn_CreateTranslation_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
             throw new InconclusiveException("Not Implemented");
@@ -16735,15 +16726,6 @@ namespace Abacus.DoublePrecision.Tests
         /// todo
         /// </summary>
         [Test]
-        public void TestStaticFn_CreateTranslation_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
             throw new InconclusiveException("Not Implemented");
@@ -24820,15 +24802,6 @@ namespace Abacus.Fixed32Precision.Tests
 
             AssertEqualWithinReason(result, expected);
         }        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_CreateTranslation_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
         /// todo
         /// </summary>
         [Test]
