@@ -69,6 +69,12 @@
         /// Performs muliplication of two Quaternion objects,
         /// (Quaternion multiplication is not commutative),
         /// (i^2 = j^2 = k^2 = i j k = -1).
+        ///
+        /// For Quaternion division the notation q1 / q2 is not ideal, since
+        /// Quaternion multiplication is not commutative we need to be able
+        /// to distinguish between q1*(q2^-1) and (q2^-1)*q1. This is why
+        /// Abacus does not have a division opperator.  If you need
+        /// a divide operation just multiply by the inverse.
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
@@ -93,80 +99,3 @@
             result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
 
-/* Should not be
-
-
-        /// <summary>
-        /// Performs multiplication of a Quaternion object and a <#= type #>
-        /// precision scaling factor.
-        /// </summary>
-        public static void Multiply (
-            ref Quaternion quaternion1,
-            ref <#= type #> scaleFactor,
-            out Quaternion result)
-        {
-            result.I = quaternion1.I * scaleFactor;
-            result.J = quaternion1.J * scaleFactor;
-            result.K = quaternion1.K * scaleFactor;
-            result.U = quaternion1.U * scaleFactor;
-        }
-
-        // Division Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs division of two Quaternion objects.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
-        {
-            <#= type #> one = 1;
-
-            <#= type #> x = quaternion1.I;
-            <#= type #> y = quaternion1.J;
-            <#= type #> z = quaternion1.K;
-            <#= type #> w = quaternion1.U;
-
-            <#= type #> a =
-                (quaternion2.I * quaternion2.I) +
-                (quaternion2.J * quaternion2.J) +
-                (quaternion2.K * quaternion2.K) +
-                (quaternion2.U * quaternion2.U);
-
-            <#= type #> b = one / a;
-
-            <#= type #> c = -quaternion2.I * b;
-            <#= type #> d = -quaternion2.J * b;
-            <#= type #> e = -quaternion2.K * b;
-            <#= type #> f = quaternion2.U * b;
-
-            <#= type #> g = (y * e) - (z * d);
-            <#= type #> h = (z * c) - (x * e);
-            <#= type #> i = (x * d) - (y * c);
-            <#= type #> j = ((x * c) + (y * d)) + (z * e);
-
-            result.I = (x * f) + (c * w) + g;
-            result.J = (y * f) + (d * w) + h;
-            result.K = (z * f) + (e * w) + i;
-            result.U = (w * f) - j;
-        }
-
-        /// <summary>
-        /// Performs division of a Quaternion object and a <#= type #> precision
-        /// scaling factor.
-        /// </summary>
-        public static void Divide (
-            ref Quaternion quaternion1,
-            ref <#= type #> divider,
-            out Quaternion result)
-        {
-            <#= type #> one = 1;
-            <#= type #> a = one / divider;
-
-            result.I = quaternion1.I * a;
-            result.J = quaternion1.J * a;
-            result.K = quaternion1.K * a;
-            result.U = quaternion1.U * a;
-        }
-*/

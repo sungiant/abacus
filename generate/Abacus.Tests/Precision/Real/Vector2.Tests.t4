@@ -73,13 +73,6 @@
                 Assert.That(c.X, Is.EqualTo(u));
                 Assert.That(c.Y, Is.EqualTo(v));
             }
-            {
-                // Test no constructor
-                Vector2 e;
-                e.X = 0;
-                e.Y = 0;
-                Assert.That(e, Is.EqualTo(Vector2.Zero));
-            }
         }
 
         // Test Member Fn: ToString //----------------------------------------//

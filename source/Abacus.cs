@@ -10164,11 +10164,17 @@ namespace Abacus.SinglePrecision
         static Quaternion identity;
 
         /// <summary>
+        /// Defines the zero quaternion.
+        /// </summary>
+        static Quaternion zero;
+
+        /// <summary>
         /// Static constructor used to initilise static constants.
         /// </summary>
         static Quaternion ()
         {
             identity = new Quaternion (0, 0, 0, 1);
+            zero = new Quaternion (0, 0, 0, 0);
         }
 
         /// <summary>
@@ -10177,6 +10183,14 @@ namespace Abacus.SinglePrecision
         public static Quaternion Identity
         {
             get { return identity; }
+        }
+
+        /// <summary>
+        /// Returns the zero Quaternion.
+        /// </summary>
+        public static Quaternion Zero
+        {
+            get { return zero; }
         }
 
         /// <summary>
@@ -16854,11 +16868,17 @@ namespace Abacus.DoublePrecision
         static Quaternion identity;
 
         /// <summary>
+        /// Defines the zero quaternion.
+        /// </summary>
+        static Quaternion zero;
+
+        /// <summary>
         /// Static constructor used to initilise static constants.
         /// </summary>
         static Quaternion ()
         {
             identity = new Quaternion (0, 0, 0, 1);
+            zero = new Quaternion (0, 0, 0, 0);
         }
 
         /// <summary>
@@ -16867,6 +16887,14 @@ namespace Abacus.DoublePrecision
         public static Quaternion Identity
         {
             get { return identity; }
+        }
+
+        /// <summary>
+        /// Returns the zero Quaternion.
+        /// </summary>
+        public static Quaternion Zero
+        {
+            get { return zero; }
         }
 
         /// <summary>
@@ -23544,11 +23572,17 @@ namespace Abacus.Fixed32Precision
         static Quaternion identity;
 
         /// <summary>
+        /// Defines the zero quaternion.
+        /// </summary>
+        static Quaternion zero;
+
+        /// <summary>
         /// Static constructor used to initilise static constants.
         /// </summary>
         static Quaternion ()
         {
             identity = new Quaternion (0, 0, 0, 1);
+            zero = new Quaternion (0, 0, 0, 0);
         }
 
         /// <summary>
@@ -23557,6 +23591,14 @@ namespace Abacus.Fixed32Precision
         public static Quaternion Identity
         {
             get { return identity; }
+        }
+
+        /// <summary>
+        /// Returns the zero Quaternion.
+        /// </summary>
+        public static Quaternion Zero
+        {
+            get { return zero; }
         }
 
         /// <summary>

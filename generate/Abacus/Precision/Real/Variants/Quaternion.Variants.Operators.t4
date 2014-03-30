@@ -115,18 +115,7 @@
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Multiply (
-            Quaternion quaternion, <#= type #> scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-*/
+
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -137,70 +126,4 @@
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-/*
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Quaternion quaternion, <#= type #> scaleFactor)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
 
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            <#= type #> scaleFactor, Quaternion quaternion)
-        {
-            Quaternion result;
-            Multiply (ref quaternion, ref scaleFactor, out result);
-            return result;
-        }
-
-        // Variant Division Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Divide (
-            Quaternion quaternion1, <#= type #> divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator / (Quaternion quaternion1, <#= type #> divider)
-        {
-            Quaternion result;
-            Divide (ref quaternion1, ref divider, out result);
-            return result;
-        }
-*/

@@ -53,10 +53,40 @@
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
-        public void Test_Constructors ()
+        public void Test_Constructors_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Quaternion a = new Quaternion();
+                Assert.That(a, Is.EqualTo(Quaternion.Zero));
+            }
+            {
+                // Test Quaternion( <#= type #>, <#= type #>, <#= type #>, <#= type #> )
+                <#= type #> a = -189;
+                <#= type #> b = 429;
+                <#= type #> c = 4298;
+                <#= type #> d = 341;
+                Quaternion e = new Quaternion(a, b, c, d);
+                Assert.That(e.I, Is.EqualTo(a));
+                Assert.That(e.J, Is.EqualTo(b));
+                Assert.That(e.K, Is.EqualTo(c));
+                Assert.That(e.U, Is.EqualTo(d));
+            }
+            {
+                // Test Quaternion( Vector3, <#= type #> )
+                Vector3 a = new Vector3(-189, 429, 4298);
+                <#= type #> b = 341;
+                Quaternion c = new Quaternion(a, b);
+                Assert.That(c.I, Is.EqualTo(a.X));
+                Assert.That(c.J, Is.EqualTo(a.Y));
+                Assert.That(c.K, Is.EqualTo(a.Z));
+                Assert.That(c.U, Is.EqualTo(b));
+            }
         }
 
         [Test]

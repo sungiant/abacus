@@ -122,36 +122,12 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the
-        /// addition opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_ii ()
-        {
-            var a = new Quaternion(-2313, 88, 199, 42);
-
-            var expected = a;
-
-            this.TestAddition(a, Quaternion.Identity, expected);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the
-        /// addition opperators and functions yield the correct result of zero.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_iii ()
-        {
-            this.TestAddition(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Addition_iv ()
+        public void TestOperator_Addition_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -199,20 +175,6 @@
             var b = new Quaternion(15, 11, 7, 27);
             var expected = new Quaternion(-3, -15, 7, -9);
             this.TestSubtraction(a, b, expected);
-
-            var c = new Quaternion(-423, 342, 7, -800);
-            this.TestSubtraction(c, Quaternion.Identity, c);
-        }
-
-        /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
-        /// all the subtraction opperators and functions yield the correct
-        /// result.
-        /// <summary>
-        [Test]
-        public void TestOperator_Subtraction_ii ()
-        {
-            this.TestSubtraction(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
         }
 
         /// <summary>
@@ -221,7 +183,7 @@
         /// manual subtraction calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Subtraction_iii ()
+        public void TestOperator_Subtraction_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -275,46 +237,17 @@
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_ii ()
-        {
-            <#= type #> t = -3432;
-            <#= type #> u = 6218;
-            <#= type #> r = 3432;
-            <#= type #> s = -6218;
-
-            var c = new Quaternion(t, u, r, s);
-            var d = new Quaternion(s, r, u, t);
-
-            this.TestNegation(c, Quaternion.Identity - c);
-            this.TestNegation(d, Quaternion.Identity - d);
-        }
-
-        /// <summary>
-        /// Assert that when negating the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_iii ()
-        {
-            this.TestNegation(Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Negation_iv ()
+        public void TestOperator_Negation_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomQuaternion();
-                this.TestNegation(a, Quaternion.Identity - a);
+                this.TestNegation(a, Quaternion.Zero - a);
             }
         }
 
@@ -378,88 +311,3 @@
             }
         }
 
-/*
-        // Test Operator: Division //-----------------------------------------//
-
-        /// <summary>
-        /// Helper method for testing division.
-        /// </summary>
-        void TestDivision (Quaternion a, Quaternion b, Quaternion expected )
-        {
-            // This test asserts the following:
-            //   a / b == expected
-
-            var result_1a = a / b;
-
-            Quaternion result_1b; Quaternion.Divide(ref a, ref b, out result_1b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_1b, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using whole numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_i ()
-        {
-            <#= type #> r = 10;
-            <#= type #> s = -40;
-            <#= type #> t = 1;
-            <#= type #> u = -400;
-
-            <#= type #> x = 2000;
-            <#= type #> y = 200;
-            <#= type #> z = -5;
-
-            var a = new Quaternion(x, y, x, x);
-            var b = new Quaternion(y, z, x, z);
-            var c = new Quaternion(r, s, t, u);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            <#= type #> s = 4;
-            <#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
-            <#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
-            <#= type #> v = -20;
-            <#= type #> w = 100;
-            <#= type #> x = 2000;
-            <#= type #> y = 200;
-            <#= type #> z = -5;
-
-            var a = new Quaternion(y, z, w, v);
-            var b = new Quaternion(x, y, z, z);
-            var c = new Quaternion(t, u, v, s);
-
-            this.TestDivision(a, b, c);
-        }
-
-        /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the
-        /// division opperators and functions yield the same results as a
-        /// manual addition division.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_iii ()
-        {
-            for(Int32 i = 0; i < 100; ++i)
-            {
-                var a = GetNextRandomQuaternion();
-                var b = GetNextRandomQuaternion();
-
-                var c = new Quaternion(
-                    a.I / b.I, a.J / b.J, a.K / b.K, a.U / b.U);
-
-                this.TestDivision(a, b, c);
-            }
-        }
-*/

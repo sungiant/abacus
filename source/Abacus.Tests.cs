@@ -8564,10 +8564,40 @@ namespace Abacus.SinglePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
-        public void Test_Constructors ()
+        public void Test_Constructors_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Quaternion a = new Quaternion();
+                Assert.That(a, Is.EqualTo(Quaternion.Zero));
+            }
+            {
+                // Test Quaternion( Single, Single, Single, Single )
+                Single a = -189;
+                Single b = 429;
+                Single c = 4298;
+                Single d = 341;
+                Quaternion e = new Quaternion(a, b, c, d);
+                Assert.That(e.I, Is.EqualTo(a));
+                Assert.That(e.J, Is.EqualTo(b));
+                Assert.That(e.K, Is.EqualTo(c));
+                Assert.That(e.U, Is.EqualTo(d));
+            }
+            {
+                // Test Quaternion( Vector3, Single )
+                Vector3 a = new Vector3(-189, 429, 4298);
+                Single b = 341;
+                Quaternion c = new Quaternion(a, b);
+                Assert.That(c.I, Is.EqualTo(a.X));
+                Assert.That(c.J, Is.EqualTo(a.Y));
+                Assert.That(c.K, Is.EqualTo(a.Z));
+                Assert.That(c.U, Is.EqualTo(b));
+            }
         }
 
         [Test]
@@ -8828,36 +8858,12 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the
-        /// addition opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_ii ()
-        {
-            var a = new Quaternion(-2313, 88, 199, 42);
-
-            var expected = a;
-
-            this.TestAddition(a, Quaternion.Identity, expected);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the
-        /// addition opperators and functions yield the correct result of zero.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_iii ()
-        {
-            this.TestAddition(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Addition_iv ()
+        public void TestOperator_Addition_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -8905,20 +8911,6 @@ namespace Abacus.SinglePrecision.Tests
             var b = new Quaternion(15, 11, 7, 27);
             var expected = new Quaternion(-3, -15, 7, -9);
             this.TestSubtraction(a, b, expected);
-
-            var c = new Quaternion(-423, 342, 7, -800);
-            this.TestSubtraction(c, Quaternion.Identity, c);
-        }
-
-        /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
-        /// all the subtraction opperators and functions yield the correct
-        /// result.
-        /// <summary>
-        [Test]
-        public void TestOperator_Subtraction_ii ()
-        {
-            this.TestSubtraction(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
         }
 
         /// <summary>
@@ -8927,7 +8919,7 @@ namespace Abacus.SinglePrecision.Tests
         /// manual subtraction calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Subtraction_iii ()
+        public void TestOperator_Subtraction_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -8981,46 +8973,17 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_ii ()
-        {
-            Single t = -3432;
-            Single u = 6218;
-            Single r = 3432;
-            Single s = -6218;
-
-            var c = new Quaternion(t, u, r, s);
-            var d = new Quaternion(s, r, u, t);
-
-            this.TestNegation(c, Quaternion.Identity - c);
-            this.TestNegation(d, Quaternion.Identity - d);
-        }
-
-        /// <summary>
-        /// Assert that when negating the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_iii ()
-        {
-            this.TestNegation(Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Negation_iv ()
+        public void TestOperator_Negation_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomQuaternion();
-                this.TestNegation(a, Quaternion.Identity - a);
+                this.TestNegation(a, Quaternion.Zero - a);
             }
         }
 
@@ -9321,13 +9284,6 @@ namespace Abacus.SinglePrecision.Tests
                 Vector2 c = new Vector2(u, v);
                 Assert.That(c.X, Is.EqualTo(u));
                 Assert.That(c.Y, Is.EqualTo(v));
-            }
-            {
-                // Test no constructor
-                Vector2 e;
-                e.X = 0;
-                e.Y = 0;
-                Assert.That(e, Is.EqualTo(Vector2.Zero));
             }
         }
 
@@ -11238,7 +11194,7 @@ namespace Abacus.SinglePrecision.Tests
 
     }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class Vector3Tests
@@ -11315,14 +11271,14 @@ namespace Abacus.SinglePrecision.Tests
             Type t = typeof(Vector3);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y and Z member variables of a number of randomly generated 
-        /// Vector3 objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y and Z member variables of a number of randomly generated
+        /// Vector3 objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -11339,12 +11295,12 @@ namespace Abacus.SinglePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 3);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
                 Assert.That(data[2], Is.EqualTo(vec.Z));
-                
+
                 h_vec.Free();
             }
         }
@@ -11352,7 +11308,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -11381,14 +11337,6 @@ namespace Abacus.SinglePrecision.Tests
                 Assert.That(c.X, Is.EqualTo(a.X));
                 Assert.That(c.Y, Is.EqualTo(a.Y));
                 Assert.That(c.Z, Is.EqualTo(b));
-            }
-            {
-                // Test no constructor
-                Vector3 a;
-                a.X = 0;
-                a.Y = 0;
-                a.Z = 0;
-                Assert.That(a, Is.EqualTo(Vector3.Zero));
             }
         }
 
@@ -11455,7 +11403,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -11500,8 +11448,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -11519,7 +11467,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -11536,27 +11484,27 @@ namespace Abacus.SinglePrecision.Tests
                     Single theta = 2 * pi * i / 100;
                     Single phi = 2 * pi * j / 100;
 
-                    Single x = 
-                        RealMaths.Cos(theta) * 
+                    Single x =
+                        RealMaths.Cos(theta) *
                         RealMaths.Sin(phi) * radius;
 
-                    Single y = 
-                        RealMaths.Sin(theta) * 
+                    Single y =
+                        RealMaths.Sin(theta) *
                         RealMaths.Sin(phi) * radius;
 
-                    Single z = 
-                        RealMaths.Cos(phi) * radius;                
+                    Single z =
+                        RealMaths.Cos(phi) * radius;
 
                     Assert.That(
-                        new Vector3( x,  y,  z).IsUnit(), 
+                        new Vector3( x,  y,  z).IsUnit(),
                         Is.EqualTo(true));
                 }
             }
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -11570,7 +11518,7 @@ namespace Abacus.SinglePrecision.Tests
                 Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -13420,8 +13368,9 @@ namespace Abacus.SinglePrecision.Tests
         }
 
 
-    }    /// <summary>
-    /// 
+    }
+    /// <summary>
+    ///
     /// </summary>
     [TestFixture]
     public class Vector4Tests
@@ -13500,14 +13449,14 @@ namespace Abacus.SinglePrecision.Tests
             Type t = typeof(Vector4);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y, Z and W member variables of a number of randomly generated 
-        /// Vector4 objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Vector4 objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -13524,13 +13473,13 @@ namespace Abacus.SinglePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 4);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
                 Assert.That(data[2], Is.EqualTo(vec.Z));
                 Assert.That(data[3], Is.EqualTo(vec.W));
-                
+
                 h_vec.Free();
             }
         }
@@ -13538,7 +13487,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -13550,7 +13499,7 @@ namespace Abacus.SinglePrecision.Tests
                 Assert.That(a, Is.EqualTo(Vector4.Zero));
             }
             {
-                // Test Vector4( Single, Single, Single )
+                // Test Vector4( Single, Single, Single, Single )
                 Single a = -189;
                 Single b = 429;
                 Single c = 4298;
@@ -13581,15 +13530,6 @@ namespace Abacus.SinglePrecision.Tests
                 Assert.That(c.Y, Is.EqualTo(a.Y));
                 Assert.That(c.Z, Is.EqualTo(a.Z));
                 Assert.That(c.W, Is.EqualTo(b));
-            }
-            {
-                // Test no constructor
-                Vector4 a;
-                a.X = 0;
-                a.Y = 0;
-                a.Z = 0;
-                a.W = 0;
-                Assert.That(a, Is.EqualTo(Vector4.Zero));
             }
         }
 
@@ -13656,7 +13596,7 @@ namespace Abacus.SinglePrecision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -13705,8 +13645,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -13724,7 +13664,7 @@ namespace Abacus.SinglePrecision.Tests
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -13744,25 +13684,25 @@ namespace Abacus.SinglePrecision.Tests
                         Single phi = 2 * pi * j / 100;
                         Single gamma = 2 * pi * k / 100;
 
-                        Single x = 
-                            RealMaths.Cos(theta) * 
-                            RealMaths.Sin(phi) * 
+                        Single x =
+                            RealMaths.Cos(theta) *
+                            RealMaths.Sin(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Single y = 
-                            RealMaths.Sin(theta) * 
-                            RealMaths.Sin(phi) * 
+
+                        Single y =
+                            RealMaths.Sin(theta) *
+                            RealMaths.Sin(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Single z = 
-                            RealMaths.Cos(phi) * 
+
+                        Single z =
+                            RealMaths.Cos(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Single w = 
-                            RealMaths.Cos(gamma) * radius;          
+
+                        Single w =
+                            RealMaths.Cos(gamma) * radius;
 
                         Assert.That(
-                            new Vector4(x, y,  z, w).IsUnit(), 
+                            new Vector4(x, y,  z, w).IsUnit(),
                             Is.EqualTo(true));
                     }
                 }
@@ -13770,8 +13710,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -13785,7 +13725,7 @@ namespace Abacus.SinglePrecision.Tests
                 Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -15482,7 +15422,8 @@ namespace Abacus.SinglePrecision.Tests
         }
 
 
-    }}
+    }
+}
 
 namespace Abacus.DoublePrecision.Tests
 {
@@ -16814,10 +16755,40 @@ namespace Abacus.DoublePrecision.Tests
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
-        public void Test_Constructors ()
+        public void Test_Constructors_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Quaternion a = new Quaternion();
+                Assert.That(a, Is.EqualTo(Quaternion.Zero));
+            }
+            {
+                // Test Quaternion( Double, Double, Double, Double )
+                Double a = -189;
+                Double b = 429;
+                Double c = 4298;
+                Double d = 341;
+                Quaternion e = new Quaternion(a, b, c, d);
+                Assert.That(e.I, Is.EqualTo(a));
+                Assert.That(e.J, Is.EqualTo(b));
+                Assert.That(e.K, Is.EqualTo(c));
+                Assert.That(e.U, Is.EqualTo(d));
+            }
+            {
+                // Test Quaternion( Vector3, Double )
+                Vector3 a = new Vector3(-189, 429, 4298);
+                Double b = 341;
+                Quaternion c = new Quaternion(a, b);
+                Assert.That(c.I, Is.EqualTo(a.X));
+                Assert.That(c.J, Is.EqualTo(a.Y));
+                Assert.That(c.K, Is.EqualTo(a.Z));
+                Assert.That(c.U, Is.EqualTo(b));
+            }
         }
 
         [Test]
@@ -17078,36 +17049,12 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the
-        /// addition opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_ii ()
-        {
-            var a = new Quaternion(-2313, 88, 199, 42);
-
-            var expected = a;
-
-            this.TestAddition(a, Quaternion.Identity, expected);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the
-        /// addition opperators and functions yield the correct result of zero.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_iii ()
-        {
-            this.TestAddition(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Addition_iv ()
+        public void TestOperator_Addition_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -17155,20 +17102,6 @@ namespace Abacus.DoublePrecision.Tests
             var b = new Quaternion(15, 11, 7, 27);
             var expected = new Quaternion(-3, -15, 7, -9);
             this.TestSubtraction(a, b, expected);
-
-            var c = new Quaternion(-423, 342, 7, -800);
-            this.TestSubtraction(c, Quaternion.Identity, c);
-        }
-
-        /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
-        /// all the subtraction opperators and functions yield the correct
-        /// result.
-        /// <summary>
-        [Test]
-        public void TestOperator_Subtraction_ii ()
-        {
-            this.TestSubtraction(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
         }
 
         /// <summary>
@@ -17177,7 +17110,7 @@ namespace Abacus.DoublePrecision.Tests
         /// manual subtraction calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Subtraction_iii ()
+        public void TestOperator_Subtraction_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -17231,46 +17164,17 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_ii ()
-        {
-            Double t = -3432;
-            Double u = 6218;
-            Double r = 3432;
-            Double s = -6218;
-
-            var c = new Quaternion(t, u, r, s);
-            var d = new Quaternion(s, r, u, t);
-
-            this.TestNegation(c, Quaternion.Identity - c);
-            this.TestNegation(d, Quaternion.Identity - d);
-        }
-
-        /// <summary>
-        /// Assert that when negating the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_iii ()
-        {
-            this.TestNegation(Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Negation_iv ()
+        public void TestOperator_Negation_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomQuaternion();
-                this.TestNegation(a, Quaternion.Identity - a);
+                this.TestNegation(a, Quaternion.Zero - a);
             }
         }
 
@@ -17571,13 +17475,6 @@ namespace Abacus.DoublePrecision.Tests
                 Vector2 c = new Vector2(u, v);
                 Assert.That(c.X, Is.EqualTo(u));
                 Assert.That(c.Y, Is.EqualTo(v));
-            }
-            {
-                // Test no constructor
-                Vector2 e;
-                e.X = 0;
-                e.Y = 0;
-                Assert.That(e, Is.EqualTo(Vector2.Zero));
             }
         }
 
@@ -19488,7 +19385,7 @@ namespace Abacus.DoublePrecision.Tests
 
     }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class Vector3Tests
@@ -19565,14 +19462,14 @@ namespace Abacus.DoublePrecision.Tests
             Type t = typeof(Vector3);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y and Z member variables of a number of randomly generated 
-        /// Vector3 objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y and Z member variables of a number of randomly generated
+        /// Vector3 objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -19589,12 +19486,12 @@ namespace Abacus.DoublePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 3);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
                 Assert.That(data[2], Is.EqualTo(vec.Z));
-                
+
                 h_vec.Free();
             }
         }
@@ -19602,7 +19499,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -19631,14 +19528,6 @@ namespace Abacus.DoublePrecision.Tests
                 Assert.That(c.X, Is.EqualTo(a.X));
                 Assert.That(c.Y, Is.EqualTo(a.Y));
                 Assert.That(c.Z, Is.EqualTo(b));
-            }
-            {
-                // Test no constructor
-                Vector3 a;
-                a.X = 0;
-                a.Y = 0;
-                a.Z = 0;
-                Assert.That(a, Is.EqualTo(Vector3.Zero));
             }
         }
 
@@ -19705,7 +19594,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -19750,8 +19639,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -19769,7 +19658,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -19786,27 +19675,27 @@ namespace Abacus.DoublePrecision.Tests
                     Double theta = 2 * pi * i / 100;
                     Double phi = 2 * pi * j / 100;
 
-                    Double x = 
-                        RealMaths.Cos(theta) * 
+                    Double x =
+                        RealMaths.Cos(theta) *
                         RealMaths.Sin(phi) * radius;
 
-                    Double y = 
-                        RealMaths.Sin(theta) * 
+                    Double y =
+                        RealMaths.Sin(theta) *
                         RealMaths.Sin(phi) * radius;
 
-                    Double z = 
-                        RealMaths.Cos(phi) * radius;                
+                    Double z =
+                        RealMaths.Cos(phi) * radius;
 
                     Assert.That(
-                        new Vector3( x,  y,  z).IsUnit(), 
+                        new Vector3( x,  y,  z).IsUnit(),
                         Is.EqualTo(true));
                 }
             }
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -19820,7 +19709,7 @@ namespace Abacus.DoublePrecision.Tests
                 Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -21670,8 +21559,9 @@ namespace Abacus.DoublePrecision.Tests
         }
 
 
-    }    /// <summary>
-    /// 
+    }
+    /// <summary>
+    ///
     /// </summary>
     [TestFixture]
     public class Vector4Tests
@@ -21750,14 +21640,14 @@ namespace Abacus.DoublePrecision.Tests
             Type t = typeof(Vector4);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y, Z and W member variables of a number of randomly generated 
-        /// Vector4 objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Vector4 objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -21774,13 +21664,13 @@ namespace Abacus.DoublePrecision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 4);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
                 Assert.That(data[2], Is.EqualTo(vec.Z));
                 Assert.That(data[3], Is.EqualTo(vec.W));
-                
+
                 h_vec.Free();
             }
         }
@@ -21788,7 +21678,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -21800,7 +21690,7 @@ namespace Abacus.DoublePrecision.Tests
                 Assert.That(a, Is.EqualTo(Vector4.Zero));
             }
             {
-                // Test Vector4( Double, Double, Double )
+                // Test Vector4( Double, Double, Double, Double )
                 Double a = -189;
                 Double b = 429;
                 Double c = 4298;
@@ -21831,15 +21721,6 @@ namespace Abacus.DoublePrecision.Tests
                 Assert.That(c.Y, Is.EqualTo(a.Y));
                 Assert.That(c.Z, Is.EqualTo(a.Z));
                 Assert.That(c.W, Is.EqualTo(b));
-            }
-            {
-                // Test no constructor
-                Vector4 a;
-                a.X = 0;
-                a.Y = 0;
-                a.Z = 0;
-                a.W = 0;
-                Assert.That(a, Is.EqualTo(Vector4.Zero));
             }
         }
 
@@ -21906,7 +21787,7 @@ namespace Abacus.DoublePrecision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -21955,8 +21836,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -21974,7 +21855,7 @@ namespace Abacus.DoublePrecision.Tests
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -21994,25 +21875,25 @@ namespace Abacus.DoublePrecision.Tests
                         Double phi = 2 * pi * j / 100;
                         Double gamma = 2 * pi * k / 100;
 
-                        Double x = 
-                            RealMaths.Cos(theta) * 
-                            RealMaths.Sin(phi) * 
+                        Double x =
+                            RealMaths.Cos(theta) *
+                            RealMaths.Sin(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Double y = 
-                            RealMaths.Sin(theta) * 
-                            RealMaths.Sin(phi) * 
+
+                        Double y =
+                            RealMaths.Sin(theta) *
+                            RealMaths.Sin(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Double z = 
-                            RealMaths.Cos(phi) * 
+
+                        Double z =
+                            RealMaths.Cos(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Double w = 
-                            RealMaths.Cos(gamma) * radius;          
+
+                        Double w =
+                            RealMaths.Cos(gamma) * radius;
 
                         Assert.That(
-                            new Vector4(x, y,  z, w).IsUnit(), 
+                            new Vector4(x, y,  z, w).IsUnit(),
                             Is.EqualTo(true));
                     }
                 }
@@ -22020,8 +21901,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -22035,7 +21916,7 @@ namespace Abacus.DoublePrecision.Tests
                 Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -23732,7 +23613,8 @@ namespace Abacus.DoublePrecision.Tests
         }
 
 
-    }}
+    }
+}
 
 namespace Abacus.Fixed32Precision.Tests
 {
@@ -25064,10 +24946,40 @@ namespace Abacus.Fixed32Precision.Tests
             }
         }
 
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
         [Test]
-        public void Test_Constructors ()
+        public void Test_Constructors_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            {
+                // Test default values
+                Quaternion a = new Quaternion();
+                Assert.That(a, Is.EqualTo(Quaternion.Zero));
+            }
+            {
+                // Test Quaternion( Fixed32, Fixed32, Fixed32, Fixed32 )
+                Fixed32 a = -189;
+                Fixed32 b = 429;
+                Fixed32 c = 4298;
+                Fixed32 d = 341;
+                Quaternion e = new Quaternion(a, b, c, d);
+                Assert.That(e.I, Is.EqualTo(a));
+                Assert.That(e.J, Is.EqualTo(b));
+                Assert.That(e.K, Is.EqualTo(c));
+                Assert.That(e.U, Is.EqualTo(d));
+            }
+            {
+                // Test Quaternion( Vector3, Fixed32 )
+                Vector3 a = new Vector3(-189, 429, 4298);
+                Fixed32 b = 341;
+                Quaternion c = new Quaternion(a, b);
+                Assert.That(c.I, Is.EqualTo(a.X));
+                Assert.That(c.J, Is.EqualTo(a.Y));
+                Assert.That(c.K, Is.EqualTo(a.Z));
+                Assert.That(c.U, Is.EqualTo(b));
+            }
         }
 
         [Test]
@@ -25328,36 +25240,12 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero quaternion, all the
-        /// addition opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_ii ()
-        {
-            var a = new Quaternion(-2313, 88, 199, 42);
-
-            var expected = a;
-
-            this.TestAddition(a, Quaternion.Identity, expected);
-        }
-
-        /// <summary>
-        /// Assert that, for a known example involving two zero quaternions, all the
-        /// addition opperators and functions yield the correct result of zero.
-        /// </summary>
-        [Test]
-        public void TestOperator_Addition_iii ()
-        {
-            this.TestAddition(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Addition_iv ()
+        public void TestOperator_Addition_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -25405,20 +25293,6 @@ namespace Abacus.Fixed32Precision.Tests
             var b = new Quaternion(15, 11, 7, 27);
             var expected = new Quaternion(-3, -15, 7, -9);
             this.TestSubtraction(a, b, expected);
-
-            var c = new Quaternion(-423, 342, 7, -800);
-            this.TestSubtraction(c, Quaternion.Identity, c);
-        }
-
-        /// <summary>
-        /// Assert that when subtracting the zero quaternion fromt the zero quaternion,
-        /// all the subtraction opperators and functions yield the correct
-        /// result.
-        /// <summary>
-        [Test]
-        public void TestOperator_Subtraction_ii ()
-        {
-            this.TestSubtraction(Quaternion.Identity, Quaternion.Identity, Quaternion.Identity);
         }
 
         /// <summary>
@@ -25427,7 +25301,7 @@ namespace Abacus.Fixed32Precision.Tests
         /// manual subtraction calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Subtraction_iii ()
+        public void TestOperator_Subtraction_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
@@ -25481,46 +25355,17 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_ii ()
-        {
-            Fixed32 t = -3432;
-            Fixed32 u = 6218;
-            Fixed32 r = 3432;
-            Fixed32 s = -6218;
-
-            var c = new Quaternion(t, u, r, s);
-            var d = new Quaternion(s, r, u, t);
-
-            this.TestNegation(c, Quaternion.Identity - c);
-            this.TestNegation(d, Quaternion.Identity - d);
-        }
-
-        /// <summary>
-        /// Assert that when negating the zero quaternion, all the
-        /// negation opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Negation_iii ()
-        {
-            this.TestNegation(Quaternion.Identity, Quaternion.Identity);
-        }
-
-        /// <summary>
         /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
         [Test]
-        public void TestOperator_Negation_iv ()
+        public void TestOperator_Negation_ii ()
         {
             for(Int32 i = 0; i < 100; ++i)
             {
                 var a = GetNextRandomQuaternion();
-                this.TestNegation(a, Quaternion.Identity - a);
+                this.TestNegation(a, Quaternion.Zero - a);
             }
         }
 
@@ -25821,13 +25666,6 @@ namespace Abacus.Fixed32Precision.Tests
                 Vector2 c = new Vector2(u, v);
                 Assert.That(c.X, Is.EqualTo(u));
                 Assert.That(c.Y, Is.EqualTo(v));
-            }
-            {
-                // Test no constructor
-                Vector2 e;
-                e.X = 0;
-                e.Y = 0;
-                Assert.That(e, Is.EqualTo(Vector2.Zero));
             }
         }
 
@@ -27738,7 +27576,7 @@ namespace Abacus.Fixed32Precision.Tests
 
     }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture]
     public class Vector3Tests
@@ -27815,14 +27653,14 @@ namespace Abacus.Fixed32Precision.Tests
             Type t = typeof(Vector3);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y and Z member variables of a number of randomly generated 
-        /// Vector3 objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y and Z member variables of a number of randomly generated
+        /// Vector3 objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -27839,12 +27677,12 @@ namespace Abacus.Fixed32Precision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 3);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
                 Assert.That(data[2], Is.EqualTo(vec.Z));
-                
+
                 h_vec.Free();
             }
         }
@@ -27852,7 +27690,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -27881,14 +27719,6 @@ namespace Abacus.Fixed32Precision.Tests
                 Assert.That(c.X, Is.EqualTo(a.X));
                 Assert.That(c.Y, Is.EqualTo(a.Y));
                 Assert.That(c.Z, Is.EqualTo(b));
-            }
-            {
-                // Test no constructor
-                Vector3 a;
-                a.X = 0;
-                a.Y = 0;
-                a.Z = 0;
-                Assert.That(a, Is.EqualTo(Vector3.Zero));
             }
         }
 
@@ -27955,7 +27785,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -28000,8 +27830,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -28019,7 +27849,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -28036,27 +27866,27 @@ namespace Abacus.Fixed32Precision.Tests
                     Fixed32 theta = 2 * pi * i / 100;
                     Fixed32 phi = 2 * pi * j / 100;
 
-                    Fixed32 x = 
-                        RealMaths.Cos(theta) * 
+                    Fixed32 x =
+                        RealMaths.Cos(theta) *
                         RealMaths.Sin(phi) * radius;
 
-                    Fixed32 y = 
-                        RealMaths.Sin(theta) * 
+                    Fixed32 y =
+                        RealMaths.Sin(theta) *
                         RealMaths.Sin(phi) * radius;
 
-                    Fixed32 z = 
-                        RealMaths.Cos(phi) * radius;                
+                    Fixed32 z =
+                        RealMaths.Cos(phi) * radius;
 
                     Assert.That(
-                        new Vector3( x,  y,  z).IsUnit(), 
+                        new Vector3( x,  y,  z).IsUnit(),
                         Is.EqualTo(true));
                 }
             }
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -28070,7 +27900,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -29920,8 +29750,9 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
 
-    }    /// <summary>
-    /// 
+    }
+    /// <summary>
+    ///
     /// </summary>
     [TestFixture]
     public class Vector4Tests
@@ -30000,14 +29831,14 @@ namespace Abacus.Fixed32Precision.Tests
             Type t = typeof(Vector4);
 
             Assert.That(
-                t.StructLayoutAttribute.Value, 
+                t.StructLayoutAttribute.Value,
                 Is.EqualTo(LayoutKind.Sequential));
         }
 
         /// <summary>
-        /// This test makes sure that when examining the memory addresses of the 
-        /// X, Y, Z and W member variables of a number of randomly generated 
-        /// Vector4 objects the results are as expected. 
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Vector4 objects the results are as expected.
         /// </summary>
         [Test]
         public unsafe void Test_StructLayout_ii ()
@@ -30024,13 +29855,13 @@ namespace Abacus.Fixed32Precision.Tests
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
-                //     Marshal that will perform the copy for those types. 
+                //     Marshal that will perform the copy for those types.
                 MarshalHelper.Copy(vecAddress, data, 0, 4);
                 Assert.That(data[0], Is.EqualTo(vec.X));
                 Assert.That(data[1], Is.EqualTo(vec.Y));
                 Assert.That(data[2], Is.EqualTo(vec.Z));
                 Assert.That(data[3], Is.EqualTo(vec.W));
-                
+
                 h_vec.Free();
             }
         }
@@ -30038,7 +29869,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test: Constructors //----------------------------------------------//
 
         /// <summary>
-        /// This test goes though each public constuctor and ensures that the 
+        /// This test goes though each public constuctor and ensures that the
         /// data members of the structure have been properly set.
         /// </summary>
         [Test]
@@ -30050,7 +29881,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Assert.That(a, Is.EqualTo(Vector4.Zero));
             }
             {
-                // Test Vector4( Fixed32, Fixed32, Fixed32 )
+                // Test Vector4( Fixed32, Fixed32, Fixed32, Fixed32 )
                 Fixed32 a = -189;
                 Fixed32 b = 429;
                 Fixed32 c = 4298;
@@ -30081,15 +29912,6 @@ namespace Abacus.Fixed32Precision.Tests
                 Assert.That(c.Y, Is.EqualTo(a.Y));
                 Assert.That(c.Z, Is.EqualTo(a.Z));
                 Assert.That(c.W, Is.EqualTo(b));
-            }
-            {
-                // Test no constructor
-                Vector4 a;
-                a.X = 0;
-                a.Y = 0;
-                a.Z = 0;
-                a.W = 0;
-                Assert.That(a, Is.EqualTo(Vector4.Zero));
             }
         }
 
@@ -30156,7 +29978,7 @@ namespace Abacus.Fixed32Precision.Tests
         // Test Member Fn: LengthSquared //-----------------------------------//
 
         /// <summary>
-        /// Tests that for a known example the LengthSquared member function 
+        /// Tests that for a known example the LengthSquared member function
         /// yields the correct result.
         /// </summary>
         [Test]
@@ -30205,8 +30027,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of TRUE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
         /// vector is both random and normalised.
         /// </summary>
         [Test]
@@ -30224,7 +30046,7 @@ namespace Abacus.Fixed32Precision.Tests
 
         /// <summary>
         /// This test ensures that the IsUnit member function correctly
-        /// returns TRUE for a collection of vectors, all known to be of unit 
+        /// returns TRUE for a collection of vectors, all known to be of unit
         /// length.
         /// </summary>
         [Test]
@@ -30244,25 +30066,25 @@ namespace Abacus.Fixed32Precision.Tests
                         Fixed32 phi = 2 * pi * j / 100;
                         Fixed32 gamma = 2 * pi * k / 100;
 
-                        Fixed32 x = 
-                            RealMaths.Cos(theta) * 
-                            RealMaths.Sin(phi) * 
+                        Fixed32 x =
+                            RealMaths.Cos(theta) *
+                            RealMaths.Sin(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Fixed32 y = 
-                            RealMaths.Sin(theta) * 
-                            RealMaths.Sin(phi) * 
+
+                        Fixed32 y =
+                            RealMaths.Sin(theta) *
+                            RealMaths.Sin(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Fixed32 z = 
-                            RealMaths.Cos(phi) * 
+
+                        Fixed32 z =
+                            RealMaths.Cos(phi) *
                             RealMaths.Sin(gamma) * radius;
-                        
-                        Fixed32 w = 
-                            RealMaths.Cos(gamma) * radius;          
+
+                        Fixed32 w =
+                            RealMaths.Cos(gamma) * radius;
 
                         Assert.That(
-                            new Vector4(x, y,  z, w).IsUnit(), 
+                            new Vector4(x, y,  z, w).IsUnit(),
                             Is.EqualTo(true));
                     }
                 }
@@ -30270,8 +30092,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
         /// <summary>
-        /// This test makes sure that the IsUnit member function returns the 
-        /// correct result of FALSE for a number of scenarios where the test 
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
         /// vector is randomly generated and not normalised.  It's highly
         /// unlikely that the random generator will create a unit vector!
         /// </summary>
@@ -30285,7 +30107,7 @@ namespace Abacus.Fixed32Precision.Tests
                 Assert.That(a.IsUnit(), Is.EqualTo(false));
             }
         }
-            
+
         // Test Constant: Zero //---------------------------------------------//
 
         /// <summary>
@@ -31982,7 +31804,8 @@ namespace Abacus.Fixed32Precision.Tests
         }
 
 
-    }}
+    }
+}
 
 
 #endif
