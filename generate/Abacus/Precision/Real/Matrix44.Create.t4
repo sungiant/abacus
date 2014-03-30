@@ -268,11 +268,13 @@
         {
             Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
             Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
-            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+            Boolean isBackwardUnit;
+            Vector3.IsUnit (ref backward, out isBackwardUnit);
 
             if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             result.R0C0 = right.X;
@@ -302,15 +304,16 @@
             ref Vector3 up,
             out Matrix44 result)
         {
-            Vector3 backward; Vector3.Negate (ref forward, out backward);
+            Vector3 backward;
+            Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
-
             Vector3.Cross (ref up, ref backward, out right);
 
             Vector3.Normalise(ref right, out right);
 
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out result);
 
             result.R3C0 = position.X;
             result.R3C1 = position.Y;
@@ -326,12 +329,16 @@
             ref Vector3 up,
             out Matrix44 result)
         {
-            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
-            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isForwardUnit;
+            Vector3.IsUnit (ref forward, out isForwardUnit);
+
+            Boolean isUpUnit;
+            Vector3.IsUnit (ref up, out isUpUnit);
 
             if(!isForwardUnit || !isUpUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             Vector3 backward; Vector3.Negate (ref forward, out backward);
@@ -342,7 +349,8 @@
 
             Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
 
-            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
+            Vector3 vector3;
+            Vector3.Cross (ref vector, ref vector2, out vector3);
 
             result.R0C0 = vector2.X;
             result.R0C1 = vector2.Y;
@@ -373,7 +381,8 @@
             Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
             if(!quaternionIsUnit)
             {
-                throw new ArgumentException("Input quaternion must be normalised.");
+                throw new ArgumentException(
+                    "Input quaternion must be normalised.");
             }
 
             <#= type #> zero = 0;
@@ -425,40 +434,9 @@
         {
             Quaternion quaternion;
 
-            Quaternion.CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out quaternion);
+            Quaternion.CreateFromYawPitchRoll (
+                ref yaw, ref pitch, ref roll, out quaternion);
 
             CreateFromQuaternion (ref quaternion, out result);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

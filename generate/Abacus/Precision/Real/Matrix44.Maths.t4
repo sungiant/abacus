@@ -36,7 +36,12 @@
         /// <summary>
         /// Essential Mathemathics For Games & Interactive Applications
         /// </summary>
-        public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
+        public static void Decompose(
+            ref Matrix44 matrix,
+            out Vector3 scale,
+            out Quaternion rotation,
+            out Vector3 translation,
+            out Boolean result)
         {
             translation.X = matrix.R3C0;
             translation.Y = matrix.R3C1;
@@ -71,7 +76,8 @@
             Vector3.Normalise(ref backward, out backward);
 
             Matrix44 rotMat;
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out rotMat);
 
             Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 

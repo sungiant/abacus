@@ -8477,46 +8477,36 @@ namespace Abacus.SinglePrecision
         public override String ToString ()
         {
             return
-                (
-                    "{ " +
-                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R0C0.ToString (),
-                            this.R0C1.ToString (),
-                            this.R0C2.ToString (),
-                            this.R0C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R1C0.ToString (),
-                            this.R1C1.ToString (),
-                            this.R1C2.ToString (),
-                            this.R1C3.ToString ()
-                            }
-                    ) +
-                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R2C0.ToString (),
-                            this.R2C1.ToString (),
-                            this.R2C2.ToString (),
-                            this.R2C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
-                    new Object[]
-                    {
+                "{ " +
+                String.Format (
+                    "{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
+                    new Object[] {
+                        this.R0C0.ToString (),
+                        this.R0C1.ToString (),
+                        this.R0C2.ToString (),
+                        this.R0C3.ToString ()}) +
+                String.Format (
+                    "{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
+                    new Object[] {
+                        this.R1C0.ToString (),
+                        this.R1C1.ToString (),
+                        this.R1C2.ToString (),
+                        this.R1C3.ToString ()}) +
+                String.Format (
+                    "{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
+                    new Object[] {
+                        this.R2C0.ToString (),
+                        this.R2C1.ToString (),
+                        this.R2C2.ToString (),
+                        this.R2C3.ToString ()}) +
+                String.Format (
+                    "{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
+                    new Object[] {
                         this.R3C0.ToString (),
                         this.R3C1.ToString (),
                         this.R3C2.ToString (),
-                        this.R3C3.ToString ()
-                    }
-                    ) +
-                    "}"
-                );
+                        this.R3C3.ToString ()}) +
+                "}";
         }
 
         /// <summary>
@@ -8545,7 +8535,7 @@ namespace Abacus.SinglePrecision
 
         /// <summary>
         /// Determines whether or not this Matrix44 object is equal to another
-        /// object
+        /// object.
         /// </summary>
         public override Boolean Equals (Object obj)
         {
@@ -8743,25 +8733,44 @@ namespace Abacus.SinglePrecision
         static Matrix44 identity;
 
         /// <summary>
+        /// Defines the zero matrix.
+        /// </summary>
+        static Matrix44 zero;
+
+        /// <summary>
         /// Static constructor used to initilise static constants.
         /// </summary>
         static Matrix44 ()
         {
             identity = new Matrix44 (
-                1, 0, 0, 0, 
-                0, 1, 0, 0, 
-                0, 0, 1, 0, 
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
                 0, 0, 0, 1);
+
+            zero = new Matrix44 (
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
         }
 
         /// <summary>
         /// Returns the identity matrix.
         /// </summary>
-        public static Matrix44 Identity 
+        public static Matrix44 Identity
         {
             get { return identity; }
         }
-        
+
+        /// <summary>
+        /// Returns the zero matrix.
+        /// </summary>
+        public static Matrix44 Zero
+        {
+            get { return zero; }
+        }
+
         /// <summary>
         /// todo
         /// </summary>
@@ -9032,11 +9041,13 @@ namespace Abacus.SinglePrecision
         {
             Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
             Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
-            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+            Boolean isBackwardUnit;
+            Vector3.IsUnit (ref backward, out isBackwardUnit);
 
             if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             result.R0C0 = right.X;
@@ -9066,15 +9077,16 @@ namespace Abacus.SinglePrecision
             ref Vector3 up,
             out Matrix44 result)
         {
-            Vector3 backward; Vector3.Negate (ref forward, out backward);
+            Vector3 backward;
+            Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
-
             Vector3.Cross (ref up, ref backward, out right);
 
             Vector3.Normalise(ref right, out right);
 
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out result);
 
             result.R3C0 = position.X;
             result.R3C1 = position.Y;
@@ -9090,12 +9102,16 @@ namespace Abacus.SinglePrecision
             ref Vector3 up,
             out Matrix44 result)
         {
-            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
-            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isForwardUnit;
+            Vector3.IsUnit (ref forward, out isForwardUnit);
+
+            Boolean isUpUnit;
+            Vector3.IsUnit (ref up, out isUpUnit);
 
             if(!isForwardUnit || !isUpUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             Vector3 backward; Vector3.Negate (ref forward, out backward);
@@ -9106,7 +9122,8 @@ namespace Abacus.SinglePrecision
 
             Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
 
-            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
+            Vector3 vector3;
+            Vector3.Cross (ref vector, ref vector2, out vector3);
 
             result.R0C0 = vector2.X;
             result.R0C1 = vector2.Y;
@@ -9137,7 +9154,8 @@ namespace Abacus.SinglePrecision
             Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
             if(!quaternionIsUnit)
             {
-                throw new ArgumentException("Input quaternion must be normalised.");
+                throw new ArgumentException(
+                    "Input quaternion must be normalised.");
             }
 
             Single zero = 0;
@@ -9189,42 +9207,11 @@ namespace Abacus.SinglePrecision
         {
             Quaternion quaternion;
 
-            Quaternion.CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out quaternion);
+            Quaternion.CreateFromYawPitchRoll (
+                ref yaw, ref pitch, ref roll, out quaternion);
 
             CreateFromQuaternion (ref quaternion, out result);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// todo
@@ -9264,7 +9251,12 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Essential Mathemathics For Games & Interactive Applications
         /// </summary>
-        public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
+        public static void Decompose(
+            ref Matrix44 matrix,
+            out Vector3 scale,
+            out Quaternion rotation,
+            out Vector3 translation,
+            out Boolean result)
         {
             translation.X = matrix.R3C0;
             translation.Y = matrix.R3C1;
@@ -9299,7 +9291,8 @@ namespace Abacus.SinglePrecision
             Vector3.Normalise(ref backward, out backward);
 
             Matrix44 rotMat;
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out rotMat);
 
             Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 
@@ -15033,46 +15026,36 @@ namespace Abacus.DoublePrecision
         public override String ToString ()
         {
             return
-                (
-                    "{ " +
-                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R0C0.ToString (),
-                            this.R0C1.ToString (),
-                            this.R0C2.ToString (),
-                            this.R0C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R1C0.ToString (),
-                            this.R1C1.ToString (),
-                            this.R1C2.ToString (),
-                            this.R1C3.ToString ()
-                            }
-                    ) +
-                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R2C0.ToString (),
-                            this.R2C1.ToString (),
-                            this.R2C2.ToString (),
-                            this.R2C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
-                    new Object[]
-                    {
+                "{ " +
+                String.Format (
+                    "{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
+                    new Object[] {
+                        this.R0C0.ToString (),
+                        this.R0C1.ToString (),
+                        this.R0C2.ToString (),
+                        this.R0C3.ToString ()}) +
+                String.Format (
+                    "{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
+                    new Object[] {
+                        this.R1C0.ToString (),
+                        this.R1C1.ToString (),
+                        this.R1C2.ToString (),
+                        this.R1C3.ToString ()}) +
+                String.Format (
+                    "{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
+                    new Object[] {
+                        this.R2C0.ToString (),
+                        this.R2C1.ToString (),
+                        this.R2C2.ToString (),
+                        this.R2C3.ToString ()}) +
+                String.Format (
+                    "{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
+                    new Object[] {
                         this.R3C0.ToString (),
                         this.R3C1.ToString (),
                         this.R3C2.ToString (),
-                        this.R3C3.ToString ()
-                    }
-                    ) +
-                    "}"
-                );
+                        this.R3C3.ToString ()}) +
+                "}";
         }
 
         /// <summary>
@@ -15101,7 +15084,7 @@ namespace Abacus.DoublePrecision
 
         /// <summary>
         /// Determines whether or not this Matrix44 object is equal to another
-        /// object
+        /// object.
         /// </summary>
         public override Boolean Equals (Object obj)
         {
@@ -15299,25 +15282,44 @@ namespace Abacus.DoublePrecision
         static Matrix44 identity;
 
         /// <summary>
+        /// Defines the zero matrix.
+        /// </summary>
+        static Matrix44 zero;
+
+        /// <summary>
         /// Static constructor used to initilise static constants.
         /// </summary>
         static Matrix44 ()
         {
             identity = new Matrix44 (
-                1, 0, 0, 0, 
-                0, 1, 0, 0, 
-                0, 0, 1, 0, 
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
                 0, 0, 0, 1);
+
+            zero = new Matrix44 (
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
         }
 
         /// <summary>
         /// Returns the identity matrix.
         /// </summary>
-        public static Matrix44 Identity 
+        public static Matrix44 Identity
         {
             get { return identity; }
         }
-        
+
+        /// <summary>
+        /// Returns the zero matrix.
+        /// </summary>
+        public static Matrix44 Zero
+        {
+            get { return zero; }
+        }
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15588,11 +15590,13 @@ namespace Abacus.DoublePrecision
         {
             Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
             Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
-            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+            Boolean isBackwardUnit;
+            Vector3.IsUnit (ref backward, out isBackwardUnit);
 
             if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             result.R0C0 = right.X;
@@ -15622,15 +15626,16 @@ namespace Abacus.DoublePrecision
             ref Vector3 up,
             out Matrix44 result)
         {
-            Vector3 backward; Vector3.Negate (ref forward, out backward);
+            Vector3 backward;
+            Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
-
             Vector3.Cross (ref up, ref backward, out right);
 
             Vector3.Normalise(ref right, out right);
 
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out result);
 
             result.R3C0 = position.X;
             result.R3C1 = position.Y;
@@ -15646,12 +15651,16 @@ namespace Abacus.DoublePrecision
             ref Vector3 up,
             out Matrix44 result)
         {
-            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
-            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isForwardUnit;
+            Vector3.IsUnit (ref forward, out isForwardUnit);
+
+            Boolean isUpUnit;
+            Vector3.IsUnit (ref up, out isUpUnit);
 
             if(!isForwardUnit || !isUpUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             Vector3 backward; Vector3.Negate (ref forward, out backward);
@@ -15662,7 +15671,8 @@ namespace Abacus.DoublePrecision
 
             Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
 
-            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
+            Vector3 vector3;
+            Vector3.Cross (ref vector, ref vector2, out vector3);
 
             result.R0C0 = vector2.X;
             result.R0C1 = vector2.Y;
@@ -15693,7 +15703,8 @@ namespace Abacus.DoublePrecision
             Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
             if(!quaternionIsUnit)
             {
-                throw new ArgumentException("Input quaternion must be normalised.");
+                throw new ArgumentException(
+                    "Input quaternion must be normalised.");
             }
 
             Double zero = 0;
@@ -15745,42 +15756,11 @@ namespace Abacus.DoublePrecision
         {
             Quaternion quaternion;
 
-            Quaternion.CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out quaternion);
+            Quaternion.CreateFromYawPitchRoll (
+                ref yaw, ref pitch, ref roll, out quaternion);
 
             CreateFromQuaternion (ref quaternion, out result);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// todo
@@ -15820,7 +15800,12 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Essential Mathemathics For Games & Interactive Applications
         /// </summary>
-        public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
+        public static void Decompose(
+            ref Matrix44 matrix,
+            out Vector3 scale,
+            out Quaternion rotation,
+            out Vector3 translation,
+            out Boolean result)
         {
             translation.X = matrix.R3C0;
             translation.Y = matrix.R3C1;
@@ -15855,7 +15840,8 @@ namespace Abacus.DoublePrecision
             Vector3.Normalise(ref backward, out backward);
 
             Matrix44 rotMat;
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out rotMat);
 
             Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 
@@ -21589,46 +21575,36 @@ namespace Abacus.Fixed32Precision
         public override String ToString ()
         {
             return
-                (
-                    "{ " +
-                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R0C0.ToString (),
-                            this.R0C1.ToString (),
-                            this.R0C2.ToString (),
-                            this.R0C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R1C0.ToString (),
-                            this.R1C1.ToString (),
-                            this.R1C2.ToString (),
-                            this.R1C3.ToString ()
-                            }
-                    ) +
-                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R2C0.ToString (),
-                            this.R2C1.ToString (),
-                            this.R2C2.ToString (),
-                            this.R2C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
-                    new Object[]
-                    {
+                "{ " +
+                String.Format (
+                    "{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
+                    new Object[] {
+                        this.R0C0.ToString (),
+                        this.R0C1.ToString (),
+                        this.R0C2.ToString (),
+                        this.R0C3.ToString ()}) +
+                String.Format (
+                    "{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
+                    new Object[] {
+                        this.R1C0.ToString (),
+                        this.R1C1.ToString (),
+                        this.R1C2.ToString (),
+                        this.R1C3.ToString ()}) +
+                String.Format (
+                    "{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
+                    new Object[] {
+                        this.R2C0.ToString (),
+                        this.R2C1.ToString (),
+                        this.R2C2.ToString (),
+                        this.R2C3.ToString ()}) +
+                String.Format (
+                    "{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
+                    new Object[] {
                         this.R3C0.ToString (),
                         this.R3C1.ToString (),
                         this.R3C2.ToString (),
-                        this.R3C3.ToString ()
-                    }
-                    ) +
-                    "}"
-                );
+                        this.R3C3.ToString ()}) +
+                "}";
         }
 
         /// <summary>
@@ -21657,7 +21633,7 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Determines whether or not this Matrix44 object is equal to another
-        /// object
+        /// object.
         /// </summary>
         public override Boolean Equals (Object obj)
         {
@@ -21855,25 +21831,44 @@ namespace Abacus.Fixed32Precision
         static Matrix44 identity;
 
         /// <summary>
+        /// Defines the zero matrix.
+        /// </summary>
+        static Matrix44 zero;
+
+        /// <summary>
         /// Static constructor used to initilise static constants.
         /// </summary>
         static Matrix44 ()
         {
             identity = new Matrix44 (
-                1, 0, 0, 0, 
-                0, 1, 0, 0, 
-                0, 0, 1, 0, 
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
                 0, 0, 0, 1);
+
+            zero = new Matrix44 (
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
         }
 
         /// <summary>
         /// Returns the identity matrix.
         /// </summary>
-        public static Matrix44 Identity 
+        public static Matrix44 Identity
         {
             get { return identity; }
         }
-        
+
+        /// <summary>
+        /// Returns the zero matrix.
+        /// </summary>
+        public static Matrix44 Zero
+        {
+            get { return zero; }
+        }
+
         /// <summary>
         /// todo
         /// </summary>
@@ -22144,11 +22139,13 @@ namespace Abacus.Fixed32Precision
         {
             Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
             Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
-            Boolean isBackwardUnit; Vector3.IsUnit (ref backward, out isBackwardUnit);
+            Boolean isBackwardUnit;
+            Vector3.IsUnit (ref backward, out isBackwardUnit);
 
             if(!isRightUnit || !isUpUnit || !isBackwardUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             result.R0C0 = right.X;
@@ -22178,15 +22175,16 @@ namespace Abacus.Fixed32Precision
             ref Vector3 up,
             out Matrix44 result)
         {
-            Vector3 backward; Vector3.Negate (ref forward, out backward);
+            Vector3 backward;
+            Vector3.Negate (ref forward, out backward);
 
             Vector3 right;
-
             Vector3.Cross (ref up, ref backward, out right);
 
             Vector3.Normalise(ref right, out right);
 
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out result);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out result);
 
             result.R3C0 = position.X;
             result.R3C1 = position.Y;
@@ -22202,12 +22200,16 @@ namespace Abacus.Fixed32Precision
             ref Vector3 up,
             out Matrix44 result)
         {
-            Boolean isForwardUnit; Vector3.IsUnit (ref forward, out isForwardUnit);
-            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isForwardUnit;
+            Vector3.IsUnit (ref forward, out isForwardUnit);
+
+            Boolean isUpUnit;
+            Vector3.IsUnit (ref up, out isUpUnit);
 
             if(!isForwardUnit || !isUpUnit )
             {
-                throw new ArgumentException("The input vertors must be normalised.");
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
             }
 
             Vector3 backward; Vector3.Negate (ref forward, out backward);
@@ -22218,7 +22220,8 @@ namespace Abacus.Fixed32Precision
 
             Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
 
-            Vector3 vector3; Vector3.Cross (ref vector, ref vector2, out vector3);
+            Vector3 vector3;
+            Vector3.Cross (ref vector, ref vector2, out vector3);
 
             result.R0C0 = vector2.X;
             result.R0C1 = vector2.Y;
@@ -22249,7 +22252,8 @@ namespace Abacus.Fixed32Precision
             Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
             if(!quaternionIsUnit)
             {
-                throw new ArgumentException("Input quaternion must be normalised.");
+                throw new ArgumentException(
+                    "Input quaternion must be normalised.");
             }
 
             Fixed32 zero = 0;
@@ -22301,42 +22305,11 @@ namespace Abacus.Fixed32Precision
         {
             Quaternion quaternion;
 
-            Quaternion.CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out quaternion);
+            Quaternion.CreateFromYawPitchRoll (
+                ref yaw, ref pitch, ref roll, out quaternion);
 
             CreateFromQuaternion (ref quaternion, out result);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// todo
@@ -22376,7 +22349,12 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Essential Mathemathics For Games & Interactive Applications
         /// </summary>
-        public static void Decompose(ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result)
+        public static void Decompose(
+            ref Matrix44 matrix,
+            out Vector3 scale,
+            out Quaternion rotation,
+            out Vector3 translation,
+            out Boolean result)
         {
             translation.X = matrix.R3C0;
             translation.Y = matrix.R3C1;
@@ -22411,7 +22389,8 @@ namespace Abacus.Fixed32Precision
             Vector3.Normalise(ref backward, out backward);
 
             Matrix44 rotMat;
-            Matrix44.CreateFromAllAxis(ref right, ref up, ref backward, out rotMat);
+            Matrix44.CreateFromAllAxis(
+                ref right, ref up, ref backward, out rotMat);
 
             Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 

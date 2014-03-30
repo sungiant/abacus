@@ -131,46 +131,36 @@
         public override String ToString ()
         {
             return
-                (
-                    "{ " +
-                    string.Format ("{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R0C0.ToString (),
-                            this.R0C1.ToString (),
-                            this.R0C2.ToString (),
-                            this.R0C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R1C0.ToString (),
-                            this.R1C1.ToString (),
-                            this.R1C2.ToString (),
-                            this.R1C3.ToString ()
-                            }
-                    ) +
-                    string.Format ("{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
-                        new Object[]
-                        {
-                            this.R2C0.ToString (),
-                            this.R2C1.ToString (),
-                            this.R2C2.ToString (),
-                            this.R2C3.ToString ()
-                        }
-                    ) +
-                    string.Format ("{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
-                    new Object[]
-                    {
+                "{ " +
+                String.Format (
+                    "{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
+                    new Object[] {
+                        this.R0C0.ToString (),
+                        this.R0C1.ToString (),
+                        this.R0C2.ToString (),
+                        this.R0C3.ToString ()}) +
+                String.Format (
+                    "{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
+                    new Object[] {
+                        this.R1C0.ToString (),
+                        this.R1C1.ToString (),
+                        this.R1C2.ToString (),
+                        this.R1C3.ToString ()}) +
+                String.Format (
+                    "{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
+                    new Object[] {
+                        this.R2C0.ToString (),
+                        this.R2C1.ToString (),
+                        this.R2C2.ToString (),
+                        this.R2C3.ToString ()}) +
+                String.Format (
+                    "{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
+                    new Object[] {
                         this.R3C0.ToString (),
                         this.R3C1.ToString (),
                         this.R3C2.ToString (),
-                        this.R3C3.ToString ()
-                    }
-                    ) +
-                    "}"
-                );
+                        this.R3C3.ToString ()}) +
+                "}";
         }
 
         /// <summary>
@@ -199,7 +189,7 @@
 
         /// <summary>
         /// Determines whether or not this Matrix44 object is equal to another
-        /// object
+        /// object.
         /// </summary>
         public override Boolean Equals (Object obj)
         {
