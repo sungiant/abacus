@@ -67,33 +67,34 @@
 
         /// <summary>
         /// Performs muliplication of two Quaternion objects,
-        /// (Quaternion multiplication is not commutative).
+        /// (Quaternion multiplication is not commutative),
+        /// (i^2 = j^2 = k^2 = i j k = -1).
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
             ref Quaternion quaternion2,
             out Quaternion result)
         {
-            <#= type #> x1 = quaternion1.I;
-            <#= type #> y1 = quaternion1.J;
-            <#= type #> z1 = quaternion1.K;
-            <#= type #> w1 = quaternion1.U;
+            <#= type #> i1 = quaternion1.I;
+            <#= type #> j1 = quaternion1.J;
+            <#= type #> k1 = quaternion1.K;
+            <#= type #> u1 = quaternion1.U;
 
-            <#= type #> x2 = quaternion2.I;
-            <#= type #> y2 = quaternion2.J;
-            <#= type #> z2 = quaternion2.K;
-            <#= type #> w2 = quaternion2.U;
+            <#= type #> i2 = quaternion2.I;
+            <#= type #> j2 = quaternion2.J;
+            <#= type #> k2 = quaternion2.K;
+            <#= type #> u2 = quaternion2.U;
 
-            <#= type #> a = (y1 * z2) - (z1 * y2);
-            <#= type #> b = (z1 * x2) - (x1 * z2);
-            <#= type #> c = (x1 * y2) - (y1 * x2);
-            <#= type #> d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+            // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 
-            result.I = ((x1 * w2) + (x2 * w1)) + a;
-            result.J = ((y1 * w2) + (y2 * w1)) + b;
-            result.K = ((z1 * w2) + (z2 * w1)) + c;
-            result.U = (w1 * w2) - d;
+            result.I = i1*u2 + u1*i2 + j1*k2 - k1*j2;
+            result.J = u1*j2 - i1*k2 + j1*u2 + k1*i2;
+            result.K = u1*k2 + i1*j2 - j1*i2 + k1*u2;
+            result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
+
+/* Should not be
+
 
         /// <summary>
         /// Performs multiplication of a Quaternion object and a <#= type #>
@@ -168,4 +169,4 @@
             result.K = quaternion1.K * a;
             result.U = quaternion1.U * a;
         }
-
+*/

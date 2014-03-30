@@ -327,18 +327,15 @@
         {
             // This test asserts the following:
             //   a * b == expected
-            //   b * a == expected
+            //   Quaternion multiplication is not commutative,
+            //   so don't need to test b * a.
 
             var result_1a = a * b;
-            var result_2a = b * a;
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
-            Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
 
             Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
-            Assert.That(result_2b, Is.EqualTo(expected));
         }
 
         /// <summary>
@@ -348,20 +345,13 @@
         [Test]
         public void TestOperator_Multiplication_i ()
         {
-            <#= type #> r = -27;
-            <#= type #> s = 36;
-            <#= type #> t = 9;
-            <#= type #> u = -54;
-
-            <#= type #> x = 3;
-            <#= type #> y = 6;
-            <#= type #> z = -9;
-
-            var a = new Quaternion(x, y, x, y);
-            var b = new Quaternion(z, y, x, z);
-            var c = new Quaternion(r, s, t, u);
+            var a = new Quaternion(12, 2, 24, 3);
+            var b = new Quaternion(12, 6, -2, 2);
+            var c = new Quaternion(-88, 334, 90, -102);
+            var d = new Quaternion(208, -290, -6, -102);
 
             this.TestMultiplication(a, b, c);
+            this.TestMultiplication(b, a, d);
         }
 
         /// <summary>
@@ -378,13 +368,17 @@
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
+                    a.I*b.U + a.U*b.I + a.J*b.K - a.K*b.J,
+                    a.U*b.J - a.I*b.K + a.J*b.U + a.K*b.I,
+                    a.U*b.K + a.I*b.J - a.J*b.I + a.K*b.U,
+                    a.U*b.U - a.I*b.I - a.J*b.J - a.K*b.K
+                );
 
                 this.TestMultiplication(a, b, c);
             }
         }
 
-
+/*
         // Test Operator: Division //-----------------------------------------//
 
         /// <summary>
@@ -468,4 +462,4 @@
                 this.TestDivision(a, b, c);
             }
         }
-
+*/

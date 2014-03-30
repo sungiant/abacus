@@ -115,7 +115,7 @@
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -126,7 +126,7 @@
             Multiply (ref quaternion, ref scaleFactor, out result);
             return result;
         }
-
+*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -137,7 +137,7 @@
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -203,4 +203,4 @@
             Divide (ref quaternion1, ref divider, out result);
             return result;
         }
-
+*/

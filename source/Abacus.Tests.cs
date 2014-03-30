@@ -9033,18 +9033,15 @@ namespace Abacus.SinglePrecision.Tests
         {
             // This test asserts the following:
             //   a * b == expected
-            //   b * a == expected
+            //   Quaternion multiplication is not commutative,
+            //   so don't need to test b * a.
 
             var result_1a = a * b;
-            var result_2a = b * a;
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
-            Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
 
             Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
-            Assert.That(result_2b, Is.EqualTo(expected));
         }
 
         /// <summary>
@@ -9054,20 +9051,13 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestOperator_Multiplication_i ()
         {
-            Single r = -27;
-            Single s = 36;
-            Single t = 9;
-            Single u = -54;
-
-            Single x = 3;
-            Single y = 6;
-            Single z = -9;
-
-            var a = new Quaternion(x, y, x, y);
-            var b = new Quaternion(z, y, x, z);
-            var c = new Quaternion(r, s, t, u);
+            var a = new Quaternion(12, 2, 24, 3);
+            var b = new Quaternion(12, 6, -2, 2);
+            var c = new Quaternion(-88, 334, 90, -102);
+            var d = new Quaternion(208, -290, -6, -102);
 
             this.TestMultiplication(a, b, c);
+            this.TestMultiplication(b, a, d);
         }
 
         /// <summary>
@@ -9084,13 +9074,17 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
+                    a.I*b.U + a.U*b.I + a.J*b.K - a.K*b.J,
+                    a.U*b.J - a.I*b.K + a.J*b.U + a.K*b.I,
+                    a.U*b.K + a.I*b.J - a.J*b.I + a.K*b.U,
+                    a.U*b.U - a.I*b.I - a.J*b.J - a.K*b.K
+                );
 
                 this.TestMultiplication(a, b, c);
             }
         }
 
-
+/*
         // Test Operator: Division //-----------------------------------------//
 
         /// <summary>
@@ -9174,7 +9168,7 @@ namespace Abacus.SinglePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
+*/
         // Test: StructLayout //----------------------------------------------//
 
         /// <summary>
@@ -17289,18 +17283,15 @@ namespace Abacus.DoublePrecision.Tests
         {
             // This test asserts the following:
             //   a * b == expected
-            //   b * a == expected
+            //   Quaternion multiplication is not commutative,
+            //   so don't need to test b * a.
 
             var result_1a = a * b;
-            var result_2a = b * a;
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
-            Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
 
             Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
-            Assert.That(result_2b, Is.EqualTo(expected));
         }
 
         /// <summary>
@@ -17310,20 +17301,13 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestOperator_Multiplication_i ()
         {
-            Double r = -27;
-            Double s = 36;
-            Double t = 9;
-            Double u = -54;
-
-            Double x = 3;
-            Double y = 6;
-            Double z = -9;
-
-            var a = new Quaternion(x, y, x, y);
-            var b = new Quaternion(z, y, x, z);
-            var c = new Quaternion(r, s, t, u);
+            var a = new Quaternion(12, 2, 24, 3);
+            var b = new Quaternion(12, 6, -2, 2);
+            var c = new Quaternion(-88, 334, 90, -102);
+            var d = new Quaternion(208, -290, -6, -102);
 
             this.TestMultiplication(a, b, c);
+            this.TestMultiplication(b, a, d);
         }
 
         /// <summary>
@@ -17340,13 +17324,17 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
+                    a.I*b.U + a.U*b.I + a.J*b.K - a.K*b.J,
+                    a.U*b.J - a.I*b.K + a.J*b.U + a.K*b.I,
+                    a.U*b.K + a.I*b.J - a.J*b.I + a.K*b.U,
+                    a.U*b.U - a.I*b.I - a.J*b.J - a.K*b.K
+                );
 
                 this.TestMultiplication(a, b, c);
             }
         }
 
-
+/*
         // Test Operator: Division //-----------------------------------------//
 
         /// <summary>
@@ -17430,7 +17418,7 @@ namespace Abacus.DoublePrecision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
+*/
         // Test: StructLayout //----------------------------------------------//
 
         /// <summary>
@@ -25545,18 +25533,15 @@ namespace Abacus.Fixed32Precision.Tests
         {
             // This test asserts the following:
             //   a * b == expected
-            //   b * a == expected
+            //   Quaternion multiplication is not commutative,
+            //   so don't need to test b * a.
 
             var result_1a = a * b;
-            var result_2a = b * a;
 
             Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
-            Quaternion result_2b; Quaternion.Multiply(ref b, ref a, out result_2b);
 
             Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
-            Assert.That(result_2b, Is.EqualTo(expected));
         }
 
         /// <summary>
@@ -25566,20 +25551,13 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestOperator_Multiplication_i ()
         {
-            Fixed32 r = -27;
-            Fixed32 s = 36;
-            Fixed32 t = 9;
-            Fixed32 u = -54;
-
-            Fixed32 x = 3;
-            Fixed32 y = 6;
-            Fixed32 z = -9;
-
-            var a = new Quaternion(x, y, x, y);
-            var b = new Quaternion(z, y, x, z);
-            var c = new Quaternion(r, s, t, u);
+            var a = new Quaternion(12, 2, 24, 3);
+            var b = new Quaternion(12, 6, -2, 2);
+            var c = new Quaternion(-88, 334, 90, -102);
+            var d = new Quaternion(208, -290, -6, -102);
 
             this.TestMultiplication(a, b, c);
+            this.TestMultiplication(b, a, d);
         }
 
         /// <summary>
@@ -25596,13 +25574,17 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomQuaternion();
 
                 var c = new Quaternion(
-                    a.I * b.I, a.J * b.J, a.K * b.K, a.U * b.U);
+                    a.I*b.U + a.U*b.I + a.J*b.K - a.K*b.J,
+                    a.U*b.J - a.I*b.K + a.J*b.U + a.K*b.I,
+                    a.U*b.K + a.I*b.J - a.J*b.I + a.K*b.U,
+                    a.U*b.U - a.I*b.I - a.J*b.J - a.K*b.K
+                );
 
                 this.TestMultiplication(a, b, c);
             }
         }
 
-
+/*
         // Test Operator: Division //-----------------------------------------//
 
         /// <summary>
@@ -25686,7 +25668,7 @@ namespace Abacus.Fixed32Precision.Tests
                 this.TestDivision(a, b, c);
             }
         }
-
+*/
         // Test: StructLayout //----------------------------------------------//
 
         /// <summary>

@@ -10500,33 +10500,34 @@ namespace Abacus.SinglePrecision
 
         /// <summary>
         /// Performs muliplication of two Quaternion objects,
-        /// (Quaternion multiplication is not commutative).
+        /// (Quaternion multiplication is not commutative),
+        /// (i^2 = j^2 = k^2 = i j k = -1).
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
             ref Quaternion quaternion2,
             out Quaternion result)
         {
-            Single x1 = quaternion1.I;
-            Single y1 = quaternion1.J;
-            Single z1 = quaternion1.K;
-            Single w1 = quaternion1.U;
+            Single i1 = quaternion1.I;
+            Single j1 = quaternion1.J;
+            Single k1 = quaternion1.K;
+            Single u1 = quaternion1.U;
 
-            Single x2 = quaternion2.I;
-            Single y2 = quaternion2.J;
-            Single z2 = quaternion2.K;
-            Single w2 = quaternion2.U;
+            Single i2 = quaternion2.I;
+            Single j2 = quaternion2.J;
+            Single k2 = quaternion2.K;
+            Single u2 = quaternion2.U;
 
-            Single a = (y1 * z2) - (z1 * y2);
-            Single b = (z1 * x2) - (x1 * z2);
-            Single c = (x1 * y2) - (y1 * x2);
-            Single d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+            // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 
-            result.I = ((x1 * w2) + (x2 * w1)) + a;
-            result.J = ((y1 * w2) + (y2 * w1)) + b;
-            result.K = ((z1 * w2) + (z2 * w1)) + c;
-            result.U = (w1 * w2) - d;
+            result.I = i1*u2 + u1*i2 + j1*k2 - k1*j2;
+            result.J = u1*j2 - i1*k2 + j1*u2 + k1*i2;
+            result.K = u1*k2 + i1*j2 - j1*i2 + k1*u2;
+            result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
+
+/* Should not be
+
 
         /// <summary>
         /// Performs multiplication of a Quaternion object and a Single
@@ -10601,7 +10602,7 @@ namespace Abacus.SinglePrecision
             result.K = quaternion1.K * a;
             result.U = quaternion1.U * a;
         }
-
+*/
         /// <summary>
         /// todo
         /// </summary>
@@ -10928,7 +10929,7 @@ namespace Abacus.SinglePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -10939,7 +10940,7 @@ namespace Abacus.SinglePrecision
             Multiply (ref quaternion, ref scaleFactor, out result);
             return result;
         }
-
+*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -10950,7 +10951,7 @@ namespace Abacus.SinglePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -11016,7 +11017,7 @@ namespace Abacus.SinglePrecision
             Divide (ref quaternion1, ref divider, out result);
             return result;
         }
-
+*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -17189,33 +17190,34 @@ namespace Abacus.DoublePrecision
 
         /// <summary>
         /// Performs muliplication of two Quaternion objects,
-        /// (Quaternion multiplication is not commutative).
+        /// (Quaternion multiplication is not commutative),
+        /// (i^2 = j^2 = k^2 = i j k = -1).
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
             ref Quaternion quaternion2,
             out Quaternion result)
         {
-            Double x1 = quaternion1.I;
-            Double y1 = quaternion1.J;
-            Double z1 = quaternion1.K;
-            Double w1 = quaternion1.U;
+            Double i1 = quaternion1.I;
+            Double j1 = quaternion1.J;
+            Double k1 = quaternion1.K;
+            Double u1 = quaternion1.U;
 
-            Double x2 = quaternion2.I;
-            Double y2 = quaternion2.J;
-            Double z2 = quaternion2.K;
-            Double w2 = quaternion2.U;
+            Double i2 = quaternion2.I;
+            Double j2 = quaternion2.J;
+            Double k2 = quaternion2.K;
+            Double u2 = quaternion2.U;
 
-            Double a = (y1 * z2) - (z1 * y2);
-            Double b = (z1 * x2) - (x1 * z2);
-            Double c = (x1 * y2) - (y1 * x2);
-            Double d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+            // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 
-            result.I = ((x1 * w2) + (x2 * w1)) + a;
-            result.J = ((y1 * w2) + (y2 * w1)) + b;
-            result.K = ((z1 * w2) + (z2 * w1)) + c;
-            result.U = (w1 * w2) - d;
+            result.I = i1*u2 + u1*i2 + j1*k2 - k1*j2;
+            result.J = u1*j2 - i1*k2 + j1*u2 + k1*i2;
+            result.K = u1*k2 + i1*j2 - j1*i2 + k1*u2;
+            result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
+
+/* Should not be
+
 
         /// <summary>
         /// Performs multiplication of a Quaternion object and a Double
@@ -17290,7 +17292,7 @@ namespace Abacus.DoublePrecision
             result.K = quaternion1.K * a;
             result.U = quaternion1.U * a;
         }
-
+*/
         /// <summary>
         /// todo
         /// </summary>
@@ -17617,7 +17619,7 @@ namespace Abacus.DoublePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -17628,7 +17630,7 @@ namespace Abacus.DoublePrecision
             Multiply (ref quaternion, ref scaleFactor, out result);
             return result;
         }
-
+*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -17639,7 +17641,7 @@ namespace Abacus.DoublePrecision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -17705,7 +17707,7 @@ namespace Abacus.DoublePrecision
             Divide (ref quaternion1, ref divider, out result);
             return result;
         }
-
+*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -23878,33 +23880,34 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Performs muliplication of two Quaternion objects,
-        /// (Quaternion multiplication is not commutative).
+        /// (Quaternion multiplication is not commutative),
+        /// (i^2 = j^2 = k^2 = i j k = -1).
         /// </summary>
         public static void Multiply (
             ref Quaternion quaternion1,
             ref Quaternion quaternion2,
             out Quaternion result)
         {
-            Fixed32 x1 = quaternion1.I;
-            Fixed32 y1 = quaternion1.J;
-            Fixed32 z1 = quaternion1.K;
-            Fixed32 w1 = quaternion1.U;
+            Fixed32 i1 = quaternion1.I;
+            Fixed32 j1 = quaternion1.J;
+            Fixed32 k1 = quaternion1.K;
+            Fixed32 u1 = quaternion1.U;
 
-            Fixed32 x2 = quaternion2.I;
-            Fixed32 y2 = quaternion2.J;
-            Fixed32 z2 = quaternion2.K;
-            Fixed32 w2 = quaternion2.U;
+            Fixed32 i2 = quaternion2.I;
+            Fixed32 j2 = quaternion2.J;
+            Fixed32 k2 = quaternion2.K;
+            Fixed32 u2 = quaternion2.U;
 
-            Fixed32 a = (y1 * z2) - (z1 * y2);
-            Fixed32 b = (z1 * x2) - (x1 * z2);
-            Fixed32 c = (x1 * y2) - (y1 * x2);
-            Fixed32 d = ((x1 * x2) + (y1 * y2)) + (z1 * z2);
+            // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 
-            result.I = ((x1 * w2) + (x2 * w1)) + a;
-            result.J = ((y1 * w2) + (y2 * w1)) + b;
-            result.K = ((z1 * w2) + (z2 * w1)) + c;
-            result.U = (w1 * w2) - d;
+            result.I = i1*u2 + u1*i2 + j1*k2 - k1*j2;
+            result.J = u1*j2 - i1*k2 + j1*u2 + k1*i2;
+            result.K = u1*k2 + i1*j2 - j1*i2 + k1*u2;
+            result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
         }
+
+/* Should not be
+
 
         /// <summary>
         /// Performs multiplication of a Quaternion object and a Fixed32
@@ -23979,7 +23982,7 @@ namespace Abacus.Fixed32Precision
             result.K = quaternion1.K * a;
             result.U = quaternion1.U * a;
         }
-
+*/
         /// <summary>
         /// todo
         /// </summary>
@@ -24306,7 +24309,7 @@ namespace Abacus.Fixed32Precision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -24317,7 +24320,7 @@ namespace Abacus.Fixed32Precision
             Multiply (ref quaternion, ref scaleFactor, out result);
             return result;
         }
-
+*/
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -24328,7 +24331,7 @@ namespace Abacus.Fixed32Precision
             Multiply (ref quaternion1, ref quaternion2, out result);
             return result;
         }
-
+/*
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -24394,7 +24397,7 @@ namespace Abacus.Fixed32Precision
             Divide (ref quaternion1, ref divider, out result);
             return result;
         }
-
+*/
         /// <summary>
         /// Variant function.
         /// </summary>
