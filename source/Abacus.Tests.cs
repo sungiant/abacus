@@ -7400,7 +7400,18 @@ namespace Abacus.SinglePrecision.Tests
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            throw new InconclusiveException("Not Implemented");
+            var hs1 = new System.Collections.Generic.HashSet<Matrix44>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomMatrix44 ();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode ());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -7656,7 +7667,7 @@ namespace Abacus.SinglePrecision.Tests
         /// todo
         /// </summary>
         [Test]
-        public void CreateOrthographicOffCenter_i ()
+        public void TestStaticFn_CreateOrthographicOffCenter_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
@@ -15479,7 +15490,18 @@ namespace Abacus.DoublePrecision.Tests
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            throw new InconclusiveException("Not Implemented");
+            var hs1 = new System.Collections.Generic.HashSet<Matrix44>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomMatrix44 ();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode ());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -15735,7 +15757,7 @@ namespace Abacus.DoublePrecision.Tests
         /// todo
         /// </summary>
         [Test]
-        public void CreateOrthographicOffCenter_i ()
+        public void TestStaticFn_CreateOrthographicOffCenter_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
@@ -23558,7 +23580,18 @@ namespace Abacus.Fixed32Precision.Tests
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            throw new InconclusiveException("Not Implemented");
+            var hs1 = new System.Collections.Generic.HashSet<Matrix44>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomMatrix44 ();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode ());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
         }
 
         // Test Constant: Identity //-----------------------------------------//
@@ -23814,7 +23847,7 @@ namespace Abacus.Fixed32Precision.Tests
         /// todo
         /// </summary>
         [Test]
-        public void CreateOrthographicOffCenter_i ()
+        public void TestStaticFn_CreateOrthographicOffCenter_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }

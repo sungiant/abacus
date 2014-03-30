@@ -234,7 +234,7 @@
         /// todo
         /// </summary>
         [Test]
-        public void CreateOrthographicOffCenter_i ()
+        public void TestStaticFn_CreateOrthographicOffCenter_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }

@@ -78,7 +78,18 @@
         [Test]
         public void TestMemberFn_GetHashCode ()
         {
-            throw new InconclusiveException("Not Implemented");
+            var hs1 = new System.Collections.Generic.HashSet<Matrix44>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomMatrix44 ();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode ());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
         }
 
 <#@ include file="Matrix44.Constants.Tests.t4"#>
