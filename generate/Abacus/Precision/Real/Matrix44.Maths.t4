@@ -84,3 +84,190 @@
             result = true;
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Determinant (ref Matrix44 matrix, out <#= type #> result)
+        {
+            <#= type #> num22 = matrix.R0C0;
+            <#= type #> num21 = matrix.R0C1;
+            <#= type #> num20 = matrix.R0C2;
+            <#= type #> num19 = matrix.R0C3;
+            <#= type #> num12 = matrix.R1C0;
+            <#= type #> num11 = matrix.R1C1;
+            <#= type #> num10 = matrix.R1C2;
+            <#= type #> num9 = matrix.R1C3;
+            <#= type #> num8 = matrix.R2C0;
+            <#= type #> num7 = matrix.R2C1;
+            <#= type #> num6 = matrix.R2C2;
+            <#= type #> num5 = matrix.R2C3;
+            <#= type #> num4 = matrix.R3C0;
+            <#= type #> num3 = matrix.R3C1;
+            <#= type #> num2 = matrix.R3C2;
+            <#= type #> num = matrix.R3C3;
+
+            <#= type #> num18 = (num6 * num) - (num5 * num2);
+            <#= type #> num17 = (num7 * num) - (num5 * num3);
+            <#= type #> num16 = (num7 * num2) - (num6 * num3);
+            <#= type #> num15 = (num8 * num) - (num5 * num4);
+            <#= type #> num14 = (num8 * num2) - (num6 * num4);
+            <#= type #> num13 = (num8 * num3) - (num7 * num4);
+
+            result = ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Invert (ref Matrix44 matrix, out Matrix44 result)
+        {
+            <#= type #> one = 1;
+            <#= type #> num5 = matrix.R0C0;
+            <#= type #> num4 = matrix.R0C1;
+            <#= type #> num3 = matrix.R0C2;
+            <#= type #> num2 = matrix.R0C3;
+            <#= type #> num9 = matrix.R1C0;
+            <#= type #> num8 = matrix.R1C1;
+            <#= type #> num7 = matrix.R1C2;
+            <#= type #> num6 = matrix.R1C3;
+            <#= type #> num17 = matrix.R2C0;
+            <#= type #> num16 = matrix.R2C1;
+            <#= type #> num15 = matrix.R2C2;
+            <#= type #> num14 = matrix.R2C3;
+            <#= type #> num13 = matrix.R3C0;
+            <#= type #> num12 = matrix.R3C1;
+            <#= type #> num11 = matrix.R3C2;
+            <#= type #> num10 = matrix.R3C3;
+            <#= type #> num23 = (num15 * num10) - (num14 * num11);
+            <#= type #> num22 = (num16 * num10) - (num14 * num12);
+            <#= type #> num21 = (num16 * num11) - (num15 * num12);
+            <#= type #> num20 = (num17 * num10) - (num14 * num13);
+            <#= type #> num19 = (num17 * num11) - (num15 * num13);
+            <#= type #> num18 = (num17 * num12) - (num16 * num13);
+            <#= type #> num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
+            <#= type #> num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
+            <#= type #> num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
+            <#= type #> num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
+            <#= type #> num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+            result.R0C0 = num39 * num;
+            result.R1C0 = num38 * num;
+            result.R2C0 = num37 * num;
+            result.R3C0 = num36 * num;
+            result.R0C1 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
+            result.R1C1 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
+            result.R2C1 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
+            result.R3C1 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
+            <#= type #> num35 = (num7 * num10) - (num6 * num11);
+            <#= type #> num34 = (num8 * num10) - (num6 * num12);
+            <#= type #> num33 = (num8 * num11) - (num7 * num12);
+            <#= type #> num32 = (num9 * num10) - (num6 * num13);
+            <#= type #> num31 = (num9 * num11) - (num7 * num13);
+            <#= type #> num30 = (num9 * num12) - (num8 * num13);
+            result.R0C2 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
+            result.R1C2 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
+            result.R2C2 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
+            result.R3C2 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
+            <#= type #> num29 = (num7 * num14) - (num6 * num15);
+            <#= type #> num28 = (num8 * num14) - (num6 * num16);
+            <#= type #> num27 = (num8 * num15) - (num7 * num16);
+            <#= type #> num26 = (num9 * num14) - (num6 * num17);
+            <#= type #> num25 = (num9 * num15) - (num7 * num17);
+            <#= type #> num24 = (num9 * num16) - (num8 * num17);
+            result.R0C3 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
+            result.R1C3 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
+            result.R2C3 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
+            result.R3C3 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Transforms a Matrix by applying a Quaternion rotation.
+        /// </summary>
+        public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
+        {
+            <#= type #> one = 1;
+
+            <#= type #> num21 = rotation.I + rotation.I;
+            <#= type #> num11 = rotation.J + rotation.J;
+            <#= type #> num10 = rotation.K + rotation.K;
+
+            <#= type #> num20 = rotation.U * num21;
+            <#= type #> num19 = rotation.U * num11;
+            <#= type #> num18 = rotation.U * num10;
+            <#= type #> num17 = rotation.I * num21;
+            <#= type #> num16 = rotation.I * num11;
+            <#= type #> num15 = rotation.I * num10;
+            <#= type #> num14 = rotation.J * num11;
+            <#= type #> num13 = rotation.J * num10;
+            <#= type #> num12 = rotation.K * num10;
+
+            <#= type #> num9 = (one - num14) - num12;
+
+            <#= type #> num8 = num16 - num18;
+            <#= type #> num7 = num15 + num19;
+            <#= type #> num6 = num16 + num18;
+
+            <#= type #> num5 = (one - num17) - num12;
+
+            <#= type #> num4 = num13 - num20;
+            <#= type #> num3 = num15 - num19;
+            <#= type #> num2 = num13 + num20;
+
+            <#= type #> num = (one - num17) - num14;
+
+            <#= type #> num37 = ((value.R0C0 * num9) + (value.R0C1 * num8)) + (value.R0C2 * num7);
+            <#= type #> num36 = ((value.R0C0 * num6) + (value.R0C1 * num5)) + (value.R0C2 * num4);
+            <#= type #> num35 = ((value.R0C0 * num3) + (value.R0C1 * num2)) + (value.R0C2 * num);
+
+            <#= type #> num34 = value.R0C3;
+
+            <#= type #> num33 = ((value.R1C0 * num9) + (value.R1C1 * num8)) + (value.R1C2 * num7);
+            <#= type #> num32 = ((value.R1C0 * num6) + (value.R1C1 * num5)) + (value.R1C2 * num4);
+            <#= type #> num31 = ((value.R1C0 * num3) + (value.R1C1 * num2)) + (value.R1C2 * num);
+
+            <#= type #> num30 = value.R1C3;
+
+            <#= type #> num29 = ((value.R2C0 * num9) + (value.R2C1 * num8)) + (value.R2C2 * num7);
+            <#= type #> num28 = ((value.R2C0 * num6) + (value.R2C1 * num5)) + (value.R2C2 * num4);
+            <#= type #> num27 = ((value.R2C0 * num3) + (value.R2C1 * num2)) + (value.R2C2 * num);
+
+            <#= type #> num26 = value.R2C3;
+
+            <#= type #> num25 = ((value.R3C0 * num9) + (value.R3C1 * num8)) + (value.R3C2 * num7);
+            <#= type #> num24 = ((value.R3C0 * num6) + (value.R3C1 * num5)) + (value.R3C2 * num4);
+            <#= type #> num23 = ((value.R3C0 * num3) + (value.R3C1 * num2)) + (value.R3C2 * num);
+
+            <#= type #> num22 = value.R3C3;
+
+            result.R0C0 = num37;
+            result.R0C1 = num36;
+            result.R0C2 = num35;
+            result.R0C3 = num34;
+            result.R1C0 = num33;
+            result.R1C1 = num32;
+            result.R1C2 = num31;
+            result.R1C3 = num30;
+            result.R2C0 = num29;
+            result.R2C1 = num28;
+            result.R2C2 = num27;
+            result.R2C3 = num26;
+            result.R3C0 = num25;
+            result.R3C1 = num24;
+            result.R3C2 = num23;
+            result.R3C3 = num22;
+        }
+

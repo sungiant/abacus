@@ -5642,12 +5642,14 @@ namespace Abacus.Packed
 
 
         /// <summary>
-        /// todo
+        /// This function linearly interpolates each component of a Rgba32
+        /// separately and returns a Rgba32 with the new component values.
         /// </summary>
         public static Rgba32 Lerp(Rgba32 value1, Rgba32 value2, Single amount)
         {
             if (amount > 1f)
                 throw new ArgumentException("Amount: " + amount + " must be <= 1.");
+                
             if (amount < 0f)
                 throw new ArgumentException("Amount: " + amount + " must be >= 0.");
 
@@ -9213,6 +9215,424 @@ namespace Abacus.SinglePrecision
             CreateFromQuaternion (ref quaternion, out result);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Creates a cylindrical billboard that rotates around a specified axis.
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
+        /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+        /// </summary>
+        public static void CreateBillboard (
+            ref Vector3 ObjectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraUpVector,
+            ref Vector3? cameraForwardVector,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single one = 1;
+
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector.X = ObjectPosition.X - cameraPosition.X;
+            vector.Y = ObjectPosition.Y - cameraPosition.Y;
+            vector.Z = ObjectPosition.Z - cameraPosition.Z;
+            Single num = vector.LengthSquared ();
+            Single limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num < limit) {
+                vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                var t = (Single)(one / (RealMaths.Sqrt (num)));
+                Vector3.Multiply (ref vector, ref t, out vector);
+            }
+            Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
+
+            Vector3.Normalise (ref vector3, out vector3);
+
+            Vector3.Cross (ref vector, ref vector3, out vector2);
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector2.X;
+            result.R1C1 = vector2.Y;
+            result.R1C2 = vector2.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = ObjectPosition.X;
+            result.R3C1 = ObjectPosition.Y;
+            result.R3C2 = ObjectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateConstrainedBillboard (
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            ref Vector3? cameraForwardVector,
+            ref Vector3? objectForwardVector,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single one = 1;
+
+            Single num;
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector2.X = objectPosition.X - cameraPosition.X;
+            vector2.Y = objectPosition.Y - cameraPosition.Y;
+            vector2.Z = objectPosition.Z - cameraPosition.Z;
+            Single num2 = vector2.LengthSquared ();
+            Single limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num2 < limit) {
+                vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                var t = (Single)(one / (RealMaths.Sqrt (num2)));
+                Vector3.Multiply (ref vector2, ref t, out vector2);
+            }
+            Vector3 vector4 = rotateAxis;
+            Vector3.Dot (ref rotateAxis, ref vector2, out num);
+
+            Single realHorrid; RealMaths.FromString("0.9982547", out realHorrid);
+
+            if (RealMaths.Abs (num) > realHorrid) {
+                if (objectForwardVector.HasValue) {
+                    vector = objectForwardVector.Value;
+                    Vector3.Dot (ref rotateAxis, ref vector, out num);
+                    if (RealMaths.Abs (num) > realHorrid) {
+                        num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                        vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                    }
+                } else {
+                    num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                    vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                }
+                Vector3.Cross (ref rotateAxis, ref vector, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref rotateAxis, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            } else {
+                Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref vector4, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            }
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector4.X;
+            result.R1C1 = vector4.Y;
+            result.R1C2 = vector4.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = objectPosition.X;
+            result.R3C1 = objectPosition.Y;
+            result.R3C2 = objectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveFieldOfView (
+            ref Single fieldOfView,
+            ref Single aspectRatio,
+            ref Single nearPlaneDistance,
+            ref Single farPlaneDistance,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single half; RealMaths.Half(out half);
+            Single one = 1;
+            Single pi; RealMaths.Pi(out pi);
+
+            if ((fieldOfView <= zero) || (fieldOfView >= pi))
+            {
+                throw new ArgumentOutOfRangeException ("fieldOfView");
+            }
+
+            if (nearPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            if (farPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            //
+            // xScale     0          0              0
+            // 0        yScale       0              0
+            // 0        0        zf/(zn-zf)        -1
+            // 0        0        zn*zf/(zn-zf)      0
+            //
+            // where:
+            //
+            // yScale = cot(fovY/2)
+            //
+            // xScale = yScale / aspect ratio
+            //
+
+            // yScale = cot(fovY/2)
+            Single yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+            // xScale = yScale / aspect ratio
+            Single xScale = yScale / aspectRatio;
+
+            result.R0C0 = xScale;
+            result.R0C1 = zero;
+            result.R0C2 = zero;
+            result.R0C3 = zero;
+
+            result.R1C0 = zero;
+            result.R1C1 = yScale;
+            result.R1C2 = zero;
+            result.R1C3 = zero;
+
+            result.R2C0 = zero;
+            result.R2C1 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
+            result.R2C3 = -one;
+
+            result.R3C0 = zero;
+            result.R3C1 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+            result.R3C3 = zero;
+        }
+
+
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspective (
+            ref Single width,
+            ref Single height,
+            ref Single nearPlaneDistance,
+            ref Single farPlaneDistance,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single one = 1;
+            Single two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C0 = result.R2C1 = zero;
+            result.R2C3 = -one;
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveOffCenter (
+            ref Single left,
+            ref Single right,
+            ref Single bottom,
+            ref Single top,
+            ref Single nearPlaneDistance,
+            ref Single farPlaneDistance,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single one = 1;
+            Single two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C0 = (left + right) / (right - left);
+            result.R2C1 = (top + bottom) / (top - bottom);
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C3 = -one;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographic (
+            ref Single width,
+            ref Single height,
+            ref Single zNearPlane,
+            ref Single zFarPlane,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single one = 1;
+            Single two = 2;
+
+            result.R0C0 = two / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = result.R3C1 = zero;
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographicOffCenter (
+            ref Single left,
+            ref Single right,
+            ref Single bottom,
+            ref Single top,
+            ref Single zNearPlane,
+            ref Single zFarPlane,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single one = 1;
+            Single two = 2;
+
+            result.R0C0 = two / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = (left + right) / (left - right);
+            result.R3C1 = (top + bottom) / (bottom - top);
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+        /// </summary>
+        public static void CreateLookAt (
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
+            out Matrix44 result)
+        {
+            Single zero = 0;
+            Single one = 1;
+
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
+
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
+            Vector3.Normalise (ref right, out right);
+
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+
+            result.R0C0 = right.X;
+            result.R0C1 = up.X;
+            result.R0C2 = forward.X;
+            result.R0C3 = zero;
+
+            result.R1C0 = right.Y;
+            result.R1C1 = up.Y;
+            result.R1C2 = forward.Y;
+            result.R1C3 = zero;
+
+            result.R2C0 = right.Z;
+            result.R2C1 = up.Z;
+            result.R2C2 = forward.Z;
+            result.R2C3 = zero;
+
+            Single a;
+            Single b;
+            Single c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
+
+            result.R3C0 = -a;
+            result.R3C1 = -b;
+            result.R3C2 = -c;
+
+            result.R3C3 = one;
+        }
+
         /// <summary>
         /// todo
         /// </summary>
@@ -9297,6 +9717,193 @@ namespace Abacus.SinglePrecision
             Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 
             result = true;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Determinant (ref Matrix44 matrix, out Single result)
+        {
+            Single num22 = matrix.R0C0;
+            Single num21 = matrix.R0C1;
+            Single num20 = matrix.R0C2;
+            Single num19 = matrix.R0C3;
+            Single num12 = matrix.R1C0;
+            Single num11 = matrix.R1C1;
+            Single num10 = matrix.R1C2;
+            Single num9 = matrix.R1C3;
+            Single num8 = matrix.R2C0;
+            Single num7 = matrix.R2C1;
+            Single num6 = matrix.R2C2;
+            Single num5 = matrix.R2C3;
+            Single num4 = matrix.R3C0;
+            Single num3 = matrix.R3C1;
+            Single num2 = matrix.R3C2;
+            Single num = matrix.R3C3;
+
+            Single num18 = (num6 * num) - (num5 * num2);
+            Single num17 = (num7 * num) - (num5 * num3);
+            Single num16 = (num7 * num2) - (num6 * num3);
+            Single num15 = (num8 * num) - (num5 * num4);
+            Single num14 = (num8 * num2) - (num6 * num4);
+            Single num13 = (num8 * num3) - (num7 * num4);
+
+            result = ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Invert (ref Matrix44 matrix, out Matrix44 result)
+        {
+            Single one = 1;
+            Single num5 = matrix.R0C0;
+            Single num4 = matrix.R0C1;
+            Single num3 = matrix.R0C2;
+            Single num2 = matrix.R0C3;
+            Single num9 = matrix.R1C0;
+            Single num8 = matrix.R1C1;
+            Single num7 = matrix.R1C2;
+            Single num6 = matrix.R1C3;
+            Single num17 = matrix.R2C0;
+            Single num16 = matrix.R2C1;
+            Single num15 = matrix.R2C2;
+            Single num14 = matrix.R2C3;
+            Single num13 = matrix.R3C0;
+            Single num12 = matrix.R3C1;
+            Single num11 = matrix.R3C2;
+            Single num10 = matrix.R3C3;
+            Single num23 = (num15 * num10) - (num14 * num11);
+            Single num22 = (num16 * num10) - (num14 * num12);
+            Single num21 = (num16 * num11) - (num15 * num12);
+            Single num20 = (num17 * num10) - (num14 * num13);
+            Single num19 = (num17 * num11) - (num15 * num13);
+            Single num18 = (num17 * num12) - (num16 * num13);
+            Single num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
+            Single num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
+            Single num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
+            Single num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
+            Single num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+            result.R0C0 = num39 * num;
+            result.R1C0 = num38 * num;
+            result.R2C0 = num37 * num;
+            result.R3C0 = num36 * num;
+            result.R0C1 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
+            result.R1C1 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
+            result.R2C1 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
+            result.R3C1 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
+            Single num35 = (num7 * num10) - (num6 * num11);
+            Single num34 = (num8 * num10) - (num6 * num12);
+            Single num33 = (num8 * num11) - (num7 * num12);
+            Single num32 = (num9 * num10) - (num6 * num13);
+            Single num31 = (num9 * num11) - (num7 * num13);
+            Single num30 = (num9 * num12) - (num8 * num13);
+            result.R0C2 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
+            result.R1C2 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
+            result.R2C2 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
+            result.R3C2 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
+            Single num29 = (num7 * num14) - (num6 * num15);
+            Single num28 = (num8 * num14) - (num6 * num16);
+            Single num27 = (num8 * num15) - (num7 * num16);
+            Single num26 = (num9 * num14) - (num6 * num17);
+            Single num25 = (num9 * num15) - (num7 * num17);
+            Single num24 = (num9 * num16) - (num8 * num17);
+            result.R0C3 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
+            result.R1C3 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
+            result.R2C3 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
+            result.R3C3 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Transforms a Matrix by applying a Quaternion rotation.
+        /// </summary>
+        public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
+        {
+            Single one = 1;
+
+            Single num21 = rotation.I + rotation.I;
+            Single num11 = rotation.J + rotation.J;
+            Single num10 = rotation.K + rotation.K;
+
+            Single num20 = rotation.U * num21;
+            Single num19 = rotation.U * num11;
+            Single num18 = rotation.U * num10;
+            Single num17 = rotation.I * num21;
+            Single num16 = rotation.I * num11;
+            Single num15 = rotation.I * num10;
+            Single num14 = rotation.J * num11;
+            Single num13 = rotation.J * num10;
+            Single num12 = rotation.K * num10;
+
+            Single num9 = (one - num14) - num12;
+
+            Single num8 = num16 - num18;
+            Single num7 = num15 + num19;
+            Single num6 = num16 + num18;
+
+            Single num5 = (one - num17) - num12;
+
+            Single num4 = num13 - num20;
+            Single num3 = num15 - num19;
+            Single num2 = num13 + num20;
+
+            Single num = (one - num17) - num14;
+
+            Single num37 = ((value.R0C0 * num9) + (value.R0C1 * num8)) + (value.R0C2 * num7);
+            Single num36 = ((value.R0C0 * num6) + (value.R0C1 * num5)) + (value.R0C2 * num4);
+            Single num35 = ((value.R0C0 * num3) + (value.R0C1 * num2)) + (value.R0C2 * num);
+
+            Single num34 = value.R0C3;
+
+            Single num33 = ((value.R1C0 * num9) + (value.R1C1 * num8)) + (value.R1C2 * num7);
+            Single num32 = ((value.R1C0 * num6) + (value.R1C1 * num5)) + (value.R1C2 * num4);
+            Single num31 = ((value.R1C0 * num3) + (value.R1C1 * num2)) + (value.R1C2 * num);
+
+            Single num30 = value.R1C3;
+
+            Single num29 = ((value.R2C0 * num9) + (value.R2C1 * num8)) + (value.R2C2 * num7);
+            Single num28 = ((value.R2C0 * num6) + (value.R2C1 * num5)) + (value.R2C2 * num4);
+            Single num27 = ((value.R2C0 * num3) + (value.R2C1 * num2)) + (value.R2C2 * num);
+
+            Single num26 = value.R2C3;
+
+            Single num25 = ((value.R3C0 * num9) + (value.R3C1 * num8)) + (value.R3C2 * num7);
+            Single num24 = ((value.R3C0 * num6) + (value.R3C1 * num5)) + (value.R3C2 * num4);
+            Single num23 = ((value.R3C0 * num3) + (value.R3C1 * num2)) + (value.R3C2 * num);
+
+            Single num22 = value.R3C3;
+
+            result.R0C0 = num37;
+            result.R0C1 = num36;
+            result.R0C2 = num35;
+            result.R0C3 = num34;
+            result.R1C0 = num33;
+            result.R1C1 = num32;
+            result.R1C2 = num31;
+            result.R1C3 = num30;
+            result.R2C0 = num29;
+            result.R2C1 = num28;
+            result.R2C2 = num27;
+            result.R2C3 = num26;
+            result.R3C0 = num25;
+            result.R3C1 = num24;
+            result.R3C2 = num23;
+            result.R3C3 = num22;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -9738,10 +10345,176 @@ namespace Abacus.SinglePrecision
         /// <summary>
         /// Variant function.
         /// </summary>
+        public static Matrix44 CreateBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 cameraUpVector,
+            Vector3? cameraForwardVector)
+        {
+            Matrix44 result;
+            CreateBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref cameraUpVector, ref cameraForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateConstrainedBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector)
+        {
+            Matrix44 result;
+            CreateConstrainedBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref rotateAxis, ref cameraForwardVector, ref objectForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveFieldOfView (
+            Single fieldOfView,
+            Single aspectRatio,
+            Single nearPlane,
+            Single farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveFieldOfView (
+                ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspective (
+            Single width,
+            Single height,
+            Single nearPlane,
+            Single farPlane)
+        {
+            Matrix44 result;
+            CreatePerspective (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveOffCenter (
+            Single left,
+            Single right,
+            Single bottom,
+            Single top,
+            Single nearPlane,
+            Single farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographic (
+            Single width,
+            Single height,
+            Single nearPlane,
+            Single farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographic (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographicOffCenter (
+            Single left,
+            Single right,
+            Single bottom,
+            Single top,
+            Single nearPlane,
+            Single farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographicOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateLookAt (
+            Vector3 cameraPosition,
+            Vector3 cameraTarget,
+            Vector3 cameraUpVector)
+        {
+            Matrix44 result;
+            CreateLookAt (
+                ref cameraPosition, ref cameraTarget, ref cameraUpVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
         public static Matrix44 Transpose (Matrix44 input)
         {
             Matrix44 result;
             Transpose (ref input, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public Single Determinant (Matrix44 matrix)
+        {
+            Single result;
+            Determinant (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Invert (Matrix44 matrix)
+        {
+            Matrix44 result;
+            Invert (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Transform (Matrix44 value, Quaternion rotation)
+        {
+            Matrix44 result;
+            Transform (ref value, ref rotation, out result);
             return result;
         }
 
@@ -15661,6 +16434,424 @@ namespace Abacus.DoublePrecision
             CreateFromQuaternion (ref quaternion, out result);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Creates a cylindrical billboard that rotates around a specified axis.
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
+        /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+        /// </summary>
+        public static void CreateBillboard (
+            ref Vector3 ObjectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraUpVector,
+            ref Vector3? cameraForwardVector,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double one = 1;
+
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector.X = ObjectPosition.X - cameraPosition.X;
+            vector.Y = ObjectPosition.Y - cameraPosition.Y;
+            vector.Z = ObjectPosition.Z - cameraPosition.Z;
+            Double num = vector.LengthSquared ();
+            Double limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num < limit) {
+                vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                var t = (Double)(one / (RealMaths.Sqrt (num)));
+                Vector3.Multiply (ref vector, ref t, out vector);
+            }
+            Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
+
+            Vector3.Normalise (ref vector3, out vector3);
+
+            Vector3.Cross (ref vector, ref vector3, out vector2);
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector2.X;
+            result.R1C1 = vector2.Y;
+            result.R1C2 = vector2.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = ObjectPosition.X;
+            result.R3C1 = ObjectPosition.Y;
+            result.R3C2 = ObjectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateConstrainedBillboard (
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            ref Vector3? cameraForwardVector,
+            ref Vector3? objectForwardVector,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double one = 1;
+
+            Double num;
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector2.X = objectPosition.X - cameraPosition.X;
+            vector2.Y = objectPosition.Y - cameraPosition.Y;
+            vector2.Z = objectPosition.Z - cameraPosition.Z;
+            Double num2 = vector2.LengthSquared ();
+            Double limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num2 < limit) {
+                vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                var t = (Double)(one / (RealMaths.Sqrt (num2)));
+                Vector3.Multiply (ref vector2, ref t, out vector2);
+            }
+            Vector3 vector4 = rotateAxis;
+            Vector3.Dot (ref rotateAxis, ref vector2, out num);
+
+            Double realHorrid; RealMaths.FromString("0.9982547", out realHorrid);
+
+            if (RealMaths.Abs (num) > realHorrid) {
+                if (objectForwardVector.HasValue) {
+                    vector = objectForwardVector.Value;
+                    Vector3.Dot (ref rotateAxis, ref vector, out num);
+                    if (RealMaths.Abs (num) > realHorrid) {
+                        num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                        vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                    }
+                } else {
+                    num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                    vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                }
+                Vector3.Cross (ref rotateAxis, ref vector, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref rotateAxis, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            } else {
+                Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref vector4, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            }
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector4.X;
+            result.R1C1 = vector4.Y;
+            result.R1C2 = vector4.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = objectPosition.X;
+            result.R3C1 = objectPosition.Y;
+            result.R3C2 = objectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveFieldOfView (
+            ref Double fieldOfView,
+            ref Double aspectRatio,
+            ref Double nearPlaneDistance,
+            ref Double farPlaneDistance,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double half; RealMaths.Half(out half);
+            Double one = 1;
+            Double pi; RealMaths.Pi(out pi);
+
+            if ((fieldOfView <= zero) || (fieldOfView >= pi))
+            {
+                throw new ArgumentOutOfRangeException ("fieldOfView");
+            }
+
+            if (nearPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            if (farPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            //
+            // xScale     0          0              0
+            // 0        yScale       0              0
+            // 0        0        zf/(zn-zf)        -1
+            // 0        0        zn*zf/(zn-zf)      0
+            //
+            // where:
+            //
+            // yScale = cot(fovY/2)
+            //
+            // xScale = yScale / aspect ratio
+            //
+
+            // yScale = cot(fovY/2)
+            Double yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+            // xScale = yScale / aspect ratio
+            Double xScale = yScale / aspectRatio;
+
+            result.R0C0 = xScale;
+            result.R0C1 = zero;
+            result.R0C2 = zero;
+            result.R0C3 = zero;
+
+            result.R1C0 = zero;
+            result.R1C1 = yScale;
+            result.R1C2 = zero;
+            result.R1C3 = zero;
+
+            result.R2C0 = zero;
+            result.R2C1 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
+            result.R2C3 = -one;
+
+            result.R3C0 = zero;
+            result.R3C1 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+            result.R3C3 = zero;
+        }
+
+
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspective (
+            ref Double width,
+            ref Double height,
+            ref Double nearPlaneDistance,
+            ref Double farPlaneDistance,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double one = 1;
+            Double two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C0 = result.R2C1 = zero;
+            result.R2C3 = -one;
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveOffCenter (
+            ref Double left,
+            ref Double right,
+            ref Double bottom,
+            ref Double top,
+            ref Double nearPlaneDistance,
+            ref Double farPlaneDistance,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double one = 1;
+            Double two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C0 = (left + right) / (right - left);
+            result.R2C1 = (top + bottom) / (top - bottom);
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C3 = -one;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographic (
+            ref Double width,
+            ref Double height,
+            ref Double zNearPlane,
+            ref Double zFarPlane,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double one = 1;
+            Double two = 2;
+
+            result.R0C0 = two / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = result.R3C1 = zero;
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographicOffCenter (
+            ref Double left,
+            ref Double right,
+            ref Double bottom,
+            ref Double top,
+            ref Double zNearPlane,
+            ref Double zFarPlane,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double one = 1;
+            Double two = 2;
+
+            result.R0C0 = two / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = (left + right) / (left - right);
+            result.R3C1 = (top + bottom) / (bottom - top);
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+        /// </summary>
+        public static void CreateLookAt (
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
+            out Matrix44 result)
+        {
+            Double zero = 0;
+            Double one = 1;
+
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
+
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
+            Vector3.Normalise (ref right, out right);
+
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+
+            result.R0C0 = right.X;
+            result.R0C1 = up.X;
+            result.R0C2 = forward.X;
+            result.R0C3 = zero;
+
+            result.R1C0 = right.Y;
+            result.R1C1 = up.Y;
+            result.R1C2 = forward.Y;
+            result.R1C3 = zero;
+
+            result.R2C0 = right.Z;
+            result.R2C1 = up.Z;
+            result.R2C2 = forward.Z;
+            result.R2C3 = zero;
+
+            Double a;
+            Double b;
+            Double c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
+
+            result.R3C0 = -a;
+            result.R3C1 = -b;
+            result.R3C2 = -c;
+
+            result.R3C3 = one;
+        }
+
         /// <summary>
         /// todo
         /// </summary>
@@ -15745,6 +16936,193 @@ namespace Abacus.DoublePrecision
             Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 
             result = true;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Determinant (ref Matrix44 matrix, out Double result)
+        {
+            Double num22 = matrix.R0C0;
+            Double num21 = matrix.R0C1;
+            Double num20 = matrix.R0C2;
+            Double num19 = matrix.R0C3;
+            Double num12 = matrix.R1C0;
+            Double num11 = matrix.R1C1;
+            Double num10 = matrix.R1C2;
+            Double num9 = matrix.R1C3;
+            Double num8 = matrix.R2C0;
+            Double num7 = matrix.R2C1;
+            Double num6 = matrix.R2C2;
+            Double num5 = matrix.R2C3;
+            Double num4 = matrix.R3C0;
+            Double num3 = matrix.R3C1;
+            Double num2 = matrix.R3C2;
+            Double num = matrix.R3C3;
+
+            Double num18 = (num6 * num) - (num5 * num2);
+            Double num17 = (num7 * num) - (num5 * num3);
+            Double num16 = (num7 * num2) - (num6 * num3);
+            Double num15 = (num8 * num) - (num5 * num4);
+            Double num14 = (num8 * num2) - (num6 * num4);
+            Double num13 = (num8 * num3) - (num7 * num4);
+
+            result = ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Invert (ref Matrix44 matrix, out Matrix44 result)
+        {
+            Double one = 1;
+            Double num5 = matrix.R0C0;
+            Double num4 = matrix.R0C1;
+            Double num3 = matrix.R0C2;
+            Double num2 = matrix.R0C3;
+            Double num9 = matrix.R1C0;
+            Double num8 = matrix.R1C1;
+            Double num7 = matrix.R1C2;
+            Double num6 = matrix.R1C3;
+            Double num17 = matrix.R2C0;
+            Double num16 = matrix.R2C1;
+            Double num15 = matrix.R2C2;
+            Double num14 = matrix.R2C3;
+            Double num13 = matrix.R3C0;
+            Double num12 = matrix.R3C1;
+            Double num11 = matrix.R3C2;
+            Double num10 = matrix.R3C3;
+            Double num23 = (num15 * num10) - (num14 * num11);
+            Double num22 = (num16 * num10) - (num14 * num12);
+            Double num21 = (num16 * num11) - (num15 * num12);
+            Double num20 = (num17 * num10) - (num14 * num13);
+            Double num19 = (num17 * num11) - (num15 * num13);
+            Double num18 = (num17 * num12) - (num16 * num13);
+            Double num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
+            Double num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
+            Double num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
+            Double num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
+            Double num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+            result.R0C0 = num39 * num;
+            result.R1C0 = num38 * num;
+            result.R2C0 = num37 * num;
+            result.R3C0 = num36 * num;
+            result.R0C1 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
+            result.R1C1 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
+            result.R2C1 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
+            result.R3C1 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
+            Double num35 = (num7 * num10) - (num6 * num11);
+            Double num34 = (num8 * num10) - (num6 * num12);
+            Double num33 = (num8 * num11) - (num7 * num12);
+            Double num32 = (num9 * num10) - (num6 * num13);
+            Double num31 = (num9 * num11) - (num7 * num13);
+            Double num30 = (num9 * num12) - (num8 * num13);
+            result.R0C2 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
+            result.R1C2 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
+            result.R2C2 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
+            result.R3C2 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
+            Double num29 = (num7 * num14) - (num6 * num15);
+            Double num28 = (num8 * num14) - (num6 * num16);
+            Double num27 = (num8 * num15) - (num7 * num16);
+            Double num26 = (num9 * num14) - (num6 * num17);
+            Double num25 = (num9 * num15) - (num7 * num17);
+            Double num24 = (num9 * num16) - (num8 * num17);
+            result.R0C3 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
+            result.R1C3 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
+            result.R2C3 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
+            result.R3C3 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Transforms a Matrix by applying a Quaternion rotation.
+        /// </summary>
+        public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
+        {
+            Double one = 1;
+
+            Double num21 = rotation.I + rotation.I;
+            Double num11 = rotation.J + rotation.J;
+            Double num10 = rotation.K + rotation.K;
+
+            Double num20 = rotation.U * num21;
+            Double num19 = rotation.U * num11;
+            Double num18 = rotation.U * num10;
+            Double num17 = rotation.I * num21;
+            Double num16 = rotation.I * num11;
+            Double num15 = rotation.I * num10;
+            Double num14 = rotation.J * num11;
+            Double num13 = rotation.J * num10;
+            Double num12 = rotation.K * num10;
+
+            Double num9 = (one - num14) - num12;
+
+            Double num8 = num16 - num18;
+            Double num7 = num15 + num19;
+            Double num6 = num16 + num18;
+
+            Double num5 = (one - num17) - num12;
+
+            Double num4 = num13 - num20;
+            Double num3 = num15 - num19;
+            Double num2 = num13 + num20;
+
+            Double num = (one - num17) - num14;
+
+            Double num37 = ((value.R0C0 * num9) + (value.R0C1 * num8)) + (value.R0C2 * num7);
+            Double num36 = ((value.R0C0 * num6) + (value.R0C1 * num5)) + (value.R0C2 * num4);
+            Double num35 = ((value.R0C0 * num3) + (value.R0C1 * num2)) + (value.R0C2 * num);
+
+            Double num34 = value.R0C3;
+
+            Double num33 = ((value.R1C0 * num9) + (value.R1C1 * num8)) + (value.R1C2 * num7);
+            Double num32 = ((value.R1C0 * num6) + (value.R1C1 * num5)) + (value.R1C2 * num4);
+            Double num31 = ((value.R1C0 * num3) + (value.R1C1 * num2)) + (value.R1C2 * num);
+
+            Double num30 = value.R1C3;
+
+            Double num29 = ((value.R2C0 * num9) + (value.R2C1 * num8)) + (value.R2C2 * num7);
+            Double num28 = ((value.R2C0 * num6) + (value.R2C1 * num5)) + (value.R2C2 * num4);
+            Double num27 = ((value.R2C0 * num3) + (value.R2C1 * num2)) + (value.R2C2 * num);
+
+            Double num26 = value.R2C3;
+
+            Double num25 = ((value.R3C0 * num9) + (value.R3C1 * num8)) + (value.R3C2 * num7);
+            Double num24 = ((value.R3C0 * num6) + (value.R3C1 * num5)) + (value.R3C2 * num4);
+            Double num23 = ((value.R3C0 * num3) + (value.R3C1 * num2)) + (value.R3C2 * num);
+
+            Double num22 = value.R3C3;
+
+            result.R0C0 = num37;
+            result.R0C1 = num36;
+            result.R0C2 = num35;
+            result.R0C3 = num34;
+            result.R1C0 = num33;
+            result.R1C1 = num32;
+            result.R1C2 = num31;
+            result.R1C3 = num30;
+            result.R2C0 = num29;
+            result.R2C1 = num28;
+            result.R2C2 = num27;
+            result.R2C3 = num26;
+            result.R3C0 = num25;
+            result.R3C1 = num24;
+            result.R3C2 = num23;
+            result.R3C3 = num22;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -16186,10 +17564,176 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// Variant function.
         /// </summary>
+        public static Matrix44 CreateBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 cameraUpVector,
+            Vector3? cameraForwardVector)
+        {
+            Matrix44 result;
+            CreateBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref cameraUpVector, ref cameraForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateConstrainedBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector)
+        {
+            Matrix44 result;
+            CreateConstrainedBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref rotateAxis, ref cameraForwardVector, ref objectForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveFieldOfView (
+            Double fieldOfView,
+            Double aspectRatio,
+            Double nearPlane,
+            Double farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveFieldOfView (
+                ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspective (
+            Double width,
+            Double height,
+            Double nearPlane,
+            Double farPlane)
+        {
+            Matrix44 result;
+            CreatePerspective (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveOffCenter (
+            Double left,
+            Double right,
+            Double bottom,
+            Double top,
+            Double nearPlane,
+            Double farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographic (
+            Double width,
+            Double height,
+            Double nearPlane,
+            Double farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographic (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographicOffCenter (
+            Double left,
+            Double right,
+            Double bottom,
+            Double top,
+            Double nearPlane,
+            Double farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographicOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateLookAt (
+            Vector3 cameraPosition,
+            Vector3 cameraTarget,
+            Vector3 cameraUpVector)
+        {
+            Matrix44 result;
+            CreateLookAt (
+                ref cameraPosition, ref cameraTarget, ref cameraUpVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
         public static Matrix44 Transpose (Matrix44 input)
         {
             Matrix44 result;
             Transpose (ref input, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public Double Determinant (Matrix44 matrix)
+        {
+            Double result;
+            Determinant (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Invert (Matrix44 matrix)
+        {
+            Matrix44 result;
+            Invert (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Transform (Matrix44 value, Quaternion rotation)
+        {
+            Matrix44 result;
+            Transform (ref value, ref rotation, out result);
             return result;
         }
 
@@ -22109,6 +23653,424 @@ namespace Abacus.Fixed32Precision
             CreateFromQuaternion (ref quaternion, out result);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Creates a cylindrical billboard that rotates around a specified axis.
+        /// This method computes the facing direction of the billboard from the object position and camera position.
+        /// When the object and camera positions are too close, the matrix will not be accurate.
+        /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+        /// </summary>
+        public static void CreateBillboard (
+            ref Vector3 ObjectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraUpVector,
+            ref Vector3? cameraForwardVector,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector.X = ObjectPosition.X - cameraPosition.X;
+            vector.Y = ObjectPosition.Y - cameraPosition.Y;
+            vector.Z = ObjectPosition.Z - cameraPosition.Z;
+            Fixed32 num = vector.LengthSquared ();
+            Fixed32 limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num < limit) {
+                vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                var t = (Fixed32)(one / (RealMaths.Sqrt (num)));
+                Vector3.Multiply (ref vector, ref t, out vector);
+            }
+            Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
+
+            Vector3.Normalise (ref vector3, out vector3);
+
+            Vector3.Cross (ref vector, ref vector3, out vector2);
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector2.X;
+            result.R1C1 = vector2.Y;
+            result.R1C2 = vector2.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = ObjectPosition.X;
+            result.R3C1 = ObjectPosition.Y;
+            result.R3C2 = ObjectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void CreateConstrainedBillboard (
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            ref Vector3? cameraForwardVector,
+            ref Vector3? objectForwardVector,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+
+            Fixed32 num;
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector2.X = objectPosition.X - cameraPosition.X;
+            vector2.Y = objectPosition.Y - cameraPosition.Y;
+            vector2.Z = objectPosition.Z - cameraPosition.Z;
+            Fixed32 num2 = vector2.LengthSquared ();
+            Fixed32 limit; RealMaths.FromString("0.0001", out limit);
+
+            if (num2 < limit) {
+                vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
+            } else {
+                var t = (Fixed32)(one / (RealMaths.Sqrt (num2)));
+                Vector3.Multiply (ref vector2, ref t, out vector2);
+            }
+            Vector3 vector4 = rotateAxis;
+            Vector3.Dot (ref rotateAxis, ref vector2, out num);
+
+            Fixed32 realHorrid; RealMaths.FromString("0.9982547", out realHorrid);
+
+            if (RealMaths.Abs (num) > realHorrid) {
+                if (objectForwardVector.HasValue) {
+                    vector = objectForwardVector.Value;
+                    Vector3.Dot (ref rotateAxis, ref vector, out num);
+                    if (RealMaths.Abs (num) > realHorrid) {
+                        num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                        vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                    }
+                } else {
+                    num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
+                    vector = (RealMaths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+                }
+                Vector3.Cross (ref rotateAxis, ref vector, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref rotateAxis, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            } else {
+                Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref vector4, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            }
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector4.X;
+            result.R1C1 = vector4.Y;
+            result.R1C2 = vector4.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = objectPosition.X;
+            result.R3C1 = objectPosition.Y;
+            result.R3C2 = objectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveFieldOfView (
+            ref Fixed32 fieldOfView,
+            ref Fixed32 aspectRatio,
+            ref Fixed32 nearPlaneDistance,
+            ref Fixed32 farPlaneDistance,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 half; RealMaths.Half(out half);
+            Fixed32 one = 1;
+            Fixed32 pi; RealMaths.Pi(out pi);
+
+            if ((fieldOfView <= zero) || (fieldOfView >= pi))
+            {
+                throw new ArgumentOutOfRangeException ("fieldOfView");
+            }
+
+            if (nearPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            if (farPlaneDistance <= zero)
+            {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+
+            //
+            // xScale     0          0              0
+            // 0        yScale       0              0
+            // 0        0        zf/(zn-zf)        -1
+            // 0        0        zn*zf/(zn-zf)      0
+            //
+            // where:
+            //
+            // yScale = cot(fovY/2)
+            //
+            // xScale = yScale / aspect ratio
+            //
+
+            // yScale = cot(fovY/2)
+            Fixed32 yScale = one / ( RealMaths.Tan ( fieldOfView * half ) );
+
+            // xScale = yScale / aspect ratio
+            Fixed32 xScale = yScale / aspectRatio;
+
+            result.R0C0 = xScale;
+            result.R0C1 = zero;
+            result.R0C2 = zero;
+            result.R0C3 = zero;
+
+            result.R1C0 = zero;
+            result.R1C1 = yScale;
+            result.R1C2 = zero;
+            result.R1C3 = zero;
+
+            result.R2C0 = zero;
+            result.R2C1 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
+            result.R2C3 = -one;
+
+            result.R3C0 = zero;
+            result.R3C1 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+            result.R3C3 = zero;
+        }
+
+
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspective (
+            ref Fixed32 width,
+            ref Fixed32 height,
+            ref Fixed32 nearPlaneDistance,
+            ref Fixed32 farPlaneDistance,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+            Fixed32 two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C0 = result.R2C1 = zero;
+            result.R2C3 = -one;
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+        /// </summary>
+        public static void CreatePerspectiveOffCenter (
+            ref Fixed32 left,
+            ref Fixed32 right,
+            ref Fixed32 bottom,
+            ref Fixed32 top,
+            ref Fixed32 nearPlaneDistance,
+            ref Fixed32 farPlaneDistance,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+            Fixed32 two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C0 = (left + right) / (right - left);
+            result.R2C1 = (top + bottom) / (top - bottom);
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C3 = -one;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographic (
+            ref Fixed32 width,
+            ref Fixed32 height,
+            ref Fixed32 zNearPlane,
+            ref Fixed32 zFarPlane,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+            Fixed32 two = 2;
+
+            result.R0C0 = two / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = result.R3C1 = zero;
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+        /// </summary>
+        public static void CreateOrthographicOffCenter (
+            ref Fixed32 left,
+            ref Fixed32 right,
+            ref Fixed32 bottom,
+            ref Fixed32 top,
+            ref Fixed32 zNearPlane,
+            ref Fixed32 zFarPlane,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+            Fixed32 two = 2;
+
+            result.R0C0 = two / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = (left + right) / (left - right);
+            result.R3C1 = (top + bottom) / (bottom - top);
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+        /// </summary>
+        public static void CreateLookAt (
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
+            out Matrix44 result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
+
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
+            Vector3.Normalise (ref right, out right);
+
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+
+            result.R0C0 = right.X;
+            result.R0C1 = up.X;
+            result.R0C2 = forward.X;
+            result.R0C3 = zero;
+
+            result.R1C0 = right.Y;
+            result.R1C1 = up.Y;
+            result.R1C2 = forward.Y;
+            result.R1C3 = zero;
+
+            result.R2C0 = right.Z;
+            result.R2C1 = up.Z;
+            result.R2C2 = forward.Z;
+            result.R2C3 = zero;
+
+            Fixed32 a;
+            Fixed32 b;
+            Fixed32 c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
+
+            result.R3C0 = -a;
+            result.R3C1 = -b;
+            result.R3C2 = -c;
+
+            result.R3C3 = one;
+        }
+
         /// <summary>
         /// todo
         /// </summary>
@@ -22193,6 +24155,193 @@ namespace Abacus.Fixed32Precision
             Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
 
             result = true;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public void Determinant (ref Matrix44 matrix, out Fixed32 result)
+        {
+            Fixed32 num22 = matrix.R0C0;
+            Fixed32 num21 = matrix.R0C1;
+            Fixed32 num20 = matrix.R0C2;
+            Fixed32 num19 = matrix.R0C3;
+            Fixed32 num12 = matrix.R1C0;
+            Fixed32 num11 = matrix.R1C1;
+            Fixed32 num10 = matrix.R1C2;
+            Fixed32 num9 = matrix.R1C3;
+            Fixed32 num8 = matrix.R2C0;
+            Fixed32 num7 = matrix.R2C1;
+            Fixed32 num6 = matrix.R2C2;
+            Fixed32 num5 = matrix.R2C3;
+            Fixed32 num4 = matrix.R3C0;
+            Fixed32 num3 = matrix.R3C1;
+            Fixed32 num2 = matrix.R3C2;
+            Fixed32 num = matrix.R3C3;
+
+            Fixed32 num18 = (num6 * num) - (num5 * num2);
+            Fixed32 num17 = (num7 * num) - (num5 * num3);
+            Fixed32 num16 = (num7 * num2) - (num6 * num3);
+            Fixed32 num15 = (num8 * num) - (num5 * num4);
+            Fixed32 num14 = (num8 * num2) - (num6 * num4);
+            Fixed32 num13 = (num8 * num3) - (num7 * num4);
+
+            result = ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Invert (ref Matrix44 matrix, out Matrix44 result)
+        {
+            Fixed32 one = 1;
+            Fixed32 num5 = matrix.R0C0;
+            Fixed32 num4 = matrix.R0C1;
+            Fixed32 num3 = matrix.R0C2;
+            Fixed32 num2 = matrix.R0C3;
+            Fixed32 num9 = matrix.R1C0;
+            Fixed32 num8 = matrix.R1C1;
+            Fixed32 num7 = matrix.R1C2;
+            Fixed32 num6 = matrix.R1C3;
+            Fixed32 num17 = matrix.R2C0;
+            Fixed32 num16 = matrix.R2C1;
+            Fixed32 num15 = matrix.R2C2;
+            Fixed32 num14 = matrix.R2C3;
+            Fixed32 num13 = matrix.R3C0;
+            Fixed32 num12 = matrix.R3C1;
+            Fixed32 num11 = matrix.R3C2;
+            Fixed32 num10 = matrix.R3C3;
+            Fixed32 num23 = (num15 * num10) - (num14 * num11);
+            Fixed32 num22 = (num16 * num10) - (num14 * num12);
+            Fixed32 num21 = (num16 * num11) - (num15 * num12);
+            Fixed32 num20 = (num17 * num10) - (num14 * num13);
+            Fixed32 num19 = (num17 * num11) - (num15 * num13);
+            Fixed32 num18 = (num17 * num12) - (num16 * num13);
+            Fixed32 num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
+            Fixed32 num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
+            Fixed32 num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
+            Fixed32 num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
+            Fixed32 num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+            result.R0C0 = num39 * num;
+            result.R1C0 = num38 * num;
+            result.R2C0 = num37 * num;
+            result.R3C0 = num36 * num;
+            result.R0C1 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
+            result.R1C1 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
+            result.R2C1 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
+            result.R3C1 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
+            Fixed32 num35 = (num7 * num10) - (num6 * num11);
+            Fixed32 num34 = (num8 * num10) - (num6 * num12);
+            Fixed32 num33 = (num8 * num11) - (num7 * num12);
+            Fixed32 num32 = (num9 * num10) - (num6 * num13);
+            Fixed32 num31 = (num9 * num11) - (num7 * num13);
+            Fixed32 num30 = (num9 * num12) - (num8 * num13);
+            result.R0C2 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
+            result.R1C2 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
+            result.R2C2 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
+            result.R3C2 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
+            Fixed32 num29 = (num7 * num14) - (num6 * num15);
+            Fixed32 num28 = (num8 * num14) - (num6 * num16);
+            Fixed32 num27 = (num8 * num15) - (num7 * num16);
+            Fixed32 num26 = (num9 * num14) - (num6 * num17);
+            Fixed32 num25 = (num9 * num15) - (num7 * num17);
+            Fixed32 num24 = (num9 * num16) - (num8 * num17);
+            result.R0C3 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
+            result.R1C3 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
+            result.R2C3 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
+            result.R3C3 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // TODO: FROM XNA, NEEDS REVIEW
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Transforms a Matrix by applying a Quaternion rotation.
+        /// </summary>
+        public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
+        {
+            Fixed32 one = 1;
+
+            Fixed32 num21 = rotation.I + rotation.I;
+            Fixed32 num11 = rotation.J + rotation.J;
+            Fixed32 num10 = rotation.K + rotation.K;
+
+            Fixed32 num20 = rotation.U * num21;
+            Fixed32 num19 = rotation.U * num11;
+            Fixed32 num18 = rotation.U * num10;
+            Fixed32 num17 = rotation.I * num21;
+            Fixed32 num16 = rotation.I * num11;
+            Fixed32 num15 = rotation.I * num10;
+            Fixed32 num14 = rotation.J * num11;
+            Fixed32 num13 = rotation.J * num10;
+            Fixed32 num12 = rotation.K * num10;
+
+            Fixed32 num9 = (one - num14) - num12;
+
+            Fixed32 num8 = num16 - num18;
+            Fixed32 num7 = num15 + num19;
+            Fixed32 num6 = num16 + num18;
+
+            Fixed32 num5 = (one - num17) - num12;
+
+            Fixed32 num4 = num13 - num20;
+            Fixed32 num3 = num15 - num19;
+            Fixed32 num2 = num13 + num20;
+
+            Fixed32 num = (one - num17) - num14;
+
+            Fixed32 num37 = ((value.R0C0 * num9) + (value.R0C1 * num8)) + (value.R0C2 * num7);
+            Fixed32 num36 = ((value.R0C0 * num6) + (value.R0C1 * num5)) + (value.R0C2 * num4);
+            Fixed32 num35 = ((value.R0C0 * num3) + (value.R0C1 * num2)) + (value.R0C2 * num);
+
+            Fixed32 num34 = value.R0C3;
+
+            Fixed32 num33 = ((value.R1C0 * num9) + (value.R1C1 * num8)) + (value.R1C2 * num7);
+            Fixed32 num32 = ((value.R1C0 * num6) + (value.R1C1 * num5)) + (value.R1C2 * num4);
+            Fixed32 num31 = ((value.R1C0 * num3) + (value.R1C1 * num2)) + (value.R1C2 * num);
+
+            Fixed32 num30 = value.R1C3;
+
+            Fixed32 num29 = ((value.R2C0 * num9) + (value.R2C1 * num8)) + (value.R2C2 * num7);
+            Fixed32 num28 = ((value.R2C0 * num6) + (value.R2C1 * num5)) + (value.R2C2 * num4);
+            Fixed32 num27 = ((value.R2C0 * num3) + (value.R2C1 * num2)) + (value.R2C2 * num);
+
+            Fixed32 num26 = value.R2C3;
+
+            Fixed32 num25 = ((value.R3C0 * num9) + (value.R3C1 * num8)) + (value.R3C2 * num7);
+            Fixed32 num24 = ((value.R3C0 * num6) + (value.R3C1 * num5)) + (value.R3C2 * num4);
+            Fixed32 num23 = ((value.R3C0 * num3) + (value.R3C1 * num2)) + (value.R3C2 * num);
+
+            Fixed32 num22 = value.R3C3;
+
+            result.R0C0 = num37;
+            result.R0C1 = num36;
+            result.R0C2 = num35;
+            result.R0C3 = num34;
+            result.R1C0 = num33;
+            result.R1C1 = num32;
+            result.R1C2 = num31;
+            result.R1C3 = num30;
+            result.R2C0 = num29;
+            result.R2C1 = num28;
+            result.R2C2 = num27;
+            result.R2C3 = num26;
+            result.R3C0 = num25;
+            result.R3C1 = num24;
+            result.R3C2 = num23;
+            result.R3C3 = num22;
         }
 
         // Equality Operators //----------------------------------------------//
@@ -22634,10 +24783,176 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Variant function.
         /// </summary>
+        public static Matrix44 CreateBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 cameraUpVector,
+            Vector3? cameraForwardVector)
+        {
+            Matrix44 result;
+            CreateBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref cameraUpVector, ref cameraForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateConstrainedBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector)
+        {
+            Matrix44 result;
+            CreateConstrainedBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref rotateAxis, ref cameraForwardVector, ref objectForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveFieldOfView (
+            Fixed32 fieldOfView,
+            Fixed32 aspectRatio,
+            Fixed32 nearPlane,
+            Fixed32 farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveFieldOfView (
+                ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspective (
+            Fixed32 width,
+            Fixed32 height,
+            Fixed32 nearPlane,
+            Fixed32 farPlane)
+        {
+            Matrix44 result;
+            CreatePerspective (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveOffCenter (
+            Fixed32 left,
+            Fixed32 right,
+            Fixed32 bottom,
+            Fixed32 top,
+            Fixed32 nearPlane,
+            Fixed32 farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographic (
+            Fixed32 width,
+            Fixed32 height,
+            Fixed32 nearPlane,
+            Fixed32 farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographic (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographicOffCenter (
+            Fixed32 left,
+            Fixed32 right,
+            Fixed32 bottom,
+            Fixed32 top,
+            Fixed32 nearPlane,
+            Fixed32 farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographicOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateLookAt (
+            Vector3 cameraPosition,
+            Vector3 cameraTarget,
+            Vector3 cameraUpVector)
+        {
+            Matrix44 result;
+            CreateLookAt (
+                ref cameraPosition, ref cameraTarget, ref cameraUpVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
         public static Matrix44 Transpose (Matrix44 input)
         {
             Matrix44 result;
             Transpose (ref input, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public Fixed32 Determinant (Matrix44 matrix)
+        {
+            Fixed32 result;
+            Determinant (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Invert (Matrix44 matrix)
+        {
+            Matrix44 result;
+            Invert (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Transform (Matrix44 value, Quaternion rotation)
+        {
+            Matrix44 result;
+            Transform (ref value, ref rotation, out result);
             return result;
         }
 
