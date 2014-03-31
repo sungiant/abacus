@@ -139,12 +139,14 @@
 
 
         /// <summary>
-        /// todo
+        /// This function linearly interpolates each component of a Rgba32
+        /// separately and returns a Rgba32 with the new component values.
         /// </summary>
         public static Rgba32 Lerp(Rgba32 value1, Rgba32 value2, Single amount)
         {
             if (amount > 1f)
                 throw new ArgumentException("Amount: " + amount + " must be <= 1.");
+                
             if (amount < 0f)
                 throw new ArgumentException("Amount: " + amount + " must be >= 0.");
 
