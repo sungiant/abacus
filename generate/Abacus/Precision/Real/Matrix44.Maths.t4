@@ -63,13 +63,24 @@
                 result = false;
             }
 
-            Vector3.Normalise(ref a, out a);
-            Vector3.Normalise(ref b, out b);
-            Vector3.Normalise(ref c, out c);
+            Single epsilon; RealMaths.Epsilon(out epsilon);
+
+            if (aLen < epsilon) a = Vector3.Zero;
+            else Vector3.Normalise(ref a, out a);
+
+            if (bLen < epsilon) b = Vector3.Zero;
+            else Vector3.Normalise(ref b, out b);
+
+            if (cLen < epsilon) c = Vector3.Zero;
+            else Vector3.Normalise(ref c, out c);
 
             Vector3 right = new Vector3(a.X, b.X, c.X);
             Vector3 up = new Vector3(a.Y, b.Y, c.Y);
             Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
+
+            if (right == Vector3.Zero) right = Vector3.Right;
+            if (up == Vector3.Zero) up = Vector3.Up;
+            if (backward == Vector3.Zero) backward = Vector3.Backward;
 
             Vector3.Normalise(ref right, out right);
             Vector3.Normalise(ref up, out up);
