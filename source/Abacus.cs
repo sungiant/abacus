@@ -9544,61 +9544,6 @@ namespace Abacus.SinglePrecision
             result.R3C3 = matrix1.R3C3 * scaleFactor;
         }
 
-        // Division Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs division of two Matrix44 objects.
-        /// </summary>
-        public static void Divide (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
-        {
-            result.R0C0 = matrix1.R0C0 / matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 / matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 / matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 / matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 / matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 / matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 / matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 / matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 / matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 / matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 / matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 / matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 / matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 / matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 / matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 / matrix2.R3C3;
-        }
-
-        /// <summary>
-        /// Performs division of a Matrix44 object and a Single precision
-        /// scaling factor.
-        /// </summary>
-        public static void Divide (
-            ref Matrix44 matrix1,
-            ref Single divider,
-            out Matrix44 result)
-        {
-            result.R0C0 = matrix1.R0C0 / divider;
-            result.R0C1 = matrix1.R0C1 / divider;
-            result.R0C2 = matrix1.R0C2 / divider;
-            result.R0C3 = matrix1.R0C3 / divider;
-            result.R1C0 = matrix1.R1C0 / divider;
-            result.R1C1 = matrix1.R1C1 / divider;
-            result.R1C2 = matrix1.R1C2 / divider;
-            result.R1C3 = matrix1.R1C3 / divider;
-            result.R2C0 = matrix1.R2C0 / divider;
-            result.R2C1 = matrix1.R2C1 / divider;
-            result.R2C2 = matrix1.R2C2 / divider;
-            result.R2C3 = matrix1.R2C3 / divider;
-            result.R3C0 = matrix1.R3C0 / divider;
-            result.R3C1 = matrix1.R3C1 / divider;
-            result.R3C2 = matrix1.R3C2 / divider;
-            result.R3C3 = matrix1.R3C3 / divider;
-        }
-
         /// <summary>
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
@@ -9959,52 +9904,6 @@ namespace Abacus.SinglePrecision
             Multiply (ref matrix, ref scaleFactor, out result);
             return result;
         }
-
-        // Variant Division Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 Divide (
-            Matrix44 matrix1, Matrix44 matrix2)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref matrix2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 Divide (
-            Matrix44 matrix1, Single divider)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref divider, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref matrix2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 operator / (Matrix44 matrix1, Single divider)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref divider, out result);
-            return result;
-        }
-
-
 
         /// <summary>
         /// Variant function.
@@ -16093,61 +15992,6 @@ namespace Abacus.DoublePrecision
             result.R3C3 = matrix1.R3C3 * scaleFactor;
         }
 
-        // Division Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs division of two Matrix44 objects.
-        /// </summary>
-        public static void Divide (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
-        {
-            result.R0C0 = matrix1.R0C0 / matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 / matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 / matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 / matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 / matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 / matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 / matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 / matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 / matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 / matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 / matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 / matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 / matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 / matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 / matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 / matrix2.R3C3;
-        }
-
-        /// <summary>
-        /// Performs division of a Matrix44 object and a Double precision
-        /// scaling factor.
-        /// </summary>
-        public static void Divide (
-            ref Matrix44 matrix1,
-            ref Double divider,
-            out Matrix44 result)
-        {
-            result.R0C0 = matrix1.R0C0 / divider;
-            result.R0C1 = matrix1.R0C1 / divider;
-            result.R0C2 = matrix1.R0C2 / divider;
-            result.R0C3 = matrix1.R0C3 / divider;
-            result.R1C0 = matrix1.R1C0 / divider;
-            result.R1C1 = matrix1.R1C1 / divider;
-            result.R1C2 = matrix1.R1C2 / divider;
-            result.R1C3 = matrix1.R1C3 / divider;
-            result.R2C0 = matrix1.R2C0 / divider;
-            result.R2C1 = matrix1.R2C1 / divider;
-            result.R2C2 = matrix1.R2C2 / divider;
-            result.R2C3 = matrix1.R2C3 / divider;
-            result.R3C0 = matrix1.R3C0 / divider;
-            result.R3C1 = matrix1.R3C1 / divider;
-            result.R3C2 = matrix1.R3C2 / divider;
-            result.R3C3 = matrix1.R3C3 / divider;
-        }
-
         /// <summary>
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
@@ -16508,52 +16352,6 @@ namespace Abacus.DoublePrecision
             Multiply (ref matrix, ref scaleFactor, out result);
             return result;
         }
-
-        // Variant Division Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 Divide (
-            Matrix44 matrix1, Matrix44 matrix2)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref matrix2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 Divide (
-            Matrix44 matrix1, Double divider)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref divider, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref matrix2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 operator / (Matrix44 matrix1, Double divider)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref divider, out result);
-            return result;
-        }
-
-
 
         /// <summary>
         /// Variant function.
@@ -22642,61 +22440,6 @@ namespace Abacus.Fixed32Precision
             result.R3C3 = matrix1.R3C3 * scaleFactor;
         }
 
-        // Division Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs division of two Matrix44 objects.
-        /// </summary>
-        public static void Divide (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
-        {
-            result.R0C0 = matrix1.R0C0 / matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 / matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 / matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 / matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 / matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 / matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 / matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 / matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 / matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 / matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 / matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 / matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 / matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 / matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 / matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 / matrix2.R3C3;
-        }
-
-        /// <summary>
-        /// Performs division of a Matrix44 object and a Fixed32 precision
-        /// scaling factor.
-        /// </summary>
-        public static void Divide (
-            ref Matrix44 matrix1,
-            ref Fixed32 divider,
-            out Matrix44 result)
-        {
-            result.R0C0 = matrix1.R0C0 / divider;
-            result.R0C1 = matrix1.R0C1 / divider;
-            result.R0C2 = matrix1.R0C2 / divider;
-            result.R0C3 = matrix1.R0C3 / divider;
-            result.R1C0 = matrix1.R1C0 / divider;
-            result.R1C1 = matrix1.R1C1 / divider;
-            result.R1C2 = matrix1.R1C2 / divider;
-            result.R1C3 = matrix1.R1C3 / divider;
-            result.R2C0 = matrix1.R2C0 / divider;
-            result.R2C1 = matrix1.R2C1 / divider;
-            result.R2C2 = matrix1.R2C2 / divider;
-            result.R2C3 = matrix1.R2C3 / divider;
-            result.R3C0 = matrix1.R3C0 / divider;
-            result.R3C1 = matrix1.R3C1 / divider;
-            result.R3C2 = matrix1.R3C2 / divider;
-            result.R3C3 = matrix1.R3C3 / divider;
-        }
-
         /// <summary>
         /// beware, doing this might not produce what you expect.  you likely
         /// want to lerp between quaternions.
@@ -23057,52 +22800,6 @@ namespace Abacus.Fixed32Precision
             Multiply (ref matrix, ref scaleFactor, out result);
             return result;
         }
-
-        // Variant Division Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 Divide (
-            Matrix44 matrix1, Matrix44 matrix2)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref matrix2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 Divide (
-            Matrix44 matrix1, Fixed32 divider)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref divider, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 operator / (Matrix44 matrix1, Matrix44 matrix2)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref matrix2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Matrix44 operator / (Matrix44 matrix1, Fixed32 divider)
-        {
-            Matrix44 result;
-            Divide (ref matrix1, ref divider, out result);
-            return result;
-        }
-
-
 
         /// <summary>
         /// Variant function.

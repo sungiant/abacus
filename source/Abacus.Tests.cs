@@ -8317,18 +8317,14 @@ namespace Abacus.SinglePrecision.Tests
         {
             // This test asserts the following:
             //   a * b == expected
-            //   b * a == expected
-
-            var result_1a = a * b;
-            var result_2a = b * a;
 
             Matrix44 result_1b; Matrix44.Multiply(ref a, ref b, out result_1b);
-            Matrix44 result_2b; Matrix44.Multiply(ref b, ref a, out result_2b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
-            Assert.That(result_2b, Is.EqualTo(expected));
+
+#if (VARIANTS_ENABLED)
+            var result_1a = a * b;
+            Assert.That(result_1a, Is.EqualTo(expected));
+#endif
         }
 
         /// <summary>
@@ -8397,122 +8393,40 @@ namespace Abacus.SinglePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.R0C0 * b.R0C0,
-                    a.R0C1 * b.R0C1,
-                    a.R0C2 * b.R0C2,
-                    a.R0C3 * b.R0C3,
-                    a.R1C0 * b.R1C0,
-                    a.R1C1 * b.R1C1,
-                    a.R1C2 * b.R1C2,
-                    a.R1C3 * b.R1C3,
-                    a.R2C0 * b.R2C0,
-                    a.R2C1 * b.R2C1,
-                    a.R2C2 * b.R2C2,
-                    a.R2C3 * b.R2C3,
-                    a.R3C0 * b.R3C0,
-                    a.R3C1 * b.R3C1,
-                    a.R3C2 * b.R3C2,
-                    a.R3C3 * b.R3C3
-                    );
+                    (a.R0C0 * b.R0C0) + (a.R0C1 * b.R1C0) +
+                    (a.R0C2 * b.R2C0) + (a.R0C3 * b.R3C0),
+                    (a.R0C0 * b.R0C1) + (a.R0C1 * b.R1C1) +
+                    (a.R0C2 * b.R2C1) + (a.R0C3 * b.R3C1),
+                    (a.R0C0 * b.R0C2) + (a.R0C1 * b.R1C2) +
+                    (a.R0C2 * b.R2C2) + (a.R0C3 * b.R3C2),
+                    (a.R0C0 * b.R0C3) + (a.R0C1 * b.R1C3) +
+                    (a.R0C2 * b.R2C3) + (a.R0C3 * b.R3C3),
+                    (a.R1C0 * b.R0C0) + (a.R1C1 * b.R1C0) +
+                    (a.R1C2 * b.R2C0) + (a.R1C3 * b.R3C0),
+                    (a.R1C0 * b.R0C1) + (a.R1C1 * b.R1C1) +
+                    (a.R1C2 * b.R2C1) + (a.R1C3 * b.R3C1),
+                    (a.R1C0 * b.R0C2) + (a.R1C1 * b.R1C2) +
+                    (a.R1C2 * b.R2C2) + (a.R1C3 * b.R3C2),
+                    (a.R1C0 * b.R0C3) + (a.R1C1 * b.R1C3) +
+                    (a.R1C2 * b.R2C3) + (a.R1C3 * b.R3C3),
+                    (a.R2C0 * b.R0C0) + (a.R2C1 * b.R1C0) +
+                    (a.R2C2 * b.R2C0) + (a.R2C3 * b.R3C0),
+                    (a.R2C0 * b.R0C1) + (a.R2C1 * b.R1C1) +
+                    (a.R2C2 * b.R2C1) + (a.R2C3 * b.R3C1),
+                    (a.R2C0 * b.R0C2) + (a.R2C1 * b.R1C2) +
+                    (a.R2C2 * b.R2C2) + (a.R2C3 * b.R3C2),
+                    (a.R2C0 * b.R0C3) + (a.R2C1 * b.R1C3) +
+                    (a.R2C2 * b.R2C3) + (a.R2C3 * b.R3C3),
+                    (a.R3C0 * b.R0C0) + (a.R3C1 * b.R1C0) +
+                    (a.R3C2 * b.R2C0) + (a.R3C3 * b.R3C0),
+                    (a.R3C0 * b.R0C1) + (a.R3C1 * b.R1C1) +
+                    (a.R3C2 * b.R2C1) + (a.R3C3 * b.R3C1),
+                    (a.R3C0 * b.R0C2) + (a.R3C1 * b.R1C2) +
+                    (a.R3C2 * b.R2C2) + (a.R3C3 * b.R3C2),
+                    (a.R3C0 * b.R0C3) + (a.R3C1 * b.R1C3) +
+                    (a.R3C2 * b.R2C3) + (a.R3C3 * b.R3C3));
 
                 this.TestMultiplication(a, b, c);
-            }
-        }
-
-
-        // Test Operator: Division //-----------------------------------------//
-
-        /// <summary>
-        /// Helper method for testing division.
-        /// </summary>
-        void TestDivision (Matrix44 a, Matrix44 b, Matrix44 expected )
-        {
-            // This test asserts the following:
-            //   a / b == expected
-
-            var result_1a = a / b;
-
-            Matrix44 result_1b; Matrix44.Divide(ref a, ref b, out result_1b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_1b, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using whole numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_i ()
-        {
-            Single r = 10;
-            Single s = -40;
-            Single t = 1;
-            Single u = -400;
-
-            Single w = 1200;
-            Single x = 4000;
-            Single y = 200;
-            Single z = -300;
-
-            var a = new Matrix44(
-                w, x, y, z,
-                x, y, z, w,
-                y, z, w, x,
-                z, w, x, y);
-
-            var b = new Matrix44(
-                r, s, t, u,
-                r, s, t, u,
-                r, s, t, u,
-                r, s, t, u);
-
-            Single i = (Single) 3 / (Single) 4;
-            Single j = (Single) 1 / (Single) 2;
-            Single k = (Single) 15 / (Single) 2;
-
-            var expected = new Matrix44(
-                120, -100, 200, i,
-                400, -5, -300, -3,
-                20, k, 1200, -10,
-                -30, -30, 4000, -j);
-
-            this.TestDivision(a, b, expected);
-        }
-
-        /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the
-        /// division opperators and functions yield the same results as a
-        /// manual addition division.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            for(Int32 i = 0; i < 100; ++i)
-            {
-                var a = GetNextRandomMatrix44();
-                var b = GetNextRandomMatrix44();
-
-                var c = new Matrix44(
-                    a.R0C0 / b.R0C0,
-                    a.R0C1 / b.R0C1,
-                    a.R0C2 / b.R0C2,
-                    a.R0C3 / b.R0C3,
-                    a.R1C0 / b.R1C0,
-                    a.R1C1 / b.R1C1,
-                    a.R1C2 / b.R1C2,
-                    a.R1C3 / b.R1C3,
-                    a.R2C0 / b.R2C0,
-                    a.R2C1 / b.R2C1,
-                    a.R2C2 / b.R2C2,
-                    a.R2C3 / b.R2C3,
-                    a.R3C0 / b.R3C0,
-                    a.R3C1 / b.R3C1,
-                    a.R3C2 / b.R3C2,
-                    a.R3C3 / b.R3C3
-                    );
-
-                this.TestDivision(a, b, c);
             }
         }
 
@@ -16519,18 +16433,14 @@ namespace Abacus.DoublePrecision.Tests
         {
             // This test asserts the following:
             //   a * b == expected
-            //   b * a == expected
-
-            var result_1a = a * b;
-            var result_2a = b * a;
 
             Matrix44 result_1b; Matrix44.Multiply(ref a, ref b, out result_1b);
-            Matrix44 result_2b; Matrix44.Multiply(ref b, ref a, out result_2b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
-            Assert.That(result_2b, Is.EqualTo(expected));
+
+#if (VARIANTS_ENABLED)
+            var result_1a = a * b;
+            Assert.That(result_1a, Is.EqualTo(expected));
+#endif
         }
 
         /// <summary>
@@ -16599,122 +16509,40 @@ namespace Abacus.DoublePrecision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.R0C0 * b.R0C0,
-                    a.R0C1 * b.R0C1,
-                    a.R0C2 * b.R0C2,
-                    a.R0C3 * b.R0C3,
-                    a.R1C0 * b.R1C0,
-                    a.R1C1 * b.R1C1,
-                    a.R1C2 * b.R1C2,
-                    a.R1C3 * b.R1C3,
-                    a.R2C0 * b.R2C0,
-                    a.R2C1 * b.R2C1,
-                    a.R2C2 * b.R2C2,
-                    a.R2C3 * b.R2C3,
-                    a.R3C0 * b.R3C0,
-                    a.R3C1 * b.R3C1,
-                    a.R3C2 * b.R3C2,
-                    a.R3C3 * b.R3C3
-                    );
+                    (a.R0C0 * b.R0C0) + (a.R0C1 * b.R1C0) +
+                    (a.R0C2 * b.R2C0) + (a.R0C3 * b.R3C0),
+                    (a.R0C0 * b.R0C1) + (a.R0C1 * b.R1C1) +
+                    (a.R0C2 * b.R2C1) + (a.R0C3 * b.R3C1),
+                    (a.R0C0 * b.R0C2) + (a.R0C1 * b.R1C2) +
+                    (a.R0C2 * b.R2C2) + (a.R0C3 * b.R3C2),
+                    (a.R0C0 * b.R0C3) + (a.R0C1 * b.R1C3) +
+                    (a.R0C2 * b.R2C3) + (a.R0C3 * b.R3C3),
+                    (a.R1C0 * b.R0C0) + (a.R1C1 * b.R1C0) +
+                    (a.R1C2 * b.R2C0) + (a.R1C3 * b.R3C0),
+                    (a.R1C0 * b.R0C1) + (a.R1C1 * b.R1C1) +
+                    (a.R1C2 * b.R2C1) + (a.R1C3 * b.R3C1),
+                    (a.R1C0 * b.R0C2) + (a.R1C1 * b.R1C2) +
+                    (a.R1C2 * b.R2C2) + (a.R1C3 * b.R3C2),
+                    (a.R1C0 * b.R0C3) + (a.R1C1 * b.R1C3) +
+                    (a.R1C2 * b.R2C3) + (a.R1C3 * b.R3C3),
+                    (a.R2C0 * b.R0C0) + (a.R2C1 * b.R1C0) +
+                    (a.R2C2 * b.R2C0) + (a.R2C3 * b.R3C0),
+                    (a.R2C0 * b.R0C1) + (a.R2C1 * b.R1C1) +
+                    (a.R2C2 * b.R2C1) + (a.R2C3 * b.R3C1),
+                    (a.R2C0 * b.R0C2) + (a.R2C1 * b.R1C2) +
+                    (a.R2C2 * b.R2C2) + (a.R2C3 * b.R3C2),
+                    (a.R2C0 * b.R0C3) + (a.R2C1 * b.R1C3) +
+                    (a.R2C2 * b.R2C3) + (a.R2C3 * b.R3C3),
+                    (a.R3C0 * b.R0C0) + (a.R3C1 * b.R1C0) +
+                    (a.R3C2 * b.R2C0) + (a.R3C3 * b.R3C0),
+                    (a.R3C0 * b.R0C1) + (a.R3C1 * b.R1C1) +
+                    (a.R3C2 * b.R2C1) + (a.R3C3 * b.R3C1),
+                    (a.R3C0 * b.R0C2) + (a.R3C1 * b.R1C2) +
+                    (a.R3C2 * b.R2C2) + (a.R3C3 * b.R3C2),
+                    (a.R3C0 * b.R0C3) + (a.R3C1 * b.R1C3) +
+                    (a.R3C2 * b.R2C3) + (a.R3C3 * b.R3C3));
 
                 this.TestMultiplication(a, b, c);
-            }
-        }
-
-
-        // Test Operator: Division //-----------------------------------------//
-
-        /// <summary>
-        /// Helper method for testing division.
-        /// </summary>
-        void TestDivision (Matrix44 a, Matrix44 b, Matrix44 expected )
-        {
-            // This test asserts the following:
-            //   a / b == expected
-
-            var result_1a = a / b;
-
-            Matrix44 result_1b; Matrix44.Divide(ref a, ref b, out result_1b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_1b, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using whole numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_i ()
-        {
-            Single r = 10;
-            Single s = -40;
-            Single t = 1;
-            Single u = -400;
-
-            Single w = 1200;
-            Single x = 4000;
-            Single y = 200;
-            Single z = -300;
-
-            var a = new Matrix44(
-                w, x, y, z,
-                x, y, z, w,
-                y, z, w, x,
-                z, w, x, y);
-
-            var b = new Matrix44(
-                r, s, t, u,
-                r, s, t, u,
-                r, s, t, u,
-                r, s, t, u);
-
-            Double i = (Double) 3 / (Double) 4;
-            Double j = (Double) 1 / (Double) 2;
-            Double k = (Double) 15 / (Double) 2;
-
-            var expected = new Matrix44(
-                120, -100, 200, i,
-                400, -5, -300, -3,
-                20, k, 1200, -10,
-                -30, -30, 4000, -j);
-
-            this.TestDivision(a, b, expected);
-        }
-
-        /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the
-        /// division opperators and functions yield the same results as a
-        /// manual addition division.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            for(Int32 i = 0; i < 100; ++i)
-            {
-                var a = GetNextRandomMatrix44();
-                var b = GetNextRandomMatrix44();
-
-                var c = new Matrix44(
-                    a.R0C0 / b.R0C0,
-                    a.R0C1 / b.R0C1,
-                    a.R0C2 / b.R0C2,
-                    a.R0C3 / b.R0C3,
-                    a.R1C0 / b.R1C0,
-                    a.R1C1 / b.R1C1,
-                    a.R1C2 / b.R1C2,
-                    a.R1C3 / b.R1C3,
-                    a.R2C0 / b.R2C0,
-                    a.R2C1 / b.R2C1,
-                    a.R2C2 / b.R2C2,
-                    a.R2C3 / b.R2C3,
-                    a.R3C0 / b.R3C0,
-                    a.R3C1 / b.R3C1,
-                    a.R3C2 / b.R3C2,
-                    a.R3C3 / b.R3C3
-                    );
-
-                this.TestDivision(a, b, c);
             }
         }
 
@@ -24721,18 +24549,14 @@ namespace Abacus.Fixed32Precision.Tests
         {
             // This test asserts the following:
             //   a * b == expected
-            //   b * a == expected
-
-            var result_1a = a * b;
-            var result_2a = b * a;
 
             Matrix44 result_1b; Matrix44.Multiply(ref a, ref b, out result_1b);
-            Matrix44 result_2b; Matrix44.Multiply(ref b, ref a, out result_2b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
-            Assert.That(result_2b, Is.EqualTo(expected));
+
+#if (VARIANTS_ENABLED)
+            var result_1a = a * b;
+            Assert.That(result_1a, Is.EqualTo(expected));
+#endif
         }
 
         /// <summary>
@@ -24801,122 +24625,40 @@ namespace Abacus.Fixed32Precision.Tests
                 var b = GetNextRandomMatrix44();
 
                 var c = new Matrix44(
-                    a.R0C0 * b.R0C0,
-                    a.R0C1 * b.R0C1,
-                    a.R0C2 * b.R0C2,
-                    a.R0C3 * b.R0C3,
-                    a.R1C0 * b.R1C0,
-                    a.R1C1 * b.R1C1,
-                    a.R1C2 * b.R1C2,
-                    a.R1C3 * b.R1C3,
-                    a.R2C0 * b.R2C0,
-                    a.R2C1 * b.R2C1,
-                    a.R2C2 * b.R2C2,
-                    a.R2C3 * b.R2C3,
-                    a.R3C0 * b.R3C0,
-                    a.R3C1 * b.R3C1,
-                    a.R3C2 * b.R3C2,
-                    a.R3C3 * b.R3C3
-                    );
+                    (a.R0C0 * b.R0C0) + (a.R0C1 * b.R1C0) +
+                    (a.R0C2 * b.R2C0) + (a.R0C3 * b.R3C0),
+                    (a.R0C0 * b.R0C1) + (a.R0C1 * b.R1C1) +
+                    (a.R0C2 * b.R2C1) + (a.R0C3 * b.R3C1),
+                    (a.R0C0 * b.R0C2) + (a.R0C1 * b.R1C2) +
+                    (a.R0C2 * b.R2C2) + (a.R0C3 * b.R3C2),
+                    (a.R0C0 * b.R0C3) + (a.R0C1 * b.R1C3) +
+                    (a.R0C2 * b.R2C3) + (a.R0C3 * b.R3C3),
+                    (a.R1C0 * b.R0C0) + (a.R1C1 * b.R1C0) +
+                    (a.R1C2 * b.R2C0) + (a.R1C3 * b.R3C0),
+                    (a.R1C0 * b.R0C1) + (a.R1C1 * b.R1C1) +
+                    (a.R1C2 * b.R2C1) + (a.R1C3 * b.R3C1),
+                    (a.R1C0 * b.R0C2) + (a.R1C1 * b.R1C2) +
+                    (a.R1C2 * b.R2C2) + (a.R1C3 * b.R3C2),
+                    (a.R1C0 * b.R0C3) + (a.R1C1 * b.R1C3) +
+                    (a.R1C2 * b.R2C3) + (a.R1C3 * b.R3C3),
+                    (a.R2C0 * b.R0C0) + (a.R2C1 * b.R1C0) +
+                    (a.R2C2 * b.R2C0) + (a.R2C3 * b.R3C0),
+                    (a.R2C0 * b.R0C1) + (a.R2C1 * b.R1C1) +
+                    (a.R2C2 * b.R2C1) + (a.R2C3 * b.R3C1),
+                    (a.R2C0 * b.R0C2) + (a.R2C1 * b.R1C2) +
+                    (a.R2C2 * b.R2C2) + (a.R2C3 * b.R3C2),
+                    (a.R2C0 * b.R0C3) + (a.R2C1 * b.R1C3) +
+                    (a.R2C2 * b.R2C3) + (a.R2C3 * b.R3C3),
+                    (a.R3C0 * b.R0C0) + (a.R3C1 * b.R1C0) +
+                    (a.R3C2 * b.R2C0) + (a.R3C3 * b.R3C0),
+                    (a.R3C0 * b.R0C1) + (a.R3C1 * b.R1C1) +
+                    (a.R3C2 * b.R2C1) + (a.R3C3 * b.R3C1),
+                    (a.R3C0 * b.R0C2) + (a.R3C1 * b.R1C2) +
+                    (a.R3C2 * b.R2C2) + (a.R3C3 * b.R3C2),
+                    (a.R3C0 * b.R0C3) + (a.R3C1 * b.R1C3) +
+                    (a.R3C2 * b.R2C3) + (a.R3C3 * b.R3C3));
 
                 this.TestMultiplication(a, b, c);
-            }
-        }
-
-
-        // Test Operator: Division //-----------------------------------------//
-
-        /// <summary>
-        /// Helper method for testing division.
-        /// </summary>
-        void TestDivision (Matrix44 a, Matrix44 b, Matrix44 expected )
-        {
-            // This test asserts the following:
-            //   a / b == expected
-
-            var result_1a = a / b;
-
-            Matrix44 result_1b; Matrix44.Divide(ref a, ref b, out result_1b);
-
-            Assert.That(result_1a, Is.EqualTo(expected));
-            Assert.That(result_1b, Is.EqualTo(expected));
-        }
-
-        /// <summary>
-        /// Assert that, for a known example using whole numbers, all the
-        /// division opperators and functions yield the correct result.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_i ()
-        {
-            Single r = 10;
-            Single s = -40;
-            Single t = 1;
-            Single u = -400;
-
-            Single w = 1200;
-            Single x = 4000;
-            Single y = 200;
-            Single z = -300;
-
-            var a = new Matrix44(
-                w, x, y, z,
-                x, y, z, w,
-                y, z, w, x,
-                z, w, x, y);
-
-            var b = new Matrix44(
-                r, s, t, u,
-                r, s, t, u,
-                r, s, t, u,
-                r, s, t, u);
-
-            Fixed32 i = (Fixed32) 3 / (Fixed32) 4;
-            Fixed32 j = (Fixed32) 1 / (Fixed32) 2;
-            Fixed32 k = (Fixed32) 15 / (Fixed32) 2;
-
-            var expected = new Matrix44(
-                120, -100, 200, i,
-                400, -5, -300, -3,
-                20, k, 1200, -10,
-                -30, -30, 4000, -j);
-
-            this.TestDivision(a, b, expected);
-        }
-
-        /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the
-        /// division opperators and functions yield the same results as a
-        /// manual addition division.
-        /// </summary>
-        [Test]
-        public void TestOperator_Division_ii ()
-        {
-            for(Int32 i = 0; i < 100; ++i)
-            {
-                var a = GetNextRandomMatrix44();
-                var b = GetNextRandomMatrix44();
-
-                var c = new Matrix44(
-                    a.R0C0 / b.R0C0,
-                    a.R0C1 / b.R0C1,
-                    a.R0C2 / b.R0C2,
-                    a.R0C3 / b.R0C3,
-                    a.R1C0 / b.R1C0,
-                    a.R1C1 / b.R1C1,
-                    a.R1C2 / b.R1C2,
-                    a.R1C3 / b.R1C3,
-                    a.R2C0 / b.R2C0,
-                    a.R2C1 / b.R2C1,
-                    a.R2C2 / b.R2C2,
-                    a.R2C3 / b.R2C3,
-                    a.R3C0 / b.R3C0,
-                    a.R3C1 / b.R3C1,
-                    a.R3C2 / b.R3C2,
-                    a.R3C3 / b.R3C3
-                    );
-
-                this.TestDivision(a, b, c);
             }
         }
 
