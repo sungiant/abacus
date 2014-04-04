@@ -1,6 +1,6 @@
 ![Abacus](/misc/logo.png)
 
-##Project Status: Pre-Alpha [![Build Status](https://travis-ci.org/abacus3D/abacus.png?branch=development)](https://travis-ci.org/abacus3D/abacus) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/abacus3D/abacus/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+##Project Status: Pre-Alpha [![Build Status](https://travis-ci.org/abacus3D/abacus.png?branch=development)](https://travis-ci.org/abacus3D/abacus) [![Coverage Status](https://coveralls.io/repos/abacus3D/abacus/badge.png)](https://coveralls.io/r/abacus3D/abacus) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/abacus3D/abacus/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Abacus is a 3D maths library for the [CLI](http://en.wikipedia.org/wiki/Common_Language_Infrastructure), built with a primary focus on performance and efficiency.  Abacus is ideal for use developing real-time 3D applications and deterministic network simulations.
 
