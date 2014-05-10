@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{36D73AA0-0216-4B97-A0A6-7A896AFE6CEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Abacus</RootNamespace>
