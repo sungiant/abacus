@@ -9,8 +9,8 @@ before_script:
     sh generate.sh;
 
 script:
-    sh build.sh && exit 1;
-    sh test.sh && exit 1;
+    sh build.sh;
+    sh test.sh;
 
 after_script:
     cd ../;

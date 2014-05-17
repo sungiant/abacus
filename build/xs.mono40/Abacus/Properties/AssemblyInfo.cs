@@ -43,3 +43,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyVersion("0.0.0.1")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: CLSCompliant(true)]
+[assembly: InternalsVisibleTo("Abacus.Tests")]

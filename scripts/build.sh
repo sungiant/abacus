@@ -2,9 +2,8 @@
 
 startPath=`pwd`
 
-cd ../build/xs.mono40/Abacus/
+cd ../build/xs.mono40/Abacus.Tests/
 
-xbuild "Abacus (xs.mono40).csproj" /p:Configuration=Debug && exit 1
-xbuild "Abacus (xs.mono40).csproj" /p:Configuration=Release && exit 1
+xbuild "Abacus.Tests (xs.mono40).csproj" /p:Configuration=Debug
 
 cd $startPath
