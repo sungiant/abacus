@@ -1,0 +1,156 @@
+﻿    /// <summary>
+    ///This is a test class for <#= fixedTypeDefinition.TypeName #>Test and is intended
+    ///to contain all <#= fixedTypeDefinition.TypeName #>Test Unit Tests
+    ///</summary>
+    [TestFixture]
+    public class <#= fixedTypeDefinition.TypeName #>Tests
+    {
+        [Test]
+        public void TestMaxRange()
+        {
+            double max = System.Math.Pow(2.0, <#= fixedTypeDefinition.TypeName #>.m) - System.Math.Pow(2.0, -<#= fixedTypeDefinition.TypeName #>.n);
+            Assert.That(<#= fixedTypeDefinition.TypeName #>.MaxValue.ToDouble(), Is.EqualTo(max));
+        }
+
+        [Test]
+        public void TestMinRange()
+        {
+            double min = -System.Math.Pow(2.0, <#= fixedTypeDefinition.TypeName #>.m);
+            Assert.That(<#= fixedTypeDefinition.TypeName #>.MinValue.ToDouble(), Is.EqualTo(min));
+        }
+
+        [Test]
+        public void TestResolution()
+        {
+            // we should be able to represent this exactly
+            double res = (double)-System.Math.Pow(2.0, -<#= fixedTypeDefinition.TypeName #>.n);
+            <#= fixedTypeDefinition.TypeName #> f = (<#= fixedTypeDefinition.TypeName #>) res;
+            Assert.That((double)f, Is.EqualTo(res));
+
+            // but not this
+            double res2 = res / 2;
+            <#= fixedTypeDefinition.TypeName #> f2 = (<#= fixedTypeDefinition.TypeName #>) res2;
+            Assert.That((double)f2, Is.Not.EqualTo(res2));
+        }
+
+        [Test]
+        public void TestToDouble ()
+        {
+            double[] values = { 0.0, 1.0, 1.0 / 3, -1, -1.0 / 3 };
+
+            foreach (double value in values) {
+                <#= fixedTypeDefinition.TypeName #> f = new <#= fixedTypeDefinition.TypeName #> (value);
+                double d = f.ToDouble ();
+                double error = System.Math.Abs (d - value);
+                Assert.That (error < 0.001);
+            }
+        }
+
+
+        [Test]
+        public void TestToString ()
+        {
+            Assert.That (new <#= fixedTypeDefinition.TypeName #> (0).ToString (), Is.EqualTo ("0"));
+            Assert.That (new <#= fixedTypeDefinition.TypeName #> (3.03125).ToString (), Is.EqualTo ("3.03125"));
+            Assert.That (string.Format ("{0:0.000}", new <#= fixedTypeDefinition.TypeName #> (3.141593)), Is.EqualTo ("3.142"));
+        }
+
+        [Test]
+        public void TestConstructFromString ()
+        {
+            <#= fixedTypeDefinition.TypeName #> zero = 0;
+            <#= fixedTypeDefinition.TypeName #> one = 1;
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("0"), Is.EqualTo (zero));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("-0"), Is.EqualTo (zero));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("0."), Is.EqualTo (zero));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("0.0"), Is.EqualTo (zero));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("0.00"), Is.EqualTo (zero));
+
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("1"), Is.EqualTo (one));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("1."), Is.EqualTo (one));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("1.0"), Is.EqualTo (one));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("-1"), Is.EqualTo (new <#= fixedTypeDefinition.TypeName #> (-1)));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("-1."), Is.EqualTo (new <#= fixedTypeDefinition.TypeName #> (-1)));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("-1.0"), Is.EqualTo (new <#= fixedTypeDefinition.TypeName #> (-1)));
+
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("0.500"), Is.EqualTo (one / new <#= fixedTypeDefinition.TypeName #>(2)));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("-0.500"), Is.EqualTo (-one / new <#= fixedTypeDefinition.TypeName #>(2)).Within(<#= fixedTypeDefinition.TypeName #>.Epsilon));
+
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("-0.005"), Is.EqualTo (-one / new <#= fixedTypeDefinition.TypeName #>(200)));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("-0.344999432563782"), Is.EqualTo (new <#= fixedTypeDefinition.TypeName #> (-0.344999432563782d)));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("0.938602924346924"), Is.EqualTo (new <#= fixedTypeDefinition.TypeName #> (0.938602924346924d)));
+
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Parse("100.001"), Is.EqualTo (new <#= fixedTypeDefinition.TypeName #> (100) + one / new <#= fixedTypeDefinition.TypeName #>(1000)));
+
+
+        }
+
+        [Test]
+        public void TestSin ()
+        {
+            double t = 0.1;
+
+            <#= fixedTypeDefinition.TypeName #> zero = 0;
+            <#= fixedTypeDefinition.TypeName #> one = 1;
+            <#= fixedTypeDefinition.TypeName #> two = 2;
+            <#= fixedTypeDefinition.TypeName #> three = 3;
+            <#= fixedTypeDefinition.TypeName #> pi; Maths.Pi(out pi);
+            <#= fixedTypeDefinition.TypeName #> tau; Maths.Tau(out tau);
+
+            double p1 = <#= fixedTypeDefinition.TypeName #>.Sin(zero).ToDouble();
+            double e1 = zero.ToDouble();
+            Assert.That(p1, Is.EqualTo(e1).Within(t));
+
+            double p2 = <#= fixedTypeDefinition.TypeName #>.Sin(pi / two).ToDouble();
+            double e2 = one.ToDouble();
+            Assert.That(p2, Is.EqualTo(e2).Within(t));
+
+            double p3 = <#= fixedTypeDefinition.TypeName #>.Sin(pi).ToDouble();
+            double e3 = zero.ToDouble();
+            Assert.That(p3, Is.EqualTo(e3).Within(t));
+
+            double p4 = <#= fixedTypeDefinition.TypeName #>.Sin(three * pi / two).ToDouble();
+            double e4 = -one.ToDouble();
+            Assert.That(p4, Is.EqualTo(e4).Within(t));
+
+            double p5 = <#= fixedTypeDefinition.TypeName #>.Sin(tau).ToDouble();
+            double e5 = zero.ToDouble();
+            Assert.That(p5, Is.EqualTo(e5).Within(t));
+
+            for (float f = 0.0f; f < System.Math.PI * 2.0f; f += 0.1f)
+            {
+                Assert.That(System.Math.Sin(f), Is.EqualTo(<#= fixedTypeDefinition.TypeName #>.Sin(new <#= fixedTypeDefinition.TypeName #>(f)).ToDouble()).Within(t));
+            }
+        }
+
+        [Test]
+        public void TestCos ()
+        {
+            <#= fixedTypeDefinition.TypeName #> zero = 0;
+            <#= fixedTypeDefinition.TypeName #> one = 1;
+            <#= fixedTypeDefinition.TypeName #> two = 2;
+            <#= fixedTypeDefinition.TypeName #> three = 3;
+            <#= fixedTypeDefinition.TypeName #> pi; Maths.Pi(out pi);
+            <#= fixedTypeDefinition.TypeName #> tau; Maths.Tau(out tau);
+
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Cos (zero), Is.EqualTo (one));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Cos (pi / two), Is.EqualTo (zero));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Cos (pi), Is.EqualTo (-one));
+            Assert.That(<#= fixedTypeDefinition.TypeName #>.Cos(three * pi / two), Is.EqualTo(zero));
+            Assert.That (<#= fixedTypeDefinition.TypeName #>.Cos (tau), Is.EqualTo (one));
+
+            const float epsilon = 0.0001f;
+            for (float f = 0.0f; f < System.Math.PI * 2.0f; f += 0.1f) {
+                float singleResult = (float) System.Math.Cos(f);
+                float fixedResult = <#= fixedTypeDefinition.TypeName #>.Cos(new <#= fixedTypeDefinition.TypeName #>(f)).ToSingle();
+
+                Assert.That(
+                    singleResult,
+                    Is.EqualTo(fixedResult).Within(epsilon),
+                    string.Format("was: {0}, should have been: {1}", fixedResult, singleResult));
+            }
+        }
+
+<#@ include file="Fixed.X.Operators.Tests.t4"#>
+    }
+

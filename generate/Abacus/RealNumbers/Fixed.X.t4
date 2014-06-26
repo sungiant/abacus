@@ -1,0 +1,126 @@
+﻿    ///
+    /// <#= fixedTypeDefinition.TypeName #> is a binary fixed
+    /// point number in the Q39.24 number format.
+    ///
+    /// This type can be useful:
+    /// - as a performance enhancement when working with embedded
+    ///   systems that do not have hardware based floating point support.
+    /// - when a constant resolution is required
+    ///
+    /// Q is a fixed point number format where the number of fractional
+    /// bits (and optionally the number of integer bits) is specified. For
+    /// example, a Q15 number has 15 fractional bits; a Q1.14 number has
+    /// 1 integer bit and 14 fractional bits.
+    ///
+    /// Q format numbers are fixed point numbers; that is, they are stored
+    /// and operated upon as regular binary numbers (i.e. signed integers),
+    /// thus allowing standard integer hardware/ALU to perform rational
+    /// number calculations.
+    ///
+    /// For a given Qm.n format, using an m+n+1 bit signed integer
+    /// container with n fractional bits:
+    /// - its range is [-2^m, 2^m - 2^-n]
+    /// - its resolution is 2^-n
+    ///
+    /// Unlike floating point numbers, the resolution of Q numbers will
+    /// remain constant over the entire range.
+    ///
+    /// Q numbers are a ratio of two integers: the numerator is kept in storage,
+    /// the denominator is equal to 2^n.
+    ///
+
+    [StructLayout(LayoutKind.Sequential), Serializable]
+    public struct <#= fixedTypeDefinition.TypeName #>
+        : IFormattable
+        , IComparable<<#= fixedTypeDefinition.TypeName #>>
+        , IComparable
+        , IConvertible
+        , IEquatable<<#= fixedTypeDefinition.TypeName #>>
+    {
+        // s is the number of sign bits
+        public const Byte s = 1;
+
+        // m is the number of bits set aside to designate the two's complement integer
+        // portion of the number exclusive of the sign bit.
+        public const Byte m = <#= fixedTypeDefinition.ByteCount #> - n - s;
+
+        // n is the number of bits used to designate the fractional portion of the
+        // number, i.e. the number of bit's to the right of the binary point.
+        // (If n = 0, the Q numbers are integers — the degenerate case)
+        public const Byte n = <#= fixedTypeDefinition.FractionalByteCount #>;
+
+        // This is the raw value that is stored and operated upon.
+        // Size: Signed 64-bit integer
+        // Range: –9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+        <#= fixedTypeDefinition.RawTypeName #> numerator;
+
+        // This value is inferred as this is a Qm.n number.
+        <#= fixedTypeDefinition.RawTypeName #> denominator { get { return TwoToThePowerOf(n); } }
+
+        double value { get { return (double)numerator / (double)denominator; } }
+
+        // perhaps this shouldn't be public
+        public <#= fixedTypeDefinition.RawTypeName #> RawValue { get { return numerator; } }
+        //public <#= fixedTypeDefinition.RawTypeName #> RawHigh { get { return numerator >> n; } }
+        //public <#= fixedTypeDefinition.RawTypeName #> RawLow { get { return numerator - (RawHigh << n); } }
+
+        public <#= fixedTypeDefinition.TypeName #>(<#= fixedTypeDefinition.RawTypeName #> value)
+        {
+            numerator = value << n;
+        }
+
+        public <#= fixedTypeDefinition.TypeName #> (Double value)
+        {
+            numerator = (Int32)System.Math.Round (value * (1 << n));
+        }
+
+        public Int32 ToInt32 ()
+        {
+            // todo: explain
+            return (Int32)(numerator >> n);
+        }
+
+        public Double ToDouble ()
+        {
+            return numerator * d;
+        }
+
+        public Single ToSingle ()
+        {
+            return (Single) this.ToDouble();
+        }
+
+        public override Boolean Equals(object obj)
+        {
+            if (obj is <#= fixedTypeDefinition.TypeName #>)
+            {
+                return ((<#= fixedTypeDefinition.TypeName #>)obj).numerator == numerator;
+            }
+
+            return false;
+        }
+
+        public override Int32 GetHashCode()
+        {
+            //return (Int32)(numerator & 0xffffffff) ^ (Int32)(numerator >> 32); (for 64bit)
+
+            return numerator;
+        }
+
+        public override String ToString()
+        {
+            return ToDouble().ToString();
+        }
+
+<#@ include file="Fixed.X.Parse.t4"#>
+<#@ include file="Fixed.X.Create.t4"#>
+<#@ include file="Fixed.X.Constants.t4"#>
+<#@ include file="Fixed.X.Maths.t4"#>
+<#@ include file="Fixed.X.Operators.t4"#>
+<#@ include file="Fixed.X.IComparable.t4"#>
+<#@ include file="Fixed.X.IConvertible.t4"#>
+<#@ include file="Fixed.X.IEquatable.t4"#>
+<#@ include file="Fixed.X.IFormattable.t4"#>
+
+    }
+

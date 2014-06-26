@@ -1,0 +1,169 @@
+﻿<#+
+    class FixedTypeDefinition
+    {
+        public String TypeName { get; private set; }
+        public String RawTypeName { get; private set; }
+        public UInt16 ByteCount { get; private set; }
+        public UInt16 FractionalByteCount { get; private set; }
+
+        public FixedTypeDefinition (String typeName, String rawTypeName, UInt16 byteCount, UInt16 fractionalByteCount)
+        {
+            this.TypeName = typeName;
+            this.RawTypeName = rawTypeName;
+            this.ByteCount = byteCount;
+            this.FractionalByteCount = fractionalByteCount;
+        }
+    }
+
+    Dictionary<string, FixedTypeDefinition> GetFixedTypeDefinitions()
+    {
+        return new Dictionary<string, FixedTypeDefinition> ()
+        {
+            { "Fixed32", new FixedTypeDefinition ("Fixed32", "Int32", 32, 12) }
+        };
+    }
+
+    string[] GetSupportedPrecisions()
+    {
+        var builtInTypes = new List<String>()
+        {
+            "Single", "Double"
+        };
+
+        var customTypes = GetFixedTypeDefinitions().Keys;
+
+        var allTypes = new List<String>();
+
+        allTypes.AddRange (builtInTypes);
+        allTypes.AddRange (customTypes);
+
+        return allTypes.ToArray();
+    }
+
+    string GetMathsStr (string rt, string ct)
+    {
+        var constants = new Dictionary<string, Dictionary<string, string>> ()
+        {
+            {
+                "Double",
+                new Dictionary<string, string> ()
+                {
+                    { "E", "2.71828182845904523536028747135266249775724709369995" },
+                    { "Epsilon", "1.0e-6" },
+                    { "Half", "0.5" },
+                    { "Log10E", "0.4342944821" },
+                    { "Log2E", "1.442695" },
+                    { "Pi", "3.14159265358979323846264338327950288" },
+                    { "Root2", "1.414213562" },
+                    { "Root3", "1.732050808" },
+                    { "Tau", "6.283185" },
+                    { "Zero", "0" },
+                    { "One", "1" },
+                    { "TestTolerance", "1.0e-7" },
+                    { "ArcCos", "return Math.Acos(value)"},
+                    { "ArcSin", "return Math.Asin(value)"},
+                    { "ArcTan", "return Math.Atan(value)"},
+                    { "Cos", "return Math.Cos(value)"},
+                    { "Sin", "return Math.Sin(value)"},
+                    { "Tan", "return Math.Tan(value)"},
+                    { "Sqrt", "return Math.Sqrt(value)"},
+                    { "Square", "return value * value"},
+                    { "Abs", "return Math.Abs(value)"},
+                }
+            },
+            {
+                "Single",
+                new Dictionary<string, string> ()
+                {
+                    { "E", "2.71828183f" },
+                    { "Epsilon", "1.0e-6f" },
+                    { "Half", "0.5f" },
+                    { "Log10E", "0.4342944821f" },
+                    { "Log2E", "1.442695f" },
+                    { "Pi", "3.1415926536f" },
+                    { "Root2", "1.414213562f" },
+                    { "Root3", "1.732050808f" },
+                    { "Tau", "6.283185f" },
+                    { "Zero", "0f" },
+                    { "One", "1f" },
+                    { "TestTolerance", "1.0e-3f" },
+                    { "ArcCos", "return (Single) Math.Acos((Single) value)"},
+                    { "ArcSin", "return (Single) Math.Asin((Single) value)"},
+                    { "ArcTan", "return (Single) Math.Atan((Single) value)"},
+                    { "Cos", "return (Single) Math.Cos((Single) value)"},
+                    { "Sin", "return (Single) Math.Sin((Single) value)"},
+                    { "Tan", "return (Single) Math.Tan((Single) value)"},
+                    { "Sqrt", "return (Single) Math.Sqrt((Single) value)"},
+                    { "Square", "return value * value"},
+                    { "Abs", "return (Single)Math.Abs((Single)value)"},
+                }
+            },
+            {
+                "Fixed32",
+                new Dictionary<string, string> ()
+                {
+                    { "E", "Fixed32.Parse(\"2.71828183\")" },
+                    { "Epsilon", "Fixed32.Parse(\"0.0001\")" },
+                    { "Half", "Fixed32.Parse(\"0.5\")" },
+                    { "Log10E", "Fixed32.Parse(\"0.4342945\")" },
+                    { "Log2E", "Fixed32.Parse(\"1.442695\")" },
+                    { "Pi", "Fixed32.Parse(\"3.1415926536\")" },
+                    { "Root2", "Fixed32.Parse(\"1.414213562\")" },
+                    { "Root3", "Fixed32.Parse(\"1.732050808\")" },
+                    { "Tau", "Fixed32.Parse(\"6.283185\")" },
+                    { "Zero", "0" },
+                    { "One", "1" },
+                    { "TestTolerance", "Fixed32.Parse(\"0.0001\")" },
+                    { "ArcCos", "throw new NotImplementedException ()"},
+                    { "ArcSin", "throw new NotImplementedException ()"},
+                    { "ArcTan", "throw new NotImplementedException ()"},
+                    { "Cos", "return Fixed32.Cos(value)"},
+                    { "Sin", "return Fixed32.Sin(value)"},
+                    { "Tan", "return Fixed32.Tan(value)"},
+                    { "Sqrt", "return Fixed32.Sqrt(value)"},
+                    { "Square", "return Fixed32.Square(value)"},
+                    { "Abs", "return (value < new Fixed32(0)) ? value * new Fixed32(-1) : value"},
+                }
+            }
+        };
+
+        if (constants.ContainsKey (rt))
+        {
+            if (constants [rt].ContainsKey (ct))
+            return constants [rt][ct];
+        }
+
+        throw new NotImplementedException ();
+
+    }
+
+    void GenerateMathsConstant (string type, string name)
+    {
+#>
+        /// <summary>
+        /// Provides the constant <#= name #>.
+        /// </summary>
+        public static void <#= name #> (out <#= type #> value)
+        {
+<#+         string s = GetMathsStr (type, name); #>
+            value = <#= s #>;
+        }
+
+<#+
+    }
+
+    void GenerateMathsFunction (string type, string name)
+    {
+#>
+        /// <summary>
+        /// <#= name #>.
+        /// </summary>
+        public static <#= type #> <#= name #> (<#= type #> value)
+        {
+<#+         string s = GetMathsStr (type, name); #>
+            <#= s #>;
+        }
+
+<#+
+    }
+#>

@@ -1,0 +1,84 @@
+// ┌────────────────────────────────────────────────────────────────────────┐ \\
+// │ Abacus - Fast, efficient, cross precision, maths library               │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Brought to you by:                                                     │ \\
+// │          _________                    .__               __             │ \\
+// │         /   _____/__ __  ____    ____ |__|____    _____/  |_           │ \\
+// │         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          │ \\
+// │         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            │ \\
+// │        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            │ \\
+// │                \/           \//_____/         \/     \/                │ \\
+// │                                                                        │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Copyright © 2013 A.J.Pook (http://www.blimey3d.com)                    │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
+// │ a copy of this software and associated documentation files (the        │ \\
+// │ "Software"), to deal in the Software without restriction, including    │ \\
+// │ without limitation the rights to use, copy, modify, merge, publish,    │ \\
+// │ distribute, sublicense, and/or sellcopies of the Software, and to      │ \\
+// │ permit persons to whom the Software is furnished to do so, subject to  │ \\
+// │ the following conditions:                                              │ \\
+// │                                                                        │ \\
+// │ The above copyright notice and this permission notice shall be         │ \\
+// │ included in all copies or substantial portions of the Software.        │ \\
+// │                                                                        │ \\
+// │ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        │ \\
+// │ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     │ \\
+// │ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. │ \\
+// │ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   │ \\
+// │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
+// │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
+// │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
+// └────────────────────────────────────────────────────────────────────────┘ \\
+
+#define VARIANTS_ENABLED
+
+using System;
+using System.Runtime.InteropServices;
+using System.Globalization;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Abacus.<#= type #>Precision
+{
+<# if (fixedTypeDefinition != null) { #>
+<#@ include file="RealNumbers/Fixed.X.t4"#>
+<# } #>
+<#@ include file="CrossPrecision/Maths.t4"#>
+<#@ include file="CrossPrecision/Vector2.t4"#>
+<#@ include file="CrossPrecision/Vector3.t4"#>
+<#@ include file="CrossPrecision/Vector4.t4"#>
+<#@ include file="CrossPrecision/Quaternion.t4"#>
+<#@ include file="CrossPrecision/Matrix44.t4"#>
+
+<# if (type == "Single") { #>
+    public static class RandomExtensions
+    {
+        /// <summary>
+        /// Returns a random Single between 0.0 & 1.0
+        /// </summary>
+        public static Single Next<#= type #> (this System.Random r)
+        {
+            return (Single) r.NextDouble();
+        }
+    }
+<# } else if (fixedTypeDefinition != null) { #>
+    public static class RandomExtensions
+    {
+        /// <summary>
+        /// Returns a random <#= type #> between 0.0 & 1.0
+        /// </summary>
+        public static Fixed32 Next<#= type #>(this System.Random r)
+        {
+            <#= type #> max = 1;
+            <#= type #> min = 0;
+
+            <#= fixedTypeDefinition.RawTypeName #> randomRawValue =
+                r.Next(min.RawValue, max.RawValue);
+
+            return <#= type #>.CreateFromRaw(randomRawValue);
+        }
+    }
+<# } #>
+}

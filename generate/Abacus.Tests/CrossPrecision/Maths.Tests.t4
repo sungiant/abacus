@@ -1,0 +1,275 @@
+﻿    /// <summary>
+    /// todo
+    /// </summary>
+    [TestFixture]
+    public class MathsTests
+    {
+<# GenerateMathsConstant (type, "TestTolerance"); #>
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Zero_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Half_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_One_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_E_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Log10E_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Log2E_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Pi_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_PiOver2_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_PiOver4_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Tau_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Epsilon_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Root2_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestConstant_Root3_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsZero_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_FromString_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_FromFraction_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_ToRadians_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_ToDegrees_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Sqrt_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Sin_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Cos_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Tan_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Abs_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_ArcSin_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_ArcCos_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_ArcTan_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Min_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Max_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_WithinEpsilon_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Sign_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+    }
+

@@ -1,0 +1,28 @@
+﻿        #region IComparable
+
+        public int CompareTo(<#= fixedTypeDefinition.TypeName #> other)
+        {
+            return numerator.CompareTo(other.numerator);
+        }
+
+        public int CompareTo(object value)
+        {
+            if (value == null)
+                return 1;
+
+            if (!(value is <#= fixedTypeDefinition.TypeName #>))
+                throw new ArgumentException("Value is not a <#= fixedTypeDefinition.TypeName #>.");
+
+            <#= fixedTypeDefinition.TypeName #> fv = (<#= fixedTypeDefinition.TypeName #>)value;
+
+            if (this == fv)
+                return 0;
+            else if (this > fv)
+                return 1;
+            else
+                return -1;
+
+        }
+
+        #endregion
+

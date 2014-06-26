@@ -1,0 +1,86 @@
+﻿        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Slerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref <#= type #> amount,
+            out Quaternion result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#= type #> nineninenine; Maths.FromString("0.999999", out nineninenine);
+
+            <#= type #> num2;
+            <#= type #> num3;
+            <#= type #> num = amount;
+            <#= type #> num4 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
+            Boolean flag = false;
+            if (num4 < zero) {
+                flag = true;
+                num4 = -num4;
+            }
+
+
+            if (num4 >nineninenine) {
+                num3 = one - num;
+                num2 = flag ? -num : num;
+            } else {
+                <#= type #> num5 = Maths.ArcCos (num4);
+                <#= type #> num6 = one / Maths.Sin (num5);
+
+                num3 = Maths.Sin ((one - num) * num5) * num6;
+
+                num2 = flag ? -Maths.Sin (num * num5) * num6 : Maths.Sin (num * num5) * num6;
+            }
+            result.I = (num3 * quaternion1.I) + (num2 * quaternion2.I);
+            result.J = (num3 * quaternion1.J) + (num2 * quaternion2.J);
+            result.K = (num3 * quaternion1.K) + (num2 * quaternion2.K);
+            result.U = (num3 * quaternion1.U) + (num2 * quaternion2.U);
+        }
+
+        /// <summary>
+        /// todo
+        /// </summary>
+        public static void Lerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref <#= type #> amount,
+            out Quaternion result)
+        {
+            <#= type #> zero = 0;
+            <#= type #> one = 1;
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#= type #> num = amount;
+            <#= type #> num2 = one - num;
+            <#= type #> num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
+            if (num5 >= zero) {
+                result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) + (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) + (num * quaternion2.U);
+            } else {
+                result.I = (num2 * quaternion1.I) - (num * quaternion2.I);
+                result.J = (num2 * quaternion1.J) - (num * quaternion2.J);
+                result.K = (num2 * quaternion1.K) - (num * quaternion2.K);
+                result.U = (num2 * quaternion1.U) - (num * quaternion2.U);
+            }
+            <#= type #> num4 = (((result.I * result.I) + (result.J * result.J)) + (result.K * result.K)) + (result.U * result.U);
+            <#= type #> num3 = one / Maths.Sqrt (num4);
+            result.I *= num3;
+            result.J *= num3;
+            result.K *= num3;
+            result.U *= num3;
+        }
+
