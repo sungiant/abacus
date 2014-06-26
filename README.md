@@ -18,4 +18,4 @@ consistently across the following precisions:
 * Double
 * Fixed32
 
-To use Abacus, choose the precision you want to work with and include the corresponding Abacus.*.cs file in your project.
+To use Abacus choose the precision you want to work with and include the corresponding Abacus.*.cs file in your project.
