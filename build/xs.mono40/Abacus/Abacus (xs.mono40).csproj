@@ -7,8 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Abacus</RootNamespace>
     <AssemblyName>Abacus</AssemblyName>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
