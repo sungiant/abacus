@@ -42,6 +42,8 @@ using System.Collections.Generic;
 
 namespace Abacus.<#= type #>Precision
 {
+<#@ include file="../Internal.t4"#>
+
 <# if (fixedTypeDefinition != null) { #>
 <#@ include file="RealNumbers/Fixed.X.t4"#>
 <# } #>

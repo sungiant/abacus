@@ -87,12 +87,10 @@
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return (
-                this.X.GetHashCode () +
-                this.Y.GetHashCode () +
-                this.Z.GetHashCode () +
-                this.W.GetHashCode ()
-                );
+            return X.GetHashCode ()
+                 ^ Y.GetHashCode ().ShiftAndWrap (2)
+                 ^ Z.GetHashCode ().ShiftAndWrap (4)
+                 ^ W.GetHashCode ().ShiftAndWrap (6);
         }
 
         /// <summary>

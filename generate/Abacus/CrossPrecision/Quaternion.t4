@@ -75,11 +75,10 @@
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return
-                this.I.GetHashCode () +
-                this.J.GetHashCode () +
-                this.K.GetHashCode () +
-                this.U.GetHashCode ();
+            return U.GetHashCode ().ShiftAndWrap (6)
+                 ^ K.GetHashCode ().ShiftAndWrap (4)
+                 ^ J.GetHashCode ().ShiftAndWrap (2)
+                 ^ I.GetHashCode ();
         }
 
         /// <summary>

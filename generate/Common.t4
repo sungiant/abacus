@@ -1,4 +1,4 @@
-﻿<#+
+﻿<#+   
     class FixedTypeDefinition
     {
         public String TypeName { get; private set; }

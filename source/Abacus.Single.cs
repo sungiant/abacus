@@ -42,6 +42,23 @@ using System.Collections.Generic;
 
 namespace Abacus.SinglePrecision
 {
+    internal static class Int32Extensions
+    {
+        // http://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=vs.110).aspx
+        public static Int32 ShiftAndWrap (this Int32 value, Int32 positions = 2)
+        {
+            positions = positions & 0x1F;
+    
+            // Save the existing bit pattern, but interpret it as an unsigned integer. 
+            uint number = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
+            // Preserve the bits to be discarded. 
+            uint wrapped = number >> (32 - positions);
+            // Shift and wrap the discarded bits. 
+            return BitConverter.ToInt32(BitConverter.GetBytes((number << positions) | wrapped), 0);
+        }
+    }
+
+
     /// <summary>
     /// This class provides maths functions with consistent function
     /// signatures across all supported precisions.  The idea being
@@ -344,9 +361,8 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return
-                this.X.GetHashCode () +
-                this.Y.GetHashCode ();
+            return X.GetHashCode ()
+                 ^ Y.GetHashCode ().ShiftAndWrap (2);
         }
 
         /// <summary>
@@ -1521,11 +1537,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return (
-                this.X.GetHashCode () +
-                this.Y.GetHashCode () +
-                this.Z.GetHashCode ()
-                );
+            return X.GetHashCode ()
+                 ^ Y.GetHashCode ().ShiftAndWrap (2)
+                 ^ Z.GetHashCode ().ShiftAndWrap (4);
         }
 
         /// <summary>
@@ -2945,12 +2959,10 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return (
-                this.X.GetHashCode () +
-                this.Y.GetHashCode () +
-                this.Z.GetHashCode () +
-                this.W.GetHashCode ()
-                );
+            return X.GetHashCode ()
+                 ^ Y.GetHashCode ().ShiftAndWrap (2)
+                 ^ Z.GetHashCode ().ShiftAndWrap (4)
+                 ^ W.GetHashCode ().ShiftAndWrap (6);
         }
 
         /// <summary>
@@ -4311,11 +4323,10 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return
-                this.I.GetHashCode () +
-                this.J.GetHashCode () +
-                this.K.GetHashCode () +
-                this.U.GetHashCode ();
+            return U.GetHashCode ().ShiftAndWrap (6)
+                 ^ K.GetHashCode ().ShiftAndWrap (4)
+                 ^ J.GetHashCode ().ShiftAndWrap (2)
+                 ^ I.GetHashCode ();
         }
 
         /// <summary>
@@ -5325,23 +5336,22 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Int32 GetHashCode ()
         {
-            return
-                this.R0C0.GetHashCode () +
-                this.R0C1.GetHashCode () +
-                this.R0C2.GetHashCode () +
-                this.R0C3.GetHashCode () +
-                this.R1C0.GetHashCode () +
-                this.R1C1.GetHashCode () +
-                this.R1C2.GetHashCode () +
-                this.R1C3.GetHashCode () +
-                this.R2C0.GetHashCode () +
-                this.R2C1.GetHashCode () +
-                this.R2C2.GetHashCode () +
-                this.R2C3.GetHashCode () +
-                this.R3C0.GetHashCode () +
-                this.R3C1.GetHashCode () +
-                this.R3C2.GetHashCode () +
-                this.R3C3.GetHashCode ();
+            return R0C0.GetHashCode ()
+                ^ R0C1.GetHashCode ().ShiftAndWrap (2)
+                ^ R0C2.GetHashCode ().ShiftAndWrap (4)
+                ^ R0C3.GetHashCode ().ShiftAndWrap (6)
+                ^ R1C0.GetHashCode ().ShiftAndWrap (8)
+                ^ R1C1.GetHashCode ().ShiftAndWrap (10)
+                ^ R1C2.GetHashCode ().ShiftAndWrap (12)
+                ^ R1C3.GetHashCode ().ShiftAndWrap (14)
+                ^ R2C0.GetHashCode ().ShiftAndWrap (16)
+                ^ R2C1.GetHashCode ().ShiftAndWrap (18)
+                ^ R2C2.GetHashCode ().ShiftAndWrap (20)
+                ^ R2C3.GetHashCode ().ShiftAndWrap (22)
+                ^ R3C0.GetHashCode ().ShiftAndWrap (24)
+                ^ R3C1.GetHashCode ().ShiftAndWrap (26)
+                ^ R3C2.GetHashCode ().ShiftAndWrap (28)
+                ^ R3C3.GetHashCode ().ShiftAndWrap (30);
         }
 
         /// <summary>
