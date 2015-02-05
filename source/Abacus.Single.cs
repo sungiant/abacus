@@ -4423,49 +4423,45 @@ namespace Abacus.SinglePrecision
         {
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
             Single zero = 0;
-            Single half; Maths.Half(out half);
+            Single half; Maths.Half (out half);
             Single one = 1;
+            Single two = 2;
+            Single four = 4;
+            Single quarter; Maths.Quarter (out quarter);
 
             Single tr = (m.R0C0 + m.R1C1) + m.R2C2;
 
             if (tr > zero)
             {
-                Single s = Maths.Sqrt (tr + one);
-                result.U = s * half;
-                s = half / s;
-                result.I = (m.R1C2 - m.R2C1) * s;
-                result.J = (m.R2C0 - m.R0C2) * s;
-                result.K = (m.R0C1 - m.R1C0) * s;
+                Single s = Maths.Sqrt (tr + one) * two;
+                result.U = quarter * s;
+                result.I = (m.R1C2 - m.R2C1) / s;
+                result.J = (m.R2C0 - m.R0C2) / s;
+                result.K = (m.R0C1 - m.R1C0) / s;
             }
             else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
-                Single s7 = Maths.Sqrt (((one + m.R0C0) - m.R1C1) - m.R2C2);
-                Single s4 = half / s7;
-
-                result.U = (m.R1C2 - m.R2C1) * s4;
-                result.I = half * s7;
-                result.J = (m.R0C1 + m.R1C0) * s4;
-                result.K = (m.R0C2 + m.R2C0) * s4;
+                Single s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
+                result.U = (m.R1C2 - m.R2C1) / s;
+                result.I = quarter * s;
+                result.J = (m.R0C1 + m.R1C0) / s;
+                result.K = (m.R0C2 + m.R2C0) / s;
             }
             else if (m.R1C1 > m.R2C2)
             {
-                Single s6 =Maths.Sqrt (((one + m.R1C1) - m.R0C0) - m.R2C2);
-                Single s3 = half / s6;
-
-                result.U = (m.R2C0 - m.R0C2) * s3;
-                result.I = (m.R1C0 + m.R0C1) * s3;
-                result.J = half * s6;
-                result.K = (m.R2C1 + m.R1C2) * s3;
+                Single s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
+                result.U = (m.R2C0 - m.R0C2) / s3;
+                result.I = (m.R1C0 + m.R0C1) / s3;
+                result.J = quarter * s;
+                result.K = (m.R2C1 + m.R1C2) / s3;
             }
             else
             {
-                Single s5 = Maths.Sqrt (((one + m.R2C2) - m.R0C0) - m.R1C1);
-                Single s2 = half / s5;
-
-                result.U = (m.R0C1 - m.R1C0) * s2;
-                result.I = (m.R2C0 + m.R0C2) * s2;
-                result.J = (m.R2C1 + m.R1C2) * s2;
-                result.K = half * s5;
+                Single s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
+                result.U = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C0 + m.R0C2) / s;
+                result.J = (m.R2C1 + m.R1C2) / s;
+                result.K = quarter * s;
             }
         }
         /// <summary>

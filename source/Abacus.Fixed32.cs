@@ -5155,49 +5155,45 @@ namespace Abacus.Fixed32Precision
         {
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
             Fixed32 zero = 0;
-            Fixed32 half; Maths.Half(out half);
+            Fixed32 half; Maths.Half (out half);
             Fixed32 one = 1;
+            Fixed32 two = 2;
+            Fixed32 four = 4;
+            Fixed32 quarter; Maths.Quarter (out quarter);
 
             Fixed32 tr = (m.R0C0 + m.R1C1) + m.R2C2;
 
             if (tr > zero)
             {
-                Fixed32 s = Maths.Sqrt (tr + one);
-                result.U = s * half;
-                s = half / s;
-                result.I = (m.R1C2 - m.R2C1) * s;
-                result.J = (m.R2C0 - m.R0C2) * s;
-                result.K = (m.R0C1 - m.R1C0) * s;
+                Fixed32 s = Maths.Sqrt (tr + one) * two;
+                result.U = quarter * s;
+                result.I = (m.R1C2 - m.R2C1) / s;
+                result.J = (m.R2C0 - m.R0C2) / s;
+                result.K = (m.R0C1 - m.R1C0) / s;
             }
             else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
-                Fixed32 s7 = Maths.Sqrt (((one + m.R0C0) - m.R1C1) - m.R2C2);
-                Fixed32 s4 = half / s7;
-
-                result.U = (m.R1C2 - m.R2C1) * s4;
-                result.I = half * s7;
-                result.J = (m.R0C1 + m.R1C0) * s4;
-                result.K = (m.R0C2 + m.R2C0) * s4;
+                Fixed32 s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
+                result.U = (m.R1C2 - m.R2C1) / s;
+                result.I = quarter * s;
+                result.J = (m.R0C1 + m.R1C0) / s;
+                result.K = (m.R0C2 + m.R2C0) / s;
             }
             else if (m.R1C1 > m.R2C2)
             {
-                Fixed32 s6 =Maths.Sqrt (((one + m.R1C1) - m.R0C0) - m.R2C2);
-                Fixed32 s3 = half / s6;
-
-                result.U = (m.R2C0 - m.R0C2) * s3;
-                result.I = (m.R1C0 + m.R0C1) * s3;
-                result.J = half * s6;
-                result.K = (m.R2C1 + m.R1C2) * s3;
+                Fixed32 s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
+                result.U = (m.R2C0 - m.R0C2) / s3;
+                result.I = (m.R1C0 + m.R0C1) / s3;
+                result.J = quarter * s;
+                result.K = (m.R2C1 + m.R1C2) / s3;
             }
             else
             {
-                Fixed32 s5 = Maths.Sqrt (((one + m.R2C2) - m.R0C0) - m.R1C1);
-                Fixed32 s2 = half / s5;
-
-                result.U = (m.R0C1 - m.R1C0) * s2;
-                result.I = (m.R2C0 + m.R0C2) * s2;
-                result.J = (m.R2C1 + m.R1C2) * s2;
-                result.K = half * s5;
+                Fixed32 s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
+                result.U = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C0 + m.R0C2) / s;
+                result.J = (m.R2C1 + m.R1C2) / s;
+                result.K = quarter * s;
             }
         }
         /// <summary>
