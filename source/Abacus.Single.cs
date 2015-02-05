@@ -347,13 +347,8 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format (
-                "{{X:{0} Y:{1}}}",
-                new Object[]
-                {
-                    this.X.ToString (),
-                    this.Y.ToString ()
-                });
+            return String.Format ("{{X:{0} Y:{1}}}",
+                X.ToString (), Y.ToString ());
         }
 
         /// <summary>
@@ -371,11 +366,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-            if (obj is Vector2) {
-                flag = this.Equals ((Vector2)obj);
-            }
-            return flag;
+            return (obj is Vector2)
+                ? this.Equals ((Vector2) obj)
+                : false;
         }
 
         #region IEquatable<Vector2>
@@ -759,7 +752,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -795,7 +789,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -889,7 +884,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -1522,14 +1518,8 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format (
-                "{{X:{0} Y:{1} Z:{2}}}",
-                new Object[]
-                {
-                    this.X.ToString (),
-                    this.Y.ToString (),
-                    this.Z.ToString ()
-                });
+            return string.Format ("{{X:{0} Y:{1} Z:{2}}}", 
+                X.ToString (), Y.ToString (), Z.ToString ());
         }
 
         /// <summary>
@@ -1548,11 +1538,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-            if (obj is Vector3) {
-                flag = this.Equals ((Vector3)obj);
-            }
-            return flag;
+            return (obj is Vector3)
+                ? this.Equals ((Vector3) obj)
+                : false;
         }
 
         #region IEquatable<Vector3>
@@ -2112,7 +2100,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -2150,7 +2139,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -2276,7 +2266,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -2943,15 +2934,8 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format (
-                "{{X:{0} Y:{1} Z:{2} W:{3}}}",
-                new Object[]
-                {
-                    this.X.ToString (),
-                    this.Y.ToString (),
-                    this.Z.ToString (),
-                    this.W.ToString ()
-                });
+            return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}",
+                X.ToString (), Y.ToString (), Z.ToString (), W.ToString ());
         }
 
         /// <summary>
@@ -2971,11 +2955,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-            if (obj is Vector4) {
-                flag = this.Equals ((Vector4)obj);
-            }
-            return flag;
+            return (obj is Vector4)
+                ? this.Equals ((Vector4)obj)
+                : false;
         }
 
         #region IEquatable<Vector4>
@@ -3453,7 +3435,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -3492,7 +3475,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -3650,7 +3634,8 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -4279,10 +4264,7 @@ namespace Abacus.SinglePrecision
         /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
-            Single i,
-            Single j,
-            Single k,
-            Single u)
+            Single i, Single j, Single k, Single u)
         {
             this.I = i;
             this.J = j;
@@ -4309,13 +4291,8 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override String ToString ()
         {
-            return String.Format (
-                "{{I:{0} J:{1} K:{2} U:{3}}}",
-                new Object[] {
-                    this.I.ToString (),
-                    this.J.ToString (),
-                    this.K.ToString (),
-                    this.U.ToString () });
+            return String.Format ("{{I:{0} J:{1} K:{2} U:{3}}}",
+                I.ToString (), J.ToString (), K.ToString (), U.ToString ());
         }
 
         /// <summary>
@@ -4335,14 +4312,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-
-            if (obj is Quaternion)
-            {
-                flag = this.Equals ((Quaternion) obj);
-            }
-
-            return flag;
+            return (obj is Quaternion)
+                ? this.Equals ((Quaternion) obj)
+                : false;
         }
 
         #region IEquatable<Quaternion>
@@ -4353,11 +4325,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public Boolean Equals (Quaternion other)
         {
-            return
-                (this.I == other.I) &&
-                (this.J == other.J) &&
-                (this.K == other.K) &&
-                (this.U == other.U);
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion
@@ -4400,12 +4370,11 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a Quaternion from a vector and an angle to rotate about
+        /// the vector.
         /// </summary>
         public static void CreateFromAxisAngle (
-            ref Vector3 axis,
-            ref Single angle,
-            out Quaternion result)
+            ref Vector3 axis, ref Single angle, out Quaternion result)
         {
             Single half; Maths.Half(out half);
             Single theta = angle * half;
@@ -4421,92 +4390,89 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a new Quaternion from specified yaw, pitch, and roll angles.
         /// </summary>
         public static void CreateFromYawPitchRoll (
-            ref Single yaw,
-            ref Single pitch,
-            ref Single roll,
-            out Quaternion result)
+            ref Single yaw, ref Single pitch,
+            ref Single roll, out Quaternion result)
         {
             Single half; Maths.Half(out half);
-            Single num9 = roll * half;
 
-            Single num6 = Maths.Sin (num9);
-            Single num5 = Maths.Cos (num9);
+            Single hr = roll * half;
+            Single hp = pitch * half;
+            Single hy = yaw * half;
 
-            Single num8 = pitch * half;
+            Single shr = Maths.Sin (hr);
+            Single chr = Maths.Cos (hr);
+            Single shp = Maths.Sin (hp);
+            Single chp = Maths.Cos (hp);
+            Single shy = Maths.Sin (hy);
+            Single chy = Maths.Cos (hy);
 
-            Single num4 = Maths.Sin (num8);
-            Single num3 = Maths.Cos (num8);
-
-            Single num7 = yaw * half;
-
-            Single num2 = Maths.Sin (num7);
-            Single num = Maths.Cos (num7);
-
-            result.I = ((num * num4) * num5) + ((num2 * num3) * num6);
-            result.J = ((num2 * num3) * num5) - ((num * num4) * num6);
-            result.K = ((num * num3) * num6) - ((num2 * num4) * num5);
-            result.U = ((num * num3) * num5) + ((num2 * num4) * num6);
+            result.I = (chy * shp * chr) + (shy * chp * shr);
+            result.J = (shy * chp * chr) - (chy * shp * shr);
+            result.K = (chy * chp * shr) - (shy * shp * chr);
+            result.U = (chy * chp * chr) + (shy * shp * shr);
         }
 
         /// <summary>
-        /// todo
+        /// Creates a Quaternion from a rotation Matrix44.
         /// </summary>
         public static void CreateFromRotationMatrix (
-            ref Matrix44 matrix,
-            out Quaternion result)
+            ref Matrix44 m, out Quaternion result)
         {
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
             Single zero = 0;
             Single half; Maths.Half(out half);
             Single one = 1;
 
-            Single num8 = (matrix.R0C0 + matrix.R1C1) + matrix.R2C2;
+            Single tr = (m.R0C0 + m.R1C1) + m.R2C2;
 
-            if (num8 > zero)
+            if (tr > zero)
             {
-                Single num = Maths.Sqrt (num8 + one);
-                result.U = num * half;
-                num = half / num;
-                result.I = (matrix.R1C2 - matrix.R2C1) * num;
-                result.J = (matrix.R2C0 - matrix.R0C2) * num;
-                result.K = (matrix.R0C1 - matrix.R1C0) * num;
+                Single s = Maths.Sqrt (tr + one);
+                result.U = s * half;
+                s = half / s;
+                result.I = (m.R1C2 - m.R2C1) * s;
+                result.J = (m.R2C0 - m.R0C2) * s;
+                result.K = (m.R0C1 - m.R1C0) * s;
             }
-            else if ((matrix.R0C0 >= matrix.R1C1) && (matrix.R0C0 >= matrix.R2C2))
+            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
-                Single num7 = Maths.Sqrt (((one + matrix.R0C0) - matrix.R1C1) - matrix.R2C2);
-                Single num4 = half / num7;
-                result.I = half * num7;
-                result.J = (matrix.R0C1 + matrix.R1C0) * num4;
-                result.K = (matrix.R0C2 + matrix.R2C0) * num4;
-                result.U = (matrix.R1C2 - matrix.R2C1) * num4;
+                Single s7 = Maths.Sqrt (((one + m.R0C0) - m.R1C1) - m.R2C2);
+                Single s4 = half / s7;
+
+                result.U = (m.R1C2 - m.R2C1) * s4;
+                result.I = half * s7;
+                result.J = (m.R0C1 + m.R1C0) * s4;
+                result.K = (m.R0C2 + m.R2C0) * s4;
             }
-            else if (matrix.R1C1 > matrix.R2C2)
+            else if (m.R1C1 > m.R2C2)
             {
-                Single num6 =Maths.Sqrt (((one + matrix.R1C1) - matrix.R0C0) - matrix.R2C2);
-                Single num3 = half / num6;
-                result.I = (matrix.R1C0 + matrix.R0C1) * num3;
-                result.J = half * num6;
-                result.K = (matrix.R2C1 + matrix.R1C2) * num3;
-                result.U = (matrix.R2C0 - matrix.R0C2) * num3;
+                Single s6 =Maths.Sqrt (((one + m.R1C1) - m.R0C0) - m.R2C2);
+                Single s3 = half / s6;
+
+                result.U = (m.R2C0 - m.R0C2) * s3;
+                result.I = (m.R1C0 + m.R0C1) * s3;
+                result.J = half * s6;
+                result.K = (m.R2C1 + m.R1C2) * s3;
             }
             else
             {
-                Single num5 = Maths.Sqrt (((one + matrix.R2C2) - matrix.R0C0) - matrix.R1C1);
-                Single num2 = half / num5;
-                result.I = (matrix.R2C0 + matrix.R0C2) * num2;
-                result.J = (matrix.R2C1 + matrix.R1C2) * num2;
-                result.K = half * num5;
-                result.U = (matrix.R0C1 - matrix.R1C0) * num2;
+                Single s5 = Maths.Sqrt (((one + m.R2C2) - m.R0C0) - m.R1C1);
+                Single s2 = half / s5;
+
+                result.U = (m.R0C1 - m.R1C0) * s2;
+                result.I = (m.R2C0 + m.R0C2) * s2;
+                result.J = (m.R2C1 + m.R1C2) * s2;
+                result.K = half * s5;
             }
         }
         /// <summary>
-        /// todo
+        /// Calculates the length² of a Quaternion.
         /// </summary>
         public static void LengthSquared (
-            ref Quaternion quaternion,
-            out Single result)
+            ref Quaternion quaternion, out Single result)
         {
             result =
                 (quaternion.I * quaternion.I) +
@@ -4516,11 +4482,10 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Calculates the length of a Quaternion.
         /// </summary>
         public static void Length (
-            ref Quaternion quaternion,
-            out Single result)
+            ref Quaternion quaternion, out Single result)
         {
             Single lengthSquared =
                 (quaternion.I * quaternion.I) +
@@ -4531,30 +4496,12 @@ namespace Abacus.SinglePrecision
             result = Maths.Sqrt (lengthSquared);
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static void IsUnit (
-            ref Quaternion quaternion,
-            out Boolean result)
-        {
-            Single one = 1;
-
-            result = Maths.IsZero(
-                one -
-                quaternion.U * quaternion.U -
-                quaternion.I * quaternion.I -
-                quaternion.J * quaternion.J -
-                quaternion.K * quaternion.K);
-        }
-
 
         /// <summary>
-        /// todo
+        /// Calculates the conjugate of a Quaternion.
         /// </summary>
         public static void Conjugate (
-            ref Quaternion value,
-            out Quaternion result)
+            ref Quaternion value, out Quaternion result)
         {
             result.I = -value.I;
             result.J = -value.J;
@@ -4566,8 +4513,7 @@ namespace Abacus.SinglePrecision
         /// todo
         /// </summary>
         public static void Inverse (
-            ref Quaternion quaternion,
-            out Quaternion result)
+            ref Quaternion quaternion, out Quaternion result)
         {
             Single one = 1;
             Single a =
@@ -4585,37 +4531,34 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Calculates the dot product of two Quaternions.
         /// </summary>
         public static void Dot (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Single result)
+            ref Quaternion q1, ref Quaternion q2, out Single result)
         {
             result =
-                (quaternion1.I * quaternion2.I) +
-                (quaternion1.J * quaternion2.J) +
-                (quaternion1.K * quaternion2.K) +
-                (quaternion1.U * quaternion2.U);
+                (q1.I * q2.I) +
+                (q1.J * q2.J) +
+                (q1.K * q2.K) +
+                (q1.U * q2.U);
         }
 
         /// <summary>
-        /// todo
+        /// Concatenates two Quaternions; the result represents the first 
+        /// rotation followed by the second rotation.
         /// </summary>
         public static void Concatenate (
-            ref Quaternion value1,
-            ref Quaternion value2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            Single i1 = value1.I;
-            Single j1 = value1.J;
-            Single k1 = value1.K;
-            Single u1 = value1.U;
+            Single i1 = q1.I;
+            Single j1 = q1.J;
+            Single k1 = q1.K;
+            Single u1 = q1.U;
 
-            Single i2 = value2.I;
-            Single j2 = value2.J;
-            Single k2 = value2.K;
-            Single u2 = value2.U;
+            Single i2 = q2.I;
+            Single j2 = q2.J;
+            Single k2 = q2.K;
+            Single u2 = q2.U;
 
             Single a = (j2 * k1) - (k2 * j1);
             Single b = (k2 * i1) - (i2 * k1);
@@ -4629,11 +4572,11 @@ namespace Abacus.SinglePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Divides each component of the quaternion by the length of the 
+        /// quaternion.
         /// </summary>
         public static void Normalise (
-            ref Quaternion quaternion,
-            out Quaternion result)
+            ref Quaternion quaternion, out Quaternion result)
         {
             Single one = 1;
 
@@ -4658,15 +4601,11 @@ namespace Abacus.SinglePrecision
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Boolean result)
+            ref Quaternion q1, ref Quaternion q2, out Boolean result)
         {
             result =
-                (quaternion1.I == quaternion2.I) &&
-                (quaternion1.J == quaternion2.J) &&
-                (quaternion1.K == quaternion2.K) &&
-                (quaternion1.U == quaternion2.U);
+                (q1.I == q2.I) && (q1.J == q2.J) &&
+                (q1.K == q2.K) && (q1.U == q2.U);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -4675,14 +4614,12 @@ namespace Abacus.SinglePrecision
         /// Performs addition of two Quaternion objects.
         /// </summary>
         public static void Add (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            result.I = quaternion1.I + quaternion2.I;
-            result.J = quaternion1.J + quaternion2.J;
-            result.K = quaternion1.K + quaternion2.K;
-            result.U = quaternion1.U + quaternion2.U;
+            result.I = q1.I + q2.I;
+            result.J = q1.J + q2.J;
+            result.K = q1.K + q2.K;
+            result.U = q1.U + q2.U;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -4691,14 +4628,12 @@ namespace Abacus.SinglePrecision
         /// Performs subtraction of two Quaternion objects.
         /// </summary>
         public static void Subtract (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            result.I = quaternion1.I - quaternion2.I;
-            result.J = quaternion1.J - quaternion2.J;
-            result.K = quaternion1.K - quaternion2.K;
-            result.U = quaternion1.U - quaternion2.U;
+            result.I = q1.I - q2.I;
+            result.J = q1.J - q2.J;
+            result.K = q1.K - q2.K;
+            result.U = q1.U - q2.U;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -4707,8 +4642,7 @@ namespace Abacus.SinglePrecision
         /// Performs negation of a Quaternion object.
         /// </summary>
         public static void Negate (
-            ref Quaternion quaternion,
-            out Quaternion result)
+            ref Quaternion quaternion, out Quaternion result)
         {
             result.I = -quaternion.I;
             result.J = -quaternion.J;
@@ -4730,26 +4664,14 @@ namespace Abacus.SinglePrecision
         /// a divide operation just multiply by the inverse.
         /// </summary>
         public static void Multiply (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            Single i1 = quaternion1.I;
-            Single j1 = quaternion1.J;
-            Single k1 = quaternion1.K;
-            Single u1 = quaternion1.U;
-
-            Single i2 = quaternion2.I;
-            Single j2 = quaternion2.J;
-            Single k2 = quaternion2.K;
-            Single u2 = quaternion2.U;
-
             // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 
-            result.I = i1*u2 + u1*i2 + j1*k2 - k1*j2;
-            result.J = u1*j2 - i1*k2 + j1*u2 + k1*i2;
-            result.K = u1*k2 + i1*j2 - j1*i2 + k1*u2;
-            result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
+            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
+            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
+            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
+            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
         }
 
         /// <summary>
@@ -4766,40 +4688,46 @@ namespace Abacus.SinglePrecision
         {
             Single zero = 0;
             Single one = 1;
+            Single epsilon; Maths.Epsilon (out epsilon);
 
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            Single nineninenine; Maths.FromString("0.999999", out nineninenine);
+            Single remaining = one - amount;
 
-            Single num2;
-            Single num3;
-            Single num = amount;
-            Single num4 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
-            Boolean flag = false;
-            if (num4 < zero) {
-                flag = true;
-                num4 = -num4;
+            Single angle;
+            Dot (ref quaternion1, ref quaternion2, out angle);
+
+            if (angle < zero)
+            {
+                Negate (ref quaternion1, out quaternion1);
+                angle = -angle;
             }
 
+            Single theta = Maths.ArcCos (angle);
 
-            if (num4 >nineninenine) {
-                num3 = one - num;
-                num2 = flag ? -num : num;
-            } else {
-                Single num5 = Maths.ArcCos (num4);
-                Single num6 = one / Maths.Sin (num5);
 
-                num3 = Maths.Sin ((one - num) * num5) * num6;
+            Single r = remaining;
+            Single a = amount;
 
-                num2 = flag ? -Maths.Sin (num * num5) * num6 : Maths.Sin (num * num5) * num6;
+            // To avoid division by 0 and by very small numbers the
+            // Lerp is used when theta is small.
+            if (theta > epsilon)
+            {
+                Single x = Maths.Sin (remaining * theta);
+                Single y = Maths.Sin (amount * theta);
+                Single z = Maths.Sin (theta);
+
+                r = x / z;
+                a = y / z;
             }
-            result.I = (num3 * quaternion1.I) + (num2 * quaternion2.I);
-            result.J = (num3 * quaternion1.J) + (num2 * quaternion2.J);
-            result.K = (num3 * quaternion1.K) + (num2 * quaternion2.K);
-            result.U = (num3 * quaternion1.U) + (num2 * quaternion2.U);
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
         }
 
         /// <summary>
@@ -4814,32 +4742,37 @@ namespace Abacus.SinglePrecision
             Single zero = 0;
             Single one = 1;
 
-            if( amount < zero || amount > one )
+            if (amount < zero || amount > one)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            Single num = amount;
-            Single num2 = one - num;
-            Single num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
-            
-            if (num5 >= zero) {
-                result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
-                result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
-                result.K = (num2 * quaternion1.K) + (num * quaternion2.K);
-                result.U = (num2 * quaternion1.U) + (num * quaternion2.U);
-            } else {
-                result.I = (num2 * quaternion1.I) - (num * quaternion2.I);
-                result.J = (num2 * quaternion1.J) - (num * quaternion2.J);
-                result.K = (num2 * quaternion1.K) - (num * quaternion2.K);
-                result.U = (num2 * quaternion1.U) - (num * quaternion2.U);
-            }
-            Single num4 = (((result.I * result.I) + (result.J * result.J)) + (result.K * result.K)) + (result.U * result.U);
-            Single num3 = one / Maths.Sqrt (num4);
-            result.I *= num3;
-            result.J *= num3;
-            result.K *= num3;
-            result.U *= num3;
+            Single remaining = one - amount;
+
+            Single r = remaining;
+            Single a = amount;
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            Single one = 1;
+
+            result = Maths.IsZero(
+                one -
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
         }
 
 
@@ -5364,14 +5297,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-
-            if (obj is Matrix44)
-            {
-                flag = this.Equals ((Matrix44) obj);
-            }
-
-            return flag;
+            return (obj is Matrix44)
+                ? this.Equals ((Matrix44)obj)
+                : false;
         }
 
         #region IEquatable<Matrix44>
@@ -5382,23 +5310,9 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public Boolean Equals (Matrix44 other)
         {
-            return
-                (this.R0C0 == other.R0C0) &&
-                (this.R1C1 == other.R1C1) &&
-                (this.R2C2 == other.R2C2) &&
-                (this.R3C3 == other.R3C3) &&
-                (this.R0C1 == other.R0C1) &&
-                (this.R0C2 == other.R0C2) &&
-                (this.R0C3 == other.R0C3) &&
-                (this.R1C0 == other.R1C0) &&
-                (this.R1C2 == other.R1C2) &&
-                (this.R1C3 == other.R1C3) &&
-                (this.R2C0 == other.R2C0) &&
-                (this.R2C1 == other.R2C1) &&
-                (this.R2C3 == other.R2C3) &&
-                (this.R3C0 == other.R3C0) &&
-                (this.R3C1 == other.R3C1) &&
-                (this.R3C2 == other.R3C2);
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion
@@ -5547,34 +5461,6 @@ namespace Abacus.SinglePrecision
                 this.R3C0 = value.X;
                 this.R3C1 = value.Y;
                 this.R3C2 = value.Z;
-            }
-        }
-
-        /// <summary>
-        /// A square matrix whose transpose is equal to itself is called a
-        /// symmetric matrix.
-        /// </summary>
-        public Boolean IsSymmetric
-        {
-            get
-            {
-                Matrix44 transpose = this;
-                Transpose (ref transpose, out transpose);
-                return (transpose == this);
-            }
-        }
-
-        /// <summary>
-        /// A square matrix whose transpose is equal to its negative is called
-        /// a skew-symmetric matrix.
-        /// </summary>
-        public Boolean IsSkewSymmetric
-        {
-            get
-            {
-                Matrix44 transpose = this;
-                Transpose (ref transpose, out transpose);
-                return (transpose == -this);
             }
         }
 
@@ -6781,27 +6667,17 @@ namespace Abacus.SinglePrecision
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Matrix44 value1,
-            ref Matrix44 value2,
-            out Boolean result)
+            ref Matrix44 m1, ref Matrix44 m2, out Boolean result)
         {
             result =
-                (value1.R0C0 == value2.R0C0) &&
-                (value1.R1C1 == value2.R1C1) &&
-                (value1.R2C2 == value2.R2C2) &&
-                (value1.R3C3 == value2.R3C3) &&
-                (value1.R0C1 == value2.R0C1) &&
-                (value1.R0C2 == value2.R0C2) &&
-                (value1.R0C3 == value2.R0C3) &&
-                (value1.R1C0 == value2.R1C0) &&
-                (value1.R1C2 == value2.R1C2) &&
-                (value1.R1C3 == value2.R1C3) &&
-                (value1.R2C0 == value2.R2C0) &&
-                (value1.R2C1 == value2.R2C1) &&
-                (value1.R2C3 == value2.R2C3) &&
-                (value1.R3C0 == value2.R3C0) &&
-                (value1.R3C1 == value2.R3C1) &&
-                (value1.R3C2 == value2.R3C2);
+                (m1.R0C0 == m2.R0C0) && (m1.R1C1 == m2.R1C1) &&
+                (m1.R2C2 == m2.R2C2) && (m1.R3C3 == m2.R3C3) &&
+                (m1.R0C1 == m2.R0C1) && (m1.R0C2 == m2.R0C2) &&
+                (m1.R0C3 == m2.R0C3) && (m1.R1C0 == m2.R1C0) &&
+                (m1.R1C2 == m2.R1C2) && (m1.R1C3 == m2.R1C3) &&
+                (m1.R2C0 == m2.R2C0) && (m1.R2C1 == m2.R2C1) &&
+                (m1.R2C3 == m2.R2C3) && (m1.R3C0 == m2.R3C0) &&
+                (m1.R3C1 == m2.R3C1) && (m1.R3C2 == m2.R3C2);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -6810,26 +6686,24 @@ namespace Abacus.SinglePrecision
         /// Performs addition of two Matrix44 objects.
         /// </summary>
         public static void Add (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 + matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 + matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 + matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 + matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 + matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 + matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 + matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 + matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 + matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 + matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 + matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 + matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 + matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 + matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 + matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 + matrix2.R3C3;
+            result.R0C0 = m1.R0C0 + m2.R0C0;
+            result.R0C1 = m1.R0C1 + m2.R0C1;
+            result.R0C2 = m1.R0C2 + m2.R0C2;
+            result.R0C3 = m1.R0C3 + m2.R0C3;
+            result.R1C0 = m1.R1C0 + m2.R1C0;
+            result.R1C1 = m1.R1C1 + m2.R1C1;
+            result.R1C2 = m1.R1C2 + m2.R1C2;
+            result.R1C3 = m1.R1C3 + m2.R1C3;
+            result.R2C0 = m1.R2C0 + m2.R2C0;
+            result.R2C1 = m1.R2C1 + m2.R2C1;
+            result.R2C2 = m1.R2C2 + m2.R2C2;
+            result.R2C3 = m1.R2C3 + m2.R2C3;
+            result.R3C0 = m1.R3C0 + m2.R3C0;
+            result.R3C1 = m1.R3C1 + m2.R3C1;
+            result.R3C2 = m1.R3C2 + m2.R3C2;
+            result.R3C3 = m1.R3C3 + m2.R3C3;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -6838,26 +6712,24 @@ namespace Abacus.SinglePrecision
         /// Performs subtraction of two Matrix44 objects.
         /// </summary>
         public static void Subtract (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 - matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 - matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 - matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 - matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 - matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 - matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 - matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 - matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 - matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 - matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 - matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 - matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 - matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 - matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 - matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 - matrix2.R3C3;
+            result.R0C0 = m1.R0C0 - m2.R0C0;
+            result.R0C1 = m1.R0C1 - m2.R0C1;
+            result.R0C2 = m1.R0C2 - m2.R0C2;
+            result.R0C3 = m1.R0C3 - m2.R0C3;
+            result.R1C0 = m1.R1C0 - m2.R1C0;
+            result.R1C1 = m1.R1C1 - m2.R1C1;
+            result.R1C2 = m1.R1C2 - m2.R1C2;
+            result.R1C3 = m1.R1C3 - m2.R1C3;
+            result.R2C0 = m1.R2C0 - m2.R2C0;
+            result.R2C1 = m1.R2C1 - m2.R2C1;
+            result.R2C2 = m1.R2C2 - m2.R2C2;
+            result.R2C3 = m1.R2C3 - m2.R2C3;
+            result.R3C0 = m1.R3C0 - m2.R3C0;
+            result.R3C1 = m1.R3C1 - m2.R3C1;
+            result.R3C2 = m1.R3C2 - m2.R3C2;
+            result.R3C3 = m1.R3C3 - m2.R3C3;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -6891,105 +6763,71 @@ namespace Abacus.SinglePrecision
         /// Performs muliplication of two Matrix44 objects.
         /// </summary>
         public static void Multiply (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
             result.R0C0 =
-                (matrix1.R0C0 * matrix2.R0C0) +
-                (matrix1.R0C1 * matrix2.R1C0) +
-                (matrix1.R0C2 * matrix2.R2C0) +
-                (matrix1.R0C3 * matrix2.R3C0);
+                (m1.R0C0 * m2.R0C0) + (m1.R0C1 * m2.R1C0) +
+                (m1.R0C2 * m2.R2C0) + (m1.R0C3 * m2.R3C0);
 
             result.R0C1 =
-                (matrix1.R0C0 * matrix2.R0C1) +
-                (matrix1.R0C1 * matrix2.R1C1) +
-                (matrix1.R0C2 * matrix2.R2C1) +
-                (matrix1.R0C3 * matrix2.R3C1);
+                (m1.R0C0 * m2.R0C1) + (m1.R0C1 * m2.R1C1) +
+                (m1.R0C2 * m2.R2C1) + (m1.R0C3 * m2.R3C1);
 
             result.R0C2 =
-                (matrix1.R0C0 * matrix2.R0C2) +
-                (matrix1.R0C1 * matrix2.R1C2) +
-                (matrix1.R0C2 * matrix2.R2C2) +
-                (matrix1.R0C3 * matrix2.R3C2);
+                (m1.R0C0 * m2.R0C2) + (m1.R0C1 * m2.R1C2) +
+                (m1.R0C2 * m2.R2C2) + (m1.R0C3 * m2.R3C2);
 
             result.R0C3 =
-                (matrix1.R0C0 * matrix2.R0C3) +
-                (matrix1.R0C1 * matrix2.R1C3) +
-                (matrix1.R0C2 * matrix2.R2C3) +
-                (matrix1.R0C3 * matrix2.R3C3);
+                (m1.R0C0 * m2.R0C3) + (m1.R0C1 * m2.R1C3) +
+                (m1.R0C2 * m2.R2C3) + (m1.R0C3 * m2.R3C3);
 
             result.R1C0 =
-                (matrix1.R1C0 * matrix2.R0C0) +
-                (matrix1.R1C1 * matrix2.R1C0) +
-                (matrix1.R1C2 * matrix2.R2C0) +
-                (matrix1.R1C3 * matrix2.R3C0);
+                (m1.R1C0 * m2.R0C0) + (m1.R1C1 * m2.R1C0) +
+                (m1.R1C2 * m2.R2C0) + (m1.R1C3 * m2.R3C0);
 
             result.R1C1 =
-                (matrix1.R1C0 * matrix2.R0C1) +
-                (matrix1.R1C1 * matrix2.R1C1) +
-                (matrix1.R1C2 * matrix2.R2C1) +
-                (matrix1.R1C3 * matrix2.R3C1);
+                (m1.R1C0 * m2.R0C1) + (m1.R1C1 * m2.R1C1) +
+                (m1.R1C2 * m2.R2C1) + (m1.R1C3 * m2.R3C1);
 
             result.R1C2 =
-                (matrix1.R1C0 * matrix2.R0C2) +
-                (matrix1.R1C1 * matrix2.R1C2) +
-                (matrix1.R1C2 * matrix2.R2C2) +
-                (matrix1.R1C3 * matrix2.R3C2);
+                (m1.R1C0 * m2.R0C2) + (m1.R1C1 * m2.R1C2) +
+                (m1.R1C2 * m2.R2C2) + (m1.R1C3 * m2.R3C2);
 
             result.R1C3 =
-                (matrix1.R1C0 * matrix2.R0C3) +
-                (matrix1.R1C1 * matrix2.R1C3) +
-                (matrix1.R1C2 * matrix2.R2C3) +
-                (matrix1.R1C3 * matrix2.R3C3);
+                (m1.R1C0 * m2.R0C3) + (m1.R1C1 * m2.R1C3) +
+                (m1.R1C2 * m2.R2C3) + (m1.R1C3 * m2.R3C3);
 
             result.R2C0 =
-                (matrix1.R2C0 * matrix2.R0C0) +
-                (matrix1.R2C1 * matrix2.R1C0) +
-                (matrix1.R2C2 * matrix2.R2C0) +
-                (matrix1.R2C3 * matrix2.R3C0);
+                (m1.R2C0 * m2.R0C0) + (m1.R2C1 * m2.R1C0) +
+                (m1.R2C2 * m2.R2C0) + (m1.R2C3 * m2.R3C0);
 
             result.R2C1 =
-                (matrix1.R2C0 * matrix2.R0C1) +
-                (matrix1.R2C1 * matrix2.R1C1) +
-                (matrix1.R2C2 * matrix2.R2C1) +
-                (matrix1.R2C3 * matrix2.R3C1);
+                (m1.R2C0 * m2.R0C1) + (m1.R2C1 * m2.R1C1) +
+                (m1.R2C2 * m2.R2C1) + (m1.R2C3 * m2.R3C1);
 
             result.R2C2 =
-                (matrix1.R2C0 * matrix2.R0C2) +
-                (matrix1.R2C1 * matrix2.R1C2) +
-                (matrix1.R2C2 * matrix2.R2C2) +
-                (matrix1.R2C3 * matrix2.R3C2);
+                (m1.R2C0 * m2.R0C2) + (m1.R2C1 * m2.R1C2) +
+                (m1.R2C2 * m2.R2C2) + (m1.R2C3 * m2.R3C2);
 
             result.R2C3 =
-                (matrix1.R2C0 * matrix2.R0C3) +
-                (matrix1.R2C1 * matrix2.R1C3) +
-                (matrix1.R2C2 * matrix2.R2C3) +
-                (matrix1.R2C3 * matrix2.R3C3);
+                (m1.R2C0 * m2.R0C3) + (m1.R2C1 * m2.R1C3) +
+                (m1.R2C2 * m2.R2C3) + (m1.R2C3 * m2.R3C3);
 
             result.R3C0 =
-                (matrix1.R3C0 * matrix2.R0C0) +
-                (matrix1.R3C1 * matrix2.R1C0) +
-                (matrix1.R3C2 * matrix2.R2C0) +
-                (matrix1.R3C3 * matrix2.R3C0);
+                (m1.R3C0 * m2.R0C0) + (m1.R3C1 * m2.R1C0) +
+                (m1.R3C2 * m2.R2C0) + (m1.R3C3 * m2.R3C0);
 
             result.R3C1 =
-                (matrix1.R3C0 * matrix2.R0C1) +
-                (matrix1.R3C1 * matrix2.R1C1) +
-                (matrix1.R3C2 * matrix2.R2C1) +
-                (matrix1.R3C3 * matrix2.R3C1);
+                (m1.R3C0 * m2.R0C1) + (m1.R3C1 * m2.R1C1) +
+                (m1.R3C2 * m2.R2C1) + (m1.R3C3 * m2.R3C1);
 
             result.R3C2 =
-                (matrix1.R3C0 * matrix2.R0C2) +
-                (matrix1.R3C1 * matrix2.R1C2) +
-                (matrix1.R3C2 * matrix2.R2C2) +
-                (matrix1.R3C3 * matrix2.R3C2);
+                (m1.R3C0 * m2.R0C2) + (m1.R3C1 * m2.R1C2) +
+                (m1.R3C2 * m2.R2C2) + (m1.R3C3 * m2.R3C2);
 
             result.R3C3 =
-                (matrix1.R3C0 * matrix2.R0C3) +
-                (matrix1.R3C1 * matrix2.R1C3) +
-                (matrix1.R3C2 * matrix2.R2C3) +
-                (matrix1.R3C3 * matrix2.R3C3);
+                (m1.R3C0 * m2.R0C3) + (m1.R3C1 * m2.R1C3) +
+                (m1.R3C2 * m2.R2C3) + (m1.R3C3 * m2.R3C3);
         }
 
         /// <summary>
@@ -6997,26 +6835,26 @@ namespace Abacus.SinglePrecision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Matrix44 matrix1,
+            ref Matrix44 matrix,
             ref Single scaleFactor,
             out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 * scaleFactor;
-            result.R0C1 = matrix1.R0C1 * scaleFactor;
-            result.R0C2 = matrix1.R0C2 * scaleFactor;
-            result.R0C3 = matrix1.R0C3 * scaleFactor;
-            result.R1C0 = matrix1.R1C0 * scaleFactor;
-            result.R1C1 = matrix1.R1C1 * scaleFactor;
-            result.R1C2 = matrix1.R1C2 * scaleFactor;
-            result.R1C3 = matrix1.R1C3 * scaleFactor;
-            result.R2C0 = matrix1.R2C0 * scaleFactor;
-            result.R2C1 = matrix1.R2C1 * scaleFactor;
-            result.R2C2 = matrix1.R2C2 * scaleFactor;
-            result.R2C3 = matrix1.R2C3 * scaleFactor;
-            result.R3C0 = matrix1.R3C0 * scaleFactor;
-            result.R3C1 = matrix1.R3C1 * scaleFactor;
-            result.R3C2 = matrix1.R3C2 * scaleFactor;
-            result.R3C3 = matrix1.R3C3 * scaleFactor;
+            result.R0C0 = matrix.R0C0 * scaleFactor;
+            result.R0C1 = matrix.R0C1 * scaleFactor;
+            result.R0C2 = matrix.R0C2 * scaleFactor;
+            result.R0C3 = matrix.R0C3 * scaleFactor;
+            result.R1C0 = matrix.R1C0 * scaleFactor;
+            result.R1C1 = matrix.R1C1 * scaleFactor;
+            result.R1C2 = matrix.R1C2 * scaleFactor;
+            result.R1C3 = matrix.R1C3 * scaleFactor;
+            result.R2C0 = matrix.R2C0 * scaleFactor;
+            result.R2C1 = matrix.R2C1 * scaleFactor;
+            result.R2C2 = matrix.R2C2 * scaleFactor;
+            result.R2C3 = matrix.R2C3 * scaleFactor;
+            result.R3C0 = matrix.R3C0 * scaleFactor;
+            result.R3C1 = matrix.R3C1 * scaleFactor;
+            result.R3C2 = matrix.R3C2 * scaleFactor;
+            result.R3C3 = matrix.R3C3 * scaleFactor;
         }
 
         /// <summary>
@@ -7024,34 +6862,53 @@ namespace Abacus.SinglePrecision
         /// lerp between quaternions.
         /// </summary>
         public static void Lerp (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            ref Single amount,
+            ref Matrix44 m1, ref Matrix44 m2, ref Single amount,
             out Matrix44 result)
         {
             Single zero = 0;
             Single one = 1;
-            if (amount < zero || amount > one)
-            {
-                throw new ArgumentOutOfRangeException ();
-            }
 
-            result.R0C0 = matrix1.R0C0+((matrix2.R0C0-matrix1.R0C0)*amount);
-            result.R0C1 = matrix1.R0C1+((matrix2.R0C1-matrix1.R0C1)*amount);
-            result.R0C2 = matrix1.R0C2+((matrix2.R0C2-matrix1.R0C2)*amount);
-            result.R0C3 = matrix1.R0C3+((matrix2.R0C3-matrix1.R0C3)*amount);
-            result.R1C0 = matrix1.R1C0+((matrix2.R1C0-matrix1.R1C0)*amount);
-            result.R1C1 = matrix1.R1C1+((matrix2.R1C1-matrix1.R1C1)*amount);
-            result.R1C2 = matrix1.R1C2+((matrix2.R1C2-matrix1.R1C2)*amount);
-            result.R1C3 = matrix1.R1C3+((matrix2.R1C3-matrix1.R1C3)*amount);
-            result.R2C0 = matrix1.R2C0+((matrix2.R2C0-matrix1.R2C0)*amount);
-            result.R2C1 = matrix1.R2C1+((matrix2.R2C1-matrix1.R2C1)*amount);
-            result.R2C2 = matrix1.R2C2+((matrix2.R2C2-matrix1.R2C2)*amount);
-            result.R2C3 = matrix1.R2C3+((matrix2.R2C3-matrix1.R2C3)*amount);
-            result.R3C0 = matrix1.R3C0+((matrix2.R3C0-matrix1.R3C0)*amount);
-            result.R3C1 = matrix1.R3C1+((matrix2.R3C1-matrix1.R3C1)*amount);
-            result.R3C2 = matrix1.R3C2+((matrix2.R3C2-matrix1.R3C2)*amount);
-            result.R3C3 = matrix1.R3C3+((matrix2.R3C3-matrix1.R3C3)*amount);
+            if (amount < zero || amount > one)
+                throw new ArgumentOutOfRangeException ();
+
+            result.R0C0 = m1.R0C0 + ((m2.R0C0 - m1.R0C0) * amount);
+            result.R0C1 = m1.R0C1 + ((m2.R0C1 - m1.R0C1) * amount);
+            result.R0C2 = m1.R0C2 + ((m2.R0C2 - m1.R0C2) * amount);
+            result.R0C3 = m1.R0C3 + ((m2.R0C3 - m1.R0C3) * amount);
+            result.R1C0 = m1.R1C0 + ((m2.R1C0 - m1.R1C0) * amount);
+            result.R1C1 = m1.R1C1 + ((m2.R1C1 - m1.R1C1) * amount);
+            result.R1C2 = m1.R1C2 + ((m2.R1C2 - m1.R1C2) * amount);
+            result.R1C3 = m1.R1C3 + ((m2.R1C3 - m1.R1C3) * amount);
+            result.R2C0 = m1.R2C0 + ((m2.R2C0 - m1.R2C0) * amount);
+            result.R2C1 = m1.R2C1 + ((m2.R2C1 - m1.R2C1) * amount);
+            result.R2C2 = m1.R2C2 + ((m2.R2C2 - m1.R2C2) * amount);
+            result.R2C3 = m1.R2C3 + ((m2.R2C3 - m1.R2C3) * amount);
+            result.R3C0 = m1.R3C0 + ((m2.R3C0 - m1.R3C0) * amount);
+            result.R3C1 = m1.R3C1 + ((m2.R3C1 - m1.R3C1) * amount);
+            result.R3C2 = m1.R3C2 + ((m2.R3C2 - m1.R3C2) * amount);
+            result.R3C3 = m1.R3C3 + ((m2.R3C3 - m1.R3C3) * amount);
+        }
+
+        /// <summary>
+        /// A square matrix whose transpose is equal to itself is called a
+        /// symmetric matrix.
+        /// </summary>
+        public Boolean IsSymmetric ()
+        {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            return (transpose == this);
+        }
+
+        /// <summary>
+        /// A square matrix whose transpose is equal to its negative is called
+        /// a skew-symmetric matrix.
+        /// </summary>
+        public Boolean IsSkewSymmetric ()
+        {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            return (transpose == -this);
         }
 
 

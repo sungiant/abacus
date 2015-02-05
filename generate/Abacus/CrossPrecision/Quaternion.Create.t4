@@ -50,47 +50,50 @@
         public static void CreateFromRotationMatrix (
             ref Matrix44 m, out Quaternion result)
         {
-            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
             <#= type #> zero = 0;
             <#= type #> half; Maths.Half(out half);
             <#= type #> one = 1;
 
-            <#= type #> num8 = (matrix.R0C0 + matrix.R1C1) + matrix.R2C2;
+            <#= type #> tr = (m.R0C0 + m.R1C1) + m.R2C2;
 
-            if (num8 > zero)
+            if (tr > zero)
             {
-                <#= type #> num = Maths.Sqrt (num8 + one);
-                result.U = num * half;
-                num = half / num;
-                result.I = (matrix.R1C2 - matrix.R2C1) * num;
-                result.J = (matrix.R2C0 - matrix.R0C2) * num;
-                result.K = (matrix.R0C1 - matrix.R1C0) * num;
+                <#= type #> s = Maths.Sqrt (tr + one);
+                result.U = s * half;
+                s = half / s;
+                result.I = (m.R1C2 - m.R2C1) * s;
+                result.J = (m.R2C0 - m.R0C2) * s;
+                result.K = (m.R0C1 - m.R1C0) * s;
             }
-            else if ((matrix.R0C0 >= matrix.R1C1) && (matrix.R0C0 >= matrix.R2C2))
+            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
-                <#= type #> num7 = Maths.Sqrt (((one + matrix.R0C0) - matrix.R1C1) - matrix.R2C2);
-                <#= type #> num4 = half / num7;
-                result.I = half * num7;
-                result.J = (matrix.R0C1 + matrix.R1C0) * num4;
-                result.K = (matrix.R0C2 + matrix.R2C0) * num4;
-                result.U = (matrix.R1C2 - matrix.R2C1) * num4;
+                <#= type #> s7 = Maths.Sqrt (((one + m.R0C0) - m.R1C1) - m.R2C2);
+                <#= type #> s4 = half / s7;
+
+                result.U = (m.R1C2 - m.R2C1) * s4;
+                result.I = half * s7;
+                result.J = (m.R0C1 + m.R1C0) * s4;
+                result.K = (m.R0C2 + m.R2C0) * s4;
             }
-            else if (matrix.R1C1 > matrix.R2C2)
+            else if (m.R1C1 > m.R2C2)
             {
-                <#= type #> num6 =Maths.Sqrt (((one + matrix.R1C1) - matrix.R0C0) - matrix.R2C2);
-                <#= type #> num3 = half / num6;
-                result.I = (matrix.R1C0 + matrix.R0C1) * num3;
-                result.J = half * num6;
-                result.K = (matrix.R2C1 + matrix.R1C2) * num3;
-                result.U = (matrix.R2C0 - matrix.R0C2) * num3;
+                <#= type #> s6 =Maths.Sqrt (((one + m.R1C1) - m.R0C0) - m.R2C2);
+                <#= type #> s3 = half / s6;
+
+                result.U = (m.R2C0 - m.R0C2) * s3;
+                result.I = (m.R1C0 + m.R0C1) * s3;
+                result.J = half * s6;
+                result.K = (m.R2C1 + m.R1C2) * s3;
             }
             else
             {
-                <#= type #> num5 = Maths.Sqrt (((one + matrix.R2C2) - matrix.R0C0) - matrix.R1C1);
-                <#= type #> num2 = half / num5;
-                result.I = (matrix.R2C0 + matrix.R0C2) * num2;
-                result.J = (matrix.R2C1 + matrix.R1C2) * num2;
-                result.K = half * num5;
-                result.U = (matrix.R0C1 - matrix.R1C0) * num2;
+                <#= type #> s5 = Maths.Sqrt (((one + m.R2C2) - m.R0C0) - m.R1C1);
+                <#= type #> s2 = half / s5;
+
+                result.U = (m.R0C1 - m.R1C0) * s2;
+                result.I = (m.R2C0 + m.R0C2) * s2;
+                result.J = (m.R2C1 + m.R1C2) * s2;
+                result.K = half * s5;
             }
         }

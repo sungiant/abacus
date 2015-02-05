@@ -32,7 +32,11 @@
 
             <#= type #> theta = Maths.ArcCos (angle);
 
-            // To avoid division by 0 and by very small numbers the 
+
+            <#= type #> r = remaining;
+            <#= type #> a = amount;
+
+            // To avoid division by 0 and by very small numbers the
             // Lerp is used when theta is small.
             if (theta > epsilon)
             {
@@ -40,13 +44,14 @@
                 <#= type #> y = Maths.Sin (amount * theta);
                 <#= type #> z = Maths.Sin (theta);
 
-                result = (x / z * quaternion1) + (y / z * quaternion2);
+                r = x / z;
+                a = y / z;
             }
-            else
-            {
-                // This is the same as performing a Lerp.
-                result = (remaining * quaternion1) + (amount * quaternion2);
-            }
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
         }
 
         /// <summary>
@@ -68,7 +73,13 @@
 
             <#= type #> remaining = one - amount;
 
-            result = (remaining * quaternion1) + (amount * quaternion2);
+            <#= type #> r = remaining;
+            <#= type #> a = amount;
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
         }
 
         /// <summary>

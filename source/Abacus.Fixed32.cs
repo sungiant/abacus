@@ -1079,13 +1079,8 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format (
-                "{{X:{0} Y:{1}}}",
-                new Object[]
-                {
-                    this.X.ToString (),
-                    this.Y.ToString ()
-                });
+            return String.Format ("{{X:{0} Y:{1}}}",
+                X.ToString (), Y.ToString ());
         }
 
         /// <summary>
@@ -1103,11 +1098,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-            if (obj is Vector2) {
-                flag = this.Equals ((Vector2)obj);
-            }
-            return flag;
+            return (obj is Vector2)
+                ? this.Equals ((Vector2) obj)
+                : false;
         }
 
         #region IEquatable<Vector2>
@@ -1491,7 +1484,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -1527,7 +1521,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -1621,7 +1616,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -2254,14 +2250,8 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format (
-                "{{X:{0} Y:{1} Z:{2}}}",
-                new Object[]
-                {
-                    this.X.ToString (),
-                    this.Y.ToString (),
-                    this.Z.ToString ()
-                });
+            return string.Format ("{{X:{0} Y:{1} Z:{2}}}", 
+                X.ToString (), Y.ToString (), Z.ToString ());
         }
 
         /// <summary>
@@ -2280,11 +2270,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-            if (obj is Vector3) {
-                flag = this.Equals ((Vector3)obj);
-            }
-            return flag;
+            return (obj is Vector3)
+                ? this.Equals ((Vector3) obj)
+                : false;
         }
 
         #region IEquatable<Vector3>
@@ -2844,7 +2832,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -2882,7 +2871,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -3008,7 +2998,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -3675,15 +3666,8 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format (
-                "{{X:{0} Y:{1} Z:{2} W:{3}}}",
-                new Object[]
-                {
-                    this.X.ToString (),
-                    this.Y.ToString (),
-                    this.Z.ToString (),
-                    this.W.ToString ()
-                });
+            return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}",
+                X.ToString (), Y.ToString (), Z.ToString (), W.ToString ());
         }
 
         /// <summary>
@@ -3703,11 +3687,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-            if (obj is Vector4) {
-                flag = this.Equals ((Vector4)obj);
-            }
-            return flag;
+            return (obj is Vector4)
+                ? this.Equals ((Vector4)obj)
+                : false;
         }
 
         #region IEquatable<Vector4>
@@ -4185,7 +4167,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -4224,7 +4207,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -4382,7 +4366,8 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -5011,10 +4996,7 @@ namespace Abacus.Fixed32Precision
         /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
-            Fixed32 i,
-            Fixed32 j,
-            Fixed32 k,
-            Fixed32 u)
+            Fixed32 i, Fixed32 j, Fixed32 k, Fixed32 u)
         {
             this.I = i;
             this.J = j;
@@ -5041,13 +5023,8 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override String ToString ()
         {
-            return String.Format (
-                "{{I:{0} J:{1} K:{2} U:{3}}}",
-                new Object[] {
-                    this.I.ToString (),
-                    this.J.ToString (),
-                    this.K.ToString (),
-                    this.U.ToString () });
+            return String.Format ("{{I:{0} J:{1} K:{2} U:{3}}}",
+                I.ToString (), J.ToString (), K.ToString (), U.ToString ());
         }
 
         /// <summary>
@@ -5067,14 +5044,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-
-            if (obj is Quaternion)
-            {
-                flag = this.Equals ((Quaternion) obj);
-            }
-
-            return flag;
+            return (obj is Quaternion)
+                ? this.Equals ((Quaternion) obj)
+                : false;
         }
 
         #region IEquatable<Quaternion>
@@ -5085,11 +5057,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public Boolean Equals (Quaternion other)
         {
-            return
-                (this.I == other.I) &&
-                (this.J == other.J) &&
-                (this.K == other.K) &&
-                (this.U == other.U);
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion
@@ -5132,12 +5102,11 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a Quaternion from a vector and an angle to rotate about
+        /// the vector.
         /// </summary>
         public static void CreateFromAxisAngle (
-            ref Vector3 axis,
-            ref Fixed32 angle,
-            out Quaternion result)
+            ref Vector3 axis, ref Fixed32 angle, out Quaternion result)
         {
             Fixed32 half; Maths.Half(out half);
             Fixed32 theta = angle * half;
@@ -5153,92 +5122,89 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a new Quaternion from specified yaw, pitch, and roll angles.
         /// </summary>
         public static void CreateFromYawPitchRoll (
-            ref Fixed32 yaw,
-            ref Fixed32 pitch,
-            ref Fixed32 roll,
-            out Quaternion result)
+            ref Fixed32 yaw, ref Fixed32 pitch,
+            ref Fixed32 roll, out Quaternion result)
         {
             Fixed32 half; Maths.Half(out half);
-            Fixed32 num9 = roll * half;
 
-            Fixed32 num6 = Maths.Sin (num9);
-            Fixed32 num5 = Maths.Cos (num9);
+            Fixed32 hr = roll * half;
+            Fixed32 hp = pitch * half;
+            Fixed32 hy = yaw * half;
 
-            Fixed32 num8 = pitch * half;
+            Fixed32 shr = Maths.Sin (hr);
+            Fixed32 chr = Maths.Cos (hr);
+            Fixed32 shp = Maths.Sin (hp);
+            Fixed32 chp = Maths.Cos (hp);
+            Fixed32 shy = Maths.Sin (hy);
+            Fixed32 chy = Maths.Cos (hy);
 
-            Fixed32 num4 = Maths.Sin (num8);
-            Fixed32 num3 = Maths.Cos (num8);
-
-            Fixed32 num7 = yaw * half;
-
-            Fixed32 num2 = Maths.Sin (num7);
-            Fixed32 num = Maths.Cos (num7);
-
-            result.I = ((num * num4) * num5) + ((num2 * num3) * num6);
-            result.J = ((num2 * num3) * num5) - ((num * num4) * num6);
-            result.K = ((num * num3) * num6) - ((num2 * num4) * num5);
-            result.U = ((num * num3) * num5) + ((num2 * num4) * num6);
+            result.I = (chy * shp * chr) + (shy * chp * shr);
+            result.J = (shy * chp * chr) - (chy * shp * shr);
+            result.K = (chy * chp * shr) - (shy * shp * chr);
+            result.U = (chy * chp * chr) + (shy * shp * shr);
         }
 
         /// <summary>
-        /// todo
+        /// Creates a Quaternion from a rotation Matrix44.
         /// </summary>
         public static void CreateFromRotationMatrix (
-            ref Matrix44 matrix,
-            out Quaternion result)
+            ref Matrix44 m, out Quaternion result)
         {
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
             Fixed32 zero = 0;
             Fixed32 half; Maths.Half(out half);
             Fixed32 one = 1;
 
-            Fixed32 num8 = (matrix.R0C0 + matrix.R1C1) + matrix.R2C2;
+            Fixed32 tr = (m.R0C0 + m.R1C1) + m.R2C2;
 
-            if (num8 > zero)
+            if (tr > zero)
             {
-                Fixed32 num = Maths.Sqrt (num8 + one);
-                result.U = num * half;
-                num = half / num;
-                result.I = (matrix.R1C2 - matrix.R2C1) * num;
-                result.J = (matrix.R2C0 - matrix.R0C2) * num;
-                result.K = (matrix.R0C1 - matrix.R1C0) * num;
+                Fixed32 s = Maths.Sqrt (tr + one);
+                result.U = s * half;
+                s = half / s;
+                result.I = (m.R1C2 - m.R2C1) * s;
+                result.J = (m.R2C0 - m.R0C2) * s;
+                result.K = (m.R0C1 - m.R1C0) * s;
             }
-            else if ((matrix.R0C0 >= matrix.R1C1) && (matrix.R0C0 >= matrix.R2C2))
+            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
-                Fixed32 num7 = Maths.Sqrt (((one + matrix.R0C0) - matrix.R1C1) - matrix.R2C2);
-                Fixed32 num4 = half / num7;
-                result.I = half * num7;
-                result.J = (matrix.R0C1 + matrix.R1C0) * num4;
-                result.K = (matrix.R0C2 + matrix.R2C0) * num4;
-                result.U = (matrix.R1C2 - matrix.R2C1) * num4;
+                Fixed32 s7 = Maths.Sqrt (((one + m.R0C0) - m.R1C1) - m.R2C2);
+                Fixed32 s4 = half / s7;
+
+                result.U = (m.R1C2 - m.R2C1) * s4;
+                result.I = half * s7;
+                result.J = (m.R0C1 + m.R1C0) * s4;
+                result.K = (m.R0C2 + m.R2C0) * s4;
             }
-            else if (matrix.R1C1 > matrix.R2C2)
+            else if (m.R1C1 > m.R2C2)
             {
-                Fixed32 num6 =Maths.Sqrt (((one + matrix.R1C1) - matrix.R0C0) - matrix.R2C2);
-                Fixed32 num3 = half / num6;
-                result.I = (matrix.R1C0 + matrix.R0C1) * num3;
-                result.J = half * num6;
-                result.K = (matrix.R2C1 + matrix.R1C2) * num3;
-                result.U = (matrix.R2C0 - matrix.R0C2) * num3;
+                Fixed32 s6 =Maths.Sqrt (((one + m.R1C1) - m.R0C0) - m.R2C2);
+                Fixed32 s3 = half / s6;
+
+                result.U = (m.R2C0 - m.R0C2) * s3;
+                result.I = (m.R1C0 + m.R0C1) * s3;
+                result.J = half * s6;
+                result.K = (m.R2C1 + m.R1C2) * s3;
             }
             else
             {
-                Fixed32 num5 = Maths.Sqrt (((one + matrix.R2C2) - matrix.R0C0) - matrix.R1C1);
-                Fixed32 num2 = half / num5;
-                result.I = (matrix.R2C0 + matrix.R0C2) * num2;
-                result.J = (matrix.R2C1 + matrix.R1C2) * num2;
-                result.K = half * num5;
-                result.U = (matrix.R0C1 - matrix.R1C0) * num2;
+                Fixed32 s5 = Maths.Sqrt (((one + m.R2C2) - m.R0C0) - m.R1C1);
+                Fixed32 s2 = half / s5;
+
+                result.U = (m.R0C1 - m.R1C0) * s2;
+                result.I = (m.R2C0 + m.R0C2) * s2;
+                result.J = (m.R2C1 + m.R1C2) * s2;
+                result.K = half * s5;
             }
         }
         /// <summary>
-        /// todo
+        /// Calculates the length² of a Quaternion.
         /// </summary>
         public static void LengthSquared (
-            ref Quaternion quaternion,
-            out Fixed32 result)
+            ref Quaternion quaternion, out Fixed32 result)
         {
             result =
                 (quaternion.I * quaternion.I) +
@@ -5248,11 +5214,10 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Calculates the length of a Quaternion.
         /// </summary>
         public static void Length (
-            ref Quaternion quaternion,
-            out Fixed32 result)
+            ref Quaternion quaternion, out Fixed32 result)
         {
             Fixed32 lengthSquared =
                 (quaternion.I * quaternion.I) +
@@ -5263,30 +5228,12 @@ namespace Abacus.Fixed32Precision
             result = Maths.Sqrt (lengthSquared);
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        public static void IsUnit (
-            ref Quaternion quaternion,
-            out Boolean result)
-        {
-            Fixed32 one = 1;
-
-            result = Maths.IsZero(
-                one -
-                quaternion.U * quaternion.U -
-                quaternion.I * quaternion.I -
-                quaternion.J * quaternion.J -
-                quaternion.K * quaternion.K);
-        }
-
 
         /// <summary>
-        /// todo
+        /// Calculates the conjugate of a Quaternion.
         /// </summary>
         public static void Conjugate (
-            ref Quaternion value,
-            out Quaternion result)
+            ref Quaternion value, out Quaternion result)
         {
             result.I = -value.I;
             result.J = -value.J;
@@ -5298,8 +5245,7 @@ namespace Abacus.Fixed32Precision
         /// todo
         /// </summary>
         public static void Inverse (
-            ref Quaternion quaternion,
-            out Quaternion result)
+            ref Quaternion quaternion, out Quaternion result)
         {
             Fixed32 one = 1;
             Fixed32 a =
@@ -5317,37 +5263,34 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Calculates the dot product of two Quaternions.
         /// </summary>
         public static void Dot (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Fixed32 result)
+            ref Quaternion q1, ref Quaternion q2, out Fixed32 result)
         {
             result =
-                (quaternion1.I * quaternion2.I) +
-                (quaternion1.J * quaternion2.J) +
-                (quaternion1.K * quaternion2.K) +
-                (quaternion1.U * quaternion2.U);
+                (q1.I * q2.I) +
+                (q1.J * q2.J) +
+                (q1.K * q2.K) +
+                (q1.U * q2.U);
         }
 
         /// <summary>
-        /// todo
+        /// Concatenates two Quaternions; the result represents the first 
+        /// rotation followed by the second rotation.
         /// </summary>
         public static void Concatenate (
-            ref Quaternion value1,
-            ref Quaternion value2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            Fixed32 i1 = value1.I;
-            Fixed32 j1 = value1.J;
-            Fixed32 k1 = value1.K;
-            Fixed32 u1 = value1.U;
+            Fixed32 i1 = q1.I;
+            Fixed32 j1 = q1.J;
+            Fixed32 k1 = q1.K;
+            Fixed32 u1 = q1.U;
 
-            Fixed32 i2 = value2.I;
-            Fixed32 j2 = value2.J;
-            Fixed32 k2 = value2.K;
-            Fixed32 u2 = value2.U;
+            Fixed32 i2 = q2.I;
+            Fixed32 j2 = q2.J;
+            Fixed32 k2 = q2.K;
+            Fixed32 u2 = q2.U;
 
             Fixed32 a = (j2 * k1) - (k2 * j1);
             Fixed32 b = (k2 * i1) - (i2 * k1);
@@ -5361,11 +5304,11 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Divides each component of the quaternion by the length of the 
+        /// quaternion.
         /// </summary>
         public static void Normalise (
-            ref Quaternion quaternion,
-            out Quaternion result)
+            ref Quaternion quaternion, out Quaternion result)
         {
             Fixed32 one = 1;
 
@@ -5390,15 +5333,11 @@ namespace Abacus.Fixed32Precision
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Boolean result)
+            ref Quaternion q1, ref Quaternion q2, out Boolean result)
         {
             result =
-                (quaternion1.I == quaternion2.I) &&
-                (quaternion1.J == quaternion2.J) &&
-                (quaternion1.K == quaternion2.K) &&
-                (quaternion1.U == quaternion2.U);
+                (q1.I == q2.I) && (q1.J == q2.J) &&
+                (q1.K == q2.K) && (q1.U == q2.U);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -5407,14 +5346,12 @@ namespace Abacus.Fixed32Precision
         /// Performs addition of two Quaternion objects.
         /// </summary>
         public static void Add (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            result.I = quaternion1.I + quaternion2.I;
-            result.J = quaternion1.J + quaternion2.J;
-            result.K = quaternion1.K + quaternion2.K;
-            result.U = quaternion1.U + quaternion2.U;
+            result.I = q1.I + q2.I;
+            result.J = q1.J + q2.J;
+            result.K = q1.K + q2.K;
+            result.U = q1.U + q2.U;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -5423,14 +5360,12 @@ namespace Abacus.Fixed32Precision
         /// Performs subtraction of two Quaternion objects.
         /// </summary>
         public static void Subtract (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            result.I = quaternion1.I - quaternion2.I;
-            result.J = quaternion1.J - quaternion2.J;
-            result.K = quaternion1.K - quaternion2.K;
-            result.U = quaternion1.U - quaternion2.U;
+            result.I = q1.I - q2.I;
+            result.J = q1.J - q2.J;
+            result.K = q1.K - q2.K;
+            result.U = q1.U - q2.U;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -5439,8 +5374,7 @@ namespace Abacus.Fixed32Precision
         /// Performs negation of a Quaternion object.
         /// </summary>
         public static void Negate (
-            ref Quaternion quaternion,
-            out Quaternion result)
+            ref Quaternion quaternion, out Quaternion result)
         {
             result.I = -quaternion.I;
             result.J = -quaternion.J;
@@ -5462,26 +5396,14 @@ namespace Abacus.Fixed32Precision
         /// a divide operation just multiply by the inverse.
         /// </summary>
         public static void Multiply (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            Fixed32 i1 = quaternion1.I;
-            Fixed32 j1 = quaternion1.J;
-            Fixed32 k1 = quaternion1.K;
-            Fixed32 u1 = quaternion1.U;
-
-            Fixed32 i2 = quaternion2.I;
-            Fixed32 j2 = quaternion2.J;
-            Fixed32 k2 = quaternion2.K;
-            Fixed32 u2 = quaternion2.U;
-
             // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 
-            result.I = i1*u2 + u1*i2 + j1*k2 - k1*j2;
-            result.J = u1*j2 - i1*k2 + j1*u2 + k1*i2;
-            result.K = u1*k2 + i1*j2 - j1*i2 + k1*u2;
-            result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
+            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
+            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
+            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
+            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
         }
 
         /// <summary>
@@ -5498,40 +5420,46 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
+            Fixed32 epsilon; Maths.Epsilon (out epsilon);
 
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            Fixed32 nineninenine; Maths.FromString("0.999999", out nineninenine);
+            Fixed32 remaining = one - amount;
 
-            Fixed32 num2;
-            Fixed32 num3;
-            Fixed32 num = amount;
-            Fixed32 num4 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
-            Boolean flag = false;
-            if (num4 < zero) {
-                flag = true;
-                num4 = -num4;
+            Fixed32 angle;
+            Dot (ref quaternion1, ref quaternion2, out angle);
+
+            if (angle < zero)
+            {
+                Negate (ref quaternion1, out quaternion1);
+                angle = -angle;
             }
 
+            Fixed32 theta = Maths.ArcCos (angle);
 
-            if (num4 >nineninenine) {
-                num3 = one - num;
-                num2 = flag ? -num : num;
-            } else {
-                Fixed32 num5 = Maths.ArcCos (num4);
-                Fixed32 num6 = one / Maths.Sin (num5);
 
-                num3 = Maths.Sin ((one - num) * num5) * num6;
+            Fixed32 r = remaining;
+            Fixed32 a = amount;
 
-                num2 = flag ? -Maths.Sin (num * num5) * num6 : Maths.Sin (num * num5) * num6;
+            // To avoid division by 0 and by very small numbers the
+            // Lerp is used when theta is small.
+            if (theta > epsilon)
+            {
+                Fixed32 x = Maths.Sin (remaining * theta);
+                Fixed32 y = Maths.Sin (amount * theta);
+                Fixed32 z = Maths.Sin (theta);
+
+                r = x / z;
+                a = y / z;
             }
-            result.I = (num3 * quaternion1.I) + (num2 * quaternion2.I);
-            result.J = (num3 * quaternion1.J) + (num2 * quaternion2.J);
-            result.K = (num3 * quaternion1.K) + (num2 * quaternion2.K);
-            result.U = (num3 * quaternion1.U) + (num2 * quaternion2.U);
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
         }
 
         /// <summary>
@@ -5546,32 +5474,37 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            if( amount < zero || amount > one )
+            if (amount < zero || amount > one)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            Fixed32 num = amount;
-            Fixed32 num2 = one - num;
-            Fixed32 num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
-            
-            if (num5 >= zero) {
-                result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
-                result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
-                result.K = (num2 * quaternion1.K) + (num * quaternion2.K);
-                result.U = (num2 * quaternion1.U) + (num * quaternion2.U);
-            } else {
-                result.I = (num2 * quaternion1.I) - (num * quaternion2.I);
-                result.J = (num2 * quaternion1.J) - (num * quaternion2.J);
-                result.K = (num2 * quaternion1.K) - (num * quaternion2.K);
-                result.U = (num2 * quaternion1.U) - (num * quaternion2.U);
-            }
-            Fixed32 num4 = (((result.I * result.I) + (result.J * result.J)) + (result.K * result.K)) + (result.U * result.U);
-            Fixed32 num3 = one / Maths.Sqrt (num4);
-            result.I *= num3;
-            result.J *= num3;
-            result.K *= num3;
-            result.U *= num3;
+            Fixed32 remaining = one - amount;
+
+            Fixed32 r = remaining;
+            Fixed32 a = amount;
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            Fixed32 one = 1;
+
+            result = Maths.IsZero(
+                one -
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
         }
 
 
@@ -6096,14 +6029,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-
-            if (obj is Matrix44)
-            {
-                flag = this.Equals ((Matrix44) obj);
-            }
-
-            return flag;
+            return (obj is Matrix44)
+                ? this.Equals ((Matrix44)obj)
+                : false;
         }
 
         #region IEquatable<Matrix44>
@@ -6114,23 +6042,9 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public Boolean Equals (Matrix44 other)
         {
-            return
-                (this.R0C0 == other.R0C0) &&
-                (this.R1C1 == other.R1C1) &&
-                (this.R2C2 == other.R2C2) &&
-                (this.R3C3 == other.R3C3) &&
-                (this.R0C1 == other.R0C1) &&
-                (this.R0C2 == other.R0C2) &&
-                (this.R0C3 == other.R0C3) &&
-                (this.R1C0 == other.R1C0) &&
-                (this.R1C2 == other.R1C2) &&
-                (this.R1C3 == other.R1C3) &&
-                (this.R2C0 == other.R2C0) &&
-                (this.R2C1 == other.R2C1) &&
-                (this.R2C3 == other.R2C3) &&
-                (this.R3C0 == other.R3C0) &&
-                (this.R3C1 == other.R3C1) &&
-                (this.R3C2 == other.R3C2);
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion
@@ -6279,34 +6193,6 @@ namespace Abacus.Fixed32Precision
                 this.R3C0 = value.X;
                 this.R3C1 = value.Y;
                 this.R3C2 = value.Z;
-            }
-        }
-
-        /// <summary>
-        /// A square matrix whose transpose is equal to itself is called a
-        /// symmetric matrix.
-        /// </summary>
-        public Boolean IsSymmetric
-        {
-            get
-            {
-                Matrix44 transpose = this;
-                Transpose (ref transpose, out transpose);
-                return (transpose == this);
-            }
-        }
-
-        /// <summary>
-        /// A square matrix whose transpose is equal to its negative is called
-        /// a skew-symmetric matrix.
-        /// </summary>
-        public Boolean IsSkewSymmetric
-        {
-            get
-            {
-                Matrix44 transpose = this;
-                Transpose (ref transpose, out transpose);
-                return (transpose == -this);
             }
         }
 
@@ -7513,27 +7399,17 @@ namespace Abacus.Fixed32Precision
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Matrix44 value1,
-            ref Matrix44 value2,
-            out Boolean result)
+            ref Matrix44 m1, ref Matrix44 m2, out Boolean result)
         {
             result =
-                (value1.R0C0 == value2.R0C0) &&
-                (value1.R1C1 == value2.R1C1) &&
-                (value1.R2C2 == value2.R2C2) &&
-                (value1.R3C3 == value2.R3C3) &&
-                (value1.R0C1 == value2.R0C1) &&
-                (value1.R0C2 == value2.R0C2) &&
-                (value1.R0C3 == value2.R0C3) &&
-                (value1.R1C0 == value2.R1C0) &&
-                (value1.R1C2 == value2.R1C2) &&
-                (value1.R1C3 == value2.R1C3) &&
-                (value1.R2C0 == value2.R2C0) &&
-                (value1.R2C1 == value2.R2C1) &&
-                (value1.R2C3 == value2.R2C3) &&
-                (value1.R3C0 == value2.R3C0) &&
-                (value1.R3C1 == value2.R3C1) &&
-                (value1.R3C2 == value2.R3C2);
+                (m1.R0C0 == m2.R0C0) && (m1.R1C1 == m2.R1C1) &&
+                (m1.R2C2 == m2.R2C2) && (m1.R3C3 == m2.R3C3) &&
+                (m1.R0C1 == m2.R0C1) && (m1.R0C2 == m2.R0C2) &&
+                (m1.R0C3 == m2.R0C3) && (m1.R1C0 == m2.R1C0) &&
+                (m1.R1C2 == m2.R1C2) && (m1.R1C3 == m2.R1C3) &&
+                (m1.R2C0 == m2.R2C0) && (m1.R2C1 == m2.R2C1) &&
+                (m1.R2C3 == m2.R2C3) && (m1.R3C0 == m2.R3C0) &&
+                (m1.R3C1 == m2.R3C1) && (m1.R3C2 == m2.R3C2);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -7542,26 +7418,24 @@ namespace Abacus.Fixed32Precision
         /// Performs addition of two Matrix44 objects.
         /// </summary>
         public static void Add (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 + matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 + matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 + matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 + matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 + matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 + matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 + matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 + matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 + matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 + matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 + matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 + matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 + matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 + matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 + matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 + matrix2.R3C3;
+            result.R0C0 = m1.R0C0 + m2.R0C0;
+            result.R0C1 = m1.R0C1 + m2.R0C1;
+            result.R0C2 = m1.R0C2 + m2.R0C2;
+            result.R0C3 = m1.R0C3 + m2.R0C3;
+            result.R1C0 = m1.R1C0 + m2.R1C0;
+            result.R1C1 = m1.R1C1 + m2.R1C1;
+            result.R1C2 = m1.R1C2 + m2.R1C2;
+            result.R1C3 = m1.R1C3 + m2.R1C3;
+            result.R2C0 = m1.R2C0 + m2.R2C0;
+            result.R2C1 = m1.R2C1 + m2.R2C1;
+            result.R2C2 = m1.R2C2 + m2.R2C2;
+            result.R2C3 = m1.R2C3 + m2.R2C3;
+            result.R3C0 = m1.R3C0 + m2.R3C0;
+            result.R3C1 = m1.R3C1 + m2.R3C1;
+            result.R3C2 = m1.R3C2 + m2.R3C2;
+            result.R3C3 = m1.R3C3 + m2.R3C3;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -7570,26 +7444,24 @@ namespace Abacus.Fixed32Precision
         /// Performs subtraction of two Matrix44 objects.
         /// </summary>
         public static void Subtract (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 - matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 - matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 - matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 - matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 - matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 - matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 - matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 - matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 - matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 - matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 - matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 - matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 - matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 - matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 - matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 - matrix2.R3C3;
+            result.R0C0 = m1.R0C0 - m2.R0C0;
+            result.R0C1 = m1.R0C1 - m2.R0C1;
+            result.R0C2 = m1.R0C2 - m2.R0C2;
+            result.R0C3 = m1.R0C3 - m2.R0C3;
+            result.R1C0 = m1.R1C0 - m2.R1C0;
+            result.R1C1 = m1.R1C1 - m2.R1C1;
+            result.R1C2 = m1.R1C2 - m2.R1C2;
+            result.R1C3 = m1.R1C3 - m2.R1C3;
+            result.R2C0 = m1.R2C0 - m2.R2C0;
+            result.R2C1 = m1.R2C1 - m2.R2C1;
+            result.R2C2 = m1.R2C2 - m2.R2C2;
+            result.R2C3 = m1.R2C3 - m2.R2C3;
+            result.R3C0 = m1.R3C0 - m2.R3C0;
+            result.R3C1 = m1.R3C1 - m2.R3C1;
+            result.R3C2 = m1.R3C2 - m2.R3C2;
+            result.R3C3 = m1.R3C3 - m2.R3C3;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -7623,105 +7495,71 @@ namespace Abacus.Fixed32Precision
         /// Performs muliplication of two Matrix44 objects.
         /// </summary>
         public static void Multiply (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
             result.R0C0 =
-                (matrix1.R0C0 * matrix2.R0C0) +
-                (matrix1.R0C1 * matrix2.R1C0) +
-                (matrix1.R0C2 * matrix2.R2C0) +
-                (matrix1.R0C3 * matrix2.R3C0);
+                (m1.R0C0 * m2.R0C0) + (m1.R0C1 * m2.R1C0) +
+                (m1.R0C2 * m2.R2C0) + (m1.R0C3 * m2.R3C0);
 
             result.R0C1 =
-                (matrix1.R0C0 * matrix2.R0C1) +
-                (matrix1.R0C1 * matrix2.R1C1) +
-                (matrix1.R0C2 * matrix2.R2C1) +
-                (matrix1.R0C3 * matrix2.R3C1);
+                (m1.R0C0 * m2.R0C1) + (m1.R0C1 * m2.R1C1) +
+                (m1.R0C2 * m2.R2C1) + (m1.R0C3 * m2.R3C1);
 
             result.R0C2 =
-                (matrix1.R0C0 * matrix2.R0C2) +
-                (matrix1.R0C1 * matrix2.R1C2) +
-                (matrix1.R0C2 * matrix2.R2C2) +
-                (matrix1.R0C3 * matrix2.R3C2);
+                (m1.R0C0 * m2.R0C2) + (m1.R0C1 * m2.R1C2) +
+                (m1.R0C2 * m2.R2C2) + (m1.R0C3 * m2.R3C2);
 
             result.R0C3 =
-                (matrix1.R0C0 * matrix2.R0C3) +
-                (matrix1.R0C1 * matrix2.R1C3) +
-                (matrix1.R0C2 * matrix2.R2C3) +
-                (matrix1.R0C3 * matrix2.R3C3);
+                (m1.R0C0 * m2.R0C3) + (m1.R0C1 * m2.R1C3) +
+                (m1.R0C2 * m2.R2C3) + (m1.R0C3 * m2.R3C3);
 
             result.R1C0 =
-                (matrix1.R1C0 * matrix2.R0C0) +
-                (matrix1.R1C1 * matrix2.R1C0) +
-                (matrix1.R1C2 * matrix2.R2C0) +
-                (matrix1.R1C3 * matrix2.R3C0);
+                (m1.R1C0 * m2.R0C0) + (m1.R1C1 * m2.R1C0) +
+                (m1.R1C2 * m2.R2C0) + (m1.R1C3 * m2.R3C0);
 
             result.R1C1 =
-                (matrix1.R1C0 * matrix2.R0C1) +
-                (matrix1.R1C1 * matrix2.R1C1) +
-                (matrix1.R1C2 * matrix2.R2C1) +
-                (matrix1.R1C3 * matrix2.R3C1);
+                (m1.R1C0 * m2.R0C1) + (m1.R1C1 * m2.R1C1) +
+                (m1.R1C2 * m2.R2C1) + (m1.R1C3 * m2.R3C1);
 
             result.R1C2 =
-                (matrix1.R1C0 * matrix2.R0C2) +
-                (matrix1.R1C1 * matrix2.R1C2) +
-                (matrix1.R1C2 * matrix2.R2C2) +
-                (matrix1.R1C3 * matrix2.R3C2);
+                (m1.R1C0 * m2.R0C2) + (m1.R1C1 * m2.R1C2) +
+                (m1.R1C2 * m2.R2C2) + (m1.R1C3 * m2.R3C2);
 
             result.R1C3 =
-                (matrix1.R1C0 * matrix2.R0C3) +
-                (matrix1.R1C1 * matrix2.R1C3) +
-                (matrix1.R1C2 * matrix2.R2C3) +
-                (matrix1.R1C3 * matrix2.R3C3);
+                (m1.R1C0 * m2.R0C3) + (m1.R1C1 * m2.R1C3) +
+                (m1.R1C2 * m2.R2C3) + (m1.R1C3 * m2.R3C3);
 
             result.R2C0 =
-                (matrix1.R2C0 * matrix2.R0C0) +
-                (matrix1.R2C1 * matrix2.R1C0) +
-                (matrix1.R2C2 * matrix2.R2C0) +
-                (matrix1.R2C3 * matrix2.R3C0);
+                (m1.R2C0 * m2.R0C0) + (m1.R2C1 * m2.R1C0) +
+                (m1.R2C2 * m2.R2C0) + (m1.R2C3 * m2.R3C0);
 
             result.R2C1 =
-                (matrix1.R2C0 * matrix2.R0C1) +
-                (matrix1.R2C1 * matrix2.R1C1) +
-                (matrix1.R2C2 * matrix2.R2C1) +
-                (matrix1.R2C3 * matrix2.R3C1);
+                (m1.R2C0 * m2.R0C1) + (m1.R2C1 * m2.R1C1) +
+                (m1.R2C2 * m2.R2C1) + (m1.R2C3 * m2.R3C1);
 
             result.R2C2 =
-                (matrix1.R2C0 * matrix2.R0C2) +
-                (matrix1.R2C1 * matrix2.R1C2) +
-                (matrix1.R2C2 * matrix2.R2C2) +
-                (matrix1.R2C3 * matrix2.R3C2);
+                (m1.R2C0 * m2.R0C2) + (m1.R2C1 * m2.R1C2) +
+                (m1.R2C2 * m2.R2C2) + (m1.R2C3 * m2.R3C2);
 
             result.R2C3 =
-                (matrix1.R2C0 * matrix2.R0C3) +
-                (matrix1.R2C1 * matrix2.R1C3) +
-                (matrix1.R2C2 * matrix2.R2C3) +
-                (matrix1.R2C3 * matrix2.R3C3);
+                (m1.R2C0 * m2.R0C3) + (m1.R2C1 * m2.R1C3) +
+                (m1.R2C2 * m2.R2C3) + (m1.R2C3 * m2.R3C3);
 
             result.R3C0 =
-                (matrix1.R3C0 * matrix2.R0C0) +
-                (matrix1.R3C1 * matrix2.R1C0) +
-                (matrix1.R3C2 * matrix2.R2C0) +
-                (matrix1.R3C3 * matrix2.R3C0);
+                (m1.R3C0 * m2.R0C0) + (m1.R3C1 * m2.R1C0) +
+                (m1.R3C2 * m2.R2C0) + (m1.R3C3 * m2.R3C0);
 
             result.R3C1 =
-                (matrix1.R3C0 * matrix2.R0C1) +
-                (matrix1.R3C1 * matrix2.R1C1) +
-                (matrix1.R3C2 * matrix2.R2C1) +
-                (matrix1.R3C3 * matrix2.R3C1);
+                (m1.R3C0 * m2.R0C1) + (m1.R3C1 * m2.R1C1) +
+                (m1.R3C2 * m2.R2C1) + (m1.R3C3 * m2.R3C1);
 
             result.R3C2 =
-                (matrix1.R3C0 * matrix2.R0C2) +
-                (matrix1.R3C1 * matrix2.R1C2) +
-                (matrix1.R3C2 * matrix2.R2C2) +
-                (matrix1.R3C3 * matrix2.R3C2);
+                (m1.R3C0 * m2.R0C2) + (m1.R3C1 * m2.R1C2) +
+                (m1.R3C2 * m2.R2C2) + (m1.R3C3 * m2.R3C2);
 
             result.R3C3 =
-                (matrix1.R3C0 * matrix2.R0C3) +
-                (matrix1.R3C1 * matrix2.R1C3) +
-                (matrix1.R3C2 * matrix2.R2C3) +
-                (matrix1.R3C3 * matrix2.R3C3);
+                (m1.R3C0 * m2.R0C3) + (m1.R3C1 * m2.R1C3) +
+                (m1.R3C2 * m2.R2C3) + (m1.R3C3 * m2.R3C3);
         }
 
         /// <summary>
@@ -7729,26 +7567,26 @@ namespace Abacus.Fixed32Precision
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Matrix44 matrix1,
+            ref Matrix44 matrix,
             ref Fixed32 scaleFactor,
             out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 * scaleFactor;
-            result.R0C1 = matrix1.R0C1 * scaleFactor;
-            result.R0C2 = matrix1.R0C2 * scaleFactor;
-            result.R0C3 = matrix1.R0C3 * scaleFactor;
-            result.R1C0 = matrix1.R1C0 * scaleFactor;
-            result.R1C1 = matrix1.R1C1 * scaleFactor;
-            result.R1C2 = matrix1.R1C2 * scaleFactor;
-            result.R1C3 = matrix1.R1C3 * scaleFactor;
-            result.R2C0 = matrix1.R2C0 * scaleFactor;
-            result.R2C1 = matrix1.R2C1 * scaleFactor;
-            result.R2C2 = matrix1.R2C2 * scaleFactor;
-            result.R2C3 = matrix1.R2C3 * scaleFactor;
-            result.R3C0 = matrix1.R3C0 * scaleFactor;
-            result.R3C1 = matrix1.R3C1 * scaleFactor;
-            result.R3C2 = matrix1.R3C2 * scaleFactor;
-            result.R3C3 = matrix1.R3C3 * scaleFactor;
+            result.R0C0 = matrix.R0C0 * scaleFactor;
+            result.R0C1 = matrix.R0C1 * scaleFactor;
+            result.R0C2 = matrix.R0C2 * scaleFactor;
+            result.R0C3 = matrix.R0C3 * scaleFactor;
+            result.R1C0 = matrix.R1C0 * scaleFactor;
+            result.R1C1 = matrix.R1C1 * scaleFactor;
+            result.R1C2 = matrix.R1C2 * scaleFactor;
+            result.R1C3 = matrix.R1C3 * scaleFactor;
+            result.R2C0 = matrix.R2C0 * scaleFactor;
+            result.R2C1 = matrix.R2C1 * scaleFactor;
+            result.R2C2 = matrix.R2C2 * scaleFactor;
+            result.R2C3 = matrix.R2C3 * scaleFactor;
+            result.R3C0 = matrix.R3C0 * scaleFactor;
+            result.R3C1 = matrix.R3C1 * scaleFactor;
+            result.R3C2 = matrix.R3C2 * scaleFactor;
+            result.R3C3 = matrix.R3C3 * scaleFactor;
         }
 
         /// <summary>
@@ -7756,34 +7594,53 @@ namespace Abacus.Fixed32Precision
         /// lerp between quaternions.
         /// </summary>
         public static void Lerp (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            ref Fixed32 amount,
+            ref Matrix44 m1, ref Matrix44 m2, ref Fixed32 amount,
             out Matrix44 result)
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            if (amount < zero || amount > one)
-            {
-                throw new ArgumentOutOfRangeException ();
-            }
 
-            result.R0C0 = matrix1.R0C0+((matrix2.R0C0-matrix1.R0C0)*amount);
-            result.R0C1 = matrix1.R0C1+((matrix2.R0C1-matrix1.R0C1)*amount);
-            result.R0C2 = matrix1.R0C2+((matrix2.R0C2-matrix1.R0C2)*amount);
-            result.R0C3 = matrix1.R0C3+((matrix2.R0C3-matrix1.R0C3)*amount);
-            result.R1C0 = matrix1.R1C0+((matrix2.R1C0-matrix1.R1C0)*amount);
-            result.R1C1 = matrix1.R1C1+((matrix2.R1C1-matrix1.R1C1)*amount);
-            result.R1C2 = matrix1.R1C2+((matrix2.R1C2-matrix1.R1C2)*amount);
-            result.R1C3 = matrix1.R1C3+((matrix2.R1C3-matrix1.R1C3)*amount);
-            result.R2C0 = matrix1.R2C0+((matrix2.R2C0-matrix1.R2C0)*amount);
-            result.R2C1 = matrix1.R2C1+((matrix2.R2C1-matrix1.R2C1)*amount);
-            result.R2C2 = matrix1.R2C2+((matrix2.R2C2-matrix1.R2C2)*amount);
-            result.R2C3 = matrix1.R2C3+((matrix2.R2C3-matrix1.R2C3)*amount);
-            result.R3C0 = matrix1.R3C0+((matrix2.R3C0-matrix1.R3C0)*amount);
-            result.R3C1 = matrix1.R3C1+((matrix2.R3C1-matrix1.R3C1)*amount);
-            result.R3C2 = matrix1.R3C2+((matrix2.R3C2-matrix1.R3C2)*amount);
-            result.R3C3 = matrix1.R3C3+((matrix2.R3C3-matrix1.R3C3)*amount);
+            if (amount < zero || amount > one)
+                throw new ArgumentOutOfRangeException ();
+
+            result.R0C0 = m1.R0C0 + ((m2.R0C0 - m1.R0C0) * amount);
+            result.R0C1 = m1.R0C1 + ((m2.R0C1 - m1.R0C1) * amount);
+            result.R0C2 = m1.R0C2 + ((m2.R0C2 - m1.R0C2) * amount);
+            result.R0C3 = m1.R0C3 + ((m2.R0C3 - m1.R0C3) * amount);
+            result.R1C0 = m1.R1C0 + ((m2.R1C0 - m1.R1C0) * amount);
+            result.R1C1 = m1.R1C1 + ((m2.R1C1 - m1.R1C1) * amount);
+            result.R1C2 = m1.R1C2 + ((m2.R1C2 - m1.R1C2) * amount);
+            result.R1C3 = m1.R1C3 + ((m2.R1C3 - m1.R1C3) * amount);
+            result.R2C0 = m1.R2C0 + ((m2.R2C0 - m1.R2C0) * amount);
+            result.R2C1 = m1.R2C1 + ((m2.R2C1 - m1.R2C1) * amount);
+            result.R2C2 = m1.R2C2 + ((m2.R2C2 - m1.R2C2) * amount);
+            result.R2C3 = m1.R2C3 + ((m2.R2C3 - m1.R2C3) * amount);
+            result.R3C0 = m1.R3C0 + ((m2.R3C0 - m1.R3C0) * amount);
+            result.R3C1 = m1.R3C1 + ((m2.R3C1 - m1.R3C1) * amount);
+            result.R3C2 = m1.R3C2 + ((m2.R3C2 - m1.R3C2) * amount);
+            result.R3C3 = m1.R3C3 + ((m2.R3C3 - m1.R3C3) * amount);
+        }
+
+        /// <summary>
+        /// A square matrix whose transpose is equal to itself is called a
+        /// symmetric matrix.
+        /// </summary>
+        public Boolean IsSymmetric ()
+        {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            return (transpose == this);
+        }
+
+        /// <summary>
+        /// A square matrix whose transpose is equal to its negative is called
+        /// a skew-symmetric matrix.
+        /// </summary>
+        public Boolean IsSkewSymmetric ()
+        {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            return (transpose == -this);
         }
 
 
