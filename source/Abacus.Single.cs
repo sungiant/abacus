@@ -46,15 +46,6 @@
 // │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
 // │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
-// ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Built by:                                                              │ \\
-// │          _________                    .__               __             │ \\
-// │         /   _____/__ __  ____    ____ |__|____    _____/  |_           │ \\
-// │         \_____  \|  |  \/    \  / ___\|  \__  \  /    \   __\          │ \\
-// │         /        \  |  /   |  \/ /_/  >  |/ __ \|   |  \  |            │ \\
-// │        /_______  /____/|___|  /\___  /|__(____  /___|  /__|            │ \\
-// │                \/           \//_____/         \/     \/                │ \\
-// │                                                                        │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
 #define VARIANTS_ENABLED
