@@ -6,14 +6,14 @@
         public static void Distance (
             ref Vector4 vector1,
             ref Vector4 vector2,
-            out <#= type #> result)
+            out <#=T#> result)
         {
-            <#= type #> dx = vector1.X - vector2.X;
-            <#= type #> dy = vector1.Y - vector2.Y;
-            <#= type #> dz = vector1.Z - vector2.Z;
-            <#= type #> dw = vector1.W - vector2.W;
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
+            <#=T#> dz = vector1.Z - vector2.Z;
+            <#=T#> dw = vector1.W - vector2.W;
 
-            <#= type #> lengthSquared =
+            <#=T#> lengthSquared =
                 (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
 
             result = Maths.Sqrt (lengthSquared);
@@ -25,12 +25,12 @@
         public static void DistanceSquared (
             ref Vector4 vector1,
             ref Vector4 vector2,
-            out <#= type #> result)
+            out <#=T#> result)
         {
-            <#= type #> dx = vector1.X - vector2.X;
-            <#= type #> dy = vector1.Y - vector2.Y;
-            <#= type #> dz = vector1.Z - vector2.Z;
-            <#= type #> dw = vector1.W - vector2.W;
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
+            <#=T#> dz = vector1.Z - vector2.Z;
+            <#=T#> dw = vector1.W - vector2.W;
 
             result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
@@ -46,7 +46,7 @@
         public static void Dot (
             ref Vector4 vector1,
             ref Vector4 vector2,
-            out <#= type #> result)
+            out <#=T#> result)
         {
             result =
                 (vector1.X * vector2.X) +
@@ -64,22 +64,22 @@
             ref Vector4 vector,
             out Vector4 result)
         {
-            <#= type #> lengthSquared =
+            <#=T#> lengthSquared =
                 (vector.X * vector.X) +
                 (vector.Y * vector.Y) +
                 (vector.Z * vector.Z) +
                 (vector.W * vector.W);
 
-            <#= type #> epsilon; Maths.Epsilon(out epsilon);
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
 
             if( lengthSquared <= epsilon ||
-                <#= type #>.IsInfinity(lengthSquared) )
+                <#=T#>.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> one = 1;
-            <#= type #> multiplier = one / (Maths.Sqrt (lengthSquared));
+            <#=T#> one = 1;
+            <#=T#> multiplier = one / (Maths.Sqrt (lengthSquared));
 
             result.X = vector.X * multiplier;
             result.Y = vector.Y * multiplier;
@@ -95,25 +95,25 @@
             ref Matrix44 matrix,
             out Vector4 result)
         {
-            <#= type #> x =
+            <#=T#> x =
                 (vector.X * matrix.R0C0) +
                 (vector.Y * matrix.R1C0) +
                 (vector.Z * matrix.R2C0) +
                 (vector.W * matrix.R3C0);
 
-            <#= type #> y =
+            <#=T#> y =
                 (vector.X * matrix.R0C1) +
                 (vector.Y * matrix.R1C1) +
                 (vector.Z * matrix.R2C1) +
                 (vector.W * matrix.R3C1);
 
-            <#= type #> z =
+            <#=T#> z =
                 (vector.X * matrix.R0C2) +
                 (vector.Y * matrix.R1C2) +
                 (vector.Z * matrix.R2C2) +
                 (vector.W * matrix.R3C2);
 
-            <#= type #> w =
+            <#=T#> w =
                 (vector.X * matrix.R0C3) +
                 (vector.Y * matrix.R1C3) +
                 (vector.Z * matrix.R2C3) +
@@ -133,23 +133,23 @@
             ref Quaternion rotation,
             out Vector4 result)
         {
-            <#= type #> two = 2;
+            <#=T#> two = 2;
 
-            <#= type #> i = rotation.I;
-            <#= type #> j = rotation.J;
-            <#= type #> k = rotation.K;
-            <#= type #> u = rotation.U;
+            <#=T#> i = rotation.I;
+            <#=T#> j = rotation.J;
+            <#=T#> k = rotation.K;
+            <#=T#> u = rotation.U;
 
-            <#= type #> ii = i * i;
-            <#= type #> jj = j * j;
-            <#= type #> kk = k * k;
+            <#=T#> ii = i * i;
+            <#=T#> jj = j * j;
+            <#=T#> kk = k * k;
 
-            <#= type #> ui = u * i;
-            <#= type #> uj = u * j;
-            <#= type #> uk = u * k;
-            <#= type #> ij = i * j;
-            <#= type #> ik = i * k;
-            <#= type #> jk = j * k;
+            <#=T#> ui = u * i;
+            <#=T#> uj = u * j;
+            <#=T#> uk = u * k;
+            <#=T#> ij = i * j;
+            <#=T#> ik = i * k;
+            <#=T#> jk = j * k;
 
             result.X =
                 + vector.X
@@ -188,19 +188,19 @@
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            <#= type #> x =
+            <#=T#> x =
                 (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0) +
                 (normal.Z * matrix.R2C0) + (normal.W * matrix.R3C0);
 
-            <#= type #> y =
+            <#=T#> y =
                 (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1) +
                 (normal.Z * matrix.R2C1) + (normal.W * matrix.R3C1);
 
-            <#= type #> z =
+            <#=T#> z =
                 (normal.X * matrix.R0C2) + (normal.Y * matrix.R1C2) +
                 (normal.Z * matrix.R2C2) + (normal.W * matrix.R3C2);
 
-            <#= type #> w =
+            <#=T#> w =
                 (normal.X * matrix.R0C3) + (normal.Y * matrix.R1C3) +
                 (normal.Z * matrix.R2C3) + (normal.W * matrix.R3C3);
 
@@ -213,9 +213,9 @@
         /// <summary>
         /// Calculates the length of the Vector4.
         /// </summary>
-        public static void Length (ref Vector4 vector, out <#= type #> result)
+        public static void Length (ref Vector4 vector, out <#=T#> result)
         {
-            <#= type #> lengthSquared =
+            <#=T#> lengthSquared =
                 (vector.X * vector.X) +
                 (vector.Y * vector.Y) +
                 (vector.Z * vector.Z) +
@@ -228,7 +228,7 @@
         /// Calculates the length of the Vector4 squared.
         /// </summary>
         public static void LengthSquared (
-            ref Vector4 vector, out <#= type #> result)
+            ref Vector4 vector, out <#=T#> result)
         {
             result =
                 (vector.X * vector.X) +

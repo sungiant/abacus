@@ -4,7 +4,7 @@
         public static Matrix44 Lerp (
             Matrix44 matrix1,
             Matrix44 matrix2,
-            <#= type #> amount)
+            <#=T#> amount)
         {
             Matrix44 result;
             Lerp (ref matrix1, ref matrix2, ref amount, out result);

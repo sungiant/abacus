@@ -14,14 +14,14 @@
         }
 
         /// <summary>
-        /// Helper function for getting the next random <#= type #> value.
+        /// Helper function for getting the next random <#=T#> value.
         /// </summary>
-        static <#= type #> GetNextRandom<#= type #> ()
+        static <#=T#> GetNextRandom<#=T#> ()
         {
-            <#= type #> randomValue = rand.Next<#= type #>();
+            <#=T#> randomValue = rand.Next<#=T#>();
 
-            <#= type #> zero = 0;
-            <#= type #> multiplier = 1000;
+            <#=T#> zero = 0;
+            <#=T#> multiplier = 1000;
 
             randomValue *= multiplier;
 
@@ -38,8 +38,8 @@
         /// </summary>
         static Vector2 GetNextRandomVector2 ()
         {
-            <#= type #> a = GetNextRandom<#= type #>();
-            <#= type #> b = GetNextRandom<#= type #>();
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
 
             return new Vector2(a, b);
         }
@@ -49,7 +49,7 @@
         /// </summary>
         static void AssertEqualWithinReason (Vector2 a, Vector2 b)
         {
-            <#= type #> tolerance; MathsTests.TestTolerance(out tolerance);
+            <#=T#> tolerance; MathsTests.TestTolerance(out tolerance);
 
             Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
             Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));

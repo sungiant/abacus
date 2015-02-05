@@ -222,10 +222,10 @@
         [Test]
         public void TestOperator_Negation_i ()
         {
-            <#= type #> r = 3432;
-            <#= type #> s = -6218;
-            <#= type #> t = -3432;
-            <#= type #> u = 6218;
+            <#=T#> r = 3432;
+            <#=T#> s = -6218;
+            <#=T#> t = -3432;
+            <#=T#> u = 6218;
 
             var a = new Quaternion(r, s, t, u);
             var b = new Quaternion(u, t, s, r);

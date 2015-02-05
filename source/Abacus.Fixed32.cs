@@ -2250,7 +2250,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{X:{0} Y:{1} Z:{2}}}", 
+            return string.Format ("{{X:{0} Y:{1} Z:{2}}}",
                 X.ToString (), Y.ToString (), Z.ToString ());
         }
 
@@ -5276,7 +5276,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Concatenates two Quaternions; the result represents the first 
+        /// Concatenates two Quaternions; the result represents the first
         /// rotation followed by the second rotation.
         /// </summary>
         public static void Concatenate (
@@ -5304,7 +5304,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Divides each component of the quaternion by the length of the 
+        /// Divides each component of the quaternion by the length of the
         /// quaternion.
         /// </summary>
         public static void Normalise (
@@ -7103,7 +7103,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Transposes the rows and columns of a matrix.  The transpose of a 
+        /// Transposes the rows and columns of a matrix.  The transpose of a
         /// given matrix is the matrix which is formed by turning all the rows
         /// of a given matrix into columns and vice-versa.
         /// N.B. On a computer, one can often avoid explicitly transposing a

@@ -1,5 +1,5 @@
     /// <summary>
-    /// <#= type #> precision Matrix44.
+    /// <#=T#> precision Matrix44.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Matrix44
@@ -8,104 +8,104 @@
         /// <summary>
         /// Gets or sets (Row 0, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> R0C0;
+        public <#=T#> R0C0;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> R0C1;
+        public <#=T#> R0C1;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> R0C2;
+        public <#=T#> R0C2;
 
         /// <summary>
         /// Gets or sets (Row 0, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> R0C3;
+        public <#=T#> R0C3;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> R1C0;
+        public <#=T#> R1C0;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> R1C1;
+        public <#=T#> R1C1;
 
         /// <summary>
         /// Gets or sets (ow 1, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> R1C2;
+        public <#=T#> R1C2;
 
         /// <summary>
         /// Gets or sets (Row 1, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> R1C3;
+        public <#=T#> R1C3;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> R2C0;
+        public <#=T#> R2C0;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> R2C1;
+        public <#=T#> R2C1;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> R2C2;
+        public <#=T#> R2C2;
 
         /// <summary>
         /// Gets or sets (Row 2, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> R2C3;
+        public <#=T#> R2C3;
 
         /// <summary>
         /// Gets or sets (Row 3, Column 0) of the Matrix44.
         /// </summary>
-        public <#= type #> R3C0; // translation.x
+        public <#=T#> R3C0; // translation.x
 
         /// <summary>
         /// Gets or sets (Row 3, Column 1) of the Matrix44.
         /// </summary>
-        public <#= type #> R3C1; // translation.y
+        public <#=T#> R3C1; // translation.y
 
         /// <summary>
         /// Gets or sets (Row 3, Column 2) of the Matrix44.
         /// </summary>
-        public <#= type #> R3C2; // translation.z
+        public <#=T#> R3C2; // translation.z
 
         /// <summary>
         /// Gets or sets (Row 3, Column 3) of the Matrix44.
         /// </summary>
-        public <#= type #> R3C3;
+        public <#=T#> R3C3;
 
         /// <summary>
-        /// Initilises a new instance of Matrix44 from sixteen <#= type #>
+        /// Initilises a new instance of Matrix44 from sixteen <#=T#>
         /// values representing the matrix, in row major order, respectively.
         /// </summary>
         public Matrix44 (
-            <#= type #> m00,
-            <#= type #> m01,
-            <#= type #> m02,
-            <#= type #> m03,
-            <#= type #> m10,
-            <#= type #> m11,
-            <#= type #> m12,
-            <#= type #> m13,
-            <#= type #> m20,
-            <#= type #> m21,
-            <#= type #> m22,
-            <#= type #> m23,
-            <#= type #> m30,
-            <#= type #> m31,
-            <#= type #> m32,
-            <#= type #> m33)
+            <#=T#> m00,
+            <#=T#> m01,
+            <#=T#> m02,
+            <#=T#> m03,
+            <#=T#> m10,
+            <#=T#> m11,
+            <#=T#> m12,
+            <#=T#> m13,
+            <#=T#> m20,
+            <#=T#> m21,
+            <#=T#> m22,
+            <#=T#> m23,
+            <#=T#> m30,
+            <#=T#> m31,
+            <#=T#> m32,
+            <#=T#> m33)
         {
             this.R0C0 = m00;
             this.R0C1 = m01;

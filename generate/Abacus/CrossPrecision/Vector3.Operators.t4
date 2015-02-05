@@ -64,11 +64,11 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a Vector3 object and a <#= type #>
+        /// Performs multiplication of a Vector3 object and a <#=T#>
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Vector3 value1, ref <#= type #> scaleFactor, out Vector3 result)
+            ref Vector3 value1, ref <#=T#> scaleFactor, out Vector3 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
@@ -89,14 +89,14 @@
         }
 
         /// <summary>
-        /// Performs division of a Vector3 object and a <#= type #> precision
+        /// Performs division of a Vector3 object and a <#=T#> precision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Vector3 value1, ref <#= type #> vector2, out Vector3 result)
+            ref Vector3 value1, ref <#=T#> vector2, out Vector3 result)
         {
-            <#= type #> one = 1;
-            <#= type #> num = one / vector2;
+            <#=T#> one = 1;
+            <#=T#> num = one / vector2;
             result.X = value1.X * num;
             result.Y = value1.Y * num;
             result.Z = value1.Z * num;

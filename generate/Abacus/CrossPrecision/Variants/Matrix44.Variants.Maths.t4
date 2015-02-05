@@ -11,9 +11,9 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public <#= type #> Determinant (Matrix44 matrix)
+        public <#=T#> Determinant (Matrix44 matrix)
         {
-            <#= type #> result;
+            <#=T#> result;
             Determinant (ref matrix, out result);
             return result;
         }

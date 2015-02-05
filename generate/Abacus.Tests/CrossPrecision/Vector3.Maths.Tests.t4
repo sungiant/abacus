@@ -7,19 +7,19 @@
         [Test]
         public void TestStaticFn_Distance_i ()
         {
-            var tests = new Tuple<Vector3, Vector3, <#= type #>>[]
+            var tests = new Tuple<Vector3, Vector3, <#=T#>>[]
             {
                 //a -> b -> expected
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     new Vector3(0, 4, 12), new Vector3(3, 0, 0), 13),
 
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     new Vector3(0, -4, 12), new Vector3(3, 0, 0), 13),
 
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     new Vector3(0, -4, -12), new Vector3(-3, 0, 0), 13),
 
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     Vector3.Zero, Vector3.Zero, 0),
             };
 
@@ -28,9 +28,9 @@
                 var test = tests [i];
                 Vector3 a = test.Item1;
                 Vector3 b = test.Item2;
-                <#= type #> expected = test.Item3;
+                <#=T#> expected = test.Item3;
 
-                <#= type #> result;
+                <#=T#> result;
                 Vector3.Distance(ref a, ref b, out result);
                 Assert.That(result, Is.EqualTo(expected));
             }
@@ -48,7 +48,7 @@
             {
                 Vector3 a = GetNextRandomVector3();
 
-                <#= type #> expected =
+                <#=T#> expected =
                     Maths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
 
                 Assert.That(a.Length(), Is.EqualTo(expected));
@@ -64,19 +64,19 @@
         [Test]
         public void TestStaticFn_DistanceSquared_i ()
         {
-            var tests = new Tuple<Vector3, Vector3, <#= type #>>[]
+            var tests = new Tuple<Vector3, Vector3, <#=T#>>[]
             {
                 //a -> b -> expected
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     new Vector3(0, 4, 12), new Vector3(3, 0, 0), 169),
 
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     new Vector3(0, -4, 12), new Vector3(3, 0, 0), 169),
 
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     new Vector3(0, -4, 12), new Vector3(-3, 0, 0), 169),
 
-                new Tuple<Vector3, Vector3, <#= type #>> (
+                new Tuple<Vector3, Vector3, <#=T#>> (
                     Vector3.Zero, Vector3.Zero, 0),
             };
 
@@ -85,9 +85,9 @@
                 var test = tests [i];
                 Vector3 a = test.Item1;
                 Vector3 b = test.Item2;
-                <#= type #> expected = test.Item3;
+                <#=T#> expected = test.Item3;
 
-                <#= type #> result;
+                <#=T#> result;
                 Vector3.DistanceSquared(ref a, ref b, out result);
                 Assert.That(result, Is.EqualTo(expected));
             }
@@ -109,8 +109,8 @@
 
                 Vector3 c = b - a;
 
-                <#= type #> expected = (c.X * c.X) + (c.Y * c.Y) + (c.Z * c.Z);
-                <#= type #> result;
+                <#=T#> expected = (c.X * c.X) + (c.Y * c.Y) + (c.Z * c.Z);
+                <#=T#> result;
 
                 Vector3.DistanceSquared(ref a, ref b, out result);
 
@@ -133,8 +133,8 @@
                 Vector3 a = GetNextRandomVector3();
                 Vector3 b = GetNextRandomVector3();
 
-                <#= type #> expected = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
-                <#= type #> result; Vector3.Dot(ref a, ref b, out result);
+                <#=T#> expected = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+                <#=T#> result; Vector3.Dot(ref a, ref b, out result);
 
                 Assert.That(result, Is.EqualTo(expected));
             }
@@ -150,8 +150,8 @@
             Vector3 a = new Vector3(0, 0, 1);
             Vector3 b = new Vector3(0, 0, -1);
 
-            <#= type #> expected = -1;
-            <#= type #> result; Vector3.Dot(ref a, ref b, out result);
+            <#=T#> expected = -1;
+            <#=T#> result; Vector3.Dot(ref a, ref b, out result);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -166,8 +166,8 @@
             Vector3 a = new Vector3(0, 0, 1);
             Vector3 b = new Vector3(0, 0, 1);
 
-            <#= type #> expected = 1;
-            <#= type #> result; Vector3.Dot(ref a, ref b, out result);
+            <#=T#> expected = 1;
+            <#=T#> result; Vector3.Dot(ref a, ref b, out result);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -182,8 +182,8 @@
             Vector3 a = new Vector3(0, 1, 0);
             Vector3 b = new Vector3(0, 0, 1);
 
-            <#= type #> expected = 0;
-            <#= type #> result; Vector3.Dot(ref a, ref b, out result);
+            <#=T#> expected = 0;
+            <#=T#> result; Vector3.Dot(ref a, ref b, out result);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -211,9 +211,9 @@
 
             {
                 Vector3 a = new Vector3(
-                    <#= type #>.MaxValue,
-                    <#= type #>.MaxValue,
-                    <#= type #>.MaxValue);
+                    <#=T#>.MaxValue,
+                    <#=T#>.MaxValue,
+                    <#=T#>.MaxValue);
 
                 Vector3 b;
 
@@ -232,15 +232,15 @@
         [Test]
         public void TestStaticFn_Normalise_ii ()
         {
-            <#= type #> epsilon; Maths.Epsilon(out epsilon);
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
 
             for( Int32 i = 0; i < 100; ++ i)
             {
                 Vector3 a = GetNextRandomVector3();
 
                 Vector3 b; Vector3.Normalise(ref a, out b);
-                <#= type #> expected = 1;
-                <#= type #> result1 = b.Length();
+                <#=T#> expected = 1;
+                <#=T#> result1 = b.Length();
                 Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
 
                 // The normalise function takes both a ref and out parameter,
@@ -248,7 +248,7 @@
                 // parameters we get the same results.
                 Vector3 c = a;
                 Vector3.Normalise(ref c, out c);
-                <#= type #> result2 = c.Length();
+                <#=T#> result2 = c.Length();
                 Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
             }
         }
@@ -262,12 +262,12 @@
         [Test]
         public void TestStaticFn_Normalise_iii ()
         {
-            <#= type #> epsilon; Maths.Epsilon(out epsilon);
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
 
             for( Int32 i = 0; i < 100; ++ i)
             {
                 Vector3 a = GetNextRandomVector3();
-                <#= type #> l = a.Length();
+                <#=T#> l = a.Length();
                 Vector3 expected = a;
 
                 Vector3 b; Vector3.Normalise(ref a, out b);
@@ -342,7 +342,7 @@
         [Test]
         public void TestStaticFn_Reflect_ii ()
         {
-            <#= type #> epsilon; Maths.Epsilon(out epsilon);
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
 
             for( Int32 i = 0; i < 100; ++ i)
             {
@@ -355,7 +355,7 @@
                 Vector3 result;
                 Vector3.Reflect(ref a, ref b, out result);
 
-                <#= type #> dot;
+                <#=T#> dot;
                 Vector3.Dot(ref a, ref b, out dot);
 
                 Vector3 expected = a - (2 * dot * b);
@@ -391,9 +391,9 @@
         [Test]
         public void TestStaticFn_TransformMatix44_i ()
         {
-            <#= type #> pi; Maths.Pi (out pi);
-            <#= type #> piOver2 = pi / (<#= type #>) 2;
-            <#= type #> minusPi = -pi;
+            <#=T#> pi; Maths.Pi (out pi);
+            <#=T#> piOver2 = pi / (<#=T#>) 2;
+            <#=T#> minusPi = -pi;
 
             Vector3 v1 = new Vector3 (10, 50, -20);
 
@@ -443,17 +443,17 @@
         [Test]
         public void TestStaticFn_TransformNormal_i ()
         {
-            <#= type #> one = 1;
-            <#= type #> six = 6;
-            <#= type #> eight = 8;
-            <#= type #> ten = 10;
-            <#= type #> root3; Maths.Root3 (out root3);
-            <#= type #> pi; Maths.Pi (out pi);
-            <#= type #> minusPi = -pi;
-            <#= type #> piOver2 = pi / (<#= type #>) 2;
-            <#= type #> oneOverRoot3 = one / root3;
-            <#= type #> sixTenths = six / ten;
-            <#= type #> eightTenths = eight / ten;
+            <#=T#> one = 1;
+            <#=T#> six = 6;
+            <#=T#> eight = 8;
+            <#=T#> ten = 10;
+            <#=T#> root3; Maths.Root3 (out root3);
+            <#=T#> pi; Maths.Pi (out pi);
+            <#=T#> minusPi = -pi;
+            <#=T#> piOver2 = pi / (<#=T#>) 2;
+            <#=T#> oneOverRoot3 = one / root3;
+            <#=T#> sixTenths = six / ten;
+            <#=T#> eightTenths = eight / ten;
 
             // todo: find a set of 3 fraction that make up a 3D unit vector
             //       for now just use the 2D one
@@ -600,9 +600,9 @@
         {
             Vector3 a = new Vector3(3, -4, 12);
 
-            <#= type #> expected = 13;
+            <#=T#> expected = 13;
 
-            <#= type #> result = a.Length();
+            <#=T#> result = a.Length();
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -616,9 +616,9 @@
         {
             Vector3 a = new Vector3(3, -4, 12);
 
-            <#= type #> expected = 169;
+            <#=T#> expected = 169;
 
-            <#= type #> result = a.LengthSquared();
+            <#=T#> result = a.LengthSquared();
 
             Assert.That(result, Is.EqualTo(expected));
         }

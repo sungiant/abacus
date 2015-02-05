@@ -169,12 +169,12 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a Matrix44 object and a <#= type #>
+        /// Performs multiplication of a Matrix44 object and a <#=T#>
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
             ref Matrix44 matrix,
-            ref <#= type #> scaleFactor,
+            ref <#=T#> scaleFactor,
             out Matrix44 result)
         {
             result.R0C0 = matrix.R0C0 * scaleFactor;

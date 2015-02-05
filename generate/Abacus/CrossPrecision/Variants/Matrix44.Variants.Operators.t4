@@ -118,7 +118,7 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 Multiply (
-            Matrix44 matrix, <#= type #> scaleFactor)
+            Matrix44 matrix, <#=T#> scaleFactor)
         {
             Matrix44 result;
             Multiply (ref matrix, ref scaleFactor, out result);
@@ -140,7 +140,7 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 operator * (
-            Matrix44 matrix, <#= type #> scaleFactor)
+            Matrix44 matrix, <#=T#> scaleFactor)
         {
             Matrix44 result;
             Multiply (ref matrix, ref scaleFactor, out result);
@@ -151,7 +151,7 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 operator * (
-            <#= type #> scaleFactor, Matrix44 matrix)
+            <#=T#> scaleFactor, Matrix44 matrix)
         {
             Matrix44 result;
             Multiply (ref matrix, ref scaleFactor, out result);

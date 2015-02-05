@@ -1,9 +1,9 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public <#= type #> LengthSquared ()
+        public <#=T#> LengthSquared ()
         {
-            <#= type #> result;
+            <#=T#> result;
             LengthSquared (ref this, out result);
             return result;
         }
@@ -11,9 +11,9 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public <#= type #> Length ()
+        public <#=T#> Length ()
         {
-            <#= type #> result;
+            <#=T#> result;
             Length (ref this, out result);
             return result;
         }

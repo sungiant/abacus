@@ -14,14 +14,14 @@
         }
 
         /// <summary>
-        /// Helper function for getting the next random <#= type #> value.
+        /// Helper function for getting the next random <#=T#> value.
         /// </summary>
-        static <#= type #> GetNextRandom<#= type #> ()
+        static <#=T#> GetNextRandom<#=T#> ()
         {
-            <#= type #> randomValue = rand.Next<#= type #>();
+            <#=T#> randomValue = rand.Next<#=T#>();
 
-            <#= type #> zero = 0;
-            <#= type #> multiplier = 1000;
+            <#=T#> zero = 0;
+            <#=T#> multiplier = 1000;
 
             randomValue *= multiplier;
 
@@ -38,10 +38,10 @@
         /// </summary>
         internal static Quaternion GetNextRandomQuaternion ()
         {
-            <#= type #> i = GetNextRandom<#= type #>();
-            <#= type #> j = GetNextRandom<#= type #>();
-            <#= type #> k = GetNextRandom<#= type #>();
-            <#= type #> u = GetNextRandom<#= type #>();
+            <#=T#> i = GetNextRandom<#=T#>();
+            <#=T#> j = GetNextRandom<#=T#>();
+            <#=T#> k = GetNextRandom<#=T#>();
+            <#=T#> u = GetNextRandom<#=T#>();
 
             return new Quaternion(i, j, k, u);
         }
@@ -51,7 +51,7 @@
         /// </summary>
         internal static void AssertEqualWithinReason (Quaternion a, Quaternion b)
         {
-            <#= type #> tolerance; MathsTests.TestTolerance(out tolerance);
+            <#=T#> tolerance; MathsTests.TestTolerance(out tolerance);
 
             Assert.That(a.I, Is.EqualTo(b.I).Within(tolerance));
             Assert.That(a.J, Is.EqualTo(b.J).Within(tolerance));

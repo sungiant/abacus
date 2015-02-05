@@ -38,7 +38,7 @@
 
                 IntPtr vecAddress = h_vec.AddrOfPinnedObject();
 
-                <#= type #>[] data = new <#= type #>[2];
+                <#=T#>[] data = new <#=T#>[2];
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
@@ -66,9 +66,9 @@
                 Assert.That(a, Is.EqualTo(Vector2.Zero));
             }
             {
-                // Test Vector2( <#= type #>, <#= type #> )
-                <#= type #> u = -189;
-                <#= type #> v = 429;
+                // Test Vector2( <#=T#>, <#=T#> )
+                <#=T#> u = -189;
+                <#=T#> v = 429;
                 Vector2 c = new Vector2(u, v);
                 Assert.That(c.X, Is.EqualTo(u));
                 Assert.That(c.Y, Is.EqualTo(v));

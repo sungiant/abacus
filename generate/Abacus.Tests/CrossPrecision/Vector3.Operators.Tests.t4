@@ -14,14 +14,14 @@
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -34,7 +34,7 @@
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Vector3 objects are compared.
         /// </summary>
         [Test]
@@ -50,7 +50,7 @@
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Vector3 objects are compared.
         /// </summary>
         [Test]
@@ -65,8 +65,8 @@
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Vector3 objects.
         /// </summary>
         [Test]
@@ -99,7 +99,7 @@
 
             Vector3 result_1b; Vector3.Add(ref a, ref b, out result_1b);
             Vector3 result_2b; Vector3.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -122,7 +122,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero vector, all the 
+        /// Assert that, for a known example involving the zero vector, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -136,7 +136,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero vectors, all the 
+        /// Assert that, for a known example involving two zero vectors, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -146,7 +146,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -166,7 +166,7 @@
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -181,7 +181,7 @@
 
             Vector3 result_1b; Vector3.Subtract(ref a, ref b, out result_1b);
             Vector3 result_2b; Vector3.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -205,8 +205,8 @@
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero vector fromt the zero vector, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero vector fromt the zero vector,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -216,7 +216,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -235,7 +235,7 @@
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -247,7 +247,7 @@
             var result_1a = -a;
 
             Vector3 result_1b; Vector3.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -259,10 +259,10 @@
         [Test]
         public void TestOperator_Negation_i ()
         {
-            <#= type #> r = 3432;
-            <#= type #> s = -6218;
-            <#= type #> t = -3432;
-            <#= type #> u = 6218;
+            <#=T#> r = 3432;
+            <#=T#> s = -6218;
+            <#=T#> t = -3432;
+            <#=T#> u = 6218;
 
             var a = new Vector3(r, s, t);
             var b = new Vector3(u, t, s);
@@ -274,16 +274,16 @@
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero vector, all the 
+        /// Assert that, for known examples involving the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Negation_ii ()
         {
-            <#= type #> t = -3432;
-            <#= type #> u = 6218;
-            <#= type #> r = 3432;
-            <#= type #> s = -6218;
+            <#=T#> t = -3432;
+            <#=T#> u = 6218;
+            <#=T#> r = 3432;
+            <#=T#> s = -6218;
 
             var c = new Vector3(t, u, r);
             var d = new Vector3(s, r, u);
@@ -293,7 +293,7 @@
         }
 
         /// <summary>
-        /// Assert that when negating the zero vector, all the 
+        /// Assert that when negating the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -303,7 +303,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -333,7 +333,7 @@
 
             Vector3 result_1b; Vector3.Multiply(ref a, ref b, out result_1b);
             Vector3 result_2b; Vector3.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -347,13 +347,13 @@
         [Test]
         public void TestOperator_Multiplication_i ()
         {
-            <#= type #> r = -27;
-            <#= type #> s = 36;
-            <#= type #> t = 9;
+            <#=T#> r = -27;
+            <#=T#> s = 36;
+            <#=T#> t = 9;
 
-            <#= type #> x = 3;
-            <#= type #> y = 6;
-            <#= type #> z = -9;
+            <#=T#> x = 3;
+            <#=T#> y = 6;
+            <#=T#> z = -9;
 
             var a = new Vector3(x, y, x);
             var b = new Vector3(z, y, x);
@@ -363,7 +363,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -395,25 +395,25 @@
             var result_1a = a / b;
 
             Vector3 result_1b; Vector3.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Division_i ()
         {
-            <#= type #> r = 10;
-            <#= type #> s = -40;
-            <#= type #> t = 1;
+            <#=T#> r = 10;
+            <#=T#> s = -40;
+            <#=T#> t = 1;
 
-            <#= type #> x = 2000;
-            <#= type #> y = 200;
-            <#= type #> z = -5;
+            <#=T#> x = 2000;
+            <#=T#> y = 200;
+            <#=T#> z = -5;
 
             var a = new Vector3(x, y, x);
             var b = new Vector3(y, z, x);
@@ -423,19 +423,19 @@
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
         public void TestOperator_Division_ii ()
         {
-            <#= type #> t = ((<#= type #>) 1 ) / ((<#= type #>) 10);
-            <#= type #> u = ((<#= type #>) (-1) ) / ((<#= type #>) 40 );
-            <#= type #> v = -20;
-            <#= type #> w = 100;
-            <#= type #> x = 2000;
-            <#= type #> y = 200;
-            <#= type #> z = -5;
+            <#=T#> t = ((<#=T#>) 1 ) / ((<#=T#>) 10);
+            <#=T#> u = ((<#=T#>) (-1) ) / ((<#=T#>) 40 );
+            <#=T#> v = -20;
+            <#=T#> w = 100;
+            <#=T#> x = 2000;
+            <#=T#> y = 200;
+            <#=T#> z = -5;
 
             var a = new Vector3(y, z, w);
             var b = new Vector3(x, y, z);
@@ -445,7 +445,7 @@
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>

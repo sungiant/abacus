@@ -1,5 +1,5 @@
 ﻿    /// <summary>
-    /// <#= type #> precision Vector4.
+    /// <#=T#> precision Vector4.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Vector4
@@ -8,32 +8,32 @@
         /// <summary>
         /// Gets or sets the X-component of the Vector4.
         /// </summary>
-        public <#= type #> X;
+        public <#=T#> X;
 
         /// <summary>
         /// Gets or sets the Y-component of the Vector4.
         /// </summary>
-        public <#= type #> Y;
+        public <#=T#> Y;
 
         /// <summary>
         /// Gets or sets the Z-component of the Vector4.
         /// </summary>
-        public <#= type #> Z;
+        public <#=T#> Z;
 
         /// <summary>
         /// Gets or sets the W-component of the Vector4.
         /// </summary>
-        public <#= type #> W;
+        public <#=T#> W;
 
         /// <summary>
-        /// Initilises a new instance of Vector4 from four <#= type #> values
+        /// Initilises a new instance of Vector4 from four <#=T#> values
         /// representing X, Y, Z and W respectively.
         /// </summary>
         public Vector4 (
-            <#= type #> x,
-            <#= type #> y,
-            <#= type #> z,
-            <#= type #> w)
+            <#=T#> x,
+            <#=T#> y,
+            <#=T#> z,
+            <#=T#> w)
         {
             this.X = x;
             this.Y = y;
@@ -43,10 +43,10 @@
 
         /// <summary>
         /// Initilises a new instance of Vector4 from one Vector2 value
-        /// representing X and Y and two <#= type #> values representing Z and
+        /// representing X and Y and two <#=T#> values representing Z and
         /// W respectively.
         /// </summary>
-        public Vector4 (Vector2 value, <#= type #> z, <#= type #> w)
+        public Vector4 (Vector2 value, <#=T#> z, <#=T#> w)
         {
             this.X = value.X;
             this.Y = value.Y;
@@ -56,9 +56,9 @@
 
         /// <summary>
         /// Initilises a new instance of Vector4 from one Vector3 value
-        /// representing X, Y and Z and one <#= type #> value representing W.
+        /// representing X, Y and Z and one <#=T#> value representing W.
         /// </summary>
-        public Vector4 (Vector3 value, <#= type #> w)
+        public Vector4 (Vector3 value, <#=T#> w)
         {
             this.X = value.X;
             this.Y = value.Y;

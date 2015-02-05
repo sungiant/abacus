@@ -46,17 +46,17 @@ using System.Runtime.ConstrainedExecution;
 using NUnit.Framework;
 using System.Runtime.CompilerServices;
 
-namespace Abacus.<#= type #>Precision
+namespace Abacus.<#=T#>Precision
 {
     static class Settings { internal const UInt32 NumTests = 10000; }
 
     internal static class MarshalHelper
     {
         // Copies data from an unmanaged memory pointer to a managed
-        // <#= type #>-precision fixed-point number array.
+        // <#=T#>-precision fixed-point number array.
         internal static void Copy(
             IntPtr source,
-            <#= type #>[] destination,
+            <#=T#>[] destination,
             Int32 startIndex,
             Int32 length)
         {

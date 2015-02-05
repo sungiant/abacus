@@ -1,5 +1,5 @@
 ﻿    /// <summary>
-    /// <#= type #> precision Vector3.
+    /// <#=T#> precision Vector3.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Vector3
@@ -8,23 +8,23 @@
         /// <summary>
         /// Gets or sets the X-component of the Vector3.
         /// </summary>
-        public <#= type #> X;
+        public <#=T#> X;
 
         /// <summary>
         /// Gets or sets the Y-component of the Vector3.
         /// </summary>
-        public <#= type #> Y;
+        public <#=T#> Y;
 
         /// <summary>
         /// Gets or sets the Z-component of the Vector3.
         /// </summary>
-        public <#= type #> Z;
+        public <#=T#> Z;
 
         /// <summary>
-        /// Initilises a new instance of Vector3 from three <#= type #> values
+        /// Initilises a new instance of Vector3 from three <#=T#> values
         /// representing X, Y and Z respectively.
         /// </summary>
-        public Vector3 (<#= type #> x, <#= type #> y, <#= type #> z)
+        public Vector3 (<#=T#> x, <#=T#> y, <#=T#> z)
         {
             this.X = x;
             this.Y = y;
@@ -33,9 +33,9 @@
 
         /// <summary>
         /// Initilises a new instance of Vector3 from one Vector2 value
-        /// representing X and Y and one <#= type #> value representing Z.
+        /// representing X and Y and one <#=T#> value representing Z.
         /// </summary>
-        public Vector3 (Vector2 value, <#= type #> z)
+        public Vector3 (Vector2 value, <#=T#> z)
         {
             this.X = value.X;
             this.Y = value.Y;
@@ -47,7 +47,7 @@
         /// </summary>
         public override String ToString ()
         {
-            return string.Format ("{{X:{0} Y:{1} Z:{2}}}", 
+            return string.Format ("{{X:{0} Y:{1} Z:{2}}}",
                 X.ToString (), Y.ToString (), Z.ToString ());
         }
 

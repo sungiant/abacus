@@ -3,7 +3,7 @@
         /// </summary>
         public static Quaternion CreateFromAxisAngle (
             Vector3 axis,
-            <#= type #> angle)
+            <#=T#> angle)
         {
             Quaternion result;
             CreateFromAxisAngle (ref axis, ref angle, out result);
@@ -14,9 +14,9 @@
         /// Variant function.
         /// </summary>
         public static Quaternion CreateFromYawPitchRoll (
-            <#= type #> yaw,
-            <#= type #> pitch,
-            <#= type #> roll)
+            <#=T#> yaw,
+            <#=T#> pitch,
+            <#=T#> roll)
         {
             Quaternion result;
             CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);

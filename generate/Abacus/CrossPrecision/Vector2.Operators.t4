@@ -57,11 +57,11 @@
         }
 
         /// <summary>
-        /// Performs multiplication of a Vector2 object and a <#= type #>
+        /// Performs multiplication of a Vector2 object and a <#=T#>
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Vector2 vector, ref <#= type #> scaleFactor, out Vector2 result)
+            ref Vector2 vector, ref <#=T#> scaleFactor, out Vector2 result)
         {
             result.X = vector.X * scaleFactor;
             result.Y = vector.Y * scaleFactor;
@@ -80,14 +80,14 @@
         }
 
         /// <summary>
-        /// Performs division of a Vector2 object and a <#= type #> precision
+        /// Performs division of a Vector2 object and a <#=T#> precision
         /// scaling factor.
         /// </summary>
         public static void Divide (
-            ref Vector2 vector1, ref <#= type #> divider, out Vector2 result)
+            ref Vector2 vector1, ref <#=T#> divider, out Vector2 result)
         {
-            <#= type #> one = 1;
-            <#= type #> num = one / divider;
+            <#=T#> one = 1;
+            <#=T#> num = one / divider;
             result.X = vector1.X * num;
             result.Y = vector1.Y * num;
         }

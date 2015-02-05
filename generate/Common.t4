@@ -1,4 +1,4 @@
-﻿<#+   
+﻿<#+
     class FixedTypeDefinition
     {
         public String TypeName { get; private set; }
@@ -15,15 +15,15 @@
         }
     }
 
-    Dictionary<string, FixedTypeDefinition> GetFixedTypeDefinitions()
+    Dictionary<String, FixedTypeDefinition> GetFixedTypeDefinitions()
     {
-        return new Dictionary<string, FixedTypeDefinition> ()
+        return new Dictionary<String, FixedTypeDefinition> ()
         {
             { "Fixed32", new FixedTypeDefinition ("Fixed32", "Int32", 32, 12) }
         };
     }
 
-    string[] GetSupportedPrecisions()
+    String[] GetSupportedPrecisions()
     {
         var builtInTypes = new List<String>()
         {
@@ -40,13 +40,13 @@
         return allTypes.ToArray();
     }
 
-    string GetMathsStr (string rt, string ct)
+    String GetMathsStr (String rt, String ct)
     {
-        var constants = new Dictionary<string, Dictionary<string, string>> ()
+        var constants = new Dictionary<String, Dictionary<String, String>> ()
         {
             {
                 "Double",
-                new Dictionary<string, string> ()
+                new Dictionary<String, String> ()
                 {
                     { "E", "2.71828182845904523536028747135266249775724709369995" },
                     { "Epsilon", "1.0e-6" },
@@ -73,7 +73,7 @@
             },
             {
                 "Single",
-                new Dictionary<string, string> ()
+                new Dictionary<String, String> ()
                 {
                     { "E", "2.71828183f" },
                     { "Epsilon", "1.0e-6f" },
@@ -100,7 +100,7 @@
             },
             {
                 "Fixed32",
-                new Dictionary<string, string> ()
+                new Dictionary<String, String> ()
                 {
                     { "E", "Fixed32.Parse(\"2.71828183\")" },
                     { "Epsilon", "Fixed32.Parse(\"0.0001\")" },

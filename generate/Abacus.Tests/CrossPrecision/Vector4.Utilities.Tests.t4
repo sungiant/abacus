@@ -111,7 +111,7 @@
         {
             for(Int32 j = 0; j < 100; ++j)
             {
-                <#= type #> delta = j;
+                <#=T#> delta = j;
 
                 delta = delta / 100;
 
@@ -140,9 +140,9 @@
             Vector4 a = GetNextRandomVector4();
             Vector4 b = GetNextRandomVector4();
 
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> half; Maths.Half(out half);
 
-            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
 
             for( Int32 i = 0; i < tests.Length; ++i )
             {
@@ -213,9 +213,9 @@
         [Test]
         public void TestStaticFn_IsUnit_iii ()
         {
-            <#= type #> radius = 1;
+            <#=T#> radius = 1;
 
-            <#= type #> pi; Maths.Pi(out pi);
+            <#=T#> pi; Maths.Pi(out pi);
 
             for( Int32 i = 0; i <= 10; ++ i)
             {
@@ -223,25 +223,25 @@
                 {
                     for( Int32 k = 0; k <= 10; ++ k)
                     {
-                        <#= type #> theta = 2 * pi * i / 100;
-                        <#= type #> phi = 2 * pi * j / 100;
-                        <#= type #> gamma = 2 * pi * k / 100;
+                        <#=T#> theta = 2 * pi * i / 100;
+                        <#=T#> phi = 2 * pi * j / 100;
+                        <#=T#> gamma = 2 * pi * k / 100;
 
-                        <#= type #> x =
+                        <#=T#> x =
                             Maths.Cos(theta) *
                             Maths.Sin(phi) *
                             Maths.Sin(gamma) * radius;
 
-                        <#= type #> y =
+                        <#=T#> y =
                             Maths.Sin(theta) *
                             Maths.Sin(phi) *
                             Maths.Sin(gamma) * radius;
 
-                        <#= type #> z =
+                        <#=T#> z =
                             Maths.Cos(phi) *
                             Maths.Sin(gamma) * radius;
 
-                        <#= type #> w =
+                        <#=T#> w =
                             Maths.Cos(gamma) * radius;
 
                         Assert.That(

@@ -4,7 +4,7 @@
         public static Quaternion Slerp (
             Quaternion quaternion1,
             Quaternion quaternion2,
-            <#= type #> amount)
+            <#=T#> amount)
         {
             Quaternion result;
             Slerp (ref quaternion1, ref quaternion2, ref amount, out result);
@@ -17,7 +17,7 @@
         public static Quaternion Lerp (
             Quaternion quaternion1,
             Quaternion quaternion2,
-            <#= type #> amount)
+            <#=T#> amount)
         {
             Quaternion result;
             Lerp (ref quaternion1, ref quaternion2, ref amount, out result);

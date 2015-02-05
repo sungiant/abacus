@@ -40,7 +40,7 @@ using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Abacus.<#= type #>Precision
+namespace Abacus.<#=T#>Precision
 {
 <#@ include file="../Internal.t4"#>
 
@@ -54,13 +54,13 @@ namespace Abacus.<#= type #>Precision
 <#@ include file="CrossPrecision/Quaternion.t4"#>
 <#@ include file="CrossPrecision/Matrix44.t4"#>
 
-<# if (type == "Single") { #>
+<# if (T == "Single") { #>
     public static class RandomExtensions
     {
         /// <summary>
         /// Returns a random Single between 0.0 & 1.0
         /// </summary>
-        public static Single Next<#= type #> (this System.Random r)
+        public static Single Next<#=T#> (this System.Random r)
         {
             return (Single) r.NextDouble();
         }
@@ -69,17 +69,17 @@ namespace Abacus.<#= type #>Precision
     public static class RandomExtensions
     {
         /// <summary>
-        /// Returns a random <#= type #> between 0.0 & 1.0
+        /// Returns a random <#=T#> between 0.0 & 1.0
         /// </summary>
-        public static Fixed32 Next<#= type #>(this System.Random r)
+        public static Fixed32 Next<#=T#>(this System.Random r)
         {
-            <#= type #> max = 1;
-            <#= type #> min = 0;
+            <#=T#> max = 1;
+            <#=T#> min = 0;
 
             <#= fixedTypeDefinition.RawTypeName #> randomRawValue =
                 r.Next(min.RawValue, max.RawValue);
 
-            return <#= type #>.CreateFromRaw(randomRawValue);
+            return <#=T#>.CreateFromRaw(randomRawValue);
         }
     }
 <# } #>

@@ -1,5 +1,5 @@
 ﻿    /// <summary>
-    /// <#= type #> precision Quaternion.
+    /// <#=T#> precision Quaternion.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Quaternion
@@ -8,30 +8,30 @@
         /// <summary>
         /// Gets or sets the imaginary I-component of the Quaternion.
         /// </summary>
-        public <#= type #> I;
+        public <#=T#> I;
 
         /// <summary>
         /// Gets or sets the imaginary J-component of the Quaternion.
         /// </summary>
-        public <#= type #> J;
+        public <#=T#> J;
 
         /// <summary>
         /// Gets or sets the imaginary K-component of the Quaternion.
         /// </summary>
-        public <#= type #> K;
+        public <#=T#> K;
 
         /// <summary>
         /// Gets or sets the real U-component of the Quaternion.
         /// </summary>
-        public <#= type #> U;
+        public <#=T#> U;
 
         /// <summary>
         /// Initilises a new instance of Quaternion from three imaginary
-        /// <#= type #> values and one real <#= type #> value representing
+        /// <#=T#> values and one real <#=T#> value representing
         /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
-            <#= type #> i, <#= type #> j, <#= type #> k, <#= type #> u)
+            <#=T#> i, <#=T#> j, <#=T#> k, <#=T#> u)
         {
             this.I = i;
             this.J = j;
@@ -42,10 +42,10 @@
         /// <summary>
         /// Initilises a new instance of Quaternion from a Vector3 representing
         /// the imaginary parts of the quaternion (I, J & K) and one
-        /// <#= type #> value representing the real part of the
+        /// <#=T#> value representing the real part of the
         /// Quaternion (U).
         /// </summary>
-        public Quaternion (Vector3 vectorPart, <#= type #> scalarPart)
+        public Quaternion (Vector3 vectorPart, <#=T#> scalarPart)
         {
             this.I = vectorPart.X;
             this.J = vectorPart.Y;

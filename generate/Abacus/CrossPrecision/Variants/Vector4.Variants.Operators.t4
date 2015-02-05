@@ -115,7 +115,7 @@
         /// Variant function.
         /// </summary>
         public static Vector4 Multiply (
-            Vector4 vector, <#= type #> scaleFactor)
+            Vector4 vector, <#=T#> scaleFactor)
         {
             Vector4 result;
             Multiply (ref vector, ref scaleFactor, out result);
@@ -137,7 +137,7 @@
         /// Variant function.
         /// </summary>
         public static Vector4 operator * (
-            Vector4 vector, <#= type #> scaleFactor)
+            Vector4 vector, <#=T#> scaleFactor)
         {
             Vector4 result;
             Multiply (ref vector, ref scaleFactor, out result);
@@ -148,7 +148,7 @@
         /// Variant function.
         /// </summary>
         public static Vector4 operator * (
-            <#= type #> scaleFactor, Vector4 vector)
+            <#=T#> scaleFactor, Vector4 vector)
         {
             Vector4 result;
             Multiply (ref vector, ref scaleFactor, out result);
@@ -172,7 +172,7 @@
         /// Variant function.
         /// </summary>
         public static Vector4 Divide (
-            Vector4 vector1, <#= type #> divider)
+            Vector4 vector1, <#=T#> divider)
         {
             Vector4 result;
             Divide (ref vector1, ref divider, out result);
@@ -192,7 +192,7 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public static Vector4 operator / (Vector4 vector1, <#= type #> divider)
+        public static Vector4 operator / (Vector4 vector1, <#=T#> divider)
         {
             Vector4 result;
             Divide (ref vector1, ref divider, out result);

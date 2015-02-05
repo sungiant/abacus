@@ -2,7 +2,7 @@
         /// Calculates the length² of a Quaternion.
         /// </summary>
         public static void LengthSquared (
-            ref Quaternion quaternion, out <#= type #> result)
+            ref Quaternion quaternion, out <#=T#> result)
         {
             result =
                 (quaternion.I * quaternion.I) +
@@ -15,9 +15,9 @@
         /// Calculates the length of a Quaternion.
         /// </summary>
         public static void Length (
-            ref Quaternion quaternion, out <#= type #> result)
+            ref Quaternion quaternion, out <#=T#> result)
         {
-            <#= type #> lengthSquared =
+            <#=T#> lengthSquared =
                 (quaternion.I * quaternion.I) +
                 (quaternion.J * quaternion.J) +
                 (quaternion.K * quaternion.K) +
@@ -45,14 +45,14 @@
         public static void Inverse (
             ref Quaternion quaternion, out Quaternion result)
         {
-            <#= type #> one = 1;
-            <#= type #> a =
+            <#=T#> one = 1;
+            <#=T#> a =
                 (quaternion.I * quaternion.I) +
                 (quaternion.J * quaternion.J) +
                 (quaternion.K * quaternion.K) +
                 (quaternion.U * quaternion.U);
 
-            <#= type #> b = one / a;
+            <#=T#> b = one / a;
 
             result.I = -quaternion.I * b;
             result.J = -quaternion.J * b;
@@ -64,7 +64,7 @@
         /// Calculates the dot product of two Quaternions.
         /// </summary>
         public static void Dot (
-            ref Quaternion q1, ref Quaternion q2, out <#= type #> result)
+            ref Quaternion q1, ref Quaternion q2, out <#=T#> result)
         {
             result =
                 (q1.I * q2.I) +
@@ -74,26 +74,26 @@
         }
 
         /// <summary>
-        /// Concatenates two Quaternions; the result represents the first 
+        /// Concatenates two Quaternions; the result represents the first
         /// rotation followed by the second rotation.
         /// </summary>
         public static void Concatenate (
             ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            <#= type #> i1 = q1.I;
-            <#= type #> j1 = q1.J;
-            <#= type #> k1 = q1.K;
-            <#= type #> u1 = q1.U;
+            <#=T#> i1 = q1.I;
+            <#=T#> j1 = q1.J;
+            <#=T#> k1 = q1.K;
+            <#=T#> u1 = q1.U;
 
-            <#= type #> i2 = q2.I;
-            <#= type #> j2 = q2.J;
-            <#= type #> k2 = q2.K;
-            <#= type #> u2 = q2.U;
+            <#=T#> i2 = q2.I;
+            <#=T#> j2 = q2.J;
+            <#=T#> k2 = q2.K;
+            <#=T#> u2 = q2.U;
 
-            <#= type #> a = (j2 * k1) - (k2 * j1);
-            <#= type #> b = (k2 * i1) - (i2 * k1);
-            <#= type #> c = (i2 * j1) - (j2 * i1);
-            <#= type #> d = (i2 * i1) - (j2 * j1);
+            <#=T#> a = (j2 * k1) - (k2 * j1);
+            <#=T#> b = (k2 * i1) - (i2 * k1);
+            <#=T#> c = (i2 * j1) - (j2 * i1);
+            <#=T#> d = (i2 * i1) - (j2 * j1);
 
             result.I = (i2 * u1) + (i1 * u2) + a;
             result.J = (j2 * u1) + (j1 * u2) + b;
@@ -102,21 +102,21 @@
         }
 
         /// <summary>
-        /// Divides each component of the quaternion by the length of the 
+        /// Divides each component of the quaternion by the length of the
         /// quaternion.
         /// </summary>
         public static void Normalise (
             ref Quaternion quaternion, out Quaternion result)
         {
-            <#= type #> one = 1;
+            <#=T#> one = 1;
 
-            <#= type #> a =
+            <#=T#> a =
                 (quaternion.I * quaternion.I) +
                 (quaternion.J * quaternion.J) +
                 (quaternion.K * quaternion.K) +
                 (quaternion.U * quaternion.U);
 
-            <#= type #> b = one / Maths.Sqrt (a);
+            <#=T#> b = one / Maths.Sqrt (a);
 
             result.I = quaternion.I * b;
             result.J = quaternion.J * b;

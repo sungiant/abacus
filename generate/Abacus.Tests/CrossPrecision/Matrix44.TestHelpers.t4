@@ -14,14 +14,14 @@
         }
 
         /// <summary>
-        /// Helper function for getting the next random <#= type #> value.
+        /// Helper function for getting the next random <#=T#> value.
         /// </summary>
-        static <#= type #> GetNextRandom<#= type #> ()
+        static <#=T#> GetNextRandom<#=T#> ()
         {
-            <#= type #> randomValue = rand.Next<#= type #>();
+            <#=T#> randomValue = rand.Next<#=T#>();
 
-            <#= type #> zero = 0;
-            <#= type #> multiplier = 1000;
+            <#=T#> zero = 0;
+            <#=T#> multiplier = 1000;
 
             randomValue *= multiplier;
 
@@ -38,25 +38,25 @@
         /// </summary>
         internal static Matrix44 GetNextRandomMatrix44 ()
         {
-            <#= type #> a = GetNextRandom<#= type #>();
-            <#= type #> b = GetNextRandom<#= type #>();
-            <#= type #> c = GetNextRandom<#= type #>();
-            <#= type #> d = GetNextRandom<#= type #>();
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
+            <#=T#> c = GetNextRandom<#=T#>();
+            <#=T#> d = GetNextRandom<#=T#>();
 
-            <#= type #> e = GetNextRandom<#= type #>();
-            <#= type #> f = GetNextRandom<#= type #>();
-            <#= type #> g = GetNextRandom<#= type #>();
-            <#= type #> h = GetNextRandom<#= type #>();
+            <#=T#> e = GetNextRandom<#=T#>();
+            <#=T#> f = GetNextRandom<#=T#>();
+            <#=T#> g = GetNextRandom<#=T#>();
+            <#=T#> h = GetNextRandom<#=T#>();
 
-            <#= type #> i = GetNextRandom<#= type #>();
-            <#= type #> j = GetNextRandom<#= type #>();
-            <#= type #> k = GetNextRandom<#= type #>();
-            <#= type #> l = GetNextRandom<#= type #>();
+            <#=T#> i = GetNextRandom<#=T#>();
+            <#=T#> j = GetNextRandom<#=T#>();
+            <#=T#> k = GetNextRandom<#=T#>();
+            <#=T#> l = GetNextRandom<#=T#>();
 
-            <#= type #> m = GetNextRandom<#= type #>();
-            <#= type #> n = GetNextRandom<#= type #>();
-            <#= type #> o = GetNextRandom<#= type #>();
-            <#= type #> p = GetNextRandom<#= type #>();
+            <#=T#> m = GetNextRandom<#=T#>();
+            <#=T#> n = GetNextRandom<#=T#>();
+            <#=T#> o = GetNextRandom<#=T#>();
+            <#=T#> p = GetNextRandom<#=T#>();
 
             return new Matrix44(
                 a, b, c, d,
@@ -70,7 +70,7 @@
         /// </summary>
         internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
         {
-            <#= type #> tolerance;
+            <#=T#> tolerance;
             MathsTests.TestTolerance(out tolerance);
 
             Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));

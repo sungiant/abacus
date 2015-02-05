@@ -37,21 +37,21 @@
         [Test]
         public void TestStaticFn_Decompose_i ()
         {
-            <#= type #> a1 = 4;
-            <#= type #> a2 = 2;
-            <#= type #> a3 = 3;
+            <#=T#> a1 = 4;
+            <#=T#> a2 = 2;
+            <#=T#> a3 = 3;
 
             Matrix44 scale;
             Matrix44.CreateScale(ref a1, ref a2, ref a3, out scale);
 
             Matrix44 rotation;
-            <#= type #> pi; Maths.Pi(out pi);
+            <#=T#> pi; Maths.Pi(out pi);
             Matrix44.CreateRotationY(ref pi, out rotation);
 
 
-            <#= type #> b1 = 100;
-            <#= type #> b2 = 5;
-            <#= type #> b3 = 3;
+            <#=T#> b1 = 100;
+            <#=T#> b2 = 5;
+            <#=T#> b3 = 3;
 
             Matrix44 translation;
             Matrix44.CreateTranslation(ref b1, ref b2, ref b3, out translation);

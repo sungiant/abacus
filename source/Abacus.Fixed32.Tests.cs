@@ -1480,14 +1480,14 @@ namespace Abacus.Fixed32Precision
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -1500,7 +1500,7 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Vector2 objects are compared.
         /// </summary>
         [Test]
@@ -1516,7 +1516,7 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Vector2 objects are compared.
         /// </summary>
         [Test]
@@ -1531,8 +1531,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Vector2 objects.
         /// </summary>
         [Test]
@@ -1565,7 +1565,7 @@ namespace Abacus.Fixed32Precision
 
             Vector2 result_1b; Vector2.Add(ref a, ref b, out result_1b);
             Vector2 result_2b; Vector2.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -1588,7 +1588,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero vector, all the 
+        /// Assert that, for a known example involving the zero vector, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -1602,7 +1602,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero vectors, all the 
+        /// Assert that, for a known example involving two zero vectors, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -1612,7 +1612,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -1631,7 +1631,7 @@ namespace Abacus.Fixed32Precision
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -1646,7 +1646,7 @@ namespace Abacus.Fixed32Precision
 
             Vector2 result_1b; Vector2.Subtract(ref a, ref b, out result_1b);
             Vector2 result_2b; Vector2.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -1670,8 +1670,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero vector fromt the zero vector, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero vector fromt the zero vector,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -1681,7 +1681,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -1700,7 +1700,7 @@ namespace Abacus.Fixed32Precision
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -1712,7 +1712,7 @@ namespace Abacus.Fixed32Precision
             var result_1a = -a;
 
             Vector2 result_1b; Vector2.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -1739,7 +1739,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero vector, all the 
+        /// Assert that, for known examples involving the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -1758,7 +1758,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that when negating the zero vector, all the 
+        /// Assert that when negating the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -1768,7 +1768,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -1798,7 +1798,7 @@ namespace Abacus.Fixed32Precision
 
             Vector2 result_1b; Vector2.Multiply(ref a, ref b, out result_1b);
             Vector2 result_2b; Vector2.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -1827,7 +1827,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -1859,13 +1859,13 @@ namespace Abacus.Fixed32Precision
             var result_1a = a / b;
 
             Vector2 result_1b; Vector2.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -1886,7 +1886,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -1906,7 +1906,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -3646,14 +3646,14 @@ namespace Abacus.Fixed32Precision
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -3666,7 +3666,7 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Vector3 objects are compared.
         /// </summary>
         [Test]
@@ -3682,7 +3682,7 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Vector3 objects are compared.
         /// </summary>
         [Test]
@@ -3697,8 +3697,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Vector3 objects.
         /// </summary>
         [Test]
@@ -3731,7 +3731,7 @@ namespace Abacus.Fixed32Precision
 
             Vector3 result_1b; Vector3.Add(ref a, ref b, out result_1b);
             Vector3 result_2b; Vector3.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -3754,7 +3754,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero vector, all the 
+        /// Assert that, for a known example involving the zero vector, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -3768,7 +3768,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero vectors, all the 
+        /// Assert that, for a known example involving two zero vectors, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -3778,7 +3778,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -3798,7 +3798,7 @@ namespace Abacus.Fixed32Precision
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -3813,7 +3813,7 @@ namespace Abacus.Fixed32Precision
 
             Vector3 result_1b; Vector3.Subtract(ref a, ref b, out result_1b);
             Vector3 result_2b; Vector3.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -3837,8 +3837,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero vector fromt the zero vector, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero vector fromt the zero vector,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -3848,7 +3848,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -3867,7 +3867,7 @@ namespace Abacus.Fixed32Precision
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -3879,7 +3879,7 @@ namespace Abacus.Fixed32Precision
             var result_1a = -a;
 
             Vector3 result_1b; Vector3.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -3906,7 +3906,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero vector, all the 
+        /// Assert that, for known examples involving the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -3925,7 +3925,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that when negating the zero vector, all the 
+        /// Assert that when negating the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -3935,7 +3935,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -3965,7 +3965,7 @@ namespace Abacus.Fixed32Precision
 
             Vector3 result_1b; Vector3.Multiply(ref a, ref b, out result_1b);
             Vector3 result_2b; Vector3.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -3995,7 +3995,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -4027,13 +4027,13 @@ namespace Abacus.Fixed32Precision
             var result_1a = a / b;
 
             Vector3 result_1b; Vector3.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -4055,7 +4055,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -4077,7 +4077,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>
@@ -5669,14 +5669,14 @@ namespace Abacus.Fixed32Precision
             Boolean result_1a = (a == b);
             Boolean result_1b = (a.Equals(b));
             Boolean result_1c = (a.Equals((Object)b));
-            
+
             Boolean result_2a = (b == a);
             Boolean result_2b = (b.Equals(a));
             Boolean result_2c = (b.Equals((Object)a));
 
             Boolean result_3a = (a != b);
             Boolean result_4a = (b != a);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
             Assert.That(result_1c, Is.EqualTo(expected));
@@ -5689,7 +5689,7 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of TRUE when two equal  
+        /// and functions yield the expected result of TRUE when two equal
         /// Vector4 objects are compared.
         /// </summary>
         [Test]
@@ -5705,7 +5705,7 @@ namespace Abacus.Fixed32Precision
 
         /// <summary>
         /// Makes sure that, for a known example, all the equality opperators
-        /// and functions yield the expected result of FALSE when two unequal  
+        /// and functions yield the expected result of FALSE when two unequal
         /// Vector4 objects are compared.
         /// </summary>
         [Test]
@@ -5720,8 +5720,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Tests to make sure that all the equality opperators and functions 
-        /// yield the expected result of TRUE when used on a number of randomly 
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
         /// generated pairs of equal Vector4 objects.
         /// </summary>
         [Test]
@@ -5754,7 +5754,7 @@ namespace Abacus.Fixed32Precision
 
             Vector4 result_1b; Vector4.Add(ref a, ref b, out result_1b);
             Vector4 result_2b; Vector4.Add(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -5777,7 +5777,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example involving the zero vector, all the 
+        /// Assert that, for a known example involving the zero vector, all the
         /// addition opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -5791,7 +5791,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example involving two zero vectors, all the 
+        /// Assert that, for a known example involving two zero vectors, all the
         /// addition opperators and functions yield the correct result of zero.
         /// </summary>
         [Test]
@@ -5801,7 +5801,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// addition opperators and functions yield the same results as a
         /// manual addition calculation.
         /// </summary>
@@ -5821,7 +5821,7 @@ namespace Abacus.Fixed32Precision
         }
 
         // Test Operator: Subtraction //--------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing subtraction.
         /// </summary>
@@ -5836,7 +5836,7 @@ namespace Abacus.Fixed32Precision
 
             Vector4 result_1b; Vector4.Subtract(ref a, ref b, out result_1b);
             Vector4 result_2b; Vector4.Subtract(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(-expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -5860,8 +5860,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that when subtracting the zero vector fromt the zero vector, 
-        /// all the subtraction opperators and functions yield the correct 
+        /// Assert that when subtracting the zero vector fromt the zero vector,
+        /// all the subtraction opperators and functions yield the correct
         /// result.
         /// <summary>
         [Test]
@@ -5871,7 +5871,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// subtraction opperators and functions yield the same results as a
         /// manual subtraction calculation.
         /// </summary>
@@ -5891,7 +5891,7 @@ namespace Abacus.Fixed32Precision
         }
 
         // Test Operator: Negation //-----------------------------------------//
-        
+
         /// <summary>
         /// Helper method for testing negation.
         /// </summary>
@@ -5903,7 +5903,7 @@ namespace Abacus.Fixed32Precision
             var result_1a = -a;
 
             Vector4 result_1b; Vector4.Negate(ref a, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
@@ -5930,7 +5930,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for known examples involving the zero vector, all the 
+        /// Assert that, for known examples involving the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -5949,7 +5949,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that when negating the zero vector, all the 
+        /// Assert that when negating the zero vector, all the
         /// negation opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -5959,7 +5959,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// negation opperators and functions yield the same results as a
         /// manual negation calculation.
         /// </summary>
@@ -5989,7 +5989,7 @@ namespace Abacus.Fixed32Precision
 
             Vector4 result_1b; Vector4.Multiply(ref a, ref b, out result_1b);
             Vector4 result_2b; Vector4.Multiply(ref b, ref a, out result_2b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_2a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
@@ -6020,7 +6020,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// multiplication opperators and functions yield the same results as a
         /// manual multiplication calculation.
         /// </summary>
@@ -6053,13 +6053,13 @@ namespace Abacus.Fixed32Precision
             var result_1a = a / b;
 
             Vector4 result_1b; Vector4.Divide(ref a, ref b, out result_1b);
-            
+
             Assert.That(result_1a, Is.EqualTo(expected));
             Assert.That(result_1b, Is.EqualTo(expected));
         }
 
         /// <summary>
-        /// Assert that, for a known example using whole numbers, all the 
+        /// Assert that, for a known example using whole numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -6082,7 +6082,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a known example using fractional numbers, all the 
+        /// Assert that, for a known example using fractional numbers, all the
         /// division opperators and functions yield the correct result.
         /// </summary>
         [Test]
@@ -6105,7 +6105,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// Assert that, for a number of randomly generated scenarios, all the 
+        /// Assert that, for a number of randomly generated scenarios, all the
         /// division opperators and functions yield the same results as a
         /// manual addition division.
         /// </summary>

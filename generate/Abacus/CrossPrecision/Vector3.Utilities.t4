@@ -37,13 +37,13 @@
             ref Vector3 max,
             out Vector3 result)
         {
-            <#= type #> x = a.X;
+            <#=T#> x = a.X;
             x = (x > max.X) ? max.X : x;
             x = (x < min.X) ? min.X : x;
-            <#= type #> y = a.Y;
+            <#=T#> y = a.Y;
             y = (y > max.Y) ? max.Y : y;
             y = (y < min.Y) ? min.Y : y;
-            <#= type #> z = a.Z;
+            <#=T#> z = a.Z;
             z = (z > max.Z) ? max.Z : z;
             z = (z < min.Z) ? min.Z : z;
             result.X = x;
@@ -57,11 +57,11 @@
         public static void Lerp (
             ref Vector3 a,
             ref Vector3 b,
-            ref <#= type #> amount,
+            ref <#=T#> amount,
             out Vector3 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -77,7 +77,7 @@
         /// </summary>
         public static void IsUnit (ref Vector3 vector, out Boolean result)
         {
-            <#= type #> one = 1;
+            <#=T#> one = 1;
             result = Maths.IsZero(
                 one
                 - vector.X * vector.X

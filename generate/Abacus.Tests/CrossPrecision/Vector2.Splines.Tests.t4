@@ -13,7 +13,7 @@
                 var a = GetNextRandomVector2();
                 var b = GetNextRandomVector2();
 
-                <#= type #> amount1 = 0;
+                <#=T#> amount1 = 0;
                 Vector2 result1;
 
                 Vector2.SmoothStep (
@@ -21,7 +21,7 @@
 
                 AssertEqualWithinReason(result1, a);
 
-                <#= type #> amount2 = 1;
+                <#=T#> amount2 = 1;
                 Vector2 result2;
 
                 Vector2.SmoothStep (
@@ -41,9 +41,9 @@
             var a = GetNextRandomVector2();
             var b = GetNextRandomVector2();
 
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> half; Maths.Half(out half);
 
-            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
 
             for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
@@ -67,26 +67,26 @@
             var a = new Vector2( -30, -30 );
             var b = new Vector2( +30, +30 );
 
-            <#= type #> one = 1;
+            <#=T#> one = 1;
 
-            <#= type #> i;
+            <#=T#> i;
             Maths.FromFraction(1755, 64, out i); // 27.421875
 
-            <#= type #> j;
+            <#=T#> j;
             Maths.FromFraction( 165,  8, out j); // 20.625
 
-            <#= type #> k;
+            <#=T#> k;
             Maths.FromFraction( 705, 64, out k); // 11.015625
 
-            <#= type #> a0 = 0;
-            <#= type #> a1 = (one * 1) / 8;
-            <#= type #> a2 = (one * 2) / 8;
-            <#= type #> a3 = (one * 3) / 8;
-            <#= type #> a4 = (one * 4) / 8;
-            <#= type #> a5 = (one * 5) / 8;
-            <#= type #> a6 = (one * 6) / 8;
-            <#= type #> a7 = (one * 7) / 8;
-            <#= type #> a8 = 1;
+            <#=T#> a0 = 0;
+            <#=T#> a1 = (one * 1) / 8;
+            <#=T#> a2 = (one * 2) / 8;
+            <#=T#> a3 = (one * 3) / 8;
+            <#=T#> a4 = (one * 4) / 8;
+            <#=T#> a5 = (one * 5) / 8;
+            <#=T#> a6 = (one * 6) / 8;
+            <#=T#> a7 = (one * 7) / 8;
+            <#=T#> a8 = 1;
 
             Vector2 r0 = a;
             Vector2 r1 = new Vector2( -i, -i );
@@ -98,23 +98,23 @@
             Vector2 r7 = new Vector2(  i,  i );
             Vector2 r8 = b;
 
-            var knownResults = new List<Tuple<<#= type #>, Vector2>>
+            var knownResults = new List<Tuple<<#=T#>, Vector2>>
             {
-                new Tuple<<#= type #>, Vector2>( a0, r0 ),
-                new Tuple<<#= type #>, Vector2>( a1, r1 ),
-                new Tuple<<#= type #>, Vector2>( a2, r2 ),
-                new Tuple<<#= type #>, Vector2>( a3, r3 ),
-                new Tuple<<#= type #>, Vector2>( a4, r4 ),
-                new Tuple<<#= type #>, Vector2>( a5, r5 ),
-                new Tuple<<#= type #>, Vector2>( a6, r6 ),
-                new Tuple<<#= type #>, Vector2>( a7, r7 ),
-                new Tuple<<#= type #>, Vector2>( a8, r8 ),
+                new Tuple<<#=T#>, Vector2>( a0, r0 ),
+                new Tuple<<#=T#>, Vector2>( a1, r1 ),
+                new Tuple<<#=T#>, Vector2>( a2, r2 ),
+                new Tuple<<#=T#>, Vector2>( a3, r3 ),
+                new Tuple<<#=T#>, Vector2>( a4, r4 ),
+                new Tuple<<#=T#>, Vector2>( a5, r5 ),
+                new Tuple<<#=T#>, Vector2>( a6, r6 ),
+                new Tuple<<#=T#>, Vector2>( a7, r7 ),
+                new Tuple<<#=T#>, Vector2>( a8, r8 ),
             };
 
             for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector2 result;
-                <#= type #> amount = knownResults[idx].Item1;
+                <#=T#> amount = knownResults[idx].Item1;
                 Vector2 expected = knownResults[idx].Item2;
 
                 Vector2.SmoothStep (
@@ -141,7 +141,7 @@
                 var c = GetNextRandomVector2();
                 var d = GetNextRandomVector2();
 
-                <#= type #> amount1 = 0;
+                <#=T#> amount1 = 0;
                 Vector2 result1;
 
                 Vector2.CatmullRom (
@@ -149,7 +149,7 @@
 
                 AssertEqualWithinReason(result1, b);
 
-                <#= type #> amount2 = 1;
+                <#=T#> amount2 = 1;
                 Vector2 result2;
 
                 Vector2.CatmullRom (
@@ -170,24 +170,24 @@
             var c = new Vector2( +30, +30 );
             var d = new Vector2( +90, -30 );
 
-            <#= type #> one = 1;
+            <#=T#> one = 1;
 
-            <#= type #> u = 15;
-            <#= type #> v = (<#= type #>) 165  / (<#= type #>)  8; // 20.5
-            <#= type #> w = (<#= type #>) 45   / (<#= type #>)  2; // 20.625
-            <#= type #> x = (<#= type #>) 1755 / (<#= type #>) 64; // 27.421875
-            <#= type #> y = (<#= type #>) 15   / (<#= type #>)  2; // 14.5
-            <#= type #> z = (<#= type #>) 705  / (<#= type #>) 64; // 11.015625
+            <#=T#> u = 15;
+            <#=T#> v = (<#=T#>) 165  / (<#=T#>)  8; // 20.5
+            <#=T#> w = (<#=T#>) 45   / (<#=T#>)  2; // 20.625
+            <#=T#> x = (<#=T#>) 1755 / (<#=T#>) 64; // 27.421875
+            <#=T#> y = (<#=T#>) 15   / (<#=T#>)  2; // 14.5
+            <#=T#> z = (<#=T#>) 705  / (<#=T#>) 64; // 11.015625
 
-            <#= type #> a0 = 0;
-            <#= type #> a1 = (one * 1) / 8;
-            <#= type #> a2 = (one * 2) / 8;
-            <#= type #> a3 = (one * 3) / 8;
-            <#= type #> a4 = (one * 4) / 8;
-            <#= type #> a5 = (one * 5) / 8;
-            <#= type #> a6 = (one * 6) / 8;
-            <#= type #> a7 = (one * 7) / 8;
-            <#= type #> a8 = 1;
+            <#=T#> a0 = 0;
+            <#=T#> a1 = (one * 1) / 8;
+            <#=T#> a2 = (one * 2) / 8;
+            <#=T#> a3 = (one * 3) / 8;
+            <#=T#> a4 = (one * 4) / 8;
+            <#=T#> a5 = (one * 5) / 8;
+            <#=T#> a6 = (one * 6) / 8;
+            <#=T#> a7 = (one * 7) / 8;
+            <#=T#> a8 = 1;
 
             Vector2 r0 = b;
             Vector2 r1 = new Vector2( -w, -x );
@@ -199,23 +199,23 @@
             Vector2 r7 = new Vector2(  w,  x );
             Vector2 r8 = c;
 
-            var knownResults = new List<Tuple<<#= type #>, Vector2>>
+            var knownResults = new List<Tuple<<#=T#>, Vector2>>
             {
-                new Tuple<<#= type #>, Vector2>( a0, r0 ),
-                new Tuple<<#= type #>, Vector2>( a1, r1 ),
-                new Tuple<<#= type #>, Vector2>( a2, r2 ),
-                new Tuple<<#= type #>, Vector2>( a3, r3 ),
-                new Tuple<<#= type #>, Vector2>( a4, r4 ),
-                new Tuple<<#= type #>, Vector2>( a5, r5 ),
-                new Tuple<<#= type #>, Vector2>( a6, r6 ),
-                new Tuple<<#= type #>, Vector2>( a7, r7 ),
-                new Tuple<<#= type #>, Vector2>( a8, r8 ),
+                new Tuple<<#=T#>, Vector2>( a0, r0 ),
+                new Tuple<<#=T#>, Vector2>( a1, r1 ),
+                new Tuple<<#=T#>, Vector2>( a2, r2 ),
+                new Tuple<<#=T#>, Vector2>( a3, r3 ),
+                new Tuple<<#=T#>, Vector2>( a4, r4 ),
+                new Tuple<<#=T#>, Vector2>( a5, r5 ),
+                new Tuple<<#=T#>, Vector2>( a6, r6 ),
+                new Tuple<<#=T#>, Vector2>( a7, r7 ),
+                new Tuple<<#=T#>, Vector2>( a8, r8 ),
             };
 
             for(Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector2 result;
-                <#= type #> amount = knownResults[idx].Item1;
+                <#=T#> amount = knownResults[idx].Item1;
                 Vector2 expected = knownResults[idx].Item2;
 
                 Vector2.CatmullRom (
@@ -237,9 +237,9 @@
             var c = GetNextRandomVector2();
             var d = GetNextRandomVector2();
 
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> half; Maths.Half(out half);
 
-            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
 
             for(Int32 idx = 0; idx < tests.Length; ++idx)
             {
@@ -267,13 +267,13 @@
             var c = new Vector2( +30, +30 );
             var d = new Vector2( +90, +90 );
 
-            <#= type #> one = 1;
+            <#=T#> one = 1;
 
-            <#= type #> a0 = 0;
-            <#= type #> a1 = (one * 1) / 4;
-            <#= type #> a2 = (one * 2) / 4;
-            <#= type #> a3 = (one * 3) / 4;
-            <#= type #> a4 = 1;
+            <#=T#> a0 = 0;
+            <#=T#> a1 = (one * 1) / 4;
+            <#=T#> a2 = (one * 2) / 4;
+            <#=T#> a3 = (one * 3) / 4;
+            <#=T#> a4 = 1;
 
             Vector2 r0 = b;
             Vector2 r1 = new Vector2( -15, -15 );
@@ -281,19 +281,19 @@
             Vector2 r3 = new Vector2( 15, 15 );
             Vector2 r4 = c;
 
-            var knownResults = new List<Tuple<<#= type #>, Vector2>>
+            var knownResults = new List<Tuple<<#=T#>, Vector2>>
             {
-                new Tuple<<#= type #>, Vector2>( a0, r0 ),
-                new Tuple<<#= type #>, Vector2>( a1, r1 ),
-                new Tuple<<#= type #>, Vector2>( a2, r2 ),
-                new Tuple<<#= type #>, Vector2>( a3, r3 ),
-                new Tuple<<#= type #>, Vector2>( a4, r4 ),
+                new Tuple<<#=T#>, Vector2>( a0, r0 ),
+                new Tuple<<#=T#>, Vector2>( a1, r1 ),
+                new Tuple<<#=T#>, Vector2>( a2, r2 ),
+                new Tuple<<#=T#>, Vector2>( a3, r3 ),
+                new Tuple<<#=T#>, Vector2>( a4, r4 ),
             };
 
             for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector2 result;
-                <#= type #> amount = knownResults[idx].Item1;
+                <#=T#> amount = knownResults[idx].Item1;
                 Vector2 expected = knownResults[idx].Item2;
 
                 Vector2.CatmullRom (
@@ -324,7 +324,7 @@
                 Vector2 an; Vector2.Normalise(ref c, out an);
                 Vector2 bn; Vector2.Normalise(ref d, out bn);
 
-                <#= type #> amount1 = 0;
+                <#=T#> amount1 = 0;
                 Vector2 result1;
 
                 Vector2.Hermite (
@@ -332,7 +332,7 @@
 
                 AssertEqualWithinReason(result1, a);
 
-                <#= type #> amount2 = 1;
+                <#=T#> amount2 = 1;
                 Vector2 result2;
 
                 Vector2.Hermite (
@@ -357,9 +357,9 @@
             Vector2 an; Vector2.Normalise(ref c, out an);
             Vector2 bn; Vector2.Normalise(ref d, out bn);
 
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> half; Maths.Half(out half);
 
-            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
 
             for (Int32 idx = 0; idx < tests.Length; ++idx)
             {
@@ -390,59 +390,59 @@
             Vector2 an; Vector2.Normalise(ref c, out an);
             Vector2 bn; Vector2.Normalise(ref d, out bn);
 
-            <#= type #> one = 1;
+            <#=T#> one = 1;
 
             // 100.1953125
-            <#= type #> e = (<#= type #>) 51300 / (<#= type #>) 512;
+            <#=T#> e = (<#=T#>) 51300 / (<#=T#>) 512;
 
             // 50.09765625
-            <#= type #> f = (<#= type #>) 12825 / (<#= type #>) 256;
+            <#=T#> f = (<#=T#>) 12825 / (<#=T#>) 256;
 
             // 91.25
-            <#= type #> g = (<#= type #>) 365 / (<#= type #>) 4;
+            <#=T#> g = (<#=T#>) 365 / (<#=T#>) 4;
 
             // 45.625
-            <#= type #> h = (<#= type #>) 365 / (<#= type #>) 8;
+            <#=T#> h = (<#=T#>) 365 / (<#=T#>) 8;
 
             // 75.7421875
-            <#= type #> i = (<#= type #>) 9695 / (<#= type #>) 128;
+            <#=T#> i = (<#=T#>) 9695 / (<#=T#>) 128;
 
             // 37.87109375
-            <#= type #> j = (<#= type #>) 9695 / (<#= type #>) 256;
+            <#=T#> j = (<#=T#>) 9695 / (<#=T#>) 256;
 
             // 56.25
-            <#= type #> k = (<#= type #>) 225 / (<#= type #>) 4;
+            <#=T#> k = (<#=T#>) 225 / (<#=T#>) 4;
 
             // 28.125
-            <#= type #> l = (<#= type #>) 225 / (<#= type #>) 8;
+            <#=T#> l = (<#=T#>) 225 / (<#=T#>) 8;
 
             // 35.3515625
-            <#= type #> m = (<#= type #>) 4525 / (<#= type #>) 128;
+            <#=T#> m = (<#=T#>) 4525 / (<#=T#>) 128;
 
             // 17.67578125
-            <#= type #> n = (<#= type #>) 4525 / (<#= type #>) 256;
+            <#=T#> n = (<#=T#>) 4525 / (<#=T#>) 256;
 
             // 15.625
-            <#= type #> o = (<#= type #>) 125 / (<#= type #>) 8;
+            <#=T#> o = (<#=T#>) 125 / (<#=T#>) 8;
 
             // 7.8125
-            <#= type #> p = (<#= type #>) 125 / (<#= type #>) 16;
+            <#=T#> p = (<#=T#>) 125 / (<#=T#>) 16;
 
             // 0.3515625
-            <#= type #> q = (<#= type #>) 45 / (<#= type #>) 128;
+            <#=T#> q = (<#=T#>) 45 / (<#=T#>) 128;
 
             // 0.17578125
-            <#= type #> r = (<#= type #>) 45 / (<#= type #>) 256;
+            <#=T#> r = (<#=T#>) 45 / (<#=T#>) 256;
 
-            <#= type #> a0 = 0;
-            <#= type #> a1 = (one * 1) / 8;
-            <#= type #> a2 = (one * 2) / 8;
-            <#= type #> a3 = (one * 3) / 8;
-            <#= type #> a4 = (one * 4) / 8;
-            <#= type #> a5 = (one * 5) / 8;
-            <#= type #> a6 = (one * 6) / 8;
-            <#= type #> a7 = (one * 7) / 8;
-            <#= type #> a8 = 1;
+            <#=T#> a0 = 0;
+            <#=T#> a1 = (one * 1) / 8;
+            <#=T#> a2 = (one * 2) / 8;
+            <#=T#> a3 = (one * 3) / 8;
+            <#=T#> a4 = (one * 4) / 8;
+            <#=T#> a5 = (one * 5) / 8;
+            <#=T#> a6 = (one * 6) / 8;
+            <#=T#> a7 = (one * 7) / 8;
+            <#=T#> a8 = 1;
 
             Vector2 r0 = b;
             Vector2 r1 = new Vector2(  e, -f );
@@ -454,23 +454,23 @@
             Vector2 r7 = new Vector2( -q,  r );
             Vector2 r8 = c;
 
-            var knownResults = new List<Tuple<<#= type #>, Vector2>>
+            var knownResults = new List<Tuple<<#=T#>, Vector2>>
             {
-                new Tuple<<#= type #>, Vector2>( a0, r0 ),
-                new Tuple<<#= type #>, Vector2>( a1, r1 ),
-                new Tuple<<#= type #>, Vector2>( a2, r2 ),
-                new Tuple<<#= type #>, Vector2>( a3, r3 ),
-                new Tuple<<#= type #>, Vector2>( a4, r4 ),
-                new Tuple<<#= type #>, Vector2>( a5, r5 ),
-                new Tuple<<#= type #>, Vector2>( a6, r6 ),
-                new Tuple<<#= type #>, Vector2>( a7, r7 ),
-                new Tuple<<#= type #>, Vector2>( a8, r8 ),
+                new Tuple<<#=T#>, Vector2>( a0, r0 ),
+                new Tuple<<#=T#>, Vector2>( a1, r1 ),
+                new Tuple<<#=T#>, Vector2>( a2, r2 ),
+                new Tuple<<#=T#>, Vector2>( a3, r3 ),
+                new Tuple<<#=T#>, Vector2>( a4, r4 ),
+                new Tuple<<#=T#>, Vector2>( a5, r5 ),
+                new Tuple<<#=T#>, Vector2>( a6, r6 ),
+                new Tuple<<#=T#>, Vector2>( a7, r7 ),
+                new Tuple<<#=T#>, Vector2>( a8, r8 ),
             };
 
             for (Int32 idx = 0; idx < knownResults.Count; ++idx)
             {
                 Vector2 result;
-                <#= type #> amount = knownResults[idx].Item1;
+                <#=T#> amount = knownResults[idx].Item1;
                 Vector2 expected = knownResults[idx].Item2;
 
                 Vector2.CatmullRom (

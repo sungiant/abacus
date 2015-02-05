@@ -343,10 +343,10 @@
         [Test]
         public void TestOperator_Negation_i ()
         {
-            <#= type #> r = 3432;
-            <#= type #> s = -6218;
-            <#= type #> t = -3432;
-            <#= type #> u = 6218;
+            <#=T#> r = 3432;
+            <#=T#> s = -6218;
+            <#=T#> t = -3432;
+            <#=T#> u = 6218;
 
             var a = new Matrix44(
                 r, s, t, u,
@@ -383,10 +383,10 @@
         [Test]
         public void TestOperator_Negation_ii ()
         {
-            <#= type #> t = -3432;
-            <#= type #> u = 6218;
-            <#= type #> r = 3432;
-            <#= type #> s = -6218;
+            <#=T#> t = -3432;
+            <#=T#> u = 6218;
+            <#=T#> r = 3432;
+            <#=T#> s = -6218;
 
             var c = new Matrix44(
                 t, u, r, s,

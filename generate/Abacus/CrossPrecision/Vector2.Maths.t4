@@ -4,12 +4,12 @@
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector2 vector1, ref Vector2 vector2, out <#= type #> result)
+            ref Vector2 vector1, ref Vector2 vector2, out <#=T#> result)
         {
-            <#= type #> dx = vector1.X - vector2.X;
-            <#= type #> dy = vector1.Y - vector2.Y;
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
 
-            <#= type #> lengthSquared = (dx * dx) + (dy * dy);
+            <#=T#> lengthSquared = (dx * dx) + (dy * dy);
 
             result = Maths.Sqrt (lengthSquared);
         }
@@ -18,10 +18,10 @@
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector2 vector1, ref Vector2 vector2, out <#= type #> result)
+            ref Vector2 vector1, ref Vector2 vector2, out <#=T#> result)
         {
-            <#= type #> dx = vector1.X - vector2.X;
-            <#= type #> dy = vector1.Y - vector2.Y;
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
 
             result = (dx * dx) + (dy * dy);
         }
@@ -35,7 +35,7 @@
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector2 vector1, ref Vector2 vector2, out <#= type #> result)
+            ref Vector2 vector1, ref Vector2 vector2, out <#=T#> result)
         {
             result = (vector1.X * vector2.X) + (vector1.Y * vector2.Y);
         }
@@ -47,19 +47,19 @@
         /// </summary>
         public static void Normalise (ref Vector2 vector, out Vector2 result)
         {
-            <#= type #> lengthSquared =
+            <#=T#> lengthSquared =
                 (vector.X * vector.X) + (vector.Y * vector.Y);
 
-            <#= type #> epsilon; Maths.Epsilon(out epsilon);
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
 
             if( lengthSquared <= epsilon ||
-                <#= type #>.IsInfinity(lengthSquared) )
+                <#=T#>.IsInfinity(lengthSquared) )
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> one = 1;
-            <#= type #> multiplier = one / Maths.Sqrt (lengthSquared);
+            <#=T#> one = 1;
+            <#=T#> multiplier = one / Maths.Sqrt (lengthSquared);
 
             result.X = vector.X * multiplier;
             result.Y = vector.Y * multiplier;
@@ -84,11 +84,11 @@
             //     = |vector| * [normal] * cosθ
             //     = |vector| * cosθ
             //     = adjacent
-            <#= type #> dot;
+            <#=T#> dot;
             Dot(ref vector, ref normal, out dot);
 
-            <#= type #> two = 2;
-            <#= type #> twoDot = dot * two;
+            <#=T#> two = 2;
+            <#=T#> twoDot = dot * two;
 
             // Starting vector minus twice the length of the adjcent projected
             // along the normal.
@@ -103,12 +103,12 @@
         public static void Transform (
             ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
         {
-            <#= type #> x =
+            <#=T#> x =
                 (vector.X * matrix.R0C0) +
                 (vector.Y * matrix.R1C0) +
                 matrix.R3C0;
 
-            <#= type #> y =
+            <#=T#> y =
                 (vector.X * matrix.R0C1) +
                 (vector.Y * matrix.R1C1) +
                 matrix.R3C1;
@@ -123,19 +123,19 @@
         public static void Transform (
             ref Vector2 vector, ref Quaternion rotation, out Vector2 result)
         {
-            <#= type #> two = 2;
+            <#=T#> two = 2;
 
-            <#= type #> i = rotation.I;
-            <#= type #> j = rotation.J;
-            <#= type #> k = rotation.K;
-            <#= type #> u = rotation.U;
+            <#=T#> i = rotation.I;
+            <#=T#> j = rotation.J;
+            <#=T#> k = rotation.K;
+            <#=T#> u = rotation.U;
 
-            <#= type #> ii = i * i;
-            <#= type #> jj = j * j;
-            <#= type #> kk = k * k;
+            <#=T#> ii = i * i;
+            <#=T#> jj = j * j;
+            <#=T#> kk = k * k;
 
-            <#= type #> uk = u * k;
-            <#= type #> ij = i * j;
+            <#=T#> uk = u * k;
+            <#=T#> ij = i * j;
 
             result.X =
                 + vector.X
@@ -162,8 +162,8 @@
                     "The normal vector: " + normal + " must be normalised.");
             }
 
-            <#= type #> x = (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0);
-            <#= type #> y = (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1);
+            <#=T#> x = (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0);
+            <#=T#> y = (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1);
 
             result.X = x;
             result.Y = y;
@@ -173,9 +173,9 @@
         /// Calculates the length of the Vector2.
         /// </summary>
         public static void Length (
-            ref Vector2 vector, out <#= type #> result)
+            ref Vector2 vector, out <#=T#> result)
         {
-            <#= type #> lengthSquared =
+            <#=T#> lengthSquared =
                 (vector.X * vector.X) + (vector.Y * vector.Y);
 
             result = Maths.Sqrt (lengthSquared);
@@ -185,7 +185,7 @@
         /// Calculates the length of the Vector2 squared.
         /// </summary>
         public static void LengthSquared (
-            ref Vector2 vector, out <#= type #> result)
+            ref Vector2 vector, out <#=T#> result)
         {
             result = (vector.X * vector.X) + (vector.Y * vector.Y);
         }

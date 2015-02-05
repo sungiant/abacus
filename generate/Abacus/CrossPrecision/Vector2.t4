@@ -1,5 +1,5 @@
 ﻿    /// <summary>
-    /// <#= type #> precision Vector2.
+    /// <#=T#> precision Vector2.
     /// </summary>
     [StructLayout (LayoutKind.Sequential), Serializable]
     public struct Vector2
@@ -8,18 +8,18 @@
         /// <summary>
         /// Gets or sets the X-component of the Vector2.
         /// </summary>
-        public <#= type #> X;
+        public <#=T#> X;
 
         /// <summary>
         /// Gets or sets the Y-component of the Vector2.
         /// </summary>
-        public <#= type #> Y;
+        public <#=T#> Y;
 
         /// <summary>
-        /// Initilises a new instance of Vector2 from two <#= type #> values
+        /// Initilises a new instance of Vector2 from two <#=T#> values
         /// representing X and Y respectively.
         /// </summary>
-        public Vector2 (<#= type #> x, <#= type #> y)
+        public Vector2 (<#=T#> x, <#=T#> y)
         {
             this.X = x;
             this.Y = y;

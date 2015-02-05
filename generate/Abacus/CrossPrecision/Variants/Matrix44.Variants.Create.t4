@@ -12,9 +12,9 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreateTranslation (
-            <#= type #> xPosition,
-            <#= type #> yPosition,
-            <#= type #> zPosition)
+            <#=T#> xPosition,
+            <#=T#> yPosition,
+            <#=T#> zPosition)
         {
             Matrix44 result;
             CreateTranslation (
@@ -27,9 +27,9 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreateScale (
-            <#= type #> xScale,
-            <#= type #> yScale,
-            <#= type #> zScale)
+            <#=T#> xScale,
+            <#=T#> yScale,
+            <#=T#> zScale)
         {
             Matrix44 result;
             CreateScale (
@@ -51,7 +51,7 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public static Matrix44 CreateScale (<#= type #> scale)
+        public static Matrix44 CreateScale (<#=T#> scale)
         {
             Matrix44 result;
             CreateScale (ref scale, out result);
@@ -61,7 +61,7 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public static Matrix44 CreateRotationX (<#= type #> radians)
+        public static Matrix44 CreateRotationX (<#=T#> radians)
         {
             Matrix44 result;
             CreateRotationX (ref radians, out result);
@@ -71,7 +71,7 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public static Matrix44 CreateRotationY (<#= type #> radians)
+        public static Matrix44 CreateRotationY (<#=T#> radians)
         {
             Matrix44 result;
             CreateRotationY (ref radians, out result);
@@ -81,7 +81,7 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public static Matrix44 CreateRotationZ (<#= type #> radians)
+        public static Matrix44 CreateRotationZ (<#=T#> radians)
         {
             Matrix44 result;
             CreateRotationZ (ref radians, out result);
@@ -93,7 +93,7 @@
         /// </summary>
         public static Matrix44 CreateFromAxisAngle (
             Vector3 axis,
-            <#= type #> angle)
+            <#=T#> angle)
         {
             Matrix44 result;
             CreateFromAxisAngle (ref axis, ref angle, out result);
@@ -141,9 +141,9 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreateFromYawPitchRoll (
-            <#= type #> yaw,
-            <#= type #> pitch,
-            <#= type #> roll)
+            <#=T#> yaw,
+            <#=T#> pitch,
+            <#=T#> roll)
         {
             Matrix44 result;
             CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
@@ -189,10 +189,10 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreatePerspectiveFieldOfView (
-            <#= type #> fieldOfView,
-            <#= type #> aspectRatio,
-            <#= type #> nearPlane,
-            <#= type #> farPlane)
+            <#=T#> fieldOfView,
+            <#=T#> aspectRatio,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
         {
             Matrix44 result;
             CreatePerspectiveFieldOfView (
@@ -205,10 +205,10 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreatePerspective (
-            <#= type #> width,
-            <#= type #> height,
-            <#= type #> nearPlane,
-            <#= type #> farPlane)
+            <#=T#> width,
+            <#=T#> height,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
         {
             Matrix44 result;
             CreatePerspective (
@@ -221,12 +221,12 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreatePerspectiveOffCenter (
-            <#= type #> left,
-            <#= type #> right,
-            <#= type #> bottom,
-            <#= type #> top,
-            <#= type #> nearPlane,
-            <#= type #> farPlane)
+            <#=T#> left,
+            <#=T#> right,
+            <#=T#> bottom,
+            <#=T#> top,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
         {
             Matrix44 result;
             CreatePerspectiveOffCenter (
@@ -240,10 +240,10 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreateOrthographic (
-            <#= type #> width,
-            <#= type #> height,
-            <#= type #> nearPlane,
-            <#= type #> farPlane)
+            <#=T#> width,
+            <#=T#> height,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
         {
             Matrix44 result;
             CreateOrthographic (
@@ -256,12 +256,12 @@
         /// Variant function.
         /// </summary>
         public static Matrix44 CreateOrthographicOffCenter (
-            <#= type #> left,
-            <#= type #> right,
-            <#= type #> bottom,
-            <#= type #> top,
-            <#= type #> nearPlane,
-            <#= type #> farPlane)
+            <#=T#> left,
+            <#=T#> right,
+            <#=T#> bottom,
+            <#=T#> top,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
         {
             Matrix44 result;
             CreateOrthographicOffCenter (

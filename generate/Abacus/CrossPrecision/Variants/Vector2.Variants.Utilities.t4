@@ -43,7 +43,7 @@
         public static Vector2 Lerp (
             Vector2 vector1,
             Vector2 vector2,
-            <#= type #> amount)
+            <#=T#> amount)
         {
             Vector2 result;
             Lerp (ref vector1, ref vector2, ref amount, out result);

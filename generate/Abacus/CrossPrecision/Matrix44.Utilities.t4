@@ -3,11 +3,11 @@
         /// lerp between quaternions.
         /// </summary>
         public static void Lerp (
-            ref Matrix44 m1, ref Matrix44 m2, ref <#= type #> amount,
+            ref Matrix44 m1, ref Matrix44 m2, ref <#=T#> amount,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
             if (amount < zero || amount > one)
                 throw new ArgumentOutOfRangeException ();

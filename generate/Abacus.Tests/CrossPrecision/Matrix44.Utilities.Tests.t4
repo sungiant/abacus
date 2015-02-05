@@ -9,7 +9,7 @@
         {
             for(Int32 j = 0; j < 100; ++j)
             {
-                <#= type #> delta = j;
+                <#=T#> delta = j;
 
                 delta = delta / 100;
 
@@ -38,9 +38,9 @@
             Matrix44 a = GetNextRandomMatrix44();
             Matrix44 b = GetNextRandomMatrix44();
 
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> half; Maths.Half(out half);
 
-            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
 
             for( Int32 i = 0; i < tests.Length; ++i )
             {

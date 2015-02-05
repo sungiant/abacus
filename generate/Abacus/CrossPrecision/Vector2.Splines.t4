@@ -6,11 +6,11 @@
         public static void SmoothStep (
             ref Vector2 vector1,
             ref Vector2 vector2,
-            ref <#= type #> amount,
+            ref <#=T#> amount,
             out Vector2 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
             // Make sure that the weighting vector is within the supported
             // range.
@@ -19,8 +19,8 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> two = 2;
-            <#= type #> three = 3;
+            <#=T#> two = 2;
+            <#=T#> three = 3;
 
             amount = (amount * amount) * (three - (two * amount));
 
@@ -43,11 +43,11 @@
             ref Vector2 vector2,
             ref Vector2 vector3,
             ref Vector2 vector4,
-            ref <#= type #> amount,
+            ref <#=T#> amount,
             out Vector2 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
             // Make sure that the weighting vector is within the supported
             // range.
@@ -56,14 +56,14 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> two = 2;
-            <#= type #> three = 3;
-            <#= type #> four = 4;
-            <#= type #> five = 5;
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> two = 2;
+            <#=T#> three = 3;
+            <#=T#> four = 4;
+            <#=T#> five = 5;
+            <#=T#> half; Maths.Half(out half);
 
-            <#= type #> squared = amount * amount;
-            <#= type #> cubed = amount * squared;
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
 
             ///////
             // X //
@@ -138,11 +138,11 @@
             ref Vector2 tangent1,
             ref Vector2 vector2,
             ref Vector2 tangent2,
-            ref <#= type #> amount,
+            ref <#=T#> amount,
             out Vector2 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
             // Make sure that the weighting vector is within the supported
             // range.
@@ -161,16 +161,16 @@
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> two = 2;
-            <#= type #> three = 3;
+            <#=T#> two = 2;
+            <#=T#> three = 3;
 
-            <#= type #> squared = amount * amount;
-            <#= type #> cubed = amount * squared;
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
 
-            <#= type #> a = ((two * cubed) - (three * squared)) + one;
-            <#= type #> b = (-two * cubed) + (three * squared);
-            <#= type #> c = (cubed - (two * squared)) + amount;
-            <#= type #> d = cubed - squared;
+            <#=T#> a = ((two * cubed) - (three * squared)) + one;
+            <#=T#> b = (-two * cubed) + (three * squared);
+            <#=T#> c = (cubed - (two * squared)) + amount;
+            <#=T#> d = cubed - squared;
 
             result.X =
                 (vector1.X * a) + (vector2.X * b) +

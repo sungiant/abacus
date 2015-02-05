@@ -6,68 +6,68 @@
     /// </summary>
     public static class Maths
     {
-<# GenerateMathsConstant (type, "E"); #>
-<# GenerateMathsConstant (type, "Epsilon"); #>
-<# GenerateMathsConstant (type, "Half"); #>
-<# GenerateMathsConstant (type, "Log10E"); #>
-<# GenerateMathsConstant (type, "Log2E"); #>
-<# GenerateMathsConstant (type, "Pi"); #>
-<# GenerateMathsConstant (type, "Root2"); #>
-<# GenerateMathsConstant (type, "Root3"); #>
-<# GenerateMathsConstant (type, "Tau"); #>
-<# GenerateMathsConstant (type, "Zero"); #>
-<# GenerateMathsConstant (type, "One"); #>
+<# GenerateMathsConstant (T, "E"); #>
+<# GenerateMathsConstant (T, "Epsilon"); #>
+<# GenerateMathsConstant (T, "Half"); #>
+<# GenerateMathsConstant (T, "Log10E"); #>
+<# GenerateMathsConstant (T, "Log2E"); #>
+<# GenerateMathsConstant (T, "Pi"); #>
+<# GenerateMathsConstant (T, "Root2"); #>
+<# GenerateMathsConstant (T, "Root3"); #>
+<# GenerateMathsConstant (T, "Tau"); #>
+<# GenerateMathsConstant (T, "Zero"); #>
+<# GenerateMathsConstant (T, "One"); #>
 
-<# GenerateMathsFunction (type, "ArcCos"); #>
-<# GenerateMathsFunction (type, "ArcSin"); #>
-<# GenerateMathsFunction (type, "ArcTan"); #>
-<# GenerateMathsFunction (type, "Cos"); #>
-<# GenerateMathsFunction (type, "Sin"); #>
-<# GenerateMathsFunction (type, "Tan"); #>
-<# GenerateMathsFunction (type, "Sqrt"); #>
-<# GenerateMathsFunction (type, "Square"); #>
-<# GenerateMathsFunction (type, "Abs"); #>
+<# GenerateMathsFunction (T, "ArcCos"); #>
+<# GenerateMathsFunction (T, "ArcSin"); #>
+<# GenerateMathsFunction (T, "ArcTan"); #>
+<# GenerateMathsFunction (T, "Cos"); #>
+<# GenerateMathsFunction (T, "Sin"); #>
+<# GenerateMathsFunction (T, "Tan"); #>
+<# GenerateMathsFunction (T, "Sqrt"); #>
+<# GenerateMathsFunction (T, "Square"); #>
+<# GenerateMathsFunction (T, "Abs"); #>
 
         /// <summary>
         /// ToRadians
         /// </summary>
-        public static <#= type #> ToRadians(<#= type #> input)
+        public static <#=T#> ToRadians(<#=T#> input)
         {
-            <#= type #> tau; Tau(out tau);
-            return input * tau / ((<#= type #>)360);
+            <#=T#> tau; Tau(out tau);
+            return input * tau / ((<#=T#>)360);
         }
 
         /// <summary>
         /// ToDegrees
         /// </summary>
-        public static <#= type #> ToDegrees(<#= type #> input)
+        public static <#=T#> ToDegrees(<#=T#> input)
         {
-            <#= type #> tau; Tau(out tau);
-            return input / tau * ((<#= type #>)360);
+            <#=T#> tau; Tau(out tau);
+            return input / tau * ((<#=T#>)360);
         }
 
         /// <summary>
         /// FromFraction
         /// </summary>
-        public static void FromFraction(Int32 numerator, Int32 denominator, out <#= type #> value)
+        public static void FromFraction(Int32 numerator, Int32 denominator, out <#=T#> value)
         {
-            value = (<#= type #>) numerator / (<#= type #>) denominator;
+            value = (<#=T#>) numerator / (<#=T#>) denominator;
         }
 
         /// <summary>
         /// FromString
         /// </summary>
-        public static void FromString(String str, out <#= type #> value)
+        public static void FromString(String str, out <#=T#> value)
         {
-            <#= type #>.TryParse(str, out value);
+            <#=T#>.TryParse(str, out value);
         }
 
         /// <summary>
         /// IsZero
         /// </summary>
-        public static Boolean IsZero(<#= type #> value)
+        public static Boolean IsZero(<#=T#> value)
         {
-            <#= type #> ep;
+            <#=T#> ep;
             Epsilon(out ep);
             return Abs(value) < ep;
         }
@@ -75,7 +75,7 @@
         /// <summary>
         /// Min
         /// </summary>
-        public static <#= type #> Min(<#= type #> a, <#= type #> b)
+        public static <#=T#> Min(<#=T#> a, <#=T#> b)
         {
             return a < b ? a : b;
         }
@@ -83,7 +83,7 @@
         /// <summary>
         /// Max
         /// </summary>
-        public static <#= type #> Max(<#= type #> a, <#= type #> b)
+        public static <#=T#> Max(<#=T#> a, <#=T#> b)
         {
             return a > b ? a : b;
         }
@@ -91,16 +91,16 @@
         /// <summary>
         /// WithinEpsilon
         /// </summary>
-        public static Boolean WithinEpsilon(<#= type #> a, <#= type #> b)
+        public static Boolean WithinEpsilon(<#=T#> a, <#=T#> b)
         {
-            <#= type #> num = a - b;
-            return ((-<#= type #>.Epsilon <= num) && (num <= <#= type #>.Epsilon));
+            <#=T#> num = a - b;
+            return ((-<#=T#>.Epsilon <= num) && (num <= <#=T#>.Epsilon));
         }
 
         /// <summary>
         /// Sign
         /// </summary>
-        public static Int32 Sign(<#= type #> value)
+        public static Int32 Sign(<#=T#> value)
         {
             if (value > 0)
             {

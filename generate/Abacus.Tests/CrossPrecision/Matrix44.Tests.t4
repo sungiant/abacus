@@ -36,7 +36,7 @@
 
                 IntPtr vecAddress = h_vec.AddrOfPinnedObject();
 
-                <#= type #>[] data = new <#= type #>[16];
+                <#=T#>[] data = new <#=T#>[16];
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
@@ -77,34 +77,34 @@
             }
             {
                 // Test Matrix44(
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #>,
-                //     <#= type #> )
-                <#= type #> a = -18759;
-                <#= type #> b = 345;
-                <#= type #> c = 774;
-                <#= type #> d = -3431;
-                <#= type #> e = -55;
-                <#= type #> f = 47;
-                <#= type #> g = 45;
-                <#= type #> h = 3461;
-                <#= type #> i = -4;
-                <#= type #> j = 453;
-                <#= type #> k = -3;
-                <#= type #> l = -3441;
-                <#= type #> m = -189;
-                <#= type #> n = 5;
-                <#= type #> o = -87;
-                <#= type #> p = 341;
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#>,
+                //     <#=T#> )
+                <#=T#> a = -18759;
+                <#=T#> b = 345;
+                <#=T#> c = 774;
+                <#=T#> d = -3431;
+                <#=T#> e = -55;
+                <#=T#> f = 47;
+                <#=T#> g = 45;
+                <#=T#> h = 3461;
+                <#=T#> i = -4;
+                <#=T#> j = 453;
+                <#=T#> k = -3;
+                <#=T#> l = -3441;
+                <#=T#> m = -189;
+                <#=T#> n = 5;
+                <#=T#> o = -87;
+                <#=T#> p = 341;
 
                 Matrix44 expected = new Matrix44(
                     a, b, c, d,

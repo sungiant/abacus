@@ -3,13 +3,13 @@
         /// the vector.
         /// </summary>
         public static void CreateFromAxisAngle (
-            ref Vector3 axis, ref <#= type #> angle, out Quaternion result)
+            ref Vector3 axis, ref <#=T#> angle, out Quaternion result)
         {
-            <#= type #> half; Maths.Half(out half);
-            <#= type #> theta = angle * half;
+            <#=T#> half; Maths.Half(out half);
+            <#=T#> theta = angle * half;
 
-            <#= type #> sin = Maths.Sin (theta);
-            <#= type #> cos = Maths.Cos (theta);
+            <#=T#> sin = Maths.Sin (theta);
+            <#=T#> cos = Maths.Cos (theta);
 
             result.I = axis.X * sin;
             result.J = axis.Y * sin;
@@ -22,21 +22,21 @@
         /// Creates a new Quaternion from specified yaw, pitch, and roll angles.
         /// </summary>
         public static void CreateFromYawPitchRoll (
-            ref <#= type #> yaw, ref <#= type #> pitch,
-            ref <#= type #> roll, out Quaternion result)
+            ref <#=T#> yaw, ref <#=T#> pitch,
+            ref <#=T#> roll, out Quaternion result)
         {
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> half; Maths.Half(out half);
 
-            <#= type #> hr = roll * half;
-            <#= type #> hp = pitch * half;
-            <#= type #> hy = yaw * half;
+            <#=T#> hr = roll * half;
+            <#=T#> hp = pitch * half;
+            <#=T#> hy = yaw * half;
 
-            <#= type #> shr = Maths.Sin (hr);
-            <#= type #> chr = Maths.Cos (hr);
-            <#= type #> shp = Maths.Sin (hp);
-            <#= type #> chp = Maths.Cos (hp);
-            <#= type #> shy = Maths.Sin (hy);
-            <#= type #> chy = Maths.Cos (hy);
+            <#=T#> shr = Maths.Sin (hr);
+            <#=T#> chr = Maths.Cos (hr);
+            <#=T#> shp = Maths.Sin (hp);
+            <#=T#> chp = Maths.Cos (hp);
+            <#=T#> shy = Maths.Sin (hy);
+            <#=T#> chy = Maths.Cos (hy);
 
             result.I = (chy * shp * chr) + (shy * chp * shr);
             result.J = (shy * chp * chr) - (chy * shp * shr);
@@ -51,15 +51,15 @@
             ref Matrix44 m, out Quaternion result)
         {
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
-            <#= type #> zero = 0;
-            <#= type #> half; Maths.Half(out half);
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> half; Maths.Half(out half);
+            <#=T#> one = 1;
 
-            <#= type #> tr = (m.R0C0 + m.R1C1) + m.R2C2;
+            <#=T#> tr = (m.R0C0 + m.R1C1) + m.R2C2;
 
             if (tr > zero)
             {
-                <#= type #> s = Maths.Sqrt (tr + one);
+                <#=T#> s = Maths.Sqrt (tr + one);
                 result.U = s * half;
                 s = half / s;
                 result.I = (m.R1C2 - m.R2C1) * s;
@@ -68,8 +68,8 @@
             }
             else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
-                <#= type #> s7 = Maths.Sqrt (((one + m.R0C0) - m.R1C1) - m.R2C2);
-                <#= type #> s4 = half / s7;
+                <#=T#> s7 = Maths.Sqrt (((one + m.R0C0) - m.R1C1) - m.R2C2);
+                <#=T#> s4 = half / s7;
 
                 result.U = (m.R1C2 - m.R2C1) * s4;
                 result.I = half * s7;
@@ -78,8 +78,8 @@
             }
             else if (m.R1C1 > m.R2C2)
             {
-                <#= type #> s6 =Maths.Sqrt (((one + m.R1C1) - m.R0C0) - m.R2C2);
-                <#= type #> s3 = half / s6;
+                <#=T#> s6 =Maths.Sqrt (((one + m.R1C1) - m.R0C0) - m.R2C2);
+                <#=T#> s3 = half / s6;
 
                 result.U = (m.R2C0 - m.R0C2) * s3;
                 result.I = (m.R1C0 + m.R0C1) * s3;
@@ -88,8 +88,8 @@
             }
             else
             {
-                <#= type #> s5 = Maths.Sqrt (((one + m.R2C2) - m.R0C0) - m.R1C1);
-                <#= type #> s2 = half / s5;
+                <#=T#> s5 = Maths.Sqrt (((one + m.R2C2) - m.R0C0) - m.R1C1);
+                <#=T#> s2 = half / s5;
 
                 result.U = (m.R0C1 - m.R1C0) * s2;
                 result.I = (m.R2C0 + m.R0C2) * s2;

@@ -112,9 +112,9 @@
         [Test]
         public void TestStaticFn_CreateFromQuaternion_i ()
         {
-            <#= type #> yaw; Maths.Pi(out yaw); yaw /= (<#= type #>) 4;
-            <#= type #> pitch; Maths.Pi(out pitch); pitch /= (<#= type #>) (-8);
-            <#= type #> roll; Maths.Pi(out roll); roll /= (<#= type #>) 2;
+            <#=T#> yaw; Maths.Pi(out yaw); yaw /= (<#=T#>) 4;
+            <#=T#> pitch; Maths.Pi(out pitch); pitch /= (<#=T#>) (-8);
+            <#=T#> roll; Maths.Pi(out roll); roll /= (<#=T#>) 2;
 
             Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
             q.Normalise();
@@ -122,17 +122,17 @@
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
 
             Matrix44 expected = new Matrix44 ();
-            expected.R0C0 = <#= type #>.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
-            expected.R0C1 = <#= type #>.Parse("0.9238795");
-            expected.R0C2 = <#= type #>.Parse("-0.270598");
+            expected.R0C0 = <#=T#>.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
+            expected.R0C1 = <#=T#>.Parse("0.9238795");
+            expected.R0C2 = <#=T#>.Parse("-0.270598");
             expected.R0C3 = 0;
-            expected.R1C0 = <#= type #>.Parse("-0.7071067");
-            expected.R1C1 = <#= type #>.Parse("6.705523E-08");
-            expected.R1C2 = <#= type #>.Parse("0.7071067");
+            expected.R1C0 = <#=T#>.Parse("-0.7071067");
+            expected.R1C1 = <#=T#>.Parse("6.705523E-08");
+            expected.R1C2 = <#=T#>.Parse("0.7071067");
             expected.R1C3 = 0;
-            expected.R2C0 = <#= type #>.Parse("0.6532815");
-            expected.R2C1 = <#= type #>.Parse("0.3826834");
-            expected.R2C2 = <#= type #>.Parse("0.6532815");
+            expected.R2C0 = <#=T#>.Parse("0.6532815");
+            expected.R2C1 = <#=T#>.Parse("0.3826834");
+            expected.R2C2 = <#=T#>.Parse("0.6532815");
             expected.R2C3 = 0;
             expected.R3C0 = 0;
             expected.R3C1 = 0;

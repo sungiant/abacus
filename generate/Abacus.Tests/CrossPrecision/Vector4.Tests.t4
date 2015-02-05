@@ -38,7 +38,7 @@
 
                 IntPtr vecAddress = h_vec.AddrOfPinnedObject();
 
-                <#= type #>[] data = new <#= type #>[4];
+                <#=T#>[] data = new <#=T#>[4];
 
                 // nb: when Fixed32 and Half are moved back into the main
                 //     dev branch there will be need for an extension method for
@@ -68,11 +68,11 @@
                 Assert.That(a, Is.EqualTo(Vector4.Zero));
             }
             {
-                // Test Vector4( <#= type #>, <#= type #>, <#= type #>, <#= type #> )
-                <#= type #> a = -189;
-                <#= type #> b = 429;
-                <#= type #> c = 4298;
-                <#= type #> d = 341;
+                // Test Vector4( <#=T#>, <#=T#>, <#=T#>, <#=T#> )
+                <#=T#> a = -189;
+                <#=T#> b = 429;
+                <#=T#> c = 4298;
+                <#=T#> d = 341;
                 Vector4 e = new Vector4(a, b, c, d);
                 Assert.That(e.X, Is.EqualTo(a));
                 Assert.That(e.Y, Is.EqualTo(b));
@@ -80,10 +80,10 @@
                 Assert.That(e.W, Is.EqualTo(d));
             }
             {
-                // Test Vector4( Vector2, <#= type #>, <#= type #> )
+                // Test Vector4( Vector2, <#=T#>, <#=T#> )
                 Vector2 a = new Vector2(-189, 429);
-                <#= type #> b = 4298;
-                <#= type #> c = 341;
+                <#=T#> b = 4298;
+                <#=T#> c = 341;
                 Vector4 d = new Vector4(a, b, c);
                 Assert.That(d.X, Is.EqualTo(a.X));
                 Assert.That(d.Y, Is.EqualTo(a.Y));
@@ -91,9 +91,9 @@
                 Assert.That(d.W, Is.EqualTo(c));
             }
             {
-                // Test Vector4( Vector3, <#= type #> )
+                // Test Vector4( Vector3, <#=T#> )
                 Vector3 a = new Vector3(-189, 429, 4298);
-                <#= type #> b = 341;
+                <#=T#> b = 341;
                 Vector4 c = new Vector4(a, b);
                 Assert.That(c.X, Is.EqualTo(a.X));
                 Assert.That(c.Y, Is.EqualTo(a.Y));

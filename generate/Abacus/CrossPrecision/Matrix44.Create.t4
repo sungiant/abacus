@@ -27,9 +27,9 @@
         /// todo
         /// </summary>
         public static void CreateTranslation (
-            ref <#= type #> xPosition,
-            ref <#= type #> yPosition,
-            ref <#= type #> zPosition,
+            ref <#=T#> xPosition,
+            ref <#=T#> yPosition,
+            ref <#=T#> zPosition,
             out Matrix44 result)
         {
             result.R0C0 = 1;
@@ -54,9 +54,9 @@
         /// Creates a scaling matrix based on x, y, z.
         /// </summary>
         public static void CreateScale (
-            ref <#= type #> xScale,
-            ref <#= type #> yScale,
-            ref <#= type #> zScale,
+            ref <#=T#> xScale,
+            ref <#=T#> yScale,
+            ref <#=T#> zScale,
             out Matrix44 result)
         {
             result.R0C0 = xScale;
@@ -106,7 +106,7 @@
         /// Create a scaling matrix consistant along each axis
         /// </summary>
         public static void CreateScale (
-            ref <#= type #> scale,
+            ref <#=T#> scale,
             out Matrix44 result)
         {
             result.R0C0 = scale;
@@ -131,11 +131,11 @@
         /// http://en.wikipedia.org/wiki/Rotation_matrix
         /// </summary>
         public static void CreateRotationX (
-            ref <#= type #> radians,
+            ref <#=T#> radians,
             out Matrix44 result)
         {
-            <#= type #> cos = Maths.Cos (radians);
-            <#= type #> sin = Maths.Sin (radians);
+            <#=T#> cos = Maths.Cos (radians);
+            <#=T#> sin = Maths.Sin (radians);
 
             result.R0C0 = 1;
             result.R0C1 = 0;
@@ -159,11 +159,11 @@
         /// http://en.wikipedia.org/wiki/Rotation_matrix
         /// </summary>
         public static void CreateRotationY (
-            ref <#= type #> radians,
+            ref <#=T#> radians,
             out Matrix44 result)
         {
-            <#= type #> cos = Maths.Cos (radians);
-            <#= type #> sin = Maths.Sin (radians);
+            <#=T#> cos = Maths.Cos (radians);
+            <#=T#> sin = Maths.Sin (radians);
 
             result.R0C0 = cos;
             result.R0C1 = 0;
@@ -187,11 +187,11 @@
         /// http://en.wikipedia.org/wiki/Rotation_matrix
         /// </summary>
         public static void CreateRotationZ (
-            ref <#= type #> radians,
+            ref <#=T#> radians,
             out Matrix44 result)
         {
-            <#= type #> cos = Maths.Cos (radians);
-            <#= type #> sin = Maths.Sin (radians);
+            <#=T#> cos = Maths.Cos (radians);
+            <#=T#> sin = Maths.Sin (radians);
 
             result.R0C0 = cos;
             result.R0C1 = sin;
@@ -216,25 +216,25 @@
         /// </summary>
         public static void CreateFromAxisAngle (
             ref Vector3 axis,
-            ref <#= type #> angle,
+            ref <#=T#> angle,
             out Matrix44 result)
         {
-            <#= type #> one = 1;
+            <#=T#> one = 1;
 
-            <#= type #> x = axis.X;
-            <#= type #> y = axis.Y;
-            <#= type #> z = axis.Z;
+            <#=T#> x = axis.X;
+            <#=T#> y = axis.Y;
+            <#=T#> z = axis.Z;
 
-            <#= type #> sin = Maths.Sin (angle);
-            <#= type #> cos = Maths.Cos (angle);
+            <#=T#> sin = Maths.Sin (angle);
+            <#=T#> cos = Maths.Cos (angle);
 
-            <#= type #> xx = x * x;
-            <#= type #> yy = y * y;
-            <#= type #> zz = z * z;
+            <#=T#> xx = x * x;
+            <#=T#> yy = y * y;
+            <#=T#> zz = z * z;
 
-            <#= type #> xy = x * y;
-            <#= type #> xz = x * z;
-            <#= type #> yz = y * z;
+            <#=T#> xy = x * y;
+            <#=T#> xz = x * z;
+            <#=T#> yz = y * z;
 
             result.R0C0 = xx + (cos * (one - xx));
             result.R0C1 = (xy - (cos * xy)) + (sin * z);
@@ -385,22 +385,22 @@
                     "Input quaternion must be normalised.");
             }
 
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
-            <#= type #> ii = quaternion.I + quaternion.I;
-            <#= type #> jj = quaternion.J + quaternion.J;
-            <#= type #> kk = quaternion.K + quaternion.K;
+            <#=T#> ii = quaternion.I + quaternion.I;
+            <#=T#> jj = quaternion.J + quaternion.J;
+            <#=T#> kk = quaternion.K + quaternion.K;
 
-            <#= type #> uii = quaternion.U * ii;
-            <#= type #> ujj = quaternion.U * jj;
-            <#= type #> ukk = quaternion.U * kk;
-            <#= type #> iii = quaternion.I * ii;
-            <#= type #> ijj = quaternion.I * jj;
-            <#= type #> ikk = quaternion.I * kk;
-            <#= type #> jjj = quaternion.J * jj;
-            <#= type #> jkk = quaternion.J * kk;
-            <#= type #> kkk = quaternion.K * kk;
+            <#=T#> uii = quaternion.U * ii;
+            <#=T#> ujj = quaternion.U * jj;
+            <#=T#> ukk = quaternion.U * kk;
+            <#=T#> iii = quaternion.I * ii;
+            <#=T#> ijj = quaternion.I * jj;
+            <#=T#> ikk = quaternion.I * kk;
+            <#=T#> jjj = quaternion.J * jj;
+            <#=T#> jkk = quaternion.J * kk;
+            <#=T#> kkk = quaternion.K * kk;
 
             result.R0C0 = one - (jjj + kkk);
             result.R1C0 = ijj - ukk;
@@ -427,9 +427,9 @@
         /// todo
         /// </summary>
         public static void CreateFromYawPitchRoll (
-            ref <#= type #> yaw,
-            ref <#= type #> pitch,
-            ref <#= type #> roll,
+            ref <#=T#> yaw,
+            ref <#=T#> pitch,
+            ref <#=T#> roll,
             out Matrix44 result)
         {
             Quaternion quaternion;
@@ -458,8 +458,8 @@
             ref Vector3? cameraForwardVector,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
             Vector3 vector;
             Vector3 vector2;
@@ -467,13 +467,13 @@
             vector.X = ObjectPosition.X - cameraPosition.X;
             vector.Y = ObjectPosition.Y - cameraPosition.Y;
             vector.Z = ObjectPosition.Z - cameraPosition.Z;
-            <#= type #> num = vector.LengthSquared ();
-            <#= type #> limit; Maths.FromString("0.0001", out limit);
+            <#=T#> num = vector.LengthSquared ();
+            <#=T#> limit; Maths.FromString("0.0001", out limit);
 
             if (num < limit) {
                 vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
             } else {
-                var t = (<#= type #>)(one / (Maths.Sqrt (num)));
+                var t = (<#=T#>)(one / (Maths.Sqrt (num)));
                 Vector3.Multiply (ref vector, ref t, out vector);
             }
             Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
@@ -515,29 +515,29 @@
             ref Vector3? objectForwardVector,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
-            <#= type #> num;
+            <#=T#> num;
             Vector3 vector;
             Vector3 vector2;
             Vector3 vector3;
             vector2.X = objectPosition.X - cameraPosition.X;
             vector2.Y = objectPosition.Y - cameraPosition.Y;
             vector2.Z = objectPosition.Z - cameraPosition.Z;
-            <#= type #> num2 = vector2.LengthSquared ();
-            <#= type #> limit; Maths.FromString("0.0001", out limit);
+            <#=T#> num2 = vector2.LengthSquared ();
+            <#=T#> limit; Maths.FromString("0.0001", out limit);
 
             if (num2 < limit) {
                 vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
             } else {
-                var t = (<#= type #>)(one / (Maths.Sqrt (num2)));
+                var t = (<#=T#>)(one / (Maths.Sqrt (num2)));
                 Vector3.Multiply (ref vector2, ref t, out vector2);
             }
             Vector3 vector4 = rotateAxis;
             Vector3.Dot (ref rotateAxis, ref vector2, out num);
 
-            <#= type #> realHorrid; Maths.FromString("0.9982547", out realHorrid);
+            <#=T#> realHorrid; Maths.FromString("0.9982547", out realHorrid);
 
             if (Maths.Abs (num) > realHorrid) {
                 if (objectForwardVector.HasValue) {
@@ -583,16 +583,16 @@
         /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveFieldOfView (
-            ref <#= type #> fieldOfView,
-            ref <#= type #> aspectRatio,
-            ref <#= type #> nearPlaneDistance,
-            ref <#= type #> farPlaneDistance,
+            ref <#=T#> fieldOfView,
+            ref <#=T#> aspectRatio,
+            ref <#=T#> nearPlaneDistance,
+            ref <#=T#> farPlaneDistance,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> half; Maths.Half(out half);
-            <#= type #> one = 1;
-            <#= type #> pi; Maths.Pi(out pi);
+            <#=T#> zero = 0;
+            <#=T#> half; Maths.Half(out half);
+            <#=T#> one = 1;
+            <#=T#> pi; Maths.Pi(out pi);
 
             if ((fieldOfView <= zero) || (fieldOfView >= pi))
             {
@@ -628,10 +628,10 @@
             //
 
             // yScale = cot(fovY/2)
-            <#= type #> yScale = one / ( Maths.Tan ( fieldOfView * half ) );
+            <#=T#> yScale = one / ( Maths.Tan ( fieldOfView * half ) );
 
             // xScale = yScale / aspect ratio
-            <#= type #> xScale = yScale / aspectRatio;
+            <#=T#> xScale = yScale / aspectRatio;
 
             result.R0C0 = xScale;
             result.R0C1 = zero;
@@ -665,15 +665,15 @@
         /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspective (
-            ref <#= type #> width,
-            ref <#= type #> height,
-            ref <#= type #> nearPlaneDistance,
-            ref <#= type #> farPlaneDistance,
+            ref <#=T#> width,
+            ref <#=T#> height,
+            ref <#=T#> nearPlaneDistance,
+            ref <#=T#> farPlaneDistance,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
-            <#= type #> two = 2;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
 
             if (nearPlaneDistance <= zero) {
                 throw new ArgumentOutOfRangeException ("nearPlaneDistance");
@@ -704,17 +704,17 @@
         /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
         /// </summary>
         public static void CreatePerspectiveOffCenter (
-            ref <#= type #> left,
-            ref <#= type #> right,
-            ref <#= type #> bottom,
-            ref <#= type #> top,
-            ref <#= type #> nearPlaneDistance,
-            ref <#= type #> farPlaneDistance,
+            ref <#=T#> left,
+            ref <#=T#> right,
+            ref <#=T#> bottom,
+            ref <#=T#> top,
+            ref <#=T#> nearPlaneDistance,
+            ref <#=T#> farPlaneDistance,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
-            <#= type #> two = 2;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
 
             if (nearPlaneDistance <= zero) {
                 throw new ArgumentOutOfRangeException ("nearPlaneDistance");
@@ -746,15 +746,15 @@
         /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographic (
-            ref <#= type #> width,
-            ref <#= type #> height,
-            ref <#= type #> zNearPlane,
-            ref <#= type #> zFarPlane,
+            ref <#=T#> width,
+            ref <#=T#> height,
+            ref <#=T#> zNearPlane,
+            ref <#=T#> zFarPlane,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
-            <#= type #> two = 2;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
 
             result.R0C0 = two / width;
             result.R0C1 = result.R0C2 = result.R0C3 = zero;
@@ -776,17 +776,17 @@
         /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
         /// </summary>
         public static void CreateOrthographicOffCenter (
-            ref <#= type #> left,
-            ref <#= type #> right,
-            ref <#= type #> bottom,
-            ref <#= type #> top,
-            ref <#= type #> zNearPlane,
-            ref <#= type #> zFarPlane,
+            ref <#=T#> left,
+            ref <#=T#> right,
+            ref <#=T#> bottom,
+            ref <#=T#> top,
+            ref <#=T#> zNearPlane,
+            ref <#=T#> zFarPlane,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
-            <#= type #> two = 2;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
 
             result.R0C0 = two / (right - left);
             result.R0C1 = result.R0C2 = result.R0C3 = zero;
@@ -814,8 +814,8 @@
             ref Vector3 cameraUpVector,
             out Matrix44 result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
             Vector3 forward = cameraPosition - cameraTarget;
             Vector3.Normalise (ref forward, out forward);
@@ -843,9 +843,9 @@
             result.R2C2 = forward.Z;
             result.R2C3 = zero;
 
-            <#= type #> a;
-            <#= type #> b;
-            <#= type #> c;
+            <#=T#> a;
+            <#=T#> b;
+            <#=T#> c;
 
             Vector3.Dot (ref right, ref cameraPosition, out a);
             Vector3.Dot (ref up, ref cameraPosition, out b);

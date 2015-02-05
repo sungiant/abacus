@@ -107,7 +107,7 @@
         {
             for(Int32 j = 0; j < 100; ++j)
             {
-                <#= type #> delta = j;
+                <#=T#> delta = j;
 
                 delta = delta / 100;
 
@@ -136,9 +136,9 @@
             Vector3 a = GetNextRandomVector3();
             Vector3 b = GetNextRandomVector3();
 
-            <#= type #> half; Maths.Half(out half);
+            <#=T#> half; Maths.Half(out half);
 
-            var tests = new <#= type #>[] { 2, half + 1, -half, -1 };
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
 
             for( Int32 i = 0; i < tests.Length; ++i )
             {
@@ -205,26 +205,26 @@
         [Test]
         public void TestStaticFn_IsUnit_iii ()
         {
-            <#= type #> radius = 1;
+            <#=T#> radius = 1;
 
-            <#= type #> pi; Maths.Pi(out pi);
+            <#=T#> pi; Maths.Pi(out pi);
 
             for( Int32 i = 0; i <= 31; ++ i)
             {
                 for( Int32 j = 0; j <= 31; ++ j)
                 {
-                    <#= type #> theta = 2 * pi * i / 100;
-                    <#= type #> phi = 2 * pi * j / 100;
+                    <#=T#> theta = 2 * pi * i / 100;
+                    <#=T#> phi = 2 * pi * j / 100;
 
-                    <#= type #> x =
+                    <#=T#> x =
                         Maths.Cos(theta) *
                         Maths.Sin(phi) * radius;
 
-                    <#= type #> y =
+                    <#=T#> y =
                         Maths.Sin(theta) *
                         Maths.Sin(phi) * radius;
 
-                    <#= type #> z =
+                    <#=T#> z =
                         Maths.Cos(phi) * radius;
 
                     Assert.That(

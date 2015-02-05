@@ -7,21 +7,21 @@
         public static void Slerp (
             ref Quaternion quaternion1,
             ref Quaternion quaternion2,
-            ref <#= type #> amount,
+            ref <#=T#> amount,
             out Quaternion result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
-            <#= type #> epsilon; Maths.Epsilon (out epsilon);
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> epsilon; Maths.Epsilon (out epsilon);
 
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> remaining = one - amount;
+            <#=T#> remaining = one - amount;
 
-            <#= type #> angle;
+            <#=T#> angle;
             Dot (ref quaternion1, ref quaternion2, out angle);
 
             if (angle < zero)
@@ -30,19 +30,19 @@
                 angle = -angle;
             }
 
-            <#= type #> theta = Maths.ArcCos (angle);
+            <#=T#> theta = Maths.ArcCos (angle);
 
 
-            <#= type #> r = remaining;
-            <#= type #> a = amount;
+            <#=T#> r = remaining;
+            <#=T#> a = amount;
 
             // To avoid division by 0 and by very small numbers the
             // Lerp is used when theta is small.
             if (theta > epsilon)
             {
-                <#= type #> x = Maths.Sin (remaining * theta);
-                <#= type #> y = Maths.Sin (amount * theta);
-                <#= type #> z = Maths.Sin (theta);
+                <#=T#> x = Maths.Sin (remaining * theta);
+                <#=T#> y = Maths.Sin (amount * theta);
+                <#=T#> z = Maths.Sin (theta);
 
                 r = x / z;
                 a = y / z;
@@ -60,21 +60,21 @@
         public static void Lerp (
             ref Quaternion quaternion1,
             ref Quaternion quaternion2,
-            ref <#= type #> amount,
+            ref <#=T#> amount,
             out Quaternion result)
         {
-            <#= type #> zero = 0;
-            <#= type #> one = 1;
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
 
             if (amount < zero || amount > one)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            <#= type #> remaining = one - amount;
+            <#=T#> remaining = one - amount;
 
-            <#= type #> r = remaining;
-            <#= type #> a = amount;
+            <#=T#> r = remaining;
+            <#=T#> a = amount;
 
             result.U = (r * quaternion1.U) + (a * quaternion2.U);
             result.I = (r * quaternion1.I) + (a * quaternion2.I);
@@ -89,7 +89,7 @@
             ref Quaternion quaternion,
             out Boolean result)
         {
-            <#= type #> one = 1;
+            <#=T#> one = 1;
 
             result = Maths.IsZero(
                 one -
