@@ -45,16 +45,20 @@ namespace Abacus.Fixed32Precision
     internal static class Int32Extensions
     {
         // http://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=vs.110).aspx
-        public static Int32 ShiftAndWrap (this Int32 value, Int32 positions = 2)
+        public static Int32 ShiftAndWrap (
+            this Int32 value, Int32 positions = 2)
         {
             positions = positions & 0x1F;
-    
-            // Save the existing bit pattern, but interpret it as an unsigned integer. 
-            uint number = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
-            // Preserve the bits to be discarded. 
+
+            // Save the existing bit pattern, but interpret it as an unsigned
+            // integer.
+            uint number = BitConverter.ToUInt32(
+                BitConverter.GetBytes(value), 0);
+            // Preserve the bits to be discarded.
             uint wrapped = number >> (32 - positions);
-            // Shift and wrap the discarded bits. 
-            return BitConverter.ToInt32(BitConverter.GetBytes((number << positions) | wrapped), 0);
+            // Shift and wrap the discarded bits.
+            return BitConverter.ToInt32 (
+                BitConverter.GetBytes ((number << positions) | wrapped), 0);
         }
     }
 
@@ -2473,9 +2477,7 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector3 vector1,
-            ref Vector3 vector2,
-            out Fixed32 result)
+            ref Vector3 vector1, ref Vector3 vector2, out Fixed32 result)
         {
             Fixed32 dx = vector1.X - vector2.X;
             Fixed32 dy = vector1.Y - vector2.Y;
@@ -2490,8 +2492,7 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector3 vector1,
-            ref Vector3 vector2,
+            ref Vector3 vector1, ref Vector3 vector2,
             out Fixed32 result)
         {
             Fixed32 dx = vector1.X - vector2.X;
@@ -2510,9 +2511,7 @@ namespace Abacus.Fixed32Precision
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector3 vector1,
-            ref Vector3 vector2,
-            out Fixed32 result)
+            ref Vector3 vector1, ref Vector3 vector2, out Fixed32 result)
         {
             result =
                 (vector1.X * vector2.X) +
@@ -2552,8 +2551,7 @@ namespace Abacus.Fixed32Precision
         /// Calculates the cross product of two vectors.
         /// </summary>
         public static void Cross (
-            ref Vector3 vector1,
-            ref Vector3 vector2,
+            ref Vector3 vector1, ref Vector3 vector2,
             out Vector3 result)
         {
             result.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
@@ -2566,9 +2564,7 @@ namespace Abacus.Fixed32Precision
         /// specified normal vector.
         /// </summary>
         public static void Reflect (
-            ref Vector3 vector,
-            ref Vector3 normal,
-            out Vector3 result)
+            ref Vector3 vector, ref Vector3 normal, out Vector3 result)
         {
             Boolean normalIsUnit;
             Vector3.IsUnit (ref normal, out normalIsUnit);
@@ -2593,9 +2589,7 @@ namespace Abacus.Fixed32Precision
         /// Transforms a Vector3 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector3 vector,
-            ref Matrix44 matrix,
-            out Vector3 result)
+            ref Vector3 vector, ref Matrix44 matrix, out Vector3 result)
         {
             Fixed32 x =
                 (vector.X * matrix.R0C0) +
@@ -2621,9 +2615,7 @@ namespace Abacus.Fixed32Precision
         /// Transforms a vector by a specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector3 vector,
-            ref Quaternion rotation,
-            out Vector3 result)
+            ref Vector3 vector, ref Quaternion rotation, out Vector3 result)
         {
             Fixed32 two = 2;
 
@@ -2666,9 +2658,7 @@ namespace Abacus.Fixed32Precision
         /// Transforms a normalised Vector3 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector3 normal,
-            ref Matrix44 matrix,
-            out Vector3 result)
+            ref Vector3 normal, ref Matrix44 matrix, out Vector3 result)
         {
             Boolean normalIsUnit;
             Vector3.IsUnit (ref normal, out normalIsUnit);
@@ -3816,9 +3806,7 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector4 vector1,
-            ref Vector4 vector2,
-            out Fixed32 result)
+            ref Vector4 vector1, ref Vector4 vector2, out Fixed32 result)
         {
             Fixed32 dx = vector1.X - vector2.X;
             Fixed32 dy = vector1.Y - vector2.Y;
@@ -3835,9 +3823,7 @@ namespace Abacus.Fixed32Precision
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector4 vector1,
-            ref Vector4 vector2,
-            out Fixed32 result)
+            ref Vector4 vector1, ref Vector4 vector2, out Fixed32 result)
         {
             Fixed32 dx = vector1.X - vector2.X;
             Fixed32 dy = vector1.Y - vector2.Y;
@@ -3856,9 +3842,7 @@ namespace Abacus.Fixed32Precision
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector4 vector1,
-            ref Vector4 vector2,
-            out Fixed32 result)
+            ref Vector4 vector1, ref Vector4 vector2, out Fixed32 result)
         {
             result =
                 (vector1.X * vector2.X) +
@@ -3873,8 +3857,7 @@ namespace Abacus.Fixed32Precision
         /// original vector.
         /// </summary>
         public static void Normalise (
-            ref Vector4 vector,
-            out Vector4 result)
+            ref Vector4 vector, out Vector4 result)
         {
             Fixed32 lengthSquared =
                 (vector.X * vector.X) +
@@ -3903,9 +3886,7 @@ namespace Abacus.Fixed32Precision
         /// Transforms a Vector4 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector4 vector,
-            ref Matrix44 matrix,
-            out Vector4 result)
+            ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
         {
             Fixed32 x =
                 (vector.X * matrix.R0C0) +
@@ -3941,9 +3922,7 @@ namespace Abacus.Fixed32Precision
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector4 vector,
-            ref Quaternion rotation,
-            out Vector4 result)
+            ref Vector4 vector, ref Quaternion rotation, out Vector4 result)
         {
             Fixed32 two = 2;
 
@@ -3988,9 +3967,7 @@ namespace Abacus.Fixed32Precision
         /// Transforms a normalised Vector4 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector4 normal,
-            ref Matrix44 matrix,
-            out Vector4 result)
+            ref Vector4 normal, ref Matrix44 matrix, out Vector4 result)
         {
             Boolean normalIsUnit;
             Vector4.IsUnit (ref normal, out normalIsUnit);

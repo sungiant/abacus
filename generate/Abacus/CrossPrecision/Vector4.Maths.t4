@@ -4,9 +4,7 @@
         /// Calculates the distance between two vectors.
         /// </summary>
         public static void Distance (
-            ref Vector4 vector1,
-            ref Vector4 vector2,
-            out <#=T#> result)
+            ref Vector4 vector1, ref Vector4 vector2, out <#=T#> result)
         {
             <#=T#> dx = vector1.X - vector2.X;
             <#=T#> dy = vector1.Y - vector2.Y;
@@ -23,9 +21,7 @@
         /// Calculates the distance between two vectors squared.
         /// </summary>
         public static void DistanceSquared (
-            ref Vector4 vector1,
-            ref Vector4 vector2,
-            out <#=T#> result)
+            ref Vector4 vector1, ref Vector4 vector2, out <#=T#> result)
         {
             <#=T#> dx = vector1.X - vector2.X;
             <#=T#> dy = vector1.Y - vector2.Y;
@@ -44,9 +40,7 @@
         /// them.
         /// </summary>
         public static void Dot (
-            ref Vector4 vector1,
-            ref Vector4 vector2,
-            out <#=T#> result)
+            ref Vector4 vector1, ref Vector4 vector2, out <#=T#> result)
         {
             result =
                 (vector1.X * vector2.X) +
@@ -61,8 +55,7 @@
         /// original vector.
         /// </summary>
         public static void Normalise (
-            ref Vector4 vector,
-            out Vector4 result)
+            ref Vector4 vector, out Vector4 result)
         {
             <#=T#> lengthSquared =
                 (vector.X * vector.X) +
@@ -91,9 +84,7 @@
         /// Transforms a Vector4 by the specified Matrix44.
         /// </summary>
         public static void Transform (
-            ref Vector4 vector,
-            ref Matrix44 matrix,
-            out Vector4 result)
+            ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
         {
             <#=T#> x =
                 (vector.X * matrix.R0C0) +
@@ -129,9 +120,7 @@
         /// Transforms a Vector4 by the specified Quaternion.
         /// </summary>
         public static void Transform (
-            ref Vector4 vector,
-            ref Quaternion rotation,
-            out Vector4 result)
+            ref Vector4 vector, ref Quaternion rotation, out Vector4 result)
         {
             <#=T#> two = 2;
 
@@ -176,9 +165,7 @@
         /// Transforms a normalised Vector4 by a Matrix44.
         /// </summary>
         public static void TransformNormal (
-            ref Vector4 normal,
-            ref Matrix44 matrix,
-            out Vector4 result)
+            ref Vector4 normal, ref Matrix44 matrix, out Vector4 result)
         {
             Boolean normalIsUnit;
             Vector4.IsUnit (ref normal, out normalIsUnit);
