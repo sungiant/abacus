@@ -9,6 +9,7 @@
 <# GenerateMathsConstant (T, "E"); #>
 <# GenerateMathsConstant (T, "Epsilon"); #>
 <# GenerateMathsConstant (T, "Half"); #>
+<# GenerateMathsConstant (T, "Quarter"); #>
 <# GenerateMathsConstant (T, "Log10E"); #>
 <# GenerateMathsConstant (T, "Log2E"); #>
 <# GenerateMathsConstant (T, "Pi"); #>
@@ -49,7 +50,8 @@
         /// <summary>
         /// FromFraction
         /// </summary>
-        public static void FromFraction(Int32 numerator, Int32 denominator, out <#=T#> value)
+        public static void FromFraction(
+            Int32 numerator, Int32 denominator, out <#=T#> value)
         {
             value = (<#=T#>) numerator / (<#=T#>) denominator;
         }

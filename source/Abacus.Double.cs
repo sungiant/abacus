@@ -92,6 +92,14 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
+        /// Provides the constant Quarter.
+        /// </summary>
+        public static void Quarter (out Double value)
+        {
+            value = 0.25;
+        }
+
+        /// <summary>
         /// Provides the constant Log10E.
         /// </summary>
         public static void Log10E (out Double value)
@@ -250,7 +258,8 @@ namespace Abacus.DoublePrecision
         /// <summary>
         /// FromFraction
         /// </summary>
-        public static void FromFraction(Int32 numerator, Int32 denominator, out Double value)
+        public static void FromFraction(
+            Int32 numerator, Int32 denominator, out Double value)
         {
             value = (Double) numerator / (Double) denominator;
         }
@@ -4376,7 +4385,7 @@ namespace Abacus.DoublePrecision
         public static void CreateFromAxisAngle (
             ref Vector3 axis, ref Double angle, out Quaternion result)
         {
-            Double half; Maths.Half(out half);
+            Double half; Maths.Half (out half);
             Double theta = angle * half;
 
             Double sin = Maths.Sin (theta);
@@ -4423,10 +4432,8 @@ namespace Abacus.DoublePrecision
         {
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
             Double zero = 0;
-            Double half; Maths.Half (out half);
             Double one = 1;
             Double two = 2;
-            Double four = 4;
             Double quarter; Maths.Quarter (out quarter);
 
             Double tr = (m.R0C0 + m.R1C1) + m.R2C2;
@@ -4450,10 +4457,10 @@ namespace Abacus.DoublePrecision
             else if (m.R1C1 > m.R2C2)
             {
                 Double s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
-                result.U = (m.R2C0 - m.R0C2) / s3;
-                result.I = (m.R1C0 + m.R0C1) / s3;
+                result.U = (m.R2C0 - m.R0C2) / s;
+                result.I = (m.R1C0 + m.R0C1) / s;
                 result.J = quarter * s;
-                result.K = (m.R2C1 + m.R1C2) / s3;
+                result.K = (m.R2C1 + m.R1C2) / s;
             }
             else
             {
@@ -4506,7 +4513,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Calculates the inverse of two Quaternions.
         /// </summary>
         public static void Inverse (
             ref Quaternion quaternion, out Quaternion result)
@@ -4533,10 +4540,8 @@ namespace Abacus.DoublePrecision
             ref Quaternion q1, ref Quaternion q2, out Double result)
         {
             result =
-                (q1.I * q2.I) +
-                (q1.J * q2.J) +
-                (q1.K * q2.K) +
-                (q1.U * q2.U);
+                (q1.I * q2.I) + (q1.J * q2.J) +
+                (q1.K * q2.K) + (q1.U * q2.U);
         }
 
         /// <summary>
@@ -4546,25 +4551,15 @@ namespace Abacus.DoublePrecision
         public static void Concatenate (
             ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            Double i1 = q1.I;
-            Double j1 = q1.J;
-            Double k1 = q1.K;
-            Double u1 = q1.U;
+            Double a = (q2.J * q1.K) - (q2.K * q1.J);
+            Double b = (q2.K * q1.I) - (q2.I * q1.K);
+            Double c = (q2.I * q1.J) - (q2.J * q1.I);
+            Double d = (q2.I * q1.I) - (q2.J * q1.J);
 
-            Double i2 = q2.I;
-            Double j2 = q2.J;
-            Double k2 = q2.K;
-            Double u2 = q2.U;
-
-            Double a = (j2 * k1) - (k2 * j1);
-            Double b = (k2 * i1) - (i2 * k1);
-            Double c = (i2 * j1) - (j2 * i1);
-            Double d = (i2 * i1) - (j2 * j1);
-
-            result.I = (i2 * u1) + (i1 * u2) + a;
-            result.J = (j2 * u1) + (j1 * u2) + b;
-            result.K = (k2 * u1) + (k1 * u2) + c;
-            result.U = (u2 * u1) - (k2 * k1) - d;
+            result.I = (q2.I * q1.U) + (q1.I * q2.U) + a;
+            result.J = (q2.J * q1.U) + (q1.J * q2.U) + b;
+            result.K = (q2.K * q1.U) + (q1.K * q2.U) + c;
+            result.U = (q2.U * q1.U) - (q2.K * q1.K) - d;
         }
 
         /// <summary>

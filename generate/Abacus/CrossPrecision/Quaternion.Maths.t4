@@ -40,7 +40,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Calculates the inverse of two Quaternions.
         /// </summary>
         public static void Inverse (
             ref Quaternion quaternion, out Quaternion result)
@@ -67,10 +67,8 @@
             ref Quaternion q1, ref Quaternion q2, out <#=T#> result)
         {
             result =
-                (q1.I * q2.I) +
-                (q1.J * q2.J) +
-                (q1.K * q2.K) +
-                (q1.U * q2.U);
+                (q1.I * q2.I) + (q1.J * q2.J) +
+                (q1.K * q2.K) + (q1.U * q2.U);
         }
 
         /// <summary>
@@ -80,25 +78,15 @@
         public static void Concatenate (
             ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            <#=T#> i1 = q1.I;
-            <#=T#> j1 = q1.J;
-            <#=T#> k1 = q1.K;
-            <#=T#> u1 = q1.U;
+            <#=T#> a = (q2.J * q1.K) - (q2.K * q1.J);
+            <#=T#> b = (q2.K * q1.I) - (q2.I * q1.K);
+            <#=T#> c = (q2.I * q1.J) - (q2.J * q1.I);
+            <#=T#> d = (q2.I * q1.I) - (q2.J * q1.J);
 
-            <#=T#> i2 = q2.I;
-            <#=T#> j2 = q2.J;
-            <#=T#> k2 = q2.K;
-            <#=T#> u2 = q2.U;
-
-            <#=T#> a = (j2 * k1) - (k2 * j1);
-            <#=T#> b = (k2 * i1) - (i2 * k1);
-            <#=T#> c = (i2 * j1) - (j2 * i1);
-            <#=T#> d = (i2 * i1) - (j2 * j1);
-
-            result.I = (i2 * u1) + (i1 * u2) + a;
-            result.J = (j2 * u1) + (j1 * u2) + b;
-            result.K = (k2 * u1) + (k1 * u2) + c;
-            result.U = (u2 * u1) - (k2 * k1) - d;
+            result.I = (q2.I * q1.U) + (q1.I * q2.U) + a;
+            result.J = (q2.J * q1.U) + (q1.J * q2.U) + b;
+            result.K = (q2.K * q1.U) + (q1.K * q2.U) + c;
+            result.U = (q2.U * q1.U) - (q2.K * q1.K) - d;
         }
 
         /// <summary>
