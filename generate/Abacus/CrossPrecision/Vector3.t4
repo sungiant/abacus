@@ -47,14 +47,8 @@
         /// </summary>
         public override String ToString ()
         {
-            return string.Format (
-                "{{X:{0} Y:{1} Z:{2}}}",
-                new Object[]
-                {
-                    this.X.ToString (),
-                    this.Y.ToString (),
-                    this.Z.ToString ()
-                });
+            return string.Format ("{{X:{0} Y:{1} Z:{2}}}", 
+                X.ToString (), Y.ToString (), Z.ToString ());
         }
 
         /// <summary>
@@ -73,11 +67,9 @@
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-            if (obj is Vector3) {
-                flag = this.Equals ((Vector3)obj);
-            }
-            return flag;
+            return (obj is Vector3)
+                ? this.Equals ((Vector3) obj)
+                : false;
         }
 
         #region IEquatable<Vector3>

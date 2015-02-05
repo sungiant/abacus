@@ -5485,7 +5485,10 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Perform a spherical linear interpolation between two Quaternions.
+        /// Provides a constant-speed motion along a unit-radius great circle
+        /// arc, given the ends and an interpolation parameter between 0 and 1.
+        /// http://en.wikipedia.org/wiki/Slerp
         /// </summary>
         public static void Slerp (
             ref Quaternion quaternion1,
@@ -5532,7 +5535,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Perform a linear interpolation between two Quaternions.
         /// </summary>
         public static void Lerp (
             ref Quaternion quaternion1,
@@ -5551,6 +5554,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 num = amount;
             Fixed32 num2 = one - num;
             Fixed32 num5 = (((quaternion1.I * quaternion2.I) + (quaternion1.J * quaternion2.J)) + (quaternion1.K * quaternion2.K)) + (quaternion1.U * quaternion2.U);
+            
             if (num5 >= zero) {
                 result.I = (num2 * quaternion1.I) + (num * quaternion2.I);
                 result.J = (num2 * quaternion1.J) + (num * quaternion2.J);
@@ -6132,7 +6136,7 @@ namespace Abacus.Fixed32Precision
         #endregion
 
         /// <summary>
-        /// todo
+        /// Gets and sets the up vector of the Matrix44.
         /// </summary>
         public Vector3 Up
         {
@@ -6153,7 +6157,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the down vector of the Matrix44.
         /// </summary>
         public Vector3 Down
         {
@@ -6174,7 +6178,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the right vector of the Matrix44.
         /// </summary>
         public Vector3 Right
         {
@@ -6195,7 +6199,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the left vector of the Matrix44.
         /// </summary>
         public Vector3 Left
         {
@@ -6216,7 +6220,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the forward vector of the Matrix44.
         /// </summary>
         public Vector3 Forward
         {
@@ -6237,7 +6241,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the backward vector of the Matrix44.
         /// </summary>
         public Vector3 Backward
         {
@@ -6258,7 +6262,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the translation vector of the Matrix44.
         /// </summary>
         public Vector3 Translation
         {
@@ -6275,6 +6279,34 @@ namespace Abacus.Fixed32Precision
                 this.R3C0 = value.X;
                 this.R3C1 = value.Y;
                 this.R3C2 = value.Z;
+            }
+        }
+
+        /// <summary>
+        /// A square matrix whose transpose is equal to itself is called a
+        /// symmetric matrix.
+        /// </summary>
+        public Boolean IsSymmetric
+        {
+            get
+            {
+                Matrix44 transpose = this;
+                Transpose (ref transpose, out transpose);
+                return (transpose == this);
+            }
+        }
+
+        /// <summary>
+        /// A square matrix whose transpose is equal to its negative is called
+        /// a skew-symmetric matrix.
+        /// </summary>
+        public Boolean IsSkewSymmetric
+        {
+            get
+            {
+                Matrix44 transpose = this;
+                Transpose (ref transpose, out transpose);
+                return (transpose == -this);
             }
         }
 
@@ -7185,7 +7217,12 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Transposes the rows and columns of a matrix.  The transpose of a 
+        /// given matrix is the matrix which is formed by turning all the rows
+        /// of a given matrix into columns and vice-versa.
+        /// N.B. On a computer, one can often avoid explicitly transposing a
+        /// matrix in memory by simply accessing the same data in a
+        /// different order.
         /// </summary>
         public static void Transpose (ref Matrix44 input, out Matrix44 output)
         {
@@ -7220,9 +7257,10 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
+        /// Reference Implementation:
         /// Essential Mathemathics For Games & Interactive Applications
         /// </summary>
-        public static void Decompose(
+        public static void Decompose (
             ref Matrix44 matrix,
             out Vector3 scale,
             out Quaternion rotation,
@@ -7714,8 +7752,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// beware, doing this might not produce what you expect.  you likely
-        /// want to lerp between quaternions.
+        /// Doing this might not produce what you expect, perhaps you should
+        /// lerp between quaternions.
         /// </summary>
         public static void Lerp (
             ref Matrix44 matrix1,
@@ -7725,29 +7763,28 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
-            if( amount < zero || amount > one )
+            if (amount < zero || amount > one)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException ();
             }
 
-            result.R0C0 = matrix1.R0C0 + ((matrix2.R0C0 - matrix1.R0C0) * amount);
-            result.R0C1 = matrix1.R0C1 + ((matrix2.R0C1 - matrix1.R0C1) * amount);
-            result.R0C2 = matrix1.R0C2 + ((matrix2.R0C2 - matrix1.R0C2) * amount);
-            result.R0C3 = matrix1.R0C3 + ((matrix2.R0C3 - matrix1.R0C3) * amount);
-            result.R1C0 = matrix1.R1C0 + ((matrix2.R1C0 - matrix1.R1C0) * amount);
-            result.R1C1 = matrix1.R1C1 + ((matrix2.R1C1 - matrix1.R1C1) * amount);
-            result.R1C2 = matrix1.R1C2 + ((matrix2.R1C2 - matrix1.R1C2) * amount);
-            result.R1C3 = matrix1.R1C3 + ((matrix2.R1C3 - matrix1.R1C3) * amount);
-            result.R2C0 = matrix1.R2C0 + ((matrix2.R2C0 - matrix1.R2C0) * amount);
-            result.R2C1 = matrix1.R2C1 + ((matrix2.R2C1 - matrix1.R2C1) * amount);
-            result.R2C2 = matrix1.R2C2 + ((matrix2.R2C2 - matrix1.R2C2) * amount);
-            result.R2C3 = matrix1.R2C3 + ((matrix2.R2C3 - matrix1.R2C3) * amount);
-            result.R3C0 = matrix1.R3C0 + ((matrix2.R3C0 - matrix1.R3C0) * amount);
-            result.R3C1 = matrix1.R3C1 + ((matrix2.R3C1 - matrix1.R3C1) * amount);
-            result.R3C2 = matrix1.R3C2 + ((matrix2.R3C2 - matrix1.R3C2) * amount);
-            result.R3C3 = matrix1.R3C3 + ((matrix2.R3C3 - matrix1.R3C3) * amount);
+            result.R0C0 = matrix1.R0C0+((matrix2.R0C0-matrix1.R0C0)*amount);
+            result.R0C1 = matrix1.R0C1+((matrix2.R0C1-matrix1.R0C1)*amount);
+            result.R0C2 = matrix1.R0C2+((matrix2.R0C2-matrix1.R0C2)*amount);
+            result.R0C3 = matrix1.R0C3+((matrix2.R0C3-matrix1.R0C3)*amount);
+            result.R1C0 = matrix1.R1C0+((matrix2.R1C0-matrix1.R1C0)*amount);
+            result.R1C1 = matrix1.R1C1+((matrix2.R1C1-matrix1.R1C1)*amount);
+            result.R1C2 = matrix1.R1C2+((matrix2.R1C2-matrix1.R1C2)*amount);
+            result.R1C3 = matrix1.R1C3+((matrix2.R1C3-matrix1.R1C3)*amount);
+            result.R2C0 = matrix1.R2C0+((matrix2.R2C0-matrix1.R2C0)*amount);
+            result.R2C1 = matrix1.R2C1+((matrix2.R2C1-matrix1.R2C1)*amount);
+            result.R2C2 = matrix1.R2C2+((matrix2.R2C2-matrix1.R2C2)*amount);
+            result.R2C3 = matrix1.R2C3+((matrix2.R2C3-matrix1.R2C3)*amount);
+            result.R3C0 = matrix1.R3C0+((matrix2.R3C0-matrix1.R3C0)*amount);
+            result.R3C1 = matrix1.R3C1+((matrix2.R3C1-matrix1.R3C1)*amount);
+            result.R3C2 = matrix1.R3C2+((matrix2.R3C2-matrix1.R3C2)*amount);
+            result.R3C3 = matrix1.R3C3+((matrix2.R3C3-matrix1.R3C3)*amount);
         }
-
 
 
 #if (VARIANTS_ENABLED)

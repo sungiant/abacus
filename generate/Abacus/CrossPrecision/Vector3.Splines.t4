@@ -12,7 +12,8 @@
             <#= type #> zero = 0;
             <#= type #> one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -50,7 +51,8 @@
             <#= type #> zero = 0;
             <#= type #> one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();
@@ -176,7 +178,8 @@
             <#= type #> zero = 0;
             <#= type #> one = 1;
 
-            // Make sure that the weighting vector is within the supported range.
+            // Make sure that the weighting vector is within the supported
+            // range.
             if( amount < zero || amount > one )
             {
                 throw new ArgumentOutOfRangeException();

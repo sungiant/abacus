@@ -31,10 +31,7 @@
         /// I, J, K and U respectively.
         /// </summary>
         public Quaternion (
-            <#= type #> i,
-            <#= type #> j,
-            <#= type #> k,
-            <#= type #> u)
+            <#= type #> i, <#= type #> j, <#= type #> k, <#= type #> u)
         {
             this.I = i;
             this.J = j;
@@ -61,13 +58,8 @@
         /// </summary>
         public override String ToString ()
         {
-            return String.Format (
-                "{{I:{0} J:{1} K:{2} U:{3}}}",
-                new Object[] {
-                    this.I.ToString (),
-                    this.J.ToString (),
-                    this.K.ToString (),
-                    this.U.ToString () });
+            return String.Format ("{{I:{0} J:{1} K:{2} U:{3}}}",
+                I.ToString (), J.ToString (), K.ToString (), U.ToString ());
         }
 
         /// <summary>
@@ -87,14 +79,9 @@
         /// </summary>
         public override Boolean Equals (Object obj)
         {
-            Boolean flag = false;
-
-            if (obj is Quaternion)
-            {
-                flag = this.Equals ((Quaternion) obj);
-            }
-
-            return flag;
+            return (obj is Quaternion)
+                ? this.Equals ((Quaternion) obj)
+                : false;
         }
 
         #region IEquatable<Quaternion>
@@ -105,11 +92,9 @@
         /// </summary>
         public Boolean Equals (Quaternion other)
         {
-            return
-                (this.I == other.I) &&
-                (this.J == other.J) &&
-                (this.K == other.K) &&
-                (this.U == other.U);
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
         }
 
         #endregion

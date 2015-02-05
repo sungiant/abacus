@@ -1,5 +1,10 @@
 ﻿        /// <summary>
-        /// todo
+        /// Transposes the rows and columns of a matrix.  The transpose of a 
+        /// given matrix is the matrix which is formed by turning all the rows
+        /// of a given matrix into columns and vice-versa.
+        /// N.B. On a computer, one can often avoid explicitly transposing a
+        /// matrix in memory by simply accessing the same data in a
+        /// different order.
         /// </summary>
         public static void Transpose (ref Matrix44 input, out Matrix44 output)
         {
@@ -34,9 +39,10 @@
         }
 
         /// <summary>
+        /// Reference Implementation:
         /// Essential Mathemathics For Games & Interactive Applications
         /// </summary>
-        public static void Decompose(
+        public static void Decompose (
             ref Matrix44 matrix,
             out Vector3 scale,
             out Quaternion rotation,

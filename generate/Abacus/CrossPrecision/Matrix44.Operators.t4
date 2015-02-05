@@ -5,27 +5,17 @@
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Matrix44 value1,
-            ref Matrix44 value2,
-            out Boolean result)
+            ref Matrix44 m1, ref Matrix44 m2, out Boolean result)
         {
             result =
-                (value1.R0C0 == value2.R0C0) &&
-                (value1.R1C1 == value2.R1C1) &&
-                (value1.R2C2 == value2.R2C2) &&
-                (value1.R3C3 == value2.R3C3) &&
-                (value1.R0C1 == value2.R0C1) &&
-                (value1.R0C2 == value2.R0C2) &&
-                (value1.R0C3 == value2.R0C3) &&
-                (value1.R1C0 == value2.R1C0) &&
-                (value1.R1C2 == value2.R1C2) &&
-                (value1.R1C3 == value2.R1C3) &&
-                (value1.R2C0 == value2.R2C0) &&
-                (value1.R2C1 == value2.R2C1) &&
-                (value1.R2C3 == value2.R2C3) &&
-                (value1.R3C0 == value2.R3C0) &&
-                (value1.R3C1 == value2.R3C1) &&
-                (value1.R3C2 == value2.R3C2);
+                (m1.R0C0 == m2.R0C0) && (m1.R1C1 == m2.R1C1) &&
+                (m1.R2C2 == m2.R2C2) && (m1.R3C3 == m2.R3C3) &&
+                (m1.R0C1 == m2.R0C1) && (m1.R0C2 == m2.R0C2) &&
+                (m1.R0C3 == m2.R0C3) && (m1.R1C0 == m2.R1C0) &&
+                (m1.R1C2 == m2.R1C2) && (m1.R1C3 == m2.R1C3) &&
+                (m1.R2C0 == m2.R2C0) && (m1.R2C1 == m2.R2C1) &&
+                (m1.R2C3 == m2.R2C3) && (m1.R3C0 == m2.R3C0) &&
+                (m1.R3C1 == m2.R3C1) && (m1.R3C2 == m2.R3C2);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -34,26 +24,24 @@
         /// Performs addition of two Matrix44 objects.
         /// </summary>
         public static void Add (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 + matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 + matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 + matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 + matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 + matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 + matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 + matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 + matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 + matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 + matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 + matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 + matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 + matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 + matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 + matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 + matrix2.R3C3;
+            result.R0C0 = m1.R0C0 + m2.R0C0;
+            result.R0C1 = m1.R0C1 + m2.R0C1;
+            result.R0C2 = m1.R0C2 + m2.R0C2;
+            result.R0C3 = m1.R0C3 + m2.R0C3;
+            result.R1C0 = m1.R1C0 + m2.R1C0;
+            result.R1C1 = m1.R1C1 + m2.R1C1;
+            result.R1C2 = m1.R1C2 + m2.R1C2;
+            result.R1C3 = m1.R1C3 + m2.R1C3;
+            result.R2C0 = m1.R2C0 + m2.R2C0;
+            result.R2C1 = m1.R2C1 + m2.R2C1;
+            result.R2C2 = m1.R2C2 + m2.R2C2;
+            result.R2C3 = m1.R2C3 + m2.R2C3;
+            result.R3C0 = m1.R3C0 + m2.R3C0;
+            result.R3C1 = m1.R3C1 + m2.R3C1;
+            result.R3C2 = m1.R3C2 + m2.R3C2;
+            result.R3C3 = m1.R3C3 + m2.R3C3;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -62,26 +50,24 @@
         /// Performs subtraction of two Matrix44 objects.
         /// </summary>
         public static void Subtract (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 - matrix2.R0C0;
-            result.R0C1 = matrix1.R0C1 - matrix2.R0C1;
-            result.R0C2 = matrix1.R0C2 - matrix2.R0C2;
-            result.R0C3 = matrix1.R0C3 - matrix2.R0C3;
-            result.R1C0 = matrix1.R1C0 - matrix2.R1C0;
-            result.R1C1 = matrix1.R1C1 - matrix2.R1C1;
-            result.R1C2 = matrix1.R1C2 - matrix2.R1C2;
-            result.R1C3 = matrix1.R1C3 - matrix2.R1C3;
-            result.R2C0 = matrix1.R2C0 - matrix2.R2C0;
-            result.R2C1 = matrix1.R2C1 - matrix2.R2C1;
-            result.R2C2 = matrix1.R2C2 - matrix2.R2C2;
-            result.R2C3 = matrix1.R2C3 - matrix2.R2C3;
-            result.R3C0 = matrix1.R3C0 - matrix2.R3C0;
-            result.R3C1 = matrix1.R3C1 - matrix2.R3C1;
-            result.R3C2 = matrix1.R3C2 - matrix2.R3C2;
-            result.R3C3 = matrix1.R3C3 - matrix2.R3C3;
+            result.R0C0 = m1.R0C0 - m2.R0C0;
+            result.R0C1 = m1.R0C1 - m2.R0C1;
+            result.R0C2 = m1.R0C2 - m2.R0C2;
+            result.R0C3 = m1.R0C3 - m2.R0C3;
+            result.R1C0 = m1.R1C0 - m2.R1C0;
+            result.R1C1 = m1.R1C1 - m2.R1C1;
+            result.R1C2 = m1.R1C2 - m2.R1C2;
+            result.R1C3 = m1.R1C3 - m2.R1C3;
+            result.R2C0 = m1.R2C0 - m2.R2C0;
+            result.R2C1 = m1.R2C1 - m2.R2C1;
+            result.R2C2 = m1.R2C2 - m2.R2C2;
+            result.R2C3 = m1.R2C3 - m2.R2C3;
+            result.R3C0 = m1.R3C0 - m2.R3C0;
+            result.R3C1 = m1.R3C1 - m2.R3C1;
+            result.R3C2 = m1.R3C2 - m2.R3C2;
+            result.R3C3 = m1.R3C3 - m2.R3C3;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -115,105 +101,71 @@
         /// Performs muliplication of two Matrix44 objects.
         /// </summary>
         public static void Multiply (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            out Matrix44 result)
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
         {
             result.R0C0 =
-                (matrix1.R0C0 * matrix2.R0C0) +
-                (matrix1.R0C1 * matrix2.R1C0) +
-                (matrix1.R0C2 * matrix2.R2C0) +
-                (matrix1.R0C3 * matrix2.R3C0);
+                (m1.R0C0 * m2.R0C0) + (m1.R0C1 * m2.R1C0) +
+                (m1.R0C2 * m2.R2C0) + (m1.R0C3 * m2.R3C0);
 
             result.R0C1 =
-                (matrix1.R0C0 * matrix2.R0C1) +
-                (matrix1.R0C1 * matrix2.R1C1) +
-                (matrix1.R0C2 * matrix2.R2C1) +
-                (matrix1.R0C3 * matrix2.R3C1);
+                (m1.R0C0 * m2.R0C1) + (m1.R0C1 * m2.R1C1) +
+                (m1.R0C2 * m2.R2C1) + (m1.R0C3 * m2.R3C1);
 
             result.R0C2 =
-                (matrix1.R0C0 * matrix2.R0C2) +
-                (matrix1.R0C1 * matrix2.R1C2) +
-                (matrix1.R0C2 * matrix2.R2C2) +
-                (matrix1.R0C3 * matrix2.R3C2);
+                (m1.R0C0 * m2.R0C2) + (m1.R0C1 * m2.R1C2) +
+                (m1.R0C2 * m2.R2C2) + (m1.R0C3 * m2.R3C2);
 
             result.R0C3 =
-                (matrix1.R0C0 * matrix2.R0C3) +
-                (matrix1.R0C1 * matrix2.R1C3) +
-                (matrix1.R0C2 * matrix2.R2C3) +
-                (matrix1.R0C3 * matrix2.R3C3);
+                (m1.R0C0 * m2.R0C3) + (m1.R0C1 * m2.R1C3) +
+                (m1.R0C2 * m2.R2C3) + (m1.R0C3 * m2.R3C3);
 
             result.R1C0 =
-                (matrix1.R1C0 * matrix2.R0C0) +
-                (matrix1.R1C1 * matrix2.R1C0) +
-                (matrix1.R1C2 * matrix2.R2C0) +
-                (matrix1.R1C3 * matrix2.R3C0);
+                (m1.R1C0 * m2.R0C0) + (m1.R1C1 * m2.R1C0) +
+                (m1.R1C2 * m2.R2C0) + (m1.R1C3 * m2.R3C0);
 
             result.R1C1 =
-                (matrix1.R1C0 * matrix2.R0C1) +
-                (matrix1.R1C1 * matrix2.R1C1) +
-                (matrix1.R1C2 * matrix2.R2C1) +
-                (matrix1.R1C3 * matrix2.R3C1);
+                (m1.R1C0 * m2.R0C1) + (m1.R1C1 * m2.R1C1) +
+                (m1.R1C2 * m2.R2C1) + (m1.R1C3 * m2.R3C1);
 
             result.R1C2 =
-                (matrix1.R1C0 * matrix2.R0C2) +
-                (matrix1.R1C1 * matrix2.R1C2) +
-                (matrix1.R1C2 * matrix2.R2C2) +
-                (matrix1.R1C3 * matrix2.R3C2);
+                (m1.R1C0 * m2.R0C2) + (m1.R1C1 * m2.R1C2) +
+                (m1.R1C2 * m2.R2C2) + (m1.R1C3 * m2.R3C2);
 
             result.R1C3 =
-                (matrix1.R1C0 * matrix2.R0C3) +
-                (matrix1.R1C1 * matrix2.R1C3) +
-                (matrix1.R1C2 * matrix2.R2C3) +
-                (matrix1.R1C3 * matrix2.R3C3);
+                (m1.R1C0 * m2.R0C3) + (m1.R1C1 * m2.R1C3) +
+                (m1.R1C2 * m2.R2C3) + (m1.R1C3 * m2.R3C3);
 
             result.R2C0 =
-                (matrix1.R2C0 * matrix2.R0C0) +
-                (matrix1.R2C1 * matrix2.R1C0) +
-                (matrix1.R2C2 * matrix2.R2C0) +
-                (matrix1.R2C3 * matrix2.R3C0);
+                (m1.R2C0 * m2.R0C0) + (m1.R2C1 * m2.R1C0) +
+                (m1.R2C2 * m2.R2C0) + (m1.R2C3 * m2.R3C0);
 
             result.R2C1 =
-                (matrix1.R2C0 * matrix2.R0C1) +
-                (matrix1.R2C1 * matrix2.R1C1) +
-                (matrix1.R2C2 * matrix2.R2C1) +
-                (matrix1.R2C3 * matrix2.R3C1);
+                (m1.R2C0 * m2.R0C1) + (m1.R2C1 * m2.R1C1) +
+                (m1.R2C2 * m2.R2C1) + (m1.R2C3 * m2.R3C1);
 
             result.R2C2 =
-                (matrix1.R2C0 * matrix2.R0C2) +
-                (matrix1.R2C1 * matrix2.R1C2) +
-                (matrix1.R2C2 * matrix2.R2C2) +
-                (matrix1.R2C3 * matrix2.R3C2);
+                (m1.R2C0 * m2.R0C2) + (m1.R2C1 * m2.R1C2) +
+                (m1.R2C2 * m2.R2C2) + (m1.R2C3 * m2.R3C2);
 
             result.R2C3 =
-                (matrix1.R2C0 * matrix2.R0C3) +
-                (matrix1.R2C1 * matrix2.R1C3) +
-                (matrix1.R2C2 * matrix2.R2C3) +
-                (matrix1.R2C3 * matrix2.R3C3);
+                (m1.R2C0 * m2.R0C3) + (m1.R2C1 * m2.R1C3) +
+                (m1.R2C2 * m2.R2C3) + (m1.R2C3 * m2.R3C3);
 
             result.R3C0 =
-                (matrix1.R3C0 * matrix2.R0C0) +
-                (matrix1.R3C1 * matrix2.R1C0) +
-                (matrix1.R3C2 * matrix2.R2C0) +
-                (matrix1.R3C3 * matrix2.R3C0);
+                (m1.R3C0 * m2.R0C0) + (m1.R3C1 * m2.R1C0) +
+                (m1.R3C2 * m2.R2C0) + (m1.R3C3 * m2.R3C0);
 
             result.R3C1 =
-                (matrix1.R3C0 * matrix2.R0C1) +
-                (matrix1.R3C1 * matrix2.R1C1) +
-                (matrix1.R3C2 * matrix2.R2C1) +
-                (matrix1.R3C3 * matrix2.R3C1);
+                (m1.R3C0 * m2.R0C1) + (m1.R3C1 * m2.R1C1) +
+                (m1.R3C2 * m2.R2C1) + (m1.R3C3 * m2.R3C1);
 
             result.R3C2 =
-                (matrix1.R3C0 * matrix2.R0C2) +
-                (matrix1.R3C1 * matrix2.R1C2) +
-                (matrix1.R3C2 * matrix2.R2C2) +
-                (matrix1.R3C3 * matrix2.R3C2);
+                (m1.R3C0 * m2.R0C2) + (m1.R3C1 * m2.R1C2) +
+                (m1.R3C2 * m2.R2C2) + (m1.R3C3 * m2.R3C2);
 
             result.R3C3 =
-                (matrix1.R3C0 * matrix2.R0C3) +
-                (matrix1.R3C1 * matrix2.R1C3) +
-                (matrix1.R3C2 * matrix2.R2C3) +
-                (matrix1.R3C3 * matrix2.R3C3);
+                (m1.R3C0 * m2.R0C3) + (m1.R3C1 * m2.R1C3) +
+                (m1.R3C2 * m2.R2C3) + (m1.R3C3 * m2.R3C3);
         }
 
         /// <summary>
@@ -221,25 +173,25 @@
         /// precision scaling factor.
         /// </summary>
         public static void Multiply (
-            ref Matrix44 matrix1,
+            ref Matrix44 matrix,
             ref <#= type #> scaleFactor,
             out Matrix44 result)
         {
-            result.R0C0 = matrix1.R0C0 * scaleFactor;
-            result.R0C1 = matrix1.R0C1 * scaleFactor;
-            result.R0C2 = matrix1.R0C2 * scaleFactor;
-            result.R0C3 = matrix1.R0C3 * scaleFactor;
-            result.R1C0 = matrix1.R1C0 * scaleFactor;
-            result.R1C1 = matrix1.R1C1 * scaleFactor;
-            result.R1C2 = matrix1.R1C2 * scaleFactor;
-            result.R1C3 = matrix1.R1C3 * scaleFactor;
-            result.R2C0 = matrix1.R2C0 * scaleFactor;
-            result.R2C1 = matrix1.R2C1 * scaleFactor;
-            result.R2C2 = matrix1.R2C2 * scaleFactor;
-            result.R2C3 = matrix1.R2C3 * scaleFactor;
-            result.R3C0 = matrix1.R3C0 * scaleFactor;
-            result.R3C1 = matrix1.R3C1 * scaleFactor;
-            result.R3C2 = matrix1.R3C2 * scaleFactor;
-            result.R3C3 = matrix1.R3C3 * scaleFactor;
+            result.R0C0 = matrix.R0C0 * scaleFactor;
+            result.R0C1 = matrix.R0C1 * scaleFactor;
+            result.R0C2 = matrix.R0C2 * scaleFactor;
+            result.R0C3 = matrix.R0C3 * scaleFactor;
+            result.R1C0 = matrix.R1C0 * scaleFactor;
+            result.R1C1 = matrix.R1C1 * scaleFactor;
+            result.R1C2 = matrix.R1C2 * scaleFactor;
+            result.R1C3 = matrix.R1C3 * scaleFactor;
+            result.R2C0 = matrix.R2C0 * scaleFactor;
+            result.R2C1 = matrix.R2C1 * scaleFactor;
+            result.R2C2 = matrix.R2C2 * scaleFactor;
+            result.R2C3 = matrix.R2C3 * scaleFactor;
+            result.R3C0 = matrix.R3C0 * scaleFactor;
+            result.R3C1 = matrix.R3C1 * scaleFactor;
+            result.R3C2 = matrix.R3C2 * scaleFactor;
+            result.R3C3 = matrix.R3C3 * scaleFactor;
         }
 

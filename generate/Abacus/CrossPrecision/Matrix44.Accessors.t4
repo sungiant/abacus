@@ -1,5 +1,5 @@
         /// <summary>
-        /// todo
+        /// Gets and sets the up vector of the Matrix44.
         /// </summary>
         public Vector3 Up
         {
@@ -20,7 +20,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the down vector of the Matrix44.
         /// </summary>
         public Vector3 Down
         {
@@ -41,7 +41,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the right vector of the Matrix44.
         /// </summary>
         public Vector3 Right
         {
@@ -62,7 +62,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the left vector of the Matrix44.
         /// </summary>
         public Vector3 Left
         {
@@ -83,7 +83,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the forward vector of the Matrix44.
         /// </summary>
         public Vector3 Forward
         {
@@ -104,7 +104,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the backward vector of the Matrix44.
         /// </summary>
         public Vector3 Backward
         {
@@ -125,7 +125,7 @@
         }
 
         /// <summary>
-        /// todo
+        /// Gets and sets the translation vector of the Matrix44.
         /// </summary>
         public Vector3 Translation
         {

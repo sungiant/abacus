@@ -1,36 +1,54 @@
 ﻿        /// <summary>
-        /// beware, doing this might not produce what you expect.  you likely
-        /// want to lerp between quaternions.
+        /// Doing this might not produce what you expect, perhaps you should
+        /// lerp between quaternions.
         /// </summary>
         public static void Lerp (
-            ref Matrix44 matrix1,
-            ref Matrix44 matrix2,
-            ref <#= type #> amount,
+            ref Matrix44 m1, ref Matrix44 m2, ref <#= type #> amount,
             out Matrix44 result)
         {
             <#= type #> zero = 0;
             <#= type #> one = 1;
-            if( amount < zero || amount > one )
-            {
-                throw new ArgumentOutOfRangeException();
-            }
 
-            result.R0C0 = matrix1.R0C0 + ((matrix2.R0C0 - matrix1.R0C0) * amount);
-            result.R0C1 = matrix1.R0C1 + ((matrix2.R0C1 - matrix1.R0C1) * amount);
-            result.R0C2 = matrix1.R0C2 + ((matrix2.R0C2 - matrix1.R0C2) * amount);
-            result.R0C3 = matrix1.R0C3 + ((matrix2.R0C3 - matrix1.R0C3) * amount);
-            result.R1C0 = matrix1.R1C0 + ((matrix2.R1C0 - matrix1.R1C0) * amount);
-            result.R1C1 = matrix1.R1C1 + ((matrix2.R1C1 - matrix1.R1C1) * amount);
-            result.R1C2 = matrix1.R1C2 + ((matrix2.R1C2 - matrix1.R1C2) * amount);
-            result.R1C3 = matrix1.R1C3 + ((matrix2.R1C3 - matrix1.R1C3) * amount);
-            result.R2C0 = matrix1.R2C0 + ((matrix2.R2C0 - matrix1.R2C0) * amount);
-            result.R2C1 = matrix1.R2C1 + ((matrix2.R2C1 - matrix1.R2C1) * amount);
-            result.R2C2 = matrix1.R2C2 + ((matrix2.R2C2 - matrix1.R2C2) * amount);
-            result.R2C3 = matrix1.R2C3 + ((matrix2.R2C3 - matrix1.R2C3) * amount);
-            result.R3C0 = matrix1.R3C0 + ((matrix2.R3C0 - matrix1.R3C0) * amount);
-            result.R3C1 = matrix1.R3C1 + ((matrix2.R3C1 - matrix1.R3C1) * amount);
-            result.R3C2 = matrix1.R3C2 + ((matrix2.R3C2 - matrix1.R3C2) * amount);
-            result.R3C3 = matrix1.R3C3 + ((matrix2.R3C3 - matrix1.R3C3) * amount);
+            if (amount < zero || amount > one)
+                throw new ArgumentOutOfRangeException ();
+
+            result.R0C0 = m1.R0C0 + ((m2.R0C0 - m1.R0C0) * amount);
+            result.R0C1 = m1.R0C1 + ((m2.R0C1 - m1.R0C1) * amount);
+            result.R0C2 = m1.R0C2 + ((m2.R0C2 - m1.R0C2) * amount);
+            result.R0C3 = m1.R0C3 + ((m2.R0C3 - m1.R0C3) * amount);
+            result.R1C0 = m1.R1C0 + ((m2.R1C0 - m1.R1C0) * amount);
+            result.R1C1 = m1.R1C1 + ((m2.R1C1 - m1.R1C1) * amount);
+            result.R1C2 = m1.R1C2 + ((m2.R1C2 - m1.R1C2) * amount);
+            result.R1C3 = m1.R1C3 + ((m2.R1C3 - m1.R1C3) * amount);
+            result.R2C0 = m1.R2C0 + ((m2.R2C0 - m1.R2C0) * amount);
+            result.R2C1 = m1.R2C1 + ((m2.R2C1 - m1.R2C1) * amount);
+            result.R2C2 = m1.R2C2 + ((m2.R2C2 - m1.R2C2) * amount);
+            result.R2C3 = m1.R2C3 + ((m2.R2C3 - m1.R2C3) * amount);
+            result.R3C0 = m1.R3C0 + ((m2.R3C0 - m1.R3C0) * amount);
+            result.R3C1 = m1.R3C1 + ((m2.R3C1 - m1.R3C1) * amount);
+            result.R3C2 = m1.R3C2 + ((m2.R3C2 - m1.R3C2) * amount);
+            result.R3C3 = m1.R3C3 + ((m2.R3C3 - m1.R3C3) * amount);
         }
 
+        /// <summary>
+        /// A square matrix whose transpose is equal to itself is called a
+        /// symmetric matrix.
+        /// </summary>
+        public Boolean IsSymmetric ()
+        {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            return (transpose == this);
+        }
+
+        /// <summary>
+        /// A square matrix whose transpose is equal to its negative is called
+        /// a skew-symmetric matrix.
+        /// </summary>
+        public Boolean IsSkewSymmetric ()
+        {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            return (transpose == -this);
+        }
 

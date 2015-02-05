@@ -5,15 +5,11 @@
         /// (X==Y) operator.
         /// </summary>
         public static void Equals (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Boolean result)
+            ref Quaternion q1, ref Quaternion q2, out Boolean result)
         {
             result =
-                (quaternion1.I == quaternion2.I) &&
-                (quaternion1.J == quaternion2.J) &&
-                (quaternion1.K == quaternion2.K) &&
-                (quaternion1.U == quaternion2.U);
+                (q1.I == q2.I) && (q1.J == q2.J) &&
+                (q1.K == q2.K) && (q1.U == q2.U);
         }
 
         // Addition Operators //----------------------------------------------//
@@ -22,14 +18,12 @@
         /// Performs addition of two Quaternion objects.
         /// </summary>
         public static void Add (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            result.I = quaternion1.I + quaternion2.I;
-            result.J = quaternion1.J + quaternion2.J;
-            result.K = quaternion1.K + quaternion2.K;
-            result.U = quaternion1.U + quaternion2.U;
+            result.I = q1.I + q2.I;
+            result.J = q1.J + q2.J;
+            result.K = q1.K + q2.K;
+            result.U = q1.U + q2.U;
         }
 
         // Subtraction Operators //-------------------------------------------//
@@ -38,14 +32,12 @@
         /// Performs subtraction of two Quaternion objects.
         /// </summary>
         public static void Subtract (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            result.I = quaternion1.I - quaternion2.I;
-            result.J = quaternion1.J - quaternion2.J;
-            result.K = quaternion1.K - quaternion2.K;
-            result.U = quaternion1.U - quaternion2.U;
+            result.I = q1.I - q2.I;
+            result.J = q1.J - q2.J;
+            result.K = q1.K - q2.K;
+            result.U = q1.U - q2.U;
         }
 
         // Negation Operators //----------------------------------------------//
@@ -54,8 +46,7 @@
         /// Performs negation of a Quaternion object.
         /// </summary>
         public static void Negate (
-            ref Quaternion quaternion,
-            out Quaternion result)
+            ref Quaternion quaternion, out Quaternion result)
         {
             result.I = -quaternion.I;
             result.J = -quaternion.J;
@@ -77,25 +68,13 @@
         /// a divide operation just multiply by the inverse.
         /// </summary>
         public static void Multiply (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            out Quaternion result)
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
         {
-            <#= type #> i1 = quaternion1.I;
-            <#= type #> j1 = quaternion1.J;
-            <#= type #> k1 = quaternion1.K;
-            <#= type #> u1 = quaternion1.U;
-
-            <#= type #> i2 = quaternion2.I;
-            <#= type #> j2 = quaternion2.J;
-            <#= type #> k2 = quaternion2.K;
-            <#= type #> u2 = quaternion2.U;
-
             // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 
-            result.I = i1*u2 + u1*i2 + j1*k2 - k1*j2;
-            result.J = u1*j2 - i1*k2 + j1*u2 + k1*i2;
-            result.K = u1*k2 + i1*j2 - j1*i2 + k1*u2;
-            result.U = u1*u2 - i1*i2 - j1*j2 - k1*k2;
+            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
+            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
+            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
+            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
         }
 
