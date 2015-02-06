@@ -58,27 +58,6 @@ using System.Collections.Generic;
 
 namespace Abacus.Fixed32Precision
 {
-    internal static class Int32Extensions
-    {
-        // http://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=vs.110).aspx
-        public static Int32 ShiftAndWrap (
-            this Int32 value, Int32 positions = 2)
-        {
-            positions = positions & 0x1F;
-
-            // Save the existing bit pattern, but interpret it as an unsigned
-            // integer.
-            uint number = BitConverter.ToUInt32(
-                BitConverter.GetBytes(value), 0);
-            // Preserve the bits to be discarded.
-            uint wrapped = number >> (32 - positions);
-            // Shift and wrap the discarded bits.
-            return BitConverter.ToInt32 (
-                BitConverter.GetBytes ((number << positions) | wrapped), 0);
-        }
-    }
-
-
     ///
     /// Fixed32 is a binary fixed
     /// point number in the Q39.24 number format.
@@ -812,269 +791,858 @@ namespace Abacus.Fixed32Precision
     }
 
     /// <summary>
-    /// This class provides maths functions with consistent function
-    /// signatures across all supported precisions.  The idea being
-    /// the more you use this, the more you will be able to write
-    /// code once and easily change the precision later.
+    /// Fixed32 precision Quaternion.
     /// </summary>
-    public static class Maths
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Quaternion
+        : IEquatable<Quaternion>
     {
         /// <summary>
-        /// Provides the constant E.
+        /// Gets or sets the imaginary I-component of the Quaternion.
         /// </summary>
-        public static void E (out Fixed32 value)
+        public Fixed32 I;
+
+        /// <summary>
+        /// Gets or sets the imaginary J-component of the Quaternion.
+        /// </summary>
+        public Fixed32 J;
+
+        /// <summary>
+        /// Gets or sets the imaginary K-component of the Quaternion.
+        /// </summary>
+        public Fixed32 K;
+
+        /// <summary>
+        /// Gets or sets the real U-component of the Quaternion.
+        /// </summary>
+        public Fixed32 U;
+
+        /// <summary>
+        /// Initilises a new instance of Quaternion from three imaginary
+        /// Fixed32 values and one real Fixed32 value representing
+        /// I, J, K and U respectively.
+        /// </summary>
+        public Quaternion (
+            Fixed32 i, Fixed32 j, Fixed32 k, Fixed32 u)
         {
-            value = Fixed32.Parse("2.71828183");
+            this.I = i;
+            this.J = j;
+            this.K = k;
+            this.U = u;
         }
 
         /// <summary>
-        /// Provides the constant Epsilon.
+        /// Initilises a new instance of Quaternion from a Vector3 representing
+        /// the imaginary parts of the quaternion (I, J & K) and one
+        /// Fixed32 value representing the real part of the
+        /// Quaternion (U).
         /// </summary>
-        public static void Epsilon (out Fixed32 value)
+        public Quaternion (Vector3 vectorPart, Fixed32 scalarPart)
         {
-            value = Fixed32.Parse("0.0001");
+            this.I = vectorPart.X;
+            this.J = vectorPart.Y;
+            this.K = vectorPart.Z;
+            this.U = scalarPart;
         }
 
         /// <summary>
-        /// Provides the constant Half.
+        /// Retrieves a string representation of the current object.
         /// </summary>
-        public static void Half (out Fixed32 value)
+        public override String ToString ()
         {
-            value = Fixed32.Parse("0.5");
+            return String.Format ("{{I:{0} J:{1} K:{2} U:{3}}}",
+                I.ToString (), J.ToString (), K.ToString (), U.ToString ());
         }
 
         /// <summary>
-        /// Provides the constant Quarter.
+        /// Gets the hash code of the Quaternion object.
         /// </summary>
-        public static void Quarter (out Fixed32 value)
+        public override Int32 GetHashCode ()
         {
-            value = Fixed32.Parse("0.25");
+            return U.GetHashCode ().ShiftAndWrap (6)
+                 ^ K.GetHashCode ().ShiftAndWrap (4)
+                 ^ J.GetHashCode ().ShiftAndWrap (2)
+                 ^ I.GetHashCode ();
         }
 
         /// <summary>
-        /// Provides the constant Log10E.
+        /// Determines whether or not this Quaternion object is equal to another
+        /// object
         /// </summary>
-        public static void Log10E (out Fixed32 value)
+        public override Boolean Equals (Object obj)
         {
-            value = Fixed32.Parse("0.4342945");
+            return (obj is Quaternion)
+                ? this.Equals ((Quaternion) obj)
+                : false;
+        }
+
+        #region IEquatable<Quaternion>
+
+        /// <summary>
+        /// Determines whether or not this Quaternion object is equal to another
+        /// Quaternion object.
+        /// </summary>
+        public Boolean Equals (Quaternion other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
+
+        // Constants //-------------------------------------------------------//
+
+        /// <summary>
+        /// Defines the identity quaternion.
+        /// </summary>
+        static Quaternion identity;
+
+        /// <summary>
+        /// Defines the zero quaternion.
+        /// </summary>
+        static Quaternion zero;
+
+        /// <summary>
+        /// Static constructor used to initilise static constants.
+        /// </summary>
+        static Quaternion ()
+        {
+            identity = new Quaternion (0, 0, 0, 1);
+            zero = new Quaternion (0, 0, 0, 0);
         }
 
         /// <summary>
-        /// Provides the constant Log2E.
+        /// Returns the identity Quaternion.
         /// </summary>
-        public static void Log2E (out Fixed32 value)
+        public static Quaternion Identity
         {
-            value = Fixed32.Parse("1.442695");
+            get { return identity; }
         }
 
         /// <summary>
-        /// Provides the constant Pi.
+        /// Returns the zero Quaternion.
         /// </summary>
-        public static void Pi (out Fixed32 value)
+        public static Quaternion Zero
         {
-            value = Fixed32.Parse("3.1415926536");
+            get { return zero; }
         }
 
         /// <summary>
-        /// Provides the constant Root2.
+        /// Creates a Quaternion from a vector and an angle to rotate about
+        /// the vector.
         /// </summary>
-        public static void Root2 (out Fixed32 value)
+        public static void CreateFromAxisAngle (
+            ref Vector3 axis, ref Fixed32 angle, out Quaternion result)
         {
-            value = Fixed32.Parse("1.414213562");
+            Fixed32 half; Maths.Half (out half);
+            Fixed32 theta = angle * half;
+
+            Fixed32 sin = Maths.Sin (theta);
+            Fixed32 cos = Maths.Cos (theta);
+
+            result.I = axis.X * sin;
+            result.J = axis.Y * sin;
+            result.K = axis.Z * sin;
+
+            result.U = cos;
         }
 
         /// <summary>
-        /// Provides the constant Root3.
+        /// Creates a new Quaternion from specified yaw, pitch, and roll angles.
         /// </summary>
-        public static void Root3 (out Fixed32 value)
+        public static void CreateFromYawPitchRoll (
+            ref Fixed32 yaw, ref Fixed32 pitch,
+            ref Fixed32 roll, out Quaternion result)
         {
-            value = Fixed32.Parse("1.732050808");
+            Fixed32 half; Maths.Half(out half);
+
+            Fixed32 hr = roll * half;
+            Fixed32 hp = pitch * half;
+            Fixed32 hy = yaw * half;
+
+            Fixed32 shr = Maths.Sin (hr);
+            Fixed32 chr = Maths.Cos (hr);
+            Fixed32 shp = Maths.Sin (hp);
+            Fixed32 chp = Maths.Cos (hp);
+            Fixed32 shy = Maths.Sin (hy);
+            Fixed32 chy = Maths.Cos (hy);
+
+            result.I = (chy * shp * chr) + (shy * chp * shr);
+            result.J = (shy * chp * chr) - (chy * shp * shr);
+            result.K = (chy * chp * shr) - (shy * shp * chr);
+            result.U = (chy * chp * chr) + (shy * shp * shr);
         }
 
         /// <summary>
-        /// Provides the constant Tau.
+        /// Creates a Quaternion from a rotation Matrix44.
         /// </summary>
-        public static void Tau (out Fixed32 value)
+        public static void CreateFromRotationMatrix (
+            ref Matrix44 m, out Quaternion result)
         {
-            value = Fixed32.Parse("6.283185");
-        }
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+            Fixed32 two = 2;
+            Fixed32 quarter; Maths.Quarter (out quarter);
 
-        /// <summary>
-        /// Provides the constant Zero.
-        /// </summary>
-        public static void Zero (out Fixed32 value)
-        {
-            value = 0;
-        }
+            Fixed32 tr = (m.R0C0 + m.R1C1) + m.R2C2;
 
-        /// <summary>
-        /// Provides the constant One.
-        /// </summary>
-        public static void One (out Fixed32 value)
-        {
-            value = 1;
-        }
-
-
-        /// <summary>
-        /// ArcCos.
-        /// </summary>
-        public static Fixed32 ArcCos (Fixed32 value)
-        {
-            throw new NotImplementedException ();
-        }
-
-        /// <summary>
-        /// ArcSin.
-        /// </summary>
-        public static Fixed32 ArcSin (Fixed32 value)
-        {
-            throw new NotImplementedException ();
-        }
-
-        /// <summary>
-        /// ArcTan.
-        /// </summary>
-        public static Fixed32 ArcTan (Fixed32 value)
-        {
-            throw new NotImplementedException ();
-        }
-
-        /// <summary>
-        /// Cos.
-        /// </summary>
-        public static Fixed32 Cos (Fixed32 value)
-        {
-            return Fixed32.Cos(value);
-        }
-
-        /// <summary>
-        /// Sin.
-        /// </summary>
-        public static Fixed32 Sin (Fixed32 value)
-        {
-            return Fixed32.Sin(value);
-        }
-
-        /// <summary>
-        /// Tan.
-        /// </summary>
-        public static Fixed32 Tan (Fixed32 value)
-        {
-            return Fixed32.Tan(value);
-        }
-
-        /// <summary>
-        /// Sqrt.
-        /// </summary>
-        public static Fixed32 Sqrt (Fixed32 value)
-        {
-            return Fixed32.Sqrt(value);
-        }
-
-        /// <summary>
-        /// Square.
-        /// </summary>
-        public static Fixed32 Square (Fixed32 value)
-        {
-            return Fixed32.Square(value);
-        }
-
-        /// <summary>
-        /// Abs.
-        /// </summary>
-        public static Fixed32 Abs (Fixed32 value)
-        {
-            return (value < new Fixed32(0)) ? value * new Fixed32(-1) : value;
-        }
-
-
-        /// <summary>
-        /// ToRadians
-        /// </summary>
-        public static Fixed32 ToRadians(Fixed32 input)
-        {
-            Fixed32 tau; Tau(out tau);
-            return input * tau / ((Fixed32)360);
-        }
-
-        /// <summary>
-        /// ToDegrees
-        /// </summary>
-        public static Fixed32 ToDegrees(Fixed32 input)
-        {
-            Fixed32 tau; Tau(out tau);
-            return input / tau * ((Fixed32)360);
-        }
-
-        /// <summary>
-        /// FromFraction
-        /// </summary>
-        public static void FromFraction(
-            Int32 numerator, Int32 denominator, out Fixed32 value)
-        {
-            value = (Fixed32) numerator / (Fixed32) denominator;
-        }
-
-        /// <summary>
-        /// FromString
-        /// </summary>
-        public static void FromString(String str, out Fixed32 value)
-        {
-            Fixed32.TryParse(str, out value);
-        }
-
-        /// <summary>
-        /// IsZero
-        /// </summary>
-        public static Boolean IsZero(Fixed32 value)
-        {
-            Fixed32 ep;
-            Epsilon(out ep);
-            return Abs(value) < ep;
-        }
-
-        /// <summary>
-        /// Min
-        /// </summary>
-        public static Fixed32 Min(Fixed32 a, Fixed32 b)
-        {
-            return a < b ? a : b;
-        }
-
-        /// <summary>
-        /// Max
-        /// </summary>
-        public static Fixed32 Max(Fixed32 a, Fixed32 b)
-        {
-            return a > b ? a : b;
-        }
-
-        /// <summary>
-        /// WithinEpsilon
-        /// </summary>
-        public static Boolean WithinEpsilon(Fixed32 a, Fixed32 b)
-        {
-            Fixed32 num = a - b;
-            return ((-Fixed32.Epsilon <= num) && (num <= Fixed32.Epsilon));
-        }
-
-        /// <summary>
-        /// Sign
-        /// </summary>
-        public static Int32 Sign(Fixed32 value)
-        {
-            if (value > 0)
+            if (tr > zero)
             {
-                return 1;
+                Fixed32 s = Maths.Sqrt (tr + one) * two;
+                result.U = quarter * s;
+                result.I = (m.R1C2 - m.R2C1) / s;
+                result.J = (m.R2C0 - m.R0C2) / s;
+                result.K = (m.R0C1 - m.R1C0) / s;
             }
-            else if (value < 0)
+            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
-                return -1;
+                Fixed32 s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
+                result.U = (m.R1C2 - m.R2C1) / s;
+                result.I = quarter * s;
+                result.J = (m.R0C1 + m.R1C0) / s;
+                result.K = (m.R0C2 + m.R2C0) / s;
+            }
+            else if (m.R1C1 > m.R2C2)
+            {
+                Fixed32 s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
+                result.U = (m.R2C0 - m.R0C2) / s;
+                result.I = (m.R1C0 + m.R0C1) / s;
+                result.J = quarter * s;
+                result.K = (m.R2C1 + m.R1C2) / s;
+            }
+            else
+            {
+                Fixed32 s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
+                result.U = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C0 + m.R0C2) / s;
+                result.J = (m.R2C1 + m.R1C2) / s;
+                result.K = quarter * s;
+            }
+        }
+        /// <summary>
+        /// Calculates the length² of a Quaternion.
+        /// </summary>
+        public static void LengthSquared (
+            ref Quaternion quaternion, out Fixed32 result)
+        {
+            result =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+        }
+
+        /// <summary>
+        /// Calculates the length of a Quaternion.
+        /// </summary>
+        public static void Length (
+            ref Quaternion quaternion, out Fixed32 result)
+        {
+            Fixed32 lengthSquared =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+
+        /// <summary>
+        /// Calculates the conjugate of a Quaternion.
+        /// </summary>
+        public static void Conjugate (
+            ref Quaternion value, out Quaternion result)
+        {
+            result.I = -value.I;
+            result.J = -value.J;
+            result.K = -value.K;
+            result.U = value.U;
+        }
+
+        /// <summary>
+        /// Calculates the inverse of two Quaternions.
+        /// </summary>
+        public static void Inverse (
+            ref Quaternion quaternion, out Quaternion result)
+        {
+            Fixed32 one = 1;
+            Fixed32 a =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+
+            Fixed32 b = one / a;
+
+            result.I = -quaternion.I * b;
+            result.J = -quaternion.J * b;
+            result.K = -quaternion.K * b;
+            result.U =  quaternion.U * b;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two Quaternions.
+        /// </summary>
+        public static void Dot (
+            ref Quaternion q1, ref Quaternion q2, out Fixed32 result)
+        {
+            result =
+                (q1.I * q2.I) + (q1.J * q2.J) +
+                (q1.K * q2.K) + (q1.U * q2.U);
+        }
+
+        /// <summary>
+        /// Concatenates two Quaternions; the result represents the first
+        /// rotation followed by the second rotation.
+        /// </summary>
+        public static void Concatenate (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            Fixed32 a = (q2.J * q1.K) - (q2.K * q1.J);
+            Fixed32 b = (q2.K * q1.I) - (q2.I * q1.K);
+            Fixed32 c = (q2.I * q1.J) - (q2.J * q1.I);
+            Fixed32 d = (q2.I * q1.I) - (q2.J * q1.J);
+
+            result.I = (q2.I * q1.U) + (q1.I * q2.U) + a;
+            result.J = (q2.J * q1.U) + (q1.J * q2.U) + b;
+            result.K = (q2.K * q1.U) + (q1.K * q2.U) + c;
+            result.U = (q2.U * q1.U) - (q2.K * q1.K) - d;
+        }
+
+        /// <summary>
+        /// Divides each component of the quaternion by the length of the
+        /// quaternion.
+        /// </summary>
+        public static void Normalise (
+            ref Quaternion quaternion, out Quaternion result)
+        {
+            Fixed32 one = 1;
+
+            Fixed32 a =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+
+            Fixed32 b = one / Maths.Sqrt (a);
+
+            result.I = quaternion.I * b;
+            result.J = quaternion.J * b;
+            result.K = quaternion.K * b;
+            result.U = quaternion.U * b;
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Quaternion objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static void Equals (
+            ref Quaternion q1, ref Quaternion q2, out Boolean result)
+        {
+            result =
+                (q1.I == q2.I) && (q1.J == q2.J) &&
+                (q1.K == q2.K) && (q1.U == q2.U);
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Quaternion objects.
+        /// </summary>
+        public static void Add (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            result.I = q1.I + q2.I;
+            result.J = q1.J + q2.J;
+            result.K = q1.K + q2.K;
+            result.U = q1.U + q2.U;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Quaternion objects.
+        /// </summary>
+        public static void Subtract (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            result.I = q1.I - q2.I;
+            result.J = q1.J - q2.J;
+            result.K = q1.K - q2.K;
+            result.U = q1.U - q2.U;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Quaternion object.
+        /// </summary>
+        public static void Negate (
+            ref Quaternion quaternion, out Quaternion result)
+        {
+            result.I = -quaternion.I;
+            result.J = -quaternion.J;
+            result.K = -quaternion.K;
+            result.U = -quaternion.U;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Quaternion objects,
+        /// (Quaternion multiplication is not commutative),
+        /// (i^2 = j^2 = k^2 = i j k = -1).
+        ///
+        /// For Quaternion division the notation q1 / q2 is not ideal, since
+        /// Quaternion multiplication is not commutative we need to be able
+        /// to distinguish between q1*(q2^-1) and (q2^-1)*q1. This is why
+        /// Abacus does not have a division opperator.  If you need
+        /// a divide operation just multiply by the inverse.
+        /// </summary>
+        public static void Multiply (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
+
+            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
+            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
+            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
+            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
+        }
+
+        /// <summary>
+        /// Perform a spherical linear interpolation between two Quaternions.
+        /// Provides a constant-speed motion along a unit-radius great circle
+        /// arc, given the ends and an interpolation parameter between 0 and 1.
+        /// http://en.wikipedia.org/wiki/Slerp
+        /// </summary>
+        public static void Slerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Fixed32 amount,
+            out Quaternion result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+            Fixed32 epsilon; Maths.Epsilon (out epsilon);
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
             }
 
-            return 0;
+            Fixed32 remaining = one - amount;
+
+            Fixed32 angle;
+            Dot (ref quaternion1, ref quaternion2, out angle);
+
+            if (angle < zero)
+            {
+                Negate (ref quaternion1, out quaternion1);
+                angle = -angle;
+            }
+
+            Fixed32 theta = Maths.ArcCos (angle);
+
+
+            Fixed32 r = remaining;
+            Fixed32 a = amount;
+
+            // To avoid division by 0 and by very small numbers the
+            // Lerp is used when theta is small.
+            if (theta > epsilon)
+            {
+                Fixed32 x = Maths.Sin (remaining * theta);
+                Fixed32 y = Maths.Sin (amount * theta);
+                Fixed32 z = Maths.Sin (theta);
+
+                r = x / z;
+                a = y / z;
+            }
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
         }
+
+        /// <summary>
+        /// Perform a linear interpolation between two Quaternions.
+        /// </summary>
+        public static void Lerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref Fixed32 amount,
+            out Quaternion result)
+        {
+            Fixed32 zero = 0;
+            Fixed32 one = 1;
+
+            if (amount < zero || amount > one)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Fixed32 remaining = one - amount;
+
+            Fixed32 r = remaining;
+            Fixed32 a = amount;
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            Fixed32 one = 1;
+
+            result = Maths.IsZero(
+                one -
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
+        }
+
+
+#if (VARIANTS_ENABLED)
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromAxisAngle (
+            Vector3 axis,
+            Fixed32 angle)
+        {
+            Quaternion result;
+            CreateFromAxisAngle (ref axis, ref angle, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromYawPitchRoll (
+            Fixed32 yaw,
+            Fixed32 pitch,
+            Fixed32 roll)
+        {
+            Quaternion result;
+            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromRotationMatrix (
+            Matrix44 matrix)
+        {
+            Quaternion result;
+            CreateFromRotationMatrix (ref matrix, out result);
+            return result;
+        }
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Fixed32 LengthSquared (Quaternion quaternion)
+        {
+            Fixed32 result;
+            LengthSquared (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Fixed32 Length (Quaternion quaternion)
+        {
+            Fixed32 result;
+            Length (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean IsUnit (Quaternion quaternion)
+        {
+            Boolean result;
+            IsUnit (ref quaternion, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Conjugate (Quaternion quaternion)
+        {
+            Quaternion result;
+            Conjugate (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Inverse (Quaternion quaternion)
+        {
+            Quaternion result;
+            Inverse (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Fixed32 Dot (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Fixed32 result;
+            Dot (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Concatenate (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Quaternion result;
+            Concatenate (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Normalise (Quaternion quaternion)
+        {
+            Quaternion result;
+            Normalise (ref quaternion, out result);
+            return result;
+        }
+
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean Equals (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Boolean result;
+            Equals (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean operator == (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Boolean result;
+            Equals (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean operator != (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Boolean result;
+            Equals (ref quaternion1, ref quaternion2, out result);
+            return !result;
+        }
+
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Add (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Add (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion operator + (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Add (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        // Variant Subtraction Operators //-----------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Subtract (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Subtract (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion operator - (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Subtract (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        // Variant Negation Operators //--------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Negate (Quaternion quaternion)
+        {
+            Quaternion result;
+            Negate (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion operator - (Quaternion quaternion)
+        {
+            Quaternion result;
+            Negate (ref quaternion, out result);
+            return result;
+        }
+
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Multiply (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Multiply (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion operator * (
+            Quaternion quaternion1, Quaternion quaternion2)
+        {
+            Quaternion result;
+            Multiply (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Slerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Fixed32 amount)
+        {
+            Quaternion result;
+            Slerp (ref quaternion1, ref quaternion2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Lerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            Fixed32 amount)
+        {
+            Quaternion result;
+            Lerp (ref quaternion1, ref quaternion2, ref amount, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public Fixed32 LengthSquared ()
+        {
+            Fixed32 result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public Fixed32 Length ()
+        {
+            Fixed32 result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public void Conjugate ()
+        {
+            Conjugate (ref this, out this);
+        }
+
+
+#endif
     }
     /// <summary>
     /// Fixed32 precision Vector2.
@@ -4966,858 +5534,269 @@ namespace Abacus.Fixed32Precision
     }
 
     /// <summary>
-    /// Fixed32 precision Quaternion.
+    /// This class provides maths functions with consistent function
+    /// signatures across all supported precisions.  The idea being
+    /// the more you use this, the more you will be able to write
+    /// code once and easily change the precision later.
     /// </summary>
-    [StructLayout (LayoutKind.Sequential), Serializable]
-    public struct Quaternion
-        : IEquatable<Quaternion>
+    public static class Maths
     {
         /// <summary>
-        /// Gets or sets the imaginary I-component of the Quaternion.
+        /// Provides the constant E.
         /// </summary>
-        public Fixed32 I;
-
-        /// <summary>
-        /// Gets or sets the imaginary J-component of the Quaternion.
-        /// </summary>
-        public Fixed32 J;
-
-        /// <summary>
-        /// Gets or sets the imaginary K-component of the Quaternion.
-        /// </summary>
-        public Fixed32 K;
-
-        /// <summary>
-        /// Gets or sets the real U-component of the Quaternion.
-        /// </summary>
-        public Fixed32 U;
-
-        /// <summary>
-        /// Initilises a new instance of Quaternion from three imaginary
-        /// Fixed32 values and one real Fixed32 value representing
-        /// I, J, K and U respectively.
-        /// </summary>
-        public Quaternion (
-            Fixed32 i, Fixed32 j, Fixed32 k, Fixed32 u)
+        public static void E (out Fixed32 value)
         {
-            this.I = i;
-            this.J = j;
-            this.K = k;
-            this.U = u;
+            value = Fixed32.Parse("2.71828183");
         }
 
         /// <summary>
-        /// Initilises a new instance of Quaternion from a Vector3 representing
-        /// the imaginary parts of the quaternion (I, J & K) and one
-        /// Fixed32 value representing the real part of the
-        /// Quaternion (U).
+        /// Provides the constant Epsilon.
         /// </summary>
-        public Quaternion (Vector3 vectorPart, Fixed32 scalarPart)
+        public static void Epsilon (out Fixed32 value)
         {
-            this.I = vectorPart.X;
-            this.J = vectorPart.Y;
-            this.K = vectorPart.Z;
-            this.U = scalarPart;
+            value = Fixed32.Parse("0.0001");
         }
 
         /// <summary>
-        /// Retrieves a string representation of the current object.
+        /// Provides the constant Half.
         /// </summary>
-        public override String ToString ()
+        public static void Half (out Fixed32 value)
         {
-            return String.Format ("{{I:{0} J:{1} K:{2} U:{3}}}",
-                I.ToString (), J.ToString (), K.ToString (), U.ToString ());
+            value = Fixed32.Parse("0.5");
         }
 
         /// <summary>
-        /// Gets the hash code of the Quaternion object.
+        /// Provides the constant Quarter.
         /// </summary>
-        public override Int32 GetHashCode ()
+        public static void Quarter (out Fixed32 value)
         {
-            return U.GetHashCode ().ShiftAndWrap (6)
-                 ^ K.GetHashCode ().ShiftAndWrap (4)
-                 ^ J.GetHashCode ().ShiftAndWrap (2)
-                 ^ I.GetHashCode ();
+            value = Fixed32.Parse("0.25");
         }
 
         /// <summary>
-        /// Determines whether or not this Quaternion object is equal to another
-        /// object
+        /// Provides the constant Log10E.
         /// </summary>
-        public override Boolean Equals (Object obj)
+        public static void Log10E (out Fixed32 value)
         {
-            return (obj is Quaternion)
-                ? this.Equals ((Quaternion) obj)
-                : false;
-        }
-
-        #region IEquatable<Quaternion>
-
-        /// <summary>
-        /// Determines whether or not this Quaternion object is equal to another
-        /// Quaternion object.
-        /// </summary>
-        public Boolean Equals (Quaternion other)
-        {
-            Boolean result;
-            Equals (ref this, ref other, out result);
-            return result;
-        }
-
-        #endregion
-
-        // Constants //-------------------------------------------------------//
-
-        /// <summary>
-        /// Defines the identity quaternion.
-        /// </summary>
-        static Quaternion identity;
-
-        /// <summary>
-        /// Defines the zero quaternion.
-        /// </summary>
-        static Quaternion zero;
-
-        /// <summary>
-        /// Static constructor used to initilise static constants.
-        /// </summary>
-        static Quaternion ()
-        {
-            identity = new Quaternion (0, 0, 0, 1);
-            zero = new Quaternion (0, 0, 0, 0);
+            value = Fixed32.Parse("0.4342945");
         }
 
         /// <summary>
-        /// Returns the identity Quaternion.
+        /// Provides the constant Log2E.
         /// </summary>
-        public static Quaternion Identity
+        public static void Log2E (out Fixed32 value)
         {
-            get { return identity; }
+            value = Fixed32.Parse("1.442695");
         }
 
         /// <summary>
-        /// Returns the zero Quaternion.
+        /// Provides the constant Pi.
         /// </summary>
-        public static Quaternion Zero
+        public static void Pi (out Fixed32 value)
         {
-            get { return zero; }
+            value = Fixed32.Parse("3.1415926536");
         }
 
         /// <summary>
-        /// Creates a Quaternion from a vector and an angle to rotate about
-        /// the vector.
+        /// Provides the constant Root2.
         /// </summary>
-        public static void CreateFromAxisAngle (
-            ref Vector3 axis, ref Fixed32 angle, out Quaternion result)
+        public static void Root2 (out Fixed32 value)
         {
-            Fixed32 half; Maths.Half (out half);
-            Fixed32 theta = angle * half;
-
-            Fixed32 sin = Maths.Sin (theta);
-            Fixed32 cos = Maths.Cos (theta);
-
-            result.I = axis.X * sin;
-            result.J = axis.Y * sin;
-            result.K = axis.Z * sin;
-
-            result.U = cos;
+            value = Fixed32.Parse("1.414213562");
         }
 
         /// <summary>
-        /// Creates a new Quaternion from specified yaw, pitch, and roll angles.
+        /// Provides the constant Root3.
         /// </summary>
-        public static void CreateFromYawPitchRoll (
-            ref Fixed32 yaw, ref Fixed32 pitch,
-            ref Fixed32 roll, out Quaternion result)
+        public static void Root3 (out Fixed32 value)
         {
-            Fixed32 half; Maths.Half(out half);
-
-            Fixed32 hr = roll * half;
-            Fixed32 hp = pitch * half;
-            Fixed32 hy = yaw * half;
-
-            Fixed32 shr = Maths.Sin (hr);
-            Fixed32 chr = Maths.Cos (hr);
-            Fixed32 shp = Maths.Sin (hp);
-            Fixed32 chp = Maths.Cos (hp);
-            Fixed32 shy = Maths.Sin (hy);
-            Fixed32 chy = Maths.Cos (hy);
-
-            result.I = (chy * shp * chr) + (shy * chp * shr);
-            result.J = (shy * chp * chr) - (chy * shp * shr);
-            result.K = (chy * chp * shr) - (shy * shp * chr);
-            result.U = (chy * chp * chr) + (shy * shp * shr);
+            value = Fixed32.Parse("1.732050808");
         }
 
         /// <summary>
-        /// Creates a Quaternion from a rotation Matrix44.
+        /// Provides the constant Tau.
         /// </summary>
-        public static void CreateFromRotationMatrix (
-            ref Matrix44 m, out Quaternion result)
+        public static void Tau (out Fixed32 value)
         {
-            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
-            Fixed32 zero = 0;
-            Fixed32 one = 1;
-            Fixed32 two = 2;
-            Fixed32 quarter; Maths.Quarter (out quarter);
+            value = Fixed32.Parse("6.283185");
+        }
 
-            Fixed32 tr = (m.R0C0 + m.R1C1) + m.R2C2;
+        /// <summary>
+        /// Provides the constant Zero.
+        /// </summary>
+        public static void Zero (out Fixed32 value)
+        {
+            value = 0;
+        }
 
-            if (tr > zero)
+        /// <summary>
+        /// Provides the constant One.
+        /// </summary>
+        public static void One (out Fixed32 value)
+        {
+            value = 1;
+        }
+
+
+        /// <summary>
+        /// ArcCos.
+        /// </summary>
+        public static Fixed32 ArcCos (Fixed32 value)
+        {
+            throw new NotImplementedException ();
+        }
+
+        /// <summary>
+        /// ArcSin.
+        /// </summary>
+        public static Fixed32 ArcSin (Fixed32 value)
+        {
+            throw new NotImplementedException ();
+        }
+
+        /// <summary>
+        /// ArcTan.
+        /// </summary>
+        public static Fixed32 ArcTan (Fixed32 value)
+        {
+            throw new NotImplementedException ();
+        }
+
+        /// <summary>
+        /// Cos.
+        /// </summary>
+        public static Fixed32 Cos (Fixed32 value)
+        {
+            return Fixed32.Cos(value);
+        }
+
+        /// <summary>
+        /// Sin.
+        /// </summary>
+        public static Fixed32 Sin (Fixed32 value)
+        {
+            return Fixed32.Sin(value);
+        }
+
+        /// <summary>
+        /// Tan.
+        /// </summary>
+        public static Fixed32 Tan (Fixed32 value)
+        {
+            return Fixed32.Tan(value);
+        }
+
+        /// <summary>
+        /// Sqrt.
+        /// </summary>
+        public static Fixed32 Sqrt (Fixed32 value)
+        {
+            return Fixed32.Sqrt(value);
+        }
+
+        /// <summary>
+        /// Square.
+        /// </summary>
+        public static Fixed32 Square (Fixed32 value)
+        {
+            return Fixed32.Square(value);
+        }
+
+        /// <summary>
+        /// Abs.
+        /// </summary>
+        public static Fixed32 Abs (Fixed32 value)
+        {
+            return (value < new Fixed32(0)) ? value * new Fixed32(-1) : value;
+        }
+
+
+        /// <summary>
+        /// ToRadians
+        /// </summary>
+        public static Fixed32 ToRadians(Fixed32 input)
+        {
+            Fixed32 tau; Tau(out tau);
+            return input * tau / ((Fixed32)360);
+        }
+
+        /// <summary>
+        /// ToDegrees
+        /// </summary>
+        public static Fixed32 ToDegrees(Fixed32 input)
+        {
+            Fixed32 tau; Tau(out tau);
+            return input / tau * ((Fixed32)360);
+        }
+
+        /// <summary>
+        /// FromFraction
+        /// </summary>
+        public static void FromFraction(
+            Int32 numerator, Int32 denominator, out Fixed32 value)
+        {
+            value = (Fixed32) numerator / (Fixed32) denominator;
+        }
+
+        /// <summary>
+        /// FromString
+        /// </summary>
+        public static void FromString(String str, out Fixed32 value)
+        {
+            Fixed32.TryParse(str, out value);
+        }
+
+        /// <summary>
+        /// IsZero
+        /// </summary>
+        public static Boolean IsZero(Fixed32 value)
+        {
+            Fixed32 ep;
+            Epsilon(out ep);
+            return Abs(value) < ep;
+        }
+
+        /// <summary>
+        /// Min
+        /// </summary>
+        public static Fixed32 Min(Fixed32 a, Fixed32 b)
+        {
+            return a < b ? a : b;
+        }
+
+        /// <summary>
+        /// Max
+        /// </summary>
+        public static Fixed32 Max(Fixed32 a, Fixed32 b)
+        {
+            return a > b ? a : b;
+        }
+
+        /// <summary>
+        /// WithinEpsilon
+        /// </summary>
+        public static Boolean WithinEpsilon(Fixed32 a, Fixed32 b)
+        {
+            Fixed32 num = a - b;
+            return ((-Fixed32.Epsilon <= num) && (num <= Fixed32.Epsilon));
+        }
+
+        /// <summary>
+        /// Sign
+        /// </summary>
+        public static Int32 Sign(Fixed32 value)
+        {
+            if (value > 0)
             {
-                Fixed32 s = Maths.Sqrt (tr + one) * two;
-                result.U = quarter * s;
-                result.I = (m.R1C2 - m.R2C1) / s;
-                result.J = (m.R2C0 - m.R0C2) / s;
-                result.K = (m.R0C1 - m.R1C0) / s;
+                return 1;
             }
-            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
+            else if (value < 0)
             {
-                Fixed32 s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
-                result.U = (m.R1C2 - m.R2C1) / s;
-                result.I = quarter * s;
-                result.J = (m.R0C1 + m.R1C0) / s;
-                result.K = (m.R0C2 + m.R2C0) / s;
-            }
-            else if (m.R1C1 > m.R2C2)
-            {
-                Fixed32 s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
-                result.U = (m.R2C0 - m.R0C2) / s;
-                result.I = (m.R1C0 + m.R0C1) / s;
-                result.J = quarter * s;
-                result.K = (m.R2C1 + m.R1C2) / s;
-            }
-            else
-            {
-                Fixed32 s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
-                result.U = (m.R0C1 - m.R1C0) / s;
-                result.I = (m.R2C0 + m.R0C2) / s;
-                result.J = (m.R2C1 + m.R1C2) / s;
-                result.K = quarter * s;
-            }
-        }
-        /// <summary>
-        /// Calculates the length² of a Quaternion.
-        /// </summary>
-        public static void LengthSquared (
-            ref Quaternion quaternion, out Fixed32 result)
-        {
-            result =
-                (quaternion.I * quaternion.I) +
-                (quaternion.J * quaternion.J) +
-                (quaternion.K * quaternion.K) +
-                (quaternion.U * quaternion.U);
-        }
-
-        /// <summary>
-        /// Calculates the length of a Quaternion.
-        /// </summary>
-        public static void Length (
-            ref Quaternion quaternion, out Fixed32 result)
-        {
-            Fixed32 lengthSquared =
-                (quaternion.I * quaternion.I) +
-                (quaternion.J * quaternion.J) +
-                (quaternion.K * quaternion.K) +
-                (quaternion.U * quaternion.U);
-
-            result = Maths.Sqrt (lengthSquared);
-        }
-
-
-        /// <summary>
-        /// Calculates the conjugate of a Quaternion.
-        /// </summary>
-        public static void Conjugate (
-            ref Quaternion value, out Quaternion result)
-        {
-            result.I = -value.I;
-            result.J = -value.J;
-            result.K = -value.K;
-            result.U = value.U;
-        }
-
-        /// <summary>
-        /// Calculates the inverse of two Quaternions.
-        /// </summary>
-        public static void Inverse (
-            ref Quaternion quaternion, out Quaternion result)
-        {
-            Fixed32 one = 1;
-            Fixed32 a =
-                (quaternion.I * quaternion.I) +
-                (quaternion.J * quaternion.J) +
-                (quaternion.K * quaternion.K) +
-                (quaternion.U * quaternion.U);
-
-            Fixed32 b = one / a;
-
-            result.I = -quaternion.I * b;
-            result.J = -quaternion.J * b;
-            result.K = -quaternion.K * b;
-            result.U =  quaternion.U * b;
-        }
-
-        /// <summary>
-        /// Calculates the dot product of two Quaternions.
-        /// </summary>
-        public static void Dot (
-            ref Quaternion q1, ref Quaternion q2, out Fixed32 result)
-        {
-            result =
-                (q1.I * q2.I) + (q1.J * q2.J) +
-                (q1.K * q2.K) + (q1.U * q2.U);
-        }
-
-        /// <summary>
-        /// Concatenates two Quaternions; the result represents the first
-        /// rotation followed by the second rotation.
-        /// </summary>
-        public static void Concatenate (
-            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
-        {
-            Fixed32 a = (q2.J * q1.K) - (q2.K * q1.J);
-            Fixed32 b = (q2.K * q1.I) - (q2.I * q1.K);
-            Fixed32 c = (q2.I * q1.J) - (q2.J * q1.I);
-            Fixed32 d = (q2.I * q1.I) - (q2.J * q1.J);
-
-            result.I = (q2.I * q1.U) + (q1.I * q2.U) + a;
-            result.J = (q2.J * q1.U) + (q1.J * q2.U) + b;
-            result.K = (q2.K * q1.U) + (q1.K * q2.U) + c;
-            result.U = (q2.U * q1.U) - (q2.K * q1.K) - d;
-        }
-
-        /// <summary>
-        /// Divides each component of the quaternion by the length of the
-        /// quaternion.
-        /// </summary>
-        public static void Normalise (
-            ref Quaternion quaternion, out Quaternion result)
-        {
-            Fixed32 one = 1;
-
-            Fixed32 a =
-                (quaternion.I * quaternion.I) +
-                (quaternion.J * quaternion.J) +
-                (quaternion.K * quaternion.K) +
-                (quaternion.U * quaternion.U);
-
-            Fixed32 b = one / Maths.Sqrt (a);
-
-            result.I = quaternion.I * b;
-            result.J = quaternion.J * b;
-            result.K = quaternion.K * b;
-            result.U = quaternion.U * b;
-        }
-
-        // Equality Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Determines whether or not two Quaternion objects are equal using the
-        /// (X==Y) operator.
-        /// </summary>
-        public static void Equals (
-            ref Quaternion q1, ref Quaternion q2, out Boolean result)
-        {
-            result =
-                (q1.I == q2.I) && (q1.J == q2.J) &&
-                (q1.K == q2.K) && (q1.U == q2.U);
-        }
-
-        // Addition Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs addition of two Quaternion objects.
-        /// </summary>
-        public static void Add (
-            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
-        {
-            result.I = q1.I + q2.I;
-            result.J = q1.J + q2.J;
-            result.K = q1.K + q2.K;
-            result.U = q1.U + q2.U;
-        }
-
-        // Subtraction Operators //-------------------------------------------//
-
-        /// <summary>
-        /// Performs subtraction of two Quaternion objects.
-        /// </summary>
-        public static void Subtract (
-            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
-        {
-            result.I = q1.I - q2.I;
-            result.J = q1.J - q2.J;
-            result.K = q1.K - q2.K;
-            result.U = q1.U - q2.U;
-        }
-
-        // Negation Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Performs negation of a Quaternion object.
-        /// </summary>
-        public static void Negate (
-            ref Quaternion quaternion, out Quaternion result)
-        {
-            result.I = -quaternion.I;
-            result.J = -quaternion.J;
-            result.K = -quaternion.K;
-            result.U = -quaternion.U;
-        }
-
-        // Multiplication Operators //----------------------------------------//
-
-        /// <summary>
-        /// Performs muliplication of two Quaternion objects,
-        /// (Quaternion multiplication is not commutative),
-        /// (i^2 = j^2 = k^2 = i j k = -1).
-        ///
-        /// For Quaternion division the notation q1 / q2 is not ideal, since
-        /// Quaternion multiplication is not commutative we need to be able
-        /// to distinguish between q1*(q2^-1) and (q2^-1)*q1. This is why
-        /// Abacus does not have a division opperator.  If you need
-        /// a divide operation just multiply by the inverse.
-        /// </summary>
-        public static void Multiply (
-            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
-        {
-            // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
-
-            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
-            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
-            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
-            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
-        }
-
-        /// <summary>
-        /// Perform a spherical linear interpolation between two Quaternions.
-        /// Provides a constant-speed motion along a unit-radius great circle
-        /// arc, given the ends and an interpolation parameter between 0 and 1.
-        /// http://en.wikipedia.org/wiki/Slerp
-        /// </summary>
-        public static void Slerp (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            ref Fixed32 amount,
-            out Quaternion result)
-        {
-            Fixed32 zero = 0;
-            Fixed32 one = 1;
-            Fixed32 epsilon; Maths.Epsilon (out epsilon);
-
-            if( amount < zero || amount > one )
-            {
-                throw new ArgumentOutOfRangeException();
+                return -1;
             }
 
-            Fixed32 remaining = one - amount;
-
-            Fixed32 angle;
-            Dot (ref quaternion1, ref quaternion2, out angle);
-
-            if (angle < zero)
-            {
-                Negate (ref quaternion1, out quaternion1);
-                angle = -angle;
-            }
-
-            Fixed32 theta = Maths.ArcCos (angle);
-
-
-            Fixed32 r = remaining;
-            Fixed32 a = amount;
-
-            // To avoid division by 0 and by very small numbers the
-            // Lerp is used when theta is small.
-            if (theta > epsilon)
-            {
-                Fixed32 x = Maths.Sin (remaining * theta);
-                Fixed32 y = Maths.Sin (amount * theta);
-                Fixed32 z = Maths.Sin (theta);
-
-                r = x / z;
-                a = y / z;
-            }
-
-            result.U = (r * quaternion1.U) + (a * quaternion2.U);
-            result.I = (r * quaternion1.I) + (a * quaternion2.I);
-            result.J = (r * quaternion1.J) + (a * quaternion2.J);
-            result.K = (r * quaternion1.K) + (a * quaternion2.K);
+            return 0;
         }
-
-        /// <summary>
-        /// Perform a linear interpolation between two Quaternions.
-        /// </summary>
-        public static void Lerp (
-            ref Quaternion quaternion1,
-            ref Quaternion quaternion2,
-            ref Fixed32 amount,
-            out Quaternion result)
-        {
-            Fixed32 zero = 0;
-            Fixed32 one = 1;
-
-            if (amount < zero || amount > one)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            Fixed32 remaining = one - amount;
-
-            Fixed32 r = remaining;
-            Fixed32 a = amount;
-
-            result.U = (r * quaternion1.U) + (a * quaternion2.U);
-            result.I = (r * quaternion1.I) + (a * quaternion2.I);
-            result.J = (r * quaternion1.J) + (a * quaternion2.J);
-            result.K = (r * quaternion1.K) + (a * quaternion2.K);
-        }
-
-        /// <summary>
-        /// Detemines whether or not the Vector2 is of unit length.
-        /// </summary>
-        public static void IsUnit (
-            ref Quaternion quaternion,
-            out Boolean result)
-        {
-            Fixed32 one = 1;
-
-            result = Maths.IsZero(
-                one -
-                quaternion.U * quaternion.U -
-                quaternion.I * quaternion.I -
-                quaternion.J * quaternion.J -
-                quaternion.K * quaternion.K);
-        }
-
-
-#if (VARIANTS_ENABLED)
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion CreateFromAxisAngle (
-            Vector3 axis,
-            Fixed32 angle)
-        {
-            Quaternion result;
-            CreateFromAxisAngle (ref axis, ref angle, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion CreateFromYawPitchRoll (
-            Fixed32 yaw,
-            Fixed32 pitch,
-            Fixed32 roll)
-        {
-            Quaternion result;
-            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion CreateFromRotationMatrix (
-            Matrix44 matrix)
-        {
-            Quaternion result;
-            CreateFromRotationMatrix (ref matrix, out result);
-            return result;
-        }
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Fixed32 LengthSquared (Quaternion quaternion)
-        {
-            Fixed32 result;
-            LengthSquared (ref quaternion, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Fixed32 Length (Quaternion quaternion)
-        {
-            Fixed32 result;
-            Length (ref quaternion, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Boolean IsUnit (Quaternion quaternion)
-        {
-            Boolean result;
-            IsUnit (ref quaternion, out result);
-            return result;
-        }
-
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Conjugate (Quaternion quaternion)
-        {
-            Quaternion result;
-            Conjugate (ref quaternion, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Inverse (Quaternion quaternion)
-        {
-            Quaternion result;
-            Inverse (ref quaternion, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Fixed32 Dot (
-            Quaternion quaternion1,
-            Quaternion quaternion2)
-        {
-            Fixed32 result;
-            Dot (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Concatenate (
-            Quaternion quaternion1,
-            Quaternion quaternion2)
-        {
-            Quaternion result;
-            Concatenate (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Normalise (Quaternion quaternion)
-        {
-            Quaternion result;
-            Normalise (ref quaternion, out result);
-            return result;
-        }
-
-        // Equality Operators //----------------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Boolean Equals (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Boolean result;
-            Equals (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Boolean operator == (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Boolean result;
-            Equals (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Boolean operator != (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Boolean result;
-            Equals (ref quaternion1, ref quaternion2, out result);
-            return !result;
-        }
-
-        // Variant Addition Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Add (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Add (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator + (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Add (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        // Variant Subtraction Operators //-----------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Subtract (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Subtract (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator - (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Subtract (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        // Variant Negation Operators //--------------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Negate (Quaternion quaternion)
-        {
-            Quaternion result;
-            Negate (ref quaternion, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator - (Quaternion quaternion)
-        {
-            Quaternion result;
-            Negate (ref quaternion, out result);
-            return result;
-        }
-
-        // Variant Multiplication Operators //--------------------------------//
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Multiply (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Multiply (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion operator * (
-            Quaternion quaternion1, Quaternion quaternion2)
-        {
-            Quaternion result;
-            Multiply (ref quaternion1, ref quaternion2, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Slerp (
-            Quaternion quaternion1,
-            Quaternion quaternion2,
-            Fixed32 amount)
-        {
-            Quaternion result;
-            Slerp (ref quaternion1, ref quaternion2, ref amount, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public static Quaternion Lerp (
-            Quaternion quaternion1,
-            Quaternion quaternion2,
-            Fixed32 amount)
-        {
-            Quaternion result;
-            Lerp (ref quaternion1, ref quaternion2, ref amount, out result);
-            return result;
-        }
-
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public Fixed32 LengthSquared ()
-        {
-            Fixed32 result;
-            LengthSquared (ref this, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public Fixed32 Length ()
-        {
-            Fixed32 result;
-            Length (ref this, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public void Normalise ()
-        {
-            Normalise (ref this, out this);
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public Boolean IsUnit()
-        {
-            Boolean result;
-            IsUnit (ref this, out result);
-            return result;
-        }
-
-        /// <summary>
-        /// Variant function.
-        /// </summary>
-        public void Conjugate ()
-        {
-            Conjugate (ref this, out this);
-        }
-
-
-#endif
     }
     /// <summary>
     /// Fixed32 precision Matrix44.
@@ -8144,6 +8123,25 @@ namespace Abacus.Fixed32Precision
 #endif
     }
 
+    internal static class Int32Extensions
+    {
+        // http://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=vs.110).aspx
+        public static Int32 ShiftAndWrap (
+            this Int32 value, Int32 positions = 2)
+        {
+            positions = positions & 0x1F;
+
+            // Save the existing bit pattern, but interpret it as an unsigned
+            // integer.
+            uint number = BitConverter.ToUInt32(
+                BitConverter.GetBytes(value), 0);
+            // Preserve the bits to be discarded.
+            uint wrapped = number >> (32 - positions);
+            // Shift and wrap the discarded bits.
+            return BitConverter.ToInt32 (
+                BitConverter.GetBytes ((number << positions) | wrapped), 0);
+        }
+    }
 
     public static class RandomExtensions
     {

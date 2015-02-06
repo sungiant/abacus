@@ -58,18 +58,16 @@ using System.Collections.Generic;
 
 namespace Abacus.<#=T#>Precision
 {
-<#@ include file="../Internal.t4"#>
-
 <# if (fixedTypeDefinition != null) { #>
 <#@ include file="RealNumbers/Fixed.X.t4"#>
 <# } #>
-<#@ include file="CrossPrecision/Maths.t4"#>
+<#@ include file="CrossPrecision/Quaternion.t4"#>
 <#@ include file="CrossPrecision/Vector2.t4"#>
 <#@ include file="CrossPrecision/Vector3.t4"#>
 <#@ include file="CrossPrecision/Vector4.t4"#>
-<#@ include file="CrossPrecision/Quaternion.t4"#>
+<#@ include file="CrossPrecision/Maths.t4"#>
 <#@ include file="CrossPrecision/Matrix44.t4"#>
-
+<#@ include file="../Internal.t4"#>
 <# if (T == "Single") { #>
     public static class RandomExtensions
     {
