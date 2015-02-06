@@ -1,6 +1,6 @@
 ![Abacus](/misc/logo.png)
 
-[![Build Status](https://travis-ci.org/blimey3D/abacus.png?branch=development)](https://travis-ci.org/blimey3D/abacus)
+[![Build Status](https://travis-ci.org/blimey/abacus.png?branch=development)](https://travis-ci.org/blimey/abacus)
 
 Abacus is a 3D maths library for the [CLI](http://en.wikipedia.org/wiki/Common_Language_Infrastructure), built with a primary focus on performance and efficiency.  Abacus is ideal for use developing real-time 3D applications and deterministic network simulations.
 
