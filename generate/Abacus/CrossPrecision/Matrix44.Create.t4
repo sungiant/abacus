@@ -374,33 +374,35 @@
         /// todo
         /// </summary>
         public static void CreateFromQuaternion (
-            ref Quaternion quaternion,
-            out Matrix44 result)
+            ref Quaternion q, out Matrix44 result)
         {
-            Boolean quaternionIsUnit;
-            Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
-            if(!quaternionIsUnit)
-            {
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
+
+            Boolean qIsUnit;
+            Quaternion.IsUnit (ref q, out qIsUnit);
+
+            if(!qIsUnit)
                 throw new ArgumentException(
                     "Input quaternion must be normalised.");
-            }
 
             <#=T#> zero = 0;
             <#=T#> one = 1;
 
-            <#=T#> ii = quaternion.I + quaternion.I;
-            <#=T#> jj = quaternion.J + quaternion.J;
-            <#=T#> kk = quaternion.K + quaternion.K;
+            <#=T#> ii = q.I + q.I;
+            <#=T#> jj = q.J + q.J;
+            <#=T#> kk = q.K + q.K;
 
-            <#=T#> uii = quaternion.U * ii;
-            <#=T#> ujj = quaternion.U * jj;
-            <#=T#> ukk = quaternion.U * kk;
-            <#=T#> iii = quaternion.I * ii;
-            <#=T#> ijj = quaternion.I * jj;
-            <#=T#> ikk = quaternion.I * kk;
-            <#=T#> jjj = quaternion.J * jj;
-            <#=T#> jkk = quaternion.J * kk;
-            <#=T#> kkk = quaternion.K * kk;
+            <#=T#> uii = q.U * ii;
+            <#=T#> ujj = q.U * jj;
+            <#=T#> ukk = q.U * kk;
+
+            <#=T#> iii = q.I * ii;
+            <#=T#> ijj = q.I * jj;
+            <#=T#> ikk = q.I * kk;
+
+            <#=T#> jjj = q.J * jj;
+            <#=T#> jkk = q.J * kk;
+            <#=T#> kkk = q.K * kk;
 
             result.R0C0 = one - (jjj + kkk);
             result.R1C0 = ijj - ukk;
