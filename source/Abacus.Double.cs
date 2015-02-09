@@ -5849,33 +5849,35 @@ namespace Abacus.DoublePrecision
         /// todo
         /// </summary>
         public static void CreateFromQuaternion (
-            ref Quaternion quaternion,
-            out Matrix44 result)
+            ref Quaternion q, out Matrix44 result)
         {
-            Boolean quaternionIsUnit;
-            Quaternion.IsUnit (ref quaternion, out quaternionIsUnit);
-            if(!quaternionIsUnit)
-            {
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
+
+            Boolean qIsUnit;
+            Quaternion.IsUnit (ref q, out qIsUnit);
+
+            if(!qIsUnit)
                 throw new ArgumentException(
                     "Input quaternion must be normalised.");
-            }
 
             Double zero = 0;
             Double one = 1;
 
-            Double ii = quaternion.I + quaternion.I;
-            Double jj = quaternion.J + quaternion.J;
-            Double kk = quaternion.K + quaternion.K;
+            Double ii = q.I + q.I;
+            Double jj = q.J + q.J;
+            Double kk = q.K + q.K;
 
-            Double uii = quaternion.U * ii;
-            Double ujj = quaternion.U * jj;
-            Double ukk = quaternion.U * kk;
-            Double iii = quaternion.I * ii;
-            Double ijj = quaternion.I * jj;
-            Double ikk = quaternion.I * kk;
-            Double jjj = quaternion.J * jj;
-            Double jkk = quaternion.J * kk;
-            Double kkk = quaternion.K * kk;
+            Double uii = q.U * ii;
+            Double ujj = q.U * jj;
+            Double ukk = q.U * kk;
+
+            Double iii = q.I * ii;
+            Double ijj = q.I * jj;
+            Double ikk = q.I * kk;
+
+            Double jjj = q.J * jj;
+            Double jkk = q.J * kk;
+            Double kkk = q.K * kk;
 
             result.R0C0 = one - (jjj + kkk);
             result.R1C0 = ijj - ukk;
@@ -6436,109 +6438,133 @@ namespace Abacus.DoublePrecision
             result = true;
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// todo
+        /// A determinant is a scalar number which is calculated from a matrix.
+        /// This number can determine whether a set of linear equations are
+        /// solvable, in other words whether the matrix can be inverted.
         /// </summary>
-        public void Determinant (ref Matrix44 matrix, out Double result)
+        public static void Determinant (ref Matrix44 m, out Double result)
         {
-            Double num22 = matrix.R0C0;
-            Double num21 = matrix.R0C1;
-            Double num20 = matrix.R0C2;
-            Double num19 = matrix.R0C3;
-            Double num12 = matrix.R1C0;
-            Double num11 = matrix.R1C1;
-            Double num10 = matrix.R1C2;
-            Double num9 = matrix.R1C3;
-            Double num8 = matrix.R2C0;
-            Double num7 = matrix.R2C1;
-            Double num6 = matrix.R2C2;
-            Double num5 = matrix.R2C3;
-            Double num4 = matrix.R3C0;
-            Double num3 = matrix.R3C1;
-            Double num2 = matrix.R3C2;
-            Double num = matrix.R3C3;
-
-            Double num18 = (num6 * num) - (num5 * num2);
-            Double num17 = (num7 * num) - (num5 * num3);
-            Double num16 = (num7 * num2) - (num6 * num3);
-            Double num15 = (num8 * num) - (num5 * num4);
-            Double num14 = (num8 * num2) - (num6 * num4);
-            Double num13 = (num8 * num3) - (num7 * num4);
-
-            result = ((((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))) + (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)))) - (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13))));
+            result =
+                + m.R0C3 * m.R1C2 * m.R2C1 * m.R3C0
+                - m.R0C2 * m.R1C3 * m.R2C1 * m.R3C0
+                - m.R0C3 * m.R1C1 * m.R2C2 * m.R3C0
+                + m.R0C1 * m.R1C3 * m.R2C2 * m.R3C0
+                + m.R0C2 * m.R1C1 * m.R2C3 * m.R3C0
+                - m.R0C1 * m.R1C2 * m.R2C3 * m.R3C0
+                - m.R0C3 * m.R1C2 * m.R2C0 * m.R3C1
+                + m.R0C2 * m.R1C3 * m.R2C0 * m.R3C1
+                + m.R0C3 * m.R1C0 * m.R2C2 * m.R3C1
+                - m.R0C0 * m.R1C3 * m.R2C2 * m.R3C1
+                - m.R0C2 * m.R1C0 * m.R2C3 * m.R3C1
+                + m.R0C0 * m.R1C2 * m.R2C3 * m.R3C1
+                + m.R0C3 * m.R1C1 * m.R2C0 * m.R3C2
+                - m.R0C1 * m.R1C3 * m.R2C0 * m.R3C2
+                - m.R0C3 * m.R1C0 * m.R2C1 * m.R3C2
+                + m.R0C0 * m.R1C3 * m.R2C1 * m.R3C2
+                + m.R0C1 * m.R1C0 * m.R2C3 * m.R3C2
+                - m.R0C0 * m.R1C1 * m.R2C3 * m.R3C2
+                - m.R0C2 * m.R1C1 * m.R2C0 * m.R3C3
+                + m.R0C1 * m.R1C2 * m.R2C0 * m.R3C3
+                + m.R0C2 * m.R1C0 * m.R2C1 * m.R3C3
+                - m.R0C0 * m.R1C2 * m.R2C1 * m.R3C3
+                - m.R0C1 * m.R1C0 * m.R2C2 * m.R3C3
+                + m.R0C0 * m.R1C1 * m.R2C2 * m.R3C3;
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// todo
+        /// The inverse of a matrix is another matrix that when multiplied
+        /// by the original matrix yields the identity matrix.
         /// </summary>
-        public static void Invert (ref Matrix44 matrix, out Matrix44 result)
+        public static void Invert (ref Matrix44 m, out Matrix44 result)
         {
             Double one = 1;
-            Double num5 = matrix.R0C0;
-            Double num4 = matrix.R0C1;
-            Double num3 = matrix.R0C2;
-            Double num2 = matrix.R0C3;
-            Double num9 = matrix.R1C0;
-            Double num8 = matrix.R1C1;
-            Double num7 = matrix.R1C2;
-            Double num6 = matrix.R1C3;
-            Double num17 = matrix.R2C0;
-            Double num16 = matrix.R2C1;
-            Double num15 = matrix.R2C2;
-            Double num14 = matrix.R2C3;
-            Double num13 = matrix.R3C0;
-            Double num12 = matrix.R3C1;
-            Double num11 = matrix.R3C2;
-            Double num10 = matrix.R3C3;
-            Double num23 = (num15 * num10) - (num14 * num11);
-            Double num22 = (num16 * num10) - (num14 * num12);
-            Double num21 = (num16 * num11) - (num15 * num12);
-            Double num20 = (num17 * num10) - (num14 * num13);
-            Double num19 = (num17 * num11) - (num15 * num13);
-            Double num18 = (num17 * num12) - (num16 * num13);
-            Double num39 = ((num8 * num23) - (num7 * num22)) + (num6 * num21);
-            Double num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
-            Double num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
-            Double num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
-            Double num = one / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
-            result.R0C0 = num39 * num;
-            result.R1C0 = num38 * num;
-            result.R2C0 = num37 * num;
-            result.R3C0 = num36 * num;
-            result.R0C1 = -(((num4 * num23) - (num3 * num22)) + (num2 * num21)) * num;
-            result.R1C1 = (((num5 * num23) - (num3 * num20)) + (num2 * num19)) * num;
-            result.R2C1 = -(((num5 * num22) - (num4 * num20)) + (num2 * num18)) * num;
-            result.R3C1 = (((num5 * num21) - (num4 * num19)) + (num3 * num18)) * num;
-            Double num35 = (num7 * num10) - (num6 * num11);
-            Double num34 = (num8 * num10) - (num6 * num12);
-            Double num33 = (num8 * num11) - (num7 * num12);
-            Double num32 = (num9 * num10) - (num6 * num13);
-            Double num31 = (num9 * num11) - (num7 * num13);
-            Double num30 = (num9 * num12) - (num8 * num13);
-            result.R0C2 = (((num4 * num35) - (num3 * num34)) + (num2 * num33)) * num;
-            result.R1C2 = -(((num5 * num35) - (num3 * num32)) + (num2 * num31)) * num;
-            result.R2C2 = (((num5 * num34) - (num4 * num32)) + (num2 * num30)) * num;
-            result.R3C2 = -(((num5 * num33) - (num4 * num31)) + (num3 * num30)) * num;
-            Double num29 = (num7 * num14) - (num6 * num15);
-            Double num28 = (num8 * num14) - (num6 * num16);
-            Double num27 = (num8 * num15) - (num7 * num16);
-            Double num26 = (num9 * num14) - (num6 * num17);
-            Double num25 = (num9 * num15) - (num7 * num17);
-            Double num24 = (num9 * num16) - (num8 * num17);
-            result.R0C3 = -(((num4 * num29) - (num3 * num28)) + (num2 * num27)) * num;
-            result.R1C3 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
-            result.R2C3 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
-            result.R3C3 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
+            Double d;
+            Determinant (ref m, out d);
+            Double s = one / d;
+
+            result.R0C0 =
+                + m.R1C2 * m.R2C3 * m.R3C1 - m.R1C3 * m.R2C2 * m.R3C1
+                + m.R1C3 * m.R2C1 * m.R3C2 - m.R1C1 * m.R2C3 * m.R3C2
+                - m.R1C2 * m.R2C1 * m.R3C3 + m.R1C1 * m.R2C2 * m.R3C3;
+
+            result.R0C1 =
+                + m.R0C3 * m.R2C2 * m.R3C1 - m.R0C2 * m.R2C3 * m.R3C1
+                - m.R0C3 * m.R2C1 * m.R3C2 + m.R0C1 * m.R2C3 * m.R3C2
+                + m.R0C2 * m.R2C1 * m.R3C3 - m.R0C1 * m.R2C2 * m.R3C3;
+
+            result.R0C2 =
+                + m.R0C2 * m.R1C3 * m.R3C1 - m.R0C3 * m.R1C2 * m.R3C1
+                + m.R0C3 * m.R1C1 * m.R3C2 - m.R0C1 * m.R1C3 * m.R3C2
+                - m.R0C2 * m.R1C1 * m.R3C3 + m.R0C1 * m.R1C2 * m.R3C3;
+
+            result.R0C3 =
+                + m.R0C3 * m.R1C2 * m.R2C1 - m.R0C2 * m.R1C3 * m.R2C1
+                - m.R0C3 * m.R1C1 * m.R2C2 + m.R0C1 * m.R1C3 * m.R2C2
+                + m.R0C2 * m.R1C1 * m.R2C3 - m.R0C1 * m.R1C2 * m.R2C3;
+
+            result.R1C0 =
+                + m.R1C3 * m.R2C2 * m.R3C0 - m.R1C2 * m.R2C3 * m.R3C0
+                - m.R1C3 * m.R2C0 * m.R3C2 + m.R1C0 * m.R2C3 * m.R3C2
+                + m.R1C2 * m.R2C0 * m.R3C3 - m.R1C0 * m.R2C2 * m.R3C3;
+
+            result.R1C1 =
+                + m.R0C2 * m.R2C3 * m.R3C0 - m.R0C3 * m.R2C2 * m.R3C0
+                + m.R0C3 * m.R2C0 * m.R3C2 - m.R0C0 * m.R2C3 * m.R3C2
+                - m.R0C2 * m.R2C0 * m.R3C3 + m.R0C0 * m.R2C2 * m.R3C3;
+
+            result.R1C2 =
+                + m.R0C3 * m.R1C2 * m.R3C0 - m.R0C2 * m.R1C3 * m.R3C0
+                - m.R0C3 * m.R1C0 * m.R3C2 + m.R0C0 * m.R1C3 * m.R3C2
+                + m.R0C2 * m.R1C0 * m.R3C3 - m.R0C0 * m.R1C2 * m.R3C3;
+
+            result.R1C3 =
+                + m.R0C2 * m.R1C3 * m.R2C0 - m.R0C3 * m.R1C2 * m.R2C0
+                + m.R0C3 * m.R1C0 * m.R2C2 - m.R0C0 * m.R1C3 * m.R2C2
+                - m.R0C2 * m.R1C0 * m.R2C3 + m.R0C0 * m.R1C2 * m.R2C3;
+
+            result.R2C0 =
+                + m.R1C1 * m.R2C3 * m.R3C0 - m.R1C3 * m.R2C1 * m.R3C0
+                + m.R1C3 * m.R2C0 * m.R3C1 - m.R1C0 * m.R2C3 * m.R3C1
+                - m.R1C1 * m.R2C0 * m.R3C3 + m.R1C0 * m.R2C1 * m.R3C3;
+
+            result.R2C1 =
+                + m.R0C3 * m.R2C1 * m.R3C0 - m.R0C1 * m.R2C3 * m.R3C0
+                - m.R0C3 * m.R2C0 * m.R3C1 + m.R0C0 * m.R2C3 * m.R3C1
+                + m.R0C1 * m.R2C0 * m.R3C3 - m.R0C0 * m.R2C1 * m.R3C3;
+
+            result.R2C2 =
+                + m.R0C1 * m.R1C3 * m.R3C0 - m.R0C3 * m.R1C1 * m.R3C0
+                + m.R0C3 * m.R1C0 * m.R3C1 - m.R0C0 * m.R1C3 * m.R3C1
+                - m.R0C1 * m.R1C0 * m.R3C3 + m.R0C0 * m.R1C1 * m.R3C3;
+
+            result.R2C3 =
+                + m.R0C3 * m.R1C1 * m.R2C0 - m.R0C1 * m.R1C3 * m.R2C0
+                - m.R0C3 * m.R1C0 * m.R2C1 + m.R0C0 * m.R1C3 * m.R2C1
+                + m.R0C1 * m.R1C0 * m.R2C3 - m.R0C0 * m.R1C1 * m.R2C3;
+
+            result.R3C0 =
+                + m.R1C2 * m.R2C1 * m.R3C0 - m.R1C1 * m.R2C2 * m.R3C0
+                - m.R1C2 * m.R2C0 * m.R3C1 + m.R1C0 * m.R2C2 * m.R3C1
+                + m.R1C1 * m.R2C0 * m.R3C2 - m.R1C0 * m.R2C1 * m.R3C2;
+
+            result.R3C1 =
+                + m.R0C1 * m.R2C2 * m.R3C0 - m.R0C2 * m.R2C1 * m.R3C0
+                + m.R0C2 * m.R2C0 * m.R3C1 - m.R0C0 * m.R2C2 * m.R3C1
+                - m.R0C1 * m.R2C0 * m.R3C2 + m.R0C0 * m.R2C1 * m.R3C2;
+
+            result.R3C2 =
+                + m.R0C2 * m.R1C1 * m.R3C0 - m.R0C1 * m.R1C2 * m.R3C0
+                - m.R0C2 * m.R1C0 * m.R3C1 + m.R0C0 * m.R1C2 * m.R3C1
+                + m.R0C1 * m.R1C0 * m.R3C2 - m.R0C0 * m.R1C1 * m.R3C2;
+
+            result.R3C3 =
+                + m.R0C1 * m.R1C2 * m.R2C0 - m.R0C2 * m.R1C1 * m.R2C0
+                + m.R0C2 * m.R1C0 * m.R2C1 - m.R0C0 * m.R1C2 * m.R2C1
+                - m.R0C1 * m.R1C0 * m.R2C2 + m.R0C0 * m.R1C1 * m.R2C2;
+
+
+            Multiply (ref result, ref s, out result);
         }
 
         ////////////////////////////////////////////////////////////////////////
