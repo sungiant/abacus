@@ -5474,7 +5474,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a translation matrix from a position.
         /// </summary>
         public static void CreateTranslation (
             ref Vector3 position,
@@ -5499,7 +5499,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a translation matrix from a position.
         /// </summary>
         public static void CreateTranslation (
             ref Double xPosition,
@@ -5578,7 +5578,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// Create a scaling matrix consistant along each axis
+        /// Create a scaling matrix consistant along each axis.
         /// </summary>
         public static void CreateScale (
             ref Double scale,
@@ -5603,12 +5603,13 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// http://en.wikipedia.org/wiki/Rotation_matrix
+        /// Creates a matrix representing a given rotation about the X axis.
         /// </summary>
         public static void CreateRotationX (
             ref Double radians,
             out Matrix44 result)
         {
+            // http://en.wikipedia.org/wiki/Rotation_matrix
             Double cos = Maths.Cos (radians);
             Double sin = Maths.Sin (radians);
 
@@ -5631,12 +5632,13 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// http://en.wikipedia.org/wiki/Rotation_matrix
+        /// Creates a matrix representing a given rotation about the Y axis.
         /// </summary>
         public static void CreateRotationY (
             ref Double radians,
             out Matrix44 result)
         {
+            // http://en.wikipedia.org/wiki/Rotation_matrix
             Double cos = Maths.Cos (radians);
             Double sin = Maths.Sin (radians);
 
@@ -5659,12 +5661,13 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// http://en.wikipedia.org/wiki/Rotation_matrix
+        /// Creates a matrix representing a given rotation about the Z axis.
         /// </summary>
         public static void CreateRotationZ (
             ref Double radians,
             out Matrix44 result)
         {
+            // http://en.wikipedia.org/wiki/Rotation_matrix
             Double cos = Maths.Cos (radians);
             Double sin = Maths.Sin (radians);
 
@@ -5687,7 +5690,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a new Matrix44 that rotates around an arbitrary vector.
         /// </summary>
         public static void CreateFromAxisAngle (
             ref Vector3 axis,
@@ -6057,7 +6060,7 @@ namespace Abacus.DoublePrecision
         }
 
         /// <summary>
-        /// http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+        /// Builds a perspective projection matrix based on a field of view.
         /// </summary>
         public static void CreatePerspectiveFieldOfView (
             ref Double fieldOfView,
@@ -6066,46 +6069,35 @@ namespace Abacus.DoublePrecision
             ref Double farPlaneDistance,
             out Matrix44 result)
         {
+            // http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
             Double zero = 0;
-            Double half; Maths.Half(out half);
+            Double half; Maths.Half (out half);
             Double one = 1;
-            Double pi; Maths.Pi(out pi);
+            Double pi; Maths.Pi (out pi);
 
-            if ((fieldOfView <= zero) || (fieldOfView >= pi))
-            {
+            if (fieldOfView <= zero || fieldOfView >= pi)
                 throw new ArgumentOutOfRangeException ("fieldOfView");
-            }
 
             if (nearPlaneDistance <= zero)
-            {
                 throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-            }
 
             if (farPlaneDistance <= zero)
-            {
                 throw new ArgumentOutOfRangeException ("farPlaneDistance");
-            }
 
             if (nearPlaneDistance >= farPlaneDistance)
-            {
                 throw new ArgumentOutOfRangeException ("nearPlaneDistance");
-            }
 
-            //
             // xScale     0          0              0
             // 0        yScale       0              0
             // 0        0        zf/(zn-zf)        -1
             // 0        0        zn*zf/(zn-zf)      0
-            //
+
             // where:
-            //
             // yScale = cot(fovY/2)
-            //
             // xScale = yScale / aspect ratio
-            //
 
             // yScale = cot(fovY/2)
-            Double yScale = one / ( Maths.Tan ( fieldOfView * half ) );
+            Double yScale = one / (Maths.Tan (fieldOfView * half));
 
             // xScale = yScale / aspect ratio
             Double xScale = yScale / aspectRatio;
@@ -6122,12 +6114,16 @@ namespace Abacus.DoublePrecision
 
             result.R2C0 = zero;
             result.R2C1 = zero;
-            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance); // zf/(zn-zf)
+            // zf/(zn-zf)
+            result.R2C2 = farPlaneDistance
+                        / (nearPlaneDistance - farPlaneDistance);
             result.R2C3 = -one;
 
             result.R3C0 = zero;
             result.R3C1 = zero;
-            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance); // zn*zf/(zn-zf)
+            // zn*zf/(zn-zf)
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance)
+                        / (nearPlaneDistance - farPlaneDistance);
             result.R3C3 = zero;
         }
 
@@ -6139,7 +6135,7 @@ namespace Abacus.DoublePrecision
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+        /// Builds a perspective projection matrix.
         /// </summary>
         public static void CreatePerspective (
             ref Double width,
@@ -6148,6 +6144,7 @@ namespace Abacus.DoublePrecision
             ref Double farPlaneDistance,
             out Matrix44 result)
         {
+            // http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
             Double zero = 0;
             Double one = 1;
             Double two = 2;
@@ -6178,7 +6175,7 @@ namespace Abacus.DoublePrecision
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+        /// Builds a customized, perspective projection matrix.
         /// </summary>
         public static void CreatePerspectiveOffCenter (
             ref Double left,
@@ -6189,6 +6186,8 @@ namespace Abacus.DoublePrecision
             ref Double farPlaneDistance,
             out Matrix44 result)
         {
+            // http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+
             Double zero = 0;
             Double one = 1;
             Double two = 2;
