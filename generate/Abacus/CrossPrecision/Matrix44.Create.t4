@@ -345,13 +345,9 @@
             }
 
             Vector3 backward; Vector3.Negate (ref forward, out backward);
-
             Vector3 vector; Vector3.Normalise (ref backward, out vector);
-
             Vector3 cross; Vector3.Cross (ref up, ref vector, out cross);
-
             Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
-
             Vector3 vector3;
             Vector3.Cross (ref vector, ref vector2, out vector3);
 
@@ -391,35 +387,33 @@
             <#=T#> zero = 0;
             <#=T#> one = 1;
 
-            <#=T#> ii = q.I + q.I;
-            <#=T#> jj = q.J + q.J;
-            <#=T#> kk = q.K + q.K;
+            <#=T#> twoI = q.I + q.I;
+            <#=T#> twoJ = q.J + q.J;
+            <#=T#> twoK = q.K + q.K;
 
-            <#=T#> uii = q.U * ii;
-            <#=T#> ujj = q.U * jj;
-            <#=T#> ukk = q.U * kk;
+            <#=T#> twoUI = q.U * twoI;
+            <#=T#> twoUJ = q.U * twoJ;
+            <#=T#> twoUK = q.U * twoK;
+            <#=T#> twoII = q.I * twoI;
+            <#=T#> twoIJ = q.I * twoJ;
+            <#=T#> twoIK = q.I * twoK;
+            <#=T#> twoJJ = q.J * twoJ;
+            <#=T#> twoJK = q.J * twoK;
+            <#=T#> twoKK = q.K * twoK;
 
-            <#=T#> iii = q.I * ii;
-            <#=T#> ijj = q.I * jj;
-            <#=T#> ikk = q.I * kk;
-
-            <#=T#> jjj = q.J * jj;
-            <#=T#> jkk = q.J * kk;
-            <#=T#> kkk = q.K * kk;
-
-            result.R0C0 = one - (jjj + kkk);
-            result.R1C0 = ijj - ukk;
-            result.R2C0 = ikk + ujj;
+            result.R0C0 = one - twoJJ - twoKK;
+            result.R1C0 = twoIJ - twoUK;
+            result.R2C0 = twoIK + twoUJ;
             result.R3C0 = zero;
 
-            result.R0C1 = ijj + ukk;
-            result.R1C1 = one - (iii + kkk);
-            result.R2C1 = jkk - uii;
+            result.R0C1 = twoIJ + twoUK;
+            result.R1C1 = one - twoII - twoKK;
+            result.R2C1 = twoJK - twoUI;
             result.R3C1 = zero;
 
-            result.R0C2 = ikk - ujj;
-            result.R1C2 = jkk + uii;
-            result.R2C2 = one - (iii + jjj);
+            result.R0C2 = twoIK - twoUJ;
+            result.R1C2 = twoJK + twoUI;
+            result.R2C2 = one - twoII - twoJJ;
             result.R3C2 = zero;
 
             result.R0C3 = zero;

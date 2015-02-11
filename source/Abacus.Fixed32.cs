@@ -6552,13 +6552,9 @@ namespace Abacus.Fixed32Precision
             }
 
             Vector3 backward; Vector3.Negate (ref forward, out backward);
-
             Vector3 vector; Vector3.Normalise (ref backward, out vector);
-
             Vector3 cross; Vector3.Cross (ref up, ref vector, out cross);
-
             Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
-
             Vector3 vector3;
             Vector3.Cross (ref vector, ref vector2, out vector3);
 
@@ -6598,35 +6594,33 @@ namespace Abacus.Fixed32Precision
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            Fixed32 ii = q.I + q.I;
-            Fixed32 jj = q.J + q.J;
-            Fixed32 kk = q.K + q.K;
+            Fixed32 twoI = q.I + q.I;
+            Fixed32 twoJ = q.J + q.J;
+            Fixed32 twoK = q.K + q.K;
 
-            Fixed32 uii = q.U * ii;
-            Fixed32 ujj = q.U * jj;
-            Fixed32 ukk = q.U * kk;
+            Fixed32 twoUI = q.U * twoI;
+            Fixed32 twoUJ = q.U * twoJ;
+            Fixed32 twoUK = q.U * twoK;
+            Fixed32 twoII = q.I * twoI;
+            Fixed32 twoIJ = q.I * twoJ;
+            Fixed32 twoIK = q.I * twoK;
+            Fixed32 twoJJ = q.J * twoJ;
+            Fixed32 twoJK = q.J * twoK;
+            Fixed32 twoKK = q.K * twoK;
 
-            Fixed32 iii = q.I * ii;
-            Fixed32 ijj = q.I * jj;
-            Fixed32 ikk = q.I * kk;
-
-            Fixed32 jjj = q.J * jj;
-            Fixed32 jkk = q.J * kk;
-            Fixed32 kkk = q.K * kk;
-
-            result.R0C0 = one - (jjj + kkk);
-            result.R1C0 = ijj - ukk;
-            result.R2C0 = ikk + ujj;
+            result.R0C0 = one - twoJJ - twoKK;
+            result.R1C0 = twoIJ - twoUK;
+            result.R2C0 = twoIK + twoUJ;
             result.R3C0 = zero;
 
-            result.R0C1 = ijj + ukk;
-            result.R1C1 = one - (iii + kkk);
-            result.R2C1 = jkk - uii;
+            result.R0C1 = twoIJ + twoUK;
+            result.R1C1 = one - twoII - twoKK;
+            result.R2C1 = twoJK - twoUI;
             result.R3C1 = zero;
 
-            result.R0C2 = ikk - ujj;
-            result.R1C2 = jkk + uii;
-            result.R2C2 = one - (iii + jjj);
+            result.R0C2 = twoIK - twoUJ;
+            result.R1C2 = twoJK + twoUI;
+            result.R2C2 = one - twoII - twoJJ;
             result.R3C2 = zero;
 
             result.R0C3 = zero;
@@ -7074,36 +7068,36 @@ namespace Abacus.Fixed32Precision
         /// matrix in memory by simply accessing the same data in a
         /// different order.
         /// </summary>
-        public static void Transpose (ref Matrix44 input, out Matrix44 output)
+        public static void Transpose (ref Matrix44 m, out Matrix44 result)
         {
-            output.R0C0 = input.R0C0;
-            output.R1C1 = input.R1C1;
-            output.R2C2 = input.R2C2;
-            output.R3C3 = input.R3C3;
+            result.R0C0 = m.R0C0;
+            result.R1C1 = m.R1C1;
+            result.R2C2 = m.R2C2;
+            result.R3C3 = m.R3C3;
 
-            Fixed32 temp = input.R0C1;
-            output.R0C1 = input.R1C0;
-            output.R1C0 = temp;
+            Fixed32 t = m.R0C1;
+            result.R0C1 = m.R1C0;
+            result.R1C0 = t;
 
-            temp = input.R0C2;
-            output.R0C2 = input.R2C0;
-            output.R2C0 = temp;
+            t = m.R0C2;
+            result.R0C2 = m.R2C0;
+            result.R2C0 = t;
 
-            temp = input.R0C3;
-            output.R0C3 = input.R3C0;
-            output.R3C0 = temp;
+            t = m.R0C3;
+            result.R0C3 = m.R3C0;
+            result.R3C0 = t;
 
-            temp = input.R1C2;
-            output.R1C2 = input.R2C1;
-            output.R2C1 = temp;
+            t = m.R1C2;
+            result.R1C2 = m.R2C1;
+            result.R2C1 = t;
 
-            temp = input.R1C3;
-            output.R1C3 = input.R3C1;
-            output.R3C1 = temp;
+            t = m.R1C3;
+            result.R1C3 = m.R3C1;
+            result.R3C1 = t;
 
-            temp =  input.R2C3;
-            output.R2C3 = input.R3C2;
-            output.R3C2 = temp;
+            t =  m.R2C3;
+            result.R2C3 = m.R3C2;
+            result.R3C2 = t;
         }
 
         /// <summary>
@@ -7298,86 +7292,81 @@ namespace Abacus.Fixed32Precision
             Multiply (ref result, ref s, out result);
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Transforms a Matrix by applying a Quaternion rotation.
+        /// Transforms a Matrix (m) by applying a Quaternion rotation (q).
         /// </summary>
-        public static void Transform (ref Matrix44 value, ref Quaternion rotation, out Matrix44 result)
+        public static void Transform (
+            ref Matrix44 m, ref Quaternion q, out Matrix44 result)
         {
+            Boolean qIsUnit;
+            Quaternion.IsUnit (ref q, out qIsUnit);
+
+            if(!qIsUnit)
+                throw new ArgumentException(
+                    "Input quaternion must be normalised.");
+
+            // Could just do Matrix44.CreateFromQuaternionHere, but we won't
+            // use all of the data, so just calculate what we need.
+            Fixed32 zero = 0;
             Fixed32 one = 1;
 
-            Fixed32 num21 = rotation.I + rotation.I;
-            Fixed32 num11 = rotation.J + rotation.J;
-            Fixed32 num10 = rotation.K + rotation.K;
+            Fixed32 twoI = q.I + q.I;
+            Fixed32 twoJ = q.J + q.J;
+            Fixed32 twoK = q.K + q.K;
 
-            Fixed32 num20 = rotation.U * num21;
-            Fixed32 num19 = rotation.U * num11;
-            Fixed32 num18 = rotation.U * num10;
-            Fixed32 num17 = rotation.I * num21;
-            Fixed32 num16 = rotation.I * num11;
-            Fixed32 num15 = rotation.I * num10;
-            Fixed32 num14 = rotation.J * num11;
-            Fixed32 num13 = rotation.J * num10;
-            Fixed32 num12 = rotation.K * num10;
+            Fixed32 twoUI = q.U * twoI;
+            Fixed32 twoUJ = q.U * twoJ;
+            Fixed32 twoUK = q.U * twoK;
+            Fixed32 twoII = q.I * twoI;
+            Fixed32 twoIJ = q.I * twoJ;
+            Fixed32 twoIK = q.I * twoK;
+            Fixed32 twoJJ = q.J * twoJ;
+            Fixed32 twoJK = q.J * twoK;
+            Fixed32 twoKK = q.K * twoK;
 
-            Fixed32 num9 = (one - num14) - num12;
+            Fixed32 tR0C0 = one - twoJJ - twoKK;
+            Fixed32 tR1C0 = twoIJ - twoUK;
+            Fixed32 tR2C0 = twoIK + twoUJ;
+            //Fixed32 tR3C0 = zero;
 
-            Fixed32 num8 = num16 - num18;
-            Fixed32 num7 = num15 + num19;
-            Fixed32 num6 = num16 + num18;
+            Fixed32 tR0C1 = twoIJ + twoUK;
+            Fixed32 tR1C1 = one - twoII - twoKK;
+            Fixed32 tR2C1 = twoJK - twoUI;
+            //Fixed32 tR3C1 = zero;
 
-            Fixed32 num5 = (one - num17) - num12;
+            Fixed32 tR0C2 = twoIK - twoUJ;
+            Fixed32 tR1C2 = twoJK + twoUI;
+            Fixed32 tR2C2 = one - twoII - twoJJ;
+            //Fixed32 tR3C2 = zero;
 
-            Fixed32 num4 = num13 - num20;
-            Fixed32 num3 = num15 - num19;
-            Fixed32 num2 = num13 + num20;
+            //Fixed32 tR0C3 = zero;
+            //Fixed32 tR1C3 = zero;
+            //Fixed32 tR2C3 = zero;
+            //Fixed32 tR3C3 = zero;
 
-            Fixed32 num = (one - num17) - num14;
 
-            Fixed32 num37 = ((value.R0C0 * num9) + (value.R0C1 * num8)) + (value.R0C2 * num7);
-            Fixed32 num36 = ((value.R0C0 * num6) + (value.R0C1 * num5)) + (value.R0C2 * num4);
-            Fixed32 num35 = ((value.R0C0 * num3) + (value.R0C1 * num2)) + (value.R0C2 * num);
+            // Could just multiply here, but we know a bunch of stuff in `t`
+            // will be zero, so doing the following is the same, but with less
+            // operations.
+            result.R0C0 = m.R0C0 * tR0C0 + m.R0C1 * tR1C0 + m.R0C2 * tR2C0;
+            result.R0C1 = m.R0C0 * tR0C1 + m.R0C1 * tR1C1 + m.R0C2 * tR2C1;
+            result.R0C2 = m.R0C0 * tR0C2 + m.R0C1 * tR1C2 + m.R0C2 * tR2C2;
+            result.R0C3 = m.R0C3;
 
-            Fixed32 num34 = value.R0C3;
+            result.R1C0 = m.R1C0 * tR0C0 + m.R1C1 * tR1C0 + m.R1C2 * tR2C0;
+            result.R1C1 = m.R1C0 * tR0C1 + m.R1C1 * tR1C1 + m.R1C2 * tR2C1;
+            result.R1C2 = m.R1C0 * tR0C2 + m.R1C1 * tR1C2 + m.R1C2 * tR2C2;
+            result.R1C3 = m.R1C3;
 
-            Fixed32 num33 = ((value.R1C0 * num9) + (value.R1C1 * num8)) + (value.R1C2 * num7);
-            Fixed32 num32 = ((value.R1C0 * num6) + (value.R1C1 * num5)) + (value.R1C2 * num4);
-            Fixed32 num31 = ((value.R1C0 * num3) + (value.R1C1 * num2)) + (value.R1C2 * num);
+            result.R2C0 = m.R2C0 * tR0C0 + m.R2C1 * tR1C0 + m.R2C2 * tR2C0;
+            result.R2C1 = m.R2C0 * tR0C1 + m.R2C1 * tR1C1 + m.R2C2 * tR2C1;
+            result.R2C2 = m.R2C0 * tR0C2 + m.R2C1 * tR1C2 + m.R2C2 * tR2C2;
+            result.R2C3 = m.R2C3;
 
-            Fixed32 num30 = value.R1C3;
-
-            Fixed32 num29 = ((value.R2C0 * num9) + (value.R2C1 * num8)) + (value.R2C2 * num7);
-            Fixed32 num28 = ((value.R2C0 * num6) + (value.R2C1 * num5)) + (value.R2C2 * num4);
-            Fixed32 num27 = ((value.R2C0 * num3) + (value.R2C1 * num2)) + (value.R2C2 * num);
-
-            Fixed32 num26 = value.R2C3;
-
-            Fixed32 num25 = ((value.R3C0 * num9) + (value.R3C1 * num8)) + (value.R3C2 * num7);
-            Fixed32 num24 = ((value.R3C0 * num6) + (value.R3C1 * num5)) + (value.R3C2 * num4);
-            Fixed32 num23 = ((value.R3C0 * num3) + (value.R3C1 * num2)) + (value.R3C2 * num);
-
-            Fixed32 num22 = value.R3C3;
-
-            result.R0C0 = num37;
-            result.R0C1 = num36;
-            result.R0C2 = num35;
-            result.R0C3 = num34;
-            result.R1C0 = num33;
-            result.R1C1 = num32;
-            result.R1C2 = num31;
-            result.R1C3 = num30;
-            result.R2C0 = num29;
-            result.R2C1 = num28;
-            result.R2C2 = num27;
-            result.R2C3 = num26;
-            result.R3C0 = num25;
-            result.R3C1 = num24;
-            result.R3C2 = num23;
-            result.R3C3 = num22;
+            result.R3C0 = m.R3C0 * tR0C0 + m.R3C1 * tR1C0 + m.R3C2 * tR2C0;
+            result.R3C1 = m.R3C0 * tR0C1 + m.R3C1 * tR1C1 + m.R3C2 * tR2C1;
+            result.R3C2 = m.R3C0 * tR0C2 + m.R3C1 * tR1C2 + m.R3C2 * tR2C2;
+            result.R3C3 = m.R3C3;
         }
 
         // Equality Operators //----------------------------------------------//
