@@ -218,16 +218,13 @@
 <#@ include file="Matrix44.Maths.t4"#>
 <#@ include file="Matrix44.Operators.t4"#>
 <#@ include file="Matrix44.Utilities.t4"#>
-
 #if (VARIANTS_ENABLED)
 
 <#@ include file="Variants/Matrix44.Variants.Create.t4"#>
 <#@ include file="Variants/Matrix44.Variants.Maths.t4"#>
 <#@ include file="Variants/Matrix44.Variants.Operators.t4"#>
 <#@ include file="Variants/Matrix44.Variants.Utilities.t4"#>
-
 <#@ include file="Variants/Matrix44.Variants.MemberFunctions.t4"#>
-
 #endif
     }
 

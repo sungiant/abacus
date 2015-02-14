@@ -23,7 +23,7 @@
 // │       \________________________________________________________/       │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2013 - 2015 ~ Blimey3D (http://www.blimey3d.com)           │ \\
+// │ Copyright © 2012 - 2015 ~ Blimey3D (http://www.blimey3d.com)           │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Authors:                                                               │ \\
 // │ ~ Ash Pook (http://www.ajpook.com)                                     │ \\
@@ -7593,16 +7593,7 @@ namespace Abacus.SinglePrecision
         /// todo
         /// </summary>
         [Test]
-        public void TestStaticFn_CreateFromAllAxis_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_CreateWorldNew_i ()
+        public void TestStaticFn_CreateFromCartesianAxes_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }

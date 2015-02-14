@@ -92,16 +92,13 @@
 <#@ include file="Vector3.Operators.t4"#>
 <#@ include file="Vector3.Splines.t4"#>
 <#@ include file="Vector3.Utilities.t4"#>
-
 #if (VARIANTS_ENABLED)
 
 <#@ include file="Variants/Vector3.Variants.Maths.t4"#>
 <#@ include file="Variants/Vector3.Variants.Operators.t4"#>
 <#@ include file="Variants/Vector3.Variants.Splines.t4"#>
 <#@ include file="Variants/Vector3.Variants.Utilities.t4"#>
-
 <#@ include file="Variants/Vector3.Variants.MemberFunctions.t4"#>
-
 #endif
     }
 

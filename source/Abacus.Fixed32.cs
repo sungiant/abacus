@@ -23,7 +23,7 @@
 // │       \________________________________________________________/       │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2013 - 2015 ~ Blimey3D (http://www.blimey3d.com)           │ \\
+// │ Copyright © 2012 - 2015 ~ Blimey3D (http://www.blimey3d.com)           │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Authors:                                                               │ \\
 // │ ~ Ash Pook (http://www.ajpook.com)                                     │ \\
@@ -1316,7 +1316,6 @@ namespace Abacus.Fixed32Precision
                 quaternion.K * quaternion.K);
         }
 
-
 #if (VARIANTS_ENABLED)
 
         /// <summary>
@@ -1594,7 +1593,6 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
-
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -1640,7 +1638,6 @@ namespace Abacus.Fixed32Precision
         {
             Conjugate (ref this, out this);
         }
-
 
 #endif
     }
@@ -2329,7 +2326,6 @@ namespace Abacus.Fixed32Precision
                 one - vector.X * vector.X - vector.Y * vector.Y);
         }
 
-
 #if (VARIANTS_ENABLED)
 
         // Variant Maths //---------------------------------------------------//
@@ -2754,7 +2750,6 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
-
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -2792,7 +2787,6 @@ namespace Abacus.Fixed32Precision
             IsUnit (ref this, out result);
             return result;
         }
-
 
 #endif
 
@@ -3708,7 +3702,6 @@ namespace Abacus.Fixed32Precision
                 - vector.Y * vector.Y
                 - vector.Z * vector.Z);
         }
-
 #if (VARIANTS_ENABLED)
 
         // Variant Maths //---------------------------------------------------//
@@ -4133,7 +4126,6 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
-
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -4171,7 +4163,6 @@ namespace Abacus.Fixed32Precision
             IsUnit (ref this, out result);
             return result;
         }
-
 
 #endif
     }
@@ -5076,7 +5067,6 @@ namespace Abacus.Fixed32Precision
                 - vector.W * vector.W);
         }
 
-
 #if (VARIANTS_ENABLED)
 
         // Variant Maths //---------------------------------------------------//
@@ -5490,7 +5480,6 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
-
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -5528,7 +5517,6 @@ namespace Abacus.Fixed32Precision
             IsUnit (ref this, out result);
             return result;
         }
-
 
 #endif
     }
@@ -6429,8 +6417,6 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 angle,
             out Matrix44 result)
         {
-            Fixed32 one = 1;
-
             Fixed32 x = axis.X;
             Fixed32 y = axis.Y;
             Fixed32 z = axis.Z;
@@ -6446,31 +6432,33 @@ namespace Abacus.Fixed32Precision
             Fixed32 xz = x * z;
             Fixed32 yz = y * z;
 
-            result.R0C0 = xx + (cos * (one - xx));
-            result.R0C1 = (xy - (cos * xy)) + (sin * z);
-            result.R0C2 = (xz - (cos * xz)) - (sin * y);
+            result.R0C0 = xx + (cos * (1 - xx));
+            result.R0C1 = xy - (cos * xy) + (sin * z);
+            result.R0C2 = xz - (cos * xz) - (sin * y);
             result.R0C3 = 0;
 
-            result.R1C0 = (xy - (cos * xy)) - (sin * z);
-            result.R1C1 = yy + (cos * (one - yy));
-            result.R1C2 = (yz - (cos * yz)) + (sin * x);
+            result.R1C0 = xy - (cos * xy) - (sin * z);
+            result.R1C1 = yy + (cos * (1 - yy));
+            result.R1C2 = yz - (cos * yz) + (sin * x);
             result.R1C3 = 0;
 
-            result.R2C0 = (xz - (cos * xz)) + (sin * y);
-            result.R2C1 = (yz - (cos * yz)) - (sin * x);
-            result.R2C2 = zz + (cos * (one - zz));
+            result.R2C0 = xz - (cos * xz) + (sin * y);
+            result.R2C1 = yz - (cos * yz) - (sin * x);
+            result.R2C2 = zz + (cos * (1 - zz));
             result.R2C3 = 0;
 
             result.R3C0 = 0;
             result.R3C1 = 0;
             result.R3C2 = 0;
-            result.R3C3 = one;
+            result.R3C3 = 1;
         }
 
         /// <summary>
-        /// todo
+        /// Creates a new Matrix44 from an ordered triplet of vectors (axes)
+        /// that are pair-wise perpendicular, have unit length and have an
+        /// orientation for each axis.
         /// </summary>
-        public static void CreateFromAllAxis (
+        public static void CreateFromCartesianAxes (
             ref Vector3 right,
             ref Vector3 up,
             ref Vector3 backward,
@@ -6482,10 +6470,11 @@ namespace Abacus.Fixed32Precision
             Vector3.IsUnit (ref backward, out isBackwardUnit);
 
             if(!isRightUnit || !isUpUnit || !isBackwardUnit )
-            {
                 throw new ArgumentException(
                     "The input vertors must be normalised.");
-            }
+
+            // Perhaps we shd assert here is the Vectors are not pair-wise
+            // perpendicular.
 
             result.R0C0 = right.X;
             result.R0C1 = right.Y;
@@ -6506,32 +6495,8 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo  ???????????
-        /// </summary>
-        public static void CreateWorldNew (
-            ref Vector3 position,
-            ref Vector3 forward,
-            ref Vector3 up,
-            out Matrix44 result)
-        {
-            Vector3 backward;
-            Vector3.Negate (ref forward, out backward);
-
-            Vector3 right;
-            Vector3.Cross (ref up, ref backward, out right);
-
-            Vector3.Normalise(ref right, out right);
-
-            Matrix44.CreateFromAllAxis(
-                ref right, ref up, ref backward, out result);
-
-            result.R3C0 = position.X;
-            result.R3C1 = position.Y;
-            result.R3C2 = position.Z;
-        }
-
-        /// <summary>
-        /// todo
+        /// Creates a world matrix.
+        /// This matrix includes rotation and translation, but not scaling.
         /// </summary>
         public static void CreateWorld (
             ref Vector3 position,
@@ -6539,36 +6504,31 @@ namespace Abacus.Fixed32Precision
             ref Vector3 up,
             out Matrix44 result)
         {
-            Boolean isForwardUnit;
-            Vector3.IsUnit (ref forward, out isForwardUnit);
+            Vector3 backward;
+            Vector3.Negate (ref forward, out backward);
+            Vector3.Normalise (ref backward, out backward);
 
-            Boolean isUpUnit;
-            Vector3.IsUnit (ref up, out isUpUnit);
+            Vector3 right;
+            Vector3.Cross (ref up, ref backward, out right);
+            Vector3.Normalise (ref right, out right);
 
-            if(!isForwardUnit || !isUpUnit )
-            {
-                throw new ArgumentException(
-                    "The input vertors must be normalised.");
-            }
+            // We don't know if the inputs were actually perpendicular,
+            // best make sure.
+            Vector3 finalUp;
+            Vector3.Cross (ref right, ref backward, out finalUp);
+            Vector3.Normalise (ref finalUp, out finalUp);
 
-            Vector3 backward; Vector3.Negate (ref forward, out backward);
-            Vector3 vector; Vector3.Normalise (ref backward, out vector);
-            Vector3 cross; Vector3.Cross (ref up, ref vector, out cross);
-            Vector3 vector2; Vector3.Normalise (ref cross, out vector2);
-            Vector3 vector3;
-            Vector3.Cross (ref vector, ref vector2, out vector3);
-
-            result.R0C0 = vector2.X;
-            result.R0C1 = vector2.Y;
-            result.R0C2 = vector2.Z;
+            result.R0C0 = right.X;
+            result.R0C1 = right.Y;
+            result.R0C2 = right.Z;
             result.R0C3 = 0;
-            result.R1C0 = vector3.X;
-            result.R1C1 = vector3.Y;
-            result.R1C2 = vector3.Z;
+            result.R1C0 = finalUp.X;
+            result.R1C1 = finalUp.Y;
+            result.R1C2 = finalUp.Z;
             result.R1C3 = 0;
-            result.R2C0 = vector.X;
-            result.R2C1 = vector.Y;
-            result.R2C2 = vector.Z;
+            result.R2C0 = backward.X;
+            result.R2C1 = backward.Y;
+            result.R2C2 = backward.Z;
             result.R2C3 = 0;
             result.R3C0 = position.X;
             result.R3C1 = position.Y;
@@ -6577,7 +6537,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a rotation matrix from the given quaternion.
         /// </summary>
         public static void CreateFromQuaternion (
             ref Quaternion q, out Matrix44 result)
@@ -6630,7 +6590,7 @@ namespace Abacus.Fixed32Precision
         }
 
         /// <summary>
-        /// todo
+        /// Creates a new rotation matrix from a specified yaw, pitch, and roll.
         /// </summary>
         public static void CreateFromYawPitchRoll (
             ref Fixed32 yaw,
@@ -6646,19 +6606,16 @@ namespace Abacus.Fixed32Precision
             CreateFromQuaternion (ref quaternion, out result);
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Creates a cylindrical billboard that rotates around a specified axis.
-        /// This method computes the facing direction of the billboard from the object position and camera position.
-        /// When the object and camera positions are too close, the matrix will not be accurate.
-        /// To avoid this problem, the method uses the optional camera forward vector if the positions are too close.
+        /// Creates a cylindrical billboard that rotates around a specified
+        /// axis.  This method computes the facing direction of the billboard
+        /// from the object position and camera position.  When the object and
+        /// camera positions are too close, the matrix will not be accurate.
+        /// To avoid this problem, the method uses the optional camera forward
+        /// vector if the positions are too close.
         /// </summary>
         public static void CreateBillboard (
-            ref Vector3 ObjectPosition,
+            ref Vector3 objectPosition,
             ref Vector3 cameraPosition,
             ref Vector3 cameraUpVector,
             ref Vector3? cameraForwardVector,
@@ -6666,53 +6623,60 @@ namespace Abacus.Fixed32Precision
         {
             Fixed32 zero = 0;
             Fixed32 one = 1;
+            Fixed32 epsilon; Maths.Epsilon (out epsilon);
 
-            Vector3 vector;
-            Vector3 vector2;
-            Vector3 vector3;
-            vector.X = ObjectPosition.X - cameraPosition.X;
-            vector.Y = ObjectPosition.Y - cameraPosition.Y;
-            vector.Z = ObjectPosition.Z - cameraPosition.Z;
-            Fixed32 num = vector.LengthSquared ();
-            Fixed32 limit; Maths.FromString("0.0001", out limit);
+            Vector3 camToObjVec = objectPosition - cameraPosition;
+            Fixed32 camToObjVecLL = camToObjVec.LengthSquared ();
 
-            if (num < limit) {
-                vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
-            } else {
-                var t = (Fixed32)(one / (Maths.Sqrt (num)));
-                Vector3.Multiply (ref vector, ref t, out vector);
+            Vector3 v1;
+            if (camToObjVecLL < epsilon)
+            {
+                v1 = cameraForwardVector.HasValue
+                   ? -cameraForwardVector.Value
+                   : Vector3.Forward;
             }
-            Vector3.Cross (ref cameraUpVector, ref vector, out vector3);
+            else
+            {
+                Fixed32 t = one / Maths.Sqrt (camToObjVecLL);
+                Vector3.Multiply (ref camToObjVec, ref t, out v1);
+            }
 
-            Vector3.Normalise (ref vector3, out vector3);
+            Vector3 v2;
+            Vector3.Cross (ref cameraUpVector, ref v1, out v2);
+            Vector3.Normalise (ref v2, out v2);
 
-            Vector3.Cross (ref vector, ref vector3, out vector2);
-            result.R0C0 = vector3.X;
-            result.R0C1 = vector3.Y;
-            result.R0C2 = vector3.Z;
+            Vector3 v3;
+            Vector3.Cross (ref v1, ref v2, out v3);
+
+            result.R0C0 = v2.X;
+            result.R0C1 = v2.Y;
+            result.R0C2 = v2.Z;
             result.R0C3 = zero;
-            result.R1C0 = vector2.X;
-            result.R1C1 = vector2.Y;
-            result.R1C2 = vector2.Z;
+            result.R1C0 = v3.X;
+            result.R1C1 = v3.Y;
+            result.R1C2 = v3.Z;
             result.R1C3 = zero;
-            result.R2C0 = vector.X;
-            result.R2C1 = vector.Y;
-            result.R2C2 = vector.Z;
+            result.R2C0 = v1.X;
+            result.R2C1 = v1.Y;
+            result.R2C2 = v1.Z;
             result.R2C3 = zero;
-            result.R3C0 = ObjectPosition.X;
-            result.R3C1 = ObjectPosition.Y;
-            result.R3C2 = ObjectPosition.Z;
+            result.R3C0 = objectPosition.X;
+            result.R3C1 = objectPosition.Y;
+            result.R3C2 = objectPosition.Z;
             result.R3C3 = one;
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// todo
+        /// Creates a cylindrical billboard that rotates around a specified
+        /// axis.
         /// </summary>
+        /// <remarks>
+        /// This method computes the facing direction of the billboard from the
+        /// object position and camera position. When the object and camera
+        /// positions are too close, the matrix will not be accurate. To avoid
+        /// this problem, the method uses the optional camera forward vector if
+        /// the positions are too close.
+        /// </remarks>
         public static void CreateConstrainedBillboard (
             ref Vector3 objectPosition,
             ref Vector3 cameraPosition,
@@ -6732,41 +6696,69 @@ namespace Abacus.Fixed32Precision
             vector2.Y = objectPosition.Y - cameraPosition.Y;
             vector2.Z = objectPosition.Z - cameraPosition.Z;
             Fixed32 num2 = vector2.LengthSquared ();
-            Fixed32 limit; Maths.FromString("0.0001", out limit);
+            Fixed32 limit;
+            Maths.FromString("0.0001", out limit);
 
-            if (num2 < limit) {
-                vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
-            } else {
-                var t = (Fixed32)(one / (Maths.Sqrt (num2)));
+            if (num2 < limit)
+            {
+                vector2 = cameraForwardVector.HasValue
+                        ? -cameraForwardVector.Value
+                        : Vector3.Forward;
+            }
+            else
+            {
+                Fixed32 t = one / Maths.Sqrt (num2);
                 Vector3.Multiply (ref vector2, ref t, out vector2);
             }
+
             Vector3 vector4 = rotateAxis;
             Vector3.Dot (ref rotateAxis, ref vector2, out num);
 
-            Fixed32 realHorrid; Maths.FromString("0.9982547", out realHorrid);
+            Fixed32 realHorrid;
+            Maths.FromString("0.9982547", out realHorrid);
 
-            if (Maths.Abs (num) > realHorrid) {
-                if (objectForwardVector.HasValue) {
+            if (Maths.Abs (num) > realHorrid)
+            {
+                if (objectForwardVector.HasValue)
+                {
                     vector = objectForwardVector.Value;
                     Vector3.Dot (ref rotateAxis, ref vector, out num);
-                    if (Maths.Abs (num) > realHorrid) {
-                        num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-                        vector = (Maths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
+
+                    if (Maths.Abs (num) > realHorrid)
+                    {
+                        num = (rotateAxis.X * Vector3.Forward.X)
+                            + (rotateAxis.Y * Vector3.Forward.Y)
+                            + (rotateAxis.Z * Vector3.Forward.Z);
+
+                        vector = (Maths.Abs (num) > realHorrid)
+                               ? Vector3.Right
+                               : Vector3.Forward;
                     }
-                } else {
-                    num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-                    vector = (Maths.Abs (num) > realHorrid) ? Vector3.Right : Vector3.Forward;
                 }
+                else
+                {
+                    num = (rotateAxis.X * Vector3.Forward.X)
+                        + (rotateAxis.Y * Vector3.Forward.Y)
+                        + (rotateAxis.Z * Vector3.Forward.Z);
+
+                    vector = (Maths.Abs (num) > realHorrid)
+                           ? Vector3.Right
+                           : Vector3.Forward;
+                }
+
                 Vector3.Cross (ref rotateAxis, ref vector, out vector3);
                 Vector3.Normalise (ref vector3, out vector3);
                 Vector3.Cross (ref vector3, ref rotateAxis, out vector);
                 Vector3.Normalise (ref vector, out vector);
-            } else {
+            }
+            else
+            {
                 Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
                 Vector3.Normalise (ref vector3, out vector3);
                 Vector3.Cross (ref vector3, ref vector4, out vector);
                 Vector3.Normalise (ref vector, out vector);
             }
+
             result.R0C0 = vector3.X;
             result.R0C1 = vector3.Y;
             result.R0C2 = vector3.Z;
@@ -6788,6 +6780,12 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Builds a perspective projection matrix based on a field of view.
         /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x- and y-coordinates ranging from −1 to 1, and a
+        /// z-coordinate ranging from 0 to 1.
+        /// </remarks>
         public static void CreatePerspectiveFieldOfView (
             ref Fixed32 fieldOfView,
             ref Fixed32 aspectRatio,
@@ -6853,16 +6851,15 @@ namespace Abacus.Fixed32Precision
             result.R3C3 = zero;
         }
 
-
-
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Builds a perspective projection matrix.
         /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x- and y-coordinates ranging from −1 to 1, and a
+        /// z-coordinate ranging from 0 to 1.
+        /// </remarks>
         public static void CreatePerspective (
             ref Fixed32 width,
             ref Fixed32 height,
@@ -6888,21 +6885,24 @@ namespace Abacus.Fixed32Precision
             result.R0C1 = result.R0C2 = result.R0C3 = zero;
             result.R1C1 = (two * nearPlaneDistance) / height;
             result.R1C0 = result.R1C2 = result.R1C3 = zero;
-            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C2 = farPlaneDistance
+                        / (nearPlaneDistance - farPlaneDistance);
             result.R2C0 = result.R2C1 = zero;
             result.R2C3 = -one;
             result.R3C0 = result.R3C1 = result.R3C3 = zero;
-            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance)
+                        / (nearPlaneDistance - farPlaneDistance);
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Builds a customized, perspective projection matrix.
         /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x- and y-coordinates ranging from −1 to 1, and a
+        /// z-coordinate ranging from 0 to 1.
+        /// </remarks>
         public static void CreatePerspectiveOffCenter (
             ref Fixed32 left,
             ref Fixed32 right,
@@ -6933,20 +6933,31 @@ namespace Abacus.Fixed32Precision
             result.R1C0 = result.R1C2 = result.R1C3 = zero;
             result.R2C0 = (left + right) / (right - left);
             result.R2C1 = (top + bottom) / (top - bottom);
-            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C2 = farPlaneDistance
+                        / (nearPlaneDistance - farPlaneDistance);
             result.R2C3 = -one;
-            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance)
+                        / (nearPlaneDistance - farPlaneDistance);
             result.R3C0 = result.R3C1 = result.R3C3 = zero;
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+        /// Builds an orthogonal projection matrix.
         /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x and y coordinates ranging from -1 to 1, and z
+        /// coordinates ranging from 0 to 1.
+        ///
+        /// Unlike perspective projection, in orthographic projection there is
+        /// no perspective foreshortening.
+        ///
+        /// The viewable area of this orthographic projection extends from left
+        /// to right on the x-axis, bottom to top on the y-axis, and zNearPlane
+        /// to zFarPlane on the z-axis. These values are relative to the
+        /// position and x, y, and z-axes of the view.
+        /// </remarks>
         public static void CreateOrthographic (
             ref Fixed32 width,
             ref Fixed32 height,
@@ -6954,6 +6965,7 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 zFarPlane,
             out Matrix44 result)
         {
+            // http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
             Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
@@ -6969,14 +6981,23 @@ namespace Abacus.Fixed32Precision
             result.R3C3 = one;
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+        /// Builds a customized, orthogonal projection matrix.
         /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x and y coordinates ranging from -1 to 1, and z
+        /// coordinates ranging from 0 to 1.
+        ///
+        /// Unlike perspective projection, in orthographic projection there is
+        /// no perspective foreshortening.
+        ///
+        /// The viewable area of this orthographic projection extends from left
+        /// to right on the x-axis, bottom to top on the y-axis, and zNearPlane
+        /// to zFarPlane on the z-axis. These values are relative to the
+        /// position and x, y, and z-axes of the view.
+        /// </remarks>
         public static void CreateOrthographicOffCenter (
             ref Fixed32 left,
             ref Fixed32 right,
@@ -6986,6 +7007,8 @@ namespace Abacus.Fixed32Precision
             ref Fixed32 zFarPlane,
             out Matrix44 result)
         {
+            // http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+
             Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
@@ -7002,20 +7025,22 @@ namespace Abacus.Fixed32Precision
             result.R3C3 = one;
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: FROM XNA, NEEDS REVIEW
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+        /// Creates a view matrix.
         /// </summary>
+        /// <remarks>
+        /// View space, sometimes called camera space, is similar to world space
+        /// in that it is typically used for the entire scene. However, in view
+        /// space, the origin is at the viewer or camera.
+        /// </remarks>
         public static void CreateLookAt (
             ref Vector3 cameraPosition,
             ref Vector3 cameraTarget,
             ref Vector3 cameraUpVector,
             out Matrix44 result)
         {
+            // http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+
             Fixed32 zero = 0;
             Fixed32 one = 1;
 
@@ -7142,23 +7167,23 @@ namespace Abacus.Fixed32Precision
             if (cLen < epsilon) c = Vector3.Zero;
             else Vector3.Normalise(ref c, out c);
 
-            Vector3 right = new Vector3(a.X, b.X, c.X);
-            Vector3 up = new Vector3(a.Y, b.Y, c.Y);
-            Vector3 backward = new Vector3(a.Z, b.Z, c.Z);
+            Vector3 right = new Vector3 (a.X, b.X, c.X);
+            Vector3 up = new Vector3 (a.Y, b.Y, c.Y);
+            Vector3 backward = new Vector3 (a.Z, b.Z, c.Z);
 
             if (right == Vector3.Zero) right = Vector3.Right;
             if (up == Vector3.Zero) up = Vector3.Up;
             if (backward == Vector3.Zero) backward = Vector3.Backward;
 
-            Vector3.Normalise(ref right, out right);
-            Vector3.Normalise(ref up, out up);
-            Vector3.Normalise(ref backward, out backward);
+            Vector3.Normalise (ref right, out right);
+            Vector3.Normalise (ref up, out up);
+            Vector3.Normalise (ref backward, out backward);
 
             Matrix44 rotMat;
-            Matrix44.CreateFromAllAxis(
+            Matrix44.CreateFromCartesianAxes(
                 ref right, ref up, ref backward, out rotMat);
 
-            Quaternion.CreateFromRotationMatrix(ref rotMat, out rotation);
+            Quaternion.CreateFromRotationMatrix (ref rotMat, out rotation);
 
             result = true;
         }
@@ -7620,7 +7645,6 @@ namespace Abacus.Fixed32Precision
             return (transpose == -this);
         }
 
-
 #if (VARIANTS_ENABLED)
 
         /// <summary>
@@ -7728,13 +7752,13 @@ namespace Abacus.Fixed32Precision
         /// <summary>
         /// Variant function.
         /// </summary>
-        public static Matrix44 CreateFromAllAxis (
+        public static Matrix44 CreateFromCartesianAxes (
             Vector3 right,
             Vector3 up,
             Vector3 backward)
         {
             Matrix44 result;
-            CreateFromAllAxis (
+            CreateFromCartesianAxes (
                 ref right, ref up, ref backward, out result);
             return result;
         }
@@ -8124,7 +8148,6 @@ namespace Abacus.Fixed32Precision
             return result;
         }
 
-
         /// <summary>
         /// Variant function.
         /// </summary>
@@ -8132,7 +8155,6 @@ namespace Abacus.Fixed32Precision
         {
             Transpose (ref this, out this);
         }
-
 
 #endif
     }

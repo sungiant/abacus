@@ -103,13 +103,13 @@
         /// <summary>
         /// Variant function.
         /// </summary>
-        public static Matrix44 CreateFromAllAxis (
+        public static Matrix44 CreateFromCartesianAxes (
             Vector3 right,
             Vector3 up,
             Vector3 backward)
         {
             Matrix44 result;
-            CreateFromAllAxis (
+            CreateFromCartesianAxes (
                 ref right, ref up, ref backward, out result);
             return result;
         }

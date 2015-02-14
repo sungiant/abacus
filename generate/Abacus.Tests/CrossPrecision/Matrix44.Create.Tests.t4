@@ -83,16 +83,7 @@
         /// todo
         /// </summary>
         [Test]
-        public void TestStaticFn_CreateFromAllAxis_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestStaticFn_CreateWorldNew_i ()
+        public void TestStaticFn_CreateFromCartesianAxes_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }

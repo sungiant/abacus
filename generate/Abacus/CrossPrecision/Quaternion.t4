@@ -104,15 +104,12 @@
 <#@ include file="Quaternion.Maths.t4"#>
 <#@ include file="Quaternion.Operators.t4"#>
 <#@ include file="Quaternion.Utilities.t4"#>
-
 #if (VARIANTS_ENABLED)
 
 <#@ include file="Variants/Quaternion.Variants.Create.t4"#>
 <#@ include file="Variants/Quaternion.Variants.Maths.t4"#>
 <#@ include file="Variants/Quaternion.Variants.Operators.t4"#>
 <#@ include file="Variants/Quaternion.Variants.Utilities.t4"#>
-
 <#@ include file="Variants/Quaternion.Variants.MemberFunctions.t4"#>
-
 #endif
     }
