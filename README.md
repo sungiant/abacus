@@ -21,7 +21,7 @@ consistently across the following precisions:
 * Double
 * Fixed32
 
-## Quick Start
+## Getting Started
 
 To use Abacus choose the precision you want to work with and include the corresponding Abacus.*.cs file in your project.
 
