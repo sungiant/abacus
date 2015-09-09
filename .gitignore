@@ -18,5 +18,6 @@
 *.log
 *.pidb
 *.DS_Store
+*.nupkg
 TestResult.xml
 
