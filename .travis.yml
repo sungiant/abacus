@@ -5,12 +5,8 @@ install:
     sudo apt-get -y install mono-complete;
 
 before_script:
-    cd scripts;
     sh generate.sh;
 
 script:
-    sh build.sh;
-    sh test.sh;
+    python build.py;
 
-after_script:
-    cd ../;
