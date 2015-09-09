@@ -27,7 +27,7 @@
             return k;
         }
         
-        internal static <#= fixedTypeDefinition.TypeName #> Sqrt (<#= fixedTypeDefinition.TypeName #> f)
+        public static <#= fixedTypeDefinition.TypeName #> Sqrt (<#= fixedTypeDefinition.TypeName #> f)
         {
             Int32 numberOfIterations = 8;
             
@@ -44,14 +44,14 @@
             return Sqrt (f, numberOfIterations);
         }
 
-        internal static <#= fixedTypeDefinition.TypeName #> Square (<#= fixedTypeDefinition.TypeName #> f)
+        public static <#= fixedTypeDefinition.TypeName #> Square (<#= fixedTypeDefinition.TypeName #> f)
         {
             int v = f.numerator >> (n / 2);
             int w = f.numerator >> (n - (n / 2));
             return CreateFromRaw (v * w);
         }
 
-        internal static <#= fixedTypeDefinition.TypeName #> Sin (<#= fixedTypeDefinition.TypeName #> f)
+        public static <#= fixedTypeDefinition.TypeName #> Sin (<#= fixedTypeDefinition.TypeName #> f)
         {
             <#= fixedTypeDefinition.TypeName #> x_ = f % <#= fixedTypeDefinition.TypeName #>.Tau;
 
@@ -73,12 +73,12 @@
             return y;
         }
         
-        internal static <#= fixedTypeDefinition.TypeName #> Cos (<#= fixedTypeDefinition.TypeName #> f)
+        public static <#= fixedTypeDefinition.TypeName #> Cos (<#= fixedTypeDefinition.TypeName #> f)
         {
             return Sin (PiOver2 - f);
         }
         
-        internal static <#= fixedTypeDefinition.TypeName #> Tan (<#= fixedTypeDefinition.TypeName #> f)
+        public static <#= fixedTypeDefinition.TypeName #> Tan (<#= fixedTypeDefinition.TypeName #> f)
         {
             return Sin (f) / Cos (f);
         }

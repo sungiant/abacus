@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Abacus</id>
+    <title>Abacus</title>
+    <version>0.9.0</version>
+    <authors>Ash Pook</authors>
+    <owners>Ash Pook</owners>
+    <licenseUrl>https://raw.githubusercontent.com/sungiant/abacus/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/sungiant/abacus</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cross precision 3D maths library.</description>
+    <copyright>Copyright 2015</copyright>
+    <tags>3D Maths Graphics</tags>
+  </metadata>
+  <files>
+    <file src="bin/abacus.dll" target="lib\net40" />
+  </files>
+</package>
