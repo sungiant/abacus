@@ -1,7 +1,10 @@
 ## Abacus
 
 [![Build Status](https://travis-ci.org/sungiant/abacus.png?branch=master)](https://travis-ci.org/sungiant/abacus)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)
+[![Gitter](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/sungiant/abacus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/sungiant/abacus/master/LICENSE)
+[![Nuget Version](https://img.shields.io/nuget/v/Abacus.svg)](https://www.nuget.org/packages/Abacus)
+[![Nuget Downloads](https://img.shields.io/nuget/dt/Abacus.svg)](https://www.nuget.org/packages/Abacus)
 
 ## Overview
 
@@ -35,4 +38,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[mit]: https://opensource.org/licenses/MIT
+[mit]: https://raw.githubusercontent.com/sungiant/abacus/master/LICENSE
