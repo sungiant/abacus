@@ -9,6 +9,5 @@ before_script:
   - sh gen.sh
 script:
   - sh build.sh
-after_success:
   - sh test.sh
 
