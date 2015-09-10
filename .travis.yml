@@ -1,12 +1,13 @@
-before_install:
-    sudo apt-get -y update;
-
-install:
-    sudo apt-get -y install mono-complete;
+mono:
+  - latest
 
 before_script:
-    sh generate.sh;
+  - cd packages/
+  - nuget install
+  - cd ../
+  - sh gen.sh
 
 script:
-    python build.py;
+  - python build.py
+  - sh test.sh
 

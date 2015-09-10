@@ -69,8 +69,8 @@ abacus_test.target = 'library'
 abacus_test.path = 'source/abacus/src/test/cs/'
 abacus_test.defines = []
 abacus_test.references = [abacus]
-abacus_test.additional_references = ["nunit.framework"]
-abacus_test.additional_search_paths = ['packages/NUnit-2.6.3/bin/framework']
+abacus_test.additional_references = ['nunit.framework']
+abacus_test.additional_search_paths = ['packages/NUnit.2.6.4/lib']
 abacus_test.additional_sources = []
 
 ################################################################################
@@ -88,6 +88,8 @@ except:
 os.mkdir ('bin')
 
 fail_count = 0
+
+shutil.copyfile('packages/NUnit.2.6.4/lib/nunit.framework.dll', 'bin/nunit.framework.dll')
 
 for project in projects:
   print ''
