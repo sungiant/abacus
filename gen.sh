@@ -1,14 +1,10 @@
 #!/bin/bash
 
+set -x #echo on
+
 startPath=`pwd`
 
 find . -name .DS_Store -exec rm -rf {} \;
-
-cd packages/
-
-nuget install
-
-cd $startPath
 
 cd source/abacus/gen/main
 
