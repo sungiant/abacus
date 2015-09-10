@@ -1,12 +1,12 @@
+language: csharp
+sudo: false
 mono:
   - latest
-
 before_script:
   - cd packages/
   - nuget install
   - cd ../
   - sh gen.sh
-
 script:
   - python build.py
   - sh test.sh
