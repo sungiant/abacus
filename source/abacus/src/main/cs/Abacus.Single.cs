@@ -250,26 +250,26 @@ namespace Abacus.SinglePrecision
         public static void CreateFromRotationMatrix (
             ref Matrix44 m, out Quaternion result)
         {
-            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
             Single zero = 0;
             Single one = 1;
             Single two = 2;
             Single quarter; Maths.Quarter (out quarter);
 
-            Single tr = (m.R0C0 + m.R1C1) + m.R2C2;
+            Single tr = m.R0C0 + m.R1C1 + m.R2C2;
 
             if (tr > zero)
             {
                 Single s = Maths.Sqrt (tr + one) * two;
                 result.U = quarter * s;
-                result.I = (m.R1C2 - m.R2C1) / s;
-                result.J = (m.R2C0 - m.R0C2) / s;
-                result.K = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C1 - m.R1C2) / s;
+                result.J = (m.R0C2 - m.R2C0) / s;
+                result.K = (m.R1C0 - m.R0C1) / s;
             }
-            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
+            else if (m.R0C0 > m.R1C1 && m.R0C0 > m.R2C2)
             {
                 Single s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
-                result.U = (m.R1C2 - m.R2C1) / s;
+                result.U = (m.R2C1 - m.R1C2) / s;
                 result.I = quarter * s;
                 result.J = (m.R0C1 + m.R1C0) / s;
                 result.K = (m.R0C2 + m.R2C0) / s;
@@ -277,17 +277,17 @@ namespace Abacus.SinglePrecision
             else if (m.R1C1 > m.R2C2)
             {
                 Single s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
-                result.U = (m.R2C0 - m.R0C2) / s;
-                result.I = (m.R1C0 + m.R0C1) / s;
+                result.U = (m.R0C2 - m.R2C0) / s;
+                result.I = (m.R0C1 + m.R1C0) / s;
                 result.J = quarter * s;
-                result.K = (m.R2C1 + m.R1C2) / s;
+                result.K = (m.R1C2 + m.R2C1) / s;
             }
             else
             {
                 Single s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
-                result.U = (m.R0C1 - m.R1C0) / s;
-                result.I = (m.R2C0 + m.R0C2) / s;
-                result.J = (m.R2C1 + m.R1C2) / s;
+                result.U = (m.R1C0 - m.R0C1) / s;
+                result.I = (m.R0C2 + m.R2C0) / s;
+                result.J = (m.R1C2 + m.R2C1) / s;
                 result.K = quarter * s;
             }
         }

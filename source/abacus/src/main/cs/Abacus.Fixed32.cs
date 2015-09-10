@@ -982,26 +982,26 @@ namespace Abacus.Fixed32Precision
         public static void CreateFromRotationMatrix (
             ref Matrix44 m, out Quaternion result)
         {
-            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/mToQuaternion/
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
             Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
             Fixed32 quarter; Maths.Quarter (out quarter);
 
-            Fixed32 tr = (m.R0C0 + m.R1C1) + m.R2C2;
+            Fixed32 tr = m.R0C0 + m.R1C1 + m.R2C2;
 
             if (tr > zero)
             {
                 Fixed32 s = Maths.Sqrt (tr + one) * two;
                 result.U = quarter * s;
-                result.I = (m.R1C2 - m.R2C1) / s;
-                result.J = (m.R2C0 - m.R0C2) / s;
-                result.K = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C1 - m.R1C2) / s;
+                result.J = (m.R0C2 - m.R2C0) / s;
+                result.K = (m.R1C0 - m.R0C1) / s;
             }
-            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
+            else if (m.R0C0 > m.R1C1 && m.R0C0 > m.R2C2)
             {
                 Fixed32 s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
-                result.U = (m.R1C2 - m.R2C1) / s;
+                result.U = (m.R2C1 - m.R1C2) / s;
                 result.I = quarter * s;
                 result.J = (m.R0C1 + m.R1C0) / s;
                 result.K = (m.R0C2 + m.R2C0) / s;
@@ -1009,17 +1009,17 @@ namespace Abacus.Fixed32Precision
             else if (m.R1C1 > m.R2C2)
             {
                 Fixed32 s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
-                result.U = (m.R2C0 - m.R0C2) / s;
-                result.I = (m.R1C0 + m.R0C1) / s;
+                result.U = (m.R0C2 - m.R2C0) / s;
+                result.I = (m.R0C1 + m.R1C0) / s;
                 result.J = quarter * s;
-                result.K = (m.R2C1 + m.R1C2) / s;
+                result.K = (m.R1C2 + m.R2C1) / s;
             }
             else
             {
                 Fixed32 s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
-                result.U = (m.R0C1 - m.R1C0) / s;
-                result.I = (m.R2C0 + m.R0C2) / s;
-                result.J = (m.R2C1 + m.R1C2) / s;
+                result.U = (m.R1C0 - m.R0C1) / s;
+                result.I = (m.R0C2 + m.R2C0) / s;
+                result.J = (m.R1C2 + m.R2C1) / s;
                 result.K = quarter * s;
             }
         }

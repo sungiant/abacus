@@ -38,12 +38,14 @@
         /// </summary>
         internal static Quaternion GetNextRandomQuaternion ()
         {
-            <#=T#> i = GetNextRandom<#=T#>();
-            <#=T#> j = GetNextRandom<#=T#>();
-            <#=T#> k = GetNextRandom<#=T#>();
-            <#=T#> u = GetNextRandom<#=T#>();
+            <#=T#> pi; Maths.Pi(out pi);
+            <#=T#> yaw = pi * (<#=T#>) rand.Next(0, 360) / (<#=T#>) 180;
+            <#=T#> pitch = pi * (<#=T#>) rand.Next(0, 360) / (<#=T#>) 180;
+            <#=T#> roll = pi * (<#=T#>) rand.Next(0, 360) / (<#=T#>) 180;
 
-            return new Quaternion(i, j, k, u);
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
+            q.Normalise();
+            return q;
         }
 
         /// <summary>

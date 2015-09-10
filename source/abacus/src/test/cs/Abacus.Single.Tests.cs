@@ -6662,12 +6662,14 @@ namespace Abacus.SinglePrecision
         /// </summary>
         internal static Quaternion GetNextRandomQuaternion ()
         {
-            Single i = GetNextRandomSingle();
-            Single j = GetNextRandomSingle();
-            Single k = GetNextRandomSingle();
-            Single u = GetNextRandomSingle();
+            Single pi; Maths.Pi(out pi);
+            Single yaw = pi * (Single) rand.Next(0, 360) / (Single) 180;
+            Single pitch = pi * (Single) rand.Next(0, 360) / (Single) 180;
+            Single roll = pi * (Single) rand.Next(0, 360) / (Single) 180;
 
-            return new Quaternion(i, j, k, u);
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
+            q.Normalise();
+            return q;
         }
 
         /// <summary>
@@ -7630,14 +7632,17 @@ namespace Abacus.SinglePrecision
             expected.R0C1 = Single.Parse("0.9238795");
             expected.R0C2 = Single.Parse("-0.270598");
             expected.R0C3 = 0;
+
             expected.R1C0 = Single.Parse("-0.7071067");
-            expected.R1C1 = Single.Parse("6.705523E-08");
+            expected.R1C1 = 0;
             expected.R1C2 = Single.Parse("0.7071067");
             expected.R1C3 = 0;
+
             expected.R2C0 = Single.Parse("0.6532815");
             expected.R2C1 = Single.Parse("0.3826834");
             expected.R2C2 = Single.Parse("0.6532815");
             expected.R2C3 = 0;
+
             expected.R3C0 = 0;
             expected.R3C1 = 0;
             expected.R3C2 = 0;

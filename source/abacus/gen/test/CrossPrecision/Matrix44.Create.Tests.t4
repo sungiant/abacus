@@ -117,14 +117,17 @@
             expected.R0C1 = <#=T#>.Parse("0.9238795");
             expected.R0C2 = <#=T#>.Parse("-0.270598");
             expected.R0C3 = 0;
+
             expected.R1C0 = <#=T#>.Parse("-0.7071067");
-            expected.R1C1 = <#=T#>.Parse("6.705523E-08");
+            expected.R1C1 = 0;
             expected.R1C2 = <#=T#>.Parse("0.7071067");
             expected.R1C3 = 0;
+
             expected.R2C0 = <#=T#>.Parse("0.6532815");
             expected.R2C1 = <#=T#>.Parse("0.3826834");
             expected.R2C2 = <#=T#>.Parse("0.6532815");
             expected.R2C3 = 0;
+
             expected.R3C0 = 0;
             expected.R3C1 = 0;
             expected.R3C2 = 0;
