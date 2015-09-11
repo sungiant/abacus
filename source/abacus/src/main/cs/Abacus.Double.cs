@@ -48,7 +48,7 @@
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
-/** Abacus version: 0.9.1 */
+/** Abacus version: 0.9.2 */
 
 #define VARIANTS_ENABLED
 
