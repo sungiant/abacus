@@ -26,7 +26,7 @@ consistently across the following precisions:
 
 ## Getting Started
 
-To use Abacus choose the precision you want to work with and include the corresponding Abacus.*.cs file in your project.
+Abacus is available as a stand-alone library via **[nuget][abacus_nuget]**.  Alternatively, given that each supported precision level generates a single source file, it is easy to simply copy the [Abacus.*.cs][sources] file for the precision you need straight into your project.
 
 ## License
 
@@ -39,3 +39,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 [mit]: https://raw.githubusercontent.com/sungiant/abacus/master/LICENSE
+[abacus_nuget]: https://www.nuget.org/packages/Abacus/
+[sources]: https://github.com/sungiant/abacus/tree/master/source/abacus/src/main/cs
