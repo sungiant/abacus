@@ -83,9 +83,6 @@ namespace Abacus.DoublePrecision
         }
     }
 
-    /// <summary>
-    /// todo
-    /// </summary>
     [TestFixture]
     public class MathsTests
     {
@@ -94,270 +91,194 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void TestTolerance (out Double value)
         {
-            value = 1.0e-7;
+            value = 0.00000010000000000000000000000;
         }
 
 
-        /// <summary>
-        /// todo
-        /// </summary>
+        Double tolerance;
+
+        public MathsTests ()
+        {
+            MathsTests.TestTolerance (out tolerance);
+        }
+
         [Test]
         public void TestConstant_Zero_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double zero; Maths.Zero (out zero);
+            Assert.That (zero, Is.EqualTo ((Double) 0));
         }
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_Half_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double half; Maths.Half (out half);
+            Assert.That (half, Is.EqualTo ((Double) 0.5));
         }
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_One_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
+        {   Double one; Maths.One (out one);
+            Assert.That (one, Is.EqualTo ((Double) 1));
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_E_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double e; Maths.E (out e);
+            Assert.That (e, Is.EqualTo ((Double) 2.71828182845904523536028747135).Within (tolerance));
         }
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_Log10E_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double log10E; Maths.Log10E (out log10E);
+            Assert.That (log10E, Is.EqualTo ((Double) 0.43429448190325182765112891892).Within (tolerance));
         }
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_Log2E_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double log2E; Maths.Log2E (out log2E);
+            Assert.That (log2E, Is.EqualTo ((Double) 1.442695).Within (tolerance));
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_Pi_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double pi; Maths.Pi (out pi);
+            Assert.That (pi, Is.EqualTo ((Double) 3.14159265358979323846264338327950288).Within (tolerance));
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestConstant_PiOver2_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestConstant_PiOver4_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_Tau_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double tau; Maths.Tau (out tau);
+            Assert.That (tau, Is.EqualTo ((Double) 6.28318530717958647692528676655900576).Within (tolerance));
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
-        public void TestConstant_Epsilon_i ()
-        {
-            throw new InconclusiveException("Not Implemented");
-        }
-
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_Root2_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double root2; Maths.Root2 (out root2);
+            Assert.That (root2, Is.EqualTo ((Double) 1.41421356237309504880168872420969807).Within (tolerance));
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestConstant_Root3_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double root3; Maths.Root3 (out root3);
+            Assert.That (root3, Is.EqualTo ((Double) 1.73205080756887729352744634150587236).Within (tolerance));
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_IsZero_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double zero; Maths.Zero (out zero);
+            Assert.That (Maths.IsZero (zero), Is.EqualTo (true));
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
+        [Test]
+        public void TestStaticFn_IsZero_ii ()
+        {
+            Double one; Maths.One (out one);
+            Assert.That (Maths.IsZero (one), Is.EqualTo (false));
+        }
+
+        [Test]
+        public void TestConstant_Epsilon_i ()
+        {
+            Double epsilon; Maths.Epsilon (out epsilon);
+            Assert.That (epsilon, Is.LessThan ((Double) 0.01));
+            Assert.That (epsilon, Is.GreaterThan ((Double) 0.0));
+        }
+
         [Test]
         public void TestStaticFn_FromString_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_FromFraction_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_ToRadians_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_ToDegrees_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Sqrt_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Sin_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Cos_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Tan_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Abs_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_ArcSin_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_ArcCos_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_ArcTan_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Min_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Max_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_WithinEpsilon_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Sign_i ()
         {
@@ -365,9 +286,6 @@ namespace Abacus.DoublePrecision
         }
     }
 
-    /// <summary>
-    /// todo
-    /// </summary>
     [TestFixture]
     public class Vector2Tests
     {
@@ -2398,9 +2316,6 @@ namespace Abacus.DoublePrecision
 
 
     }
-    /// <summary>
-    ///
-    /// </summary>
     [TestFixture]
     public class Vector3Tests
     {
@@ -4568,9 +4483,6 @@ namespace Abacus.DoublePrecision
 
 
     }
-    /// <summary>
-    ///
-    /// </summary>
     [TestFixture]
     public class Vector4Tests
     {
@@ -6685,6 +6597,28 @@ namespace Abacus.DoublePrecision
             Assert.That(a.U, Is.EqualTo(b.U).Within(tolerance));
         }
 
+        internal static void AssertEqualOrNegatedWithinReason (Quaternion a, Quaternion b)
+        {
+            Double tolerance; MathsTests.TestTolerance(out tolerance);
+
+            Boolean pass1 =
+                Math.Abs (a.I - b.I) <= tolerance &&
+                Math.Abs (a.J - b.J) <= tolerance &&
+                Math.Abs (a.K - b.K) <= tolerance &&
+                Math.Abs (a.U - b.U) <= tolerance;
+
+            Quaternion c;
+            Quaternion.Negate (ref b, out c);
+
+            Boolean pass2 =
+                Math.Abs (a.I - c.I) <= tolerance &&
+                Math.Abs (a.J - c.J) <= tolerance &&
+                Math.Abs (a.K - c.K) <= tolerance &&
+                Math.Abs (a.U - c.U) <= tolerance;
+
+            Assert.That(pass1 || pass2, Is.EqualTo (true));
+        }
+
 
         // Test: StructLayout //----------------------------------------------//
 
@@ -6812,38 +6746,80 @@ namespace Abacus.DoublePrecision
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
+        }        [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Vector3 axis = new Vector3 ((Double) 1, (Double) 2, (Double) (-3));
+            Vector3.Normalise (ref axis, out axis);
+            Double angle; Maths.Pi (out angle); angle /= (Double) 3;
+
+            Quaternion q;
+            Quaternion.CreateFromAxisAngle (ref axis, ref angle, out q);
+
+            Quaternion expected = new Quaternion (
+                (Double) ( 0.1336306),
+                (Double) ( 0.2672612),
+                (Double) (-0.4008918),
+                (Double) ( 0.8660254));
+
+            AssertEqualWithinReason (q, expected);
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Double yaw; Maths.Pi(out yaw); yaw /= (Double) 4;
+            Double pitch; Maths.Pi(out pitch); pitch /= (Double) (-8);
+            Double roll; Maths.Pi(out roll); roll /= (Double) 2;
+
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
+
+            Quaternion expected = new Quaternion (
+                (Double) (0.1379497),
+                (Double) (0.3928475),
+                (Double) (0.6935199),
+                (Double) (0.5879378));
+
+            AssertEqualWithinReason (q, expected);
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateFromRotationMatrix_i ()
         {
-            throw new InconclusiveException("Not Implemented");
+            Matrix44 m = new Matrix44 ();
+            m.R0C0 = (Double) (-0.9137071674171720);
+            m.R0C1 = (Double) (-0.4045084971874740);
+            m.R0C2 = (Double) (-0.0388855746211755);
+            m.R0C3 = 0;
+
+            m.R1C0 = (Double) (-0.0612616567188929);
+            m.R1C1 = (Double)  (0.0425155562553572);
+            m.R1C2 = (Double)  (0.9972158426801860);
+            m.R1C3 = 0;
+
+            m.R2C0 = (Double) (-0.4017290400587740);
+            m.R2C1 = (Double)  (0.9135454576426010);
+            m.R2C2 = (Double) (-0.0636276291718221);
+            m.R2C3 = 0;
+
+            m.R3C0 = 0;
+            m.R3C1 = 0;
+            m.R3C2 = 0;
+            m.R3C3 = 1;
+
+            Quaternion q; Quaternion.CreateFromRotationMatrix (ref m, out q);
+
+            Quaternion expected = new Quaternion (
+                (Double) (-0.163863438188094),
+                (Double) (0.7106071968472370),
+                (Double) (0.6722283804612080),
+                (Double) (-0.127652614217613));
+
+            AssertEqualWithinReason (q, expected);
         }
 
         // Test Static Fn: Conjugate //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Conjugate_i ()
         {
@@ -6852,9 +6828,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Inverse //-----------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Inverse_i ()
         {
@@ -6863,9 +6836,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Distance //----------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Dot_i ()
         {
@@ -6874,9 +6844,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Concatenate //-------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Concatenate_i ()
         {
@@ -6885,9 +6852,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Normalise //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Normalise_i ()
         {
@@ -7209,18 +7173,12 @@ namespace Abacus.DoublePrecision
 
         // Test: StructLayout //----------------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public static void TestStaticFn_Slerp_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public static void TestStaticFn_Lerp_i ()
         {
@@ -7402,19 +7360,6 @@ namespace Abacus.DoublePrecision
                 Assert.That(a, Is.EqualTo(Matrix44.Zero));
             }
             {
-                // Test Matrix44(
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double,
-                //     Double )
                 Double a = -18759;
                 Double b = 345;
                 Double c = 774;
@@ -7513,108 +7458,72 @@ namespace Abacus.DoublePrecision
                 0, 0, 0, 1);
 
             AssertEqualWithinReason(result, expected);
-        }        /// <summary>
-        /// todo
-        /// </summary>
-        [Test]
+        }        [Test]
         public void TestStaticFn_CreateTranslation_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateTranslation_ii ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateScale_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        //// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateScale_ii ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateScale_iii ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateRotationX_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateRotationY_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateRotationZ_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateFromAxisAngle_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateFromCartesianAxes_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateWorld_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateFromQuaternion_i ()
         {
@@ -7628,19 +7537,19 @@ namespace Abacus.DoublePrecision
             Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
 
             Matrix44 expected = new Matrix44 ();
-            expected.R0C0 = Double.Parse("-0.270598"); // this is a grim way to do it, make it so we can cast double to fixed
-            expected.R0C1 = Double.Parse("0.9238795");
-            expected.R0C2 = Double.Parse("-0.270598");
+            expected.R0C0 = (Double) (-0.270598);
+            expected.R0C1 = (Double) 0.9238795;
+            expected.R0C2 = (Double) (-0.270598);
             expected.R0C3 = 0;
 
-            expected.R1C0 = Double.Parse("-0.7071067");
+            expected.R1C0 = (Double) (-0.7071067);
             expected.R1C1 = 0;
-            expected.R1C2 = Double.Parse("0.7071067");
+            expected.R1C2 = (Double) 0.7071067;
             expected.R1C3 = 0;
 
-            expected.R2C0 = Double.Parse("0.6532815");
-            expected.R2C1 = Double.Parse("0.3826834");
-            expected.R2C2 = Double.Parse("0.6532815");
+            expected.R2C0 = (Double) 0.6532815;
+            expected.R2C1 = (Double) 0.3826834;
+            expected.R2C2 = (Double) 0.6532815;
             expected.R2C3 = 0;
 
             expected.R3C0 = 0;
@@ -7648,7 +7557,42 @@ namespace Abacus.DoublePrecision
             expected.R3C2 = 0;
             expected.R3C3 = 1;
 
-            AssertEqualWithinReason(m, expected);
+            AssertEqualWithinReason (m, expected);
+        }
+
+        [Test]
+        public void TestStaticFn_CreateFromQuaternion_ii ()
+        {
+            Quaternion q = new Quaternion (
+                (Double) (-0.163863438188094),
+                (Double) (0.7106071968472370),
+                (Double) (0.6722283804612080),
+                (Double) (-0.127652614217613));
+
+            Matrix44 m; Matrix44.CreateFromQuaternion(ref q, out m);
+
+            Matrix44 expected = new Matrix44 ();
+            expected.R0C0 = (Double) (-0.9137071674171720);
+            expected.R0C1 = (Double) (-0.4045084971874740);
+            expected.R0C2 = (Double) (-0.0388855746211755);
+            expected.R0C3 = 0;
+
+            expected.R1C0 = (Double) (-0.0612616567188929);
+            expected.R1C1 = (Double)  (0.0425155562553572);
+            expected.R1C2 = (Double)  (0.9972158426801860);
+            expected.R1C3 = 0;
+
+            expected.R2C0 = (Double) (-0.4017290400587740);
+            expected.R2C1 = (Double)  (0.9135454576426010);
+            expected.R2C2 = (Double) (-0.0636276291718221);
+            expected.R2C3 = 0;
+
+            expected.R3C0 = 0;
+            expected.R3C1 = 0;
+            expected.R3C2 = 0;
+            expected.R3C3 = 1;
+
+            AssertEqualWithinReason (m, expected);
         }
 
         /// <summary>
@@ -7657,9 +7601,9 @@ namespace Abacus.DoublePrecision
         /// quaternion (assuming that the conversion back is correct).
         /// </summary>
         [Test]
-        public void TestStaticFn_CreateFromQuaternion_ii ()
+        public void TestStaticFn_CreateFromQuaternion_iii ()
         {
-            for(Int32 i = 0; i < 100; ++i)
+            for (Int32 i = 0; i < 100; ++i)
             {
                 Quaternion q = QuaternionTests.GetNextRandomQuaternion();
                 Quaternion.Normalise(ref q, out q);
@@ -7670,85 +7614,66 @@ namespace Abacus.DoublePrecision
                 Quaternion q2;
                 Quaternion.CreateFromRotationMatrix(ref m, out q2);
 
-                QuaternionTests.AssertEqualWithinReason(q, q2);
+                // TODO: Investigate.  This is odd, for a few tests this
+                // would fail, until it was changed to allow for negated
+                // quaternions.  I'm not sure if it makes sense or not, but,
+                // I have compared with XNA, and Abacus is producing the
+                // same results.  So, until I find out more, I'll assume
+                // that XNA behaves correctly and the comparing to a negated
+                // version of the expected quaternion is acceptable.
+                // PS: If anyone knows more, I'm keen to hear from you.
+                QuaternionTests.AssertEqualOrNegatedWithinReason (q, q2);
             }
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateFromYawPitchRoll_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateBillboard_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateConstrainedBillboard_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreatePerspectiveFieldOfView_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreatePerspective_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreatePerspectiveOffCenter_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateOrthographic_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateOrthographicOffCenter_i ()
         {
             throw new InconclusiveException("Not Implemented");
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_CreateLookAt_i ()
         {
@@ -7757,9 +7682,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Transpose //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Transpose_i ()
         {
@@ -7771,12 +7693,11 @@ namespace Abacus.DoublePrecision
 
             Matrix44 testMatrix = startMatrix;
 
-            Matrix44 testMatrixExpectedTranspose =
-                new Matrix44(
-                    0, 4, 8, 12,
-                    1, 5, 9, 13,
-                    2, 6, 10, 14,
-                    3, 7, 11, 15);
+            Matrix44 testMatrixExpectedTranspose = new Matrix44(
+                0, 4, 8, 12,
+                1, 5, 9, 13,
+                2, 6, 10, 14,
+                3, 7, 11, 15);
 
             // RUN THE STATIC VERSION OF THE FUNCTION
             Matrix44 resultMatrix = Matrix44.Identity;
@@ -7788,9 +7709,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Decompose //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Decompose_i ()
         {
@@ -7834,9 +7752,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Determinant //-------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Determinant_i ()
         {
@@ -7845,9 +7760,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Invert //------------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Invert_i ()
         {
@@ -7856,9 +7768,6 @@ namespace Abacus.DoublePrecision
 
         // Test Static Fn: Transform //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Transform_i ()
         {

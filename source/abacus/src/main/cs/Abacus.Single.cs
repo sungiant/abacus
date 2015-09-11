@@ -250,7 +250,13 @@ namespace Abacus.SinglePrecision
         public static void CreateFromRotationMatrix (
             ref Matrix44 m, out Quaternion result)
         {
+            // This describes the method:
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+
+            // This code is based on the XNA implementation though, so there
+            // are a few slight differences...  Not sure why, but if the
+            // method is good enough for Steve Balmer then it's good enough
+            // for Abacus...  "$99!"
             Single zero = 0;
             Single one = 1;
             Single two = 2;
@@ -262,14 +268,14 @@ namespace Abacus.SinglePrecision
             {
                 Single s = Maths.Sqrt (tr + one) * two;
                 result.U = quarter * s;
-                result.I = (m.R2C1 - m.R1C2) / s;
-                result.J = (m.R0C2 - m.R2C0) / s;
-                result.K = (m.R1C0 - m.R0C1) / s;
+                result.I = (m.R1C2 - m.R2C1) / s;
+                result.J = (m.R2C0 - m.R0C2) / s;
+                result.K = (m.R0C1 - m.R1C0) / s;
             }
-            else if (m.R0C0 > m.R1C1 && m.R0C0 > m.R2C2)
+            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
                 Single s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
-                result.U = (m.R2C1 - m.R1C2) / s;
+                result.U = (m.R1C2 - m.R2C1) / s;
                 result.I = quarter * s;
                 result.J = (m.R0C1 + m.R1C0) / s;
                 result.K = (m.R0C2 + m.R2C0) / s;
@@ -277,17 +283,17 @@ namespace Abacus.SinglePrecision
             else if (m.R1C1 > m.R2C2)
             {
                 Single s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
-                result.U = (m.R0C2 - m.R2C0) / s;
-                result.I = (m.R0C1 + m.R1C0) / s;
+                result.U = (m.R2C0 - m.R0C2) / s;
+                result.I = (m.R1C0 + m.R0C1) / s;
                 result.J = quarter * s;
-                result.K = (m.R1C2 + m.R2C1) / s;
+                result.K = (m.R2C1 + m.R1C2) / s;
             }
             else
             {
                 Single s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
-                result.U = (m.R1C0 - m.R0C1) / s;
-                result.I = (m.R0C2 + m.R2C0) / s;
-                result.J = (m.R1C2 + m.R2C1) / s;
+                result.U = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C0 + m.R0C2) / s;
+                result.J = (m.R2C1 + m.R1C2) / s;
                 result.K = quarter * s;
             }
         }
@@ -4804,7 +4810,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void E (out Single value)
         {
-            value = 2.71828183f;
+            value = 2.718282f;
         }
 
         /// <summary>
@@ -4812,7 +4818,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Epsilon (out Single value)
         {
-            value = 1.0e-6f;
+            value = 0.000001f;
         }
 
         /// <summary>
@@ -4820,7 +4826,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Half (out Single value)
         {
-            value = 0.5f;
+            value = 0.500000f;
         }
 
         /// <summary>
@@ -4828,7 +4834,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Quarter (out Single value)
         {
-            value = 0.25f;
+            value = 0.250000f;
         }
 
         /// <summary>
@@ -4836,7 +4842,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Log10E (out Single value)
         {
-            value = 0.4342944821f;
+            value = 0.434294f;
         }
 
         /// <summary>
@@ -4852,7 +4858,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Pi (out Single value)
         {
-            value = 3.1415926536f;
+            value = 3.141593f;
         }
 
         /// <summary>
@@ -4860,7 +4866,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Root2 (out Single value)
         {
-            value = 1.414213562f;
+            value = 1.414214f;
         }
 
         /// <summary>
@@ -4868,7 +4874,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Root3 (out Single value)
         {
-            value = 1.732050808f;
+            value = 1.732051f;
         }
 
         /// <summary>
@@ -4884,7 +4890,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void Zero (out Single value)
         {
-            value = 0f;
+            value = 0.000000f;
         }
 
         /// <summary>
@@ -4892,7 +4898,7 @@ namespace Abacus.SinglePrecision
         /// </summary>
         public static void One (out Single value)
         {
-            value = 1f;
+            value = 1.000000f;
         }
 
 

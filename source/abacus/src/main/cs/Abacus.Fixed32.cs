@@ -444,15 +444,15 @@ namespace Abacus.Fixed32Precision
 
         public static implicit operator Fixed32 (Int32 src)
         {
-            return new Fixed32(src);
+            return new Fixed32((Double) src);
         }
 
-        public static implicit operator Fixed32(Single src)
+        public static explicit operator Fixed32 (Single src)
         {
-            return new Fixed32(src);
+            return new Fixed32((Double) src);
         }
 
-        public static implicit operator Fixed32(Double src)
+        public static explicit operator Fixed32 (Double src)
         {
             return new Fixed32(src);
         }
@@ -982,7 +982,13 @@ namespace Abacus.Fixed32Precision
         public static void CreateFromRotationMatrix (
             ref Matrix44 m, out Quaternion result)
         {
+            // This describes the method:
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+
+            // This code is based on the XNA implementation though, so there
+            // are a few slight differences...  Not sure why, but if the
+            // method is good enough for Steve Balmer then it's good enough
+            // for Abacus...  "$99!"
             Fixed32 zero = 0;
             Fixed32 one = 1;
             Fixed32 two = 2;
@@ -994,14 +1000,14 @@ namespace Abacus.Fixed32Precision
             {
                 Fixed32 s = Maths.Sqrt (tr + one) * two;
                 result.U = quarter * s;
-                result.I = (m.R2C1 - m.R1C2) / s;
-                result.J = (m.R0C2 - m.R2C0) / s;
-                result.K = (m.R1C0 - m.R0C1) / s;
+                result.I = (m.R1C2 - m.R2C1) / s;
+                result.J = (m.R2C0 - m.R0C2) / s;
+                result.K = (m.R0C1 - m.R1C0) / s;
             }
-            else if (m.R0C0 > m.R1C1 && m.R0C0 > m.R2C2)
+            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
                 Fixed32 s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
-                result.U = (m.R2C1 - m.R1C2) / s;
+                result.U = (m.R1C2 - m.R2C1) / s;
                 result.I = quarter * s;
                 result.J = (m.R0C1 + m.R1C0) / s;
                 result.K = (m.R0C2 + m.R2C0) / s;
@@ -1009,17 +1015,17 @@ namespace Abacus.Fixed32Precision
             else if (m.R1C1 > m.R2C2)
             {
                 Fixed32 s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
-                result.U = (m.R0C2 - m.R2C0) / s;
-                result.I = (m.R0C1 + m.R1C0) / s;
+                result.U = (m.R2C0 - m.R0C2) / s;
+                result.I = (m.R1C0 + m.R0C1) / s;
                 result.J = quarter * s;
-                result.K = (m.R1C2 + m.R2C1) / s;
+                result.K = (m.R2C1 + m.R1C2) / s;
             }
             else
             {
                 Fixed32 s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
-                result.U = (m.R1C0 - m.R0C1) / s;
-                result.I = (m.R0C2 + m.R2C0) / s;
-                result.J = (m.R1C2 + m.R2C1) / s;
+                result.U = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C0 + m.R0C2) / s;
+                result.J = (m.R2C1 + m.R1C2) / s;
                 result.K = quarter * s;
             }
         }
@@ -5536,7 +5542,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void E (out Fixed32 value)
         {
-            value = Fixed32.Parse("2.71828183");
+            value = (Fixed32) 2.718282;
         }
 
         /// <summary>
@@ -5544,7 +5550,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Epsilon (out Fixed32 value)
         {
-            value = Fixed32.Parse("0.0001");
+            value = (Fixed32) 0.000001;
         }
 
         /// <summary>
@@ -5552,7 +5558,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Half (out Fixed32 value)
         {
-            value = Fixed32.Parse("0.5");
+            value = (Fixed32) 0.500000;
         }
 
         /// <summary>
@@ -5560,7 +5566,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Quarter (out Fixed32 value)
         {
-            value = Fixed32.Parse("0.25");
+            value = (Fixed32) 0.250000;
         }
 
         /// <summary>
@@ -5568,7 +5574,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Log10E (out Fixed32 value)
         {
-            value = Fixed32.Parse("0.4342945");
+            value = (Fixed32) 0.434294;
         }
 
         /// <summary>
@@ -5576,7 +5582,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Log2E (out Fixed32 value)
         {
-            value = Fixed32.Parse("1.442695");
+            value = (Fixed32) 1.442695;
         }
 
         /// <summary>
@@ -5584,7 +5590,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Pi (out Fixed32 value)
         {
-            value = Fixed32.Parse("3.1415926536");
+            value = (Fixed32) 3.141593;
         }
 
         /// <summary>
@@ -5592,7 +5598,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Root2 (out Fixed32 value)
         {
-            value = Fixed32.Parse("1.414213562");
+            value = (Fixed32) 1.414214;
         }
 
         /// <summary>
@@ -5600,7 +5606,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Root3 (out Fixed32 value)
         {
-            value = Fixed32.Parse("1.732050808");
+            value = (Fixed32) 1.732051;
         }
 
         /// <summary>
@@ -5608,7 +5614,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Tau (out Fixed32 value)
         {
-            value = Fixed32.Parse("6.283185");
+            value = (Fixed32) 6.283185;
         }
 
         /// <summary>
@@ -5616,7 +5622,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void Zero (out Fixed32 value)
         {
-            value = 0;
+            value = (Fixed32) 0.000000;
         }
 
         /// <summary>
@@ -5624,7 +5630,7 @@ namespace Abacus.Fixed32Precision
         /// </summary>
         public static void One (out Fixed32 value)
         {
-            value = 1;
+            value = (Fixed32) 1.000000;
         }
 
 

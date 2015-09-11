@@ -61,3 +61,25 @@
             Assert.That(a.U, Is.EqualTo(b.U).Within(tolerance));
         }
 
+        internal static void AssertEqualOrNegatedWithinReason (Quaternion a, Quaternion b)
+        {
+            <#=T#> tolerance; MathsTests.TestTolerance(out tolerance);
+
+            Boolean pass1 =
+                Math.Abs (a.I - b.I) <= tolerance &&
+                Math.Abs (a.J - b.J) <= tolerance &&
+                Math.Abs (a.K - b.K) <= tolerance &&
+                Math.Abs (a.U - b.U) <= tolerance;
+
+            Quaternion c;
+            Quaternion.Negate (ref b, out c);
+
+            Boolean pass2 =
+                Math.Abs (a.I - c.I) <= tolerance &&
+                Math.Abs (a.J - c.J) <= tolerance &&
+                Math.Abs (a.K - c.K) <= tolerance &&
+                Math.Abs (a.U - c.U) <= tolerance;
+
+            Assert.That(pass1 || pass2, Is.EqualTo (true));
+        }
+

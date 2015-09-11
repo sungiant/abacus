@@ -1,8 +1,5 @@
         // Test Static Fn: Conjugate //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Conjugate_i ()
         {
@@ -11,9 +8,6 @@
 
         // Test Static Fn: Inverse //-----------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Inverse_i ()
         {
@@ -22,9 +16,6 @@
 
         // Test Static Fn: Distance //----------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Dot_i ()
         {
@@ -33,9 +24,6 @@
 
         // Test Static Fn: Concatenate //-------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Concatenate_i ()
         {
@@ -44,9 +32,6 @@
 
         // Test Static Fn: Normalise //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Normalise_i ()
         {

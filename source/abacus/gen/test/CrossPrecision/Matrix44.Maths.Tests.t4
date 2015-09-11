@@ -1,8 +1,5 @@
         // Test Static Fn: Transpose //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Transpose_i ()
         {
@@ -14,12 +11,11 @@
 
             Matrix44 testMatrix = startMatrix;
 
-            Matrix44 testMatrixExpectedTranspose =
-                new Matrix44(
-                    0, 4, 8, 12,
-                    1, 5, 9, 13,
-                    2, 6, 10, 14,
-                    3, 7, 11, 15);
+            Matrix44 testMatrixExpectedTranspose = new Matrix44(
+                0, 4, 8, 12,
+                1, 5, 9, 13,
+                2, 6, 10, 14,
+                3, 7, 11, 15);
 
             // RUN THE STATIC VERSION OF THE FUNCTION
             Matrix44 resultMatrix = Matrix44.Identity;
@@ -31,9 +27,6 @@
 
         // Test Static Fn: Decompose //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Decompose_i ()
         {
@@ -77,9 +70,6 @@
 
         // Test Static Fn: Determinant //-------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Determinant_i ()
         {
@@ -88,9 +78,6 @@
 
         // Test Static Fn: Invert //------------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Invert_i ()
         {
@@ -99,9 +86,6 @@
 
         // Test Static Fn: Transform //---------------------------------------//
 
-        /// <summary>
-        /// todo
-        /// </summary>
         [Test]
         public void TestStaticFn_Transform_i ()
         {

@@ -250,7 +250,13 @@ namespace Abacus.DoublePrecision
         public static void CreateFromRotationMatrix (
             ref Matrix44 m, out Quaternion result)
         {
+            // This describes the method:
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+
+            // This code is based on the XNA implementation though, so there
+            // are a few slight differences...  Not sure why, but if the
+            // method is good enough for Steve Balmer then it's good enough
+            // for Abacus...  "$99!"
             Double zero = 0;
             Double one = 1;
             Double two = 2;
@@ -262,14 +268,14 @@ namespace Abacus.DoublePrecision
             {
                 Double s = Maths.Sqrt (tr + one) * two;
                 result.U = quarter * s;
-                result.I = (m.R2C1 - m.R1C2) / s;
-                result.J = (m.R0C2 - m.R2C0) / s;
-                result.K = (m.R1C0 - m.R0C1) / s;
+                result.I = (m.R1C2 - m.R2C1) / s;
+                result.J = (m.R2C0 - m.R0C2) / s;
+                result.K = (m.R0C1 - m.R1C0) / s;
             }
-            else if (m.R0C0 > m.R1C1 && m.R0C0 > m.R2C2)
+            else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2))
             {
                 Double s = Maths.Sqrt (one + m.R0C0 - m.R1C1 - m.R2C2) * two;
-                result.U = (m.R2C1 - m.R1C2) / s;
+                result.U = (m.R1C2 - m.R2C1) / s;
                 result.I = quarter * s;
                 result.J = (m.R0C1 + m.R1C0) / s;
                 result.K = (m.R0C2 + m.R2C0) / s;
@@ -277,17 +283,17 @@ namespace Abacus.DoublePrecision
             else if (m.R1C1 > m.R2C2)
             {
                 Double s = Maths.Sqrt (one + m.R1C1 - m.R0C0 - m.R2C2) * two;
-                result.U = (m.R0C2 - m.R2C0) / s;
-                result.I = (m.R0C1 + m.R1C0) / s;
+                result.U = (m.R2C0 - m.R0C2) / s;
+                result.I = (m.R1C0 + m.R0C1) / s;
                 result.J = quarter * s;
-                result.K = (m.R1C2 + m.R2C1) / s;
+                result.K = (m.R2C1 + m.R1C2) / s;
             }
             else
             {
                 Double s = Maths.Sqrt (one + m.R2C2 - m.R0C0 - m.R1C1) * two;
-                result.U = (m.R1C0 - m.R0C1) / s;
-                result.I = (m.R0C2 + m.R2C0) / s;
-                result.J = (m.R1C2 + m.R2C1) / s;
+                result.U = (m.R0C1 - m.R1C0) / s;
+                result.I = (m.R2C0 + m.R0C2) / s;
+                result.J = (m.R2C1 + m.R1C2) / s;
                 result.K = quarter * s;
             }
         }
@@ -4804,7 +4810,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void E (out Double value)
         {
-            value = 2.71828182845904523536028747135266249775724709369995;
+            value = 2.71828182845904523536028747135;
         }
 
         /// <summary>
@@ -4812,7 +4818,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Epsilon (out Double value)
         {
-            value = 1.0e-6;
+            value = 0.00000100000000000000000000000;
         }
 
         /// <summary>
@@ -4820,7 +4826,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Half (out Double value)
         {
-            value = 0.5;
+            value = 0.50000000000000000000000000000;
         }
 
         /// <summary>
@@ -4828,7 +4834,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Quarter (out Double value)
         {
-            value = 0.25;
+            value = 0.25000000000000000000000000000;
         }
 
         /// <summary>
@@ -4836,7 +4842,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Log10E (out Double value)
         {
-            value = 0.4342944821;
+            value = 0.43429448190325182765112891892;
         }
 
         /// <summary>
@@ -4844,7 +4850,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Log2E (out Double value)
         {
-            value = 1.442695;
+            value = 1.44269504088896340735992468100;
         }
 
         /// <summary>
@@ -4852,7 +4858,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Pi (out Double value)
         {
-            value = 3.14159265358979323846264338327950288;
+            value = 3.14159265358979323846264338328;
         }
 
         /// <summary>
@@ -4860,7 +4866,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Root2 (out Double value)
         {
-            value = 1.414213562;
+            value = 1.41421356237309504880168872421;
         }
 
         /// <summary>
@@ -4868,7 +4874,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Root3 (out Double value)
         {
-            value = 1.732050808;
+            value = 1.73205080756887729352744634151;
         }
 
         /// <summary>
@@ -4876,7 +4882,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Tau (out Double value)
         {
-            value = 6.283185;
+            value = 6.28318530717958647692528676656;
         }
 
         /// <summary>
@@ -4884,7 +4890,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void Zero (out Double value)
         {
-            value = 0;
+            value = 0.00000000000000000000000000000;
         }
 
         /// <summary>
@@ -4892,7 +4898,7 @@ namespace Abacus.DoublePrecision
         /// </summary>
         public static void One (out Double value)
         {
-            value = 1;
+            value = 1.00000000000000000000000000000;
         }
 
 

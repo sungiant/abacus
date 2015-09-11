@@ -1,6 +1,3 @@
-    /// <summary>
-    /// todo
-    /// </summary>
     [TestFixture]
     public class Vector2Tests
     {

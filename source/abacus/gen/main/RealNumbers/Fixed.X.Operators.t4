@@ -17,15 +17,15 @@
 
         public static implicit operator <#= fixedTypeDefinition.TypeName #> (Int32 src)
         {
-            return new <#= fixedTypeDefinition.TypeName #>(src);
+            return new <#= fixedTypeDefinition.TypeName #>((Double) src);
         }
 
-        public static implicit operator <#= fixedTypeDefinition.TypeName #>(Single src)
+        public static explicit operator <#= fixedTypeDefinition.TypeName #> (Single src)
         {
-            return new <#= fixedTypeDefinition.TypeName #>(src);
+            return new <#= fixedTypeDefinition.TypeName #>((Double) src);
         }
 
-        public static implicit operator <#= fixedTypeDefinition.TypeName #>(Double src)
+        public static explicit operator <#= fixedTypeDefinition.TypeName #> (Double src)
         {
             return new <#= fixedTypeDefinition.TypeName #>(src);
         }
