@@ -15,6 +15,7 @@ mcs \
 -out:bin/abacus.dll \
 -target:library \
 -recurse:source/abacus/src/main/cs/*.cs \
+/doc:bin/abacus.xml \
 -lib:bin/
 
 mcs \

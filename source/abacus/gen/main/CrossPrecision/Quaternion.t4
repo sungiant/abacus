@@ -41,7 +41,7 @@
 
         /// <summary>
         /// Initilises a new instance of Quaternion from a Vector3 representing
-        /// the imaginary parts of the quaternion (I, J & K) and one
+        /// the imaginary parts of the quaternion (I, J and K) and one
         /// <#=T#> value representing the real part of the
         /// Quaternion (U).
         /// </summary>

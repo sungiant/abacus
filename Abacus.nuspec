@@ -3,7 +3,7 @@
   <metadata>
     <id>Abacus</id>
     <title>Abacus</title>
-    <version>0.9.0</version>
+    <version>0.9.1</version>
     <authors>Ash Pook</authors>
     <owners>Ash Pook</owners>
     <licenseUrl>https://raw.githubusercontent.com/sungiant/abacus/master/LICENSE</licenseUrl>
@@ -14,6 +14,7 @@
     <tags>3D Maths Graphics</tags>
   </metadata>
   <files>
-    <file src="bin/abacus.dll" target="lib\net40" />
+    <file src="bin/abacus.dll" target="lib" />
+    <file src="bin/abacus.xml" target="lib" />
   </files>
 </package>

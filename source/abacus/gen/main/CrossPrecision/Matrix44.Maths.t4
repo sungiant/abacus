@@ -40,7 +40,7 @@
 
         /// <summary>
         /// Reference Implementation:
-        /// Essential Mathemathics For Games & Interactive Applications
+        /// Essential Mathemathics For Games and Interactive Applications
         /// </summary>
         public static void Decompose (
             ref Matrix44 matrix,

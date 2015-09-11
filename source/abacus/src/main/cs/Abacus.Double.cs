@@ -48,7 +48,7 @@
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
-/** Abacus version: 0.9.0 */
+/** Abacus version: 0.9.1 */
 
 #define VARIANTS_ENABLED
 
@@ -103,7 +103,7 @@ namespace Abacus.DoublePrecision
 
         /// <summary>
         /// Initilises a new instance of Quaternion from a Vector3 representing
-        /// the imaginary parts of the quaternion (I, J & K) and one
+        /// the imaginary parts of the quaternion (I, J and K) and one
         /// Double value representing the real part of the
         /// Quaternion (U).
         /// </summary>
@@ -6397,7 +6397,7 @@ namespace Abacus.DoublePrecision
 
         /// <summary>
         /// Reference Implementation:
-        /// Essential Mathemathics For Games & Interactive Applications
+        /// Essential Mathemathics For Games and Interactive Applications
         /// </summary>
         public static void Decompose (
             ref Matrix44 matrix,
