@@ -3,9 +3,7 @@ sudo: false
 mono:
   - latest
 before_script:
-  - cd packages/
-  - nuget install
-  - cd ../
+  - sh nu.sh
   - sh gen.sh
 script:
   - sh build.sh
