@@ -22,10 +22,19 @@ mcs \
 -unsafe \
 -debug \
 -define:DEBUG \
+-out:bin/abacus.min.dll \
+-target:library \
+-recurse:source/abacus/src/main/cs/*.cs \
+-lib:bin/
+
+mcs \
+-unsafe \
+-debug \
+-define:DEBUG \
 -out:bin/abacus.test.dll \
 -target:library \
 -recurse:source/abacus/src/test/cs/*.cs \
 -lib:bin/ \
 -lib:packages/NUnit.2.6.4/lib \
--reference:abacus.dll \
+-reference:abacus.min.dll \
 -reference:nunit.framework.dll
