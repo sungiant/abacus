@@ -26,7 +26,21 @@ consistently across the following precisions:
 
 ## Getting Started
 
-Abacus is available as a stand-alone library via **[nuget][abacus_nuget]**.  Alternatively, given that each supported precision level generates a single source file, it is easy to simply copy the [Abacus.*.cs][sources] file for the precision you need straight into your project.
+Abacus is available as a stand-alone library via **[nuget][abacus_nuget]**.  Here's an example nuget `packages.config` file that pulls in Abacus:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="Abacus" version="0.9.2" targetFramework="net45" />
+</packages>
+```
+
+Alternatively, given that each supported precision level generates a single source file, it is easy to simply copy the [Abacus.*.cs][sources] file for the precision you need straight into your project.
+
+
+## Why?
+
+...
 
 ## License
 
