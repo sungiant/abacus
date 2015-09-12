@@ -28,7 +28,7 @@ consistently across the following precisions:
 
 Abacus is available as a stand-alone library via **[nuget][abacus_nuget]**.  Here's an example nuget `packages.config` file that pulls in Abacus:
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <packages>
   <package id="Abacus" version="0.9.2" targetFramework="net45" />
