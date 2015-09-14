@@ -40,7 +40,7 @@ Alternatively, given that each supported precision level generates a single sour
 
 ## Why?
 
-...
+Why not?
 
 ## License
 
