@@ -6,27 +6,45 @@
 [![Nuget Version](https://img.shields.io/nuget/v/Abacus.svg)](https://www.nuget.org/packages/Abacus)
 [![Nuget Downloads](https://img.shields.io/nuget/dt/Abacus.svg)](https://www.nuget.org/packages/Abacus)
 
+
 ## Overview
 
 Abacus is a 3D maths library for .NET and Mono, built with a primary focus on performance and efficiency.  Abacus is ideal for use developing real-time 3D applications and deterministic network simulations.
 
-Abacus provides the following data types:
+## Why?
+
+Remember [XNA][xna]?  It was an legendary framework for building games and 3D applications; part of the framework consisted of an excellent little maths library for use with floating point numbers.
+
+On a number of occasions I found myself wanting to use that XNA maths library, perhaps I was solving a challenge on [HackerRank][hacker], writing a software ray tracer, or building a network simulation, however XNA had a number of dependencies and more often than not I didn't want to be work with floating point numbers.  Abacus aims to provide all of the cool features of the XNA maths library across multiple levels of precision; all in a single stand-alone package.
+
+Not only does Abacus consistently support mathematical operations and data types for `float` and `double` precision numbers, but it also provides it's own implementations of various fixed point number formats too, consistently supports mathematical operations and data types for them also.
+
+## So what types are actually supported?
+
+Abacus provides implementations of the following data types:
 
 * `Vector2`
 * `Vector3`
 * `Vector4`
-* `Matrix`
+* `Matrix44`
 * `Quaternion`
 
 consistently across the following precisions:
 
-* `Single`
-* `Double`
-* `Fixed32`
+* `Single` (`float`)
+* `Double` (`double`)
+* `Fixed32` (under test)
+* `Fixed64` (coming soon)
+* `Fixed128` (coming soon)
+* `Half` (coming soon)
 
-## Getting Started
+## About the name
 
-Abacus is available as a stand-alone library via **[nuget][abacus_nuget]**.  Here's an example nuget `packages.config` file that pulls in Abacus:
+On face value "Abacus" seems like a pretty obvious choice for a name of a maths library, however the roots of the name run a little deeper; Abacus is, in point of fact, named after a maths library I worked with in the past when I was a programmer at [Black Rock Studio][br].  The name is especially appropriate given that this Abacus is fairly similar to the maths library in the XNA framework, which in-turn was fairly similar to Black Rock's Abacus; all of which stands to reason given that both XNA maths and Black Rock Abacus were partially written by [Shawn Hargreaves][sh].
+
+## Getting started
+
+Abacus is available as a stand-alone library via [nuget][abacus_nuget].  Here's an example nuget `packages.config` file that pulls in Abacus:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -37,10 +55,40 @@ Abacus is available as a stand-alone library via **[nuget][abacus_nuget]**.  Her
 
 Alternatively, given that each supported precision level generates a single source file, it is easy to simply copy the [Abacus.*.cs][sources] file for the precision you need straight into your project.
 
+## Example usage
 
-## Why?
+```cs
+/**
+ * Choose which level of precision to use simply by
+ * commenting out all but the appropriate using
+ * statement:
+ */
 
-Why not?
+// using Abacus.SinglePrecision;
+using Abacus.DoublePrecision;
+// using Abacus.Fixed32Precision;
+
+class Program
+{
+    public static void Main (string[] args)
+    {
+        var a = new Vector2 (-100, +50);
+        var b = new Vector2 (+90, -70);
+
+        var c = new Vector2 (-20, +5);
+        var d = new Vector2 (+30, -5);
+        
+        Vector2 result;
+        var amount;
+        
+        Maths.Half (out amount);
+        Vector2.CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
+        
+        Console.WriteLine ("result: " + result)
+    }
+}
+
+```
 
 ## License
 
@@ -55,3 +103,7 @@ limitations under the License.
 [mit]: https://raw.githubusercontent.com/sungiant/abacus/master/LICENSE
 [abacus_nuget]: https://www.nuget.org/packages/Abacus/
 [sources]: https://github.com/sungiant/abacus/tree/master/source/abacus/src/main/cs
+[xna]: https://en.wikipedia.org/wiki/Microsoft_XNA
+[hacker]: https://www.hackerrank.com
+[sh]: http://www.shawnhargreaves.com
+[br]: https://en.wikipedia.org/wiki/Black_Rock_Studio
