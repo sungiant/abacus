@@ -12,17 +12,17 @@ Abacus is a 3D maths library for .NET and Mono, built with a primary focus on pe
 
 Abacus provides the following data type:
 
-* Vector2
-* Vector3
-* Vector4
-* Matrix
-* Quaternion
+* `Vector2`
+* `Vector3`
+* `Vector4`
+* `Matrix`
+* `Quaternion`
 
 consistently across the following precisions:
 
-* Single
-* Double
-* Fixed32
+* `Single`
+* `Double`
+* `Fixed32`
 
 ## Getting Started
 
