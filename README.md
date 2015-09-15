@@ -19,7 +19,7 @@ On a number of occasions I found myself wanting to use that XNA maths library, p
 
 Not only does Abacus consistently support mathematical operations and data types for `float` and `double` precision numbers, but it also provides it's own implementations of various fixed point number formats too, consistently supports mathematical operations and data types for them also.
 
-## So what types are actually supported?
+## So, what types are actually supported?
 
 Abacus provides implementations of the following data types:
 
