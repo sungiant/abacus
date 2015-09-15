@@ -15,7 +15,7 @@ Abacus is a 3D maths library for .NET and Mono, built with a primary focus on pe
 
 Remember [XNA][xna]?  It was a legendary framework for building games and 3D applications; part of the framework consisted of an excellent little maths library for use with floating point numbers.
 
-On a number of occasions I found myself wanting to use that XNA maths library, perhaps I was solving a challenge on [HackerRank][hacker], writing a software ray tracer, or building a network simulation, however XNA had a number of dependencies and more often than not I didn't want to be work with floating point numbers.  Abacus aims to provide all of the cool features of the XNA maths library across multiple levels of precision; all in a single stand-alone package.
+On a number of occasions I found myself wanting to use that XNA maths library, perhaps I was solving a challenge on [HackerRank][hacker], writing a software ray tracer, or building a network simulation, however XNA had a number of dependencies and more often than not I wanted to work with something other than 32 bit floating point numbers.  Abacus aims to provide all of the cool features of the XNA maths library across multiple levels of precision; all in a single stand-alone package.
 
 Not only does Abacus consistently support mathematical operations and data types for `float` and `double` precision numbers, but it also provides it's own implementations of various fixed point number formats too, consistently supports mathematical operations and data types for them also.
 
