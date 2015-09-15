@@ -10,7 +10,7 @@
 
 Abacus is a 3D maths library for .NET and Mono, built with a primary focus on performance and efficiency.  Abacus is ideal for use developing real-time 3D applications and deterministic network simulations.
 
-Abacus provides the following data type:
+Abacus provides the following data types:
 
 * `Vector2`
 * `Vector3`
