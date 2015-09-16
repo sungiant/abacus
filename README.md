@@ -79,12 +79,11 @@ class Program
         var d = new Vector2 (+30, -5);
         
         Vector2 result;
-        var amount;
+        double amount = 0.4;
         
-        Maths.Half (out amount);
         Vector2.CatmullRom (ref a, ref b, ref c, ref d, ref amount, out result);
         
-        Console.WriteLine ("result: " + result)
+        System.Console.WriteLine ("result: " + result);
     }
 }
 
