@@ -48,10 +48,6 @@
 // │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
 // └────────────────────────────────────────────────────────────────────────┘ \\
 
-#define TESTS_ENABLED
-
-#if TESTS_ENABLED
-
 using System;
 using System.Globalization;
 using System.Collections;
@@ -95,5 +91,3 @@ namespace Abacus.<#=T#>Precision
 <#@ include file="CrossPrecision/Quaternion.Tests.t4"#>
 <#@ include file="CrossPrecision/Matrix44.Tests.t4"#>
 }
-
-#endif
