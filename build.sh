@@ -5,7 +5,7 @@ set -x #echo on
 rm -rf bin/
 mkdir bin/
 
-cp packages/NUnit.2.6.4/lib/nunit.framework.dll bin/
+cp packages/NUnit.*/lib/nunit.framework.dll bin/
 
 mcs \
 -unsafe \
@@ -35,6 +35,5 @@ mcs \
 -target:library \
 -recurse:source/abacus/src/test/cs/*.cs \
 -lib:bin/ \
--lib:packages/NUnit.2.6.4/lib \
 -reference:abacus.min.dll \
 -reference:nunit.framework.dll

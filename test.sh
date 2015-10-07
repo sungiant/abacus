@@ -2,4 +2,4 @@
 
 set -x #echo on
 
-mono packages/NUnit.Runners.2.6.4/tools/nunit-console.exe bin/abacus.test.dll
+mono packages/NUnit.Runners.*/tools/nunit-console.exe bin/abacus.test.dll
