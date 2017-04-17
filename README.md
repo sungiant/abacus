@@ -1,5 +1,7 @@
 ## Abacus
 
+[![Join the chat at https://gitter.im/sungiant/abacus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sungiant/abacus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/sungiant/abacus.png?branch=master)](https://travis-ci.org/sungiant/abacus)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/sungiant/abacus/master/LICENSE)
 [![Nuget Version](https://img.shields.io/nuget/v/Abacus.svg)](https://www.nuget.org/packages/Abacus)
