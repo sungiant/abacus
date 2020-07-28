@@ -1,0 +1,417 @@
+﻿    [TestFixture]
+    public class <#= ftd.TypeName #>Tests {
+
+        static readonly Random rand = new Random(0);
+        
+        static readonly Double[] d_test_values = { 0.9, 0.5, 0.1, 0.01, 0.001, -0.001, -0.01, -0.1, -0.5, -0.9, -9000, 3802, 3.14159265, 0.0, 10, 100, 2.0, 4.0, 16.0, 64.0 };
+
+        static readonly Double d_min_value = <#= ftd.TypeName #>.MinValue.ToDouble();
+        static readonly Double d_max_value = <#= ftd.TypeName #>.MaxValue.ToDouble();
+
+        static readonly Double i64_min_value = <#= ftd.TypeName #>.MinValue.ToInt64();
+        static readonly Double i64_max_value = <#= ftd.TypeName #>.MaxValue.ToInt64();
+
+        // ---- //
+
+        [Test]
+        public void TestDoubleConversion () {
+            foreach (Double value in d_test_values) {
+                <#= ftd.TypeName #> f = value;
+                Assert.That (f.ToDouble (), Is.EqualTo (value).Within (MathsTests.TestTolerance));
+            }
+        }
+
+        [Test] // check that a double representing the known minimum converts back and forth properly.
+        public void TestDoubleConversion_MinValue () {
+            <#= ftd.TypeName #> fmin = d_min_value;
+            Assert.That (fmin.ToDouble (), Is.EqualTo (d_min_value).Within (MathsTests.TestTolerance));
+        }
+
+        [Test] // check that underflow clamps to minimum value.
+        public void TestDoubleConversion_MinValueUnderflow () { 
+            <#= ftd.TypeName #> fminUnder = d_min_value - 10.0;
+            Assert.That (fminUnder.ToDouble (), Is.EqualTo (d_min_value).Within (MathsTests.TestTolerance));
+        }
+
+        [Test] // check that a double representing the known maximum converts back and forth properly.
+        public void TestDoubleConversion_MaxValue () { 
+            <#= ftd.TypeName #> fmax = d_max_value;
+            Assert.That (fmax.ToDouble (), Is.EqualTo (d_max_value).Within (MathsTests.TestTolerance));
+        }
+
+        [Test] // check that overflow clamps to maximum value.
+        public void TestDoubleConversion_MaxValueOverflow () { 
+            <#= ftd.TypeName #> fmaxOver = d_max_value + 10.0;
+            Assert.That (fmaxOver.ToDouble (), Is.EqualTo (d_max_value).Within (MathsTests.TestTolerance));
+        }
+
+        // ---- //
+
+        [Test]
+        public void TestInt64Conversion_MinValue () {
+            <#= ftd.TypeName #> fmin = i64_min_value;
+            Assert.That (fmin.ToInt64 (), Is.EqualTo (i64_min_value).Within (MathsTests.TestTolerance));
+        }
+
+        [Test]
+        public void TestInt64Conversion_MinValueUnderflow () {
+            <#= ftd.TypeName #> fminUnder = i64_min_value - 10;
+            Assert.That (fminUnder.ToDouble (), Is.EqualTo (i64_min_value).Within (MathsTests.TestTolerance));
+        }
+
+        [Test]
+        public void TestInt64Conversion_MaxValue () {
+            <#= ftd.TypeName #> fmax = i64_max_value;
+            Assert.That (fmax.ToInt64 (), Is.EqualTo (i64_max_value).Within (MathsTests.TestTolerance));
+        }
+
+        [Test]
+        public void TestInt64Conversion_MaxValueOverflow () {
+            <#= ftd.TypeName #> fmaxOver = i64_max_value + 10;
+            Assert.That (fmaxOver.ToInt64 (), Is.EqualTo (i64_max_value).Within (MathsTests.TestTolerance));
+        }
+
+        // ---- //
+
+        [Test]
+        public void TestGetHashCode () {
+            var hs1 = new HashSet<<#= ftd.TypeName #>>();
+            var hs2 = new HashSet<Int32>();
+            for(Int32 i = 0; i < 10000; ++i) {
+                <#=T#> randomValue = (<#=T#>) rand.NextDouble();
+                hs1.Add(randomValue);
+                hs2.Add(randomValue.GetHashCode());
+            }
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+
+        [Test]
+        public void TestEquality () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i];
+                    <#= ftd.TypeName #> fj = d_test_values[j];
+                    Boolean result = fi == fj;
+                    Boolean expected = d_test_values[i] == d_test_values[j];
+                    Assert.That (result, Is.EqualTo (expected));
+                }
+            }
+        }
+
+        [Test]
+        public void TestInequality () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    Boolean result = fi != fj;
+                    Boolean expected = d_test_values[i] != d_test_values[j];
+                    Assert.That (result, Is.EqualTo (expected));
+                }
+            }
+        }
+
+        [Test]
+        public void TestLessThan () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    Boolean result = fi < fj;
+                    Boolean expected = d_test_values[i] < d_test_values[j];
+                    Assert.That (result, Is.EqualTo (expected));
+                }
+            }
+        }
+
+        [Test]
+        public void TestLessThanOrEqualTo () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    Boolean result = fi <= fj;
+                    Boolean expected = d_test_values[i] <= d_test_values[j];
+                    Assert.That (result, Is.EqualTo (expected));
+                }
+            }
+        }
+
+        [Test]
+        public void TestGreaterThan () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    Boolean result = fi > fj;
+                    Boolean expected = d_test_values[i] > d_test_values[j];
+                    Assert.That (result, Is.EqualTo (expected));
+                }
+            }
+        }
+
+        [Test]
+        public void TestGreaterThanOrEqualTo () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    Boolean result = fi >= fj;
+                    Boolean expected = d_test_values[i] >= d_test_values[j];
+                    Assert.That (result, Is.EqualTo (expected));
+                }
+            }
+        }
+
+        // ---- //
+
+        [Test]
+        public void TestAddition () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    <#= ftd.TypeName #> fk = fi + fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] + d_test_values[j], d_min_value, d_max_value);
+                    Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
+                }
+            }
+        }
+
+        [Test]
+        public void TestAddition_Overflow () {
+            <#= ftd.TypeName #> t = 10;
+            <#= ftd.TypeName #> result = <#= ftd.TypeName #>.MaxValue + t;
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MaxValue;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestAddition_Underflow () {
+            <#= ftd.TypeName #> t = - 10;
+            <#= ftd.TypeName #> result = <#= ftd.TypeName #>.MinValue + t;
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MinValue;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestSubtraction () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    <#= ftd.TypeName #> fk = fi - fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] - d_test_values[j], d_min_value, d_max_value);
+                    Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
+                }
+            }
+        }
+
+        [Test]
+        public void TestSubtraction_Overflow () {
+            <#= ftd.TypeName #> t = - 10;
+            <#= ftd.TypeName #> result = <#= ftd.TypeName #>.MaxValue - t;
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MaxValue;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestSubtraction_Underflow () {
+            <#= ftd.TypeName #> t = 10;
+            <#= ftd.TypeName #> result = <#= ftd.TypeName #>.MinValue - t;
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MinValue;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestNegation () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                <#= ftd.TypeName #> fi = d_test_values[i];
+                <#= ftd.TypeName #> fk = -fi;
+                Double result = fk.ToDouble ();
+                Double expected = DoublePrecision.Maths.Clamp (-d_test_values[i], d_min_value, d_max_value);
+                Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
+            }
+        }
+
+        [Test]
+        public void TestNegation_Overflow () {
+            <#= ftd.TypeName #> result = -<#= ftd.TypeName #>.MinValue;
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MaxValue;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestNegation_NoUnderflow () {
+            <#= ftd.TypeName #> result = -<#= ftd.TypeName #>.MaxValue;
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MinValue + <#= ftd.TypeName #>.Resolution;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+        
+        [Test]
+        public void TestModulo () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    if (fj == 0.0)
+                        continue;
+                    <#= ftd.TypeName #> fk = fi % fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                }
+            }
+        }
+
+        [Test]
+        public void TestMultiplication () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    <#= ftd.TypeName #> fk = fi * fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] * d_test_values[j], d_min_value, d_max_value);
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                }
+            }
+        }
+
+        [Test]
+        public void TestMultiplication_Overflow () {
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MaxValue;
+            <#= ftd.TypeName #> t = 10;
+            <#= ftd.TypeName #> result1 = <#= ftd.TypeName #>.MaxValue * t;
+            <#= ftd.TypeName #> result2 = <#= ftd.TypeName #>.MinValue * -t;
+            Assert.That (result1, Is.EqualTo (expected));
+            Assert.That (result2, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestMultiplication_Underflow () {
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MinValue;
+            <#= ftd.TypeName #> t = 10;
+            <#= ftd.TypeName #> result1 = <#= ftd.TypeName #>.MinValue * t;
+            <#= ftd.TypeName #> result2 = <#= ftd.TypeName #>.MaxValue * -t;
+            Assert.That (result1, Is.EqualTo (expected));
+            Assert.That (result2, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestDivision () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    if (fj == 0.0)
+                        continue;
+                    <#= ftd.TypeName #> fk = fi / fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] / d_test_values[j], d_min_value, d_max_value);
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                }
+            }
+        }
+
+        [Test]
+        public void TestDivision_Overflow () {
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MaxValue;
+            <#= ftd.TypeName #> t = 0.1;
+            <#= ftd.TypeName #> result1 = <#= ftd.TypeName #>.MaxValue / t;
+            <#= ftd.TypeName #> result2 = <#= ftd.TypeName #>.MinValue / -t;
+            Assert.That (result1, Is.EqualTo (expected));
+            Assert.That (result2, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestDivision_Underflow () {
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MinValue;
+            <#= ftd.TypeName #> t = 0.1;
+            <#= ftd.TypeName #> result1 = <#= ftd.TypeName #>.MinValue / t;
+            <#= ftd.TypeName #> result2 = <#= ftd.TypeName #>.MaxValue / -t;
+            Assert.That (result1, Is.EqualTo (expected));
+            Assert.That (result2, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestDivision_Small () {
+            <#= ftd.TypeName #> t = <#= ftd.TypeName #>.Epsilon;
+            <#= ftd.TypeName #> result = t / 1000000;
+            <#= ftd.TypeName #> expected = 0;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestSqrt () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                <#= ftd.TypeName #> fi = d_test_values[i];
+                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.Sqrt (fi);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Sqrt (d_test_values[i]);
+                if (Double.IsNaN (expected)) {
+                    Assert.That (result, Is.EqualTo (0));
+                }
+                else {
+                    <#= ftd.TypeName #> f = expected;
+                    Assert.That (f.ToDouble (), Is.EqualTo (expected).Within (MathsTests.TestTolerance));   // double check storage
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                }
+            }
+        }
+
+        [Test]
+        public void TestSin () {
+            for (Double deg = -360.0; deg <= 360.0; deg += 0.1) {
+                Double rad = deg * DoublePrecision.Maths.Deg2Rad;
+                <#= ftd.TypeName #> f = rad;
+                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.Sin (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Sin (rad);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+            }
+        }
+
+        [Test]
+        public void TestCos () {
+            for (Double deg = -360.0; deg <= 360.0; deg += 0.1) {
+                Double rad = deg * DoublePrecision.Maths.Deg2Rad;
+                <#= ftd.TypeName #> f = rad;
+                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.Cos (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Cos (rad);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+            }
+        }
+
+        [Test]
+        public void TestTan () {
+            for (Double deg = -360.0; deg <= 360.0; deg += 0.1) {
+                Double rad = deg * DoublePrecision.Maths.Deg2Rad;
+                <#= ftd.TypeName #> f = rad;
+                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.Tan (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Tan (rad);
+
+                if (Double.IsNaN (expected)) {
+                    Assert.That (result, Is.EqualTo (0));
+                }
+                else if (expected < d_min_value) {
+                    Assert.That (result, Is.EqualTo (0));
+                }
+                else if (expected > d_max_value) {
+                    Assert.That (result, Is.EqualTo (0));
+                }
+                else {
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                }
+            }
+        }
+    }
+

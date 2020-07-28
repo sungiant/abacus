@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\source\abacus\src\test\Abacus.Double.Tests.cs">
+      <Link>Abacus.Double.Tests.cs</Link>
+    </Compile>
+    <Compile Include="..\source\abacus\src\test\Abacus.Fixed32.Tests.cs">
+      <Link>Abacus.Fixed32.Tests.cs</Link>
+    </Compile>
+    <Compile Include="..\source\abacus\src\test\Abacus.Fixed64.Tests.cs">
+      <Link>Abacus.Fixed64.Tests.cs</Link>
+    </Compile>
+    <Compile Include="..\source\abacus\src\test\Abacus.Single.Tests.cs">
+      <Link>Abacus.Single.Tests.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="abacus.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,60 @@
+    [TestFixture]
+    public class QuaternionTests {
+        static readonly Random rand = new Random(0);
+        
+        static <#=T#> GetNextRandom<#=T#> () {
+            <#=T#> randomValue = (<#=T#>) rand.NextDouble();
+            <#=T#> multiplier = 1000;
+            randomValue *= multiplier;
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+            if (randomBoolean) randomValue = 0 - randomValue;
+            return randomValue;
+        }
+
+        internal static Quaternion GetNextRandomQuaternion () {
+            <#=T#> yaw = Maths.Pi * (<#=T#>) rand.Next(0, 360) / (<#=T#>) 180;
+            <#=T#> pitch = Maths.Pi * (<#=T#>) rand.Next(0, 360) / (<#=T#>) 180;
+            <#=T#> roll = Maths.Pi * (<#=T#>) rand.Next(0, 360) / (<#=T#>) 180;
+            Quaternion q; Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out q);
+            return q;
+        }
+
+        internal static void AssertEqualWithinReason (Quaternion a, Quaternion b) {
+            Assert.That(a.I, Is.EqualTo(b.I).Within(MathsTests.TestTolerance));
+            Assert.That(a.J, Is.EqualTo(b.J).Within(MathsTests.TestTolerance));
+            Assert.That(a.K, Is.EqualTo(b.K).Within(MathsTests.TestTolerance));
+            Assert.That(a.U, Is.EqualTo(b.U).Within(MathsTests.TestTolerance));
+        }
+
+        internal static void AssertEqualOrNegatedWithinReason (Quaternion a, Quaternion b) {
+            Boolean pass1 =
+                Maths.Abs (a.I - b.I) <= MathsTests.TestTolerance &&
+                Maths.Abs (a.J - b.J) <= MathsTests.TestTolerance &&
+                Maths.Abs (a.K - b.K) <= MathsTests.TestTolerance &&
+                Maths.Abs (a.U - b.U) <= MathsTests.TestTolerance;
+
+            Quaternion c;
+            Quaternion.Negate (ref b, out c);
+
+            Boolean pass2 =
+                Maths.Abs (a.I - c.I) <= MathsTests.TestTolerance &&
+                Maths.Abs (a.J - c.J) <= MathsTests.TestTolerance &&
+                Maths.Abs (a.K - c.K) <= MathsTests.TestTolerance &&
+                Maths.Abs (a.U - c.U) <= MathsTests.TestTolerance;
+
+            Assert.That(pass1 || pass2, Is.EqualTo (true));
+        }
+
+        [Test]
+        public void TestMemberFn_GetHashCode () {
+            var hs1 = new HashSet<Quaternion>();
+            var hs2 = new HashSet<Int32>();
+            for(Int32 i = 0; i < 10000; ++i) {
+                var a = GetNextRandomQuaternion();
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+    }
+

@@ -1,0 +1,156 @@
+﻿<#+
+    class FixedTypeDefinition { // Used only for text templating.
+        public String TypeName            { get; private set; }
+        public String UnderlyingTypeName  { get; private set; }
+        public Byte BitCount              { get; private set; }
+        public Byte FractionalBitCount    { get; private set; }
+        public String BigTypeName         { get; private set; }
+        public String SqrtMagic           { get; private set; }
+        public Boolean Signed             { get { return false; } }
+
+        public override String ToString () => (Signed ? "Q" : "UQ") + (BitCount - FractionalBitCount) + "." + FractionalBitCount;
+
+        public FixedTypeDefinition (String typeName, String underlyingTypeName, Byte bitCount, Byte fractionalBitCount, String bigTypeName, String sqrtMagic) {
+            this.TypeName = typeName;
+            this.UnderlyingTypeName = underlyingTypeName;
+            this.BitCount = bitCount;
+            this.FractionalBitCount = fractionalBitCount;
+            this.BigTypeName = bigTypeName;
+            this.SqrtMagic = sqrtMagic;
+        }
+
+        public static readonly FixedTypeDefinition DefaultFixed32 = new FixedTypeDefinition ("Fixed32", "Int32", 32, 16, "Int64", "1073741824");
+        public static readonly FixedTypeDefinition DefaultFixed64 = new FixedTypeDefinition ("Fixed64", "Int64", 64, 24, "BigInteger", "274877906944L");
+    }
+
+    void GenerateTestTolerance (string type) {
+        var testTolerances = new Dictionary <String, String> () {
+            { "Fixed32",        "0.1"       },
+            { "Fixed64",        "0.01"      },
+            { "Single",         "0.00001"    },
+            { "Double",         "0.000001"   },
+        };
+        var percentageTolerances = new Dictionary <String, String> () {
+            { "Fixed32",        "0.01"       },
+            { "Fixed64",        "0.0001"     },
+            { "Single",         "0.000001"    },
+            { "Double",         "0.0000001"   },
+        };
+        string tt = testTolerances [type];
+        string pt = percentageTolerances [type];
+#>
+        public static readonly Double TestTolerance = <#= tt #>;
+        public static readonly Double PercentageTolerance = <#= pt #>;
+<#+
+    }
+
+    void GenerateMathsConstant (string type, string name) {
+        string s = GetMathsStr (type, name);
+#>
+        public static readonly <#= type #> <#= name #> = <#= s #>;
+<#+
+    }
+
+    void GenerateInlineConstant (string type, string name) {
+        string s = GetMathsStr (type, name);
+#>
+            <#= type #> <#= name #> = <#= s #>;
+<#+
+    }
+
+    void GenerateMathsFunction (string type, string name) {
+        string s = GetMathsStr (type, name);
+#>
+        public static <#= type #> <#= name #> <#= s #>
+<#+
+    }
+
+    String GetMathsStr (String rt, String ct) { // http://keisan.casio.com/calculator
+        var constantStrings = new Dictionary <String, String> () {
+            { "E",              "2.71828182845904523536028747135"   },
+            { "Half",           "0.5"                               },
+            { "Quarter",        "0.25"                              },
+            { "Log10E",         "0.43429448190325182765112891892"   },
+            { "Log2E",          "1.44269504088896340735992468100"   },
+            { "Pi",             "3.14159265358979323846264338328"   },
+            { "HalfPi",         "1.57079632679489661923132169164"   },
+            { "QuarterPi",      "0.78539816339744830961566084582"   },
+            { "Root2",          "1.41421356237309504880168872421"   },
+            { "Root3",          "1.73205080756887729352744634151"   },
+            { "Tau",            "6.28318530717958647692528676656"   },
+            { "Rad2Deg",        "57.29577951308232087679815481409"   },
+            { "Deg2Rad",        "0.01745329251994329576923690768"   },
+            { "Zero",           "0.0"                               },
+            { "One",            "1.0"                               },
+        };
+
+        var singleSpecificStrings = new Dictionary <String, String> () {
+            { "Epsilon",        "0.000001f"                                                   },
+            { "Sin",            "(Single v) { return (Single) Math.Sin (v); }"                },
+            { "Cos",            "(Single v) { return (Single) Math.Cos (v); }"                },
+            { "Tan",            "(Single v) { return (Single) Math.Tan (v); }"                },
+            { "Sqrt",           "(Single v) { return (Single) Math.Sqrt (v); }"               },
+        };
+
+        var doubleSpecificStrings = new Dictionary <String, String> () {
+            { "Epsilon",        "(Double) 0.000001"                                       },
+            { "Sin",            "(Double v) { return Math.Sin (v); }"                     },
+            { "Cos",            "(Double v) { return Math.Cos (v); }"                     },
+            { "Tan",            "(Double v) { return Math.Tan (v); }"                     },
+            { "Sqrt",           "(Double v) { return Math.Sqrt (v); }"                    },
+        };
+
+        var fixed32SpecificStrings = new Dictionary <String, String> () {
+            { "Epsilon",        "(Fixed32) 0.000001"                                      },
+            { "Sin",            "(Fixed32 v) { return Fixed32.Sin (v); }"                 },
+            { "Cos",            "(Fixed32 v) { return Fixed32.Cos (v); }"                 },
+            { "Tan",            "(Fixed32 v) { return Fixed32.Tan (v); }"                 },
+            { "Sqrt",           "(Fixed32 v) { return Fixed32.Sqrt (v); }"                },
+        };
+
+        var fixed64SpecificStrings = new Dictionary <String, String> () {
+            { "Epsilon",        "(Fixed64) 0.000001"                                      },
+            { "Sin",            "(Fixed64 v) { return Fixed64.Sin (v); }"                 },
+            { "Cos",            "(Fixed64 v) { return Fixed64.Cos (v); }"                 },
+            { "Tan",            "(Fixed64 v) { return Fixed64.Tan (v); }"                 },
+            { "Sqrt",           "(Fixed64 v) { return Fixed64.Sqrt (v); }"                },
+        };
+
+        if (rt == "Single" && singleSpecificStrings.ContainsKey (ct)) return singleSpecificStrings[ct];
+        if (rt == "Double" && doubleSpecificStrings.ContainsKey (ct)) return doubleSpecificStrings[ct];
+        if (rt == "Fixed32" && fixed32SpecificStrings.ContainsKey (ct)) return fixed32SpecificStrings[ct];
+        if (rt == "Fixed64" && fixed64SpecificStrings.ContainsKey (ct)) return fixed64SpecificStrings[ct];
+        if (constantStrings.ContainsKey (ct)) {
+            if (rt == "Single") return constantStrings[ct] + "f";
+            if (rt == "Double") return constantStrings[ct];
+            if (rt == "Fixed32") return "Fixed32.CreateFrom (" + constantStrings[ct] + ")";
+            if (rt == "Fixed64") return "Fixed64.CreateFrom (" + constantStrings[ct] + ")";
+        }
+        throw new NotImplementedException ();
+    }
+
+    void GenerateSinLookUpTable (FixedTypeDefinition ftd) {
+#>
+        static readonly <#= ftd.UnderlyingTypeName #>[] sinLUT = {
+            <#+
+        int i = 0;
+        for (int deg = 0; deg <= 90; ++deg) {
+            Double rad = deg * Math.PI / 180;
+            Double d = Math.Sin (rad);
+            Int64 f = (Int64) Math.Round (d * (1L << ftd.FractionalBitCount));
+            if (i++ % 9 == 0) {
+#>
+<#= string.Format ("0x{0:X}", f) #>,
+            <#+
+            }
+            else {
+#>
+<#= string.Format ("0x{0:X}", f) #>, <#+
+            }
+        }
+#>
+};
+<#+
+
+    }
+#>

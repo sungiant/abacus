@@ -1,0 +1,78 @@
+// ┌────────────────────────────────────────────────────────────────────────┐ \\
+// │    _____ ___.                                                          │ \\
+// │   /  _  \\_ |__ _____    ____  __ __  ______                           │ \\
+// │  /  /_\  \| __ \\__  \ _/ ___\|  |  \/  ___/                           │ \\
+// │ /    |    \ \_\ \/ __ \\  \___|  |  /\___ \                            │ \\
+// │ \____|__  /___  (____  /\___  >____//____  >                           │ \\
+// │         \/    \/     \/     \/           \/  v1.0.0                    │ \\
+// │                                                                        │ \\
+// │ Fast, efficient, cross platform, cross precision, maths library.       │ \\
+// │                                                                        │ \\
+// │        ________________________________________________________        │ \\
+// │       /  ____________________________________________________  \       │ \\
+// │       | |<_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> | |       │ \\
+// │       | |<_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> | |       │ \\
+// │       | |_|___|___|___|___|___|___|___|___|___|___|___|___|__| |       │ \\
+// │       |  ____________________________________________________  |       │ \\
+// │       | | |   |   |   |   |   |   |   |   |   |   |   |   |  | |       │ \\
+// │       | |<_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> | |       │ \\
+// │       | |<_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> | |       │ \\
+// │       | |<_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> | |       │ \\
+// │       | |<_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> <_> | |       │ \\
+// │       | |<_>_<_>_<_>_<_>_<_>_<_>_<_>_<_>_<_>_<_>_<_>_<_>_<_>_| |       │ \\
+// │       \________________________________________________________/       │ \\
+// │                                                                        │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Copyright © 2012 - 2020 Ash Pook                                       │ \\
+// ├────────────────────────────────────────────────────────────────────────┤ \\
+// │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
+// │ a copy of this software and associated documentation files (the        │ \\
+// │ "Software"), to deal in the Software without restriction, including    │ \\
+// │ without limitation the rights to use, copy, modify, merge, publish,    │ \\
+// │ distribute, sublicense, and/or sellcopies of the Software, and to      │ \\
+// │ permit persons to whom the Software is furnished to do so, subject to  │ \\
+// │ the following conditions:                                              │ \\
+// │                                                                        │ \\
+// │ The above copyright notice and this permission notice shall be         │ \\
+// │ included in all copies or substantial portions of the Software.        │ \\
+// │                                                                        │ \\
+// │ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        │ \\
+// │ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     │ \\
+// │ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. │ \\
+// │ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   │ \\
+// │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   │ \\
+// │ TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE       │ \\
+// │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 │ \\
+// └────────────────────────────────────────────────────────────────────────┘ \\
+
+using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+<# if (ftd != null) { #>
+using System.Globalization;
+<# } #>
+<# if (ftd != null && ftd.BigTypeName == "BigInteger") { #>
+using System.Numerics;
+<# } #>
+
+namespace Abacus.<#=T#>Precision
+{
+<# if (ftd != null) { #>
+<#@ include file="Fixed.X.t4"#>
+<# } #>
+<#@ include file="Quaternion.t4"#>
+<#@ include file="Matrix44.t4"#>
+<#@ include file="Vector2.t4"#>
+<#@ include file="Vector3.t4"#>
+<#@ include file="Vector4.t4"#>
+<#@ include file="Maths.t4"#>
+
+    internal static class Int32Extensions { // http://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=vs.110).aspx
+        public static Int32 ShiftAndWrap (this Int32 value, Int32 positions = 2) {
+            positions = positions & 0x1F;
+            uint number = BitConverter.ToUInt32 (BitConverter.GetBytes(value), 0);
+            uint wrapped = number >> (32 - positions);
+            return BitConverter.ToInt32 (BitConverter.GetBytes ((number << positions) | wrapped), 0);
+        }
+    }
+}

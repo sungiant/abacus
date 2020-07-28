@@ -1,0 +1,28 @@
+﻿    [TestFixture]
+    public class MathsTests {
+<# GenerateTestTolerance (T); #>
+
+<# if (ftd != null) { #>
+        [Test]
+        public void TestConstants () {
+            Assert.That (Maths.E.ToDouble (), Is.EqualTo (DoublePrecision.Maths.E).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Half.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Half).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Quarter.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Quarter).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Log10E.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Log10E).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Log2E.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Log2E).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Pi.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Pi).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.HalfPi.ToDouble (), Is.EqualTo (DoublePrecision.Maths.HalfPi).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.QuarterPi.ToDouble (), Is.EqualTo (DoublePrecision.Maths.QuarterPi).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Root2.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Root2).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Root3.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Root3).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Tau.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Tau).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Rad2Deg.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Rad2Deg).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Deg2Rad.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Deg2Rad).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.Zero.ToDouble (), Is.EqualTo (DoublePrecision.Maths.Zero).Within (MathsTests.TestTolerance));
+            Assert.That (Maths.One.ToDouble (), Is.EqualTo (DoublePrecision.Maths.One).Within (MathsTests.TestTolerance));
+            
+        }
+<# } #>
+
+    }
+

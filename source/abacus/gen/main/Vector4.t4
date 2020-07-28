@@ -1,0 +1,260 @@
+﻿    /// <summary>
+    /// <#=T#> precision Vector4.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector4 : IEquatable<Vector4> {
+        public <#=T#> X, Y, Z, W;
+
+        public Vector4 (<#=T#> x, <#=T#> y, <#=T#> z, <#=T#> w) { X = x; Y = y; Z = z; W = w; }
+
+        public Vector4 (Vector2 value, <#=T#> z, <#=T#> w) { X = value.X; Y = value.Y; Z = z; W = w; }
+
+        public Vector4 (Vector3 value, <#=T#> w) { X = value.X; Y = value.Y; Z = value.Z; W = w; }
+
+        public override String ToString () { return string.Format ("(X:{0}, Y:{1}, Z:{2}, W:{3})", X, Y, Z, W); }
+
+        public override Int32 GetHashCode () {
+            return W.GetHashCode ().ShiftAndWrap (6) ^ Z.GetHashCode ().ShiftAndWrap (4)
+                 ^ Y.GetHashCode ().ShiftAndWrap (2) ^ X.GetHashCode ();
+        }
+
+        public override Boolean Equals (Object obj) { return (obj is Vector4) ? this.Equals ((Vector4)obj) : false; }
+
+        public Boolean Equals (Vector4 other) {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        // Constants //-------------------------------------------------------//
+
+        static Vector4 zero, one;
+        static Vector4 unitX, unitY, unitZ, unitW;
+
+        static Vector4 () {
+            zero =      new Vector4 ();
+            one =       new Vector4 (1, 1, 1, 1);
+            unitX =     new Vector4 (1, 0, 0, 0);
+            unitY =     new Vector4 (0, 1, 0, 0);
+            unitZ =     new Vector4 (0, 0, 1, 0);
+            unitW =     new Vector4 (0, 0, 0, 1);
+        }
+
+        public static Vector4 Zero  { get { return zero; } }
+        public static Vector4 One   { get { return one; } }
+        public static Vector4 UnitX { get { return unitX; } }
+        public static Vector4 UnitY { get { return unitY; } }
+        public static Vector4 UnitZ { get { return unitZ; } }
+        public static Vector4 UnitW { get { return unitW; } }
+
+        // Operators //-------------------------------------------------------//
+
+        public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean result) {
+            result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
+        }
+
+        public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 result) {
+            result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z; result.W = a.W + b.W;
+        }
+
+        public static void Subtract (ref Vector4 a, ref Vector4 b, out Vector4 result) {
+            result.X = a.X - b.X; result.Y = a.Y - b.Y; result.Z = a.Z - b.Z; result.W = a.W - b.W;
+        }
+
+        public static void Negate (ref Vector4 v, out Vector4 result) {
+            result.X = -v.X; result.Y = -v.Y; result.Z = -v.Z; result.W = -v.W;
+        }
+
+        public static void Multiply (ref Vector4 a, ref Vector4 b, out Vector4 result) {
+            result.X = a.X * b.X; result.Y = a.Y * b.Y; result.Z = a.Z * b.Z; result.W = a.W * b.W;
+        }
+
+        public static void Multiply (ref Vector4 v, ref <#=T#> f, out Vector4 result) {
+            result.X = v.X * f; result.Y = v.Y * f; result.Z = v.Z * f; result.W = v.W * f;
+        }
+
+        public static void Divide (ref Vector4 a, ref Vector4 b, out Vector4 result) {
+            result.X = a.X / b.X; result.Y = a.Y / b.Y; result.Z = a.Z / b.Z; result.W = a.W / b.W;
+        }
+
+        public static void Divide (ref Vector4 v, ref <#=T#> d, out Vector4 result) {
+            <#=T#> num = 1 / d;
+            result.X = v.X * num; result.Y = v.Y * num; result.Z = v.Z * num; result.W = v.W * num;
+        }
+
+#if (FUNCTION_VARIANTS)
+        public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
+        public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
+        public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add      (ref a, ref b, out result); return  result; }
+        public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 result; Subtract (ref a, ref b, out result); return  result; }
+        public static Vector4 operator  - (Vector4 v)            { Vector4 result; Negate   (ref v,        out result); return  result; }
+        public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 result; Multiply (ref a, ref b, out result); return  result; }
+        public static Vector4 operator  * (Vector4 v, <#=T#> f)  { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Vector4 operator  * (<#=T#> f,  Vector4 v) { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 result; Divide   (ref a, ref b, out result); return  result; }
+        public static Vector4 operator  / (Vector4 a, <#=T#> d)  { Vector4 result; Divide   (ref a, ref d, out result); return  result; }
+        public static <#=T#>  operator  | (Vector4 a, Vector4 d) { <#=T#>  result; Dot      (ref a, ref d, out result); return  result; }
+        public static Vector4 operator  ~ (Vector4 v)            { Vector4 result; Normalise(ref v,        out result); return  result; }
+
+        public static Boolean Equals      (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
+        public static Vector4 Add         (Vector4 a, Vector4 b) { Vector4 result; Add      (ref a, ref b, out result); return  result; }
+        public static Vector4 Subtract    (Vector4 a, Vector4 b) { Vector4 result; Subtract (ref a, ref b, out result); return  result; }
+        public static Vector4 Negate      (Vector4 v)            { Vector4 result; Negate   (ref v,        out result); return  result; }
+        public static Vector4 Multiply    (Vector4 a, Vector4 b) { Vector4 result; Multiply (ref a, ref b, out result); return  result; }
+        public static Vector4 Multiply    (Vector4 v, <#=T#> f)  { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Vector4 Divide      (Vector4 a, Vector4 b) { Vector4 result; Divide   (ref a, ref b, out result); return  result; }
+        public static Vector4 Divide      (Vector4 a, <#=T#> d)  { Vector4 result; Divide   (ref a, ref d, out result); return  result; }
+#endif
+
+        // Utilities //-------------------------------------------------------//
+
+        public static void Min (ref Vector4 a, ref Vector4 b, out Vector4 result) {
+            result.X = (a.X < b.X) ? a.X : b.X; result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+            result.Z = (a.Z < b.Z) ? a.Z : b.Z; result.W = (a.W < b.W) ? a.W : b.W;
+        }
+
+        public static void Max (ref Vector4 a, ref Vector4 b, out Vector4 result) {
+            result.X = (a.X > b.X) ? a.X : b.X; result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+            result.Z = (a.Z > b.Z) ? a.Z : b.Z; result.W = (a.W > b.W) ? a.W : b.W;
+        }
+
+        public static void Clamp (ref Vector4 v, ref Vector4 min, ref Vector4 max, out Vector4 result) {
+            <#=T#> x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
+            <#=T#> y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
+            <#=T#> z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; result.Z = z;
+            <#=T#> w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; result.W = w;
+        }
+
+        public static void Lerp (ref Vector4 a, ref Vector4 b, ref <#=T#> amount, out Vector4 result){
+            Debug.Assert (amount >= 0 && amount <= 1);
+            result.X = a.X + ((b.X - a.X) * amount); result.Y = a.Y + ((b.Y - a.Y) * amount);
+            result.Z = a.Z + ((b.Z - a.Z) * amount); result.W = a.W + ((b.W - a.W) * amount);
+        }
+
+        public static void IsUnit (ref Vector4 vector, out Boolean result) {
+            result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
+        }
+
+#if (FUNCTION_VARIANTS)
+        public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
+
+        public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 result; Min (ref a, ref b, out result); return result; }
+        public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 result; Max (ref a, ref b, out result); return result; }
+        public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 result; Clamp (ref v, ref min, ref max, out result); return result; }
+        public static Vector4 Lerp   (Vector4 a, Vector4 b, <#=T#> amount) { Vector4 result; Lerp (ref a, ref b, ref amount, out result); return result; }
+        public static Boolean IsUnit (Vector4 v) { Boolean result; IsUnit (ref v, out result); return result; }
+
+#endif
+
+        // Splines //---------------------------------------------------------//
+
+        public static void SmoothStep (ref Vector4 vector1, ref Vector4 vector2, ref <#=T#> amount, out Vector4 result) {
+            Debug.Assert (amount >= 0 && amount <= 1);
+            amount = (amount * amount) * (3 - (2 * amount));
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
+            result.W = vector1.W + ((vector2.W - vector1.W) * amount);
+        }
+
+        public static void CatmullRom (ref Vector4 vector1, ref Vector4 vector2, ref Vector4 vector3, ref Vector4 vector4, ref <#=T#> amount, out Vector4 result) {
+            Debug.Assert (amount >= 0 && amount <= 1);
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
+            result.X  = 2 * vector2.X;
+            result.X += (vector3.X - vector1.X) * amount;
+            result.X += ((2 * vector1.X) + (4 * vector3.X) - (5 * vector2.X) - (vector4.X)) * squared;
+            result.X += ((3 * vector2.X) + (vector4.X) - (vector1.X)  - (3 * vector3.X)) * cubed;
+            result.X *= Maths.Half;
+            result.Y  = 2 * vector2.Y;
+            result.Y += (vector3.Y - vector1.Y) * amount;
+            result.Y += ((2 * vector1.Y) + (4 * vector3.Y) - (5 * vector2.Y) - (vector4.Y)) * squared;
+            result.Y += ((3 * vector2.Y) + (vector4.Y) - (vector1.Y) - (3 * vector3.Y)) * cubed;
+            result.Y *= Maths.Half;
+            result.Z  = 2 * vector2.Z;
+            result.Z += (vector3.Z - vector1.Z) * amount;
+            result.Z += ((2 * vector1.Z) + (4 * vector3.Z) - (5 * vector2.Z) - (vector4.Z)) * squared;
+            result.Z += ((3 * vector2.Z) + (vector4.Z) - (vector1.Z) - (3 * vector3.Z)) * cubed;
+            result.Z *= Maths.Half;
+            result.W  = 2 * vector2.W;
+            result.W += (vector3.W - vector1.W) * amount;
+            result.W += ((2 * vector1.W) + (4 * vector3.W) - (5 * vector2.W) - (vector4.W)) * squared;
+            result.W += ((3 * vector2.W) + (vector4.W) - (vector1.W) - (3 * vector3.W)) * cubed;
+            result.W *= Maths.Half;
+        }
+
+        public static void Hermite (ref Vector4 vector1, ref Vector4 tangent1, ref Vector4 vector2, ref Vector4 tangent2, ref <#=T#> amount, out Vector4 result) {
+            Debug.Assert (amount >= 0 && amount <= 1);
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector4.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector4.IsUnit (ref tangent2, out tangent2IsUnit);
+            Debug.Assert (tangent1IsUnit && tangent2IsUnit);
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
+            <#=T#> a = ((cubed * 2) - (squared * 3)) + 1;
+            <#=T#> b = (-cubed * 2) + (squared * 3);
+            <#=T#> c = (cubed - (squared * 2)) + amount;
+            <#=T#> d = cubed - squared;
+            result.X = (vector1.X * a) + (vector2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            result.Y = (vector1.Y * a) + (vector2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            result.Z = (vector1.Z * a) + (vector2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            result.W = (vector1.W * a) + (vector2.W * b) + (tangent1.W * c) + (tangent2.W * d);
+        }
+
+#if (FUNCTION_VARIANTS)
+        public static Vector4 SmoothStep (Vector4 vector1, Vector4 vector2, ref <#=T#> amount) { Vector4 result; SmoothStep (ref vector1, ref vector2, ref amount, out result); return result; }
+        public static Vector4 CatmullRom (Vector4 vector1, Vector4 vector2, Vector4 vector3, Vector4 vector4, ref <#=T#> amount) { Vector4 result; CatmullRom (ref vector1, ref vector2, ref vector3, ref vector4, ref amount, out result); return result; }
+        public static Vector4 Hermite    (Vector4 vector1, Vector4 tangent1, Vector4 vector2, Vector4 tangent2, ref <#=T#> amount) { Vector4 result; Hermite (ref vector1, ref tangent1, ref vector2, ref tangent2, ref amount, out result); return result; }
+#endif
+
+        // Maths //-----------------------------------------------------------//
+
+        public static void Distance (ref Vector4 a, ref Vector4 b, out <#=T#> result) {
+            <#=T#> dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
+            <#=T#> lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        public static void DistanceSquared (ref Vector4 a, ref Vector4 b, out <#=T#> result) {
+            <#=T#> dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
+            result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+        }
+
+        public static void Dot (ref Vector4 a, ref Vector4 b, out <#=T#> result) {
+            result = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
+        }
+
+        public static void Normalise (ref Vector4 vector, out Vector4 result) {
+            <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
+            Debug.Assert (lengthSquared > Maths.Epsilon && !<#=T#>.IsInfinity(lengthSquared));
+            <#=T#> multiplier = 1 / (Maths.Sqrt (lengthSquared));
+            result.X = vector.X * multiplier; result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier; result.W = vector.W * multiplier;
+        }
+
+        public static void Length (ref Vector4 vector, out <#=T#> result) {
+            <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        public static void LengthSquared (ref Vector4 vector, out <#=T#> result) {
+            result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
+        }
+
+
+#if (FUNCTION_VARIANTS)
+        public <#=T#>  Length        () { <#=T#> result; Length (ref this, out result); return result; }
+        public <#=T#>  LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
+        public Vector4 Normalise     () { Normalise (ref this, out this); return this; }
+
+        public static <#=T#>  Distance        ( Vector4 a, Vector4 b) { <#=T#> result; Distance (ref a, ref b, out result); return result; } 
+        public static <#=T#>  DistanceSquared (Vector4 a, Vector4 b) { <#=T#> result; DistanceSquared (ref a, ref b, out result); return result; } 
+        public static <#=T#>  Dot             (Vector4 a, Vector4 b) { <#=T#> result; Dot (ref a, ref b, out result); return result; } 
+        public static Vector4 Normalise       (Vector4 v) { Vector4 result; Normalise (ref v, out result); return result; }
+        public static <#=T#>  Length          (Vector4 v) { <#=T#> result; Length (ref v, out result); return result; } 
+        public static <#=T#>  LengthSquared   (Vector4 v) { <#=T#> result; LengthSquared (ref v, out result); return result; }
+#endif
+    }
+

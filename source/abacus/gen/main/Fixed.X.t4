@@ -1,0 +1,364 @@
+﻿    /// <summary>
+    /// <#= ftd.BitCount #> bit signed Q<#= ftd.BitCount - ftd.FractionalBitCount #>.<#= ftd.FractionalBitCount #> number.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential), Serializable]
+    public struct <#= ftd.TypeName #> : IEquatable<<#= ftd.TypeName #>> {
+        public const Byte S = 1;  // number of sign bits
+        public const Byte M = <#= ftd.BitCount - ftd.FractionalBitCount - 1 #>; // number of integer bits
+        public const Byte N = <#= ftd.FractionalBitCount #>; // number of fractional bits
+
+        <#= ftd.UnderlyingTypeName #> numerator; // raw integer data
+
+        const <#= ftd.UnderlyingTypeName #> denominator = (<#= ftd.UnderlyingTypeName #>) 1 << N;
+
+        public static readonly <#= ftd.TypeName #> Epsilon = CreateRaw (10);
+        public static readonly <#= ftd.TypeName #> Resolution = CreateRaw (1);
+        public static readonly <#= ftd.TypeName #> MaxValue = CreateRaw (<#= ftd.UnderlyingTypeName #>.MaxValue);
+        public static readonly <#= ftd.TypeName #> MinValue = CreateRaw (<#= ftd.UnderlyingTypeName #>.MinValue);
+
+        public <#= ftd.UnderlyingTypeName #> Numerator   { get { return numerator; } set { numerator = value; } }
+        public <#= ftd.UnderlyingTypeName #> Denominator { get { return denominator; } }
+        public <#= ftd.UnderlyingTypeName #> High        { get { return numerator >> N; } }
+        public <#= ftd.UnderlyingTypeName #> Low         { get { return numerator - (High << N); } }
+
+        public static <#= ftd.TypeName #> CreateRaw (<#= ftd.UnderlyingTypeName #> value) { <#= ftd.TypeName #> f; f.numerator = value; return f; }
+
+        public override Boolean Equals(object obj) {
+            if (obj is <#= ftd.TypeName #>)
+                return ((<#= ftd.TypeName #>)obj).numerator == numerator;
+            return false;
+        }
+
+        public override Int32 GetHashCode () { return numerator.GetHashCode(); }
+        
+        public Boolean Equals               (<#= ftd.TypeName #> other) { return this.numerator == other.numerator; }
+        public Boolean GreaterThan          (<#= ftd.TypeName #> other) { return this.numerator >  other.numerator; }
+        public Boolean GreaterThanOrEqualTo (<#= ftd.TypeName #> other) { return this.numerator >= other.numerator; }
+        public Boolean LessThan             (<#= ftd.TypeName #> other) { return this.numerator <  other.numerator; }
+        public Boolean LessThanOrEqualTo    (<#= ftd.TypeName #> other) { return this.numerator <= other.numerator; }
+
+        public static Boolean IsInfinity (<#= ftd.TypeName #> f) { return false; }
+        public static Boolean IsNegativeInfinity (<#= ftd.TypeName #> f) { return false; }
+        public static Boolean IsPositiveInfinity (<#= ftd.TypeName #> f) { return false; }
+        public static Boolean IsNaN (<#= ftd.TypeName #> f) { return false; }
+        public static Boolean IsNegative (<#= ftd.TypeName #> f) { return f < 0; }
+
+
+        // Piggy back //------------------------------------------------------//
+
+        public static Boolean TryParse (string s, out <#= ftd.TypeName #> result) { Double d = 0.0; Boolean ok = Double.TryParse (s, NumberStyles.Any, null, out d); result = d; return ok; }
+    
+        public override String ToString () { return ToDouble().ToString(); }
+
+        // Conversions //-----------------------------------------------------//
+
+        public static void CreateFrom (Int32 value, out <#= ftd.TypeName #> result) {
+            result.numerator = (<#= ftd.UnderlyingTypeName #>) value << N;
+        }
+
+        public static void CreateFrom (Int64 value, out <#= ftd.TypeName #> result) {
+            result.numerator = (<#= ftd.UnderlyingTypeName #>) value << N;
+        }
+
+        public static void CreateFrom (Single value, out <#= ftd.TypeName #> result) {
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>) Math.Round (value * denominator);
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void CreateFrom (Double value, out <#= ftd.TypeName #> result) {
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>) Math.Round (value * denominator);
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public Int32  ToInt32  () { return (Int32) (numerator >> N); }
+        public Int64  ToInt64  () { return (Int64) (numerator >> N); }
+        public Single ToSingle () { return invds * (Single) numerator; }
+        public Double ToDouble () { return invdd * (Double) numerator; }
+
+        // Maths //-----------------------------------------------------------//
+
+        public static void Add (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
+            // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Addition
+            //int16_t q_add_sat(int16_t a, int16_t b)
+            //{
+            //  int16_t result;
+            //  int32_t tmp;
+            //  tmp = (int32_t)a + (int32_t)b;
+            //  if (tmp > 0x7FFF)
+            //    tmp = 0x7FFF;
+            //  if (tmp < -1 * 0x8000)
+            //    tmp = -1 * 0x8000;
+            //  result = (int16_t)tmp;
+            //  return result;
+            //}
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>) a.numerator + (<#= ftd.BigTypeName #>) b.numerator;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Subtract (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
+            // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Subtraction
+            //int16_t q_sub(int16_t a, int16_t b)
+            //{
+            //  return a - b;
+            //}
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>) a.numerator - (<#= ftd.BigTypeName #>) b.numerator;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            <#= ftd.BigTypeName #> big_f = (<#= ftd.BigTypeName #>) f.numerator;
+            <#= ftd.BigTypeName #> temp = -big_f;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Multiply (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
+            // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Multiplication
+            //// precomputed value:
+            //#define K   (1 << (Q - 1))
+            //// saturate to range of int16_t
+            //int16_t sat16(int32_t x)
+            //{
+            //  if (x > 0x7FFF) return 0x7FFF;
+            //  else if (x < -0x8000) return -0x8000;
+            //  else return (int16_t)x;
+            //}
+            //int16_t q_mul(int16_t a, int16_t b)
+            //{
+            //  int16_t result;
+            //  int32_t temp;
+            //  temp = (int32_t)a * (int32_t)b; // result type is operand's type
+            //  // Rounding; mid values are rounded up
+            //  temp += K;
+            //  // Correct by dividing by base and saturate result
+            //  result = sat16(temp >> Q);
+            //  return result;
+            //}
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>) a.numerator * (<#= ftd.BigTypeName #>) b.numerator;
+            temp += big_k;
+            temp = temp >> N;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Divide (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
+            // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Division
+            //int16_t q_div(int16_t a, int16_t b)
+            //{
+            //  /* pre-multiply by the base (Upscale to Q16 so that the result will be in Q8 format) */
+            //  int32_t temp = (int32_t)a << Q;
+            //  /* Rounding: mid values are rounded up (down for negative values). */
+            //  /* OR compare most significant bits i.e. if (((temp >> 31) & 1) == ((b >> 15) & 1)) */
+            //  if ((temp >= 0 && b >= 0) || (temp < 0 && b < 0)) {   
+            //    temp += b / 2;    /* OR shift 1 bit i.e. temp += (b >> 1); */
+            //  } else {
+            //    temp -= b / 2;    /* OR shift 1 bit i.e. temp -= (b >> 1); */
+            //  }
+            //  return (int16_t)(temp / b);
+            //}
+            if (b.numerator == 0) throw new DivideByZeroException ();
+            <#= ftd.BigTypeName #> big_a = (<#= ftd.BigTypeName #>) a.numerator;
+            <#= ftd.BigTypeName #> big_b = (<#= ftd.BigTypeName #>) b.numerator;
+            <#= ftd.BigTypeName #> temp = big_a << N;
+            if ((temp >= 0 && big_b >= 0) || (temp < 0 && big_b < 0)) { temp = temp + (big_b / 2); }
+            else { temp = temp - (big_b / 2); }
+            temp = temp / big_b;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Sqrt (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            // Based on: https://groups.google.com/forum/?hl=fr%05aacf5997b615c37&fromgroups#!topic/comp.lang.c/IpwKbw0MAxw/discussion
+            ///*
+            // * long sqrtL2L( long X );
+            // *
+            // * Long to long point square roots.
+            // * RETURNS the integer square root of X (long).
+            // * REMAINDER is in the local variable r of type long on return.  
+            // * REQUIRES X is positive.
+            // *
+            // * Christophe MEESSEN, 1993.
+            // */
+            //long sqrtL2L( long X ) {
+            //
+            //  unsigned long t, q, b, r;
+            //
+            //  r = X;
+            //  b = 0x40000000;
+            //  q = 0;
+            //
+            //  while( b >= 256 ) {
+            //    t = q + b;
+            //    q = q / 2;     /* shift right 1 bit */
+            //    if( r >= t ) {
+            //      r = r - t;
+            //      q = q + b;
+            //    }
+            //    b = b / 4;     /* shift right 2 bits */
+            //  }
+            //
+            //  return( q );
+            //}
+
+            if (f.numerator <= 0) { result = 0; return; }
+            U<#= ftd.UnderlyingTypeName #> t, q, b, r;
+            r = (U<#= ftd.UnderlyingTypeName #>) f.numerator;
+            b = <#= ftd.SqrtMagic #>;
+            q = 0;
+            while (b >= 256) {
+                t = q + b;
+                if (r >= t) {
+                    r -= t;
+                    q = t + b;
+                }
+                r <<= 1;
+                b >>= 1;
+            }
+            q >>= 8;
+            result.numerator = (<#= ftd.UnderlyingTypeName #>) q;
+        }
+
+        public static void Sin (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+<# GenerateInlineConstant (T, "Tau"); #>
+<# GenerateInlineConstant (T, "Pi"); #>
+<# GenerateInlineConstant (T, "HalfPi"); #>
+<# GenerateInlineConstant (T, "Rad2Deg"); #>
+<# GenerateInlineConstant (T, "Zero"); #>
+            // Based on: https://stackoverflow.com/questions/605124/fixed-point-math-in-c
+            <#= ftd.TypeName #> fx = f;
+
+            for (; fx < 0; fx += Tau);
+            if (fx > Tau)
+                fx %= Tau;
+
+            // Calculate using symmetries
+            if (fx <= HalfPi) {
+                SinLookup (ref fx, out result);
+                return;
+            }
+            
+            if (fx <= Pi) {
+                <#= ftd.TypeName #> fy = Pi - fx;
+                SinLookup (ref fy, out result);
+                return;
+            }
+            
+            if (fx <= HalfPi * 3) {
+                <#= ftd.TypeName #> fy = fx - Pi;
+                SinLookup (ref fy, out result);
+                result = -result;
+                return;
+            }
+            
+            {
+                <#= ftd.TypeName #> fy = Tau - fx;
+                SinLookup (ref fy, out result);
+                result = -result;
+                return;
+            }
+        }
+
+        public static void Modulo (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>)a.numerator % (<#= ftd.BigTypeName #>)b.numerator;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Cos (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+<# GenerateInlineConstant (T, "HalfPi"); #>
+            <#= ftd.TypeName #> fx = HalfPi - f;
+            Sin (ref fx, out result);
+        }
+
+        public static void Tan (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            <#= ftd.TypeName #> s, c;
+            Sin (ref f, out s);
+            Cos (ref f, out c);
+            if (c < Epsilon && c > -Epsilon) {
+                result = 0;
+                return;
+            }
+            result = s / c;
+        }
+
+
+        // Internal //--------------------------------------------------------//
+
+        static readonly <#= ftd.UnderlyingTypeName #> k = 1 << (N - 1);
+
+        static readonly Double invdd = 1.0  / (Double) denominator;
+        static readonly Single invds = 1.0f / (Single) denominator;
+
+        static readonly <#= ftd.BigTypeName #> big_k = (<#= ftd.BigTypeName #>) k;
+        static readonly <#= ftd.BigTypeName #> bigMin = (<#= ftd.BigTypeName #>) <#= ftd.UnderlyingTypeName #>.MinValue;
+        static readonly <#= ftd.BigTypeName #> bigMax = (<#= ftd.BigTypeName #>) <#= ftd.UnderlyingTypeName #>.MaxValue;
+
+        static void Saturate (ref <#= ftd.BigTypeName #> big, out <#= ftd.UnderlyingTypeName #> result) {
+            if (big < bigMin) { result = <#= ftd.UnderlyingTypeName #>.MinValue; return; }
+            if (big > bigMax) { result = <#= ftd.UnderlyingTypeName #>.MaxValue; return; }
+            result = (<#= ftd.UnderlyingTypeName #>) big;
+        }
+        static void SinLookup (ref <#= ftd.TypeName #> rad, out <#= ftd.TypeName #> result) {
+<# GenerateInlineConstant (T, "Zero"); #>
+<# GenerateInlineConstant (T, "Rad2Deg"); #>
+            <#= ftd.TypeName #> deg = rad * Rad2Deg;
+            Int32 p = (Int32) deg.ToInt32 ();
+
+            if (p == 90) {
+                result.numerator = sinLUT[p];
+                return;
+            }
+            <#= ftd.UnderlyingTypeName #> lowi = sinLUT[p];
+            <#= ftd.UnderlyingTypeName #> highi = sinLUT[p + 1];
+
+            <#= ftd.TypeName #> q = deg - (<#= ftd.TypeName #>) p;
+
+            // Lerp between two values
+            <#= ftd.TypeName #> low = CreateRaw (sinLUT[p]);
+            <#= ftd.TypeName #> high = CreateRaw (sinLUT[p + 1]);
+            result = low + q * (high - low);
+        }
+
+<# GenerateSinLookUpTable (ftd); #>
+
+        // Function Variants //-----------------------------------------------//
+
+        public static <#= ftd.TypeName #> Add      (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Add (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> Subtract (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Subtract (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> Multiply (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Multiply (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> Divide   (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Divide (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> Modulo   (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Modulo (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> Negate   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Negate (ref f, out result); return result; }
+
+        public static <#= ftd.TypeName #> operator  + (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Add (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> operator  - (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Subtract (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> operator  * (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Multiply (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> operator  / (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Divide (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> operator  % (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Modulo (ref a, ref b, out result); return result; }
+        public static <#= ftd.TypeName #> operator  + (<#= ftd.TypeName #> f) { return f; }
+        public static <#= ftd.TypeName #> operator  - (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Negate (ref f, out result); return result; }
+
+        public static <#= ftd.TypeName #> Sqrt    (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sqrt (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> Sin     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sin  (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> Cos     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Cos  (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> Tan     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Tan  (ref f, out result); return result; }
+
+        public static Boolean operator == (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.Equals (b); }
+        public static Boolean operator != (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return !a.Equals (b); }
+        public static Boolean operator >= (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.GreaterThanOrEqualTo (b); }
+        public static Boolean operator <= (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.LessThanOrEqualTo (b); }
+        public static Boolean operator  > (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.GreaterThan (b); }
+        public static Boolean operator  < (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.LessThan (b); }
+
+        public static explicit operator Int32  (<#= ftd.TypeName #> f) { return f.ToInt32 (); }
+        public static explicit operator Int64  (<#= ftd.TypeName #> f) { return f.ToInt64 (); }
+        public static explicit operator Single (<#= ftd.TypeName #> f) { return f.ToSingle (); }
+        public static explicit operator Double (<#= ftd.TypeName #> f) { return f.ToDouble (); }
+
+        public static implicit operator <#= ftd.TypeName #> (Int32 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static implicit operator <#= ftd.TypeName #> (Int64 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static implicit operator <#= ftd.TypeName #> (Single v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static implicit operator <#= ftd.TypeName #> (Double v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+
+        public static <#= ftd.TypeName #> CreateFrom (Int32 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static <#= ftd.TypeName #> CreateFrom (Int64 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static <#= ftd.TypeName #> CreateFrom (Single v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static <#= ftd.TypeName #> CreateFrom (Double v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+    }
+
