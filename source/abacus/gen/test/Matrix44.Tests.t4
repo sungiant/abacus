@@ -1,0 +1,65 @@
+﻿    [TestFixture]
+    public class Matrix44Tests {
+        static readonly Random rand = new Random(0);
+        
+        static <#=T#> GetNextRandom<#=T#> () {
+            <#=T#> randomValue = (<#=T#>) rand.NextDouble();
+            <#=T#> zero = 0;
+            <#=T#> multiplier = 1000;
+            randomValue *= multiplier;
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+            if (randomBoolean) randomValue = zero - randomValue;
+            return randomValue;
+        }
+
+        internal static Matrix44 GetNextRandomMatrix44 () {
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
+            <#=T#> c = GetNextRandom<#=T#>();
+            <#=T#> d = GetNextRandom<#=T#>();
+            <#=T#> e = GetNextRandom<#=T#>();
+            <#=T#> f = GetNextRandom<#=T#>();
+            <#=T#> g = GetNextRandom<#=T#>();
+            <#=T#> h = GetNextRandom<#=T#>();
+            <#=T#> i = GetNextRandom<#=T#>();
+            <#=T#> j = GetNextRandom<#=T#>();
+            <#=T#> k = GetNextRandom<#=T#>();
+            <#=T#> l = GetNextRandom<#=T#>();
+            <#=T#> m = GetNextRandom<#=T#>();
+            <#=T#> n = GetNextRandom<#=T#>();
+            <#=T#> o = GetNextRandom<#=T#>();
+            <#=T#> p = GetNextRandom<#=T#>();
+            return new Matrix44(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+        }
+
+        internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b) {
+            Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(MathsTests.TestTolerance));
+            Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(MathsTests.TestTolerance));
+            Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(MathsTests.TestTolerance));
+            Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(MathsTests.TestTolerance));
+            Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(MathsTests.TestTolerance));
+            Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(MathsTests.TestTolerance));
+            Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(MathsTests.TestTolerance));
+            Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(MathsTests.TestTolerance));
+            Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(MathsTests.TestTolerance));
+            Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(MathsTests.TestTolerance));
+            Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(MathsTests.TestTolerance));
+            Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(MathsTests.TestTolerance));
+            Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(MathsTests.TestTolerance));
+            Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(MathsTests.TestTolerance));
+            Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(MathsTests.TestTolerance));
+            Assert.That(a.R3C3, Is.EqualTo(b.R3C3).Within(MathsTests.TestTolerance));
+        }
+
+        [Test]
+        public void TestMemberFn_GetHashCode () {
+            var hs1 = new HashSet<Matrix44>();
+            var hs2 = new HashSet<Int32>();
+            for(Int32 i = 0; i < 10000; ++i) {
+                var a = GetNextRandomMatrix44 ();
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode ());
+            }
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+    }

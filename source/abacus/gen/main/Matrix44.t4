@@ -1,0 +1,584 @@
+    /// <summary>
+    /// <#=T#> precision Matrix44.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Matrix44 : IEquatable<Matrix44> {
+        public <#=T#> R0C0, R0C1, R0C2, R0C3;
+        public <#=T#> R1C0, R1C1, R1C2, R1C3;
+        public <#=T#> R2C0, R2C1, R2C2, R2C3;
+        public <#=T#> R3C0, R3C1, R3C2, R3C3;
+
+        public Matrix44 (
+            <#=T#> m00, <#=T#> m01, <#=T#> m02, <#=T#> m03, <#=T#> m10, <#=T#> m11, <#=T#> m12, <#=T#> m13,
+            <#=T#> m20, <#=T#> m21, <#=T#> m22, <#=T#> m23, <#=T#> m30, <#=T#> m31, <#=T#> m32, <#=T#> m33) {
+            this.R0C0 = m00; this.R0C1 = m01; this.R0C2 = m02; this.R0C3 = m03;
+            this.R1C0 = m10; this.R1C1 = m11; this.R1C2 = m12; this.R1C3 = m13;
+            this.R2C0 = m20; this.R2C1 = m21; this.R2C2 = m22; this.R2C3 = m23;
+            this.R3C0 = m30; this.R3C1 = m31; this.R3C2 = m32; this.R3C3 = m33;
+        }
+
+        public override String ToString () {
+            return String.Format ("((R0C0:{0}, R0C1:{1}, R0C2:{2}, R0C3:{3}), ", this.R0C0, this.R0C1, this.R0C2, this.R0C3)
+                 + String.Format  ("(R1C0:{0}, R1C1:{1}, R1C2:{2}, R1C3:{3}), ", this.R1C0, this.R1C1, this.R1C2, this.R1C3)
+                 + String.Format  ("(R2C0:{0}, R2C1:{1}, R2C2:{2}, R2C3:{3}), ", this.R2C0, this.R2C1, this.R2C2, this.R2C3)
+                 + String.Format  ("(R3C0:{0}, R3C1:{1}, R3C2:{2}, R3C3:{3}))",  this.R3C0, this.R3C1, this.R3C2, this.R3C3);
+        }
+
+        public override Int32 GetHashCode () {
+            return R0C0.GetHashCode ()                  ^ R0C1.GetHashCode ().ShiftAndWrap (2)
+                ^ R0C2.GetHashCode ().ShiftAndWrap (4)  ^ R0C3.GetHashCode ().ShiftAndWrap (6)
+                ^ R1C0.GetHashCode ().ShiftAndWrap (8)  ^ R1C1.GetHashCode ().ShiftAndWrap (10)
+                ^ R1C2.GetHashCode ().ShiftAndWrap (12) ^ R1C3.GetHashCode ().ShiftAndWrap (14)
+                ^ R2C0.GetHashCode ().ShiftAndWrap (16) ^ R2C1.GetHashCode ().ShiftAndWrap (18)
+                ^ R2C2.GetHashCode ().ShiftAndWrap (20) ^ R2C3.GetHashCode ().ShiftAndWrap (22)
+                ^ R3C0.GetHashCode ().ShiftAndWrap (24) ^ R3C1.GetHashCode ().ShiftAndWrap (26)
+                ^ R3C2.GetHashCode ().ShiftAndWrap (28) ^ R3C3.GetHashCode ().ShiftAndWrap (30);
+        }
+
+        public override Boolean Equals (Object obj) { return (obj is Matrix44) ? this.Equals ((Matrix44)obj) : false; }
+
+        public Boolean Equals (Matrix44 other) {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        public Boolean IsSymmetric () {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            return transpose.Equals (this);
+        }
+
+        public Boolean IsSkewSymmetric () {
+            Matrix44 transpose = this;
+            Transpose (ref transpose, out transpose);
+            Negate (ref transpose, out transpose);
+            return transpose.Equals (this);
+        }
+
+        // Accessors //-------------------------------------------------------//
+
+        public Vector3 Up          { get { return new Vector3 ( R1C0,  R1C1,  R1C2); } set { R1C0 =  value.X; R1C1 =  value.Y; R1C2 =  value.Z; } }
+        public Vector3 Down        { get { return new Vector3 (-R1C0, -R1C1, -R1C2); } set { R1C0 = -value.X; R1C1 = -value.Y; R1C2 = -value.Z; } }
+        public Vector3 Right       { get { return new Vector3 ( R0C0,  R0C1,  R0C2); } set { R0C0 =  value.X; R0C1 =  value.Y; R0C2 =  value.Z; } }
+        public Vector3 Left        { get { return new Vector3 (-R0C0, -R0C1, -R0C2); } set { R0C0 = -value.X; R0C1 = -value.Y; R0C2 = -value.Z; } }
+        public Vector3 Forward     { get { return new Vector3 (-R2C0, -R2C1, -R2C2); } set { R2C0 = -value.X; R2C1 = -value.Y; R2C2 = -value.Z; } }
+        public Vector3 Backward    { get { return new Vector3 ( R2C0,  R2C1,  R2C2); } set { R2C0 =  value.X; R2C1 =  value.Y; R2C2 =  value.Z; } }
+        public Vector3 Translation { get { return new Vector3 ( R3C0,  R3C1,  R3C2); } set { R3C0 =  value.X; R3C1 =  value.Y; R3C2 =  value.Z; } }
+
+        // Constants //-------------------------------------------------------//
+
+        static Matrix44 identity, zero;
+
+        static Matrix44 () {
+            identity = new Matrix44 (1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            zero     = new Matrix44 (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        }
+
+        public static Matrix44 Identity { get { return identity; } }
+        public static Matrix44 Zero     { get { return zero; } }
+
+        // Operators //-------------------------------------------------------//
+
+        public static void Equals (ref Matrix44 a, ref Matrix44 b, out Boolean result) {
+            result = (a.R0C0 == b.R0C0) && (a.R1C1 == b.R1C1) &&
+                     (a.R2C2 == b.R2C2) && (a.R3C3 == b.R3C3) &&
+                     (a.R0C1 == b.R0C1) && (a.R0C2 == b.R0C2) &&
+                     (a.R0C3 == b.R0C3) && (a.R1C0 == b.R1C0) &&
+                     (a.R1C2 == b.R1C2) && (a.R1C3 == b.R1C3) &&
+                     (a.R2C0 == b.R2C0) && (a.R2C1 == b.R2C1) &&
+                     (a.R2C3 == b.R2C3) && (a.R3C0 == b.R3C0) &&
+                     (a.R3C1 == b.R3C1) && (a.R3C2 == b.R3C2);
+        }
+
+        public static void Add (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
+            result.R0C0 = a.R0C0 + b.R0C0; result.R0C1 = a.R0C1 + b.R0C1;
+            result.R0C2 = a.R0C2 + b.R0C2; result.R0C3 = a.R0C3 + b.R0C3;
+            result.R1C0 = a.R1C0 + b.R1C0; result.R1C1 = a.R1C1 + b.R1C1;
+            result.R1C2 = a.R1C2 + b.R1C2; result.R1C3 = a.R1C3 + b.R1C3;
+            result.R2C0 = a.R2C0 + b.R2C0; result.R2C1 = a.R2C1 + b.R2C1;
+            result.R2C2 = a.R2C2 + b.R2C2; result.R2C3 = a.R2C3 + b.R2C3;
+            result.R3C0 = a.R3C0 + b.R3C0; result.R3C1 = a.R3C1 + b.R3C1;
+            result.R3C2 = a.R3C2 + b.R3C2; result.R3C3 = a.R3C3 + b.R3C3;
+        }
+
+        public static void Subtract (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
+            result.R0C0 = a.R0C0 - b.R0C0; result.R0C1 = a.R0C1 - b.R0C1;
+            result.R0C2 = a.R0C2 - b.R0C2; result.R0C3 = a.R0C3 - b.R0C3;
+            result.R1C0 = a.R1C0 - b.R1C0; result.R1C1 = a.R1C1 - b.R1C1;
+            result.R1C2 = a.R1C2 - b.R1C2; result.R1C3 = a.R1C3 - b.R1C3;
+            result.R2C0 = a.R2C0 - b.R2C0; result.R2C1 = a.R2C1 - b.R2C1;
+            result.R2C2 = a.R2C2 - b.R2C2; result.R2C3 = a.R2C3 - b.R2C3;
+            result.R3C0 = a.R3C0 - b.R3C0; result.R3C1 = a.R3C1 - b.R3C1;
+            result.R3C2 = a.R3C2 - b.R3C2; result.R3C3 = a.R3C3 - b.R3C3;
+        }
+
+        public static void Negate (ref Matrix44 m, out Matrix44 result) {
+            result.R0C0 = -m.R0C0; result.R0C1 = -m.R0C1;
+            result.R0C2 = -m.R0C2; result.R0C3 = -m.R0C3;
+            result.R1C0 = -m.R1C0; result.R1C1 = -m.R1C1;
+            result.R1C2 = -m.R1C2; result.R1C3 = -m.R1C3;
+            result.R2C0 = -m.R2C0; result.R2C1 = -m.R2C1;
+            result.R2C2 = -m.R2C2; result.R2C3 = -m.R2C3;
+            result.R3C0 = -m.R3C0; result.R3C1 = -m.R3C1;
+            result.R3C2 = -m.R3C2; result.R3C3 = -m.R3C3;
+        }
+
+        public static void Product (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
+            <#=T#> r0c0 = (a.R0C0 * b.R0C0) + (a.R0C1 * b.R1C0) + (a.R0C2 * b.R2C0) + (a.R0C3 * b.R3C0);
+            <#=T#> r0c1 = (a.R0C0 * b.R0C1) + (a.R0C1 * b.R1C1) + (a.R0C2 * b.R2C1) + (a.R0C3 * b.R3C1);
+            <#=T#> r0c2 = (a.R0C0 * b.R0C2) + (a.R0C1 * b.R1C2) + (a.R0C2 * b.R2C2) + (a.R0C3 * b.R3C2);
+            <#=T#> r0c3 = (a.R0C0 * b.R0C3) + (a.R0C1 * b.R1C3) + (a.R0C2 * b.R2C3) + (a.R0C3 * b.R3C3);
+            <#=T#> r1c0 = (a.R1C0 * b.R0C0) + (a.R1C1 * b.R1C0) + (a.R1C2 * b.R2C0) + (a.R1C3 * b.R3C0);
+            <#=T#> r1c1 = (a.R1C0 * b.R0C1) + (a.R1C1 * b.R1C1) + (a.R1C2 * b.R2C1) + (a.R1C3 * b.R3C1);
+            <#=T#> r1c2 = (a.R1C0 * b.R0C2) + (a.R1C1 * b.R1C2) + (a.R1C2 * b.R2C2) + (a.R1C3 * b.R3C2);
+            <#=T#> r1c3 = (a.R1C0 * b.R0C3) + (a.R1C1 * b.R1C3) + (a.R1C2 * b.R2C3) + (a.R1C3 * b.R3C3);
+            <#=T#> r2c0 = (a.R2C0 * b.R0C0) + (a.R2C1 * b.R1C0) + (a.R2C2 * b.R2C0) + (a.R2C3 * b.R3C0);
+            <#=T#> r2c1 = (a.R2C0 * b.R0C1) + (a.R2C1 * b.R1C1) + (a.R2C2 * b.R2C1) + (a.R2C3 * b.R3C1);
+            <#=T#> r2c2 = (a.R2C0 * b.R0C2) + (a.R2C1 * b.R1C2) + (a.R2C2 * b.R2C2) + (a.R2C3 * b.R3C2);
+            <#=T#> r2c3 = (a.R2C0 * b.R0C3) + (a.R2C1 * b.R1C3) + (a.R2C2 * b.R2C3) + (a.R2C3 * b.R3C3);
+            <#=T#> r3c0 = (a.R3C0 * b.R0C0) + (a.R3C1 * b.R1C0) + (a.R3C2 * b.R2C0) + (a.R3C3 * b.R3C0);
+            <#=T#> r3c1 = (a.R3C0 * b.R0C1) + (a.R3C1 * b.R1C1) + (a.R3C2 * b.R2C1) + (a.R3C3 * b.R3C1);
+            <#=T#> r3c2 = (a.R3C0 * b.R0C2) + (a.R3C1 * b.R1C2) + (a.R3C2 * b.R2C2) + (a.R3C3 * b.R3C2);
+            <#=T#> r3c3 = (a.R3C0 * b.R0C3) + (a.R3C1 * b.R1C3) + (a.R3C2 * b.R2C3) + (a.R3C3 * b.R3C3);
+            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = r0c3;
+            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = r1c3;
+            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = r2c3;
+            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = r3c3; 
+        }
+
+        public static void Multiply (ref Matrix44 m, ref <#=T#> f, out Matrix44 result) {
+            result.R0C0 = m.R0C0 * f; result.R0C1 = m.R0C1 * f;
+            result.R0C2 = m.R0C2 * f; result.R0C3 = m.R0C3 * f;
+            result.R1C0 = m.R1C0 * f; result.R1C1 = m.R1C1 * f;
+            result.R1C2 = m.R1C2 * f; result.R1C3 = m.R1C3 * f;
+            result.R2C0 = m.R2C0 * f; result.R2C1 = m.R2C1 * f;
+            result.R2C2 = m.R2C2 * f; result.R2C3 = m.R2C3 * f;
+            result.R3C0 = m.R3C0 * f; result.R3C1 = m.R3C1 * f;
+            result.R3C2 = m.R3C2 * f; result.R3C3 = m.R3C3 * f;
+        }
+
+#if (FUNCTION_VARIANTS)
+        public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return  result; }
+        public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return !result; }
+        public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return  result; }
+        public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract (ref a, ref b, out result); return  result; }
+        public static Matrix44 operator  - (Matrix44 v)             { Matrix44 result; Negate   (ref v, out result);        return  result; }
+        public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return  result; }
+        public static Matrix44 operator  * (Matrix44 v, <#=T#> f)   { Matrix44 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Matrix44 operator  * (<#=T#> f, Matrix44 v)   { Matrix44 result; Multiply (ref v, ref f, out result); return  result; }
+
+        public static Boolean  Equals      (Matrix44 a, Matrix44 b) { Boolean  result; Equals   (ref a, ref b, out result); return result; }
+        public static Matrix44 Add         (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return result; }
+        public static Matrix44 Subtract    (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract (ref a, ref b, out result); return result; }
+        public static Matrix44 Negate      (Matrix44 v)             { Matrix44 result; Negate   (ref v, out result);        return result; }
+        public static Matrix44 Product     (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return result; }
+        public static Matrix44 Multiply    (Matrix44 v, <#=T#> f)   { Matrix44 result; Multiply (ref v, ref f, out result); return result; }
+#endif
+
+        // Utilities //-------------------------------------------------------//
+
+        public static void Lerp (ref Matrix44 a, ref Matrix44 b, ref <#=T#> amount, out Matrix44 result) {
+            Debug.Assert (amount > 0 && amount <= 1);
+            result.R0C0 = a.R0C0 + ((b.R0C0 - a.R0C0) * amount);
+            result.R0C1 = a.R0C1 + ((b.R0C1 - a.R0C1) * amount);
+            result.R0C2 = a.R0C2 + ((b.R0C2 - a.R0C2) * amount);
+            result.R0C3 = a.R0C3 + ((b.R0C3 - a.R0C3) * amount);
+            result.R1C0 = a.R1C0 + ((b.R1C0 - a.R1C0) * amount);
+            result.R1C1 = a.R1C1 + ((b.R1C1 - a.R1C1) * amount);
+            result.R1C2 = a.R1C2 + ((b.R1C2 - a.R1C2) * amount);
+            result.R1C3 = a.R1C3 + ((b.R1C3 - a.R1C3) * amount);
+            result.R2C0 = a.R2C0 + ((b.R2C0 - a.R2C0) * amount);
+            result.R2C1 = a.R2C1 + ((b.R2C1 - a.R2C1) * amount);
+            result.R2C2 = a.R2C2 + ((b.R2C2 - a.R2C2) * amount);
+            result.R2C3 = a.R2C3 + ((b.R2C3 - a.R2C3) * amount);
+            result.R3C0 = a.R3C0 + ((b.R3C0 - a.R3C0) * amount);
+            result.R3C1 = a.R3C1 + ((b.R3C1 - a.R3C1) * amount);
+            result.R3C2 = a.R3C2 + ((b.R3C2 - a.R3C2) * amount);
+            result.R3C3 = a.R3C3 + ((b.R3C3 - a.R3C3) * amount);
+        }
+        
+#if (FUNCTION_VARIANTS)
+        public static Matrix44 Lerp (Matrix44 a, Matrix44 b, <#=T#> amount) { Matrix44 result; Lerp (ref a, ref b, ref amount, out result); return result; }
+#endif
+
+        // Maths //-----------------------------------------------------------//
+
+        public static void Transpose (ref Matrix44 m, out Matrix44 result) {
+            result.R0C0 = m.R0C0; result.R1C1 = m.R1C1;
+            result.R2C2 = m.R2C2; result.R3C3 = m.R3C3;
+            <#=T#> t = m.R0C1; result.R0C1 = m.R1C0; result.R1C0 = t;
+                   t = m.R0C2; result.R0C2 = m.R2C0; result.R2C0 = t;
+                   t = m.R0C3; result.R0C3 = m.R3C0; result.R3C0 = t;
+                   t = m.R1C2; result.R1C2 = m.R2C1; result.R2C1 = t;
+                   t = m.R1C3; result.R1C3 = m.R3C1; result.R3C1 = t;
+                   t = m.R2C3; result.R2C3 = m.R3C2; result.R3C2 = t;
+        }
+
+        public static void Decompose (ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result) {
+            translation.X = matrix.R3C0; translation.Y = matrix.R3C1; translation.Z = matrix.R3C2;
+            Vector3 a = new Vector3 (matrix.R0C0, matrix.R1C0, matrix.R2C0);
+            Vector3 b = new Vector3 (matrix.R0C1, matrix.R1C1, matrix.R2C1);
+            Vector3 c = new Vector3 (matrix.R0C2, matrix.R1C2, matrix.R2C2);
+            <#=T#> aLen; Vector3.Length (ref a, out aLen); scale.X = aLen;
+            <#=T#> bLen; Vector3.Length (ref b, out bLen); scale.Y = bLen;
+            <#=T#> cLen; Vector3.Length (ref c, out cLen); scale.Z = cLen;
+            if (Maths.IsZero (scale.X) || Maths.IsZero (scale.Y) || Maths.IsZero (scale.Z)) {
+                rotation = Quaternion.Identity;
+                result = false;
+            }
+            if (aLen < Maths.Epsilon) a = Vector3.Zero;
+            else Vector3.Normalise (ref a, out a);
+            if (bLen < Maths.Epsilon) b = Vector3.Zero;
+            else Vector3.Normalise (ref b, out b);
+            if (cLen < Maths.Epsilon) c = Vector3.Zero;
+            else Vector3.Normalise (ref c, out c);
+            Vector3 right = new Vector3 (a.X, b.X, c.X);
+            Vector3 up = new Vector3 (a.Y, b.Y, c.Y);
+            Vector3 backward = new Vector3 (a.Z, b.Z, c.Z);
+            if (right.Equals (Vector3.Zero)) right = Vector3.Right;
+            if (up.Equals (Vector3.Zero)) up = Vector3.Up;
+            if (backward.Equals (Vector3.Zero)) backward = Vector3.Backward;
+            Vector3.Normalise (ref right, out right);
+            Vector3.Normalise (ref up, out up);
+            Vector3.Normalise (ref backward, out backward);
+            Matrix44 rotMat;
+            Matrix44.CreateFromCartesianAxes (ref right, ref up, ref backward, out rotMat);
+            Quaternion.CreateFromRotationMatrix (ref rotMat, out rotation);
+            result = true;
+        }
+
+        public static void Determinant (ref Matrix44 m, out <#=T#> result) {
+            result = + m.R0C3 * m.R1C2 * m.R2C1 * m.R3C0 - m.R0C2 * m.R1C3 * m.R2C1 * m.R3C0
+                     - m.R0C3 * m.R1C1 * m.R2C2 * m.R3C0 + m.R0C1 * m.R1C3 * m.R2C2 * m.R3C0
+                     + m.R0C2 * m.R1C1 * m.R2C3 * m.R3C0 - m.R0C1 * m.R1C2 * m.R2C3 * m.R3C0
+                     - m.R0C3 * m.R1C2 * m.R2C0 * m.R3C1 + m.R0C2 * m.R1C3 * m.R2C0 * m.R3C1
+                     + m.R0C3 * m.R1C0 * m.R2C2 * m.R3C1 - m.R0C0 * m.R1C3 * m.R2C2 * m.R3C1
+                     - m.R0C2 * m.R1C0 * m.R2C3 * m.R3C1 + m.R0C0 * m.R1C2 * m.R2C3 * m.R3C1
+                     + m.R0C3 * m.R1C1 * m.R2C0 * m.R3C2 - m.R0C1 * m.R1C3 * m.R2C0 * m.R3C2
+                     - m.R0C3 * m.R1C0 * m.R2C1 * m.R3C2 + m.R0C0 * m.R1C3 * m.R2C1 * m.R3C2
+                     + m.R0C1 * m.R1C0 * m.R2C3 * m.R3C2 - m.R0C0 * m.R1C1 * m.R2C3 * m.R3C2
+                     - m.R0C2 * m.R1C1 * m.R2C0 * m.R3C3 + m.R0C1 * m.R1C2 * m.R2C0 * m.R3C3
+                     + m.R0C2 * m.R1C0 * m.R2C1 * m.R3C3 - m.R0C0 * m.R1C2 * m.R2C1 * m.R3C3
+                     - m.R0C1 * m.R1C0 * m.R2C2 * m.R3C3 + m.R0C0 * m.R1C1 * m.R2C2 * m.R3C3;
+        }
+
+        public static void Invert (ref Matrix44 m, out Matrix44 result) {
+            <#=T#> d; Determinant (ref m, out d); <#=T#> s = 1 / d;
+            <#=T#> r0c0 = m.R1C2 * m.R2C3 * m.R3C1 - m.R1C3 * m.R2C2 * m.R3C1 + m.R1C3 * m.R2C1 * m.R3C2 - m.R1C1 * m.R2C3 * m.R3C2 - m.R1C2 * m.R2C1 * m.R3C3 + m.R1C1 * m.R2C2 * m.R3C3;
+            <#=T#> r0c1 = m.R0C3 * m.R2C2 * m.R3C1 - m.R0C2 * m.R2C3 * m.R3C1 - m.R0C3 * m.R2C1 * m.R3C2 + m.R0C1 * m.R2C3 * m.R3C2 + m.R0C2 * m.R2C1 * m.R3C3 - m.R0C1 * m.R2C2 * m.R3C3;
+            <#=T#> r0c2 = m.R0C2 * m.R1C3 * m.R3C1 - m.R0C3 * m.R1C2 * m.R3C1 + m.R0C3 * m.R1C1 * m.R3C2 - m.R0C1 * m.R1C3 * m.R3C2 - m.R0C2 * m.R1C1 * m.R3C3 + m.R0C1 * m.R1C2 * m.R3C3;
+            <#=T#> r0c3 = m.R0C3 * m.R1C2 * m.R2C1 - m.R0C2 * m.R1C3 * m.R2C1 - m.R0C3 * m.R1C1 * m.R2C2 + m.R0C1 * m.R1C3 * m.R2C2 + m.R0C2 * m.R1C1 * m.R2C3 - m.R0C1 * m.R1C2 * m.R2C3;
+            <#=T#> r1c0 = m.R1C3 * m.R2C2 * m.R3C0 - m.R1C2 * m.R2C3 * m.R3C0 - m.R1C3 * m.R2C0 * m.R3C2 + m.R1C0 * m.R2C3 * m.R3C2 + m.R1C2 * m.R2C0 * m.R3C3 - m.R1C0 * m.R2C2 * m.R3C3;
+            <#=T#> r1c1 = m.R0C2 * m.R2C3 * m.R3C0 - m.R0C3 * m.R2C2 * m.R3C0 + m.R0C3 * m.R2C0 * m.R3C2 - m.R0C0 * m.R2C3 * m.R3C2 - m.R0C2 * m.R2C0 * m.R3C3 + m.R0C0 * m.R2C2 * m.R3C3;
+            <#=T#> r1c2 = m.R0C3 * m.R1C2 * m.R3C0 - m.R0C2 * m.R1C3 * m.R3C0 - m.R0C3 * m.R1C0 * m.R3C2 + m.R0C0 * m.R1C3 * m.R3C2 + m.R0C2 * m.R1C0 * m.R3C3 - m.R0C0 * m.R1C2 * m.R3C3;
+            <#=T#> r1c3 = m.R0C2 * m.R1C3 * m.R2C0 - m.R0C3 * m.R1C2 * m.R2C0 + m.R0C3 * m.R1C0 * m.R2C2 - m.R0C0 * m.R1C3 * m.R2C2 - m.R0C2 * m.R1C0 * m.R2C3 + m.R0C0 * m.R1C2 * m.R2C3;
+            <#=T#> r2c0 = m.R1C1 * m.R2C3 * m.R3C0 - m.R1C3 * m.R2C1 * m.R3C0 + m.R1C3 * m.R2C0 * m.R3C1 - m.R1C0 * m.R2C3 * m.R3C1 - m.R1C1 * m.R2C0 * m.R3C3 + m.R1C0 * m.R2C1 * m.R3C3;
+            <#=T#> r2c1 = m.R0C3 * m.R2C1 * m.R3C0 - m.R0C1 * m.R2C3 * m.R3C0 - m.R0C3 * m.R2C0 * m.R3C1 + m.R0C0 * m.R2C3 * m.R3C1 + m.R0C1 * m.R2C0 * m.R3C3 - m.R0C0 * m.R2C1 * m.R3C3;
+            <#=T#> r2c2 = m.R0C1 * m.R1C3 * m.R3C0 - m.R0C3 * m.R1C1 * m.R3C0 + m.R0C3 * m.R1C0 * m.R3C1 - m.R0C0 * m.R1C3 * m.R3C1 - m.R0C1 * m.R1C0 * m.R3C3 + m.R0C0 * m.R1C1 * m.R3C3;
+            <#=T#> r2c3 = m.R0C3 * m.R1C1 * m.R2C0 - m.R0C1 * m.R1C3 * m.R2C0 - m.R0C3 * m.R1C0 * m.R2C1 + m.R0C0 * m.R1C3 * m.R2C1 + m.R0C1 * m.R1C0 * m.R2C3 - m.R0C0 * m.R1C1 * m.R2C3;
+            <#=T#> r3c0 = m.R1C2 * m.R2C1 * m.R3C0 - m.R1C1 * m.R2C2 * m.R3C0 - m.R1C2 * m.R2C0 * m.R3C1 + m.R1C0 * m.R2C2 * m.R3C1 + m.R1C1 * m.R2C0 * m.R3C2 - m.R1C0 * m.R2C1 * m.R3C2;
+            <#=T#> r3c1 = m.R0C1 * m.R2C2 * m.R3C0 - m.R0C2 * m.R2C1 * m.R3C0 + m.R0C2 * m.R2C0 * m.R3C1 - m.R0C0 * m.R2C2 * m.R3C1 - m.R0C1 * m.R2C0 * m.R3C2 + m.R0C0 * m.R2C1 * m.R3C2;
+            <#=T#> r3c2 = m.R0C2 * m.R1C1 * m.R3C0 - m.R0C1 * m.R1C2 * m.R3C0 - m.R0C2 * m.R1C0 * m.R3C1 + m.R0C0 * m.R1C2 * m.R3C1 + m.R0C1 * m.R1C0 * m.R3C2 - m.R0C0 * m.R1C1 * m.R3C2;
+            <#=T#> r3c3 = m.R0C1 * m.R1C2 * m.R2C0 - m.R0C2 * m.R1C1 * m.R2C0 + m.R0C2 * m.R1C0 * m.R2C1 - m.R0C0 * m.R1C2 * m.R2C1 - m.R0C1 * m.R1C0 * m.R2C2 + m.R0C0 * m.R1C1 * m.R2C2;
+            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = r0c3;
+            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = r1c3;
+            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = r2c3;
+            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = r3c3; 
+            Multiply (ref result, ref s, out result);
+        }
+
+        public static void Transform (ref Matrix44 m, ref Quaternion q, out Matrix44 result) {
+            Boolean qIsUnit; Quaternion.IsUnit (ref q, out qIsUnit);
+            Debug.Assert (qIsUnit);
+            <#=T#> twoI = q.I + q.I, twoJ = q.J + q.J, twoK = q.K + q.K;
+            <#=T#> twoUI = q.U * twoI, twoUJ = q.U * twoJ, twoUK = q.U * twoK;
+            <#=T#> twoII = q.I * twoI, twoIJ = q.I * twoJ, twoIK = q.I * twoK;
+            <#=T#> twoJJ = q.J * twoJ, twoJK = q.J * twoK, twoKK = q.K * twoK;
+            <#=T#> tR0C0 = 1 - twoJJ - twoKK;
+            <#=T#> tR1C0 = twoIJ - twoUK;
+            <#=T#> tR2C0 = twoIK + twoUJ;
+            <#=T#> tR0C1 = twoIJ + twoUK;
+            <#=T#> tR1C1 = 1 - twoII - twoKK;
+            <#=T#> tR2C1 = twoJK - twoUI;
+            <#=T#> tR0C2 = twoIK - twoUJ;
+            <#=T#> tR1C2 = twoJK + twoUI;
+            <#=T#> tR2C2 = 1 - twoII - twoJJ;
+            <#=T#> r0c0 = m.R0C0 * tR0C0 + m.R0C1 * tR1C0 + m.R0C2 * tR2C0;
+            <#=T#> r0c1 = m.R0C0 * tR0C1 + m.R0C1 * tR1C1 + m.R0C2 * tR2C1;
+            <#=T#> r0c2 = m.R0C0 * tR0C2 + m.R0C1 * tR1C2 + m.R0C2 * tR2C2;
+            <#=T#> r1c0 = m.R1C0 * tR0C0 + m.R1C1 * tR1C0 + m.R1C2 * tR2C0;
+            <#=T#> r1c1 = m.R1C0 * tR0C1 + m.R1C1 * tR1C1 + m.R1C2 * tR2C1;
+            <#=T#> r1c2 = m.R1C0 * tR0C2 + m.R1C1 * tR1C2 + m.R1C2 * tR2C2;
+            <#=T#> r2c0 = m.R2C0 * tR0C0 + m.R2C1 * tR1C0 + m.R2C2 * tR2C0;
+            <#=T#> r2c1 = m.R2C0 * tR0C1 + m.R2C1 * tR1C1 + m.R2C2 * tR2C1;
+            <#=T#> r2c2 = m.R2C0 * tR0C2 + m.R2C1 * tR1C2 + m.R2C2 * tR2C2;
+            <#=T#> r3c0 = m.R3C0 * tR0C0 + m.R3C1 * tR1C0 + m.R3C2 * tR2C0;
+            <#=T#> r3c1 = m.R3C0 * tR0C1 + m.R3C1 * tR1C1 + m.R3C2 * tR2C1;
+            <#=T#> r3c2 = m.R3C0 * tR0C2 + m.R3C1 * tR1C2 + m.R3C2 * tR2C2;
+            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = m.R0C3;
+            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = m.R1C3;
+            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = m.R2C3;
+            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = m.R3C3; 
+        }
+
+        public static void Transform (ref Matrix44 matrix, ref Vector3 vector, out Vector3 result) {
+            <#=T#> x = (vector.X * matrix.R0C0) + (vector.Y * matrix.R1C0) + (vector.Z * matrix.R2C0) + matrix.R3C0;
+            <#=T#> y = (vector.X * matrix.R0C1) + (vector.Y * matrix.R1C1) + (vector.Z * matrix.R2C1) + matrix.R3C1;
+            <#=T#> z = (vector.X * matrix.R0C2) + (vector.Y * matrix.R1C2) + (vector.Z * matrix.R2C2) + matrix.R3C2;
+            <#=T#> w = (vector.X * matrix.R0C3) + (vector.Y * matrix.R1C3) + (vector.Z * matrix.R2C3) + matrix.R3C3;
+            result.X = x / w; result.Y = y / w; result.Z = z / w;
+        }
+
+        public static void Transform (ref Matrix44 matrix, ref Vector4 vector, out Vector4 result) {
+            <#=T#> x = (vector.X * matrix.R0C0) + (vector.Y * matrix.R1C0) + (vector.Z * matrix.R2C0) + (vector.W * matrix.R3C0);
+            <#=T#> y = (vector.X * matrix.R0C1) + (vector.Y * matrix.R1C1) + (vector.Z * matrix.R2C1) + (vector.W * matrix.R3C1);
+            <#=T#> z = (vector.X * matrix.R0C2) + (vector.Y * matrix.R1C2) + (vector.Z * matrix.R2C2) + (vector.W * matrix.R3C2);
+            <#=T#> w = (vector.X * matrix.R0C3) + (vector.Y * matrix.R1C3) + (vector.Z * matrix.R2C3) + (vector.W * matrix.R3C3);
+            result.X = x; result.Y = y; result.Z = z; result.W = w;
+        }
+
+#if (FUNCTION_VARIANTS)
+        public <#=T#>   Determinant ()                    { <#=T#> result; Determinant (ref this, out result); return result; }
+        public Matrix44 Transpose   ()                    { Transpose (ref this, out this); return this; }
+        public Matrix44 Invert      ()                    { Invert (ref this, out this); return this; }
+        public Matrix44 Transform   (Quaternion rotation) { Matrix44 result; Transform (ref this, ref rotation, out result); return result; }
+        public Vector3  Transform   (Vector3 v)           { Vector3 result; Transform (ref this, ref v, out result); return result; } 
+        public Vector4  Transform   (Vector4 v)           { Vector4 result; Transform (ref this, ref v, out result); return result; } 
+
+        public static <#=T#>   Determinant (Matrix44 matrix)                      { <#=T#> result; Determinant (ref matrix, out result); return result; }
+        public static Matrix44 Transpose   (Matrix44 input)                       { Matrix44 result; Transpose (ref input, out result); return result; }
+        public static Matrix44 Invert      (Matrix44 matrix)                      { Matrix44 result; Invert (ref matrix, out result); return result; }
+        public static Matrix44 Transform   (Matrix44 matrix, Quaternion rotation) { Matrix44 result; Transform (ref matrix, ref rotation, out result); return result; }
+        public static Vector3  Transform   (Matrix44 matrix, Vector3 v)           { Vector3 result; Transform (ref matrix, ref v, out result); return result; } 
+        public static Vector4  Transform   (Matrix44 matrix, Vector4 v)           { Vector4 result; Transform (ref matrix, ref v, out result); return result; } 
+#endif
+
+        // Creation //--------------------------------------------------------//
+
+        public static void CreateTranslation (ref Vector3 position, out Matrix44 result) {
+            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
+            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
+            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = 1;          result.R2C3 = 0;
+            result.R3C0 = position.X; result.R3C1 = position.Y; result.R3C2 = position.Z; result.R3C3 = 1;
+        }
+
+        public static void CreateTranslation (ref <#=T#> x, ref <#=T#> y, ref <#=T#> z, out Matrix44 result) {
+            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
+            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
+            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = 1;          result.R2C3 = 0;
+            result.R3C0 = x;          result.R3C1 = y;          result.R3C2 = z;          result.R3C3 = 1;
+        }
+
+        public static void CreateScale (ref Vector3 scale, out Matrix44 result) {
+            result.R0C0 = scale.X;    result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
+            result.R1C0 = 0;          result.R1C1 = scale.Y;    result.R1C2 = 0;          result.R1C3 = 0;
+            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = scale.Z;    result.R2C3 = 0;
+            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        }
+
+        public static void CreateScale (ref <#=T#> x, ref <#=T#> y, ref <#=T#> z, out Matrix44 result) {
+            result.R0C0 = x;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
+            result.R1C0 = 0;          result.R1C1 = y;          result.R1C2 = 0;          result.R1C3 = 0;
+            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = z;          result.R2C3 = 0;
+            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        }
+
+        public static void CreateScale (ref <#=T#> scale, out Matrix44 result) {
+            result.R0C0 = scale;      result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
+            result.R1C0 = 0;          result.R1C1 = scale;      result.R1C2 = 0;          result.R1C3 = 0;
+            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = scale;      result.R2C3 = 0;
+            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        }
+
+        public static void CreateRotationX (ref <#=T#> radians, out Matrix44 result) {
+            <#=T#> cos = Maths.Cos (radians), sin = Maths.Sin (radians);
+            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
+            result.R1C0 = 0;          result.R1C1 = cos;        result.R1C2 = sin;        result.R1C3 = 0;
+            result.R2C0 = 0;          result.R2C1 = -sin;       result.R2C2 = cos;        result.R2C3 = 0;
+            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        }
+
+        public static void CreateRotationY (ref <#=T#> radians, out Matrix44 result) {
+            <#=T#> cos = Maths.Cos (radians), sin = Maths.Sin (radians);
+            result.R0C0 = cos;        result.R0C1 = 0;          result.R0C2 = -sin;       result.R0C3 = 0;
+            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
+            result.R2C0 = sin;        result.R2C1 = 0;          result.R2C2 = cos;        result.R2C3 = 0;
+            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        }
+
+        public static void CreateRotationZ (ref <#=T#> radians, out Matrix44 result) {
+            <#=T#> cos = Maths.Cos (radians), sin = Maths.Sin (radians);
+            result.R0C0 = cos;       result.R0C1 = sin;         result.R0C2 = 0;          result.R0C3 = 0;
+            result.R1C0 = -sin;      result.R1C1 = cos;         result.R1C2 = 0;          result.R1C3 = 0;
+            result.R2C0 = 0;         result.R2C1 = 0;           result.R2C2 = 1;          result.R2C3 = 0;
+            result.R3C0 = 0;         result.R3C1 = 0;           result.R3C2 = 0;          result.R3C3 = 1;
+        }
+
+        public static void CreateFromAxisAngle (ref Vector3 axis, ref <#=T#> angle, out Matrix44 result) {
+            <#=T#> x = axis.X, y = axis.Y, z = axis.Z;
+            <#=T#> sin = Maths.Sin (angle), cos = Maths.Cos (angle);
+            <#=T#> xx = x * x, yy = y * y, zz = z * z;
+            <#=T#> xy = x * y, xz = x * z, yz = y * z;
+            result.R0C0 = xx + (cos * (1 - xx));       result.R0C1 = xy - (cos * xy) + (sin * z); result.R0C2 = xz - (cos * xz) - (sin * y); result.R0C3 = 0;
+            result.R1C0 = xy - (cos * xy) - (sin * z); result.R1C1 = yy + (cos * (1 - yy));       result.R1C2 = yz - (cos * yz) + (sin * x); result.R1C3 = 0;
+            result.R2C0 = xz - (cos * xz) + (sin * y); result.R2C1 = yz - (cos * yz) - (sin * x); result.R2C2 = zz + (cos * (1 - zz));       result.R2C3 = 0;
+            result.R3C0 = 0;                           result.R3C1 = 0;                           result.R3C2 = 0;                           result.R3C3 = 1;
+        }
+
+        // Axes must be pair-wise perpendicular and have unit length.
+        public static void CreateFromCartesianAxes (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result) {
+            result.R0C0 = right.X;    result.R0C1 = right.Y;    result.R0C2 = right.Z;    result.R0C3 = 0;
+            result.R1C0 = up.X;       result.R1C1 = up.Y;       result.R1C2 = up.Z;       result.R1C3 = 0;
+            result.R2C0 = backward.X; result.R2C1 = backward.Y; result.R2C2 = backward.Z; result.R2C3 = 0;
+            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        }
+
+        public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result) {
+            Vector3 backward; Vector3.Negate (ref forward, out backward); Vector3.Normalise (ref backward, out backward);
+            Vector3 right; Vector3.Cross (ref up, ref backward, out right); Vector3.Normalise (ref right, out right);
+            Vector3 finalUp; Vector3.Cross (ref right, ref backward, out finalUp); Vector3.Normalise (ref finalUp, out finalUp);
+            result.R0C0 = right.X;    result.R0C1 = right.Y;    result.R0C2 = right.Z;    result.R0C3 = 0;
+            result.R1C0 = finalUp.X;  result.R1C1 = finalUp.Y;  result.R1C2 = finalUp.Z;  result.R1C3 = 0;
+            result.R2C0 = backward.X; result.R2C1 = backward.Y; result.R2C2 = backward.Z; result.R2C3 = 0;
+            result.R3C0 = position.X; result.R3C1 = position.Y; result.R3C2 = position.Z; result.R3C3 = 1;
+        }
+
+        // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
+        public static void CreateFromQuaternion (ref Quaternion q, out Matrix44 result) {
+            Boolean qIsUnit; Quaternion.IsUnit (ref q, out qIsUnit); Debug.Assert (qIsUnit);
+            <#=T#> twoI = q.I + q.I, twoJ = q.J + q.J, twoK = q.K + q.K;
+            <#=T#> twoUI = q.U * twoI, twoUJ = q.U * twoJ, twoUK = q.U * twoK;
+            <#=T#> twoII = q.I * twoI, twoIJ = q.I * twoJ, twoIK = q.I * twoK;
+            <#=T#> twoJJ = q.J * twoJ, twoJK = q.J * twoK, twoKK = q.K * twoK;
+            result.R0C0 = 1 - twoJJ - twoKK; result.R1C0 = twoIJ - twoUK;     result.R2C0 = twoIK + twoUJ;     result.R3C0 = 0;
+            result.R0C1 = twoIJ + twoUK;     result.R1C1 = 1 - twoII - twoKK; result.R2C1 = twoJK - twoUI;     result.R3C1 = 0;
+            result.R0C2 = twoIK - twoUJ;     result.R1C2 = twoJK + twoUI;     result.R2C2 = 1 - twoII - twoJJ; result.R3C2 = 0;
+            result.R0C3 = 0;                 result.R1C3 = 0;                 result.R2C3 = 0;                 result.R3C3 = 1;
+        }
+
+        // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
+        public static void CreateFromYawPitchRoll (ref <#=T#> yaw, ref <#=T#> pitch, ref <#=T#> roll, out Matrix44 result) {
+            <#=T#> cy = Maths.Cos (yaw), sy = Maths.Sin (yaw);
+            <#=T#> cx = Maths.Cos (pitch), sx = Maths.Sin (pitch);
+            <#=T#> cz = Maths.Cos (roll), sz = Maths.Sin (roll);
+            result.R0C0 =  cz*cy+sz*sx*sy; result.R0C1 =  sz*cx; result.R0C2 = -cz*sy+sz*sx*cy; result.R0C3 = 0;
+            result.R1C0 = -sz*cy+cz*sx*sy; result.R1C1 =  cz*cx; result.R1C2 = -cz*sy+sz*sx*cy; result.R1C3 = 0;
+            result.R2C0 =  cx*sy;          result.R2C1 = -sx;    result.R2C2 =  cx*cy;          result.R2C3 = 0;
+            result.R3C0 = 0;               result.R3C1 = 0;      result.R3C2 = 0;               result.R3C3 = 1;
+        }
+
+        // http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+        public static void CreatePerspectiveFieldOfView (ref <#=T#> fieldOfView, ref <#=T#> aspectRatio, ref <#=T#> nearPlaneDistance, ref <#=T#> farPlaneDistance, out Matrix44 result) {
+            Debug.Assert (fieldOfView > 0 && fieldOfView < Maths.Pi);
+            Debug.Assert (nearPlaneDistance > 0);
+            Debug.Assert (farPlaneDistance > 0);
+            Debug.Assert (nearPlaneDistance < farPlaneDistance);
+            <#=T#> yScale = (<#=T#>) 1 / (Maths.Tan (fieldOfView * Maths.Half));
+            <#=T#> xScale = yScale / aspectRatio;
+            <#=T#> f1 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            <#=T#> f2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R0C0 = xScale; result.R0C1 = 0;      result.R0C2 = 0;  result.R0C3 =  0;
+            result.R1C0 = 0;      result.R1C1 = yScale; result.R1C2 = 0;  result.R1C3 =  0;
+            result.R2C0 = 0;      result.R2C1 = 0;      result.R2C2 = f1; result.R2C3 = -1;
+            result.R3C0 = 0;      result.R3C1 = 0;      result.R3C2 = f2; result.R3C3 =  0;
+        }
+
+        // http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+        public static void CreatePerspective (ref <#=T#> width, ref <#=T#> height, ref <#=T#> nearPlaneDistance, ref <#=T#> farPlaneDistance, out Matrix44 result) {
+            Debug.Assert (nearPlaneDistance > 0);
+            Debug.Assert (farPlaneDistance > 0);
+            Debug.Assert (nearPlaneDistance < farPlaneDistance);
+            result.R0C0 = (nearPlaneDistance * 2) / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = 0;
+            result.R1C1 = (nearPlaneDistance * 2) / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = 0;
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C0 = result.R2C1 = 0;
+            result.R2C3 = -1;
+            result.R3C0 = result.R3C1 = result.R3C3 = 0;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+        }
+
+        // http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+        public static void CreatePerspectiveOffCenter (ref <#=T#> left, ref <#=T#> right, ref <#=T#> bottom, ref <#=T#> top, ref <#=T#> nearPlaneDistance, ref <#=T#> farPlaneDistance, out Matrix44 result) {
+            Debug.Assert (nearPlaneDistance > 0);
+            Debug.Assert (farPlaneDistance > 0);
+            Debug.Assert (nearPlaneDistance < farPlaneDistance);
+            result.R0C0 = (nearPlaneDistance * 2) / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = 0;
+            result.R1C1 = (nearPlaneDistance * 2) / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = 0;
+            result.R2C0 = (left + right) / (right - left);
+            result.R2C1 = (top + bottom) / (top - bottom);
+            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            result.R2C3 = -1;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            result.R3C0 = result.R3C1 = result.R3C3 = 0;
+        }
+
+        // http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+        public static void CreateOrthographic (ref <#=T#> width, ref <#=T#> height, ref <#=T#> zNearPlane, ref <#=T#> zFarPlane, out Matrix44 result) {
+            result.R0C0 = 2 / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = 0;
+            result.R1C1 = 2 / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = 0;
+            result.R2C2 = 1 / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = 0;
+            result.R3C0 = result.R3C1 = 0;
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = 1;
+        }
+
+        // http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+        public static void CreateOrthographicOffCenter (ref <#=T#> left, ref <#=T#> right, ref <#=T#> bottom, ref <#=T#> top, ref <#=T#> zNearPlane, ref <#=T#> zFarPlane, out Matrix44 result) {
+            result.R0C0 = 2 / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = 0;
+            result.R1C1 = 2 / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = 0;
+            result.R2C2 = 1 / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = 0;
+            result.R3C0 = (left + right) / (left - right);
+            result.R3C1 = (top + bottom) / (bottom - top);
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = 1;
+        }
+
+        // http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+        public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 result) {
+            Vector3 forward; Vector3.Subtract (ref cameraPosition, ref cameraTarget, out forward); Vector3.Normalise (ref forward, out forward);
+            Vector3 right; Vector3.Cross (ref cameraUpVector, ref forward, out right); Vector3.Normalise (ref right, out right);
+            Vector3 up; Vector3.Cross (ref forward, ref right, out up); Vector3.Normalise (ref up, out up);
+            <#=T#> a; Vector3.Dot (ref right, ref cameraPosition, out a);
+            <#=T#> b; Vector3.Dot (ref up, ref cameraPosition, out b);
+            <#=T#> c; Vector3.Dot (ref forward, ref cameraPosition, out c);
+            result.R0C0 = right.X;    result.R0C1 = up.X;       result.R0C2 = forward.X;  result.R0C3 = 0;
+            result.R1C0 = right.Y;    result.R1C1 = up.Y;       result.R1C2 = forward.Y;  result.R1C3 = 0;
+            result.R2C0 = right.Z;    result.R2C1 = up.Z;       result.R2C2 = forward.Z;  result.R2C3 = 0;
+            result.R3C0 = -a;         result.R3C1 = -b;         result.R3C2 = -c;         result.R3C3 = 1;
+        }
+
+#if (FUNCTION_VARIANTS)
+        public static Matrix44 CreateTranslation            (<#=T#> xPosition, <#=T#> yPosition, <#=T#> zPosition) { Matrix44 result; CreateTranslation (ref xPosition, ref yPosition, ref zPosition, out result); return result; }
+        public static Matrix44 CreateTranslation            (Vector3 position) { Matrix44 result; CreateTranslation (ref position, out result); return result; }
+        public static Matrix44 CreateScale                  (<#=T#> xScale, <#=T#> yScale, <#=T#> zScale) { Matrix44 result; CreateScale (ref xScale, ref yScale, ref zScale, out result); return result; }
+        public static Matrix44 CreateScale                  (Vector3 scales) { Matrix44 result; CreateScale (ref scales, out result); return result; }
+        public static Matrix44 CreateScale                  (<#=T#> scale) { Matrix44 result; CreateScale (ref scale, out result); return result; }
+        public static Matrix44 CreateRotationX              (<#=T#> radians) { Matrix44 result; CreateRotationX (ref radians, out result); return result; }
+        public static Matrix44 CreateRotationY              (<#=T#> radians) { Matrix44 result; CreateRotationY (ref radians, out result); return result; }
+        public static Matrix44 CreateRotationZ              (<#=T#> radians) { Matrix44 result; CreateRotationZ (ref radians, out result); return result; }
+        public static Matrix44 CreateFromAxisAngle          (Vector3 axis, <#=T#> angle) { Matrix44 result; CreateFromAxisAngle (ref axis, ref angle, out result); return result; }
+        public static Matrix44 CreateFromCartesianAxes      (Vector3 right, Vector3 up, Vector3 backward) { Matrix44 result; CreateFromCartesianAxes (ref right, ref up, ref backward, out result); return result; }
+        public static Matrix44 CreateWorld                  (Vector3 position, Vector3 forward, Vector3 up) { Matrix44 result; CreateWorld (ref position, ref forward, ref up, out result); return result; }
+        public static Matrix44 CreateFromQuaternion         (Quaternion quaternion) { Matrix44 result; CreateFromQuaternion (ref quaternion, out result); return result; }
+        public static Matrix44 CreateFromYawPitchRoll       (<#=T#> yaw, <#=T#> pitch, <#=T#> roll) { Matrix44 result; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result); return result; }
+        public static Matrix44 CreatePerspectiveFieldOfView (<#=T#> fieldOfView,  <#=T#> aspectRatio, <#=T#> nearPlane, <#=T#> farPlane) { Matrix44 result; CreatePerspectiveFieldOfView (ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane, out result); return result; }
+        public static Matrix44 CreatePerspective            (<#=T#> width, <#=T#> height, <#=T#> nearPlane, <#=T#> farPlane) { Matrix44 result; CreatePerspective (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
+        public static Matrix44 CreatePerspectiveOffCenter   (<#=T#> left, <#=T#> right, <#=T#> bottom, <#=T#> top, <#=T#> nearPlane, <#=T#> farPlane) { Matrix44 result; CreatePerspectiveOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
+        public static Matrix44 CreateOrthographic           (<#=T#> width, <#=T#> height, <#=T#> nearPlane, <#=T#> farPlane) { Matrix44 result; CreateOrthographic (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
+        public static Matrix44 CreateOrthographicOffCenter  (<#=T#> left, <#=T#> right, <#=T#> bottom, <#=T#> top, <#=T#> nearPlane, <#=T#> farPlane) { Matrix44 result; CreateOrthographicOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
+        public static Matrix44 CreateLookAt                 (Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) { Matrix44 result; CreateLookAt (ref cameraPosition, ref cameraTarget, ref cameraUpVector, out result); return result; }
+#endif
+
+    }
+

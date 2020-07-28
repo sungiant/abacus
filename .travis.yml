@@ -1,0 +1,27 @@
+language: csharp
+sudo: false
+mono:
+  - latest
+branches:
+  except:
+    - gh-pages
+env:
+  global:
+    - GH_REPO_NAME: abacus
+    - GH_REPO_REF: github.com/sungiant/abacus.git
+addons:
+  apt:
+    packages:
+      - doxygen
+      - doxygen-doc
+      - doxygen-gui
+      - graphviz
+before_script:
+  - sh abacus.sh --nu
+  - sh abacus.sh --clean
+  - sh abacus.sh --gen
+script:
+  - sh abacus.sh --build
+  - sh abacus.sh --test
+after_script:
+  - sh abacus.sh --docs

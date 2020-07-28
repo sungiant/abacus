@@ -1,0 +1,40 @@
+    [TestFixture]
+    public class Vector4Tests {
+        static readonly Random rand = new Random(0);
+
+        static <#=T#> GetNextRandom<#=T#> () {
+            <#=T#> randomValue = (<#=T#>) rand.NextDouble();
+            <#=T#> multiplier = 1000;
+            randomValue *= multiplier;
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+            if (randomBoolean) randomValue = 0 - randomValue;
+            return randomValue;
+        }
+
+        static Vector4 GetNextRandomVector4 () {
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
+            <#=T#> c = GetNextRandom<#=T#>();
+            <#=T#> d = GetNextRandom<#=T#>();
+            return new Vector4(a, b, c, d);
+        }
+
+        static void AssertEqualWithinReason (Vector4 a, Vector4 b) {
+            Assert.That(a.X, Is.EqualTo(b.X).Within(MathsTests.TestTolerance));
+            Assert.That(a.Y, Is.EqualTo(b.Y).Within(MathsTests.TestTolerance));
+            Assert.That(a.Z, Is.EqualTo(b.Z).Within(MathsTests.TestTolerance));
+            Assert.That(a.W, Is.EqualTo(b.W).Within(MathsTests.TestTolerance));
+        }
+
+        [Test]
+        public void Test_GetHashCode () {
+            var hs1 = new HashSet<Vector4>();
+            var hs2 = new HashSet<Int32>();
+            for(Int32 i = 0; i < 10000; ++i) {
+                var a = GetNextRandomVector4();
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+    }

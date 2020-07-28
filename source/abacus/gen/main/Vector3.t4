@@ -1,0 +1,282 @@
+﻿    /// <summary>
+    /// <#=T#> precision Vector3.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector3 : IEquatable<Vector3> {
+        public <#=T#> X, Y, Z;
+
+        public Vector3 (<#=T#> x, <#=T#> y, <#=T#> z) { X = x; Y = y; Z = z; }
+
+        public Vector3 (Vector2 value, <#=T#> z) { X = value.X; Y = value.Y; Z = z; }
+
+        public override String ToString () { return string.Format ("(X:{0}, Y:{1}, Z:{2})", X, Y, Z); }
+
+        public override Int32 GetHashCode () {
+            return X.GetHashCode () ^ Y.GetHashCode ().ShiftAndWrap (2) ^ Z.GetHashCode ().ShiftAndWrap (4);
+        }
+
+        public override Boolean Equals (Object obj) { return (obj is Vector3) ? this.Equals ((Vector3) obj) : false; }
+
+        public Boolean Equals (Vector3 other) {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        // Constants //-------------------------------------------------------//
+
+        static Vector3 zero, one;
+        static Vector3 unitX, unitY, unitZ;
+        static Vector3 up, down, right, left, forward, backward;
+
+        static Vector3 () {
+            zero =      new Vector3 ();
+            one =       new Vector3 ( 1,  1,  1);
+            unitX =     new Vector3 ( 1,  0,  0);
+            unitY =     new Vector3 ( 0,  1,  0);
+            unitZ =     new Vector3 ( 0,  0,  1);
+            up =        new Vector3 ( 0,  1,  0);
+            down =      new Vector3 ( 0, -1,  0);
+            right =     new Vector3 ( 1,  0,  0);
+            left =      new Vector3 (-1,  0,  0);
+            forward =   new Vector3 ( 0,  0, -1);
+            backward =  new Vector3 ( 0,  0,  1);
+        }
+        
+        public static Vector3 Zero     { get { return zero; } }
+        public static Vector3 One      { get { return one; } }
+        public static Vector3 UnitX    { get { return unitX; } }
+        public static Vector3 UnitY    { get { return unitY; } }
+        public static Vector3 UnitZ    { get { return unitZ; } }
+        public static Vector3 Up       { get { return up; } }
+        public static Vector3 Down     { get { return down; } }
+        public static Vector3 Right    { get { return right; } }
+        public static Vector3 Left     { get { return left; } }
+        public static Vector3 Forward  { get { return forward; } }
+        public static Vector3 Backward { get { return backward; } }
+
+        // Operators //-------------------------------------------------------//
+
+        public static void Equals (ref Vector3 a, ref Vector3 b, out Boolean result) {
+            result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z);
+        }
+
+        public static void Add (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+            result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z;
+        }
+
+        public static void Subtract (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+            result.X = a.X - b.X; result.Y = a.Y - b.Y; result.Z = a.Z - b.Z;
+        }
+
+        public static void Negate (ref Vector3 value, out Vector3 result) {
+            result.X = -value.X; result.Y = -value.Y; result.Z = -value.Z;
+        }
+
+        public static void Multiply (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+            result.X = a.X * b.X; result.Y = a.Y * b.Y; result.Z = a.Z * b.Z;
+        }
+
+        public static void Multiply (ref Vector3 a, ref <#=T#> f, out Vector3 result) {
+            result.X = a.X * f; result.Y = a.Y * f; result.Z = a.Z * f;
+        }
+
+        public static void Divide (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+            result.X = a.X / b.X; result.Y = a.Y / b.Y; result.Z = a.Z / b.Z;
+        }
+
+        public static void Divide (ref Vector3 a, ref <#=T#> d, out Vector3 result) {
+            <#=T#> num = 1 / d;
+            result.X = a.X * num; result.Y = a.Y * num; result.Z = a.Z * num;
+        }
+
+#if (FUNCTION_VARIANTS)
+        public static Boolean operator == (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
+        public static Boolean operator != (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
+        public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 result; Add      (ref a, ref b, out result); return  result; }
+        public static Vector3 operator  - (Vector3 a, Vector3 b) { Vector3 result; Subtract (ref a, ref b, out result); return  result; }
+        public static Vector3 operator  - (Vector3 v)            { Vector3 result; Negate   (ref v,        out result); return  result; }
+        public static Vector3 operator  * (Vector3 a, Vector3 b) { Vector3 result; Multiply (ref a, ref b, out result); return  result; }
+        public static Vector3 operator  * (Vector3 v, <#=T#> f)  { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Vector3 operator  * (<#=T#> f,  Vector3 v) { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Vector3 operator  / (Vector3 a, Vector3 b) { Vector3 result; Divide   (ref a, ref b, out result); return  result; }
+        public static Vector3 operator  / (Vector3 a, <#=T#> d)  { Vector3 result; Divide   (ref a, ref d, out result); return  result; }
+        public static Vector3 operator  ^ (Vector3 a, Vector3 d) { Vector3 result; Cross    (ref a, ref d, out result); return  result; }
+        public static <#=T#>  operator  | (Vector3 a, Vector3 d) { <#=T#>  result; Dot      (ref a, ref d, out result); return  result; }
+        public static Vector3 operator  ~ (Vector3 v)            { Vector3 result; Normalise(ref v,        out result); return  result; }
+
+        public static Boolean Equals      (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
+        public static Vector3 Add         (Vector3 a, Vector3 b) { Vector3 result; Add      (ref a, ref b, out result); return  result; }
+        public static Vector3 Subtract    (Vector3 a, Vector3 b) { Vector3 result; Subtract (ref a, ref b, out result); return  result; }
+        public static Vector3 Negate      (Vector3 v)            { Vector3 result; Negate   (ref v,        out result); return  result; }
+        public static Vector3 Multiply    (Vector3 a, Vector3 b) { Vector3 result; Multiply (ref a, ref b, out result); return  result; }
+        public static Vector3 Multiply    (Vector3 v, <#=T#> f)  { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Vector3 Divide      (Vector3 a, Vector3 b) { Vector3 result; Divide   (ref a, ref b, out result); return  result; }
+        public static Vector3 Divide      (Vector3 a, <#=T#> d)  { Vector3 result; Divide   (ref a, ref d, out result); return  result; }
+#endif
+
+        // Utilities //-------------------------------------------------------//
+
+        public static void Min (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+            result.X = (a.X < b.X) ? a.X : b.X; result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+            result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+        }
+
+        public static void Max (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+            result.X = (a.X > b.X) ? a.X : b.X; result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+            result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+        }
+
+        public static void Clamp (ref Vector3 v, ref Vector3 min, ref Vector3 max, out Vector3 result) {
+            <#=T#> x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
+            <#=T#> y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
+            <#=T#> z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; result.Z = z;
+        }
+
+        public static void Lerp (ref Vector3 a, ref Vector3 b, ref <#=T#> amount, out Vector3 result){
+            Debug.Assert (amount >= 0 && amount <= 1);
+            result.X = a.X + ((b.X - a.X) * amount); result.Y = a.Y + ((b.Y - a.Y) * amount);
+            result.Z = a.Z + ((b.Z - a.Z) * amount);
+        }
+
+        public static void IsUnit (ref Vector3 vector, out Boolean result) {
+            result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
+        }
+
+#if (FUNCTION_VARIANTS)
+        public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        public Vector3 Clamp         (Vector3 min, Vector3 max) { Clamp (ref this, ref min, ref max, out this); return this; }
+
+        public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 result; Min (ref a, ref b, out result); return result; }
+        public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 result; Max (ref a, ref b, out result); return result; }
+        public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 result; Clamp (ref v, ref min, ref max, out result); return result; }
+        public static Vector3 Lerp   (Vector3 a, Vector3 b, ref <#=T#> amount) { Vector3 result; Lerp (ref a, ref b, ref amount, out result); return result; }
+        public static Boolean IsUnit (Vector3 v) { Boolean result; IsUnit (ref v, out result); return result; }
+
+#endif
+
+        // Splines //---------------------------------------------------------//
+
+        public static void SmoothStep (ref Vector3 vector1, ref Vector3 vector2, ref <#=T#> amount, out Vector3 result) {
+            Debug.Assert (amount >= 0 && amount <= 1);
+            amount = (amount * amount) * (3 - (2 * amount));
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
+        }
+
+        public static void CatmullRom (ref Vector3 vector1, ref Vector3 vector2, ref Vector3 vector3, ref Vector3 vector4, ref <#=T#> amount, out Vector3 result) {
+            Debug.Assert (amount >= 0 && amount <= 1);
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
+            result.X  = 2 * vector2.X;
+            result.X += (vector3.X - vector1.X) * amount;
+            result.X += ((2 * vector1.X) + (4 * vector3.X) - (5 * vector2.X) - (vector4.X)) * squared;
+            result.X += ((3 * vector2.X) + (vector4.X) - (vector1.X)  - (3 * vector3.X)) * cubed;
+            result.X *= Maths.Half;
+            result.Y  = 2 * vector2.Y;
+            result.Y += (vector3.Y - vector1.Y) * amount;
+            result.Y += ((2 * vector1.Y) + (4 * vector3.Y) - (5 * vector2.Y) - (vector4.Y)) * squared;
+            result.Y += ((3 * vector2.Y) + (vector4.Y) - (vector1.Y) - (3 * vector3.Y)) * cubed;
+            result.Y *= Maths.Half;
+            result.Z  = 2 * vector2.Z;
+            result.Z += (vector3.Z - vector1.Z) * amount;
+            result.Z += ((2 * vector1.Z) + (4 * vector3.Z) - (5 * vector2.Z) - (vector4.Z)) * squared;
+            result.Z += ((3 * vector2.Z) + (vector4.Z) - (vector1.Z) - (3 * vector3.Z)) * cubed;
+            result.Z *= Maths.Half;
+        }
+
+        public static void Hermite (ref Vector3 vector1, ref Vector3 tangent1, ref Vector3 vector2, ref Vector3 tangent2, ref <#=T#> amount, out Vector3 result) {
+            Debug.Assert (amount >= 0 && amount <= 1);
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector3.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector3.IsUnit (ref tangent2, out tangent2IsUnit);
+            Debug.Assert (tangent1IsUnit && tangent2IsUnit);
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
+            <#=T#> a = ((cubed * 2) - (squared * 3)) + 1;
+            <#=T#> b = (-cubed * 2) + (squared * 3);
+            <#=T#> c = (cubed - (squared * 2)) + amount;
+            <#=T#> d = cubed - squared;
+            result.X = (vector1.X * a) + (vector2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            result.Y = (vector1.Y * a) + (vector2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            result.Z = (vector1.Z * a) + (vector2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+        }
+
+#if (FUNCTION_VARIANTS)
+        public static Vector3 SmoothStep (Vector3 vector1, Vector3 vector2, ref <#=T#> amount) { Vector3 result; SmoothStep (ref vector1, ref vector2, ref amount, out result); return result; }
+        public static Vector3 CatmullRom (Vector3 vector1, Vector3 vector2, Vector3 vector3, Vector3 vector4, ref <#=T#> amount) { Vector3 result; CatmullRom (ref vector1, ref vector2, ref vector3, ref vector4, ref amount, out result); return result; }
+        public static Vector3 Hermite    (Vector3 vector1, Vector3 tangent1, Vector3 vector2, Vector3 tangent2, ref <#=T#> amount) { Vector3 result; Hermite (ref vector1, ref tangent1, ref vector2, ref tangent2, ref amount, out result); return result; }
+#endif
+
+        // Maths //-----------------------------------------------------------//
+
+        public static void Distance (ref Vector3 a, ref Vector3 b, out <#=T#> result) {
+            <#=T#> dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z;
+            <#=T#> lengthSquared = (dx * dx) + (dy * dy) + (dz * dz);
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        public static void DistanceSquared (ref Vector3 a, ref Vector3 b, out <#=T#> result) {
+            <#=T#> dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z;
+            result = (dx * dx) + (dy * dy) + (dz * dz);
+        }
+
+        public static void Dot (ref Vector3 a, ref Vector3 b, out <#=T#> result) {
+            result = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+        }
+
+        public static void Normalise (ref Vector3 vector, out Vector3 result) {
+            <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
+            Debug.Assert (lengthSquared > Maths.Epsilon && !<#=T#>.IsInfinity(lengthSquared));
+            <#=T#> multiplier = 1 / Maths.Sqrt (lengthSquared);
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
+        }
+
+        public static void Cross (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+            <#=T#> x = (a.Y * b.Z) - (a.Z * b.Y);
+            <#=T#> y = (a.Z * b.X) - (a.X * b.Z);
+            <#=T#> z = (a.X * b.Y) - (a.Y * b.X);
+            result.X = x; result.Y = y; result.Z = z;
+        }
+
+        public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result) {
+            Boolean normalIsUnit; Vector3.IsUnit (ref normal, out normalIsUnit);
+            Debug.Assert (normalIsUnit);
+            <#=T#> t = (vector.X * normal.X) + (vector.Y * normal.Y) + (vector.Z * normal.Z);
+            <#=T#> x = vector.X - ((2 * t) * normal.X);
+            <#=T#> y = vector.Y - ((2 * t) * normal.Y);
+            <#=T#> z = vector.Z - ((2 * t) * normal.Z);
+            result.X = x; result.Y = y; result.Z = z;
+        }
+
+        public static void Length (ref Vector3 vector, out <#=T#> result) {
+            <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        public static void LengthSquared (ref Vector3 vector, out <#=T#> result) {
+            result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
+        }
+
+#if (FUNCTION_VARIANTS)
+        public <#=T#>  Length        () { <#=T#> result; Length (ref this, out result); return result; }
+        public <#=T#>  LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
+        public Vector3 Normalise     () { Normalise (ref this, out this); return this; }
+
+        public static <#=T#>  Distance        (Vector3 a, Vector3 b) { <#=T#> result; Distance (ref a, ref b, out result); return result; } 
+        public static <#=T#>  DistanceSquared (Vector3 a, Vector3 b) { <#=T#> result; DistanceSquared (ref a, ref b, out result); return result; } 
+        public static <#=T#>  Dot             (Vector3 a, Vector3 b) { <#=T#> result; Dot (ref a, ref b, out result); return result; } 
+        public static Vector3 Cross           (Vector3 a, Vector3 b) { Vector3 result; Cross (ref a, ref b, out result); return result; } 
+        public static Vector3 Normalise       (Vector3 v) { Vector3 result; Normalise (ref v, out result); return result; }
+         
+        public static Vector3 Reflect         (Vector3 v, Vector3 normal) { Vector3 result; Reflect (ref v, ref normal, out result); return result; } 
+        public static <#=T#>  Length          (Vector3 v) { <#=T#> result; Length (ref v, out result); return result; } 
+        public static <#=T#>  LengthSquared   (Vector3 v) { <#=T#> result; LengthSquared (ref v, out result); return result; }
+#endif
+
+    }
+

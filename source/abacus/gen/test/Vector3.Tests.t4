@@ -1,0 +1,38 @@
+    [TestFixture]
+    public class Vector3Tests {
+        static readonly Random rand = new Random(0);
+
+        static <#=T#> GetNextRandom<#=T#> () {
+            <#=T#> randomValue = (<#=T#>) rand.NextDouble();
+            <#=T#> multiplier = 1000;
+            randomValue *= multiplier;
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+            if (randomBoolean) randomValue = 0 - randomValue;
+            return randomValue;
+        }
+
+        static Vector3 GetNextRandomVector3 () {
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
+            <#=T#> c = GetNextRandom<#=T#>();
+            return new Vector3(a, b, c);
+        }
+
+        static void AssertEqualWithinReason (Vector3 a, Vector3 b) {
+            Assert.That(a.X, Is.EqualTo(b.X).Within(MathsTests.TestTolerance));
+            Assert.That(a.Y, Is.EqualTo(b.Y).Within(MathsTests.TestTolerance));
+            Assert.That(a.Z, Is.EqualTo(b.Z).Within(MathsTests.TestTolerance));
+        }
+
+        [Test]
+        public void Test_GetHashCode () {
+            var hs1 = new HashSet<Vector3>();
+            var hs2 = new HashSet<Int32>();
+            for(Int32 i = 0; i < 10000; ++i) {
+                var a = GetNextRandomVector3();
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+    }

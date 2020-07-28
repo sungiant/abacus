@@ -1,0 +1,36 @@
+    [TestFixture]
+    public class Vector2Tests {
+        static readonly Random rand = new Random(0);
+
+        static <#=T#> GetNextRandom<#=T#> () {
+            <#=T#> randomValue = (<#=T#>) rand.NextDouble();
+            <#=T#> multiplier = 1000;
+            randomValue *= multiplier;
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+            if (randomBoolean) randomValue = 0 - randomValue;
+            return randomValue;
+        }
+
+        static Vector2 GetNextRandomVector2 () {
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
+            return new Vector2(a, b);
+        }
+
+        static void AssertEqualWithinReason (Vector2 a, Vector2 b) {
+            Assert.That(a.X, Is.EqualTo(b.X).Within(MathsTests.TestTolerance));
+            Assert.That(a.Y, Is.EqualTo(b.Y).Within(MathsTests.TestTolerance));
+        }
+
+        [Test]
+        public void TestMemberFn_GetHashCode_i () {
+            var hs1 = new HashSet<Vector2>();
+            var hs2 = new HashSet<Int32>();
+            for(Int32 i = 0; i < 10000; ++i) {
+                var a = GetNextRandomVector2();
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+    }

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>FUNCTION_VARIANTS;TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <DefineConstants>FUNCTION_VARIANTS;TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\source\abacus\src\main\Abacus.Double.cs">
+      <Link>Abacus.Double.cs</Link>
+    </Compile>
+    <Compile Include="..\source\abacus\src\main\Abacus.Fixed32.cs">
+      <Link>Abacus.Fixed32.cs</Link>
+    </Compile>
+    <Compile Include="..\source\abacus\src\main\Abacus.Fixed64.cs">
+      <Link>Abacus.Fixed64.cs</Link>
+    </Compile>
+    <Compile Include="..\source\abacus\src\main\Abacus.Single.cs">
+      <Link>Abacus.Single.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>
