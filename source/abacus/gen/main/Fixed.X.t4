@@ -79,36 +79,28 @@
 
         public static void Add (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Addition
-            //int16_t q_add_sat(int16_t a, int16_t b)
-            //{
-            //  int16_t result;
-            //  int32_t tmp;
-            //  tmp = (int32_t)a + (int32_t)b;
-            //  if (tmp > 0x7FFF)
-            //    tmp = 0x7FFF;
-            //  if (tmp < -1 * 0x8000)
-            //    tmp = -1 * 0x8000;
-            //  result = (int16_t)tmp;
-            //  return result;
-            //}
-            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>) a.numerator + (<#= ftd.BigTypeName #>) b.numerator;
-            Saturate (ref temp, out result.numerator);
+            <#= ftd.UnderlyingTypeName #> temp = a.numerator + b.numerator;
+            // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
+            int w = (sizeof (<#= ftd.UnderlyingTypeName #>) << 3) - 1;
+            <#= ftd.UnderlyingTypeName #> mask = (~(a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
+            <#= ftd.UnderlyingTypeName #> max_min = (temp >> w) ^ (((<#= ftd.UnderlyingTypeName #>) 1) << w);
+            result.numerator = (~mask & temp) + (mask & max_min);
         }
 
         public static void Subtract (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Subtraction
-            //int16_t q_sub(int16_t a, int16_t b)
-            //{
-            //  return a - b;
-            //}
-            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>) a.numerator - (<#= ftd.BigTypeName #>) b.numerator;
-            Saturate (ref temp, out result.numerator);
+            <#= ftd.UnderlyingTypeName #> temp = a.numerator - b.numerator;
+            // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
+            int w = (sizeof (<#= ftd.UnderlyingTypeName #>) << 3) - 1;
+            <#= ftd.UnderlyingTypeName #> mask = ((a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
+            <#= ftd.UnderlyingTypeName #> max_min = (temp >> w) ^ (((<#= ftd.UnderlyingTypeName #>) 1) << w);
+            result.numerator = (~mask & temp) + (mask & max_min);
         }
 
         public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
-            <#= ftd.BigTypeName #> big_f = (<#= ftd.BigTypeName #>) f.numerator;
-            <#= ftd.BigTypeName #> temp = -big_f;
-            Saturate (ref temp, out result.numerator);
+            result.numerator = (f.numerator == <#= ftd.UnderlyingTypeName #>.MinValue)
+                ? <#= ftd.UnderlyingTypeName #>.MaxValue // overflow case
+                : -f.numerator;
         }
 
         public static void Multiply (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
@@ -200,7 +192,7 @@
             if (f.numerator <= 0) { result = 0; return; }
             U<#= ftd.UnderlyingTypeName #> t, q, b, r;
             r = (U<#= ftd.UnderlyingTypeName #>) f.numerator;
-            b = <#= ftd.SqrtMagic #>;
+            b = <#= ftd.SqrtMagic #>; // http://www.thealmightyguru.com/Pointless/PowersOf2.html
             q = 0;
             while (b >= 256) {
                 t = q + b;

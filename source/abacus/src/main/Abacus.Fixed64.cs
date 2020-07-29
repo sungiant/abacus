@@ -4,7 +4,7 @@
 // │  /  /_\  \| __ \\__  \ _/ ___\|  |  \/  ___/                           │ \\
 // │ /    |    \ \_\ \/ __ \\  \___|  |  /\___ \                            │ \\
 // │ \____|__  /___  (____  /\___  >____//____  >                           │ \\
-// │         \/    \/     \/     \/           \/  v1.0.0                    │ \\
+// │         \/    \/     \/     \/           \/  v1.0.1                    │ \\
 // │                                                                        │ \\
 // │ Fast, efficient, cross platform, cross precision, maths library.       │ \\
 // │                                                                        │ \\
@@ -134,36 +134,28 @@ namespace Abacus.Fixed64Precision
 
         public static void Add (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Addition
-            //int16_t q_add_sat(int16_t a, int16_t b)
-            //{
-            //  int16_t result;
-            //  int32_t tmp;
-            //  tmp = (int32_t)a + (int32_t)b;
-            //  if (tmp > 0x7FFF)
-            //    tmp = 0x7FFF;
-            //  if (tmp < -1 * 0x8000)
-            //    tmp = -1 * 0x8000;
-            //  result = (int16_t)tmp;
-            //  return result;
-            //}
-            BigInteger temp = (BigInteger) a.numerator + (BigInteger) b.numerator;
-            Saturate (ref temp, out result.numerator);
+            Int64 temp = a.numerator + b.numerator;
+            // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
+            int w = (sizeof (Int64) << 3) - 1;
+            Int64 mask = (~(a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
+            Int64 max_min = (temp >> w) ^ (((Int64) 1) << w);
+            result.numerator = (~mask & temp) + (mask & max_min);
         }
 
         public static void Subtract (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Subtraction
-            //int16_t q_sub(int16_t a, int16_t b)
-            //{
-            //  return a - b;
-            //}
-            BigInteger temp = (BigInteger) a.numerator - (BigInteger) b.numerator;
-            Saturate (ref temp, out result.numerator);
+            Int64 temp = a.numerator - b.numerator;
+            // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
+            int w = (sizeof (Int64) << 3) - 1;
+            Int64 mask = ((a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
+            Int64 max_min = (temp >> w) ^ (((Int64) 1) << w);
+            result.numerator = (~mask & temp) + (mask & max_min);
         }
 
         public static void Negate (ref Fixed64 f, out Fixed64 result) {
-            BigInteger big_f = (BigInteger) f.numerator;
-            BigInteger temp = -big_f;
-            Saturate (ref temp, out result.numerator);
+            result.numerator = (f.numerator == Int64.MinValue)
+                ? Int64.MaxValue // overflow case
+                : -f.numerator;
         }
 
         public static void Multiply (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
@@ -255,7 +247,7 @@ namespace Abacus.Fixed64Precision
             if (f.numerator <= 0) { result = 0; return; }
             UInt64 t, q, b, r;
             r = (UInt64) f.numerator;
-            b = 274877906944L;
+            b = 274877906944L; // http://www.thealmightyguru.com/Pointless/PowersOf2.html
             q = 0;
             while (b >= 256) {
                 t = q + b;
