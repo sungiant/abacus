@@ -7,21 +7,21 @@
         public const Byte M = <#= ftd.BitCount - ftd.FractionalBitCount - 1 #>; // number of integer bits
         public const Byte N = <#= ftd.FractionalBitCount #>; // number of fractional bits
 
-        <#= ftd.UnderlyingTypeName #> numerator; // raw integer data
+        <#= ftd.RawTypeName #> numerator; // raw integer data
 
-        const <#= ftd.UnderlyingTypeName #> denominator = (<#= ftd.UnderlyingTypeName #>) 1 << N;
+        const <#= ftd.RawTypeName #> denominator = (<#= ftd.RawTypeName #>) 1 << N;
 
         public static readonly <#= ftd.TypeName #> Epsilon = CreateRaw (10);
         public static readonly <#= ftd.TypeName #> Resolution = CreateRaw (1);
-        public static readonly <#= ftd.TypeName #> MaxValue = CreateRaw (<#= ftd.UnderlyingTypeName #>.MaxValue);
-        public static readonly <#= ftd.TypeName #> MinValue = CreateRaw (<#= ftd.UnderlyingTypeName #>.MinValue);
+        public static readonly <#= ftd.TypeName #> MaxValue = CreateRaw (<#= ftd.RawTypeName #>.MaxValue);
+        public static readonly <#= ftd.TypeName #> MinValue = CreateRaw (<#= ftd.RawTypeName #>.MinValue);
 
-        public <#= ftd.UnderlyingTypeName #> Numerator   { get { return numerator; } set { numerator = value; } }
-        public <#= ftd.UnderlyingTypeName #> Denominator { get { return denominator; } }
-        public <#= ftd.UnderlyingTypeName #> High        { get { return numerator >> N; } }
-        public <#= ftd.UnderlyingTypeName #> Low         { get { return numerator - (High << N); } }
+        public <#= ftd.RawTypeName #> Numerator   { get { return numerator; } set { numerator = value; } }
+        public <#= ftd.RawTypeName #> Denominator { get { return denominator; } }
+        public <#= ftd.RawTypeName #> High        { get { return numerator >> N; } }
+        public <#= ftd.RawTypeName #> Low         { get { return numerator - (High << N); } }
 
-        public static <#= ftd.TypeName #> CreateRaw (<#= ftd.UnderlyingTypeName #> value) { <#= ftd.TypeName #> f; f.numerator = value; return f; }
+        public static <#= ftd.TypeName #> CreateRaw (<#= ftd.RawTypeName #> value) { <#= ftd.TypeName #> f; f.numerator = value; return f; }
 
         public override Boolean Equals(object obj) {
             if (obj is <#= ftd.TypeName #>)
@@ -53,11 +53,11 @@
         // Conversions //-----------------------------------------------------//
 
         public static void CreateFrom (Int32 value, out <#= ftd.TypeName #> result) {
-            result.numerator = (<#= ftd.UnderlyingTypeName #>) value << N;
+            result.numerator = (<#= ftd.RawTypeName #>) value << N;
         }
 
         public static void CreateFrom (Int64 value, out <#= ftd.TypeName #> result) {
-            result.numerator = (<#= ftd.UnderlyingTypeName #>) value << N;
+            result.numerator = (<#= ftd.RawTypeName #>) value << N;
         }
 
         public static void CreateFrom (Single value, out <#= ftd.TypeName #> result) {
@@ -79,27 +79,27 @@
 
         public static void Add (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Addition
-            <#= ftd.UnderlyingTypeName #> temp = a.numerator + b.numerator;
+            <#= ftd.RawTypeName #> temp = a.numerator + b.numerator;
             // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
-            int w = (sizeof (<#= ftd.UnderlyingTypeName #>) << 3) - 1;
-            <#= ftd.UnderlyingTypeName #> mask = (~(a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
-            <#= ftd.UnderlyingTypeName #> max_min = (temp >> w) ^ (((<#= ftd.UnderlyingTypeName #>) 1) << w);
+            int w = (sizeof (<#= ftd.RawTypeName #>) << 3) - 1;
+            <#= ftd.RawTypeName #> mask = (~(a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
+            <#= ftd.RawTypeName #> max_min = (temp >> w) ^ (((<#= ftd.RawTypeName #>) 1) << w);
             result.numerator = (~mask & temp) + (mask & max_min);
         }
 
         public static void Subtract (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Subtraction
-            <#= ftd.UnderlyingTypeName #> temp = a.numerator - b.numerator;
+            <#= ftd.RawTypeName #> temp = a.numerator - b.numerator;
             // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
-            int w = (sizeof (<#= ftd.UnderlyingTypeName #>) << 3) - 1;
-            <#= ftd.UnderlyingTypeName #> mask = ((a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
-            <#= ftd.UnderlyingTypeName #> max_min = (temp >> w) ^ (((<#= ftd.UnderlyingTypeName #>) 1) << w);
+            int w = (sizeof (<#= ftd.RawTypeName #>) << 3) - 1;
+            <#= ftd.RawTypeName #> mask = ((a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
+            <#= ftd.RawTypeName #> max_min = (temp >> w) ^ (((<#= ftd.RawTypeName #>) 1) << w);
             result.numerator = (~mask & temp) + (mask & max_min);
         }
 
         public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
-            result.numerator = (f.numerator == <#= ftd.UnderlyingTypeName #>.MinValue)
-                ? <#= ftd.UnderlyingTypeName #>.MaxValue // overflow case
+            result.numerator = (f.numerator == <#= ftd.RawTypeName #>.MinValue)
+                ? <#= ftd.RawTypeName #>.MaxValue // overflow case
                 : -f.numerator;
         }
 
@@ -190,8 +190,8 @@
             //}
 
             if (f.numerator <= 0) { result = 0; return; }
-            U<#= ftd.UnderlyingTypeName #> t, q, b, r;
-            r = (U<#= ftd.UnderlyingTypeName #>) f.numerator;
+            U<#= ftd.RawTypeName #> t, q, b, r;
+            r = (U<#= ftd.RawTypeName #>) f.numerator;
             b = <#= ftd.SqrtMagic #>; // http://www.thealmightyguru.com/Pointless/PowersOf2.html
             q = 0;
             while (b >= 256) {
@@ -204,7 +204,7 @@
                 b >>= 1;
             }
             q >>= 8;
-            result.numerator = (<#= ftd.UnderlyingTypeName #>) q;
+            result.numerator = (<#= ftd.RawTypeName #>) q;
         }
 
         public static void Sin (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
@@ -272,19 +272,19 @@
 
         // Internal //--------------------------------------------------------//
 
-        static readonly <#= ftd.UnderlyingTypeName #> k = 1 << (N - 1);
+        static readonly <#= ftd.RawTypeName #> k = 1 << (N - 1);
 
         static readonly Double invdd = 1.0  / (Double) denominator;
         static readonly Single invds = 1.0f / (Single) denominator;
 
         static readonly <#= ftd.BigTypeName #> big_k = (<#= ftd.BigTypeName #>) k;
-        static readonly <#= ftd.BigTypeName #> bigMin = (<#= ftd.BigTypeName #>) <#= ftd.UnderlyingTypeName #>.MinValue;
-        static readonly <#= ftd.BigTypeName #> bigMax = (<#= ftd.BigTypeName #>) <#= ftd.UnderlyingTypeName #>.MaxValue;
+        static readonly <#= ftd.BigTypeName #> bigMin = (<#= ftd.BigTypeName #>) <#= ftd.RawTypeName #>.MinValue;
+        static readonly <#= ftd.BigTypeName #> bigMax = (<#= ftd.BigTypeName #>) <#= ftd.RawTypeName #>.MaxValue;
 
-        static void Saturate (ref <#= ftd.BigTypeName #> big, out <#= ftd.UnderlyingTypeName #> result) {
-            if (big < bigMin) { result = <#= ftd.UnderlyingTypeName #>.MinValue; return; }
-            if (big > bigMax) { result = <#= ftd.UnderlyingTypeName #>.MaxValue; return; }
-            result = (<#= ftd.UnderlyingTypeName #>) big;
+        static void Saturate (ref <#= ftd.BigTypeName #> big, out <#= ftd.RawTypeName #> result) {
+            if (big < bigMin) { result = <#= ftd.RawTypeName #>.MinValue; return; }
+            if (big > bigMax) { result = <#= ftd.RawTypeName #>.MaxValue; return; }
+            result = (<#= ftd.RawTypeName #>) big;
         }
         static void SinLookup (ref <#= ftd.TypeName #> rad, out <#= ftd.TypeName #> result) {
 <# GenerateInlineConstant (T, "Zero"); #>
@@ -296,8 +296,8 @@
                 result.numerator = sinLUT[p];
                 return;
             }
-            <#= ftd.UnderlyingTypeName #> lowi = sinLUT[p];
-            <#= ftd.UnderlyingTypeName #> highi = sinLUT[p + 1];
+            <#= ftd.RawTypeName #> lowi = sinLUT[p];
+            <#= ftd.RawTypeName #> highi = sinLUT[p + 1];
 
             <#= ftd.TypeName #> q = deg - (<#= ftd.TypeName #>) p;
 

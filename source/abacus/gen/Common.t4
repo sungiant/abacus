@@ -1,7 +1,7 @@
 ﻿<#+
     class FixedTypeDefinition { // Used only for text templating.
         public String TypeName            { get; private set; }
-        public String UnderlyingTypeName  { get; private set; }
+        public String RawTypeName         { get; private set; }
         public Byte BitCount              { get; private set; }
         public Byte FractionalBitCount    { get; private set; }
         public String BigTypeName         { get; private set; }
@@ -12,7 +12,7 @@
 
         public FixedTypeDefinition (String typeName, String underlyingTypeName, Byte bitCount, Byte fractionalBitCount, String bigTypeName, String sqrtMagic) {
             this.TypeName = typeName;
-            this.UnderlyingTypeName = underlyingTypeName;
+            this.RawTypeName = underlyingTypeName;
             this.BitCount = bitCount;
             this.FractionalBitCount = fractionalBitCount;
             this.BigTypeName = bigTypeName;
@@ -131,7 +131,7 @@
 
     void GenerateSinLookUpTable (FixedTypeDefinition ftd) {
 #>
-        static readonly <#= ftd.UnderlyingTypeName #>[] sinLUT = {
+        static readonly <#= ftd.RawTypeName #>[] sinLUT = {
             <#+
         int i = 0;
         for (int deg = 0; deg <= 90; ++deg) {
