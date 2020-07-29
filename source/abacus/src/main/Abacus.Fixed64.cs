@@ -152,12 +152,6 @@ namespace Abacus.Fixed64Precision
             result.numerator = (~mask & temp) + (mask & max_min);
         }
 
-        public static void Negate (ref Fixed64 f, out Fixed64 result) {
-            result.numerator = (f.numerator == Int64.MinValue)
-                ? Int64.MaxValue // overflow case
-                : -f.numerator;
-        }
-
         public static void Multiply (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Multiplication
             //// precomputed value:
@@ -209,6 +203,17 @@ namespace Abacus.Fixed64Precision
             else { temp = temp - (big_b / 2); }
             temp = temp / big_b;
             Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Modulo (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
+            BigInteger temp = (BigInteger)a.numerator % (BigInteger)b.numerator;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Negate (ref Fixed64 f, out Fixed64 result) {
+            result.numerator = (f.numerator == Int64.MinValue)
+                ? Int64.MaxValue // overflow case
+                : -f.numerator;
         }
 
         public static void Sqrt (ref Fixed64 f, out Fixed64 result) {
@@ -302,11 +307,6 @@ namespace Abacus.Fixed64Precision
             }
         }
 
-        public static void Modulo (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
-            BigInteger temp = (BigInteger)a.numerator % (BigInteger)b.numerator;
-            Saturate (ref temp, out result.numerator);
-        }
-
         public static void Cos (ref Fixed64 f, out Fixed64 result) {
             Fixed64 HalfPi = Fixed64.CreateFrom (1.57079632679489661923132169164);
             Fixed64 fx = HalfPi - f;
@@ -376,6 +376,7 @@ namespace Abacus.Fixed64Precision
             0xFD8235, 0xFE1781, 0xFE98FD, 0xFF069E, 0xFF605C, 0xFFA62F, 0xFFD814, 0xFFF605, 0x1000000,
             };
 
+
         // Function Variants //-----------------------------------------------//
 
         public static Fixed64 Add      (Fixed64 a, Fixed64 b) { Fixed64 result; Add (ref a, ref b, out result); return result; }
@@ -384,19 +385,20 @@ namespace Abacus.Fixed64Precision
         public static Fixed64 Divide   (Fixed64 a, Fixed64 b) { Fixed64 result; Divide (ref a, ref b, out result); return result; }
         public static Fixed64 Modulo   (Fixed64 a, Fixed64 b) { Fixed64 result; Modulo (ref a, ref b, out result); return result; }
         public static Fixed64 Negate   (Fixed64 f) { Fixed64 result; Negate (ref f, out result); return result; }
-
+        
         public static Fixed64 operator  + (Fixed64 a, Fixed64 b) { Fixed64 result; Add (ref a, ref b, out result); return result; }
         public static Fixed64 operator  - (Fixed64 a, Fixed64 b) { Fixed64 result; Subtract (ref a, ref b, out result); return result; }
         public static Fixed64 operator  * (Fixed64 a, Fixed64 b) { Fixed64 result; Multiply (ref a, ref b, out result); return result; }
         public static Fixed64 operator  / (Fixed64 a, Fixed64 b) { Fixed64 result; Divide (ref a, ref b, out result); return result; }
         public static Fixed64 operator  % (Fixed64 a, Fixed64 b) { Fixed64 result; Modulo (ref a, ref b, out result); return result; }
-        public static Fixed64 operator  + (Fixed64 f) { return f; }
         public static Fixed64 operator  - (Fixed64 f) { Fixed64 result; Negate (ref f, out result); return result; }
+        public static Fixed64 operator  + (Fixed64 f) { return f; }
 
-        public static Fixed64 Sqrt    (Fixed64 f) { Fixed64 result; Sqrt (ref f, out result); return result; }
-        public static Fixed64 Sin     (Fixed64 f) { Fixed64 result; Sin  (ref f, out result); return result; }
-        public static Fixed64 Cos     (Fixed64 f) { Fixed64 result; Cos  (ref f, out result); return result; }
-        public static Fixed64 Tan     (Fixed64 f) { Fixed64 result; Tan  (ref f, out result); return result; }
+        public static Fixed64 Sqrt     (Fixed64 f) { Fixed64 result; Sqrt (ref f, out result); return result; }
+
+        public static Fixed64 Sin      (Fixed64 f) { Fixed64 result; Sin  (ref f, out result); return result; }
+        public static Fixed64 Cos      (Fixed64 f) { Fixed64 result; Cos  (ref f, out result); return result; }
+        public static Fixed64 Tan      (Fixed64 f) { Fixed64 result; Tan  (ref f, out result); return result; }
 
         public static Boolean operator == (Fixed64 a, Fixed64 b) { return a.Equals (b); }
         public static Boolean operator != (Fixed64 a, Fixed64 b) { return !a.Equals (b); }
@@ -410,13 +412,13 @@ namespace Abacus.Fixed64Precision
         public static explicit operator Single (Fixed64 f) { return f.ToSingle (); }
         public static explicit operator Double (Fixed64 f) { return f.ToDouble (); }
 
-        public static implicit operator Fixed64 (Int32 v) { Fixed64 f; CreateFrom (v, out f); return f; }
-        public static implicit operator Fixed64 (Int64 v) { Fixed64 f; CreateFrom (v, out f); return f; }
+        public static implicit operator Fixed64 (Int32 v)  { Fixed64 f; CreateFrom (v, out f); return f; }
+        public static implicit operator Fixed64 (Int64 v)  { Fixed64 f; CreateFrom (v, out f); return f; }
         public static implicit operator Fixed64 (Single v) { Fixed64 f; CreateFrom (v, out f); return f; }
         public static implicit operator Fixed64 (Double v) { Fixed64 f; CreateFrom (v, out f); return f; }
 
-        public static Fixed64 CreateFrom (Int32 v) { Fixed64 f; CreateFrom (v, out f); return f; }
-        public static Fixed64 CreateFrom (Int64 v) { Fixed64 f; CreateFrom (v, out f); return f; }
+        public static Fixed64 CreateFrom (Int32 v)  { Fixed64 f; CreateFrom (v, out f); return f; }
+        public static Fixed64 CreateFrom (Int64 v)  { Fixed64 f; CreateFrom (v, out f); return f; }
         public static Fixed64 CreateFrom (Single v) { Fixed64 f; CreateFrom (v, out f); return f; }
         public static Fixed64 CreateFrom (Double v) { Fixed64 f; CreateFrom (v, out f); return f; }
     }
@@ -2052,10 +2054,6 @@ namespace Abacus.Fixed64Precision
     /// Provides maths functions with consistent function signatures across supported precisions.
     /// </summary>
     public static class Maths {
-        public static Fixed64 Cos (Fixed64 v) { return Fixed64.Cos (v); }
-        public static Fixed64 Sin (Fixed64 v) { return Fixed64.Sin (v); }
-        public static Fixed64 Tan (Fixed64 v) { return Fixed64.Tan (v); }
-        public static Fixed64 Sqrt (Fixed64 v) { return Fixed64.Sqrt (v); }
         public static readonly Fixed64 Epsilon = (Fixed64) 0.000001;
         public static readonly Fixed64 E = Fixed64.CreateFrom (2.71828182845904523536028747135);
         public static readonly Fixed64 Half = Fixed64.CreateFrom (0.5);
@@ -2073,18 +2071,26 @@ namespace Abacus.Fixed64Precision
         public static readonly Fixed64 Zero = Fixed64.CreateFrom (0.0);
         public static readonly Fixed64 One = Fixed64.CreateFrom (1.0);
 
+        public static Fixed64 Sqrt (Fixed64 v) { return Fixed64.Sqrt (v); }
+
+        public static Fixed64 Sin (Fixed64 v) { return Fixed64.Sin (v); }
+        public static Fixed64 Cos (Fixed64 v) { return Fixed64.Cos (v); }
+        public static Fixed64 Tan (Fixed64 v) { return Fixed64.Tan (v); }
+
         public static Fixed64 ToRadians          (Fixed64 input) { return input * Deg2Rad; }
         public static Fixed64 ToDegrees          (Fixed64 input) { return input * Rad2Deg; }
         public static Fixed64 FromFraction       (Int32 numerator, Int32 denominator) { return (Fixed64) numerator / (Fixed64) denominator; }
         public static Fixed64 FromFraction       (Int64 numerator, Int64 denominator) { return (Fixed64) numerator / (Fixed64) denominator; }
-        public static Fixed64 FromString         (String str) { Fixed64 result = Zero; Fixed64.TryParse (str, out result); return result; }
+
         public static Fixed64 Min                (Fixed64 a, Fixed64 b) { return a < b ? a : b; }
         public static Fixed64 Max                (Fixed64 a, Fixed64 b) { return a > b ? a : b; }
         public static Fixed64 Clamp              (Fixed64 value, Fixed64 min, Fixed64 max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Fixed64 Lerp               (Fixed64 a, Fixed64 b, Fixed64 t) { return a + ((b - a) * t); }
         public static Fixed64 Abs                (Fixed64 v) { return (v < 0) ? -v : v; }
 
+        public static Fixed64 FromString         (String str) { Fixed64 result = Zero; Fixed64.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Fixed64 value) { Fixed64.TryParse (str, out value); }
+
         public static Boolean IsZero            (Fixed64 value) { return Abs(value) < Epsilon; }
         public static Boolean WithinEpsilon     (Fixed64 a, Fixed64 b) { Fixed64 num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         public static Int32   Sign              (Fixed64 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }

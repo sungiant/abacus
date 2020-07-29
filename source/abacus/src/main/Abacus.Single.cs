@@ -1682,10 +1682,6 @@ namespace Abacus.SinglePrecision
     /// Provides maths functions with consistent function signatures across supported precisions.
     /// </summary>
     public static class Maths {
-        public static Single Cos (Single v) { return (Single) Math.Cos (v); }
-        public static Single Sin (Single v) { return (Single) Math.Sin (v); }
-        public static Single Tan (Single v) { return (Single) Math.Tan (v); }
-        public static Single Sqrt (Single v) { return (Single) Math.Sqrt (v); }
         public static readonly Single Epsilon = 0.000001f;
         public static readonly Single E = 2.71828182845904523536028747135f;
         public static readonly Single Half = 0.5f;
@@ -1703,18 +1699,26 @@ namespace Abacus.SinglePrecision
         public static readonly Single Zero = 0.0f;
         public static readonly Single One = 1.0f;
 
+        public static Single Sqrt (Single v) { return (Single) Math.Sqrt (v); }
+
+        public static Single Sin (Single v) { return (Single) Math.Sin (v); }
+        public static Single Cos (Single v) { return (Single) Math.Cos (v); }
+        public static Single Tan (Single v) { return (Single) Math.Tan (v); }
+
         public static Single ToRadians          (Single input) { return input * Deg2Rad; }
         public static Single ToDegrees          (Single input) { return input * Rad2Deg; }
         public static Single FromFraction       (Int32 numerator, Int32 denominator) { return (Single) numerator / (Single) denominator; }
         public static Single FromFraction       (Int64 numerator, Int64 denominator) { return (Single) numerator / (Single) denominator; }
-        public static Single FromString         (String str) { Single result = Zero; Single.TryParse (str, out result); return result; }
+
         public static Single Min                (Single a, Single b) { return a < b ? a : b; }
         public static Single Max                (Single a, Single b) { return a > b ? a : b; }
         public static Single Clamp              (Single value, Single min, Single max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Single Lerp               (Single a, Single b, Single t) { return a + ((b - a) * t); }
         public static Single Abs                (Single v) { return (v < 0) ? -v : v; }
 
+        public static Single FromString         (String str) { Single result = Zero; Single.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Single value) { Single.TryParse (str, out value); }
+
         public static Boolean IsZero            (Single value) { return Abs(value) < Epsilon; }
         public static Boolean WithinEpsilon     (Single a, Single b) { Single num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         public static Int32   Sign              (Single value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }

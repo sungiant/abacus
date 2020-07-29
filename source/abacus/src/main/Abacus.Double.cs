@@ -1682,10 +1682,6 @@ namespace Abacus.DoublePrecision
     /// Provides maths functions with consistent function signatures across supported precisions.
     /// </summary>
     public static class Maths {
-        public static Double Cos (Double v) { return Math.Cos (v); }
-        public static Double Sin (Double v) { return Math.Sin (v); }
-        public static Double Tan (Double v) { return Math.Tan (v); }
-        public static Double Sqrt (Double v) { return Math.Sqrt (v); }
         public static readonly Double Epsilon = (Double) 0.000001;
         public static readonly Double E = 2.71828182845904523536028747135;
         public static readonly Double Half = 0.5;
@@ -1703,18 +1699,26 @@ namespace Abacus.DoublePrecision
         public static readonly Double Zero = 0.0;
         public static readonly Double One = 1.0;
 
+        public static Double Sqrt (Double v) { return Math.Sqrt (v); }
+
+        public static Double Sin (Double v) { return Math.Sin (v); }
+        public static Double Cos (Double v) { return Math.Cos (v); }
+        public static Double Tan (Double v) { return Math.Tan (v); }
+
         public static Double ToRadians          (Double input) { return input * Deg2Rad; }
         public static Double ToDegrees          (Double input) { return input * Rad2Deg; }
         public static Double FromFraction       (Int32 numerator, Int32 denominator) { return (Double) numerator / (Double) denominator; }
         public static Double FromFraction       (Int64 numerator, Int64 denominator) { return (Double) numerator / (Double) denominator; }
-        public static Double FromString         (String str) { Double result = Zero; Double.TryParse (str, out result); return result; }
+
         public static Double Min                (Double a, Double b) { return a < b ? a : b; }
         public static Double Max                (Double a, Double b) { return a > b ? a : b; }
         public static Double Clamp              (Double value, Double min, Double max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Double Lerp               (Double a, Double b, Double t) { return a + ((b - a) * t); }
         public static Double Abs                (Double v) { return (v < 0) ? -v : v; }
 
+        public static Double FromString         (String str) { Double result = Zero; Double.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Double value) { Double.TryParse (str, out value); }
+
         public static Boolean IsZero            (Double value) { return Abs(value) < Epsilon; }
         public static Boolean WithinEpsilon     (Double a, Double b) { Double num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         public static Int32   Sign              (Double value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }

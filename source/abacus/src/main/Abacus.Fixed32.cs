@@ -151,12 +151,6 @@ namespace Abacus.Fixed32Precision
             result.numerator = (~mask & temp) + (mask & max_min);
         }
 
-        public static void Negate (ref Fixed32 f, out Fixed32 result) {
-            result.numerator = (f.numerator == Int32.MinValue)
-                ? Int32.MaxValue // overflow case
-                : -f.numerator;
-        }
-
         public static void Multiply (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Multiplication
             //// precomputed value:
@@ -208,6 +202,17 @@ namespace Abacus.Fixed32Precision
             else { temp = temp - (big_b / 2); }
             temp = temp / big_b;
             Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Modulo (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
+            Int64 temp = (Int64)a.numerator % (Int64)b.numerator;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Negate (ref Fixed32 f, out Fixed32 result) {
+            result.numerator = (f.numerator == Int32.MinValue)
+                ? Int32.MaxValue // overflow case
+                : -f.numerator;
         }
 
         public static void Sqrt (ref Fixed32 f, out Fixed32 result) {
@@ -301,11 +306,6 @@ namespace Abacus.Fixed32Precision
             }
         }
 
-        public static void Modulo (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
-            Int64 temp = (Int64)a.numerator % (Int64)b.numerator;
-            Saturate (ref temp, out result.numerator);
-        }
-
         public static void Cos (ref Fixed32 f, out Fixed32 result) {
             Fixed32 HalfPi = Fixed32.CreateFrom (1.57079632679489661923132169164);
             Fixed32 fx = HalfPi - f;
@@ -375,6 +375,7 @@ namespace Abacus.Fixed32Precision
             0xFD82, 0xFE18, 0xFE99, 0xFF07, 0xFF60, 0xFFA6, 0xFFD8, 0xFFF6, 0x10000,
             };
 
+
         // Function Variants //-----------------------------------------------//
 
         public static Fixed32 Add      (Fixed32 a, Fixed32 b) { Fixed32 result; Add (ref a, ref b, out result); return result; }
@@ -383,19 +384,20 @@ namespace Abacus.Fixed32Precision
         public static Fixed32 Divide   (Fixed32 a, Fixed32 b) { Fixed32 result; Divide (ref a, ref b, out result); return result; }
         public static Fixed32 Modulo   (Fixed32 a, Fixed32 b) { Fixed32 result; Modulo (ref a, ref b, out result); return result; }
         public static Fixed32 Negate   (Fixed32 f) { Fixed32 result; Negate (ref f, out result); return result; }
-
+        
         public static Fixed32 operator  + (Fixed32 a, Fixed32 b) { Fixed32 result; Add (ref a, ref b, out result); return result; }
         public static Fixed32 operator  - (Fixed32 a, Fixed32 b) { Fixed32 result; Subtract (ref a, ref b, out result); return result; }
         public static Fixed32 operator  * (Fixed32 a, Fixed32 b) { Fixed32 result; Multiply (ref a, ref b, out result); return result; }
         public static Fixed32 operator  / (Fixed32 a, Fixed32 b) { Fixed32 result; Divide (ref a, ref b, out result); return result; }
         public static Fixed32 operator  % (Fixed32 a, Fixed32 b) { Fixed32 result; Modulo (ref a, ref b, out result); return result; }
-        public static Fixed32 operator  + (Fixed32 f) { return f; }
         public static Fixed32 operator  - (Fixed32 f) { Fixed32 result; Negate (ref f, out result); return result; }
+        public static Fixed32 operator  + (Fixed32 f) { return f; }
 
-        public static Fixed32 Sqrt    (Fixed32 f) { Fixed32 result; Sqrt (ref f, out result); return result; }
-        public static Fixed32 Sin     (Fixed32 f) { Fixed32 result; Sin  (ref f, out result); return result; }
-        public static Fixed32 Cos     (Fixed32 f) { Fixed32 result; Cos  (ref f, out result); return result; }
-        public static Fixed32 Tan     (Fixed32 f) { Fixed32 result; Tan  (ref f, out result); return result; }
+        public static Fixed32 Sqrt     (Fixed32 f) { Fixed32 result; Sqrt (ref f, out result); return result; }
+
+        public static Fixed32 Sin      (Fixed32 f) { Fixed32 result; Sin  (ref f, out result); return result; }
+        public static Fixed32 Cos      (Fixed32 f) { Fixed32 result; Cos  (ref f, out result); return result; }
+        public static Fixed32 Tan      (Fixed32 f) { Fixed32 result; Tan  (ref f, out result); return result; }
 
         public static Boolean operator == (Fixed32 a, Fixed32 b) { return a.Equals (b); }
         public static Boolean operator != (Fixed32 a, Fixed32 b) { return !a.Equals (b); }
@@ -409,13 +411,13 @@ namespace Abacus.Fixed32Precision
         public static explicit operator Single (Fixed32 f) { return f.ToSingle (); }
         public static explicit operator Double (Fixed32 f) { return f.ToDouble (); }
 
-        public static implicit operator Fixed32 (Int32 v) { Fixed32 f; CreateFrom (v, out f); return f; }
-        public static implicit operator Fixed32 (Int64 v) { Fixed32 f; CreateFrom (v, out f); return f; }
+        public static implicit operator Fixed32 (Int32 v)  { Fixed32 f; CreateFrom (v, out f); return f; }
+        public static implicit operator Fixed32 (Int64 v)  { Fixed32 f; CreateFrom (v, out f); return f; }
         public static implicit operator Fixed32 (Single v) { Fixed32 f; CreateFrom (v, out f); return f; }
         public static implicit operator Fixed32 (Double v) { Fixed32 f; CreateFrom (v, out f); return f; }
 
-        public static Fixed32 CreateFrom (Int32 v) { Fixed32 f; CreateFrom (v, out f); return f; }
-        public static Fixed32 CreateFrom (Int64 v) { Fixed32 f; CreateFrom (v, out f); return f; }
+        public static Fixed32 CreateFrom (Int32 v)  { Fixed32 f; CreateFrom (v, out f); return f; }
+        public static Fixed32 CreateFrom (Int64 v)  { Fixed32 f; CreateFrom (v, out f); return f; }
         public static Fixed32 CreateFrom (Single v) { Fixed32 f; CreateFrom (v, out f); return f; }
         public static Fixed32 CreateFrom (Double v) { Fixed32 f; CreateFrom (v, out f); return f; }
     }
@@ -2051,10 +2053,6 @@ namespace Abacus.Fixed32Precision
     /// Provides maths functions with consistent function signatures across supported precisions.
     /// </summary>
     public static class Maths {
-        public static Fixed32 Cos (Fixed32 v) { return Fixed32.Cos (v); }
-        public static Fixed32 Sin (Fixed32 v) { return Fixed32.Sin (v); }
-        public static Fixed32 Tan (Fixed32 v) { return Fixed32.Tan (v); }
-        public static Fixed32 Sqrt (Fixed32 v) { return Fixed32.Sqrt (v); }
         public static readonly Fixed32 Epsilon = (Fixed32) 0.000001;
         public static readonly Fixed32 E = Fixed32.CreateFrom (2.71828182845904523536028747135);
         public static readonly Fixed32 Half = Fixed32.CreateFrom (0.5);
@@ -2072,18 +2070,26 @@ namespace Abacus.Fixed32Precision
         public static readonly Fixed32 Zero = Fixed32.CreateFrom (0.0);
         public static readonly Fixed32 One = Fixed32.CreateFrom (1.0);
 
+        public static Fixed32 Sqrt (Fixed32 v) { return Fixed32.Sqrt (v); }
+
+        public static Fixed32 Sin (Fixed32 v) { return Fixed32.Sin (v); }
+        public static Fixed32 Cos (Fixed32 v) { return Fixed32.Cos (v); }
+        public static Fixed32 Tan (Fixed32 v) { return Fixed32.Tan (v); }
+
         public static Fixed32 ToRadians          (Fixed32 input) { return input * Deg2Rad; }
         public static Fixed32 ToDegrees          (Fixed32 input) { return input * Rad2Deg; }
         public static Fixed32 FromFraction       (Int32 numerator, Int32 denominator) { return (Fixed32) numerator / (Fixed32) denominator; }
         public static Fixed32 FromFraction       (Int64 numerator, Int64 denominator) { return (Fixed32) numerator / (Fixed32) denominator; }
-        public static Fixed32 FromString         (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
+
         public static Fixed32 Min                (Fixed32 a, Fixed32 b) { return a < b ? a : b; }
         public static Fixed32 Max                (Fixed32 a, Fixed32 b) { return a > b ? a : b; }
         public static Fixed32 Clamp              (Fixed32 value, Fixed32 min, Fixed32 max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Fixed32 Lerp               (Fixed32 a, Fixed32 b, Fixed32 t) { return a + ((b - a) * t); }
         public static Fixed32 Abs                (Fixed32 v) { return (v < 0) ? -v : v; }
 
+        public static Fixed32 FromString         (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Fixed32 value) { Fixed32.TryParse (str, out value); }
+
         public static Boolean IsZero            (Fixed32 value) { return Abs(value) < Epsilon; }
         public static Boolean WithinEpsilon     (Fixed32 a, Fixed32 b) { Fixed32 num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         public static Int32   Sign              (Fixed32 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }

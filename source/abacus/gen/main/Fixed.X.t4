@@ -97,12 +97,6 @@
             result.numerator = (~mask & temp) + (mask & max_min);
         }
 
-        public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
-            result.numerator = (f.numerator == <#= ftd.RawTypeName #>.MinValue)
-                ? <#= ftd.RawTypeName #>.MaxValue // overflow case
-                : -f.numerator;
-        }
-
         public static void Multiply (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Multiplication
             //// precomputed value:
@@ -154,6 +148,17 @@
             else { temp = temp - (big_b / 2); }
             temp = temp / big_b;
             Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Modulo (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>)a.numerator % (<#= ftd.BigTypeName #>)b.numerator;
+            Saturate (ref temp, out result.numerator);
+        }
+
+        public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            result.numerator = (f.numerator == <#= ftd.RawTypeName #>.MinValue)
+                ? <#= ftd.RawTypeName #>.MaxValue // overflow case
+                : -f.numerator;
         }
 
         public static void Sqrt (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
@@ -247,11 +252,6 @@
             }
         }
 
-        public static void Modulo (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
-            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>)a.numerator % (<#= ftd.BigTypeName #>)b.numerator;
-            Saturate (ref temp, out result.numerator);
-        }
-
         public static void Cos (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
 <# GenerateInlineConstant (T, "HalfPi"); #>
             <#= ftd.TypeName #> fx = HalfPi - f;
@@ -317,19 +317,20 @@
         public static <#= ftd.TypeName #> Divide   (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Divide (ref a, ref b, out result); return result; }
         public static <#= ftd.TypeName #> Modulo   (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Modulo (ref a, ref b, out result); return result; }
         public static <#= ftd.TypeName #> Negate   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Negate (ref f, out result); return result; }
-
+        
         public static <#= ftd.TypeName #> operator  + (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Add (ref a, ref b, out result); return result; }
         public static <#= ftd.TypeName #> operator  - (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Subtract (ref a, ref b, out result); return result; }
         public static <#= ftd.TypeName #> operator  * (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Multiply (ref a, ref b, out result); return result; }
         public static <#= ftd.TypeName #> operator  / (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Divide (ref a, ref b, out result); return result; }
         public static <#= ftd.TypeName #> operator  % (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { <#= ftd.TypeName #> result; Modulo (ref a, ref b, out result); return result; }
-        public static <#= ftd.TypeName #> operator  + (<#= ftd.TypeName #> f) { return f; }
         public static <#= ftd.TypeName #> operator  - (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Negate (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> operator  + (<#= ftd.TypeName #> f) { return f; }
 
-        public static <#= ftd.TypeName #> Sqrt    (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sqrt (ref f, out result); return result; }
-        public static <#= ftd.TypeName #> Sin     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sin  (ref f, out result); return result; }
-        public static <#= ftd.TypeName #> Cos     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Cos  (ref f, out result); return result; }
-        public static <#= ftd.TypeName #> Tan     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Tan  (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> Sqrt     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sqrt (ref f, out result); return result; }
+
+        public static <#= ftd.TypeName #> Sin      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sin  (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> Cos      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Cos  (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> Tan      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Tan  (ref f, out result); return result; }
 
         public static Boolean operator == (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.Equals (b); }
         public static Boolean operator != (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return !a.Equals (b); }
@@ -343,13 +344,13 @@
         public static explicit operator Single (<#= ftd.TypeName #> f) { return f.ToSingle (); }
         public static explicit operator Double (<#= ftd.TypeName #> f) { return f.ToDouble (); }
 
-        public static implicit operator <#= ftd.TypeName #> (Int32 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
-        public static implicit operator <#= ftd.TypeName #> (Int64 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static implicit operator <#= ftd.TypeName #> (Int32 v)  { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static implicit operator <#= ftd.TypeName #> (Int64 v)  { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
         public static implicit operator <#= ftd.TypeName #> (Single v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
         public static implicit operator <#= ftd.TypeName #> (Double v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
 
-        public static <#= ftd.TypeName #> CreateFrom (Int32 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
-        public static <#= ftd.TypeName #> CreateFrom (Int64 v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static <#= ftd.TypeName #> CreateFrom (Int32 v)  { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
+        public static <#= ftd.TypeName #> CreateFrom (Int64 v)  { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
         public static <#= ftd.TypeName #> CreateFrom (Single v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
         public static <#= ftd.TypeName #> CreateFrom (Double v) { <#= ftd.TypeName #> f; CreateFrom (v, out f); return f; }
     }
