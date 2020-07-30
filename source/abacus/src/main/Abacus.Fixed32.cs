@@ -210,9 +210,10 @@ namespace Abacus.Fixed32Precision
         }
 
         public static void Negate (ref Fixed32 f, out Fixed32 result) {
-            result.numerator = (f.numerator == Int32.MinValue)
-                ? Int32.MaxValue // overflow case
-                : -f.numerator;
+            Int32 s = f.numerator >> (32 - 1); // sign of argument
+            result.numerator = -f.numerator;
+            Int32 sr = result.numerator >> (32 - 1); // sign of result
+            result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
         }
 
         public static void Sqrt (ref Fixed32 f, out Fixed32 result) {

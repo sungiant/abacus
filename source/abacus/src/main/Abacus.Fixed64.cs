@@ -211,9 +211,10 @@ namespace Abacus.Fixed64Precision
         }
 
         public static void Negate (ref Fixed64 f, out Fixed64 result) {
-            result.numerator = (f.numerator == Int64.MinValue)
-                ? Int64.MaxValue // overflow case
-                : -f.numerator;
+            Int64 s = f.numerator >> (64 - 1); // sign of argument
+            result.numerator = -f.numerator;
+            Int64 sr = result.numerator >> (64 - 1); // sign of result
+            result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int64.MaxValue);
         }
 
         public static void Sqrt (ref Fixed64 f, out Fixed64 result) {

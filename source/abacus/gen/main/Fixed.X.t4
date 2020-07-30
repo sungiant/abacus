@@ -156,9 +156,10 @@
         }
 
         public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
-            result.numerator = (f.numerator == <#= ftd.RawTypeName #>.MinValue)
-                ? <#= ftd.RawTypeName #>.MaxValue // overflow case
-                : -f.numerator;
+            <#= ftd.RawTypeName #> s = f.numerator >> (<#= ftd.BitCount #> - 1); // sign of argument
+            result.numerator = -f.numerator;
+            <#= ftd.RawTypeName #> sr = result.numerator >> (<#= ftd.BitCount #> - 1); // sign of result
+            result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & <#= ftd.RawTypeName #>.MaxValue);
         }
 
         public static void Sqrt (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
