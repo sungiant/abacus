@@ -69,6 +69,10 @@
         public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion result; Subtract (ref a, ref b, out result); return  result; }
         public static Quaternion operator  - (Quaternion v)               { Quaternion result; Negate   (ref v,        out result); return  result; }
         public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion result; Multiply (ref a, ref b, out result); return  result; }
+        public static Vector3  operator    * (Vector3 v, Quaternion q)    { Vector3 result; Transform   (ref q, ref v, out result); return  result; }
+        public static Vector4  operator    * (Vector4 v, Quaternion q)    { Vector4 result; Transform   (ref q, ref v, out result); return  result; }
+        public static Vector3  operator    * (Quaternion q, Vector3 v)    { Vector3 result; Transform   (ref q, ref v, out result); return  result; }
+        public static Vector4  operator    * (Quaternion q, Vector4 v)    { Vector4 result; Transform   (ref q, ref v, out result); return  result; }
         public static Quaternion operator  ~ (Quaternion v)               { Quaternion result; Normalise(ref v,        out result); return  result; }
 
         public static Boolean    Equals      (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return  result; }

@@ -546,6 +546,10 @@ namespace Abacus.Fixed32Precision
         public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion result; Subtract (ref a, ref b, out result); return  result; }
         public static Quaternion operator  - (Quaternion v)               { Quaternion result; Negate   (ref v,        out result); return  result; }
         public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion result; Multiply (ref a, ref b, out result); return  result; }
+        public static Vector3  operator    * (Vector3 v, Quaternion q)    { Vector3 result; Transform   (ref q, ref v, out result); return  result; }
+        public static Vector4  operator    * (Vector4 v, Quaternion q)    { Vector4 result; Transform   (ref q, ref v, out result); return  result; }
+        public static Vector3  operator    * (Quaternion q, Vector3 v)    { Vector3 result; Transform   (ref q, ref v, out result); return  result; }
+        public static Vector4  operator    * (Quaternion q, Vector4 v)    { Vector4 result; Transform   (ref q, ref v, out result); return  result; }
         public static Quaternion operator  ~ (Quaternion v)               { Quaternion result; Normalise(ref v,        out result); return  result; }
 
         public static Boolean    Equals      (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return  result; }
@@ -932,6 +936,10 @@ namespace Abacus.Fixed32Precision
         public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return  result; }
         public static Matrix44 operator  * (Matrix44 v, Fixed32 f)   { Matrix44 result; Multiply (ref v, ref f, out result); return  result; }
         public static Matrix44 operator  * (Fixed32 f, Matrix44 v)   { Matrix44 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3 result; Transform (ref m, ref v, out result); return  result; }
+        public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4 result; Transform (ref m, ref v, out result); return  result; }
+        public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3 result; Transform (ref m, ref v, out result); return  result; }
+        public static Vector4  operator  * (Matrix44 m, Vector4 v)  { Vector4 result; Transform (ref m, ref v, out result); return  result; }
 
         public static Boolean  Equals      (Matrix44 a, Matrix44 b) { Boolean  result; Equals   (ref a, ref b, out result); return result; }
         public static Matrix44 Add         (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return result; }
