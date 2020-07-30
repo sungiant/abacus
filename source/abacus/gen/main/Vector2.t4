@@ -132,30 +132,30 @@
         
         // Splines //---------------------------------------------------------//
 
-        public static void SmoothStep (ref Vector2 vector1, ref Vector2 vector2, <#=T#> amount, out Vector2 result) {
+        public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, <#=T#> amount, out Vector2 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
-            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.X = v1.X + ((v2.X - v1.X) * amount);
+            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
         }
 
-        public static void CatmullRom (ref Vector2 vector1, ref Vector2 vector2, ref Vector2 vector3, ref Vector2 vector4, <#=T#> amount, out Vector2 result) {
+        public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, <#=T#> amount, out Vector2 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             <#=T#> squared = amount * amount;
             <#=T#> cubed = amount * squared;
-            result.X  = 2 * vector2.X;
-            result.X += (vector3.X - vector1.X) * amount;
-            result.X += ((2 * vector1.X) + (4 * vector3.X) - (5 * vector2.X) - (vector4.X)) * squared;
-            result.X += ((3 * vector2.X) + (vector4.X) - (vector1.X)  - (3 * vector3.X)) * cubed;
+            result.X  = 2 * v2.X;
+            result.X += (v3.X - v1.X) * amount;
+            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
             result.X *= Maths.Half;
-            result.Y  = 2 * vector2.Y;
-            result.Y += (vector3.Y - vector1.Y) * amount;
-            result.Y += ((2 * vector1.Y) + (4 * vector3.Y) - (5 * vector2.Y) - (vector4.Y)) * squared;
-            result.Y += ((3 * vector2.Y) + (vector4.Y) - (vector1.Y) - (3 * vector3.Y)) * cubed;
+            result.Y  = 2 * v2.Y;
+            result.Y += (v3.Y - v1.Y) * amount;
+            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
             result.Y *= Maths.Half;
         }
 
-        public static void Hermite (ref Vector2 vector1, ref Vector2 tangent1, ref Vector2 vector2, ref Vector2 tangent2, <#=T#> amount, out Vector2 result) {
+        public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, <#=T#> amount, out Vector2 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -168,14 +168,14 @@
             <#=T#> b = (-cubed * 2) + (squared * 3);
             <#=T#> c = (cubed - (squared * 2)) + amount;
             <#=T#> d = cubed - squared;
-            result.X = (vector1.X * a) + (vector2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (vector1.Y * a) + (vector2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
         }
 
 #if (FUNCTION_VARIANTS)
-        public static Vector2 SmoothStep (Vector2 vector1, Vector2 vector2, <#=T#> amount) { Vector2 result; SmoothStep (ref vector1, ref vector2, amount, out result); return result; }
-        public static Vector2 CatmullRom (Vector2 vector1, Vector2 vector2, Vector2 vector3, Vector2 vector4, <#=T#> amount) { Vector2 result; CatmullRom (ref vector1, ref vector2, ref vector3, ref vector4, amount, out result); return result; }
-        public static Vector2 Hermite    (Vector2 vector1, Vector2 tangent1, Vector2 vector2, Vector2 tangent2, <#=T#> amount) { Vector2 result; Hermite (ref vector1, ref tangent1, ref vector2, ref tangent2, amount, out result); return result; }
+        public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, <#=T#> amount) { Vector2 result; SmoothStep (ref v1, ref v2, amount, out result); return result; }
+        public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, <#=T#> amount) { Vector2 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out result); return result; }
+        public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, <#=T#> amount) { Vector2 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out result); return result; }
 #endif
 
         // Maths //-----------------------------------------------------------//

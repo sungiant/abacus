@@ -1087,19 +1087,19 @@ namespace Abacus.Fixed32Precision
             result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = m.R3C3; 
         }
 
-        public static void Transform (ref Matrix44 matrix, ref Vector3 vector, out Vector3 result) {
-            Fixed32 x = (vector.X * matrix.R0C0) + (vector.Y * matrix.R1C0) + (vector.Z * matrix.R2C0) + matrix.R3C0;
-            Fixed32 y = (vector.X * matrix.R0C1) + (vector.Y * matrix.R1C1) + (vector.Z * matrix.R2C1) + matrix.R3C1;
-            Fixed32 z = (vector.X * matrix.R0C2) + (vector.Y * matrix.R1C2) + (vector.Z * matrix.R2C2) + matrix.R3C2;
-            Fixed32 w = (vector.X * matrix.R0C3) + (vector.Y * matrix.R1C3) + (vector.Z * matrix.R2C3) + matrix.R3C3;
+        public static void Transform (ref Matrix44 m, ref Vector3 v, out Vector3 result) {
+            Fixed32 x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + m.R3C0;
+            Fixed32 y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + m.R3C1;
+            Fixed32 z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + m.R3C2;
+            Fixed32 w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + m.R3C3;
             result.X = x / w; result.Y = y / w; result.Z = z / w;
         }
 
-        public static void Transform (ref Matrix44 matrix, ref Vector4 vector, out Vector4 result) {
-            Fixed32 x = (vector.X * matrix.R0C0) + (vector.Y * matrix.R1C0) + (vector.Z * matrix.R2C0) + (vector.W * matrix.R3C0);
-            Fixed32 y = (vector.X * matrix.R0C1) + (vector.Y * matrix.R1C1) + (vector.Z * matrix.R2C1) + (vector.W * matrix.R3C1);
-            Fixed32 z = (vector.X * matrix.R0C2) + (vector.Y * matrix.R1C2) + (vector.Z * matrix.R2C2) + (vector.W * matrix.R3C2);
-            Fixed32 w = (vector.X * matrix.R0C3) + (vector.Y * matrix.R1C3) + (vector.Z * matrix.R2C3) + (vector.W * matrix.R3C3);
+        public static void Transform (ref Matrix44 m, ref Vector4 v, out Vector4 result) {
+            Fixed32 x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + (v.W * m.R3C0);
+            Fixed32 y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + (v.W * m.R3C1);
+            Fixed32 z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + (v.W * m.R3C2);
+            Fixed32 w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + (v.W * m.R3C3);
             result.X = x; result.Y = y; result.Z = z; result.W = w;
         }
 
@@ -1481,30 +1481,30 @@ namespace Abacus.Fixed32Precision
         
         // Splines //---------------------------------------------------------//
 
-        public static void SmoothStep (ref Vector2 vector1, ref Vector2 vector2, Fixed32 amount, out Vector2 result) {
+        public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, Fixed32 amount, out Vector2 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
-            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+            result.X = v1.X + ((v2.X - v1.X) * amount);
+            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
         }
 
-        public static void CatmullRom (ref Vector2 vector1, ref Vector2 vector2, ref Vector2 vector3, ref Vector2 vector4, Fixed32 amount, out Vector2 result) {
+        public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, Fixed32 amount, out Vector2 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
-            result.X  = 2 * vector2.X;
-            result.X += (vector3.X - vector1.X) * amount;
-            result.X += ((2 * vector1.X) + (4 * vector3.X) - (5 * vector2.X) - (vector4.X)) * squared;
-            result.X += ((3 * vector2.X) + (vector4.X) - (vector1.X)  - (3 * vector3.X)) * cubed;
+            result.X  = 2 * v2.X;
+            result.X += (v3.X - v1.X) * amount;
+            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
             result.X *= Maths.Half;
-            result.Y  = 2 * vector2.Y;
-            result.Y += (vector3.Y - vector1.Y) * amount;
-            result.Y += ((2 * vector1.Y) + (4 * vector3.Y) - (5 * vector2.Y) - (vector4.Y)) * squared;
-            result.Y += ((3 * vector2.Y) + (vector4.Y) - (vector1.Y) - (3 * vector3.Y)) * cubed;
+            result.Y  = 2 * v2.Y;
+            result.Y += (v3.Y - v1.Y) * amount;
+            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
             result.Y *= Maths.Half;
         }
 
-        public static void Hermite (ref Vector2 vector1, ref Vector2 tangent1, ref Vector2 vector2, ref Vector2 tangent2, Fixed32 amount, out Vector2 result) {
+        public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, Fixed32 amount, out Vector2 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -1517,14 +1517,14 @@ namespace Abacus.Fixed32Precision
             Fixed32 b = (-cubed * 2) + (squared * 3);
             Fixed32 c = (cubed - (squared * 2)) + amount;
             Fixed32 d = cubed - squared;
-            result.X = (vector1.X * a) + (vector2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (vector1.Y * a) + (vector2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
         }
 
 #if (FUNCTION_VARIANTS)
-        public static Vector2 SmoothStep (Vector2 vector1, Vector2 vector2, Fixed32 amount) { Vector2 result; SmoothStep (ref vector1, ref vector2, amount, out result); return result; }
-        public static Vector2 CatmullRom (Vector2 vector1, Vector2 vector2, Vector2 vector3, Vector2 vector4, Fixed32 amount) { Vector2 result; CatmullRom (ref vector1, ref vector2, ref vector3, ref vector4, amount, out result); return result; }
-        public static Vector2 Hermite    (Vector2 vector1, Vector2 tangent1, Vector2 vector2, Vector2 tangent2, Fixed32 amount) { Vector2 result; Hermite (ref vector1, ref tangent1, ref vector2, ref tangent2, amount, out result); return result; }
+        public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, Fixed32 amount) { Vector2 result; SmoothStep (ref v1, ref v2, amount, out result); return result; }
+        public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, Fixed32 amount) { Vector2 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out result); return result; }
+        public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, Fixed32 amount) { Vector2 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out result); return result; }
 #endif
 
         // Maths //-----------------------------------------------------------//
@@ -1747,36 +1747,36 @@ namespace Abacus.Fixed32Precision
 
         // Splines //---------------------------------------------------------//
 
-        public static void SmoothStep (ref Vector3 vector1, ref Vector3 vector2, ref Fixed32 amount, out Vector3 result) {
+        public static void SmoothStep (ref Vector3 v1, ref Vector3 v2, ref Fixed32 amount, out Vector3 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
-            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
-            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
+            result.X = v1.X + ((v2.X - v1.X) * amount);
+            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            result.Z = v1.Z + ((v2.Z - v1.Z) * amount);
         }
 
-        public static void CatmullRom (ref Vector3 vector1, ref Vector3 vector2, ref Vector3 vector3, ref Vector3 vector4, ref Fixed32 amount, out Vector3 result) {
+        public static void CatmullRom (ref Vector3 v1, ref Vector3 v2, ref Vector3 v3, ref Vector3 v4, ref Fixed32 amount, out Vector3 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
-            result.X  = 2 * vector2.X;
-            result.X += (vector3.X - vector1.X) * amount;
-            result.X += ((2 * vector1.X) + (4 * vector3.X) - (5 * vector2.X) - (vector4.X)) * squared;
-            result.X += ((3 * vector2.X) + (vector4.X) - (vector1.X)  - (3 * vector3.X)) * cubed;
+            result.X  = 2 * v2.X;
+            result.X += (v3.X - v1.X) * amount;
+            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
             result.X *= Maths.Half;
-            result.Y  = 2 * vector2.Y;
-            result.Y += (vector3.Y - vector1.Y) * amount;
-            result.Y += ((2 * vector1.Y) + (4 * vector3.Y) - (5 * vector2.Y) - (vector4.Y)) * squared;
-            result.Y += ((3 * vector2.Y) + (vector4.Y) - (vector1.Y) - (3 * vector3.Y)) * cubed;
+            result.Y  = 2 * v2.Y;
+            result.Y += (v3.Y - v1.Y) * amount;
+            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
             result.Y *= Maths.Half;
-            result.Z  = 2 * vector2.Z;
-            result.Z += (vector3.Z - vector1.Z) * amount;
-            result.Z += ((2 * vector1.Z) + (4 * vector3.Z) - (5 * vector2.Z) - (vector4.Z)) * squared;
-            result.Z += ((3 * vector2.Z) + (vector4.Z) - (vector1.Z) - (3 * vector3.Z)) * cubed;
+            result.Z  = 2 * v2.Z;
+            result.Z += (v3.Z - v1.Z) * amount;
+            result.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
+            result.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
             result.Z *= Maths.Half;
         }
 
-        public static void Hermite (ref Vector3 vector1, ref Vector3 tangent1, ref Vector3 vector2, ref Vector3 tangent2, ref Fixed32 amount, out Vector3 result) {
+        public static void Hermite (ref Vector3 v1, ref Vector3 tangent1, ref Vector3 v2, ref Vector3 tangent2, ref Fixed32 amount, out Vector3 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -1789,15 +1789,15 @@ namespace Abacus.Fixed32Precision
             Fixed32 b = (-cubed * 2) + (squared * 3);
             Fixed32 c = (cubed - (squared * 2)) + amount;
             Fixed32 d = cubed - squared;
-            result.X = (vector1.X * a) + (vector2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (vector1.Y * a) + (vector2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
-            result.Z = (vector1.Z * a) + (vector2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
         }
 
 #if (FUNCTION_VARIANTS)
-        public static Vector3 SmoothStep (Vector3 vector1, Vector3 vector2, ref Fixed32 amount) { Vector3 result; SmoothStep (ref vector1, ref vector2, ref amount, out result); return result; }
-        public static Vector3 CatmullRom (Vector3 vector1, Vector3 vector2, Vector3 vector3, Vector3 vector4, ref Fixed32 amount) { Vector3 result; CatmullRom (ref vector1, ref vector2, ref vector3, ref vector4, ref amount, out result); return result; }
-        public static Vector3 Hermite    (Vector3 vector1, Vector3 tangent1, Vector3 vector2, Vector3 tangent2, ref Fixed32 amount) { Vector3 result; Hermite (ref vector1, ref tangent1, ref vector2, ref tangent2, ref amount, out result); return result; }
+        public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, ref Fixed32 amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
+        public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, ref Fixed32 amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
+        public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, ref Fixed32 amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
 #endif
 
         // Maths //-----------------------------------------------------------//
@@ -2021,42 +2021,42 @@ namespace Abacus.Fixed32Precision
 
         // Splines //---------------------------------------------------------//
 
-        public static void SmoothStep (ref Vector4 vector1, ref Vector4 vector2, ref Fixed32 amount, out Vector4 result) {
+        public static void SmoothStep (ref Vector4 v1, ref Vector4 v2, ref Fixed32 amount, out Vector4 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
-            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
-            result.Z = vector1.Z + ((vector2.Z - vector1.Z) * amount);
-            result.W = vector1.W + ((vector2.W - vector1.W) * amount);
+            result.X = v1.X + ((v2.X - v1.X) * amount);
+            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            result.Z = v1.Z + ((v2.Z - v1.Z) * amount);
+            result.W = v1.W + ((v2.W - v1.W) * amount);
         }
 
-        public static void CatmullRom (ref Vector4 vector1, ref Vector4 vector2, ref Vector4 vector3, ref Vector4 vector4, ref Fixed32 amount, out Vector4 result) {
+        public static void CatmullRom (ref Vector4 v1, ref Vector4 v2, ref Vector4 v3, ref Vector4 v4, ref Fixed32 amount, out Vector4 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
-            result.X  = 2 * vector2.X;
-            result.X += (vector3.X - vector1.X) * amount;
-            result.X += ((2 * vector1.X) + (4 * vector3.X) - (5 * vector2.X) - (vector4.X)) * squared;
-            result.X += ((3 * vector2.X) + (vector4.X) - (vector1.X)  - (3 * vector3.X)) * cubed;
+            result.X  = 2 * v2.X;
+            result.X += (v3.X - v1.X) * amount;
+            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
             result.X *= Maths.Half;
-            result.Y  = 2 * vector2.Y;
-            result.Y += (vector3.Y - vector1.Y) * amount;
-            result.Y += ((2 * vector1.Y) + (4 * vector3.Y) - (5 * vector2.Y) - (vector4.Y)) * squared;
-            result.Y += ((3 * vector2.Y) + (vector4.Y) - (vector1.Y) - (3 * vector3.Y)) * cubed;
+            result.Y  = 2 * v2.Y;
+            result.Y += (v3.Y - v1.Y) * amount;
+            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
             result.Y *= Maths.Half;
-            result.Z  = 2 * vector2.Z;
-            result.Z += (vector3.Z - vector1.Z) * amount;
-            result.Z += ((2 * vector1.Z) + (4 * vector3.Z) - (5 * vector2.Z) - (vector4.Z)) * squared;
-            result.Z += ((3 * vector2.Z) + (vector4.Z) - (vector1.Z) - (3 * vector3.Z)) * cubed;
+            result.Z  = 2 * v2.Z;
+            result.Z += (v3.Z - v1.Z) * amount;
+            result.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
+            result.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
             result.Z *= Maths.Half;
-            result.W  = 2 * vector2.W;
-            result.W += (vector3.W - vector1.W) * amount;
-            result.W += ((2 * vector1.W) + (4 * vector3.W) - (5 * vector2.W) - (vector4.W)) * squared;
-            result.W += ((3 * vector2.W) + (vector4.W) - (vector1.W) - (3 * vector3.W)) * cubed;
+            result.W  = 2 * v2.W;
+            result.W += (v3.W - v1.W) * amount;
+            result.W += ((2 * v1.W) + (4 * v3.W) - (5 * v2.W) - (v4.W)) * squared;
+            result.W += ((3 * v2.W) + (v4.W) - (v1.W) - (3 * v3.W)) * cubed;
             result.W *= Maths.Half;
         }
 
-        public static void Hermite (ref Vector4 vector1, ref Vector4 tangent1, ref Vector4 vector2, ref Vector4 tangent2, ref Fixed32 amount, out Vector4 result) {
+        public static void Hermite (ref Vector4 v1, ref Vector4 tangent1, ref Vector4 v2, ref Vector4 tangent2, ref Fixed32 amount, out Vector4 result) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -2069,16 +2069,16 @@ namespace Abacus.Fixed32Precision
             Fixed32 b = (-cubed * 2) + (squared * 3);
             Fixed32 c = (cubed - (squared * 2)) + amount;
             Fixed32 d = cubed - squared;
-            result.X = (vector1.X * a) + (vector2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (vector1.Y * a) + (vector2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
-            result.Z = (vector1.Z * a) + (vector2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
-            result.W = (vector1.W * a) + (vector2.W * b) + (tangent1.W * c) + (tangent2.W * d);
+            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            result.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
         }
 
 #if (FUNCTION_VARIANTS)
-        public static Vector4 SmoothStep (Vector4 vector1, Vector4 vector2, ref Fixed32 amount) { Vector4 result; SmoothStep (ref vector1, ref vector2, ref amount, out result); return result; }
-        public static Vector4 CatmullRom (Vector4 vector1, Vector4 vector2, Vector4 vector3, Vector4 vector4, ref Fixed32 amount) { Vector4 result; CatmullRom (ref vector1, ref vector2, ref vector3, ref vector4, ref amount, out result); return result; }
-        public static Vector4 Hermite    (Vector4 vector1, Vector4 tangent1, Vector4 vector2, Vector4 tangent2, ref Fixed32 amount) { Vector4 result; Hermite (ref vector1, ref tangent1, ref vector2, ref tangent2, ref amount, out result); return result; }
+        public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, ref Fixed32 amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
+        public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, ref Fixed32 amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
+        public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, ref Fixed32 amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
 #endif
 
         // Maths //-----------------------------------------------------------//

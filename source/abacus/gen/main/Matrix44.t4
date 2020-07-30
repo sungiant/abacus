@@ -322,19 +322,19 @@
             result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = m.R3C3; 
         }
 
-        public static void Transform (ref Matrix44 matrix, ref Vector3 vector, out Vector3 result) {
-            <#=T#> x = (vector.X * matrix.R0C0) + (vector.Y * matrix.R1C0) + (vector.Z * matrix.R2C0) + matrix.R3C0;
-            <#=T#> y = (vector.X * matrix.R0C1) + (vector.Y * matrix.R1C1) + (vector.Z * matrix.R2C1) + matrix.R3C1;
-            <#=T#> z = (vector.X * matrix.R0C2) + (vector.Y * matrix.R1C2) + (vector.Z * matrix.R2C2) + matrix.R3C2;
-            <#=T#> w = (vector.X * matrix.R0C3) + (vector.Y * matrix.R1C3) + (vector.Z * matrix.R2C3) + matrix.R3C3;
+        public static void Transform (ref Matrix44 m, ref Vector3 v, out Vector3 result) {
+            <#=T#> x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + m.R3C0;
+            <#=T#> y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + m.R3C1;
+            <#=T#> z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + m.R3C2;
+            <#=T#> w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + m.R3C3;
             result.X = x / w; result.Y = y / w; result.Z = z / w;
         }
 
-        public static void Transform (ref Matrix44 matrix, ref Vector4 vector, out Vector4 result) {
-            <#=T#> x = (vector.X * matrix.R0C0) + (vector.Y * matrix.R1C0) + (vector.Z * matrix.R2C0) + (vector.W * matrix.R3C0);
-            <#=T#> y = (vector.X * matrix.R0C1) + (vector.Y * matrix.R1C1) + (vector.Z * matrix.R2C1) + (vector.W * matrix.R3C1);
-            <#=T#> z = (vector.X * matrix.R0C2) + (vector.Y * matrix.R1C2) + (vector.Z * matrix.R2C2) + (vector.W * matrix.R3C2);
-            <#=T#> w = (vector.X * matrix.R0C3) + (vector.Y * matrix.R1C3) + (vector.Z * matrix.R2C3) + (vector.W * matrix.R3C3);
+        public static void Transform (ref Matrix44 m, ref Vector4 v, out Vector4 result) {
+            <#=T#> x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + (v.W * m.R3C0);
+            <#=T#> y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + (v.W * m.R3C1);
+            <#=T#> z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + (v.W * m.R3C2);
+            <#=T#> w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + (v.W * m.R3C3);
             result.X = x; result.Y = y; result.Z = z; result.W = w;
         }
 
