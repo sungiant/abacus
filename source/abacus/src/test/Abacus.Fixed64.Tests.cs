@@ -397,7 +397,7 @@ namespace Abacus.Fixed64Precision {
         public void TestSqrt () {
             for (int i = 0; i < d_test_values.Length; ++ i) {
                 Fixed64 fi = d_test_values[i];
-                Fixed64 fs = Fixed64.Sqrt (fi);
+                Fixed64 fs = fi; Fixed64.Sqrt (ref fs, out fs);
                 Double result = fs.ToDouble ();
                 Double expected = Math.Sqrt (d_test_values[i]);
                 if (Double.IsNaN (expected)) {
@@ -464,6 +464,47 @@ namespace Abacus.Fixed64Precision {
                         Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
                         Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.
                 }
+            }
+        }
+
+        [Test]
+        public void TestArcSin () {
+            for (Double x = -1.0; x <= 1.0; x += 0.01) {
+                Double rad = x * DoublePrecision.Maths.Deg2Rad;
+                Fixed64 f = rad;
+                Fixed64 fs = Fixed64.ArcSin (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Asin (rad);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.
+            }
+        }
+
+        [Test]
+        public void TestArcCos () {
+            for (Double x = -1.0; x <= 1.0; x += 0.01) {
+                Double rad = x * DoublePrecision.Maths.Deg2Rad;
+                Fixed64 f = rad;
+                Fixed64 fs = Fixed64.ArcCos (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Acos (rad);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.
+            }
+        }
+
+        [Test]
+        public void TestArcTan () {
+            for (Double x = -360.0; x <= 360.0; x += 0.01) {
+                Fixed64 f = x;
+                Fixed64 fs = Fixed64.ArcTan (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Atan (x);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.
             }
         }
     }

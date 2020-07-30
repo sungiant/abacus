@@ -344,7 +344,7 @@
         public void TestSqrt () {
             for (int i = 0; i < d_test_values.Length; ++ i) {
                 <#= ftd.TypeName #> fi = d_test_values[i];
-                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.Sqrt (fi);
+                <#= ftd.TypeName #> fs = fi; <#= ftd.TypeName #>.Sqrt (ref fs, out fs);
                 Double result = fs.ToDouble ();
                 Double expected = Math.Sqrt (d_test_values[i]);
                 if (Double.IsNaN (expected)) {
@@ -411,6 +411,47 @@
                         Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
                         Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
                 }
+            }
+        }
+
+        [Test]
+        public void TestArcSin () {
+            for (Double x = -1.0; x <= 1.0; x += 0.01) {
+                Double rad = x * DoublePrecision.Maths.Deg2Rad;
+                <#= ftd.TypeName #> f = rad;
+                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.ArcSin (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Asin (rad);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+            }
+        }
+
+        [Test]
+        public void TestArcCos () {
+            for (Double x = -1.0; x <= 1.0; x += 0.01) {
+                Double rad = x * DoublePrecision.Maths.Deg2Rad;
+                <#= ftd.TypeName #> f = rad;
+                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.ArcCos (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Acos (rad);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+            }
+        }
+
+        [Test]
+        public void TestArcTan () {
+            for (Double x = -360.0; x <= 360.0; x += 0.01) {
+                <#= ftd.TypeName #> f = x;
+                <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.ArcTan (f);
+                Double result = fs.ToDouble ();
+                Double expected = Math.Atan (x);
+                Assert.That (result,
+                    Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                    Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
             }
         }
     }

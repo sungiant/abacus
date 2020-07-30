@@ -216,40 +216,36 @@
 <# GenerateInlineConstant (T, "Tau"); #>
 <# GenerateInlineConstant (T, "Pi"); #>
 <# GenerateInlineConstant (T, "HalfPi"); #>
-<# GenerateInlineConstant (T, "Rad2Deg"); #>
-<# GenerateInlineConstant (T, "Zero"); #>
             // Based on: https://stackoverflow.com/questions/605124/fixed-point-math-in-c
             <#= ftd.TypeName #> fx = f;
 
             for (; fx < 0; fx += Tau);
+
             if (fx > Tau)
                 fx %= Tau;
 
-            // Calculate using symmetries
             if (fx <= HalfPi) {
                 SinLookup (ref fx, out result);
                 return;
             }
             
             if (fx <= Pi) {
-                <#= ftd.TypeName #> fy = Pi - fx;
-                SinLookup (ref fy, out result);
+                fx = Pi - fx;
+                SinLookup (ref fx, out result);
                 return;
             }
             
             if (fx <= HalfPi * 3) {
-                <#= ftd.TypeName #> fy = fx - Pi;
-                SinLookup (ref fy, out result);
+                fx = fx - Pi;
+                SinLookup (ref fx, out result);
                 result = -result;
                 return;
             }
             
-            {
-                <#= ftd.TypeName #> fy = Tau - fx;
-                SinLookup (ref fy, out result);
-                result = -result;
-                return;
-            }
+            fx = Tau - fx;
+            SinLookup (ref fx, out result);
+            result = -result;
+            return;
         }
 
         public static void Cos (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
@@ -267,6 +263,60 @@
                 return;
             }
             result = s / c;
+        }
+
+        public static void ArcSin (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+            // arcsin (f) == 2 * arctan (f / (1 + √(1 - f²))) : -1 <= f <= 1
+            if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
+            result = 1 - f * f;
+            Sqrt (ref result, out result);
+            result += 1;
+            result = f / result;
+            ArcTan (ref result, out result);
+            result *= 2;
+        }
+
+        public static void ArcCos (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+            // arccos (f) == 2 * arctan (√(1 - f²) / (1 + f)) : -1 <= f <= 1
+            if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
+            result = 1 - f * f;
+            Sqrt (ref result, out result);
+            result /= f + 1;
+            ArcTan (ref result, out result);
+            result *= 2;
+        }
+
+        public static void ArcTan (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            // ArcTan approximation implemented using appropriate Tayor series expansion: https://proofwiki.org/wiki/Power_Series_Expansion_for_Real_Arctangent_Function
+            // best accuracy for which falls within the range of -1 <= f <= 1, see: https://spin.atomicobject.com/2012/04/24/implementing-advanced-math-functions/
+            // Valid input for the ArcTan function falls within the range of -∞ < f < ∞,
+            // trig identities are used to facilitate performing the approximation within the most accurate range: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+            <# GenerateInlineConstant (T, "HalfPi"); #>
+            <#= ftd.TypeName #> temp = f;
+            Boolean use_negative_identity = temp < 0;
+            if (use_negative_identity) temp = -temp;
+            Boolean use_reciprocal_identity = temp > 1;
+            if (use_reciprocal_identity) temp = 1 / temp;
+            <#= ftd.TypeName #> tt = temp * temp;
+            <#= ftd.TypeName #> numerator = temp;
+            <#= ftd.TypeName #> denominator = 1;
+            result = temp;                                         // arctan (f) =~ f - (f³/3) - (f⁵/5) - (f⁷/7) - (f⁹/9) ... : -1 <= f <= 1
+            for (int i = 0; i < <#= ftd.BitCount #> / 2; ++i) {
+                numerator *= tt;
+                denominator += 2;
+                temp = numerator / denominator;
+                if (temp == 0) break;
+                result -= temp;
+                numerator *= tt;
+                denominator += 2;
+                temp = numerator / denominator;
+                if (temp == 0) break;
+                result += temp;
+            }
+            if (use_reciprocal_identity) result = HalfPi - result; // arctan (f) + arctan (1/f) == π/2
+            if (use_negative_identity) result = -result;           // arctan (-f) == -arctan (f)
         }
 
 
@@ -287,7 +337,6 @@
             result = (<#= ftd.RawTypeName #>) big;
         }
         static void SinLookup (ref <#= ftd.TypeName #> rad, out <#= ftd.TypeName #> result) {
-<# GenerateInlineConstant (T, "Zero"); #>
 <# GenerateInlineConstant (T, "Rad2Deg"); #>
             <#= ftd.TypeName #> deg = rad * Rad2Deg;
             Int32 p = (Int32) deg.ToInt32 ();
@@ -331,6 +380,10 @@
         public static <#= ftd.TypeName #> Sin      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sin  (ref f, out result); return result; }
         public static <#= ftd.TypeName #> Cos      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Cos  (ref f, out result); return result; }
         public static <#= ftd.TypeName #> Tan      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Tan  (ref f, out result); return result; }
+
+        public static <#= ftd.TypeName #> ArcSin   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; ArcSin  (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> ArcCos   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; ArcCos  (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> ArcTan   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; ArcTan  (ref f, out result); return result; }
 
         public static Boolean operator == (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.Equals (b); }
         public static Boolean operator != (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return !a.Equals (b); }

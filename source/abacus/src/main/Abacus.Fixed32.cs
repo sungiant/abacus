@@ -270,40 +270,36 @@ namespace Abacus.Fixed32Precision
             Fixed32 Tau = Fixed32.CreateFrom (6.28318530717958647692528676656);
             Fixed32 Pi = Fixed32.CreateFrom (3.14159265358979323846264338328);
             Fixed32 HalfPi = Fixed32.CreateFrom (1.57079632679489661923132169164);
-            Fixed32 Rad2Deg = Fixed32.CreateFrom (57.29577951308232087679815481409);
-            Fixed32 Zero = Fixed32.CreateFrom (0.0);
             // Based on: https://stackoverflow.com/questions/605124/fixed-point-math-in-c
             Fixed32 fx = f;
 
             for (; fx < 0; fx += Tau);
+
             if (fx > Tau)
                 fx %= Tau;
 
-            // Calculate using symmetries
             if (fx <= HalfPi) {
                 SinLookup (ref fx, out result);
                 return;
             }
             
             if (fx <= Pi) {
-                Fixed32 fy = Pi - fx;
-                SinLookup (ref fy, out result);
+                fx = Pi - fx;
+                SinLookup (ref fx, out result);
                 return;
             }
             
             if (fx <= HalfPi * 3) {
-                Fixed32 fy = fx - Pi;
-                SinLookup (ref fy, out result);
+                fx = fx - Pi;
+                SinLookup (ref fx, out result);
                 result = -result;
                 return;
             }
             
-            {
-                Fixed32 fy = Tau - fx;
-                SinLookup (ref fy, out result);
-                result = -result;
-                return;
-            }
+            fx = Tau - fx;
+            SinLookup (ref fx, out result);
+            result = -result;
+            return;
         }
 
         public static void Cos (ref Fixed32 f, out Fixed32 result) {
@@ -321,6 +317,60 @@ namespace Abacus.Fixed32Precision
                 return;
             }
             result = s / c;
+        }
+
+        public static void ArcSin (ref Fixed32 f, out Fixed32 result) {
+            // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+            // arcsin (f) == 2 * arctan (f / (1 + √(1 - f²))) : -1 <= f <= 1
+            if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
+            result = 1 - f * f;
+            Sqrt (ref result, out result);
+            result += 1;
+            result = f / result;
+            ArcTan (ref result, out result);
+            result *= 2;
+        }
+
+        public static void ArcCos (ref Fixed32 f, out Fixed32 result) {
+            // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+            // arccos (f) == 2 * arctan (√(1 - f²) / (1 + f)) : -1 <= f <= 1
+            if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
+            result = 1 - f * f;
+            Sqrt (ref result, out result);
+            result /= f + 1;
+            ArcTan (ref result, out result);
+            result *= 2;
+        }
+
+        public static void ArcTan (ref Fixed32 f, out Fixed32 result) {
+            // ArcTan approximation implemented using appropriate Tayor series expansion: https://proofwiki.org/wiki/Power_Series_Expansion_for_Real_Arctangent_Function
+            // best accuracy for which falls within the range of -1 <= f <= 1, see: https://spin.atomicobject.com/2012/04/24/implementing-advanced-math-functions/
+            // Valid input for the ArcTan function falls within the range of -∞ < f < ∞,
+            // trig identities are used to facilitate performing the approximation within the most accurate range: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+                        Fixed32 HalfPi = Fixed32.CreateFrom (1.57079632679489661923132169164);
+            Fixed32 temp = f;
+            Boolean use_negative_identity = temp < 0;
+            if (use_negative_identity) temp = -temp;
+            Boolean use_reciprocal_identity = temp > 1;
+            if (use_reciprocal_identity) temp = 1 / temp;
+            Fixed32 tt = temp * temp;
+            Fixed32 numerator = temp;
+            Fixed32 denominator = 1;
+            result = temp;                                         // arctan (f) =~ f - (f³/3) - (f⁵/5) - (f⁷/7) - (f⁹/9) ... : -1 <= f <= 1
+            for (int i = 0; i < 32 / 2; ++i) {
+                numerator *= tt;
+                denominator += 2;
+                temp = numerator / denominator;
+                if (temp == 0) break;
+                result -= temp;
+                numerator *= tt;
+                denominator += 2;
+                temp = numerator / denominator;
+                if (temp == 0) break;
+                result += temp;
+            }
+            if (use_reciprocal_identity) result = HalfPi - result; // arctan (f) + arctan (1/f) == π/2
+            if (use_negative_identity) result = -result;           // arctan (-f) == -arctan (f)
         }
 
 
@@ -341,7 +391,6 @@ namespace Abacus.Fixed32Precision
             result = (Int32) big;
         }
         static void SinLookup (ref Fixed32 rad, out Fixed32 result) {
-            Fixed32 Zero = Fixed32.CreateFrom (0.0);
             Fixed32 Rad2Deg = Fixed32.CreateFrom (57.29577951308232087679815481409);
             Fixed32 deg = rad * Rad2Deg;
             Int32 p = (Int32) deg.ToInt32 ();
@@ -398,6 +447,10 @@ namespace Abacus.Fixed32Precision
         public static Fixed32 Sin      (Fixed32 f) { Fixed32 result; Sin  (ref f, out result); return result; }
         public static Fixed32 Cos      (Fixed32 f) { Fixed32 result; Cos  (ref f, out result); return result; }
         public static Fixed32 Tan      (Fixed32 f) { Fixed32 result; Tan  (ref f, out result); return result; }
+
+        public static Fixed32 ArcSin   (Fixed32 f) { Fixed32 result; ArcSin  (ref f, out result); return result; }
+        public static Fixed32 ArcCos   (Fixed32 f) { Fixed32 result; ArcCos  (ref f, out result); return result; }
+        public static Fixed32 ArcTan   (Fixed32 f) { Fixed32 result; ArcTan  (ref f, out result); return result; }
 
         public static Boolean operator == (Fixed32 a, Fixed32 b) { return a.Equals (b); }
         public static Boolean operator != (Fixed32 a, Fixed32 b) { return !a.Equals (b); }
@@ -2075,6 +2128,9 @@ namespace Abacus.Fixed32Precision
         public static Fixed32 Sin (Fixed32 v) { return Fixed32.Sin (v); }
         public static Fixed32 Cos (Fixed32 v) { return Fixed32.Cos (v); }
         public static Fixed32 Tan (Fixed32 v) { return Fixed32.Tan (v); }
+        public static Fixed32 ArcCos (Fixed32 v) { return Fixed32.ArcCos (v); }
+        public static Fixed32 ArcSin (Fixed32 v) { return Fixed32.ArcSin (v); }
+        public static Fixed32 ArcTan (Fixed32 v) { return Fixed32.ArcTan (v); }
 
         public static Fixed32 ToRadians          (Fixed32 input) { return input * Deg2Rad; }
         public static Fixed32 ToDegrees          (Fixed32 input) { return input * Rad2Deg; }

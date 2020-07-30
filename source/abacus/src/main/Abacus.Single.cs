@@ -1704,6 +1704,9 @@ namespace Abacus.SinglePrecision
         public static Single Sin (Single v) { return (Single) Math.Sin (v); }
         public static Single Cos (Single v) { return (Single) Math.Cos (v); }
         public static Single Tan (Single v) { return (Single) Math.Tan (v); }
+        public static Single ArcCos (Single v) { return (Single) Math.Acos (v); }
+        public static Single ArcSin (Single v) { return (Single) Math.Asin (v); }
+        public static Single ArcTan (Single v) { return (Single) Math.Atan (v); }
 
         public static Single ToRadians          (Single input) { return input * Deg2Rad; }
         public static Single ToDegrees          (Single input) { return input * Rad2Deg; }

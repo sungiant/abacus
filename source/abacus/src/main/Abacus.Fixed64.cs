@@ -271,40 +271,36 @@ namespace Abacus.Fixed64Precision
             Fixed64 Tau = Fixed64.CreateFrom (6.28318530717958647692528676656);
             Fixed64 Pi = Fixed64.CreateFrom (3.14159265358979323846264338328);
             Fixed64 HalfPi = Fixed64.CreateFrom (1.57079632679489661923132169164);
-            Fixed64 Rad2Deg = Fixed64.CreateFrom (57.29577951308232087679815481409);
-            Fixed64 Zero = Fixed64.CreateFrom (0.0);
             // Based on: https://stackoverflow.com/questions/605124/fixed-point-math-in-c
             Fixed64 fx = f;
 
             for (; fx < 0; fx += Tau);
+
             if (fx > Tau)
                 fx %= Tau;
 
-            // Calculate using symmetries
             if (fx <= HalfPi) {
                 SinLookup (ref fx, out result);
                 return;
             }
             
             if (fx <= Pi) {
-                Fixed64 fy = Pi - fx;
-                SinLookup (ref fy, out result);
+                fx = Pi - fx;
+                SinLookup (ref fx, out result);
                 return;
             }
             
             if (fx <= HalfPi * 3) {
-                Fixed64 fy = fx - Pi;
-                SinLookup (ref fy, out result);
+                fx = fx - Pi;
+                SinLookup (ref fx, out result);
                 result = -result;
                 return;
             }
             
-            {
-                Fixed64 fy = Tau - fx;
-                SinLookup (ref fy, out result);
-                result = -result;
-                return;
-            }
+            fx = Tau - fx;
+            SinLookup (ref fx, out result);
+            result = -result;
+            return;
         }
 
         public static void Cos (ref Fixed64 f, out Fixed64 result) {
@@ -322,6 +318,60 @@ namespace Abacus.Fixed64Precision
                 return;
             }
             result = s / c;
+        }
+
+        public static void ArcSin (ref Fixed64 f, out Fixed64 result) {
+            // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+            // arcsin (f) == 2 * arctan (f / (1 + √(1 - f²))) : -1 <= f <= 1
+            if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
+            result = 1 - f * f;
+            Sqrt (ref result, out result);
+            result += 1;
+            result = f / result;
+            ArcTan (ref result, out result);
+            result *= 2;
+        }
+
+        public static void ArcCos (ref Fixed64 f, out Fixed64 result) {
+            // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+            // arccos (f) == 2 * arctan (√(1 - f²) / (1 + f)) : -1 <= f <= 1
+            if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
+            result = 1 - f * f;
+            Sqrt (ref result, out result);
+            result /= f + 1;
+            ArcTan (ref result, out result);
+            result *= 2;
+        }
+
+        public static void ArcTan (ref Fixed64 f, out Fixed64 result) {
+            // ArcTan approximation implemented using appropriate Tayor series expansion: https://proofwiki.org/wiki/Power_Series_Expansion_for_Real_Arctangent_Function
+            // best accuracy for which falls within the range of -1 <= f <= 1, see: https://spin.atomicobject.com/2012/04/24/implementing-advanced-math-functions/
+            // Valid input for the ArcTan function falls within the range of -∞ < f < ∞,
+            // trig identities are used to facilitate performing the approximation within the most accurate range: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+                        Fixed64 HalfPi = Fixed64.CreateFrom (1.57079632679489661923132169164);
+            Fixed64 temp = f;
+            Boolean use_negative_identity = temp < 0;
+            if (use_negative_identity) temp = -temp;
+            Boolean use_reciprocal_identity = temp > 1;
+            if (use_reciprocal_identity) temp = 1 / temp;
+            Fixed64 tt = temp * temp;
+            Fixed64 numerator = temp;
+            Fixed64 denominator = 1;
+            result = temp;                                         // arctan (f) =~ f - (f³/3) - (f⁵/5) - (f⁷/7) - (f⁹/9) ... : -1 <= f <= 1
+            for (int i = 0; i < 64 / 2; ++i) {
+                numerator *= tt;
+                denominator += 2;
+                temp = numerator / denominator;
+                if (temp == 0) break;
+                result -= temp;
+                numerator *= tt;
+                denominator += 2;
+                temp = numerator / denominator;
+                if (temp == 0) break;
+                result += temp;
+            }
+            if (use_reciprocal_identity) result = HalfPi - result; // arctan (f) + arctan (1/f) == π/2
+            if (use_negative_identity) result = -result;           // arctan (-f) == -arctan (f)
         }
 
 
@@ -342,7 +392,6 @@ namespace Abacus.Fixed64Precision
             result = (Int64) big;
         }
         static void SinLookup (ref Fixed64 rad, out Fixed64 result) {
-            Fixed64 Zero = Fixed64.CreateFrom (0.0);
             Fixed64 Rad2Deg = Fixed64.CreateFrom (57.29577951308232087679815481409);
             Fixed64 deg = rad * Rad2Deg;
             Int32 p = (Int32) deg.ToInt32 ();
@@ -399,6 +448,10 @@ namespace Abacus.Fixed64Precision
         public static Fixed64 Sin      (Fixed64 f) { Fixed64 result; Sin  (ref f, out result); return result; }
         public static Fixed64 Cos      (Fixed64 f) { Fixed64 result; Cos  (ref f, out result); return result; }
         public static Fixed64 Tan      (Fixed64 f) { Fixed64 result; Tan  (ref f, out result); return result; }
+
+        public static Fixed64 ArcSin   (Fixed64 f) { Fixed64 result; ArcSin  (ref f, out result); return result; }
+        public static Fixed64 ArcCos   (Fixed64 f) { Fixed64 result; ArcCos  (ref f, out result); return result; }
+        public static Fixed64 ArcTan   (Fixed64 f) { Fixed64 result; ArcTan  (ref f, out result); return result; }
 
         public static Boolean operator == (Fixed64 a, Fixed64 b) { return a.Equals (b); }
         public static Boolean operator != (Fixed64 a, Fixed64 b) { return !a.Equals (b); }
@@ -2076,6 +2129,9 @@ namespace Abacus.Fixed64Precision
         public static Fixed64 Sin (Fixed64 v) { return Fixed64.Sin (v); }
         public static Fixed64 Cos (Fixed64 v) { return Fixed64.Cos (v); }
         public static Fixed64 Tan (Fixed64 v) { return Fixed64.Tan (v); }
+        public static Fixed64 ArcCos (Fixed64 v) { return Fixed64.ArcCos (v); }
+        public static Fixed64 ArcSin (Fixed64 v) { return Fixed64.ArcSin (v); }
+        public static Fixed64 ArcTan (Fixed64 v) { return Fixed64.ArcTan (v); }
 
         public static Fixed64 ToRadians          (Fixed64 input) { return input * Deg2Rad; }
         public static Fixed64 ToDegrees          (Fixed64 input) { return input * Rad2Deg; }

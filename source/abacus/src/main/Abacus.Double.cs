@@ -1704,6 +1704,9 @@ namespace Abacus.DoublePrecision
         public static Double Sin (Double v) { return Math.Sin (v); }
         public static Double Cos (Double v) { return Math.Cos (v); }
         public static Double Tan (Double v) { return Math.Tan (v); }
+        public static Double ArcCos (Double v) { return Math.Acos (v); }
+        public static Double ArcSin (Double v) { return Math.Asin (v); }
+        public static Double ArcTan (Double v) { return Math.Atan (v); }
 
         public static Double ToRadians          (Double input) { return input * Deg2Rad; }
         public static Double ToDegrees          (Double input) { return input * Rad2Deg; }

@@ -24,6 +24,9 @@
 <# GenerateMathsFunction (T, "Sin"); #>
 <# GenerateMathsFunction (T, "Cos"); #>
 <# GenerateMathsFunction (T, "Tan"); #>
+<# GenerateMathsFunction (T, "ArcCos"); #>
+<# GenerateMathsFunction (T, "ArcSin"); #>
+<# GenerateMathsFunction (T, "ArcTan"); #>
 
         public static <#=T#> ToRadians          (<#=T#> input) { return input * Deg2Rad; }
         public static <#=T#> ToDegrees          (<#=T#> input) { return input * Rad2Deg; }
