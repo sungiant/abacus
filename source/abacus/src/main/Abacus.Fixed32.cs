@@ -213,6 +213,8 @@ namespace Abacus.Fixed32Precision
             Int32 s = f.numerator >> (32 - 1); // sign of argument
             result.numerator = -f.numerator;
             Int32 sr = result.numerator >> (32 - 1); // sign of result
+            // Branchless saturation - the only input that can overflow is MinValue
+            // as there is no +ve equivalent, in this case saturate to MaxValue.
             result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
         }
 
@@ -268,21 +270,21 @@ namespace Abacus.Fixed32Precision
         }
 
         public static void Abs (ref Fixed32 f, out Fixed32 result) {
-            // Based on this: https://www.chessprogramming.org/Avoiding_Branches
+            // Based on: https://www.chessprogramming.org/Avoiding_Branches
             //int abs(int a) {
             //   int s = a >> 31; // cdq, signed shift, -1 if negative, else 0
             //   a ^= s;  // ones' complement if negative
             //   a -= s;  // plus one if negative -> two's complement if negative
             //   return a;
             //}
-            Int32 temp = f.numerator;
-            Int32 s = temp >> (32 - 1); // sign of argument
-            temp ^= s;
-            temp -= s;
-            Int32 sr = temp >> (32 - 1); // sign of result
+            result.numerator = f.numerator;
+            Int32 s = result.numerator >> (32 - 1); // sign of argument
+            result.numerator ^= s;
+            result.numerator -= s;
+            Int32 sr = result.numerator >> (32 - 1); // sign of result
             // Branchless saturation - the only input that can overflow is MinValue
             // as there is no +ve equivalent, in this case saturate to MaxValue.
-            result.numerator = (temp & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
+            result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
         }
 
         public static void Sin (ref Fixed32 f, out Fixed32 result) {
