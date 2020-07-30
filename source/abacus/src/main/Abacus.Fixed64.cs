@@ -205,6 +205,11 @@ namespace Abacus.Fixed64Precision
             Saturate (ref temp, out result.numerator);
         }
 
+        public static void Modulo (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
+            BigInteger temp = (BigInteger)a.numerator % (BigInteger)b.numerator;
+            Saturate (ref temp, out result.numerator);
+        }
+
         public static void Negate (ref Fixed64 f, out Fixed64 result) {
             result.numerator = (f.numerator == Int64.MinValue)
                 ? Int64.MaxValue // overflow case
@@ -260,11 +265,6 @@ namespace Abacus.Fixed64Precision
             }
             q >>= 8;
             result.numerator = (Int64) q;
-        }
-
-        public static void Modulo (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
-            BigInteger temp = (BigInteger)a.numerator % (BigInteger)b.numerator;
-            Saturate (ref temp, out result.numerator);
         }
 
         public static void Abs (ref Fixed64 f, out Fixed64 result) {
