@@ -160,7 +160,7 @@
             result.numerator = -f.numerator;
             <#= ftd.RawTypeName #> sr = result.numerator >> (<#= ftd.BitCount #> - 1); // sign of result
             // Branchless saturation - the only input that can overflow is MinValue
-            // as there is no +ve equivalent, in this case saturate to MaxValue.
+            // as there is no positive equivalent, in this case saturate to MaxValue.
             result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & <#= ftd.RawTypeName #>.MaxValue);
         }
 
@@ -229,7 +229,7 @@
             result.numerator -= s;
             <#= ftd.RawTypeName #> sr = result.numerator >> (<#= ftd.BitCount #> - 1); // sign of result
             // Branchless saturation - the only input that can overflow is MinValue
-            // as there is no +ve equivalent, in this case saturate to MaxValue.
+            // as there is no positive equivalent, in this case saturate to MaxValue.
             result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & <#= ftd.RawTypeName #>.MaxValue);
         }
 
@@ -310,7 +310,7 @@
         }
 
         public static void ArcTan (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
-            // ArcTan approximation implemented using appropriate Tayor series expansion: https://proofwiki.org/wiki/Power_Series_Expansion_for_Real_Arctangent_Function
+            // ArcTan approximation implemented using appropriate Tayor series expansion: http://people.math.sc.edu/girardi/m142/handouts/10sTaylorPolySeries.pdf
             // best accuracy for which falls within the range of -1 <= f <= 1, see: https://spin.atomicobject.com/2012/04/24/implementing-advanced-math-functions/
             // Valid input for the ArcTan function falls within the range of -∞ < f < ∞,
             // trig identities are used to facilitate performing the approximation within the most accurate range: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions

@@ -4,7 +4,7 @@
 // │  /  /_\  \| __ \\__  \ _/ ___\|  |  \/  ___/                           │ \\
 // │ /    |    \ \_\ \/ __ \\  \___|  |  /\___ \                            │ \\
 // │ \____|__  /___  (____  /\___  >____//____  >                           │ \\
-// │         \/    \/     \/     \/           \/  v1.0.1                    │ \\
+// │         \/    \/     \/     \/           \/  v1.0.2                    │ \\
 // │                                                                        │ \\
 // │ Fast, efficient, cross platform, cross precision, maths library.       │ \\
 // │                                                                        │ \\
@@ -214,7 +214,7 @@ namespace Abacus.Fixed32Precision
             result.numerator = -f.numerator;
             Int32 sr = result.numerator >> (32 - 1); // sign of result
             // Branchless saturation - the only input that can overflow is MinValue
-            // as there is no +ve equivalent, in this case saturate to MaxValue.
+            // as there is no positive equivalent, in this case saturate to MaxValue.
             result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
         }
 
@@ -283,7 +283,7 @@ namespace Abacus.Fixed32Precision
             result.numerator -= s;
             Int32 sr = result.numerator >> (32 - 1); // sign of result
             // Branchless saturation - the only input that can overflow is MinValue
-            // as there is no +ve equivalent, in this case saturate to MaxValue.
+            // as there is no positive equivalent, in this case saturate to MaxValue.
             result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
         }
 
@@ -364,7 +364,7 @@ namespace Abacus.Fixed32Precision
         }
 
         public static void ArcTan (ref Fixed32 f, out Fixed32 result) {
-            // ArcTan approximation implemented using appropriate Tayor series expansion: https://proofwiki.org/wiki/Power_Series_Expansion_for_Real_Arctangent_Function
+            // ArcTan approximation implemented using appropriate Tayor series expansion: http://people.math.sc.edu/girardi/m142/handouts/10sTaylorPolySeries.pdf
             // best accuracy for which falls within the range of -1 <= f <= 1, see: https://spin.atomicobject.com/2012/04/24/implementing-advanced-math-functions/
             // Valid input for the ArcTan function falls within the range of -∞ < f < ∞,
             // trig identities are used to facilitate performing the approximation within the most accurate range: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
