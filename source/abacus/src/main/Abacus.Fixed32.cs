@@ -932,10 +932,10 @@ namespace Abacus.Fixed32Precision
         public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return !result; }
         public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return  result; }
         public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract (ref a, ref b, out result); return  result; }
-        public static Matrix44 operator  - (Matrix44 v)             { Matrix44 result; Negate   (ref v, out result);        return  result; }
+        public static Matrix44 operator  - (Matrix44 m)             { Matrix44 result; Negate   (ref m, out result);        return  result; }
         public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return  result; }
-        public static Matrix44 operator  * (Matrix44 v, Fixed32 f)   { Matrix44 result; Multiply (ref v, ref f, out result); return  result; }
-        public static Matrix44 operator  * (Fixed32 f, Matrix44 v)   { Matrix44 result; Multiply (ref v, ref f, out result); return  result; }
+        public static Matrix44 operator  * (Matrix44 m, Fixed32 f)   { Matrix44 result; Multiply (ref m, ref f, out result); return  result; }
+        public static Matrix44 operator  * (Fixed32 f, Matrix44 m)   { Matrix44 result; Multiply (ref m, ref f, out result); return  result; }
         public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3 result; Transform (ref m, ref v, out result); return  result; }
         public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4 result; Transform (ref m, ref v, out result); return  result; }
         public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3 result; Transform (ref m, ref v, out result); return  result; }
@@ -944,9 +944,9 @@ namespace Abacus.Fixed32Precision
         public static Boolean  Equals      (Matrix44 a, Matrix44 b) { Boolean  result; Equals   (ref a, ref b, out result); return result; }
         public static Matrix44 Add         (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return result; }
         public static Matrix44 Subtract    (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract (ref a, ref b, out result); return result; }
-        public static Matrix44 Negate      (Matrix44 v)             { Matrix44 result; Negate   (ref v, out result);        return result; }
+        public static Matrix44 Negate      (Matrix44 m)             { Matrix44 result; Negate   (ref m, out result);        return result; }
         public static Matrix44 Product     (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return result; }
-        public static Matrix44 Multiply    (Matrix44 v, Fixed32 f)   { Matrix44 result; Multiply (ref v, ref f, out result); return result; }
+        public static Matrix44 Multiply    (Matrix44 m, Fixed32 f)   { Matrix44 result; Multiply (ref m, ref f, out result); return result; }
 #endif
 
         // Utilities //-------------------------------------------------------//
