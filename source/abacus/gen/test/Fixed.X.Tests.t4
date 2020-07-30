@@ -242,23 +242,6 @@
             <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MinValue + <#= ftd.TypeName #>.Resolution;
             Assert.That (result, Is.EqualTo (expected));
         }
-        
-        [Test]
-        public void TestModulo () {
-            for (int i = 0; i < d_test_values.Length; ++ i) {
-                for (int j = i; j < d_test_values.Length; ++ j) {
-                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
-                    if (fj == 0.0)
-                        continue;
-                    <#= ftd.TypeName #> fk = fi % fj;
-                    Double result = fk.ToDouble ();
-                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
-                    Assert.That (result,
-                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
-                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
-                }
-            }
-        }
 
         [Test]
         public void TestMultiplication () {
@@ -353,6 +336,23 @@
                 else {
                     <#= ftd.TypeName #> f = expected;
                     Assert.That (f.ToDouble (), Is.EqualTo (expected).Within (MathsTests.TestTolerance));   // double check storage
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                }
+            }
+        }
+        
+        [Test]
+        public void TestModulo () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    <#= ftd.TypeName #> fi = d_test_values[i], fj = d_test_values[j];
+                    if (fj == 0.0)
+                        continue;
+                    <#= ftd.TypeName #> fk = fi % fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
                     Assert.That (result,
                         Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
                         Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.

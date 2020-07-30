@@ -295,23 +295,6 @@ namespace Abacus.Fixed32Precision {
             Fixed32 expected = Fixed32.MinValue + Fixed32.Resolution;
             Assert.That (result, Is.EqualTo (expected));
         }
-        
-        [Test]
-        public void TestModulo () {
-            for (int i = 0; i < d_test_values.Length; ++ i) {
-                for (int j = i; j < d_test_values.Length; ++ j) {
-                    Fixed32 fi = d_test_values[i], fj = d_test_values[j];
-                    if (fj == 0.0)
-                        continue;
-                    Fixed32 fk = fi % fj;
-                    Double result = fk.ToDouble ();
-                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
-                    Assert.That (result,
-                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed32
-                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed32.
-                }
-            }
-        }
 
         [Test]
         public void TestMultiplication () {
@@ -406,6 +389,23 @@ namespace Abacus.Fixed32Precision {
                 else {
                     Fixed32 f = expected;
                     Assert.That (f.ToDouble (), Is.EqualTo (expected).Within (MathsTests.TestTolerance));   // double check storage
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed32
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed32.
+                }
+            }
+        }
+        
+        [Test]
+        public void TestModulo () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    Fixed32 fi = d_test_values[i], fj = d_test_values[j];
+                    if (fj == 0.0)
+                        continue;
+                    Fixed32 fk = fi % fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
                     Assert.That (result,
                         Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed32
                         Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed32.

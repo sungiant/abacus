@@ -295,23 +295,6 @@ namespace Abacus.Fixed64Precision {
             Fixed64 expected = Fixed64.MinValue + Fixed64.Resolution;
             Assert.That (result, Is.EqualTo (expected));
         }
-        
-        [Test]
-        public void TestModulo () {
-            for (int i = 0; i < d_test_values.Length; ++ i) {
-                for (int j = i; j < d_test_values.Length; ++ j) {
-                    Fixed64 fi = d_test_values[i], fj = d_test_values[j];
-                    if (fj == 0.0)
-                        continue;
-                    Fixed64 fk = fi % fj;
-                    Double result = fk.ToDouble ();
-                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
-                    Assert.That (result,
-                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
-                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.
-                }
-            }
-        }
 
         [Test]
         public void TestMultiplication () {
@@ -406,6 +389,23 @@ namespace Abacus.Fixed64Precision {
                 else {
                     Fixed64 f = expected;
                     Assert.That (f.ToDouble (), Is.EqualTo (expected).Within (MathsTests.TestTolerance));   // double check storage
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.
+                }
+            }
+        }
+        
+        [Test]
+        public void TestModulo () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                for (int j = i; j < d_test_values.Length; ++ j) {
+                    Fixed64 fi = d_test_values[i], fj = d_test_values[j];
+                    if (fj == 0.0)
+                        continue;
+                    Fixed64 fk = fi % fj;
+                    Double result = fk.ToDouble ();
+                    Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
                     Assert.That (result,
                         Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
                         Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.

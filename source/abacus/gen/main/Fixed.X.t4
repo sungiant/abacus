@@ -150,11 +150,6 @@
             Saturate (ref temp, out result.numerator);
         }
 
-        public static void Modulo (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
-            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>)a.numerator % (<#= ftd.BigTypeName #>)b.numerator;
-            Saturate (ref temp, out result.numerator);
-        }
-
         public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
             result.numerator = (f.numerator == <#= ftd.RawTypeName #>.MinValue)
                 ? <#= ftd.RawTypeName #>.MaxValue // overflow case
@@ -210,6 +205,11 @@
             }
             q >>= 8;
             result.numerator = (<#= ftd.RawTypeName #>) q;
+        }
+
+        public static void Modulo (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
+            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>)a.numerator % (<#= ftd.BigTypeName #>)b.numerator;
+            Saturate (ref temp, out result.numerator);
         }
 
         public static void Sin (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {

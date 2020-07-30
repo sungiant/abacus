@@ -204,11 +204,6 @@ namespace Abacus.Fixed32Precision
             Saturate (ref temp, out result.numerator);
         }
 
-        public static void Modulo (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
-            Int64 temp = (Int64)a.numerator % (Int64)b.numerator;
-            Saturate (ref temp, out result.numerator);
-        }
-
         public static void Negate (ref Fixed32 f, out Fixed32 result) {
             result.numerator = (f.numerator == Int32.MinValue)
                 ? Int32.MaxValue // overflow case
@@ -264,6 +259,11 @@ namespace Abacus.Fixed32Precision
             }
             q >>= 8;
             result.numerator = (Int32) q;
+        }
+
+        public static void Modulo (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
+            Int64 temp = (Int64)a.numerator % (Int64)b.numerator;
+            Saturate (ref temp, out result.numerator);
         }
 
         public static void Sin (ref Fixed32 f, out Fixed32 result) {
