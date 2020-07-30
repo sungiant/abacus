@@ -144,6 +144,32 @@ namespace Abacus.SinglePrecision
             result.K = (r * q1.K) + (a * q2.K);
         }
 
+        // http://en.wikipedia.org/wiki/Slerp
+        public static void Slerp (ref Quaternion q1, ref Quaternion q2, ref Single amount,out Quaternion result) {
+            Debug.Assert (amount >= 0 && amount <= 1);
+            Single remaining = 1 - amount;
+            Single angle;
+            Dot (ref q1, ref q2, out angle);
+            if (angle < 0) {
+                Negate (ref q1, out q1);
+                angle = -angle;
+            }
+            Single theta = Maths.ArcCos (angle);
+            Single r = remaining;
+            Single a = amount;
+            if (theta > Maths.Epsilon) {
+                Single x = Maths.Sin (remaining * theta);
+                Single y = Maths.Sin (amount * theta);
+                Single z = Maths.Sin (theta);
+                r = x / z;
+                a = y / z;
+            }
+            result.U = (r * q1.U) + (a * q2.U);
+            result.I = (r * q1.I) + (a * q2.I);
+            result.J = (r * q1.J) + (a * q2.J);
+            result.K = (r * q1.K) + (a * q2.K);
+        }
+
         public static void IsUnit (ref Quaternion q, out Boolean result) {
             result = Maths.IsZero((Single) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
         }
@@ -153,6 +179,8 @@ namespace Abacus.SinglePrecision
 
         public static Boolean    IsUnit (Quaternion q) { Boolean result; IsUnit (ref q, out result); return result; }
         public static Quaternion Lerp   (Quaternion a, Quaternion b, Single amount) { Quaternion result; Lerp (ref a, ref b, ref amount, out result); return result; }
+        public static Quaternion Slerp  (Quaternion a, Quaternion b, Single amount) { Quaternion result; Slerp (ref a, ref b, ref amount, out result); return result; }
+
 #endif
 
         // Maths //-----------------------------------------------------------//
