@@ -412,6 +412,28 @@ namespace Abacus.Fixed32Precision {
                 }
             }
         }
+        
+        [Test]
+        public void TestAbs () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                Fixed32 fi = d_test_values[i];
+                Fixed32 fa = fi;
+                Fixed32.Abs (ref fa, out fa);
+                Double result = fa.ToDouble ();
+                Double expected = Math.Abs (d_test_values[i]);
+                Fixed32 f = expected;
+                Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
+            }
+        }
+
+        [Test]
+        public void TestAbs_Overflow () {
+            Fixed32 result = Fixed32.MinValue;
+            Fixed32.Abs (ref result, out result);
+            Fixed32 expected = Fixed32.MaxValue;
+            Assert.That (result, Is.EqualTo (expected));
+        
+        }
 
         [Test]
         public void TestSin () {

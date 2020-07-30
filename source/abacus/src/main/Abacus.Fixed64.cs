@@ -267,6 +267,24 @@ namespace Abacus.Fixed64Precision
             Saturate (ref temp, out result.numerator);
         }
 
+        public static void Abs (ref Fixed64 f, out Fixed64 result) {
+            // Based on this: https://www.chessprogramming.org/Avoiding_Branches
+            //int abs(int a) {
+            //   int s = a >> 31; // cdq, signed shift, -1 if negative, else 0
+            //   a ^= s;  // ones' complement if negative
+            //   a -= s;  // plus one if negative -> two's complement if negative
+            //   return a;
+            //}
+            Int64 temp = f.numerator;
+            Int64 s = temp >> (64 - 1); // sign of argument
+            temp ^= s;
+            temp -= s;
+            Int64 sr = temp >> (64 - 1); // sign of result
+            // Branchless saturation - the only input that can overflow is MinValue
+            // as there is no +ve equivalent, in this case saturate to MaxValue.
+            result.numerator = (temp & ~(sr & s)) | ((sr & s) & Int64.MaxValue);
+        }
+
         public static void Sin (ref Fixed64 f, out Fixed64 result) {
             Fixed64 Tau = Fixed64.CreateFrom (6.28318530717958647692528676656);
             Fixed64 Pi = Fixed64.CreateFrom (3.14159265358979323846264338328);
@@ -444,6 +462,7 @@ namespace Abacus.Fixed64Precision
         public static Fixed64 operator  + (Fixed64 f) { return f; }
 
         public static Fixed64 Sqrt     (Fixed64 f) { Fixed64 result; Sqrt (ref f, out result); return result; }
+        public static Fixed64 Abs      (Fixed64 f) { Fixed64 result; Abs (ref f, out result); return result; }
 
         public static Fixed64 Sin      (Fixed64 f) { Fixed64 result; Sin  (ref f, out result); return result; }
         public static Fixed64 Cos      (Fixed64 f) { Fixed64 result; Cos  (ref f, out result); return result; }
@@ -2161,6 +2180,7 @@ namespace Abacus.Fixed64Precision
         public static readonly Fixed64 One = Fixed64.CreateFrom (1.0);
 
         public static Fixed64 Sqrt (Fixed64 v) { return Fixed64.Sqrt (v); }
+        public static Fixed64 Abs (Fixed64 v) { return Fixed64.Abs (v); }
 
         public static Fixed64 Sin (Fixed64 v) { return Fixed64.Sin (v); }
         public static Fixed64 Cos (Fixed64 v) { return Fixed64.Cos (v); }
@@ -2178,7 +2198,6 @@ namespace Abacus.Fixed64Precision
         public static Fixed64 Max                (Fixed64 a, Fixed64 b) { return a > b ? a : b; }
         public static Fixed64 Clamp              (Fixed64 value, Fixed64 min, Fixed64 max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Fixed64 Lerp               (Fixed64 a, Fixed64 b, Fixed64 t) { return a + ((b - a) * t); }
-        public static Fixed64 Abs                (Fixed64 v) { return (v < 0) ? -v : v; }
 
         public static Fixed64 FromString         (String str) { Fixed64 result = Zero; Fixed64.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Fixed64 value) { Fixed64.TryParse (str, out value); }

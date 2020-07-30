@@ -212,6 +212,24 @@
             Saturate (ref temp, out result.numerator);
         }
 
+        public static void Abs (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
+            // Based on this: https://www.chessprogramming.org/Avoiding_Branches
+            //int abs(int a) {
+            //   int s = a >> 31; // cdq, signed shift, -1 if negative, else 0
+            //   a ^= s;  // ones' complement if negative
+            //   a -= s;  // plus one if negative -> two's complement if negative
+            //   return a;
+            //}
+            <#= ftd.RawTypeName #> temp = f.numerator;
+            <#= ftd.RawTypeName #> s = temp >> (<#= ftd.BitCount #> - 1); // sign of argument
+            temp ^= s;
+            temp -= s;
+            <#= ftd.RawTypeName #> sr = temp >> (<#= ftd.BitCount #> - 1); // sign of result
+            // Branchless saturation - the only input that can overflow is MinValue
+            // as there is no +ve equivalent, in this case saturate to MaxValue.
+            result.numerator = (temp & ~(sr & s)) | ((sr & s) & <#= ftd.RawTypeName #>.MaxValue);
+        }
+
         public static void Sin (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {
 <# GenerateInlineConstant (T, "Tau"); #>
 <# GenerateInlineConstant (T, "Pi"); #>
@@ -376,6 +394,7 @@
         public static <#= ftd.TypeName #> operator  + (<#= ftd.TypeName #> f) { return f; }
 
         public static <#= ftd.TypeName #> Sqrt     (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sqrt (ref f, out result); return result; }
+        public static <#= ftd.TypeName #> Abs      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Abs (ref f, out result); return result; }
 
         public static <#= ftd.TypeName #> Sin      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Sin  (ref f, out result); return result; }
         public static <#= ftd.TypeName #> Cos      (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> result; Cos  (ref f, out result); return result; }

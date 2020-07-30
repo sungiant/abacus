@@ -359,6 +359,28 @@
                 }
             }
         }
+        
+        [Test]
+        public void TestAbs () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                <#= ftd.TypeName #> fi = d_test_values[i];
+                <#= ftd.TypeName #> fa = fi;
+                <#= ftd.TypeName #>.Abs (ref fa, out fa);
+                Double result = fa.ToDouble ();
+                Double expected = Math.Abs (d_test_values[i]);
+                <#= ftd.TypeName #> f = expected;
+                Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
+            }
+        }
+
+        [Test]
+        public void TestAbs_Overflow () {
+            <#= ftd.TypeName #> result = <#= ftd.TypeName #>.MinValue;
+            <#= ftd.TypeName #>.Abs (ref result, out result);
+            <#= ftd.TypeName #> expected = <#= ftd.TypeName #>.MaxValue;
+            Assert.That (result, Is.EqualTo (expected));
+        
+        }
 
         [Test]
         public void TestSin () {

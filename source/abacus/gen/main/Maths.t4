@@ -20,6 +20,7 @@
 <# GenerateMathsConstant (T, "One"); #>
 
 <# GenerateMathsFunction (T, "Sqrt"); #>
+<# GenerateMathsFunction (T, "Abs"); #>
 
 <# GenerateMathsFunction (T, "Sin"); #>
 <# GenerateMathsFunction (T, "Cos"); #>
@@ -37,7 +38,6 @@
         public static <#=T#> Max                (<#=T#> a, <#=T#> b) { return a > b ? a : b; }
         public static <#=T#> Clamp              (<#=T#> value, <#=T#> min, <#=T#> max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static <#=T#> Lerp               (<#=T#> a, <#=T#> b, <#=T#> t) { return a + ((b - a) * t); }
-        public static <#=T#> Abs                (<#=T#> v) { return (v < 0) ? -v : v; }
 
         public static <#=T#> FromString         (String str) { <#=T#> result = Zero; <#=T#>.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out <#=T#> value) { <#=T#>.TryParse (str, out value); }

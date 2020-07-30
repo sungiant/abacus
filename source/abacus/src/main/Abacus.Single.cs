@@ -1736,6 +1736,7 @@ namespace Abacus.SinglePrecision
         public static readonly Single One = 1.0f;
 
         public static Single Sqrt (Single v) { return (Single) Math.Sqrt (v); }
+        public static Single Abs (Single v) { return (Single) Math.Abs (v); }
 
         public static Single Sin (Single v) { return (Single) Math.Sin (v); }
         public static Single Cos (Single v) { return (Single) Math.Cos (v); }
@@ -1753,7 +1754,6 @@ namespace Abacus.SinglePrecision
         public static Single Max                (Single a, Single b) { return a > b ? a : b; }
         public static Single Clamp              (Single value, Single min, Single max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Single Lerp               (Single a, Single b, Single t) { return a + ((b - a) * t); }
-        public static Single Abs                (Single v) { return (v < 0) ? -v : v; }
 
         public static Single FromString         (String str) { Single result = Zero; Single.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Single value) { Single.TryParse (str, out value); }

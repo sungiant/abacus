@@ -412,6 +412,28 @@ namespace Abacus.Fixed64Precision {
                 }
             }
         }
+        
+        [Test]
+        public void TestAbs () {
+            for (int i = 0; i < d_test_values.Length; ++ i) {
+                Fixed64 fi = d_test_values[i];
+                Fixed64 fa = fi;
+                Fixed64.Abs (ref fa, out fa);
+                Double result = fa.ToDouble ();
+                Double expected = Math.Abs (d_test_values[i]);
+                Fixed64 f = expected;
+                Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
+            }
+        }
+
+        [Test]
+        public void TestAbs_Overflow () {
+            Fixed64 result = Fixed64.MinValue;
+            Fixed64.Abs (ref result, out result);
+            Fixed64 expected = Fixed64.MaxValue;
+            Assert.That (result, Is.EqualTo (expected));
+        
+        }
 
         [Test]
         public void TestSin () {

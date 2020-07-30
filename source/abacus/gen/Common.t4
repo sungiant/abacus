@@ -90,6 +90,7 @@
             { "Cos",            "(Single v) { return (Single) Math.Cos (v); }"                },
             { "Tan",            "(Single v) { return (Single) Math.Tan (v); }"                },
             { "Sqrt",           "(Single v) { return (Single) Math.Sqrt (v); }"               },
+            { "Abs",            "(Single v) { return (Single) Math.Abs (v); }"                },
             { "ArcSin",         "(Single v) { return (Single) Math.Asin (v); }"               },
             { "ArcCos",         "(Single v) { return (Single) Math.Acos (v); }"               },
             { "ArcTan",         "(Single v) { return (Single) Math.Atan (v); }"               },
@@ -101,6 +102,7 @@
             { "Cos",            "(Double v) { return Math.Cos (v); }"                     },
             { "Tan",            "(Double v) { return Math.Tan (v); }"                     },
             { "Sqrt",           "(Double v) { return Math.Sqrt (v); }"                    },
+            { "Abs",            "(Double v) { return Math.Abs (v); }"                     },
             { "ArcSin",         "(Double v) { return Math.Asin (v); }"                    },
             { "ArcCos",         "(Double v) { return Math.Acos (v); }"                    },
             { "ArcTan",         "(Double v) { return Math.Atan (v); }"                    },
@@ -115,6 +117,7 @@
             { "ArcSin",         "(Fixed32 v) { return Fixed32.ArcSin (v); }"                },
             { "ArcCos",         "(Fixed32 v) { return Fixed32.ArcCos (v); }"                },
             { "ArcTan",         "(Fixed32 v) { return Fixed32.ArcTan (v); }"                },
+            { "Abs",            "(Fixed32 v) { return Fixed32.Abs (v); }"                 },
         };
 
         var fixed64SpecificStrings = new Dictionary <String, String> () {
@@ -126,6 +129,7 @@
             { "ArcSin",         "(Fixed64 v) { return Fixed64.ArcSin (v); }"                },
             { "ArcCos",         "(Fixed64 v) { return Fixed64.ArcCos (v); }"                },
             { "ArcTan",         "(Fixed64 v) { return Fixed64.ArcTan (v); }"                },
+            { "Abs",            "(Fixed64 v) { return Fixed64.Abs (v); }"                 },
         };
 
         if (rt == "Single" && singleSpecificStrings.ContainsKey (ct)) return singleSpecificStrings[ct];

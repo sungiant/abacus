@@ -266,6 +266,24 @@ namespace Abacus.Fixed32Precision
             Saturate (ref temp, out result.numerator);
         }
 
+        public static void Abs (ref Fixed32 f, out Fixed32 result) {
+            // Based on this: https://www.chessprogramming.org/Avoiding_Branches
+            //int abs(int a) {
+            //   int s = a >> 31; // cdq, signed shift, -1 if negative, else 0
+            //   a ^= s;  // ones' complement if negative
+            //   a -= s;  // plus one if negative -> two's complement if negative
+            //   return a;
+            //}
+            Int32 temp = f.numerator;
+            Int32 s = temp >> (32 - 1); // sign of argument
+            temp ^= s;
+            temp -= s;
+            Int32 sr = temp >> (32 - 1); // sign of result
+            // Branchless saturation - the only input that can overflow is MinValue
+            // as there is no +ve equivalent, in this case saturate to MaxValue.
+            result.numerator = (temp & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
+        }
+
         public static void Sin (ref Fixed32 f, out Fixed32 result) {
             Fixed32 Tau = Fixed32.CreateFrom (6.28318530717958647692528676656);
             Fixed32 Pi = Fixed32.CreateFrom (3.14159265358979323846264338328);
@@ -443,6 +461,7 @@ namespace Abacus.Fixed32Precision
         public static Fixed32 operator  + (Fixed32 f) { return f; }
 
         public static Fixed32 Sqrt     (Fixed32 f) { Fixed32 result; Sqrt (ref f, out result); return result; }
+        public static Fixed32 Abs      (Fixed32 f) { Fixed32 result; Abs (ref f, out result); return result; }
 
         public static Fixed32 Sin      (Fixed32 f) { Fixed32 result; Sin  (ref f, out result); return result; }
         public static Fixed32 Cos      (Fixed32 f) { Fixed32 result; Cos  (ref f, out result); return result; }
@@ -2160,6 +2179,7 @@ namespace Abacus.Fixed32Precision
         public static readonly Fixed32 One = Fixed32.CreateFrom (1.0);
 
         public static Fixed32 Sqrt (Fixed32 v) { return Fixed32.Sqrt (v); }
+        public static Fixed32 Abs (Fixed32 v) { return Fixed32.Abs (v); }
 
         public static Fixed32 Sin (Fixed32 v) { return Fixed32.Sin (v); }
         public static Fixed32 Cos (Fixed32 v) { return Fixed32.Cos (v); }
@@ -2177,7 +2197,6 @@ namespace Abacus.Fixed32Precision
         public static Fixed32 Max                (Fixed32 a, Fixed32 b) { return a > b ? a : b; }
         public static Fixed32 Clamp              (Fixed32 value, Fixed32 min, Fixed32 max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Fixed32 Lerp               (Fixed32 a, Fixed32 b, Fixed32 t) { return a + ((b - a) * t); }
-        public static Fixed32 Abs                (Fixed32 v) { return (v < 0) ? -v : v; }
 
         public static Fixed32 FromString         (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Fixed32 value) { Fixed32.TryParse (str, out value); }

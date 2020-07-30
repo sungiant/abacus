@@ -1736,6 +1736,7 @@ namespace Abacus.DoublePrecision
         public static readonly Double One = 1.0;
 
         public static Double Sqrt (Double v) { return Math.Sqrt (v); }
+        public static Double Abs (Double v) { return Math.Abs (v); }
 
         public static Double Sin (Double v) { return Math.Sin (v); }
         public static Double Cos (Double v) { return Math.Cos (v); }
@@ -1753,7 +1754,6 @@ namespace Abacus.DoublePrecision
         public static Double Max                (Double a, Double b) { return a > b ? a : b; }
         public static Double Clamp              (Double value, Double min, Double max) { if (value < min) return min; else if (value > max) return max; else return value; }
         public static Double Lerp               (Double a, Double b, Double t) { return a + ((b - a) * t); }
-        public static Double Abs                (Double v) { return (v < 0) ? -v : v; }
 
         public static Double FromString         (String str) { Double result = Zero; Double.TryParse (str, out result); return result; }
         public static void    FromString        (String str, out Double value) { Double.TryParse (str, out value); }
