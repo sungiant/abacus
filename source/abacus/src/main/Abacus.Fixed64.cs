@@ -227,24 +227,18 @@ namespace Abacus.Fixed64Precision
 
         public static void Sqrt (ref Fixed64 f, out Fixed64 result) {
             // Based on: https://groups.google.com/forum/?hl=fr%05aacf5997b615c37&fromgroups#!topic/comp.lang.c/IpwKbw0MAxw/discussion
-            ///*
             // * long sqrtL2L( long X );
-            // *
             // * Long to long point square roots.
             // * RETURNS the integer square root of X (long).
             // * REMAINDER is in the local variable r of type long on return.  
             // * REQUIRES X is positive.
-            // *
             // * Christophe MEESSEN, 1993.
             // */
             //long sqrtL2L( long X ) {
-            //
             //  unsigned long t, q, b, r;
-            //
             //  r = X;
             //  b = 0x40000000;
             //  q = 0;
-            //
             //  while( b >= 256 ) {
             //    t = q + b;
             //    q = q / 2;     /* shift right 1 bit */
@@ -254,10 +248,8 @@ namespace Abacus.Fixed64Precision
             //    }
             //    b = b / 4;     /* shift right 2 bits */
             //  }
-            //
             //  return( q );
             //}
-
             if (f.numerator <= 0) { result = 0; return; }
             UInt64 t, q, b, r;
             r = (UInt64) f.numerator;
