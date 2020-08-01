@@ -406,11 +406,29 @@ namespace Abacus.Fixed64Precision {
                     Fixed64 fk = fi % fj;
                     Double result = fk.ToDouble ();
                     Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
-                    Assert.That (result,
-                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed64
-                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed64.
+                    Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
                 }
             }
+        }
+
+        [Test]
+        public void TestModulo_ZeroDivisor () {
+            Fixed64 a = 100;
+            Fixed64 b = 0;
+            Fixed64 result;
+            Fixed64.Modulo (ref a, ref b, out result);
+            Fixed64 expected = 0;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestModulo_Overflow () {
+            Fixed64 a = Int64.MinValue;
+            Fixed64 b = -1;
+            Fixed64 result;
+            Fixed64.Modulo (ref a, ref b, out result);
+            Fixed64 expected = 0;
+            Assert.That (result, Is.EqualTo (expected));
         }
         
         [Test]

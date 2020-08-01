@@ -151,8 +151,14 @@
         }
 
         public static void Modulo (ref <#= ftd.TypeName #> a, ref <#= ftd.TypeName #> b, out <#= ftd.TypeName #> result) {
-            <#= ftd.BigTypeName #> temp = (<#= ftd.BigTypeName #>)a.numerator % (<#= ftd.BigTypeName #>)b.numerator;
-            Saturate (ref temp, out result.numerator);
+            // Overflow checks based on: https://stackoverflow.com/questions/19285163/does-modulus-overflow
+            // - testcase for MinValue / -1 overflow condition passes without suggested check
+            // - indicates this overflow is being handled by the .NET/Mono runtime
+            // - keeping check here pending further testing/clarification
+            if ((b.numerator == 0) || ((a.numerator == <#= ftd.RawTypeName #>.MinValue) && (b.numerator == -1)))
+                result.numerator = 0;
+            else
+                result.numerator = a.numerator % b.numerator;
         }
 
         public static void Negate (ref <#= ftd.TypeName #> f, out <#= ftd.TypeName #> result) {

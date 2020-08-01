@@ -206,8 +206,14 @@ namespace Abacus.Fixed64Precision
         }
 
         public static void Modulo (ref Fixed64 a, ref Fixed64 b, out Fixed64 result) {
-            BigInteger temp = (BigInteger)a.numerator % (BigInteger)b.numerator;
-            Saturate (ref temp, out result.numerator);
+            // Overflow checks based on: https://stackoverflow.com/questions/19285163/does-modulus-overflow
+            // - testcase for MinValue / -1 overflow condition passes without suggested check
+            // - indicates this overflow is being handled by the .NET/Mono runtime
+            // - keeping check here pending further testing/clarification
+            if ((b.numerator == 0) || ((a.numerator == Int64.MinValue) && (b.numerator == -1)))
+                result.numerator = 0;
+            else
+                result.numerator = a.numerator % b.numerator;
         }
 
         public static void Negate (ref Fixed64 f, out Fixed64 result) {

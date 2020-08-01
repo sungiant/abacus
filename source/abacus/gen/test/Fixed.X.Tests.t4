@@ -353,11 +353,29 @@
                     <#= ftd.TypeName #> fk = fi % fj;
                     Double result = fk.ToDouble ();
                     Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
-                    Assert.That (result,
-                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
-                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                    Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
                 }
             }
+        }
+
+        [Test]
+        public void TestModulo_ZeroDivisor () {
+            <#= ftd.TypeName #> a = 100;
+            <#= ftd.TypeName #> b = 0;
+            <#= ftd.TypeName #> result;
+            <#= ftd.TypeName #>.Modulo (ref a, ref b, out result);
+            <#= ftd.TypeName #> expected = 0;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestModulo_Overflow () {
+            <#= ftd.TypeName #> a = <#= ftd.RawTypeName #>.MinValue;
+            <#= ftd.TypeName #> b = -1;
+            <#= ftd.TypeName #> result;
+            <#= ftd.TypeName #>.Modulo (ref a, ref b, out result);
+            <#= ftd.TypeName #> expected = 0;
+            Assert.That (result, Is.EqualTo (expected));
         }
         
         [Test]

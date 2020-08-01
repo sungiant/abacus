@@ -406,11 +406,29 @@ namespace Abacus.Fixed32Precision {
                     Fixed32 fk = fi % fj;
                     Double result = fk.ToDouble ();
                     Double expected = DoublePrecision.Maths.Clamp (d_test_values[i] % d_test_values[j], d_min_value, d_max_value);
-                    Assert.That (result,
-                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed32
-                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed32.
+                    Assert.That (result, Is.EqualTo (expected).Within (MathsTests.TestTolerance));
                 }
             }
+        }
+
+        [Test]
+        public void TestModulo_ZeroDivisor () {
+            Fixed32 a = 100;
+            Fixed32 b = 0;
+            Fixed32 result;
+            Fixed32.Modulo (ref a, ref b, out result);
+            Fixed32 expected = 0;
+            Assert.That (result, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestModulo_Overflow () {
+            Fixed32 a = Int32.MinValue;
+            Fixed32 b = -1;
+            Fixed32 result;
+            Fixed32.Modulo (ref a, ref b, out result);
+            Fixed32 expected = 0;
+            Assert.That (result, Is.EqualTo (expected));
         }
         
         [Test]
