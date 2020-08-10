@@ -367,7 +367,7 @@ namespace Abacus.Fixed64Precision
             // best accuracy for which falls within the range of -1 <= f <= 1, see: https://spin.atomicobject.com/2012/04/24/implementing-advanced-math-functions/
             // Valid input for the ArcTan function falls within the range of -∞ < f < ∞,
             // trig identities are used to facilitate performing the approximation within the most accurate range: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
-                        Fixed64 HalfPi = Fixed64.CreateFrom (1.57079632679489661923132169164);
+            Fixed64 HalfPi = Fixed64.CreateFrom (1.57079632679489661923132169164);
             Fixed64 temp = f;
             Boolean use_negative_identity = temp < 0;
             if (use_negative_identity) temp = -temp;
