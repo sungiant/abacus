@@ -78,9 +78,9 @@ namespace Abacus.Fixed32Precision
         public Int32 High        { get { return numerator >> N; } }
         public Int32 Low         { get { return numerator - (High << N); } }
 
-        [MI(O.AggressiveInlining)] public static Fixed32 CreateRaw (Int32 value) { Fixed32 f; f.numerator = value; return f; }
+        [MI(O.AggressiveInlining)] public static Fixed32 CreateRaw (Int32 v) { Fixed32 f; f.numerator = v; return f; }
 
-        [MI(O.AggressiveInlining)] public override Boolean Equals(object obj) {
+        [MI(O.AggressiveInlining)] public override Boolean Equals (object obj) {
             if (obj is Fixed32)
                 return ((Fixed32)obj).numerator == numerator;
             return false;
@@ -103,28 +103,28 @@ namespace Abacus.Fixed32Precision
 
         // Piggy back //------------------------------------------------------//
 
-        public static Boolean TryParse (string s, out Fixed32 result) { Double d = 0.0; Boolean ok = Double.TryParse (s, NumberStyles.Any, null, out d); result = d; return ok; }
+        public static Boolean TryParse (string s, out Fixed32 r) { Double d = 0.0; Boolean ok = Double.TryParse (s, NumberStyles.Any, null, out d); r = d; return ok; }
     
         public override String ToString () { return ToDouble().ToString(); }
 
         // Conversions //-----------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void CreateFrom (Int32 value, out Fixed32 result) {
-            result.numerator = (Int32) value << N;
+        [MI(O.AggressiveInlining)] public static void CreateFrom (Int32 v, out Fixed32 r) {
+            r.numerator = (Int32) v << N;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateFrom (Int64 value, out Fixed32 result) {
-            result.numerator = (Int32) value << N;
+        [MI(O.AggressiveInlining)] public static void CreateFrom (Int64 v, out Fixed32 r) {
+            r.numerator = (Int32) v << N;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateFrom (Single value, out Fixed32 result) {
-            Int64 temp = (Int64) Math.Round (value * denominator);
-            Saturate (ref temp, out result.numerator);
+        [MI(O.AggressiveInlining)] public static void CreateFrom (Single v, out Fixed32 r) {
+            Int64 temp = (Int64) Math.Round (v * denominator);
+            Saturate (ref temp, out r.numerator);
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateFrom (Double value, out Fixed32 result) {
-            Int64 temp = (Int64) Math.Round (value * denominator);
-            Saturate (ref temp, out result.numerator);
+        [MI(O.AggressiveInlining)] public static void CreateFrom (Double v, out Fixed32 r) {
+            Int64 temp = (Int64) Math.Round (v * denominator);
+            Saturate (ref temp, out r.numerator);
         }
 
         [MI(O.AggressiveInlining)] public Int32  ToInt32  () { return (Int32) (numerator >> N); }
@@ -134,27 +134,27 @@ namespace Abacus.Fixed32Precision
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Add (ref Fixed32 a, ref Fixed32 b, out Fixed32 r) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Addition
             Int32 temp = a.numerator + b.numerator;
             // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
             int w = (sizeof (Int32) << 3) - 1;
             Int32 mask = (~(a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
             Int32 max_min = (temp >> w) ^ (((Int32) 1) << w);
-            result.numerator = (~mask & temp) + (mask & max_min);
+            r.numerator = (~mask & temp) + (mask & max_min);
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Fixed32 a, ref Fixed32 b, out Fixed32 r) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Subtraction
             Int32 temp = a.numerator - b.numerator;
             // with improved satuturation based on: https://codereview.stackexchange.com/questions/115869/saturated-signed-addition
             int w = (sizeof (Int32) << 3) - 1;
             Int32 mask = ((a.numerator ^ b.numerator) & (a.numerator ^ temp)) >> w;
             Int32 max_min = (temp >> w) ^ (((Int32) 1) << w);
-            result.numerator = (~mask & temp) + (mask & max_min);
+            r.numerator = (~mask & temp) + (mask & max_min);
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Fixed32 a, ref Fixed32 b, out Fixed32 r) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Multiplication
             //// precomputed value:
             //#define K   (1 << (Q - 1))
@@ -167,26 +167,26 @@ namespace Abacus.Fixed32Precision
             //}
             //int16_t q_mul(int16_t a, int16_t b)
             //{
-            //  int16_t result;
+            //  int16_t r;
             //  int32_t temp;
-            //  temp = (int32_t)a * (int32_t)b; // result type is operand's type
+            //  temp = (int32_t)a * (int32_t)b; // r type is operand's type
             //  // Rounding; mid values are rounded up
             //  temp += K;
-            //  // Correct by dividing by base and saturate result
-            //  result = sat16(temp >> Q);
-            //  return result;
+            //  // Correct by dividing by base and saturate r
+            //  r = sat16(temp >> Q);
+            //  return r;
             //}
             Int64 temp = (Int64) a.numerator * (Int64) b.numerator;
             temp += big_k;
             temp = temp >> N;
-            Saturate (ref temp, out result.numerator);
+            Saturate (ref temp, out r.numerator);
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Divide (ref Fixed32 a, ref Fixed32 b, out Fixed32 r) {
             // Based on: https://en.wikipedia.org/wiki/Q_(number_format)#Division
             //int16_t q_div(int16_t a, int16_t b)
             //{
-            //  /* pre-multiply by the base (Upscale to Q16 so that the result will be in Q8 format) */
+            //  /* pre-multiply by the base (Upscale to Q16 so that the r will be in Q8 format) */
             //  int32_t temp = (int32_t)a << Q;
             //  /* Rounding: mid values are rounded up (down for negative values). */
             //  /* OR compare most significant bits i.e. if (((temp >> 31) & 1) == ((b >> 15) & 1)) */
@@ -204,30 +204,30 @@ namespace Abacus.Fixed32Precision
             if ((temp >= 0 && big_b >= 0) || (temp < 0 && big_b < 0)) { temp = temp + (big_b / 2); }
             else { temp = temp - (big_b / 2); }
             temp = temp / big_b;
-            Saturate (ref temp, out result.numerator);
+            Saturate (ref temp, out r.numerator);
         }
 
-        [MI(O.AggressiveInlining)] public static void Modulo (ref Fixed32 a, ref Fixed32 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Modulo (ref Fixed32 a, ref Fixed32 b, out Fixed32 r) {
             // Overflow checks based on: https://stackoverflow.com/questions/19285163/does-modulus-overflow
             // - testcase for MinValue / -1 overflow condition passes without suggested check
             // - indicates this overflow is being handled by the .NET/Mono runtime
             // - keeping check here pending further testing/clarification
             if ((b.numerator == 0) || ((a.numerator == Int32.MinValue) && (b.numerator == -1)))
-                result.numerator = 0;
+                r.numerator = 0;
             else
-                result.numerator = a.numerator % b.numerator;
+                r.numerator = a.numerator % b.numerator;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Negate (ref Fixed32 f, out Fixed32 r) {
             Int32 s = f.numerator >> (32 - 1); // sign of argument
-            result.numerator = -f.numerator;
-            Int32 sr = result.numerator >> (32 - 1); // sign of result
+            r.numerator = -f.numerator;
+            Int32 sr = r.numerator >> (32 - 1); // sign of r
             // Branchless saturation - the only input that can overflow is MinValue
             // as there is no positive equivalent, in this case saturate to MaxValue.
-            result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
+            r.numerator = (r.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
         }
 
-        [MI(O.AggressiveInlining)] public static void Sqrt (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Sqrt (ref Fixed32 f, out Fixed32 r) {
             // Based on: https://groups.google.com/forum/?hl=fr%05aacf5997b615c37&fromgroups#!topic/comp.lang.c/IpwKbw0MAxw/discussion
             // * long sqrtL2L( long X );
             // * Long to long point square roots.
@@ -252,25 +252,25 @@ namespace Abacus.Fixed32Precision
             //  }
             //  return( q );
             //}
-            if (f.numerator <= 0) { result = 0; return; }
-            UInt32 t, q, b, r;
-            r = (UInt32) f.numerator;
+            if (f.numerator <= 0) { r = 0; return; }
+            UInt32 t, q, b, x;
+            x = (UInt32) f.numerator;
             b = 1073741824; // http://www.thealmightyguru.com/Pointless/PowersOf2.html
             q = 0;
             while (b >= 256) {
                 t = q + b;
-                if (r >= t) {
-                    r -= t;
+                if (x >= t) {
+                    x -= t;
                     q = t + b;
                 }
-                r <<= 1;
+                x <<= 1;
                 b >>= 1;
             }
             q >>= 8;
-            result.numerator = (Int32) q;
+            r.numerator = (Int32) q;
         }
 
-        [MI(O.AggressiveInlining)] public static void Abs (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Abs (ref Fixed32 f, out Fixed32 r) {
             // Based on: https://www.chessprogramming.org/Avoiding_Branches
             //int abs(int a) {
             //   int s = a >> 31; // cdq, signed shift, -1 if negative, else 0
@@ -278,17 +278,17 @@ namespace Abacus.Fixed32Precision
             //   a -= s;  // plus one if negative -> two's complement if negative
             //   return a;
             //}
-            result.numerator = f.numerator;
-            Int32 s = result.numerator >> (32 - 1); // sign of argument
-            result.numerator ^= s;
-            result.numerator -= s;
-            Int32 sr = result.numerator >> (32 - 1); // sign of result
+            r.numerator = f.numerator;
+            Int32 s = r.numerator >> (32 - 1); // sign of argument
+            r.numerator ^= s;
+            r.numerator -= s;
+            Int32 sr = r.numerator >> (32 - 1); // sign of r
             // Branchless saturation - the only input that can overflow is MinValue
             // as there is no positive equivalent, in this case saturate to MaxValue.
-            result.numerator = (result.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
+            r.numerator = (r.numerator & ~(sr & s)) | ((sr & s) & Int32.MaxValue);
         }
 
-        [MI(O.AggressiveInlining)] public static void Sin (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Sin (ref Fixed32 f, out Fixed32 r) {
             Fixed32 Tau = Fixed32.CreateFrom (6.28318530717958647692528676656);
             Fixed32 Pi = Fixed32.CreateFrom (3.14159265358979323846264338328);
             Fixed32 HalfPi = Fixed32.CreateFrom (1.57079632679489661923132169164);
@@ -301,70 +301,70 @@ namespace Abacus.Fixed32Precision
                 fx %= Tau;
 
             if (fx <= HalfPi) {
-                SinLookup (ref fx, out result);
+                SinLookup (ref fx, out r);
                 return;
             }
             
             if (fx <= Pi) {
                 fx = Pi - fx;
-                SinLookup (ref fx, out result);
+                SinLookup (ref fx, out r);
                 return;
             }
             
             if (fx <= HalfPi * 3) {
                 fx = fx - Pi;
-                SinLookup (ref fx, out result);
-                result = -result;
+                SinLookup (ref fx, out r);
+                r = -r;
                 return;
             }
             
             fx = Tau - fx;
-            SinLookup (ref fx, out result);
-            result = -result;
+            SinLookup (ref fx, out r);
+            r = -r;
             return;
         }
 
-        [MI(O.AggressiveInlining)] public static void Cos (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Cos (ref Fixed32 f, out Fixed32 r) {
             Fixed32 HalfPi = Fixed32.CreateFrom (1.57079632679489661923132169164);
             Fixed32 fx = HalfPi - f;
-            Sin (ref fx, out result);
+            Sin (ref fx, out r);
         }
 
-        [MI(O.AggressiveInlining)] public static void Tan (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Tan (ref Fixed32 f, out Fixed32 r) {
             Fixed32 s, c;
             Sin (ref f, out s);
             Cos (ref f, out c);
             if (c < Epsilon && c > -Epsilon) {
-                result = 0;
+                r = 0;
                 return;
             }
-            result = s / c;
+            r = s / c;
         }
 
-        [MI(O.AggressiveInlining)] public static void ArcSin (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void ArcSin (ref Fixed32 f, out Fixed32 r) {
             // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
             // arcsin (f) == 2 * arctan (f / (1 + √(1 - f²))) : -1 <= f <= 1
             if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
-            result = 1 - f * f;
-            Sqrt (ref result, out result);
-            result += 1;
-            result = f / result;
-            ArcTan (ref result, out result);
-            result *= 2;
+            r = 1 - f * f;
+            Sqrt (ref r, out r);
+            r += 1;
+            r = f / r;
+            ArcTan (ref r, out r);
+            r *= 2;
         }
 
-        [MI(O.AggressiveInlining)] public static void ArcCos (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void ArcCos (ref Fixed32 f, out Fixed32 r) {
             // From the half-angle formula: https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
             // arccos (f) == 2 * arctan (√(1 - f²) / (1 + f)) : -1 <= f <= 1
             if (f < -1 || f > 1) throw new ArgumentOutOfRangeException ();
-            result = 1 - f * f;
-            Sqrt (ref result, out result);
-            result /= f + 1;
-            ArcTan (ref result, out result);
-            result *= 2;
+            r = 1 - f * f;
+            Sqrt (ref r, out r);
+            r /= f + 1;
+            ArcTan (ref r, out r);
+            r *= 2;
         }
 
-        [MI(O.AggressiveInlining)] public static void ArcTan (ref Fixed32 f, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void ArcTan (ref Fixed32 f, out Fixed32 r) {
             // ArcTan approximation implemented using appropriate Tayor series expansion: http://people.math.sc.edu/girardi/m142/handouts/10sTaylorPolySeries.pdf
             // best accuracy for which falls within the range of -1 <= f <= 1, see: https://spin.atomicobject.com/2012/04/24/implementing-advanced-math-functions/
             // Valid input for the ArcTan function falls within the range of -∞ < f < ∞,
@@ -378,21 +378,21 @@ namespace Abacus.Fixed32Precision
             Fixed32 tt = temp * temp;
             Fixed32 numerator = temp;
             Fixed32 denominator = 1;
-            result = temp;                                         // arctan (f) =~ f - (f³/3) - (f⁵/5) - (f⁷/7) - (f⁹/9) ... : -1 <= f <= 1
+            r = temp;                                         // arctan (f) =~ f - (f³/3) - (f⁵/5) - (f⁷/7) - (f⁹/9) ... : -1 <= f <= 1
             for (int i = 0; i < 32 / 2; ++i) {
                 numerator *= tt;
                 denominator += 2;
                 temp = numerator / denominator;
                 if (temp == 0) break;
-                result -= temp;
+                r -= temp;
                 numerator *= tt;
                 denominator += 2;
                 temp = numerator / denominator;
                 if (temp == 0) break;
-                result += temp;
+                r += temp;
             }
-            if (use_reciprocal_identity) result = HalfPi - result; // arctan (f) + arctan (1/f) == π/2
-            if (use_negative_identity) result = -result;           // arctan (-f) == -arctan (f)
+            if (use_reciprocal_identity) r = HalfPi - r; // arctan (f) + arctan (1/f) == π/2
+            if (use_negative_identity) r = -r;           // arctan (-f) == -arctan (f)
         }
 
 
@@ -407,18 +407,18 @@ namespace Abacus.Fixed32Precision
         static readonly Int64 bigMin = (Int64) Int32.MinValue;
         static readonly Int64 bigMax = (Int64) Int32.MaxValue;
 
-        [MI(O.AggressiveInlining)] static void Saturate (ref Int64 big, out Int32 result) {
-            if (big < bigMin) { result = Int32.MinValue; return; }
-            if (big > bigMax) { result = Int32.MaxValue; return; }
-            result = (Int32) big;
+        [MI(O.AggressiveInlining)] static void Saturate (ref Int64 big, out Int32 r) {
+            if (big < bigMin) { r = Int32.MinValue; return; }
+            if (big > bigMax) { r = Int32.MaxValue; return; }
+            r = (Int32) big;
         }
-        [MI(O.AggressiveInlining)] static void SinLookup (ref Fixed32 rad, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] static void SinLookup (ref Fixed32 rad, out Fixed32 r) {
             Fixed32 Rad2Deg = Fixed32.CreateFrom (57.29577951308232087679815481409);
             Fixed32 deg = rad * Rad2Deg;
             Int32 p = (Int32) deg.ToInt32 ();
 
             if (p == 90) {
-                result.numerator = sinLUT[p];
+                r.numerator = sinLUT[p];
                 return;
             }
             Int32 lowi = sinLUT[p];
@@ -429,7 +429,7 @@ namespace Abacus.Fixed32Precision
             // Lerp between two values
             Fixed32 low = CreateRaw (sinLUT[p]);
             Fixed32 high = CreateRaw (sinLUT[p + 1]);
-            result = low + q * (high - low);
+            r = low + q * (high - low);
         }
 
         static readonly Int32[] sinLUT = {
@@ -449,31 +449,31 @@ namespace Abacus.Fixed32Precision
 
         // Function Variants //-----------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static Fixed32 Add      (Fixed32 a, Fixed32 b) { Fixed32 result; Add (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Subtract (Fixed32 a, Fixed32 b) { Fixed32 result; Subtract (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Multiply (Fixed32 a, Fixed32 b) { Fixed32 result; Multiply (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Divide   (Fixed32 a, Fixed32 b) { Fixed32 result; Divide (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Modulo   (Fixed32 a, Fixed32 b) { Fixed32 result; Modulo (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Negate   (Fixed32 f) { Fixed32 result; Negate (ref f, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Add      (Fixed32 a, Fixed32 b) { Fixed32 r; Add (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Subtract (Fixed32 a, Fixed32 b) { Fixed32 r; Subtract (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Multiply (Fixed32 a, Fixed32 b) { Fixed32 r; Multiply (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Divide   (Fixed32 a, Fixed32 b) { Fixed32 r; Divide (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Modulo   (Fixed32 a, Fixed32 b) { Fixed32 r; Modulo (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Negate   (Fixed32 f) { Fixed32 r; Negate (ref f, out r); return r; }
         
-        [MI(O.AggressiveInlining)] public static Fixed32 operator  + (Fixed32 a, Fixed32 b) { Fixed32 result; Add (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 operator  - (Fixed32 a, Fixed32 b) { Fixed32 result; Subtract (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 operator  * (Fixed32 a, Fixed32 b) { Fixed32 result; Multiply (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 operator  / (Fixed32 a, Fixed32 b) { Fixed32 result; Divide (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 operator  % (Fixed32 a, Fixed32 b) { Fixed32 result; Modulo (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 operator  - (Fixed32 f) { Fixed32 result; Negate (ref f, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32 operator  + (Fixed32 a, Fixed32 b) { Fixed32 r; Add (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 operator  - (Fixed32 a, Fixed32 b) { Fixed32 r; Subtract (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 operator  * (Fixed32 a, Fixed32 b) { Fixed32 r; Multiply (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 operator  / (Fixed32 a, Fixed32 b) { Fixed32 r; Divide (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 operator  % (Fixed32 a, Fixed32 b) { Fixed32 r; Modulo (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 operator  - (Fixed32 f) { Fixed32 r; Negate (ref f, out r); return r; }
         [MI(O.AggressiveInlining)] public static Fixed32 operator  + (Fixed32 f) { return f; }
 
-        [MI(O.AggressiveInlining)] public static Fixed32 Sqrt     (Fixed32 f) { Fixed32 result; Sqrt (ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Abs      (Fixed32 f) { Fixed32 result; Abs (ref f, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Sqrt     (Fixed32 f) { Fixed32 r; Sqrt (ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Abs      (Fixed32 f) { Fixed32 r; Abs (ref f, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public static Fixed32 Sin      (Fixed32 f) { Fixed32 result; Sin  (ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Cos      (Fixed32 f) { Fixed32 result; Cos  (ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 Tan      (Fixed32 f) { Fixed32 result; Tan  (ref f, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Sin      (Fixed32 f) { Fixed32 r; Sin  (ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Cos      (Fixed32 f) { Fixed32 r; Cos  (ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 Tan      (Fixed32 f) { Fixed32 r; Tan  (ref f, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public static Fixed32 ArcSin   (Fixed32 f) { Fixed32 result; ArcSin  (ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 ArcCos   (Fixed32 f) { Fixed32 result; ArcCos  (ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32 ArcTan   (Fixed32 f) { Fixed32 result; ArcTan  (ref f, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32 ArcSin   (Fixed32 f) { Fixed32 r; ArcSin  (ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 ArcCos   (Fixed32 f) { Fixed32 r; ArcCos  (ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 ArcTan   (Fixed32 f) { Fixed32 r; ArcTan  (ref f, out r); return r; }
 
         [MI(O.AggressiveInlining)] public static Boolean operator == (Fixed32 a, Fixed32 b) { return a.Equals (b); }
         [MI(O.AggressiveInlining)] public static Boolean operator != (Fixed32 a, Fixed32 b) { return !a.Equals (b); }
@@ -518,9 +518,9 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Quaternion) ? this.Equals ((Quaternion) obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Quaternion other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Quaternion other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Quaternion other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Quaternion other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -536,69 +536,69 @@ namespace Abacus.Fixed32Precision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Quaternion q1, ref Quaternion q2, out Boolean result) {
-            result = (q1.I == q2.I) && (q1.J == q2.J) && (q1.K == q2.K) && (q1.U == q2.U);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Quaternion q1, ref Quaternion q2, out Boolean r) {
+            r = (q1.I == q2.I) && (q1.J == q2.J) && (q1.K == q2.K) && (q1.U == q2.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Quaternion q1, ref Quaternion q2, out Boolean result) {
-            result = Maths.ApproximateEquals (q1.I, q2.I) && Maths.ApproximateEquals (q1.J, q2.J)
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Quaternion q1, ref Quaternion q2, out Boolean r) {
+            r = Maths.ApproximateEquals (q1.I, q2.I) && Maths.ApproximateEquals (q1.J, q2.J)
                 && Maths.ApproximateEquals (q1.K, q2.K) && Maths.ApproximateEquals (q1.U, q2.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
-            result.I = q1.I + q2.I; result.J = q1.J + q2.J; result.K = q1.K + q2.K; result.U = q1.U + q2.U;
+        [MI(O.AggressiveInlining)] public static void Add (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
+            r.I = q1.I + q2.I; r.J = q1.J + q2.J; r.K = q1.K + q2.K; r.U = q1.U + q2.U;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
-            result.I = q1.I - q2.I; result.J = q1.J - q2.J; result.K = q1.K - q2.K; result.U = q1.U - q2.U;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
+            r.I = q1.I - q2.I; r.J = q1.J - q2.J; r.K = q1.K - q2.K; r.U = q1.U - q2.U;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Quaternion quaternion, out Quaternion result) {
-            result.I = -quaternion.I; result.J = -quaternion.J; result.K = -quaternion.K; result.U = -quaternion.U;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Quaternion quaternion, out Quaternion r) {
+            r.I = -quaternion.I; r.J = -quaternion.J; r.K = -quaternion.K; r.U = -quaternion.U;
         }
 
         // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
-            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
-            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
-            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
-            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
+            r.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
+            r.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
+            r.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
+            r.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion v)               { Quaternion result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Vector3 v, Quaternion q)    { Vector3    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Vector4 v, Quaternion q)    { Vector4    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Quaternion q, Vector3 v)    { Vector3    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Quaternion q, Vector4 v)    { Vector4    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  ~ (Quaternion v)               { Quaternion result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion v)               { Quaternion r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Vector3 v, Quaternion q)    { Vector3    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Vector4 v, Quaternion q)    { Vector4    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Quaternion q, Vector3 v)    { Vector3    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Quaternion q, Vector4 v)    { Vector4    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  ~ (Quaternion v)               { Quaternion r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean    Equals            (Quaternion a, Quaternion b) { Boolean    result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean    ApproximateEquals (Quaternion a, Quaternion b) { Boolean    result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Add               (Quaternion a, Quaternion b) { Quaternion result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Subtract          (Quaternion a, Quaternion b) { Quaternion result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Negate            (Quaternion v)               { Quaternion result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Multiply          (Quaternion a, Quaternion b) { Quaternion result; Multiply          (ref a, ref b, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean    Equals            (Quaternion a, Quaternion b) { Boolean    r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean    ApproximateEquals (Quaternion a, Quaternion b) { Boolean    r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Add               (Quaternion a, Quaternion b) { Quaternion r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Subtract          (Quaternion a, Quaternion b) { Quaternion r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Negate            (Quaternion v)               { Quaternion r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Multiply          (Quaternion a, Quaternion b) { Quaternion r; Multiply          (ref a, ref b, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Quaternion q1, ref Quaternion q2, ref Fixed32 amount, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Quaternion q1, ref Quaternion q2, ref Fixed32 amount, out Quaternion r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 remaining = 1 - amount;
-            Fixed32 r = remaining;
+            Fixed32 f = remaining;
             Fixed32 a = amount;
-            result.U = (r * q1.U) + (a * q2.U);
-            result.I = (r * q1.I) + (a * q2.I);
-            result.J = (r * q1.J) + (a * q2.J);
-            result.K = (r * q1.K) + (a * q2.K);
+            r.U = (f * q1.U) + (a * q2.U);
+            r.I = (f * q1.I) + (a * q2.I);
+            r.J = (f * q1.J) + (a * q2.J);
+            r.K = (f * q1.K) + (a * q2.K);
         }
 
         // http://en.wikipedia.org/wiki/Slerp
-        [MI(O.AggressiveInlining)] public static void Slerp (ref Quaternion q1, ref Quaternion q2, ref Fixed32 amount,out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Slerp (ref Quaternion q1, ref Quaternion q2, ref Fixed32 amount,out Quaternion r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 remaining = 1 - amount;
             Fixed32 angle;
@@ -608,59 +608,59 @@ namespace Abacus.Fixed32Precision
                 angle = -angle;
             }
             Fixed32 theta = Maths.ArcCos (angle);
-            Fixed32 r = remaining;
+            Fixed32 f = remaining;
             Fixed32 a = amount;
             if (theta > Maths.Epsilon) {
                 Fixed32 x = Maths.Sin (remaining * theta);
                 Fixed32 y = Maths.Sin (amount * theta);
                 Fixed32 z = Maths.Sin (theta);
-                r = x / z;
+                f = x / z;
                 a = y / z;
             }
-            result.U = (r * q1.U) + (a * q2.U);
-            result.I = (r * q1.I) + (a * q2.I);
-            result.J = (r * q1.J) + (a * q2.J);
-            result.K = (r * q1.K) + (a * q2.K);
+            r.U = (f * q1.U) + (a * q2.U);
+            r.I = (f * q1.I) + (a * q2.I);
+            r.J = (f * q1.J) + (a * q2.J);
+            r.K = (f * q1.K) + (a * q2.K);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Quaternion q, out Boolean result) {
-            result = Maths.IsApproximatelyZero((Fixed32) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Quaternion q, out Boolean r) {
+            r = Maths.IsApproximatelyZero((Fixed32) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
         }
 
-        [MI(O.AggressiveInlining)] public bool IsUnit () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public bool IsUnit () { Boolean r; IsUnit (ref this, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean    IsUnit (Quaternion q) { Boolean result; IsUnit (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Lerp   (Quaternion a, Quaternion b, Fixed32 amount) { Quaternion result; Lerp (ref a, ref b, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Slerp  (Quaternion a, Quaternion b, Fixed32 amount) { Quaternion result; Slerp (ref a, ref b, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean    IsUnit (Quaternion q) { Boolean r; IsUnit (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Lerp   (Quaternion a, Quaternion b, Fixed32 amount) { Quaternion r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Slerp  (Quaternion a, Quaternion b, Fixed32 amount) { Quaternion r; Slerp (ref a, ref b, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Quaternion q, out Fixed32 result) {
-            result = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Quaternion q, out Fixed32 r) {
+            r = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Quaternion q, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Quaternion q, out Fixed32 r) {
             Fixed32 lengthSquared = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void Conjugate (ref Quaternion value, out Quaternion result) {
-            result.I = -value.I; result.J = -value.J;
-            result.K = -value.K; result.U = value.U;
+        [MI(O.AggressiveInlining)] public static void Conjugate (ref Quaternion value, out Quaternion r) {
+            r.I = -value.I; r.J = -value.J;
+            r.K = -value.K; r.U = value.U;
         }
 
-        [MI(O.AggressiveInlining)] public static void Inverse (ref Quaternion q, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Inverse (ref Quaternion q, out Quaternion r) {
             Fixed32 a = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
             Fixed32 b = 1 / a;
-            result.I = -q.I * b; result.J = -q.J * b;
-            result.K = -q.K * b; result.U =  q.U * b;
+            r.I = -q.I * b; r.J = -q.J * b;
+            r.K = -q.K * b; r.U =  q.U * b;
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Quaternion q1, ref Quaternion q2, out Fixed32 result) {
-            result = (q1.I * q2.I) + (q1.J * q2.J) + (q1.K * q2.K) + (q1.U * q2.U);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Quaternion q1, ref Quaternion q2, out Fixed32 r) {
+            r = (q1.I * q2.I) + (q1.J * q2.J) + (q1.K * q2.K) + (q1.U * q2.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void Concatenate (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Concatenate (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
             Fixed32 a = (q1.K * q2.J) - (q1.J * q2.K);
             Fixed32 b = (q1.I * q2.K) - (q1.K * q2.I);
             Fixed32 c = (q1.J * q2.I) - (q1.I * q2.J);
@@ -669,18 +669,18 @@ namespace Abacus.Fixed32Precision
             Fixed32 j = (q1.U * q2.J) + (q1.J * q2.U) + b;
             Fixed32 k = (q1.U * q2.K) + (q1.K * q2.U) + c;
             Fixed32 u = (q1.U * q2.U) - (q1.K * q2.K) - d;
-            result.I = i; result.J = j; result.K = k; result.U = u;
+            r.I = i; r.J = j; r.K = k; r.U = u;
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Quaternion q, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Quaternion q, out Quaternion r) {
             Fixed32 a = (q.I * q.I) + (q.J * q.J)
                      + (q.K * q.K) + (q.U * q.U);
             Fixed32 b = 1 / Maths.Sqrt (a);
-            result.I = q.I * b; result.J = q.J * b;
-            result.K = q.K * b; result.U = q.U * b;
+            r.I = q.I * b; r.J = q.J * b;
+            r.K = q.K * b; r.U = q.U * b;
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector3 vector, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector3 vector, out Vector3 r) {
             Fixed32 i = rotation.I, j = rotation.J, k = rotation.K, u = rotation.U;
             Fixed32 ii = i * i, jj = j * j, kk = k * k;
             Fixed32 ui = u * i, uj = u * j, uk = u * k;
@@ -688,10 +688,10 @@ namespace Abacus.Fixed32Precision
             Fixed32 x = vector.X - (2 * vector.X * (jj + kk)) + (2 * vector.Y * (ij - uk)) + (2 * vector.Z * (ik + uj));
             Fixed32 y = vector.Y + (2 * vector.X * (ij + uk)) - (2 * vector.Y * (ii + kk)) + (2 * vector.Z * (jk - ui));
             Fixed32 z = vector.Z + (2 * vector.X * (ik - uj)) + (2 * vector.Y * (jk + ui)) - (2 * vector.Z * (ii + jj));
-            result.X = x; result.Y = y; result.Z = z;
+            r.X = x; r.Y = y; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector4 vector, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector4 vector, out Vector4 r) {
             Fixed32 i = rotation.I, j = rotation.J, k = rotation.K, u = rotation.U;
             Fixed32 ii = i * i, jj = j * j, kk = k * k;
             Fixed32 ui = u * i, uj = u * j, uk = u * k;
@@ -700,108 +700,108 @@ namespace Abacus.Fixed32Precision
             Fixed32 y = vector.Y + (vector.X * 2 * (ij + uk)) - (vector.Y * 2 * (ii + kk)) + (vector.Z * 2 * (jk - ui));
             Fixed32 z = vector.Z + (vector.X * 2 * (ik - uj)) + (vector.Y * 2 * (jk + ui)) - (vector.Z * 2 * (ii + jj));
             Fixed32 w = vector.W;
-            result.X = x; result.Y = y; result.Z = z; result.W = w;
+            r.X = x; r.Y = y; r.Z = z; r.W = w;
         }
 
-        [MI(O.AggressiveInlining)] public static void ToYawPitchRoll (ref Quaternion q, out Vector3 result) { // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
+        [MI(O.AggressiveInlining)] public static void ToYawPitchRoll (ref Quaternion q, out Vector3 r) { // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
             // roll (x-axis rotation)
             Fixed32 sinr_cosp = 2 * (q.U * q.K + q.I * q.J);
             Fixed32 cosr_cosp = ((Fixed32) 1) - 2 * (q.K * q.K + q.I * q.I);
-            result.Z = Maths.ArcTan2 (sinr_cosp, cosr_cosp);
+            r.Z = Maths.ArcTan2 (sinr_cosp, cosr_cosp);
             // pitch (y-axis rotation)
             Fixed32 sinp = 2 * (q.U * q.I - q.J * q.K);
             if (Maths.Abs (sinp) >= 1f)
                 if (sinp < 0f)
-                    result.Y = -Maths.Pi / 2;
+                    r.Y = -Maths.Pi / 2;
                 else
-                    result.Y = Maths.Pi / 2;
+                    r.Y = Maths.Pi / 2;
             else
-                result.Y = Maths.ArcSin (sinp);
+                r.Y = Maths.ArcSin (sinp);
             // yaw (z-axis rotation)
             Fixed32 siny_cosp = 2 * (q.U * q.J + q.K * q.I);
             Fixed32 cosy_cosp = ((Fixed32) 1) - 2 * (q.I * q.I + q.J * q.J);
-            result.X = Maths.ArcTan2 (siny_cosp, cosy_cosp);
+            r.X = Maths.ArcTan2 (siny_cosp, cosy_cosp);
         }
 
-        [MI(O.AggressiveInlining)] public Fixed32     LengthSquared  () { Fixed32 result; LengthSquared (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Fixed32     Length         () { Fixed32 result; Length (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Fixed32     LengthSquared  () { Fixed32 r; LengthSquared (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Fixed32     Length         () { Fixed32 r; Length (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public void       Normalise      () { Normalise (ref this, out this); }
         [MI(O.AggressiveInlining)] public Quaternion Conjugate      () { Conjugate (ref this, out this); return this; }
         [MI(O.AggressiveInlining)] public Quaternion Inverse        () { Inverse (ref this, out this); return this; }
-        [MI(O.AggressiveInlining)] public Fixed32     Dot            (Quaternion q) { Fixed32 result; Dot (ref this, ref q, out result); return result; }
+        [MI(O.AggressiveInlining)] public Fixed32     Dot            (Quaternion q) { Fixed32 r; Dot (ref this, ref q, out r); return r; }
         [MI(O.AggressiveInlining)] public Quaternion Concatenate    (Quaternion q) { Concatenate (ref this, ref q, out this); return this; }
-        [MI(O.AggressiveInlining)] public Vector3    Transform      (Vector3 v) { Vector3 result; Transform (ref this, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public Vector4    Transform      (Vector4 v) { Vector4 result; Transform (ref this, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public Vector3    ToYawPitchRoll () { Vector3 result; ToYawPitchRoll (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Vector3    Transform      (Vector3 v) { Vector3 r; Transform (ref this, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public Vector4    Transform      (Vector4 v) { Vector4 r; Transform (ref this, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public Vector3    ToYawPitchRoll () { Vector3 r; ToYawPitchRoll (ref this, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public static Fixed32     LengthSquared  (Quaternion q) { Fixed32 result; LengthSquared (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32     Length         (Quaternion q) { Fixed32 result; Length (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Normalise      (Quaternion q) { Quaternion result; Normalise (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Conjugate      (Quaternion q) { Quaternion result; Conjugate (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Inverse        (Quaternion q) { Quaternion result; Inverse (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32     Dot            (Quaternion a, Quaternion b) { Fixed32 result; Dot (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Concatenate    (Quaternion a, Quaternion b) { Quaternion result; Concatenate (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3    Transform      (Quaternion rotation, Vector3 v) { Vector3 result; Transform (ref rotation, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4    Transform      (Quaternion rotation, Vector4 v) { Vector4 result; Transform (ref rotation, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3    ToYawPitchRoll (Quaternion q) { Vector3 result; ToYawPitchRoll (ref q, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32     LengthSquared  (Quaternion q) { Fixed32 r; LengthSquared (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32     Length         (Quaternion q) { Fixed32 r; Length (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Normalise      (Quaternion q) { Quaternion r; Normalise (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Conjugate      (Quaternion q) { Quaternion r; Conjugate (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Inverse        (Quaternion q) { Quaternion r; Inverse (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32     Dot            (Quaternion a, Quaternion b) { Fixed32 r; Dot (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Concatenate    (Quaternion a, Quaternion b) { Quaternion r; Concatenate (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3    Transform      (Quaternion rotation, Vector3 v) { Vector3 r; Transform (ref rotation, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4    Transform      (Quaternion rotation, Vector4 v) { Vector4 r; Transform (ref rotation, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3    ToYawPitchRoll (Quaternion q) { Vector3 r; ToYawPitchRoll (ref q, out r); return r; }
         // Creation //--------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Fixed32 angle, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Fixed32 angle, out Quaternion r) {
             Fixed32 theta = angle * Maths.Half;
             Fixed32 sin = Maths.Sin (theta), cos = Maths.Cos (theta);
-            result.I = axis.X * sin;
-            result.J = axis.Y * sin;
-            result.K = axis.Z * sin;
-            result.U = cos;
+            r.I = axis.X * sin;
+            r.J = axis.Y * sin;
+            r.K = axis.Z * sin;
+            r.U = cos;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Fixed32 yaw, ref Fixed32 pitch, ref Fixed32 roll, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Fixed32 yaw, ref Fixed32 pitch, ref Fixed32 roll, out Quaternion r) {
             Fixed32 hr = roll * Maths.Half, hp = pitch * Maths.Half, hy = yaw * Maths.Half;
             Fixed32 shr = Maths.Sin (hr), chr = Maths.Cos (hr);
             Fixed32 shp = Maths.Sin (hp), chp = Maths.Cos (hp);
             Fixed32 shy = Maths.Sin (hy), chy = Maths.Cos (hy);
-            result.I = (chy * shp * chr) + (shy * chp * shr);
-            result.J = (shy * chp * chr) - (chy * shp * shr);
-            result.K = (chy * chp * shr) - (shy * shp * chr);
-            result.U = (chy * chp * chr) + (shy * shp * shr);
+            r.I = (chy * shp * chr) + (shy * chp * shr);
+            r.J = (shy * chp * chr) - (chy * shp * shr);
+            r.K = (chy * chp * shr) - (shy * shp * chr);
+            r.U = (chy * chp * chr) + (shy * shp * shr);
         }
 
         // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
-        [MI(O.AggressiveInlining)] public static void CreateFromRotationMatrix (ref Matrix44 m, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromRotationMatrix (ref Matrix44 m, out Quaternion r) {
             Fixed32 tr = m.R0C0 + m.R1C1 + m.R2C2;
             if (tr > 0) {
                 Fixed32 s = Maths.Sqrt (tr + 1) * 2;
-                result.U = Maths.Quarter * s;
-                result.I = (m.R1C2 - m.R2C1) / s;
-                result.J = (m.R2C0 - m.R0C2) / s;
-                result.K = (m.R0C1 - m.R1C0) / s;
+                r.U = Maths.Quarter * s;
+                r.I = (m.R1C2 - m.R2C1) / s;
+                r.J = (m.R2C0 - m.R0C2) / s;
+                r.K = (m.R0C1 - m.R1C0) / s;
             }
             else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2)) {
                 Fixed32 s = Maths.Sqrt (1 + m.R0C0 - m.R1C1 - m.R2C2) * 2;
-                result.U = (m.R1C2 - m.R2C1) / s;
-                result.I = Maths.Quarter * s;
-                result.J = (m.R0C1 + m.R1C0) / s;
-                result.K = (m.R0C2 + m.R2C0) / s;
+                r.U = (m.R1C2 - m.R2C1) / s;
+                r.I = Maths.Quarter * s;
+                r.J = (m.R0C1 + m.R1C0) / s;
+                r.K = (m.R0C2 + m.R2C0) / s;
             }
             else if (m.R1C1 > m.R2C2) {
                 Fixed32 s = Maths.Sqrt (1 + m.R1C1 - m.R0C0 - m.R2C2) * 2;
-                result.U = (m.R2C0 - m.R0C2) / s;
-                result.I = (m.R1C0 + m.R0C1) / s;
-                result.J = Maths.Quarter * s;
-                result.K = (m.R2C1 + m.R1C2) / s;
+                r.U = (m.R2C0 - m.R0C2) / s;
+                r.I = (m.R1C0 + m.R0C1) / s;
+                r.J = Maths.Quarter * s;
+                r.K = (m.R2C1 + m.R1C2) / s;
             }
             else {
                 Fixed32 s = Maths.Sqrt (1 + m.R2C2 - m.R0C0 - m.R1C1) * 2;
-                result.U = (m.R0C1 - m.R1C0) / s;
-                result.I = (m.R2C0 + m.R0C2) / s;
-                result.J = (m.R2C1 + m.R1C2) / s;
-                result.K = Maths.Quarter * s;
+                r.U = (m.R0C1 - m.R1C0) / s;
+                r.I = (m.R2C0 + m.R0C2) / s;
+                r.J = (m.R2C1 + m.R1C2) / s;
+                r.K = Maths.Quarter * s;
             }
         }
 
-        [MI(O.AggressiveInlining)] public static Quaternion CreateFromAxisAngle      (Vector3 axis, Fixed32 angle) { Quaternion result; CreateFromAxisAngle (ref axis, ref angle, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion CreateFromYawPitchRoll   (Fixed32 yaw, Fixed32 pitch, Fixed32 roll) { Quaternion result; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion CreateFromRotationMatrix (Matrix44 matrix) { Quaternion result; CreateFromRotationMatrix (ref matrix, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Quaternion CreateFromAxisAngle      (Vector3 axis, Fixed32 angle) { Quaternion r; CreateFromAxisAngle (ref axis, ref angle, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion CreateFromYawPitchRoll   (Fixed32 yaw, Fixed32 pitch, Fixed32 roll) { Quaternion r; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion CreateFromRotationMatrix (Matrix44 matrix) { Quaternion r; CreateFromRotationMatrix (ref matrix, out r); return r; }
     }
     /// <summary>
     /// Fixed32 precision Matrix44.
@@ -842,9 +842,9 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Matrix44) ? this.Equals ((Matrix44)obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Matrix44 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Matrix44 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Matrix44 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Matrix44 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         [MI(O.AggressiveInlining)] public Boolean IsSymmetric () {
             Matrix44 transpose = this;
@@ -883,8 +883,8 @@ namespace Abacus.Fixed32Precision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Matrix44 a, ref Matrix44 b, out Boolean result) {
-            result = (a.R0C0 == b.R0C0) && (a.R1C1 == b.R1C1) &&
+        [MI(O.AggressiveInlining)] public static void Equals (ref Matrix44 a, ref Matrix44 b, out Boolean r) {
+            r = (a.R0C0 == b.R0C0) && (a.R1C1 == b.R1C1) &&
                      (a.R2C2 == b.R2C2) && (a.R3C3 == b.R3C3) &&
                      (a.R0C1 == b.R0C1) && (a.R0C2 == b.R0C2) &&
                      (a.R0C3 == b.R0C3) && (a.R1C0 == b.R1C0) &&
@@ -894,8 +894,8 @@ namespace Abacus.Fixed32Precision
                      (a.R3C1 == b.R3C1) && (a.R3C2 == b.R3C2);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Matrix44 a, ref Matrix44 b, out Boolean result) {
-            result = Maths.ApproximateEquals (a.R0C0, b.R0C0) && Maths.ApproximateEquals (a.R1C1, b.R1C1) &&
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Matrix44 a, ref Matrix44 b, out Boolean r) {
+            r = Maths.ApproximateEquals (a.R0C0, b.R0C0) && Maths.ApproximateEquals (a.R1C1, b.R1C1) &&
                      Maths.ApproximateEquals (a.R2C2, b.R2C2) && Maths.ApproximateEquals (a.R3C3, b.R3C3) &&
                      Maths.ApproximateEquals (a.R0C1, b.R0C1) && Maths.ApproximateEquals (a.R0C2, b.R0C2) &&
                      Maths.ApproximateEquals (a.R0C3, b.R0C3) && Maths.ApproximateEquals (a.R1C0, b.R1C0) &&
@@ -905,40 +905,40 @@ namespace Abacus.Fixed32Precision
                      Maths.ApproximateEquals (a.R3C1, b.R3C1) && Maths.ApproximateEquals (a.R3C2, b.R3C2);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
-            result.R0C0 = a.R0C0 + b.R0C0; result.R0C1 = a.R0C1 + b.R0C1;
-            result.R0C2 = a.R0C2 + b.R0C2; result.R0C3 = a.R0C3 + b.R0C3;
-            result.R1C0 = a.R1C0 + b.R1C0; result.R1C1 = a.R1C1 + b.R1C1;
-            result.R1C2 = a.R1C2 + b.R1C2; result.R1C3 = a.R1C3 + b.R1C3;
-            result.R2C0 = a.R2C0 + b.R2C0; result.R2C1 = a.R2C1 + b.R2C1;
-            result.R2C2 = a.R2C2 + b.R2C2; result.R2C3 = a.R2C3 + b.R2C3;
-            result.R3C0 = a.R3C0 + b.R3C0; result.R3C1 = a.R3C1 + b.R3C1;
-            result.R3C2 = a.R3C2 + b.R3C2; result.R3C3 = a.R3C3 + b.R3C3;
+        [MI(O.AggressiveInlining)] public static void Add (ref Matrix44 a, ref Matrix44 b, out Matrix44 r) {
+            r.R0C0 = a.R0C0 + b.R0C0; r.R0C1 = a.R0C1 + b.R0C1;
+            r.R0C2 = a.R0C2 + b.R0C2; r.R0C3 = a.R0C3 + b.R0C3;
+            r.R1C0 = a.R1C0 + b.R1C0; r.R1C1 = a.R1C1 + b.R1C1;
+            r.R1C2 = a.R1C2 + b.R1C2; r.R1C3 = a.R1C3 + b.R1C3;
+            r.R2C0 = a.R2C0 + b.R2C0; r.R2C1 = a.R2C1 + b.R2C1;
+            r.R2C2 = a.R2C2 + b.R2C2; r.R2C3 = a.R2C3 + b.R2C3;
+            r.R3C0 = a.R3C0 + b.R3C0; r.R3C1 = a.R3C1 + b.R3C1;
+            r.R3C2 = a.R3C2 + b.R3C2; r.R3C3 = a.R3C3 + b.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
-            result.R0C0 = a.R0C0 - b.R0C0; result.R0C1 = a.R0C1 - b.R0C1;
-            result.R0C2 = a.R0C2 - b.R0C2; result.R0C3 = a.R0C3 - b.R0C3;
-            result.R1C0 = a.R1C0 - b.R1C0; result.R1C1 = a.R1C1 - b.R1C1;
-            result.R1C2 = a.R1C2 - b.R1C2; result.R1C3 = a.R1C3 - b.R1C3;
-            result.R2C0 = a.R2C0 - b.R2C0; result.R2C1 = a.R2C1 - b.R2C1;
-            result.R2C2 = a.R2C2 - b.R2C2; result.R2C3 = a.R2C3 - b.R2C3;
-            result.R3C0 = a.R3C0 - b.R3C0; result.R3C1 = a.R3C1 - b.R3C1;
-            result.R3C2 = a.R3C2 - b.R3C2; result.R3C3 = a.R3C3 - b.R3C3;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Matrix44 a, ref Matrix44 b, out Matrix44 r) {
+            r.R0C0 = a.R0C0 - b.R0C0; r.R0C1 = a.R0C1 - b.R0C1;
+            r.R0C2 = a.R0C2 - b.R0C2; r.R0C3 = a.R0C3 - b.R0C3;
+            r.R1C0 = a.R1C0 - b.R1C0; r.R1C1 = a.R1C1 - b.R1C1;
+            r.R1C2 = a.R1C2 - b.R1C2; r.R1C3 = a.R1C3 - b.R1C3;
+            r.R2C0 = a.R2C0 - b.R2C0; r.R2C1 = a.R2C1 - b.R2C1;
+            r.R2C2 = a.R2C2 - b.R2C2; r.R2C3 = a.R2C3 - b.R2C3;
+            r.R3C0 = a.R3C0 - b.R3C0; r.R3C1 = a.R3C1 - b.R3C1;
+            r.R3C2 = a.R3C2 - b.R3C2; r.R3C3 = a.R3C3 - b.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Matrix44 m, out Matrix44 result) {
-            result.R0C0 = -m.R0C0; result.R0C1 = -m.R0C1;
-            result.R0C2 = -m.R0C2; result.R0C3 = -m.R0C3;
-            result.R1C0 = -m.R1C0; result.R1C1 = -m.R1C1;
-            result.R1C2 = -m.R1C2; result.R1C3 = -m.R1C3;
-            result.R2C0 = -m.R2C0; result.R2C1 = -m.R2C1;
-            result.R2C2 = -m.R2C2; result.R2C3 = -m.R2C3;
-            result.R3C0 = -m.R3C0; result.R3C1 = -m.R3C1;
-            result.R3C2 = -m.R3C2; result.R3C3 = -m.R3C3;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Matrix44 m, out Matrix44 r) {
+            r.R0C0 = -m.R0C0; r.R0C1 = -m.R0C1;
+            r.R0C2 = -m.R0C2; r.R0C3 = -m.R0C3;
+            r.R1C0 = -m.R1C0; r.R1C1 = -m.R1C1;
+            r.R1C2 = -m.R1C2; r.R1C3 = -m.R1C3;
+            r.R2C0 = -m.R2C0; r.R2C1 = -m.R2C1;
+            r.R2C2 = -m.R2C2; r.R2C3 = -m.R2C3;
+            r.R3C0 = -m.R3C0; r.R3C1 = -m.R3C1;
+            r.R3C2 = -m.R3C2; r.R3C3 = -m.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Product (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Product (ref Matrix44 a, ref Matrix44 b, out Matrix44 r) {
             Fixed32 r0c0 = (a.R0C0 * b.R0C0) + (a.R0C1 * b.R1C0) + (a.R0C2 * b.R2C0) + (a.R0C3 * b.R3C0);
             Fixed32 r0c1 = (a.R0C0 * b.R0C1) + (a.R0C1 * b.R1C1) + (a.R0C2 * b.R2C1) + (a.R0C3 * b.R3C1);
             Fixed32 r0c2 = (a.R0C0 * b.R0C2) + (a.R0C1 * b.R1C2) + (a.R0C2 * b.R2C2) + (a.R0C3 * b.R3C2);
@@ -955,82 +955,82 @@ namespace Abacus.Fixed32Precision
             Fixed32 r3c1 = (a.R3C0 * b.R0C1) + (a.R3C1 * b.R1C1) + (a.R3C2 * b.R2C1) + (a.R3C3 * b.R3C1);
             Fixed32 r3c2 = (a.R3C0 * b.R0C2) + (a.R3C1 * b.R1C2) + (a.R3C2 * b.R2C2) + (a.R3C3 * b.R3C2);
             Fixed32 r3c3 = (a.R3C0 * b.R0C3) + (a.R3C1 * b.R1C3) + (a.R3C2 * b.R2C3) + (a.R3C3 * b.R3C3);
-            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = r0c3;
-            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = r1c3;
-            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = r2c3;
-            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = r3c3; 
+            r.R0C0 = r0c0; r.R0C1 = r0c1; r.R0C2 = r0c2; r.R0C3 = r0c3;
+            r.R1C0 = r1c0; r.R1C1 = r1c1; r.R1C2 = r1c2; r.R1C3 = r1c3;
+            r.R2C0 = r2c0; r.R2C1 = r2c1; r.R2C2 = r2c2; r.R2C3 = r2c3;
+            r.R3C0 = r3c0; r.R3C1 = r3c1; r.R3C2 = r3c2; r.R3C3 = r3c3; 
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Matrix44 m, ref Fixed32 f, out Matrix44 result) {
-            result.R0C0 = m.R0C0 * f; result.R0C1 = m.R0C1 * f;
-            result.R0C2 = m.R0C2 * f; result.R0C3 = m.R0C3 * f;
-            result.R1C0 = m.R1C0 * f; result.R1C1 = m.R1C1 * f;
-            result.R1C2 = m.R1C2 * f; result.R1C3 = m.R1C3 * f;
-            result.R2C0 = m.R2C0 * f; result.R2C1 = m.R2C1 * f;
-            result.R2C2 = m.R2C2 * f; result.R2C3 = m.R2C3 * f;
-            result.R3C0 = m.R3C0 * f; result.R3C1 = m.R3C1 * f;
-            result.R3C2 = m.R3C2 * f; result.R3C3 = m.R3C3 * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Matrix44 m, ref Fixed32 f, out Matrix44 r) {
+            r.R0C0 = m.R0C0 * f; r.R0C1 = m.R0C1 * f;
+            r.R0C2 = m.R0C2 * f; r.R0C3 = m.R0C3 * f;
+            r.R1C0 = m.R1C0 * f; r.R1C1 = m.R1C1 * f;
+            r.R1C2 = m.R1C2 * f; r.R1C3 = m.R1C3 * f;
+            r.R2C0 = m.R2C0 * f; r.R2C1 = m.R2C1 * f;
+            r.R2C2 = m.R2C2 * f; r.R2C3 = m.R2C3 * f;
+            r.R3C0 = m.R3C0 * f; r.R3C1 = m.R3C1 * f;
+            r.R3C2 = m.R3C2 * f; r.R3C3 = m.R3C3 * f;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean  result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean  result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 m)             { Matrix44 result; Negate    (ref m,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 result; Product   (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 m, Fixed32 f)   { Matrix44 result; Multiply  (ref m, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Fixed32 f, Matrix44 m)   { Matrix44 result; Multiply  (ref m, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3  result; Transform (ref m, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4  result; Transform (ref m, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3  result; Transform (ref m, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Matrix44 m, Vector4 v)  { Vector4  result; Transform (ref m, ref v, out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean  r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean  r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 m)             { Matrix44 r; Negate    (ref m,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 r; Product   (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 m, Fixed32 f)   { Matrix44 r; Multiply  (ref m, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Fixed32 f, Matrix44 m)   { Matrix44 r; Multiply  (ref m, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3  r; Transform (ref m, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4  r; Transform (ref m, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3  r; Transform (ref m, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Matrix44 m, Vector4 v)  { Vector4  r; Transform (ref m, ref v, out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean  Equals            (Matrix44 a, Matrix44 b) { Boolean  result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean  ApproximateEquals (Matrix44 a, Matrix44 b) { Boolean  result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Add               (Matrix44 a, Matrix44 b) { Matrix44 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Subtract          (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Negate            (Matrix44 m)             { Matrix44 result; Negate            (ref m,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Product           (Matrix44 a, Matrix44 b) { Matrix44 result; Product           (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Multiply          (Matrix44 m, Fixed32 f)   { Matrix44 result; Multiply          (ref m, ref f, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean  Equals            (Matrix44 a, Matrix44 b) { Boolean  r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean  ApproximateEquals (Matrix44 a, Matrix44 b) { Boolean  r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Add               (Matrix44 a, Matrix44 b) { Matrix44 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Subtract          (Matrix44 a, Matrix44 b) { Matrix44 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Negate            (Matrix44 m)             { Matrix44 r; Negate            (ref m,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Product           (Matrix44 a, Matrix44 b) { Matrix44 r; Product           (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Multiply          (Matrix44 m, Fixed32 f)   { Matrix44 r; Multiply          (ref m, ref f, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Matrix44 a, ref Matrix44 b, ref Fixed32 amount, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Matrix44 a, ref Matrix44 b, ref Fixed32 amount, out Matrix44 r) {
             Debug.Assert (amount > 0 && amount <= 1);
-            result.R0C0 = a.R0C0 + ((b.R0C0 - a.R0C0) * amount);
-            result.R0C1 = a.R0C1 + ((b.R0C1 - a.R0C1) * amount);
-            result.R0C2 = a.R0C2 + ((b.R0C2 - a.R0C2) * amount);
-            result.R0C3 = a.R0C3 + ((b.R0C3 - a.R0C3) * amount);
-            result.R1C0 = a.R1C0 + ((b.R1C0 - a.R1C0) * amount);
-            result.R1C1 = a.R1C1 + ((b.R1C1 - a.R1C1) * amount);
-            result.R1C2 = a.R1C2 + ((b.R1C2 - a.R1C2) * amount);
-            result.R1C3 = a.R1C3 + ((b.R1C3 - a.R1C3) * amount);
-            result.R2C0 = a.R2C0 + ((b.R2C0 - a.R2C0) * amount);
-            result.R2C1 = a.R2C1 + ((b.R2C1 - a.R2C1) * amount);
-            result.R2C2 = a.R2C2 + ((b.R2C2 - a.R2C2) * amount);
-            result.R2C3 = a.R2C3 + ((b.R2C3 - a.R2C3) * amount);
-            result.R3C0 = a.R3C0 + ((b.R3C0 - a.R3C0) * amount);
-            result.R3C1 = a.R3C1 + ((b.R3C1 - a.R3C1) * amount);
-            result.R3C2 = a.R3C2 + ((b.R3C2 - a.R3C2) * amount);
-            result.R3C3 = a.R3C3 + ((b.R3C3 - a.R3C3) * amount);
+            r.R0C0 = a.R0C0 + ((b.R0C0 - a.R0C0) * amount);
+            r.R0C1 = a.R0C1 + ((b.R0C1 - a.R0C1) * amount);
+            r.R0C2 = a.R0C2 + ((b.R0C2 - a.R0C2) * amount);
+            r.R0C3 = a.R0C3 + ((b.R0C3 - a.R0C3) * amount);
+            r.R1C0 = a.R1C0 + ((b.R1C0 - a.R1C0) * amount);
+            r.R1C1 = a.R1C1 + ((b.R1C1 - a.R1C1) * amount);
+            r.R1C2 = a.R1C2 + ((b.R1C2 - a.R1C2) * amount);
+            r.R1C3 = a.R1C3 + ((b.R1C3 - a.R1C3) * amount);
+            r.R2C0 = a.R2C0 + ((b.R2C0 - a.R2C0) * amount);
+            r.R2C1 = a.R2C1 + ((b.R2C1 - a.R2C1) * amount);
+            r.R2C2 = a.R2C2 + ((b.R2C2 - a.R2C2) * amount);
+            r.R2C3 = a.R2C3 + ((b.R2C3 - a.R2C3) * amount);
+            r.R3C0 = a.R3C0 + ((b.R3C0 - a.R3C0) * amount);
+            r.R3C1 = a.R3C1 + ((b.R3C1 - a.R3C1) * amount);
+            r.R3C2 = a.R3C2 + ((b.R3C2 - a.R3C2) * amount);
+            r.R3C3 = a.R3C3 + ((b.R3C3 - a.R3C3) * amount);
         }
         
-        [MI(O.AggressiveInlining)] public static Matrix44 Lerp (Matrix44 a, Matrix44 b, Fixed32 amount) { Matrix44 result; Lerp (ref a, ref b, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Lerp (Matrix44 a, Matrix44 b, Fixed32 amount) { Matrix44 r; Lerp (ref a, ref b, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Transpose (ref Matrix44 m, out Matrix44 result) {
-            result.R0C0 = m.R0C0; result.R1C1 = m.R1C1;
-            result.R2C2 = m.R2C2; result.R3C3 = m.R3C3;
-            Fixed32 t = m.R0C1; result.R0C1 = m.R1C0; result.R1C0 = t;
-                   t = m.R0C2; result.R0C2 = m.R2C0; result.R2C0 = t;
-                   t = m.R0C3; result.R0C3 = m.R3C0; result.R3C0 = t;
-                   t = m.R1C2; result.R1C2 = m.R2C1; result.R2C1 = t;
-                   t = m.R1C3; result.R1C3 = m.R3C1; result.R3C1 = t;
-                   t = m.R2C3; result.R2C3 = m.R3C2; result.R3C2 = t;
+        [MI(O.AggressiveInlining)] public static void Transpose (ref Matrix44 m, out Matrix44 r) {
+            r.R0C0 = m.R0C0; r.R1C1 = m.R1C1;
+            r.R2C2 = m.R2C2; r.R3C3 = m.R3C3;
+            Fixed32 t = m.R0C1; r.R0C1 = m.R1C0; r.R1C0 = t;
+                   t = m.R0C2; r.R0C2 = m.R2C0; r.R2C0 = t;
+                   t = m.R0C3; r.R0C3 = m.R3C0; r.R3C0 = t;
+                   t = m.R1C2; r.R1C2 = m.R2C1; r.R2C1 = t;
+                   t = m.R1C3; r.R1C3 = m.R3C1; r.R3C1 = t;
+                   t = m.R2C3; r.R2C3 = m.R3C2; r.R3C2 = t;
         }
 
-        [MI(O.AggressiveInlining)] public static void Decompose (ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result) {
+        [MI(O.AggressiveInlining)] public static void Decompose (ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean r) {
             translation.X = matrix.R3C0; translation.Y = matrix.R3C1; translation.Z = matrix.R3C2;
             Vector3 a = new Vector3 (matrix.R0C0, matrix.R1C0, matrix.R2C0);
             Vector3 b = new Vector3 (matrix.R0C1, matrix.R1C1, matrix.R2C1);
@@ -1040,7 +1040,7 @@ namespace Abacus.Fixed32Precision
             Fixed32 cLen; Vector3.Length (ref c, out cLen); scale.Z = cLen;
             if (Maths.IsApproximatelyZero (scale.X) || Maths.IsApproximatelyZero (scale.Y) || Maths.IsApproximatelyZero (scale.Z)) {
                 rotation = Quaternion.Identity;
-                result = false;
+                r = false;
             }
             if (aLen < Maths.Epsilon) a = Vector3.Zero;
             else Vector3.Normalise (ref a, out a);
@@ -1060,11 +1060,11 @@ namespace Abacus.Fixed32Precision
             Matrix44 rotMat;
             Matrix44.CreateFromCartesianAxes (ref right, ref up, ref backward, out rotMat);
             Quaternion.CreateFromRotationMatrix (ref rotMat, out rotation);
-            result = true;
+            r = true;
         }
 
-        [MI(O.AggressiveInlining)] public static void Determinant (ref Matrix44 m, out Fixed32 result) {
-            result = + m.R0C3 * m.R1C2 * m.R2C1 * m.R3C0 - m.R0C2 * m.R1C3 * m.R2C1 * m.R3C0
+        [MI(O.AggressiveInlining)] public static void Determinant (ref Matrix44 m, out Fixed32 r) {
+            r = + m.R0C3 * m.R1C2 * m.R2C1 * m.R3C0 - m.R0C2 * m.R1C3 * m.R2C1 * m.R3C0
                      - m.R0C3 * m.R1C1 * m.R2C2 * m.R3C0 + m.R0C1 * m.R1C3 * m.R2C2 * m.R3C0
                      + m.R0C2 * m.R1C1 * m.R2C3 * m.R3C0 - m.R0C1 * m.R1C2 * m.R2C3 * m.R3C0
                      - m.R0C3 * m.R1C2 * m.R2C0 * m.R3C1 + m.R0C2 * m.R1C3 * m.R2C0 * m.R3C1
@@ -1078,7 +1078,7 @@ namespace Abacus.Fixed32Precision
                      - m.R0C1 * m.R1C0 * m.R2C2 * m.R3C3 + m.R0C0 * m.R1C1 * m.R2C2 * m.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Invert (ref Matrix44 m, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Invert (ref Matrix44 m, out Matrix44 r) {
             Fixed32 d; Determinant (ref m, out d); Fixed32 s = 1 / d;
             Fixed32 r0c0 = m.R1C2 * m.R2C3 * m.R3C1 - m.R1C3 * m.R2C2 * m.R3C1 + m.R1C3 * m.R2C1 * m.R3C2 - m.R1C1 * m.R2C3 * m.R3C2 - m.R1C2 * m.R2C1 * m.R3C3 + m.R1C1 * m.R2C2 * m.R3C3;
             Fixed32 r0c1 = m.R0C3 * m.R2C2 * m.R3C1 - m.R0C2 * m.R2C3 * m.R3C1 - m.R0C3 * m.R2C1 * m.R3C2 + m.R0C1 * m.R2C3 * m.R3C2 + m.R0C2 * m.R2C1 * m.R3C3 - m.R0C1 * m.R2C2 * m.R3C3;
@@ -1096,14 +1096,14 @@ namespace Abacus.Fixed32Precision
             Fixed32 r3c1 = m.R0C1 * m.R2C2 * m.R3C0 - m.R0C2 * m.R2C1 * m.R3C0 + m.R0C2 * m.R2C0 * m.R3C1 - m.R0C0 * m.R2C2 * m.R3C1 - m.R0C1 * m.R2C0 * m.R3C2 + m.R0C0 * m.R2C1 * m.R3C2;
             Fixed32 r3c2 = m.R0C2 * m.R1C1 * m.R3C0 - m.R0C1 * m.R1C2 * m.R3C0 - m.R0C2 * m.R1C0 * m.R3C1 + m.R0C0 * m.R1C2 * m.R3C1 + m.R0C1 * m.R1C0 * m.R3C2 - m.R0C0 * m.R1C1 * m.R3C2;
             Fixed32 r3c3 = m.R0C1 * m.R1C2 * m.R2C0 - m.R0C2 * m.R1C1 * m.R2C0 + m.R0C2 * m.R1C0 * m.R2C1 - m.R0C0 * m.R1C2 * m.R2C1 - m.R0C1 * m.R1C0 * m.R2C2 + m.R0C0 * m.R1C1 * m.R2C2;
-            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = r0c3;
-            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = r1c3;
-            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = r2c3;
-            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = r3c3; 
-            Multiply (ref result, ref s, out result);
+            r.R0C0 = r0c0; r.R0C1 = r0c1; r.R0C2 = r0c2; r.R0C3 = r0c3;
+            r.R1C0 = r1c0; r.R1C1 = r1c1; r.R1C2 = r1c2; r.R1C3 = r1c3;
+            r.R2C0 = r2c0; r.R2C1 = r2c1; r.R2C2 = r2c2; r.R2C3 = r2c3;
+            r.R3C0 = r3c0; r.R3C1 = r3c1; r.R3C2 = r3c2; r.R3C3 = r3c3; 
+            Multiply (ref r, ref s, out r);
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Quaternion q, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Quaternion q, out Matrix44 r) {
             Boolean qIsUnit; Quaternion.IsUnit (ref q, out qIsUnit);
             Debug.Assert (qIsUnit);
             Fixed32 twoI = q.I + q.I, twoJ = q.J + q.J, twoK = q.K + q.K;
@@ -1131,158 +1131,158 @@ namespace Abacus.Fixed32Precision
             Fixed32 r3c0 = m.R3C0 * tR0C0 + m.R3C1 * tR1C0 + m.R3C2 * tR2C0;
             Fixed32 r3c1 = m.R3C0 * tR0C1 + m.R3C1 * tR1C1 + m.R3C2 * tR2C1;
             Fixed32 r3c2 = m.R3C0 * tR0C2 + m.R3C1 * tR1C2 + m.R3C2 * tR2C2;
-            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = m.R0C3;
-            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = m.R1C3;
-            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = m.R2C3;
-            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = m.R3C3; 
+            r.R0C0 = r0c0; r.R0C1 = r0c1; r.R0C2 = r0c2; r.R0C3 = m.R0C3;
+            r.R1C0 = r1c0; r.R1C1 = r1c1; r.R1C2 = r1c2; r.R1C3 = m.R1C3;
+            r.R2C0 = r2c0; r.R2C1 = r2c1; r.R2C2 = r2c2; r.R2C3 = m.R2C3;
+            r.R3C0 = r3c0; r.R3C1 = r3c1; r.R3C2 = r3c2; r.R3C3 = m.R3C3; 
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector3 v, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector3 v, out Vector3 r) {
             Fixed32 x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + m.R3C0;
             Fixed32 y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + m.R3C1;
             Fixed32 z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + m.R3C2;
             Fixed32 w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + m.R3C3;
-            result.X = x / w; result.Y = y / w; result.Z = z / w;
+            r.X = x / w; r.Y = y / w; r.Z = z / w;
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector4 v, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector4 v, out Vector4 r) {
             Fixed32 x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + (v.W * m.R3C0);
             Fixed32 y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + (v.W * m.R3C1);
             Fixed32 z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + (v.W * m.R3C2);
             Fixed32 w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + (v.W * m.R3C3);
-            result.X = x; result.Y = y; result.Z = z; result.W = w;
+            r.X = x; r.Y = y; r.Z = z; r.W = w;
         }
 
-        [MI(O.AggressiveInlining)] public Fixed32   Determinant ()                    { Fixed32 result; Determinant (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Fixed32   Determinant ()                    { Fixed32 r; Determinant (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Matrix44 Transpose   ()                    { Transpose (ref this, out this); return this; }
         [MI(O.AggressiveInlining)] public Matrix44 Invert      ()                    { Invert (ref this, out this); return this; }
-        [MI(O.AggressiveInlining)] public Matrix44 Transform   (Quaternion rotation) { Matrix44 result; Transform (ref this, ref rotation, out result); return result; }
-        [MI(O.AggressiveInlining)] public Vector3  Transform   (Vector3 v)           { Vector3 result; Transform (ref this, ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public Vector4  Transform   (Vector4 v)           { Vector4 result; Transform (ref this, ref v, out result); return result; } 
+        [MI(O.AggressiveInlining)] public Matrix44 Transform   (Quaternion rotation) { Matrix44 r; Transform (ref this, ref rotation, out r); return r; }
+        [MI(O.AggressiveInlining)] public Vector3  Transform   (Vector3 v)           { Vector3 r; Transform (ref this, ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public Vector4  Transform   (Vector4 v)           { Vector4 r; Transform (ref this, ref v, out r); return r; } 
 
-        [MI(O.AggressiveInlining)] public static Fixed32   Determinant (Matrix44 matrix)                      { Fixed32 result; Determinant (ref matrix, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Transpose   (Matrix44 input)                       { Matrix44 result; Transpose (ref input, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Invert      (Matrix44 matrix)                      { Matrix44 result; Invert (ref matrix, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Transform   (Matrix44 matrix, Quaternion rotation) { Matrix44 result; Transform (ref matrix, ref rotation, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3  Transform   (Matrix44 matrix, Vector3 v)           { Vector3 result; Transform (ref matrix, ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector4  Transform   (Matrix44 matrix, Vector4 v)           { Vector4 result; Transform (ref matrix, ref v, out result); return result; } 
+        [MI(O.AggressiveInlining)] public static Fixed32   Determinant (Matrix44 matrix)                      { Fixed32 r; Determinant (ref matrix, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Transpose   (Matrix44 input)                       { Matrix44 r; Transpose (ref input, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Invert      (Matrix44 matrix)                      { Matrix44 r; Invert (ref matrix, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Transform   (Matrix44 matrix, Quaternion rotation) { Matrix44 r; Transform (ref matrix, ref rotation, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3  Transform   (Matrix44 matrix, Vector3 v)           { Vector3 r; Transform (ref matrix, ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector4  Transform   (Matrix44 matrix, Vector4 v)           { Vector4 r; Transform (ref matrix, ref v, out r); return r; } 
 
         // Creation //--------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Vector3 position, out Matrix44 result) {
-            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = 1;          result.R2C3 = 0;
-            result.R3C0 = position.X; result.R3C1 = position.Y; result.R3C2 = position.Z; result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Vector3 position, out Matrix44 r) {
+            r.R0C0 = 1;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = 1;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = 1;          r.R2C3 = 0;
+            r.R3C0 = position.X; r.R3C1 = position.Y; r.R3C2 = position.Z; r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Fixed32 x, ref Fixed32 y, ref Fixed32 z, out Matrix44 result) {
-            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = 1;          result.R2C3 = 0;
-            result.R3C0 = x;          result.R3C1 = y;          result.R3C2 = z;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Fixed32 x, ref Fixed32 y, ref Fixed32 z, out Matrix44 r) {
+            r.R0C0 = 1;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = 1;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = 1;          r.R2C3 = 0;
+            r.R3C0 = x;          r.R3C1 = y;          r.R3C2 = z;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateScale (ref Vector3 scale, out Matrix44 result) {
-            result.R0C0 = scale.X;    result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = scale.Y;    result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = scale.Z;    result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateScale (ref Vector3 scale, out Matrix44 r) {
+            r.R0C0 = scale.X;    r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = scale.Y;    r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = scale.Z;    r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateScale (ref Fixed32 x, ref Fixed32 y, ref Fixed32 z, out Matrix44 result) {
-            result.R0C0 = x;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = y;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = z;          result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateScale (ref Fixed32 x, ref Fixed32 y, ref Fixed32 z, out Matrix44 r) {
+            r.R0C0 = x;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = y;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = z;          r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateScale (ref Fixed32 scale, out Matrix44 result) {
-            result.R0C0 = scale;      result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = scale;      result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = scale;      result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateScale (ref Fixed32 scale, out Matrix44 r) {
+            r.R0C0 = scale;      r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = scale;      r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = scale;      r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateRotationX (ref Fixed32 radians, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateRotationX (ref Fixed32 radians, out Matrix44 r) {
             Fixed32 cos = Maths.Cos (radians), sin = Maths.Sin (radians);
-            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = cos;        result.R1C2 = sin;        result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = -sin;       result.R2C2 = cos;        result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+            r.R0C0 = 1;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = cos;        r.R1C2 = sin;        r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = -sin;       r.R2C2 = cos;        r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateRotationY (ref Fixed32 radians, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateRotationY (ref Fixed32 radians, out Matrix44 r) {
             Fixed32 cos = Maths.Cos (radians), sin = Maths.Sin (radians);
-            result.R0C0 = cos;        result.R0C1 = 0;          result.R0C2 = -sin;       result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = sin;        result.R2C1 = 0;          result.R2C2 = cos;        result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+            r.R0C0 = cos;        r.R0C1 = 0;          r.R0C2 = -sin;       r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = 1;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = sin;        r.R2C1 = 0;          r.R2C2 = cos;        r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateRotationZ (ref Fixed32 radians, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateRotationZ (ref Fixed32 radians, out Matrix44 r) {
             Fixed32 cos = Maths.Cos (radians), sin = Maths.Sin (radians);
-            result.R0C0 = cos;       result.R0C1 = sin;         result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = -sin;      result.R1C1 = cos;         result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;         result.R2C1 = 0;           result.R2C2 = 1;          result.R2C3 = 0;
-            result.R3C0 = 0;         result.R3C1 = 0;           result.R3C2 = 0;          result.R3C3 = 1;
+            r.R0C0 = cos;       r.R0C1 = sin;         r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = -sin;      r.R1C1 = cos;         r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;         r.R2C1 = 0;           r.R2C2 = 1;          r.R2C3 = 0;
+            r.R3C0 = 0;         r.R3C1 = 0;           r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Fixed32 angle, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Fixed32 angle, out Matrix44 r) {
             Fixed32 x = axis.X, y = axis.Y, z = axis.Z;
             Fixed32 sin = Maths.Sin (angle), cos = Maths.Cos (angle);
             Fixed32 xx = x * x, yy = y * y, zz = z * z;
             Fixed32 xy = x * y, xz = x * z, yz = y * z;
-            result.R0C0 = xx + (cos * (1 - xx));       result.R0C1 = xy - (cos * xy) + (sin * z); result.R0C2 = xz - (cos * xz) - (sin * y); result.R0C3 = 0;
-            result.R1C0 = xy - (cos * xy) - (sin * z); result.R1C1 = yy + (cos * (1 - yy));       result.R1C2 = yz - (cos * yz) + (sin * x); result.R1C3 = 0;
-            result.R2C0 = xz - (cos * xz) + (sin * y); result.R2C1 = yz - (cos * yz) - (sin * x); result.R2C2 = zz + (cos * (1 - zz));       result.R2C3 = 0;
-            result.R3C0 = 0;                           result.R3C1 = 0;                           result.R3C2 = 0;                           result.R3C3 = 1;
+            r.R0C0 = xx + (cos * (1 - xx));       r.R0C1 = xy - (cos * xy) + (sin * z); r.R0C2 = xz - (cos * xz) - (sin * y); r.R0C3 = 0;
+            r.R1C0 = xy - (cos * xy) - (sin * z); r.R1C1 = yy + (cos * (1 - yy));       r.R1C2 = yz - (cos * yz) + (sin * x); r.R1C3 = 0;
+            r.R2C0 = xz - (cos * xz) + (sin * y); r.R2C1 = yz - (cos * yz) - (sin * x); r.R2C2 = zz + (cos * (1 - zz));       r.R2C3 = 0;
+            r.R3C0 = 0;                           r.R3C1 = 0;                           r.R3C2 = 0;                           r.R3C3 = 1;
         }
 
         // Axes must be pair-wise perpendicular and have unit length.
-        [MI(O.AggressiveInlining)] public static void CreateFromCartesianAxes (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result) {
-            result.R0C0 = right.X;    result.R0C1 = right.Y;    result.R0C2 = right.Z;    result.R0C3 = 0;
-            result.R1C0 = up.X;       result.R1C1 = up.Y;       result.R1C2 = up.Z;       result.R1C3 = 0;
-            result.R2C0 = backward.X; result.R2C1 = backward.Y; result.R2C2 = backward.Z; result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateFromCartesianAxes (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 r) {
+            r.R0C0 = right.X;    r.R0C1 = right.Y;    r.R0C2 = right.Z;    r.R0C3 = 0;
+            r.R1C0 = up.X;       r.R1C1 = up.Y;       r.R1C2 = up.Z;       r.R1C3 = 0;
+            r.R2C0 = backward.X; r.R2C1 = backward.Y; r.R2C2 = backward.Z; r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 r) {
             Vector3 backward; Vector3.Negate (ref forward, out backward); Vector3.Normalise (ref backward, out backward);
             Vector3 right; Vector3.Cross (ref up, ref backward, out right); Vector3.Normalise (ref right, out right);
             Vector3 finalUp; Vector3.Cross (ref right, ref backward, out finalUp); Vector3.Normalise (ref finalUp, out finalUp);
-            result.R0C0 = right.X;    result.R0C1 = right.Y;    result.R0C2 = right.Z;    result.R0C3 = 0;
-            result.R1C0 = finalUp.X;  result.R1C1 = finalUp.Y;  result.R1C2 = finalUp.Z;  result.R1C3 = 0;
-            result.R2C0 = backward.X; result.R2C1 = backward.Y; result.R2C2 = backward.Z; result.R2C3 = 0;
-            result.R3C0 = position.X; result.R3C1 = position.Y; result.R3C2 = position.Z; result.R3C3 = 1;
+            r.R0C0 = right.X;    r.R0C1 = right.Y;    r.R0C2 = right.Z;    r.R0C3 = 0;
+            r.R1C0 = finalUp.X;  r.R1C1 = finalUp.Y;  r.R1C2 = finalUp.Z;  r.R1C3 = 0;
+            r.R2C0 = backward.X; r.R2C1 = backward.Y; r.R2C2 = backward.Z; r.R2C3 = 0;
+            r.R3C0 = position.X; r.R3C1 = position.Y; r.R3C2 = position.Z; r.R3C3 = 1;
         }
 
         // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
-        [MI(O.AggressiveInlining)] public static void CreateFromQuaternion (ref Quaternion q, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromQuaternion (ref Quaternion q, out Matrix44 r) {
             Boolean qIsUnit; Quaternion.IsUnit (ref q, out qIsUnit); Debug.Assert (qIsUnit);
             Fixed32 twoI = q.I + q.I, twoJ = q.J + q.J, twoK = q.K + q.K;
             Fixed32 twoUI = q.U * twoI, twoUJ = q.U * twoJ, twoUK = q.U * twoK;
             Fixed32 twoII = q.I * twoI, twoIJ = q.I * twoJ, twoIK = q.I * twoK;
             Fixed32 twoJJ = q.J * twoJ, twoJK = q.J * twoK, twoKK = q.K * twoK;
-            result.R0C0 = 1 - twoJJ - twoKK; result.R1C0 = twoIJ - twoUK;     result.R2C0 = twoIK + twoUJ;     result.R3C0 = 0;
-            result.R0C1 = twoIJ + twoUK;     result.R1C1 = 1 - twoII - twoKK; result.R2C1 = twoJK - twoUI;     result.R3C1 = 0;
-            result.R0C2 = twoIK - twoUJ;     result.R1C2 = twoJK + twoUI;     result.R2C2 = 1 - twoII - twoJJ; result.R3C2 = 0;
-            result.R0C3 = 0;                 result.R1C3 = 0;                 result.R2C3 = 0;                 result.R3C3 = 1;
+            r.R0C0 = 1 - twoJJ - twoKK; r.R1C0 = twoIJ - twoUK;     r.R2C0 = twoIK + twoUJ;     r.R3C0 = 0;
+            r.R0C1 = twoIJ + twoUK;     r.R1C1 = 1 - twoII - twoKK; r.R2C1 = twoJK - twoUI;     r.R3C1 = 0;
+            r.R0C2 = twoIK - twoUJ;     r.R1C2 = twoJK + twoUI;     r.R2C2 = 1 - twoII - twoJJ; r.R3C2 = 0;
+            r.R0C3 = 0;                 r.R1C3 = 0;                 r.R2C3 = 0;                 r.R3C3 = 1;
         }
 
         // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
-        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Fixed32 yaw, ref Fixed32 pitch, ref Fixed32 roll, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Fixed32 yaw, ref Fixed32 pitch, ref Fixed32 roll, out Matrix44 r) {
             Fixed32 cy = Maths.Cos (yaw), sy = Maths.Sin (yaw);
             Fixed32 cx = Maths.Cos (pitch), sx = Maths.Sin (pitch);
             Fixed32 cz = Maths.Cos (roll), sz = Maths.Sin (roll);
-            result.R0C0 =  cz*cy+sz*sx*sy; result.R0C1 =  sz*cx; result.R0C2 = -cz*sy+sz*sx*cy; result.R0C3 = 0;
-            result.R1C0 = -sz*cy+cz*sx*sy; result.R1C1 =  cz*cx; result.R1C2 = -cz*sy+sz*sx*cy; result.R1C3 = 0;
-            result.R2C0 =  cx*sy;          result.R2C1 = -sx;    result.R2C2 =  cx*cy;          result.R2C3 = 0;
-            result.R3C0 = 0;               result.R3C1 = 0;      result.R3C2 = 0;               result.R3C3 = 1;
+            r.R0C0 =  cz*cy+sz*sx*sy; r.R0C1 =  sz*cx; r.R0C2 = -cz*sy+sz*sx*cy; r.R0C3 = 0;
+            r.R1C0 = -sz*cy+cz*sx*sy; r.R1C1 =  cz*cx; r.R1C2 = -cz*sy+sz*sx*cy; r.R1C3 = 0;
+            r.R2C0 =  cx*sy;          r.R2C1 = -sx;    r.R2C2 =  cx*cy;          r.R2C3 = 0;
+            r.R3C0 = 0;               r.R3C1 = 0;      r.R3C2 = 0;               r.R3C3 = 1;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreatePerspectiveFieldOfView (ref Fixed32 fieldOfView, ref Fixed32 aspectRatio, ref Fixed32 nearPlaneDistance, ref Fixed32 farPlaneDistance, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreatePerspectiveFieldOfView (ref Fixed32 fieldOfView, ref Fixed32 aspectRatio, ref Fixed32 nearPlaneDistance, ref Fixed32 farPlaneDistance, out Matrix44 r) {
             Debug.Assert (fieldOfView > 0 && fieldOfView < Maths.Pi);
             Debug.Assert (nearPlaneDistance > 0);
             Debug.Assert (farPlaneDistance > 0);
@@ -1291,105 +1291,105 @@ namespace Abacus.Fixed32Precision
             Fixed32 xScale = yScale / aspectRatio;
             Fixed32 f1 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
             Fixed32 f2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-            result.R0C0 = xScale; result.R0C1 = 0;      result.R0C2 = 0;  result.R0C3 =  0;
-            result.R1C0 = 0;      result.R1C1 = yScale; result.R1C2 = 0;  result.R1C3 =  0;
-            result.R2C0 = 0;      result.R2C1 = 0;      result.R2C2 = f1; result.R2C3 = -1;
-            result.R3C0 = 0;      result.R3C1 = 0;      result.R3C2 = f2; result.R3C3 =  0;
+            r.R0C0 = xScale; r.R0C1 = 0;      r.R0C2 = 0;  r.R0C3 =  0;
+            r.R1C0 = 0;      r.R1C1 = yScale; r.R1C2 = 0;  r.R1C3 =  0;
+            r.R2C0 = 0;      r.R2C1 = 0;      r.R2C2 = f1; r.R2C3 = -1;
+            r.R3C0 = 0;      r.R3C1 = 0;      r.R3C2 = f2; r.R3C3 =  0;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreatePerspective (ref Fixed32 width, ref Fixed32 height, ref Fixed32 nearPlaneDistance, ref Fixed32 farPlaneDistance, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreatePerspective (ref Fixed32 width, ref Fixed32 height, ref Fixed32 nearPlaneDistance, ref Fixed32 farPlaneDistance, out Matrix44 r) {
             Debug.Assert (nearPlaneDistance > 0);
             Debug.Assert (farPlaneDistance > 0);
             Debug.Assert (nearPlaneDistance < farPlaneDistance);
-            result.R0C0 = (nearPlaneDistance * 2) / width;
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = (nearPlaneDistance * 2) / height;
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-            result.R2C0 = result.R2C1 = 0;
-            result.R2C3 = -1;
-            result.R3C0 = result.R3C1 = result.R3C3 = 0;
-            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            r.R0C0 = (nearPlaneDistance * 2) / width;
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = (nearPlaneDistance * 2) / height;
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            r.R2C0 = r.R2C1 = 0;
+            r.R2C3 = -1;
+            r.R3C0 = r.R3C1 = r.R3C3 = 0;
+            r.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreatePerspectiveOffCenter (ref Fixed32 left, ref Fixed32 right, ref Fixed32 bottom, ref Fixed32 top, ref Fixed32 nearPlaneDistance, ref Fixed32 farPlaneDistance, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreatePerspectiveOffCenter (ref Fixed32 left, ref Fixed32 right, ref Fixed32 bottom, ref Fixed32 top, ref Fixed32 nearPlaneDistance, ref Fixed32 farPlaneDistance, out Matrix44 r) {
             Debug.Assert (nearPlaneDistance > 0);
             Debug.Assert (farPlaneDistance > 0);
             Debug.Assert (nearPlaneDistance < farPlaneDistance);
-            result.R0C0 = (nearPlaneDistance * 2) / (right - left);
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = (nearPlaneDistance * 2) / (top - bottom);
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C0 = (left + right) / (right - left);
-            result.R2C1 = (top + bottom) / (top - bottom);
-            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-            result.R2C3 = -1;
-            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-            result.R3C0 = result.R3C1 = result.R3C3 = 0;
+            r.R0C0 = (nearPlaneDistance * 2) / (right - left);
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = (nearPlaneDistance * 2) / (top - bottom);
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C0 = (left + right) / (right - left);
+            r.R2C1 = (top + bottom) / (top - bottom);
+            r.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            r.R2C3 = -1;
+            r.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            r.R3C0 = r.R3C1 = r.R3C3 = 0;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreateOrthographic (ref Fixed32 width, ref Fixed32 height, ref Fixed32 zNearPlane, ref Fixed32 zFarPlane, out Matrix44 result) {
-            result.R0C0 = 2 / width;
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = 2 / height;
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C2 = 1 / (zNearPlane - zFarPlane);
-            result.R2C0 = result.R2C1 = result.R2C3 = 0;
-            result.R3C0 = result.R3C1 = 0;
-            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
-            result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateOrthographic (ref Fixed32 width, ref Fixed32 height, ref Fixed32 zNearPlane, ref Fixed32 zFarPlane, out Matrix44 r) {
+            r.R0C0 = 2 / width;
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = 2 / height;
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C2 = 1 / (zNearPlane - zFarPlane);
+            r.R2C0 = r.R2C1 = r.R2C3 = 0;
+            r.R3C0 = r.R3C1 = 0;
+            r.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            r.R3C3 = 1;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreateOrthographicOffCenter (ref Fixed32 left, ref Fixed32 right, ref Fixed32 bottom, ref Fixed32 top, ref Fixed32 zNearPlane, ref Fixed32 zFarPlane, out Matrix44 result) {
-            result.R0C0 = 2 / (right - left);
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = 2 / (top - bottom);
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C2 = 1 / (zNearPlane - zFarPlane);
-            result.R2C0 = result.R2C1 = result.R2C3 = 0;
-            result.R3C0 = (left + right) / (left - right);
-            result.R3C1 = (top + bottom) / (bottom - top);
-            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
-            result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateOrthographicOffCenter (ref Fixed32 left, ref Fixed32 right, ref Fixed32 bottom, ref Fixed32 top, ref Fixed32 zNearPlane, ref Fixed32 zFarPlane, out Matrix44 r) {
+            r.R0C0 = 2 / (right - left);
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = 2 / (top - bottom);
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C2 = 1 / (zNearPlane - zFarPlane);
+            r.R2C0 = r.R2C1 = r.R2C3 = 0;
+            r.R3C0 = (left + right) / (left - right);
+            r.R3C1 = (top + bottom) / (bottom - top);
+            r.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            r.R3C3 = 1;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 r) {
             Vector3 forward; Vector3.Subtract (ref cameraPosition, ref cameraTarget, out forward); Vector3.Normalise (ref forward, out forward);
             Vector3 right; Vector3.Cross (ref cameraUpVector, ref forward, out right); Vector3.Normalise (ref right, out right);
             Vector3 up; Vector3.Cross (ref forward, ref right, out up); Vector3.Normalise (ref up, out up);
             Fixed32 a; Vector3.Dot (ref right, ref cameraPosition, out a);
             Fixed32 b; Vector3.Dot (ref up, ref cameraPosition, out b);
             Fixed32 c; Vector3.Dot (ref forward, ref cameraPosition, out c);
-            result.R0C0 = right.X;    result.R0C1 = up.X;       result.R0C2 = forward.X;  result.R0C3 = 0;
-            result.R1C0 = right.Y;    result.R1C1 = up.Y;       result.R1C2 = forward.Y;  result.R1C3 = 0;
-            result.R2C0 = right.Z;    result.R2C1 = up.Z;       result.R2C2 = forward.Z;  result.R2C3 = 0;
-            result.R3C0 = -a;         result.R3C1 = -b;         result.R3C2 = -c;         result.R3C3 = 1;
+            r.R0C0 = right.X;    r.R0C1 = up.X;       r.R0C2 = forward.X;  r.R0C3 = 0;
+            r.R1C0 = right.Y;    r.R1C1 = up.Y;       r.R1C2 = forward.Y;  r.R1C3 = 0;
+            r.R2C0 = right.Z;    r.R2C1 = up.Z;       r.R2C2 = forward.Z;  r.R2C3 = 0;
+            r.R3C0 = -a;         r.R3C1 = -b;         r.R3C2 = -c;         r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Fixed32 xPosition, Fixed32 yPosition, Fixed32 zPosition) { Matrix44 result; CreateTranslation (ref xPosition, ref yPosition, ref zPosition, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Vector3 position) { Matrix44 result; CreateTranslation (ref position, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Fixed32 xScale, Fixed32 yScale, Fixed32 zScale) { Matrix44 result; CreateScale (ref xScale, ref yScale, ref zScale, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Vector3 scales) { Matrix44 result; CreateScale (ref scales, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Fixed32 scale) { Matrix44 result; CreateScale (ref scale, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationX              (Fixed32 radians) { Matrix44 result; CreateRotationX (ref radians, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationY              (Fixed32 radians) { Matrix44 result; CreateRotationY (ref radians, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationZ              (Fixed32 radians) { Matrix44 result; CreateRotationZ (ref radians, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromAxisAngle          (Vector3 axis, Fixed32 angle) { Matrix44 result; CreateFromAxisAngle (ref axis, ref angle, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromCartesianAxes      (Vector3 right, Vector3 up, Vector3 backward) { Matrix44 result; CreateFromCartesianAxes (ref right, ref up, ref backward, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateWorld                  (Vector3 position, Vector3 forward, Vector3 up) { Matrix44 result; CreateWorld (ref position, ref forward, ref up, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromQuaternion         (Quaternion quaternion) { Matrix44 result; CreateFromQuaternion (ref quaternion, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromYawPitchRoll       (Fixed32 yaw, Fixed32 pitch, Fixed32 roll) { Matrix44 result; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveFieldOfView (Fixed32 fieldOfView,  Fixed32 aspectRatio, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 result; CreatePerspectiveFieldOfView (ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspective            (Fixed32 width, Fixed32 height, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 result; CreatePerspective (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveOffCenter   (Fixed32 left, Fixed32 right, Fixed32 bottom, Fixed32 top, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 result; CreatePerspectiveOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographic           (Fixed32 width, Fixed32 height, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 result; CreateOrthographic (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographicOffCenter  (Fixed32 left, Fixed32 right, Fixed32 bottom, Fixed32 top, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 result; CreateOrthographicOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateLookAt                 (Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) { Matrix44 result; CreateLookAt (ref cameraPosition, ref cameraTarget, ref cameraUpVector, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Fixed32 xPosition, Fixed32 yPosition, Fixed32 zPosition) { Matrix44 r; CreateTranslation (ref xPosition, ref yPosition, ref zPosition, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Vector3 position) { Matrix44 r; CreateTranslation (ref position, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Fixed32 xScale, Fixed32 yScale, Fixed32 zScale) { Matrix44 r; CreateScale (ref xScale, ref yScale, ref zScale, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Vector3 scales) { Matrix44 r; CreateScale (ref scales, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Fixed32 scale) { Matrix44 r; CreateScale (ref scale, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationX              (Fixed32 radians) { Matrix44 r; CreateRotationX (ref radians, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationY              (Fixed32 radians) { Matrix44 r; CreateRotationY (ref radians, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationZ              (Fixed32 radians) { Matrix44 r; CreateRotationZ (ref radians, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromAxisAngle          (Vector3 axis, Fixed32 angle) { Matrix44 r; CreateFromAxisAngle (ref axis, ref angle, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromCartesianAxes      (Vector3 right, Vector3 up, Vector3 backward) { Matrix44 r; CreateFromCartesianAxes (ref right, ref up, ref backward, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateWorld                  (Vector3 position, Vector3 forward, Vector3 up) { Matrix44 r; CreateWorld (ref position, ref forward, ref up, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromQuaternion         (Quaternion quaternion) { Matrix44 r; CreateFromQuaternion (ref quaternion, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromYawPitchRoll       (Fixed32 yaw, Fixed32 pitch, Fixed32 roll) { Matrix44 r; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveFieldOfView (Fixed32 fieldOfView,  Fixed32 aspectRatio, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 r; CreatePerspectiveFieldOfView (ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspective            (Fixed32 width, Fixed32 height, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 r; CreatePerspective (ref width, ref height, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveOffCenter   (Fixed32 left, Fixed32 right, Fixed32 bottom, Fixed32 top, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 r; CreatePerspectiveOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographic           (Fixed32 width, Fixed32 height, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 r; CreateOrthographic (ref width, ref height, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographicOffCenter  (Fixed32 left, Fixed32 right, Fixed32 bottom, Fixed32 top, Fixed32 nearPlane, Fixed32 farPlane) { Matrix44 r; CreateOrthographicOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateLookAt                 (Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) { Matrix44 r; CreateLookAt (ref cameraPosition, ref cameraTarget, ref cameraUpVector, out r); return r; }
 
     }
 
@@ -1408,9 +1408,9 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Vector2) ? this.Equals ((Vector2) obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Vector2 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Vector2 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector2 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector2 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -1431,128 +1431,128 @@ namespace Abacus.Fixed32Precision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Vector2 a, ref Vector2 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Vector2 a, ref Vector2 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector2 v1, ref Vector2 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y);
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector2 v1, ref Vector2 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y;
+        [MI(O.AggressiveInlining)] public static void Add (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Vector2 v, out Vector2 result) {
-            result.X = -v.X; result.Y = -v.Y;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Vector2 v, out Vector2 r) {
+            r.X = -v.X; r.Y = -v.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 v, ref Fixed32 f, out Vector2 result) {
-            result.X = v.X * f; result.Y = v.Y * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 v, ref Fixed32 f, out Vector2 r) {
+            r.X = v.X * f; r.Y = v.Y * f;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y;
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 v, ref Fixed32 d, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 v, ref Fixed32 d, out Vector2 r) {
             Fixed32 num = 1 / d;
-            result.X = v.X * num; result.Y = v.Y * num;
+            r.X = v.X * num; r.Y = v.Y * num;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 v)            { Vector2 result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 v, Fixed32 f)  { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Fixed32 f,  Vector2 v) { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 result; Divide    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Fixed32 d)  { Vector2 result; Divide    (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  operator  | (Vector2 a, Vector2 d) { Fixed32  result; Dot       (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  ~ (Vector2 v)            { Vector2 result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector2 a, Vector2 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector2 a, Vector2 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 v)            { Vector2 r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 v, Fixed32 f)  { Vector2 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Fixed32 f,  Vector2 v) { Vector2 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 r; Divide    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Fixed32 d)  { Vector2 r; Divide    (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  operator  | (Vector2 a, Vector2 d) { Fixed32  r; Dot       (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  ~ (Vector2 v)            { Vector2 r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector2 a, Vector2 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector2 a, Vector2 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Add               (Vector2 a, Vector2 b) { Vector2 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Subtract          (Vector2 a, Vector2 b) { Vector2 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Negate            (Vector2 v)            { Vector2 result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 a, Vector2 b) { Vector2 result; Multiply          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 v, Fixed32 f)  { Vector2 result; Multiply          (ref v, ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Vector2 b) { Vector2 result; Divide            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Fixed32 d)  { Vector2 result; Divide            (ref a, ref d, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector2 a, Vector2 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector2 a, Vector2 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Add               (Vector2 a, Vector2 b) { Vector2 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Subtract          (Vector2 a, Vector2 b) { Vector2 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Negate            (Vector2 v)            { Vector2 r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 a, Vector2 b) { Vector2 r; Multiply          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 v, Fixed32 f)  { Vector2 r; Multiply          (ref v, ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Vector2 b) { Vector2 r; Divide            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Fixed32 d)  { Vector2 r; Divide            (ref a, ref d, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = (a.X < b.X) ? a.X : b.X;
-            result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+        [MI(O.AggressiveInlining)] public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = (a.X < b.X) ? a.X : b.X;
+            r.Y = (a.Y < b.Y) ? a.Y : b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = (a.X > b.X) ? a.X : b.X;
-            result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+        [MI(O.AggressiveInlining)] public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = (a.X > b.X) ? a.X : b.X;
+            r.Y = (a.Y > b.Y) ? a.Y : b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector2 v, ref Vector2 min, ref Vector2 max, out Vector2 result) {
-            Fixed32 x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            Fixed32 y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector2 v, ref Vector2 min, ref Vector2 max, out Vector2 r) {
+            Fixed32 x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            Fixed32 y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector2 a, ref Vector2 b, Fixed32 amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector2 a, ref Vector2 b, Fixed32 amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount);
-            result.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.X = a.X + ((b.X - a.X) * amount);
+            r.Y = a.Y + ((b.Y - a.Y) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector2 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero(1 - vector.X * vector.X - vector.Y * vector.Y);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector2 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero(1 - vector.X * vector.X - vector.Y * vector.Y);
         }
 
-        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector2 Clamp         (Vector2 min, Vector2 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 result; Min (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 result; Max (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Lerp   (Vector2 a, Vector2 b, Fixed32 amount) { Vector2 result; Lerp (ref a, ref b, amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector2 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 r; Min (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 r; Max (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Lerp   (Vector2 a, Vector2 b, Fixed32 amount) { Vector2 r; Lerp (ref a, ref b, amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector2 v) { Boolean r; IsUnit (ref v, out r); return r; }
         
         // Splines //---------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, Fixed32 amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, Fixed32 amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, Fixed32 amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, Fixed32 amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
         }
 
-        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, Fixed32 amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, Fixed32 amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -1565,69 +1565,69 @@ namespace Abacus.Fixed32Precision
             Fixed32 b = (-cubed * 2) + (squared * 3);
             Fixed32 c = (cubed - (squared * 2)) + amount;
             Fixed32 d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, Fixed32 amount) { Vector2 result; SmoothStep (ref v1, ref v2, amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, Fixed32 amount) { Vector2 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, Fixed32 amount) { Vector2 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, Fixed32 amount) { Vector2 r; SmoothStep (ref v1, ref v2, amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, Fixed32 amount) { Vector2 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, Fixed32 amount) { Vector2 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Distance (ref Vector2 a, ref Vector2 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Distance (ref Vector2 a, ref Vector2 b, out Fixed32 r) {
             Fixed32 dx = a.X - b.X, dy = a.Y - b.Y;
             Fixed32 lengthSquared = (dx * dx) + (dy * dy);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector2 a, ref Vector2 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector2 a, ref Vector2 b, out Fixed32 r) {
             Fixed32 dx = a.X - b.X, dy = a.Y - b.Y;
-            result = (dx * dx) + (dy * dy);
+            r = (dx * dx) + (dy * dy);
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Vector2 a, ref Vector2 b, out Fixed32 result) {
-            result = (a.X * b.X) + (a.Y * b.Y);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Vector2 a, ref Vector2 b, out Fixed32 r) {
+            r = (a.X * b.X) + (a.Y * b.Y);
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector2 vector, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector2 vector, out Vector2 r) {
             Fixed32 lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y);
             Debug.Assert (lengthSquared > Maths.Epsilon && !Fixed32.IsInfinity(lengthSquared));
             Fixed32 multiplier = 1 / Maths.Sqrt (lengthSquared);
-            result.X = vector.X * multiplier;
-            result.Y = vector.Y * multiplier;
+            r.X = vector.X * multiplier;
+            r.Y = vector.Y * multiplier;
         }
 
-        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 r) {
             Boolean normalIsUnit; Vector2.IsUnit (ref normal, out normalIsUnit);
             Debug.Assert (normalIsUnit);
             Fixed32 dot; Dot(ref vector, ref normal, out dot);
             Fixed32 twoDot = dot * 2;
             Vector2 m;
             Vector2.Multiply (ref normal, ref twoDot, out m);
-            Vector2.Subtract (ref vector, ref m, out result);
+            Vector2.Subtract (ref vector, ref m, out r);
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Vector2 vector, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Vector2 vector, out Fixed32 r) {
             Fixed32 lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector2 vector, out Fixed32 result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector2 vector, out Fixed32 r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
-        [MI(O.AggressiveInlining)] public Fixed32  Length        () { Fixed32 result; Length (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Fixed32  LengthSquared () { Fixed32 result; LengthSquared (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Fixed32  Length        () { Fixed32 r; Length (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Fixed32  LengthSquared () { Fixed32 r; LengthSquared (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector2 Normalise     () { Normalise (ref this, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Fixed32  Distance        (Vector2 a, Vector2 b) { Fixed32 result; Distance (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  DistanceSquared (Vector2 a, Vector2 b) { Fixed32 result; DistanceSquared (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  Dot             (Vector2 a, Vector2 b) { Fixed32 result; Dot (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Normalise       (Vector2 v) { Vector2 result; Normalise (ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 result; Reflect (ref v, ref normal, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  Length          (Vector2 v) { Fixed32 result; Length (ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  LengthSquared   (Vector2 v) { Fixed32 result; LengthSquared (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32  Distance        (Vector2 a, Vector2 b) { Fixed32 r; Distance (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  DistanceSquared (Vector2 a, Vector2 b) { Fixed32 r; DistanceSquared (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  Dot             (Vector2 a, Vector2 b) { Fixed32 r; Dot (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Normalise       (Vector2 v) { Vector2 r; Normalise (ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 r; Reflect (ref v, ref normal, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  Length          (Vector2 v) { Fixed32 r; Length (ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  LengthSquared   (Vector2 v) { Fixed32 r; LengthSquared (ref v, out r); return r; }
     }
 
     /// <summary>
@@ -1649,9 +1649,9 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Vector3) ? this.Equals ((Vector3) obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Vector3 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Vector3 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector3 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector3 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -1687,137 +1687,137 @@ namespace Abacus.Fixed32Precision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Vector3 a, ref Vector3 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Vector3 a, ref Vector3 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector3 v1, ref Vector3 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector3 v1, ref Vector3 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
                 && Maths.ApproximateEquals (v1.Z, v2.Z);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z;
+        [MI(O.AggressiveInlining)] public static void Add (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y; r.Z = a.Z + b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y; result.Z = a.Z - b.Z;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y; r.Z = a.Z - b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Vector3 value, out Vector3 result) {
-            result.X = -value.X; result.Y = -value.Y; result.Z = -value.Z;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Vector3 value, out Vector3 r) {
+            r.X = -value.X; r.Y = -value.Y; r.Z = -value.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y; result.Z = a.Z * b.Z;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y; r.Z = a.Z * b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Fixed32 f, out Vector3 result) {
-            result.X = a.X * f; result.Y = a.Y * f; result.Z = a.Z * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Fixed32 f, out Vector3 r) {
+            r.X = a.X * f; r.Y = a.Y * f; r.Z = a.Z * f;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y; result.Z = a.Z / b.Z;
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y; r.Z = a.Z / b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Fixed32 d, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Fixed32 d, out Vector3 r) {
             Fixed32 num = 1 / d;
-            result.X = a.X * num; result.Y = a.Y * num; result.Z = a.Z * num;
+            r.X = a.X * num; r.Y = a.Y * num; r.Z = a.Z * num;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector3 a, Vector3 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector3 a, Vector3 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 a, Vector3 b) { Vector3 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 v)            { Vector3 result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 a, Vector3 b) { Vector3 result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 v, Fixed32 f)  { Vector3 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Fixed32 f,  Vector3 v) { Vector3 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Vector3 b) { Vector3 result; Divide    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Fixed32 d)  { Vector3 result; Divide    (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  ^ (Vector3 a, Vector3 d) { Vector3 result; Cross     (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  operator  | (Vector3 a, Vector3 d) { Fixed32  result; Dot       (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  ~ (Vector3 v)            { Vector3 result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector3 a, Vector3 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector3 a, Vector3 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 a, Vector3 b) { Vector3 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 v)            { Vector3 r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 a, Vector3 b) { Vector3 r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 v, Fixed32 f)  { Vector3 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Fixed32 f,  Vector3 v) { Vector3 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Vector3 b) { Vector3 r; Divide    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Fixed32 d)  { Vector3 r; Divide    (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  ^ (Vector3 a, Vector3 d) { Vector3 r; Cross     (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  operator  | (Vector3 a, Vector3 d) { Fixed32  r; Dot       (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  ~ (Vector3 v)            { Vector3 r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector3 a, Vector3 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector3 a, Vector3 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Add               (Vector3 a, Vector3 b) { Vector3 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Subtract          (Vector3 a, Vector3 b) { Vector3 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Negate            (Vector3 v)            { Vector3 result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 a, Vector3 b) { Vector3 result; Multiply          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 v, Fixed32 f)  { Vector3 result; Multiply          (ref v, ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Vector3 b) { Vector3 result; Divide            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Fixed32 d)  { Vector3 result; Divide            (ref a, ref d, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector3 a, Vector3 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector3 a, Vector3 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Add               (Vector3 a, Vector3 b) { Vector3 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Subtract          (Vector3 a, Vector3 b) { Vector3 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Negate            (Vector3 v)            { Vector3 r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 a, Vector3 b) { Vector3 r; Multiply          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 v, Fixed32 f)  { Vector3 r; Multiply          (ref v, ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Vector3 b) { Vector3 r; Divide            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Fixed32 d)  { Vector3 r; Divide            (ref a, ref d, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Min (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = (a.X < b.X) ? a.X : b.X; result.Y = (a.Y < b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+        [MI(O.AggressiveInlining)] public static void Min (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = (a.X < b.X) ? a.X : b.X; r.Y = (a.Y < b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z < b.Z) ? a.Z : b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Max (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = (a.X > b.X) ? a.X : b.X; result.Y = (a.Y > b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+        [MI(O.AggressiveInlining)] public static void Max (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = (a.X > b.X) ? a.X : b.X; r.Y = (a.Y > b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z > b.Z) ? a.Z : b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector3 v, ref Vector3 min, ref Vector3 max, out Vector3 result) {
-            Fixed32 x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            Fixed32 y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
-            Fixed32 z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; result.Z = z;
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector3 v, ref Vector3 min, ref Vector3 max, out Vector3 r) {
+            Fixed32 x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            Fixed32 y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
+            Fixed32 z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector3 a, ref Vector3 b, ref Fixed32 amount, out Vector3 result){
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector3 a, ref Vector3 b, ref Fixed32 amount, out Vector3 r){
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount); result.Y = a.Y + ((b.Y - a.Y) * amount);
-            result.Z = a.Z + ((b.Z - a.Z) * amount);
+            r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.Z = a.Z + ((b.Z - a.Z) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector3 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector3 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
         }
 
-        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector3 Clamp         (Vector3 min, Vector3 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 result; Min (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 result; Max (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Fixed32 amount) { Vector3 result; Lerp (ref a, ref b, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 r; Min (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 r; Max (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Fixed32 amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean r; IsUnit (ref v, out r); return r; }
 
         // Splines //---------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector3 v1, ref Vector3 v2, ref Fixed32 amount, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector3 v1, ref Vector3 v2, ref Fixed32 amount, out Vector3 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
-            result.Z = v1.Z + ((v2.Z - v1.Z) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.Z = v1.Z + ((v2.Z - v1.Z) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector3 v1, ref Vector3 v2, ref Vector3 v3, ref Vector3 v4, ref Fixed32 amount, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector3 v1, ref Vector3 v2, ref Vector3 v3, ref Vector3 v4, ref Fixed32 amount, out Vector3 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
-            result.Z  = 2 * v2.Z;
-            result.Z += (v3.Z - v1.Z) * amount;
-            result.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
-            result.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
-            result.Z *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
+            r.Z  = 2 * v2.Z;
+            r.Z += (v3.Z - v1.Z) * amount;
+            r.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
+            r.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
+            r.Z *= Maths.Half;
         }
 
-        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector3 v1, ref Vector3 tangent1, ref Vector3 v2, ref Vector3 tangent2, ref Fixed32 amount, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector3 v1, ref Vector3 tangent1, ref Vector3 v2, ref Vector3 tangent2, ref Fixed32 amount, out Vector3 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -1830,80 +1830,80 @@ namespace Abacus.Fixed32Precision
             Fixed32 b = (-cubed * 2) + (squared * 3);
             Fixed32 c = (cubed - (squared * 2)) + amount;
             Fixed32 d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
-            result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, Fixed32 amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, Fixed32 amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, Fixed32 amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, Fixed32 amount) { Vector3 r; SmoothStep (ref v1, ref v2, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, Fixed32 amount) { Vector3 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, Fixed32 amount) { Vector3 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Distance (ref Vector3 a, ref Vector3 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Distance (ref Vector3 a, ref Vector3 b, out Fixed32 r) {
             Fixed32 dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z;
             Fixed32 lengthSquared = (dx * dx) + (dy * dy) + (dz * dz);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector3 a, ref Vector3 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector3 a, ref Vector3 b, out Fixed32 r) {
             Fixed32 dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z;
-            result = (dx * dx) + (dy * dy) + (dz * dz);
+            r = (dx * dx) + (dy * dy) + (dz * dz);
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Vector3 a, ref Vector3 b, out Fixed32 result) {
-            result = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Vector3 a, ref Vector3 b, out Fixed32 r) {
+            r = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector3 vector, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector3 vector, out Vector3 r) {
             Fixed32 lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
             Debug.Assert (lengthSquared > Maths.Epsilon && !Fixed32.IsInfinity(lengthSquared));
             Fixed32 multiplier = 1 / Maths.Sqrt (lengthSquared);
-            result.X = vector.X * multiplier;
-            result.Y = vector.Y * multiplier;
-            result.Z = vector.Z * multiplier;
+            r.X = vector.X * multiplier;
+            r.Y = vector.Y * multiplier;
+            r.Z = vector.Z * multiplier;
         }
 
-        [MI(O.AggressiveInlining)] public static void Cross (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Cross (ref Vector3 a, ref Vector3 b, out Vector3 r) {
             Fixed32 x = (a.Y * b.Z) - (a.Z * b.Y);
             Fixed32 y = (a.Z * b.X) - (a.X * b.Z);
             Fixed32 z = (a.X * b.Y) - (a.Y * b.X);
-            result.X = x; result.Y = y; result.Z = z;
+            r.X = x; r.Y = y; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 r) {
             Boolean normalIsUnit; Vector3.IsUnit (ref normal, out normalIsUnit);
             Debug.Assert (normalIsUnit);
             Fixed32 t = (vector.X * normal.X) + (vector.Y * normal.Y) + (vector.Z * normal.Z);
             Fixed32 x = vector.X - ((2 * t) * normal.X);
             Fixed32 y = vector.Y - ((2 * t) * normal.Y);
             Fixed32 z = vector.Z - ((2 * t) * normal.Z);
-            result.X = x; result.Y = y; result.Z = z;
+            r.X = x; r.Y = y; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Vector3 vector, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Vector3 vector, out Fixed32 r) {
             Fixed32 lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector3 vector, out Fixed32 result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector3 vector, out Fixed32 r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
         }
 
-        [MI(O.AggressiveInlining)] public Fixed32  Length        () { Fixed32 result; Length (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Fixed32  LengthSquared () { Fixed32 result; LengthSquared (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Fixed32  Length        () { Fixed32 r; Length (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Fixed32  LengthSquared () { Fixed32 r; LengthSquared (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector3 Normalise     () { Normalise (ref this, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Fixed32  Distance        (Vector3 a, Vector3 b) { Fixed32 result; Distance (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Fixed32  DistanceSquared (Vector3 a, Vector3 b) { Fixed32 result; DistanceSquared (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Fixed32  Dot             (Vector3 a, Vector3 b) { Fixed32 result; Dot (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector3 Cross           (Vector3 a, Vector3 b) { Vector3 result; Cross (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector3 Normalise       (Vector3 v) { Vector3 result; Normalise (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32  Distance        (Vector3 a, Vector3 b) { Fixed32 r; Distance (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Fixed32  DistanceSquared (Vector3 a, Vector3 b) { Fixed32 r; DistanceSquared (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Fixed32  Dot             (Vector3 a, Vector3 b) { Fixed32 r; Dot (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector3 Cross           (Vector3 a, Vector3 b) { Vector3 r; Cross (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector3 Normalise       (Vector3 v) { Vector3 r; Normalise (ref v, out r); return r; }
          
-        [MI(O.AggressiveInlining)] public static Vector3 Reflect         (Vector3 v, Vector3 normal) { Vector3 result; Reflect (ref v, ref normal, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Fixed32  Length          (Vector3 v) { Fixed32 result; Length (ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Fixed32  LengthSquared   (Vector3 v) { Fixed32 result; LengthSquared (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 Reflect         (Vector3 v, Vector3 normal) { Vector3 r; Reflect (ref v, ref normal, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Fixed32  Length          (Vector3 v) { Fixed32 r; Length (ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Fixed32  LengthSquared   (Vector3 v) { Fixed32 r; LengthSquared (ref v, out r); return r; }
 
     }
 
@@ -1929,9 +1929,9 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Vector4) ? this.Equals ((Vector4)obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Vector4 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Vector4 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector4 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector4 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -1956,143 +1956,143 @@ namespace Abacus.Fixed32Precision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector4 v1, ref Vector4 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector4 v1, ref Vector4 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
                 && Maths.ApproximateEquals (v1.Z, v2.Z) && Maths.ApproximateEquals (v1.W, v2.W);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z; result.W = a.W + b.W;
+        [MI(O.AggressiveInlining)] public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y; r.Z = a.Z + b.Z; r.W = a.W + b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y; result.Z = a.Z - b.Z; result.W = a.W - b.W;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y; r.Z = a.Z - b.Z; r.W = a.W - b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Vector4 v, out Vector4 result) {
-            result.X = -v.X; result.Y = -v.Y; result.Z = -v.Z; result.W = -v.W;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Vector4 v, out Vector4 r) {
+            r.X = -v.X; r.Y = -v.Y; r.Z = -v.Z; r.W = -v.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y; result.Z = a.Z * b.Z; result.W = a.W * b.W;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y; r.Z = a.Z * b.Z; r.W = a.W * b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 v, ref Fixed32 f, out Vector4 result) {
-            result.X = v.X * f; result.Y = v.Y * f; result.Z = v.Z * f; result.W = v.W * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 v, ref Fixed32 f, out Vector4 r) {
+            r.X = v.X * f; r.Y = v.Y * f; r.Z = v.Z * f; r.W = v.W * f;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y; result.Z = a.Z / b.Z; result.W = a.W / b.W;
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y; r.Z = a.Z / b.Z; r.W = a.W / b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 v, ref Fixed32 d, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 v, ref Fixed32 d, out Vector4 r) {
             Fixed32 num = 1 / d;
-            result.X = v.X * num; result.Y = v.Y * num; result.Z = v.Z * num; result.W = v.W * num;
+            r.X = v.X * num; r.Y = v.Y * num; r.Z = v.Z * num; r.W = v.W * num;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 v)            { Vector4 result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 v, Fixed32 f)  { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Fixed32 f,  Vector4 v) { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 result; Divide    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Fixed32 d)  { Vector4 result; Divide    (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  operator  | (Vector4 a, Vector4 d) { Fixed32  result; Dot       (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  ~ (Vector4 v)            { Vector4 result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector4 a, Vector4 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector4 a, Vector4 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 v)            { Vector4 r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 v, Fixed32 f)  { Vector4 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Fixed32 f,  Vector4 v) { Vector4 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 r; Divide    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Fixed32 d)  { Vector4 r; Divide    (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  operator  | (Vector4 a, Vector4 d) { Fixed32  r; Dot       (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  ~ (Vector4 v)            { Vector4 r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector4 a, Vector4 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector4 a, Vector4 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Add               (Vector4 a, Vector4 b) { Vector4 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Subtract          (Vector4 a, Vector4 b) { Vector4 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Negate            (Vector4 v)            { Vector4 result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 a, Vector4 b) { Vector4 result; Multiply          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 v, Fixed32 f)  { Vector4 result; Multiply          (ref v, ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Vector4 b) { Vector4 result; Divide            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Fixed32 d)  { Vector4 result; Divide            (ref a, ref d, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector4 a, Vector4 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector4 a, Vector4 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Add               (Vector4 a, Vector4 b) { Vector4 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Subtract          (Vector4 a, Vector4 b) { Vector4 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Negate            (Vector4 v)            { Vector4 r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 a, Vector4 b) { Vector4 r; Multiply          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 v, Fixed32 f)  { Vector4 r; Multiply          (ref v, ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Vector4 b) { Vector4 r; Divide            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Fixed32 d)  { Vector4 r; Divide            (ref a, ref d, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Min (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = (a.X < b.X) ? a.X : b.X; result.Y = (a.Y < b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z < b.Z) ? a.Z : b.Z; result.W = (a.W < b.W) ? a.W : b.W;
+        [MI(O.AggressiveInlining)] public static void Min (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = (a.X < b.X) ? a.X : b.X; r.Y = (a.Y < b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z < b.Z) ? a.Z : b.Z; r.W = (a.W < b.W) ? a.W : b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Max (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = (a.X > b.X) ? a.X : b.X; result.Y = (a.Y > b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z > b.Z) ? a.Z : b.Z; result.W = (a.W > b.W) ? a.W : b.W;
+        [MI(O.AggressiveInlining)] public static void Max (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = (a.X > b.X) ? a.X : b.X; r.Y = (a.Y > b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z > b.Z) ? a.Z : b.Z; r.W = (a.W > b.W) ? a.W : b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector4 v, ref Vector4 min, ref Vector4 max, out Vector4 result) {
-            Fixed32 x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            Fixed32 y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
-            Fixed32 z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; result.Z = z;
-            Fixed32 w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; result.W = w;
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector4 v, ref Vector4 min, ref Vector4 max, out Vector4 r) {
+            Fixed32 x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            Fixed32 y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
+            Fixed32 z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; r.Z = z;
+            Fixed32 w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; r.W = w;
         }
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector4 a, ref Vector4 b, ref Fixed32 amount, out Vector4 result){
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector4 a, ref Vector4 b, ref Fixed32 amount, out Vector4 r){
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount); result.Y = a.Y + ((b.Y - a.Y) * amount);
-            result.Z = a.Z + ((b.Z - a.Z) * amount); result.W = a.W + ((b.W - a.W) * amount);
+            r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.Z = a.Z + ((b.Z - a.Z) * amount); r.W = a.W + ((b.W - a.W) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector4 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector4 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
         }
 
-        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 result; Min (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 result; Max (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Lerp   (Vector4 a, Vector4 b, Fixed32 amount) { Vector4 result; Lerp (ref a, ref b, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector4 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 r; Min (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 r; Max (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Lerp   (Vector4 a, Vector4 b, Fixed32 amount) { Vector4 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector4 v) { Boolean r; IsUnit (ref v, out r); return r; }
 
         // Splines //---------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector4 v1, ref Vector4 v2, ref Fixed32 amount, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector4 v1, ref Vector4 v2, ref Fixed32 amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
-            result.Z = v1.Z + ((v2.Z - v1.Z) * amount);
-            result.W = v1.W + ((v2.W - v1.W) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.Z = v1.Z + ((v2.Z - v1.Z) * amount);
+            r.W = v1.W + ((v2.W - v1.W) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector4 v1, ref Vector4 v2, ref Vector4 v3, ref Vector4 v4, ref Fixed32 amount, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector4 v1, ref Vector4 v2, ref Vector4 v3, ref Vector4 v4, ref Fixed32 amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Fixed32 squared = amount * amount;
             Fixed32 cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
-            result.Z  = 2 * v2.Z;
-            result.Z += (v3.Z - v1.Z) * amount;
-            result.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
-            result.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
-            result.Z *= Maths.Half;
-            result.W  = 2 * v2.W;
-            result.W += (v3.W - v1.W) * amount;
-            result.W += ((2 * v1.W) + (4 * v3.W) - (5 * v2.W) - (v4.W)) * squared;
-            result.W += ((3 * v2.W) + (v4.W) - (v1.W) - (3 * v3.W)) * cubed;
-            result.W *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
+            r.Z  = 2 * v2.Z;
+            r.Z += (v3.Z - v1.Z) * amount;
+            r.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
+            r.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
+            r.Z *= Maths.Half;
+            r.W  = 2 * v2.W;
+            r.W += (v3.W - v1.W) * amount;
+            r.W += ((2 * v1.W) + (4 * v3.W) - (5 * v2.W) - (v4.W)) * squared;
+            r.W += ((3 * v2.W) + (v4.W) - (v1.W) - (3 * v3.W)) * cubed;
+            r.W *= Maths.Half;
         }
 
-        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector4 v1, ref Vector4 tangent1, ref Vector4 v2, ref Vector4 tangent2, ref Fixed32 amount, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector4 v1, ref Vector4 tangent1, ref Vector4 v2, ref Vector4 tangent2, ref Fixed32 amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -2105,60 +2105,60 @@ namespace Abacus.Fixed32Precision
             Fixed32 b = (-cubed * 2) + (squared * 3);
             Fixed32 c = (cubed - (squared * 2)) + amount;
             Fixed32 d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
-            result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
-            result.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            r.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, Fixed32 amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, Fixed32 amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, Fixed32 amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, Fixed32 amount) { Vector4 r; SmoothStep (ref v1, ref v2, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, Fixed32 amount) { Vector4 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, Fixed32 amount) { Vector4 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Distance (ref Vector4 a, ref Vector4 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Distance (ref Vector4 a, ref Vector4 b, out Fixed32 r) {
             Fixed32 dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
             Fixed32 lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector4 a, ref Vector4 b, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector4 a, ref Vector4 b, out Fixed32 r) {
             Fixed32 dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
-            result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+            r = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Vector4 a, ref Vector4 b, out Fixed32 result) {
-            result = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Vector4 a, ref Vector4 b, out Fixed32 r) {
+            r = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector4 vector, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector4 vector, out Vector4 r) {
             Fixed32 lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
             Debug.Assert (lengthSquared > Maths.Epsilon && !Fixed32.IsInfinity(lengthSquared));
             Fixed32 multiplier = 1 / (Maths.Sqrt (lengthSquared));
-            result.X = vector.X * multiplier; result.Y = vector.Y * multiplier;
-            result.Z = vector.Z * multiplier; result.W = vector.W * multiplier;
+            r.X = vector.X * multiplier; r.Y = vector.Y * multiplier;
+            r.Z = vector.Z * multiplier; r.W = vector.W * multiplier;
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Vector4 vector, out Fixed32 result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Vector4 vector, out Fixed32 r) {
             Fixed32 lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector4 vector, out Fixed32 result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector4 vector, out Fixed32 r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
         }
 
-        [MI(O.AggressiveInlining)] public Fixed32  Length        () { Fixed32 result; Length (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Fixed32  LengthSquared () { Fixed32 result; LengthSquared (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Fixed32  Length        () { Fixed32 r; Length (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Fixed32  LengthSquared () { Fixed32 r; LengthSquared (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector4 Normalise     () { Normalise (ref this, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Fixed32  Distance        ( Vector4 a, Vector4 b) { Fixed32 result; Distance (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Fixed32  DistanceSquared (Vector4 a, Vector4 b) { Fixed32 result; DistanceSquared (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Fixed32  Dot             (Vector4 a, Vector4 b) { Fixed32 result; Dot (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector4 Normalise       (Vector4 v) { Vector4 result; Normalise (ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Fixed32  Length          (Vector4 v) { Fixed32 result; Length (ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Fixed32  LengthSquared   (Vector4 v) { Fixed32 result; LengthSquared (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32  Distance        ( Vector4 a, Vector4 b) { Fixed32 r; Distance (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Fixed32  DistanceSquared (Vector4 a, Vector4 b) { Fixed32 r; DistanceSquared (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Fixed32  Dot             (Vector4 a, Vector4 b) { Fixed32 r; Dot (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector4 Normalise       (Vector4 v) { Vector4 r; Normalise (ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32  Length          (Vector4 v) { Fixed32 r; Length (ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Fixed32  LengthSquared   (Vector4 v) { Fixed32 r; LengthSquared (ref v, out r); return r; }
     }
 
     /// <summary>
@@ -2207,8 +2207,8 @@ namespace Abacus.Fixed32Precision
         [MI(O.AggressiveInlining)] public static Fixed32 FromString           (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
         [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Fixed32 value) { Fixed32.TryParse (str, out value); }
 
-        [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero   (Fixed32 value) { return Abs(value) < Epsilon; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Fixed32 a, Fixed32 b) { Fixed32 num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
+        [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Fixed32 value) { return Abs(value) < Epsilon; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Fixed32 a, Fixed32 b) { Fixed32 num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
         [MI(O.AggressiveInlining)] public static Int32   Sign                (Fixed32 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
     }

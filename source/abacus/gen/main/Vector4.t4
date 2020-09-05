@@ -20,9 +20,9 @@
 
         <#Inl();#>public override Boolean Equals (Object obj) { return (obj is Vector4) ? this.Equals ((Vector4)obj) : false; }
 
-        <#Inl();#>public Boolean Equals (Vector4 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        <#Inl();#>public Boolean Equals (Vector4 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        <#Inl();#>public Boolean ApproximateEquals (Vector4 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        <#Inl();#>public Boolean ApproximateEquals (Vector4 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -47,147 +47,147 @@
 
         // Operators //-------------------------------------------------------//
 
-        <#Inl();#>public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
+        <#Inl();#>public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
         }
 
-        <#Inl();#>public static void ApproximateEquals (ref Vector4 v1, ref Vector4 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
+        <#Inl();#>public static void ApproximateEquals (ref Vector4 v1, ref Vector4 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
                 && Maths.ApproximateEquals (v1.Z, v2.Z) && Maths.ApproximateEquals (v1.W, v2.W);
         }
 
-        <#Inl();#>public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z; result.W = a.W + b.W;
+        <#Inl();#>public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y; r.Z = a.Z + b.Z; r.W = a.W + b.W;
         }
 
-        <#Inl();#>public static void Subtract (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y; result.Z = a.Z - b.Z; result.W = a.W - b.W;
+        <#Inl();#>public static void Subtract (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y; r.Z = a.Z - b.Z; r.W = a.W - b.W;
         }
 
-        <#Inl();#>public static void Negate (ref Vector4 v, out Vector4 result) {
-            result.X = -v.X; result.Y = -v.Y; result.Z = -v.Z; result.W = -v.W;
+        <#Inl();#>public static void Negate (ref Vector4 v, out Vector4 r) {
+            r.X = -v.X; r.Y = -v.Y; r.Z = -v.Z; r.W = -v.W;
         }
 
-        <#Inl();#>public static void Multiply (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y; result.Z = a.Z * b.Z; result.W = a.W * b.W;
+        <#Inl();#>public static void Multiply (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y; r.Z = a.Z * b.Z; r.W = a.W * b.W;
         }
 
-        <#Inl();#>public static void Multiply (ref Vector4 v, ref <#=T#> f, out Vector4 result) {
-            result.X = v.X * f; result.Y = v.Y * f; result.Z = v.Z * f; result.W = v.W * f;
+        <#Inl();#>public static void Multiply (ref Vector4 v, ref <#=T#> f, out Vector4 r) {
+            r.X = v.X * f; r.Y = v.Y * f; r.Z = v.Z * f; r.W = v.W * f;
         }
 
-        <#Inl();#>public static void Divide (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y; result.Z = a.Z / b.Z; result.W = a.W / b.W;
+        <#Inl();#>public static void Divide (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y; r.Z = a.Z / b.Z; r.W = a.W / b.W;
         }
 
-        <#Inl();#>public static void Divide (ref Vector4 v, ref <#=T#> d, out Vector4 result) {
+        <#Inl();#>public static void Divide (ref Vector4 v, ref <#=T#> d, out Vector4 r) {
             <#=T#> num = 1 / d;
-            result.X = v.X * num; result.Y = v.Y * num; result.Z = v.Z * num; result.W = v.W * num;
+            r.X = v.X * num; r.Y = v.Y * num; r.Z = v.Z * num; r.W = v.W * num;
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        <#Inl();#>public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add       (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 result; Subtract  (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  - (Vector4 v)            { Vector4 result; Negate    (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 result; Multiply  (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  * (Vector4 v, <#=T#> f)  { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  * (<#=T#> f,  Vector4 v) { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 result; Divide    (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  / (Vector4 a, <#=T#> d)  { Vector4 result; Divide    (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static <#=T#>  operator  | (Vector4 a, Vector4 d) { <#=T#>  result; Dot       (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  ~ (Vector4 v)            { Vector4 result; Normalise (ref v,        out result); return  result; }
+        <#Inl();#>public static Boolean operator == (Vector4 a, Vector4 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Boolean operator != (Vector4 a, Vector4 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        <#Inl();#>public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 r; Add       (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 r; Subtract  (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector4 operator  - (Vector4 v)            { Vector4 r; Negate    (ref v,        out r); return  r; }
+        <#Inl();#>public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 r; Multiply  (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector4 operator  * (Vector4 v, <#=T#> f)  { Vector4 r; Multiply  (ref v, ref f, out r); return  r; }
+        <#Inl();#>public static Vector4 operator  * (<#=T#> f,  Vector4 v) { Vector4 r; Multiply  (ref v, ref f, out r); return  r; }
+        <#Inl();#>public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 r; Divide    (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector4 operator  / (Vector4 a, <#=T#> d)  { Vector4 r; Divide    (ref a, ref d, out r); return  r; }
+        <#Inl();#>public static <#=T#>  operator  | (Vector4 a, Vector4 d) { <#=T#>  r; Dot       (ref a, ref d, out r); return  r; }
+        <#Inl();#>public static Vector4 operator  ~ (Vector4 v)            { Vector4 r; Normalise (ref v,        out r); return  r; }
 
-        <#Inl();#>public static Boolean Equals            (Vector4 a, Vector4 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Boolean ApproximateEquals (Vector4 a, Vector4 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector4 Add               (Vector4 a, Vector4 b) { Vector4 result; Add               (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector4 Subtract          (Vector4 a, Vector4 b) { Vector4 result; Subtract          (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector4 Negate            (Vector4 v)            { Vector4 result; Negate            (ref v,        out result); return result; }
-        <#Inl();#>public static Vector4 Multiply          (Vector4 a, Vector4 b) { Vector4 result; Multiply          (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector4 Multiply          (Vector4 v, <#=T#> f)  { Vector4 result; Multiply          (ref v, ref f, out result); return result; }
-        <#Inl();#>public static Vector4 Divide            (Vector4 a, Vector4 b) { Vector4 result; Divide            (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector4 Divide            (Vector4 a, <#=T#> d)  { Vector4 result; Divide            (ref a, ref d, out result); return result; }
+        <#Inl();#>public static Boolean Equals            (Vector4 a, Vector4 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Boolean ApproximateEquals (Vector4 a, Vector4 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector4 Add               (Vector4 a, Vector4 b) { Vector4 r; Add               (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector4 Subtract          (Vector4 a, Vector4 b) { Vector4 r; Subtract          (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector4 Negate            (Vector4 v)            { Vector4 r; Negate            (ref v,        out r); return r; }
+        <#Inl();#>public static Vector4 Multiply          (Vector4 a, Vector4 b) { Vector4 r; Multiply          (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector4 Multiply          (Vector4 v, <#=T#> f)  { Vector4 r; Multiply          (ref v, ref f, out r); return r; }
+        <#Inl();#>public static Vector4 Divide            (Vector4 a, Vector4 b) { Vector4 r; Divide            (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector4 Divide            (Vector4 a, <#=T#> d)  { Vector4 r; Divide            (ref a, ref d, out r); return r; }
 <# } #>
 
         // Utilities //-------------------------------------------------------//
 
-        <#Inl();#>public static void Min (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = (a.X < b.X) ? a.X : b.X; result.Y = (a.Y < b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z < b.Z) ? a.Z : b.Z; result.W = (a.W < b.W) ? a.W : b.W;
+        <#Inl();#>public static void Min (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = (a.X < b.X) ? a.X : b.X; r.Y = (a.Y < b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z < b.Z) ? a.Z : b.Z; r.W = (a.W < b.W) ? a.W : b.W;
         }
 
-        <#Inl();#>public static void Max (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = (a.X > b.X) ? a.X : b.X; result.Y = (a.Y > b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z > b.Z) ? a.Z : b.Z; result.W = (a.W > b.W) ? a.W : b.W;
+        <#Inl();#>public static void Max (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = (a.X > b.X) ? a.X : b.X; r.Y = (a.Y > b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z > b.Z) ? a.Z : b.Z; r.W = (a.W > b.W) ? a.W : b.W;
         }
 
-        <#Inl();#>public static void Clamp (ref Vector4 v, ref Vector4 min, ref Vector4 max, out Vector4 result) {
-            <#=T#> x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            <#=T#> y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
-            <#=T#> z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; result.Z = z;
-            <#=T#> w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; result.W = w;
+        <#Inl();#>public static void Clamp (ref Vector4 v, ref Vector4 min, ref Vector4 max, out Vector4 r) {
+            <#=T#> x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            <#=T#> y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
+            <#=T#> z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; r.Z = z;
+            <#=T#> w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; r.W = w;
         }
 
-        <#Inl();#>public static void Lerp (ref Vector4 a, ref Vector4 b, ref <#=T#> amount, out Vector4 result){
+        <#Inl();#>public static void Lerp (ref Vector4 a, ref Vector4 b, ref <#=T#> amount, out Vector4 r){
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount); result.Y = a.Y + ((b.Y - a.Y) * amount);
-            result.Z = a.Z + ((b.Z - a.Z) * amount); result.W = a.W + ((b.W - a.W) * amount);
+            r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.Z = a.Z + ((b.Z - a.Z) * amount); r.W = a.W + ((b.W - a.W) * amount);
         }
 
-        <#Inl();#>public static void IsUnit (ref Vector4 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
+        <#Inl();#>public static void IsUnit (ref Vector4 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        <#Inl();#>public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         <#Inl();#>public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        <#Inl();#>public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 result; Min (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 result; Max (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        <#Inl();#>public static Vector4 Lerp   (Vector4 a, Vector4 b, <#=T#> amount) { Vector4 result; Lerp (ref a, ref b, ref amount, out result); return result; }
-        <#Inl();#>public static Boolean IsUnit (Vector4 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        <#Inl();#>public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 r; Min (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 r; Max (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        <#Inl();#>public static Vector4 Lerp   (Vector4 a, Vector4 b, <#=T#> amount) { Vector4 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        <#Inl();#>public static Boolean IsUnit (Vector4 v) { Boolean r; IsUnit (ref v, out r); return r; }
 <# } #>
 
         // Splines //---------------------------------------------------------//
 
-        <#Inl();#>public static void SmoothStep (ref Vector4 v1, ref Vector4 v2, ref <#=T#> amount, out Vector4 result) {
+        <#Inl();#>public static void SmoothStep (ref Vector4 v1, ref Vector4 v2, ref <#=T#> amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
-            result.Z = v1.Z + ((v2.Z - v1.Z) * amount);
-            result.W = v1.W + ((v2.W - v1.W) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.Z = v1.Z + ((v2.Z - v1.Z) * amount);
+            r.W = v1.W + ((v2.W - v1.W) * amount);
         }
 
-        <#Inl();#>public static void CatmullRom (ref Vector4 v1, ref Vector4 v2, ref Vector4 v3, ref Vector4 v4, ref <#=T#> amount, out Vector4 result) {
+        <#Inl();#>public static void CatmullRom (ref Vector4 v1, ref Vector4 v2, ref Vector4 v3, ref Vector4 v4, ref <#=T#> amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             <#=T#> squared = amount * amount;
             <#=T#> cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
-            result.Z  = 2 * v2.Z;
-            result.Z += (v3.Z - v1.Z) * amount;
-            result.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
-            result.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
-            result.Z *= Maths.Half;
-            result.W  = 2 * v2.W;
-            result.W += (v3.W - v1.W) * amount;
-            result.W += ((2 * v1.W) + (4 * v3.W) - (5 * v2.W) - (v4.W)) * squared;
-            result.W += ((3 * v2.W) + (v4.W) - (v1.W) - (3 * v3.W)) * cubed;
-            result.W *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
+            r.Z  = 2 * v2.Z;
+            r.Z += (v3.Z - v1.Z) * amount;
+            r.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
+            r.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
+            r.Z *= Maths.Half;
+            r.W  = 2 * v2.W;
+            r.W += (v3.W - v1.W) * amount;
+            r.W += ((2 * v1.W) + (4 * v3.W) - (5 * v2.W) - (v4.W)) * squared;
+            r.W += ((3 * v2.W) + (v4.W) - (v1.W) - (3 * v3.W)) * cubed;
+            r.W *= Maths.Half;
         }
 
-        <#Inl();#>public static void Hermite (ref Vector4 v1, ref Vector4 tangent1, ref Vector4 v2, ref Vector4 tangent2, ref <#=T#> amount, out Vector4 result) {
+        <#Inl();#>public static void Hermite (ref Vector4 v1, ref Vector4 tangent1, ref Vector4 v2, ref Vector4 tangent2, ref <#=T#> amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -200,63 +200,63 @@
             <#=T#> b = (-cubed * 2) + (squared * 3);
             <#=T#> c = (cubed - (squared * 2)) + amount;
             <#=T#> d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
-            result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
-            result.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            r.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, <#=T#> amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        <#Inl();#>public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, <#=T#> amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        <#Inl();#>public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, <#=T#> amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        <#Inl();#>public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, <#=T#> amount) { Vector4 r; SmoothStep (ref v1, ref v2, ref amount, out r); return r; }
+        <#Inl();#>public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, <#=T#> amount) { Vector4 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out r); return r; }
+        <#Inl();#>public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, <#=T#> amount) { Vector4 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out r); return r; }
 <# } #>
 
         // Maths //-----------------------------------------------------------//
 
-        <#Inl();#>public static void Distance (ref Vector4 a, ref Vector4 b, out <#=T#> result) {
+        <#Inl();#>public static void Distance (ref Vector4 a, ref Vector4 b, out <#=T#> r) {
             <#=T#> dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
             <#=T#> lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        <#Inl();#>public static void DistanceSquared (ref Vector4 a, ref Vector4 b, out <#=T#> result) {
+        <#Inl();#>public static void DistanceSquared (ref Vector4 a, ref Vector4 b, out <#=T#> r) {
             <#=T#> dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
-            result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+            r = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
 
-        <#Inl();#>public static void Dot (ref Vector4 a, ref Vector4 b, out <#=T#> result) {
-            result = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
+        <#Inl();#>public static void Dot (ref Vector4 a, ref Vector4 b, out <#=T#> r) {
+            r = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
         }
 
-        <#Inl();#>public static void Normalise (ref Vector4 vector, out Vector4 result) {
+        <#Inl();#>public static void Normalise (ref Vector4 vector, out Vector4 r) {
             <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
             Debug.Assert (lengthSquared > Maths.Epsilon && !<#=T#>.IsInfinity(lengthSquared));
             <#=T#> multiplier = 1 / (Maths.Sqrt (lengthSquared));
-            result.X = vector.X * multiplier; result.Y = vector.Y * multiplier;
-            result.Z = vector.Z * multiplier; result.W = vector.W * multiplier;
+            r.X = vector.X * multiplier; r.Y = vector.Y * multiplier;
+            r.Z = vector.Z * multiplier; r.W = vector.W * multiplier;
         }
 
-        <#Inl();#>public static void Length (ref Vector4 vector, out <#=T#> result) {
+        <#Inl();#>public static void Length (ref Vector4 vector, out <#=T#> r) {
             <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        <#Inl();#>public static void LengthSquared (ref Vector4 vector, out <#=T#> result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
+        <#Inl();#>public static void LengthSquared (ref Vector4 vector, out <#=T#> r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public <#=T#>  Length        () { <#=T#> result; Length (ref this, out result); return result; }
-        <#Inl();#>public <#=T#>  LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
+        <#Inl();#>public <#=T#>  Length        () { <#=T#> r; Length (ref this, out r); return r; }
+        <#Inl();#>public <#=T#>  LengthSquared () { <#=T#> r; LengthSquared (ref this, out r); return r; }
         <#Inl();#>public Vector4 Normalise     () { Normalise (ref this, out this); return this; }
 
-        <#Inl();#>public static <#=T#>  Distance        ( Vector4 a, Vector4 b) { <#=T#> result; Distance (ref a, ref b, out result); return result; } 
-        <#Inl();#>public static <#=T#>  DistanceSquared (Vector4 a, Vector4 b) { <#=T#> result; DistanceSquared (ref a, ref b, out result); return result; } 
-        <#Inl();#>public static <#=T#>  Dot             (Vector4 a, Vector4 b) { <#=T#> result; Dot (ref a, ref b, out result); return result; } 
-        <#Inl();#>public static Vector4 Normalise       (Vector4 v) { Vector4 result; Normalise (ref v, out result); return result; }
-        <#Inl();#>public static <#=T#>  Length          (Vector4 v) { <#=T#> result; Length (ref v, out result); return result; } 
-        <#Inl();#>public static <#=T#>  LengthSquared   (Vector4 v) { <#=T#> result; LengthSquared (ref v, out result); return result; }
+        <#Inl();#>public static <#=T#>  Distance        ( Vector4 a, Vector4 b) { <#=T#> r; Distance (ref a, ref b, out r); return r; } 
+        <#Inl();#>public static <#=T#>  DistanceSquared (Vector4 a, Vector4 b) { <#=T#> r; DistanceSquared (ref a, ref b, out r); return r; } 
+        <#Inl();#>public static <#=T#>  Dot             (Vector4 a, Vector4 b) { <#=T#> r; Dot (ref a, ref b, out r); return r; } 
+        <#Inl();#>public static Vector4 Normalise       (Vector4 v) { Vector4 r; Normalise (ref v, out r); return r; }
+        <#Inl();#>public static <#=T#>  Length          (Vector4 v) { <#=T#> r; Length (ref v, out r); return r; } 
+        <#Inl();#>public static <#=T#>  LengthSquared   (Vector4 v) { <#=T#> r; LengthSquared (ref v, out r); return r; }
 <# } #>
     }
 

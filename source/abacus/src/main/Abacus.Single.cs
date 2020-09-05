@@ -74,9 +74,9 @@ namespace Abacus.SinglePrecision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Quaternion) ? this.Equals ((Quaternion) obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Quaternion other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Quaternion other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Quaternion other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Quaternion other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -92,69 +92,69 @@ namespace Abacus.SinglePrecision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Quaternion q1, ref Quaternion q2, out Boolean result) {
-            result = (q1.I == q2.I) && (q1.J == q2.J) && (q1.K == q2.K) && (q1.U == q2.U);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Quaternion q1, ref Quaternion q2, out Boolean r) {
+            r = (q1.I == q2.I) && (q1.J == q2.J) && (q1.K == q2.K) && (q1.U == q2.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Quaternion q1, ref Quaternion q2, out Boolean result) {
-            result = Maths.ApproximateEquals (q1.I, q2.I) && Maths.ApproximateEquals (q1.J, q2.J)
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Quaternion q1, ref Quaternion q2, out Boolean r) {
+            r = Maths.ApproximateEquals (q1.I, q2.I) && Maths.ApproximateEquals (q1.J, q2.J)
                 && Maths.ApproximateEquals (q1.K, q2.K) && Maths.ApproximateEquals (q1.U, q2.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
-            result.I = q1.I + q2.I; result.J = q1.J + q2.J; result.K = q1.K + q2.K; result.U = q1.U + q2.U;
+        [MI(O.AggressiveInlining)] public static void Add (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
+            r.I = q1.I + q2.I; r.J = q1.J + q2.J; r.K = q1.K + q2.K; r.U = q1.U + q2.U;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
-            result.I = q1.I - q2.I; result.J = q1.J - q2.J; result.K = q1.K - q2.K; result.U = q1.U - q2.U;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
+            r.I = q1.I - q2.I; r.J = q1.J - q2.J; r.K = q1.K - q2.K; r.U = q1.U - q2.U;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Quaternion quaternion, out Quaternion result) {
-            result.I = -quaternion.I; result.J = -quaternion.J; result.K = -quaternion.K; result.U = -quaternion.U;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Quaternion quaternion, out Quaternion r) {
+            r.I = -quaternion.I; r.J = -quaternion.J; r.K = -quaternion.K; r.U = -quaternion.U;
         }
 
         // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
-            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
-            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
-            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
-            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
+            r.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
+            r.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
+            r.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
+            r.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion v)               { Quaternion result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Vector3 v, Quaternion q)    { Vector3    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Vector4 v, Quaternion q)    { Vector4    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Quaternion q, Vector3 v)    { Vector3    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Quaternion q, Vector4 v)    { Vector4    result; Transform (ref q, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Quaternion operator  ~ (Quaternion v)               { Quaternion result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  - (Quaternion v)               { Quaternion r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Vector3 v, Quaternion q)    { Vector3    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Vector4 v, Quaternion q)    { Vector4    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3    operator  * (Quaternion q, Vector3 v)    { Vector3    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4    operator  * (Quaternion q, Vector4 v)    { Vector4    r; Transform (ref q, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Quaternion operator  ~ (Quaternion v)               { Quaternion r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean    Equals            (Quaternion a, Quaternion b) { Boolean    result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean    ApproximateEquals (Quaternion a, Quaternion b) { Boolean    result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Add               (Quaternion a, Quaternion b) { Quaternion result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Subtract          (Quaternion a, Quaternion b) { Quaternion result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Negate            (Quaternion v)               { Quaternion result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Multiply          (Quaternion a, Quaternion b) { Quaternion result; Multiply          (ref a, ref b, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean    Equals            (Quaternion a, Quaternion b) { Boolean    r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean    ApproximateEquals (Quaternion a, Quaternion b) { Boolean    r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Add               (Quaternion a, Quaternion b) { Quaternion r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Subtract          (Quaternion a, Quaternion b) { Quaternion r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Negate            (Quaternion v)               { Quaternion r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Multiply          (Quaternion a, Quaternion b) { Quaternion r; Multiply          (ref a, ref b, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Quaternion q1, ref Quaternion q2, ref Single amount, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Quaternion q1, ref Quaternion q2, ref Single amount, out Quaternion r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Single remaining = 1 - amount;
-            Single r = remaining;
+            Single f = remaining;
             Single a = amount;
-            result.U = (r * q1.U) + (a * q2.U);
-            result.I = (r * q1.I) + (a * q2.I);
-            result.J = (r * q1.J) + (a * q2.J);
-            result.K = (r * q1.K) + (a * q2.K);
+            r.U = (f * q1.U) + (a * q2.U);
+            r.I = (f * q1.I) + (a * q2.I);
+            r.J = (f * q1.J) + (a * q2.J);
+            r.K = (f * q1.K) + (a * q2.K);
         }
 
         // http://en.wikipedia.org/wiki/Slerp
-        [MI(O.AggressiveInlining)] public static void Slerp (ref Quaternion q1, ref Quaternion q2, ref Single amount,out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Slerp (ref Quaternion q1, ref Quaternion q2, ref Single amount,out Quaternion r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Single remaining = 1 - amount;
             Single angle;
@@ -164,59 +164,59 @@ namespace Abacus.SinglePrecision
                 angle = -angle;
             }
             Single theta = Maths.ArcCos (angle);
-            Single r = remaining;
+            Single f = remaining;
             Single a = amount;
             if (theta > Maths.Epsilon) {
                 Single x = Maths.Sin (remaining * theta);
                 Single y = Maths.Sin (amount * theta);
                 Single z = Maths.Sin (theta);
-                r = x / z;
+                f = x / z;
                 a = y / z;
             }
-            result.U = (r * q1.U) + (a * q2.U);
-            result.I = (r * q1.I) + (a * q2.I);
-            result.J = (r * q1.J) + (a * q2.J);
-            result.K = (r * q1.K) + (a * q2.K);
+            r.U = (f * q1.U) + (a * q2.U);
+            r.I = (f * q1.I) + (a * q2.I);
+            r.J = (f * q1.J) + (a * q2.J);
+            r.K = (f * q1.K) + (a * q2.K);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Quaternion q, out Boolean result) {
-            result = Maths.IsApproximatelyZero((Single) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Quaternion q, out Boolean r) {
+            r = Maths.IsApproximatelyZero((Single) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
         }
 
-        [MI(O.AggressiveInlining)] public bool IsUnit () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public bool IsUnit () { Boolean r; IsUnit (ref this, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean    IsUnit (Quaternion q) { Boolean result; IsUnit (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Lerp   (Quaternion a, Quaternion b, Single amount) { Quaternion result; Lerp (ref a, ref b, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Slerp  (Quaternion a, Quaternion b, Single amount) { Quaternion result; Slerp (ref a, ref b, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean    IsUnit (Quaternion q) { Boolean r; IsUnit (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Lerp   (Quaternion a, Quaternion b, Single amount) { Quaternion r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Slerp  (Quaternion a, Quaternion b, Single amount) { Quaternion r; Slerp (ref a, ref b, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Quaternion q, out Single result) {
-            result = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Quaternion q, out Single r) {
+            r = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Quaternion q, out Single result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Quaternion q, out Single r) {
             Single lengthSquared = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void Conjugate (ref Quaternion value, out Quaternion result) {
-            result.I = -value.I; result.J = -value.J;
-            result.K = -value.K; result.U = value.U;
+        [MI(O.AggressiveInlining)] public static void Conjugate (ref Quaternion value, out Quaternion r) {
+            r.I = -value.I; r.J = -value.J;
+            r.K = -value.K; r.U = value.U;
         }
 
-        [MI(O.AggressiveInlining)] public static void Inverse (ref Quaternion q, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Inverse (ref Quaternion q, out Quaternion r) {
             Single a = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
             Single b = 1 / a;
-            result.I = -q.I * b; result.J = -q.J * b;
-            result.K = -q.K * b; result.U =  q.U * b;
+            r.I = -q.I * b; r.J = -q.J * b;
+            r.K = -q.K * b; r.U =  q.U * b;
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Quaternion q1, ref Quaternion q2, out Single result) {
-            result = (q1.I * q2.I) + (q1.J * q2.J) + (q1.K * q2.K) + (q1.U * q2.U);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Quaternion q1, ref Quaternion q2, out Single r) {
+            r = (q1.I * q2.I) + (q1.J * q2.J) + (q1.K * q2.K) + (q1.U * q2.U);
         }
 
-        [MI(O.AggressiveInlining)] public static void Concatenate (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Concatenate (ref Quaternion q1, ref Quaternion q2, out Quaternion r) {
             Single a = (q1.K * q2.J) - (q1.J * q2.K);
             Single b = (q1.I * q2.K) - (q1.K * q2.I);
             Single c = (q1.J * q2.I) - (q1.I * q2.J);
@@ -225,18 +225,18 @@ namespace Abacus.SinglePrecision
             Single j = (q1.U * q2.J) + (q1.J * q2.U) + b;
             Single k = (q1.U * q2.K) + (q1.K * q2.U) + c;
             Single u = (q1.U * q2.U) - (q1.K * q2.K) - d;
-            result.I = i; result.J = j; result.K = k; result.U = u;
+            r.I = i; r.J = j; r.K = k; r.U = u;
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Quaternion q, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Quaternion q, out Quaternion r) {
             Single a = (q.I * q.I) + (q.J * q.J)
                      + (q.K * q.K) + (q.U * q.U);
             Single b = 1 / Maths.Sqrt (a);
-            result.I = q.I * b; result.J = q.J * b;
-            result.K = q.K * b; result.U = q.U * b;
+            r.I = q.I * b; r.J = q.J * b;
+            r.K = q.K * b; r.U = q.U * b;
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector3 vector, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector3 vector, out Vector3 r) {
             Single i = rotation.I, j = rotation.J, k = rotation.K, u = rotation.U;
             Single ii = i * i, jj = j * j, kk = k * k;
             Single ui = u * i, uj = u * j, uk = u * k;
@@ -244,10 +244,10 @@ namespace Abacus.SinglePrecision
             Single x = vector.X - (2 * vector.X * (jj + kk)) + (2 * vector.Y * (ij - uk)) + (2 * vector.Z * (ik + uj));
             Single y = vector.Y + (2 * vector.X * (ij + uk)) - (2 * vector.Y * (ii + kk)) + (2 * vector.Z * (jk - ui));
             Single z = vector.Z + (2 * vector.X * (ik - uj)) + (2 * vector.Y * (jk + ui)) - (2 * vector.Z * (ii + jj));
-            result.X = x; result.Y = y; result.Z = z;
+            r.X = x; r.Y = y; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector4 vector, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Quaternion rotation, ref Vector4 vector, out Vector4 r) {
             Single i = rotation.I, j = rotation.J, k = rotation.K, u = rotation.U;
             Single ii = i * i, jj = j * j, kk = k * k;
             Single ui = u * i, uj = u * j, uk = u * k;
@@ -256,108 +256,108 @@ namespace Abacus.SinglePrecision
             Single y = vector.Y + (vector.X * 2 * (ij + uk)) - (vector.Y * 2 * (ii + kk)) + (vector.Z * 2 * (jk - ui));
             Single z = vector.Z + (vector.X * 2 * (ik - uj)) + (vector.Y * 2 * (jk + ui)) - (vector.Z * 2 * (ii + jj));
             Single w = vector.W;
-            result.X = x; result.Y = y; result.Z = z; result.W = w;
+            r.X = x; r.Y = y; r.Z = z; r.W = w;
         }
 
-        [MI(O.AggressiveInlining)] public static void ToYawPitchRoll (ref Quaternion q, out Vector3 result) { // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
+        [MI(O.AggressiveInlining)] public static void ToYawPitchRoll (ref Quaternion q, out Vector3 r) { // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
             // roll (x-axis rotation)
             Single sinr_cosp = 2 * (q.U * q.K + q.I * q.J);
             Single cosr_cosp = ((Single) 1) - 2 * (q.K * q.K + q.I * q.I);
-            result.Z = Maths.ArcTan2 (sinr_cosp, cosr_cosp);
+            r.Z = Maths.ArcTan2 (sinr_cosp, cosr_cosp);
             // pitch (y-axis rotation)
             Single sinp = 2 * (q.U * q.I - q.J * q.K);
             if (Maths.Abs (sinp) >= 1f)
                 if (sinp < 0f)
-                    result.Y = -Maths.Pi / 2;
+                    r.Y = -Maths.Pi / 2;
                 else
-                    result.Y = Maths.Pi / 2;
+                    r.Y = Maths.Pi / 2;
             else
-                result.Y = Maths.ArcSin (sinp);
+                r.Y = Maths.ArcSin (sinp);
             // yaw (z-axis rotation)
             Single siny_cosp = 2 * (q.U * q.J + q.K * q.I);
             Single cosy_cosp = ((Single) 1) - 2 * (q.I * q.I + q.J * q.J);
-            result.X = Maths.ArcTan2 (siny_cosp, cosy_cosp);
+            r.X = Maths.ArcTan2 (siny_cosp, cosy_cosp);
         }
 
-        [MI(O.AggressiveInlining)] public Single     LengthSquared  () { Single result; LengthSquared (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Single     Length         () { Single result; Length (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Single     LengthSquared  () { Single r; LengthSquared (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Single     Length         () { Single r; Length (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public void       Normalise      () { Normalise (ref this, out this); }
         [MI(O.AggressiveInlining)] public Quaternion Conjugate      () { Conjugate (ref this, out this); return this; }
         [MI(O.AggressiveInlining)] public Quaternion Inverse        () { Inverse (ref this, out this); return this; }
-        [MI(O.AggressiveInlining)] public Single     Dot            (Quaternion q) { Single result; Dot (ref this, ref q, out result); return result; }
+        [MI(O.AggressiveInlining)] public Single     Dot            (Quaternion q) { Single r; Dot (ref this, ref q, out r); return r; }
         [MI(O.AggressiveInlining)] public Quaternion Concatenate    (Quaternion q) { Concatenate (ref this, ref q, out this); return this; }
-        [MI(O.AggressiveInlining)] public Vector3    Transform      (Vector3 v) { Vector3 result; Transform (ref this, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public Vector4    Transform      (Vector4 v) { Vector4 result; Transform (ref this, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public Vector3    ToYawPitchRoll () { Vector3 result; ToYawPitchRoll (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Vector3    Transform      (Vector3 v) { Vector3 r; Transform (ref this, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public Vector4    Transform      (Vector4 v) { Vector4 r; Transform (ref this, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public Vector3    ToYawPitchRoll () { Vector3 r; ToYawPitchRoll (ref this, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public static Single     LengthSquared  (Quaternion q) { Single result; LengthSquared (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Single     Length         (Quaternion q) { Single result; Length (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Normalise      (Quaternion q) { Quaternion result; Normalise (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Conjugate      (Quaternion q) { Quaternion result; Conjugate (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Inverse        (Quaternion q) { Quaternion result; Inverse (ref q, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Single     Dot            (Quaternion a, Quaternion b) { Single result; Dot (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion Concatenate    (Quaternion a, Quaternion b) { Quaternion result; Concatenate (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3    Transform      (Quaternion rotation, Vector3 v) { Vector3 result; Transform (ref rotation, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4    Transform      (Quaternion rotation, Vector4 v) { Vector4 result; Transform (ref rotation, ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3    ToYawPitchRoll (Quaternion q) { Vector3 result; ToYawPitchRoll (ref q, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Single     LengthSquared  (Quaternion q) { Single r; LengthSquared (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Single     Length         (Quaternion q) { Single r; Length (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Normalise      (Quaternion q) { Quaternion r; Normalise (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Conjugate      (Quaternion q) { Quaternion r; Conjugate (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Inverse        (Quaternion q) { Quaternion r; Inverse (ref q, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Single     Dot            (Quaternion a, Quaternion b) { Single r; Dot (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion Concatenate    (Quaternion a, Quaternion b) { Quaternion r; Concatenate (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3    Transform      (Quaternion rotation, Vector3 v) { Vector3 r; Transform (ref rotation, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4    Transform      (Quaternion rotation, Vector4 v) { Vector4 r; Transform (ref rotation, ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3    ToYawPitchRoll (Quaternion q) { Vector3 r; ToYawPitchRoll (ref q, out r); return r; }
         // Creation //--------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Single angle, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Single angle, out Quaternion r) {
             Single theta = angle * Maths.Half;
             Single sin = Maths.Sin (theta), cos = Maths.Cos (theta);
-            result.I = axis.X * sin;
-            result.J = axis.Y * sin;
-            result.K = axis.Z * sin;
-            result.U = cos;
+            r.I = axis.X * sin;
+            r.J = axis.Y * sin;
+            r.K = axis.Z * sin;
+            r.U = cos;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Single yaw, ref Single pitch, ref Single roll, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Single yaw, ref Single pitch, ref Single roll, out Quaternion r) {
             Single hr = roll * Maths.Half, hp = pitch * Maths.Half, hy = yaw * Maths.Half;
             Single shr = Maths.Sin (hr), chr = Maths.Cos (hr);
             Single shp = Maths.Sin (hp), chp = Maths.Cos (hp);
             Single shy = Maths.Sin (hy), chy = Maths.Cos (hy);
-            result.I = (chy * shp * chr) + (shy * chp * shr);
-            result.J = (shy * chp * chr) - (chy * shp * shr);
-            result.K = (chy * chp * shr) - (shy * shp * chr);
-            result.U = (chy * chp * chr) + (shy * shp * shr);
+            r.I = (chy * shp * chr) + (shy * chp * shr);
+            r.J = (shy * chp * chr) - (chy * shp * shr);
+            r.K = (chy * chp * shr) - (shy * shp * chr);
+            r.U = (chy * chp * chr) + (shy * shp * shr);
         }
 
         // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
-        [MI(O.AggressiveInlining)] public static void CreateFromRotationMatrix (ref Matrix44 m, out Quaternion result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromRotationMatrix (ref Matrix44 m, out Quaternion r) {
             Single tr = m.R0C0 + m.R1C1 + m.R2C2;
             if (tr > 0) {
                 Single s = Maths.Sqrt (tr + 1) * 2;
-                result.U = Maths.Quarter * s;
-                result.I = (m.R1C2 - m.R2C1) / s;
-                result.J = (m.R2C0 - m.R0C2) / s;
-                result.K = (m.R0C1 - m.R1C0) / s;
+                r.U = Maths.Quarter * s;
+                r.I = (m.R1C2 - m.R2C1) / s;
+                r.J = (m.R2C0 - m.R0C2) / s;
+                r.K = (m.R0C1 - m.R1C0) / s;
             }
             else if ((m.R0C0 >= m.R1C1) && (m.R0C0 >= m.R2C2)) {
                 Single s = Maths.Sqrt (1 + m.R0C0 - m.R1C1 - m.R2C2) * 2;
-                result.U = (m.R1C2 - m.R2C1) / s;
-                result.I = Maths.Quarter * s;
-                result.J = (m.R0C1 + m.R1C0) / s;
-                result.K = (m.R0C2 + m.R2C0) / s;
+                r.U = (m.R1C2 - m.R2C1) / s;
+                r.I = Maths.Quarter * s;
+                r.J = (m.R0C1 + m.R1C0) / s;
+                r.K = (m.R0C2 + m.R2C0) / s;
             }
             else if (m.R1C1 > m.R2C2) {
                 Single s = Maths.Sqrt (1 + m.R1C1 - m.R0C0 - m.R2C2) * 2;
-                result.U = (m.R2C0 - m.R0C2) / s;
-                result.I = (m.R1C0 + m.R0C1) / s;
-                result.J = Maths.Quarter * s;
-                result.K = (m.R2C1 + m.R1C2) / s;
+                r.U = (m.R2C0 - m.R0C2) / s;
+                r.I = (m.R1C0 + m.R0C1) / s;
+                r.J = Maths.Quarter * s;
+                r.K = (m.R2C1 + m.R1C2) / s;
             }
             else {
                 Single s = Maths.Sqrt (1 + m.R2C2 - m.R0C0 - m.R1C1) * 2;
-                result.U = (m.R0C1 - m.R1C0) / s;
-                result.I = (m.R2C0 + m.R0C2) / s;
-                result.J = (m.R2C1 + m.R1C2) / s;
-                result.K = Maths.Quarter * s;
+                r.U = (m.R0C1 - m.R1C0) / s;
+                r.I = (m.R2C0 + m.R0C2) / s;
+                r.J = (m.R2C1 + m.R1C2) / s;
+                r.K = Maths.Quarter * s;
             }
         }
 
-        [MI(O.AggressiveInlining)] public static Quaternion CreateFromAxisAngle      (Vector3 axis, Single angle) { Quaternion result; CreateFromAxisAngle (ref axis, ref angle, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion CreateFromYawPitchRoll   (Single yaw, Single pitch, Single roll) { Quaternion result; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Quaternion CreateFromRotationMatrix (Matrix44 matrix) { Quaternion result; CreateFromRotationMatrix (ref matrix, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Quaternion CreateFromAxisAngle      (Vector3 axis, Single angle) { Quaternion r; CreateFromAxisAngle (ref axis, ref angle, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion CreateFromYawPitchRoll   (Single yaw, Single pitch, Single roll) { Quaternion r; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Quaternion CreateFromRotationMatrix (Matrix44 matrix) { Quaternion r; CreateFromRotationMatrix (ref matrix, out r); return r; }
     }
     /// <summary>
     /// Single precision Matrix44.
@@ -398,9 +398,9 @@ namespace Abacus.SinglePrecision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Matrix44) ? this.Equals ((Matrix44)obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Matrix44 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Matrix44 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Matrix44 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Matrix44 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         [MI(O.AggressiveInlining)] public Boolean IsSymmetric () {
             Matrix44 transpose = this;
@@ -439,8 +439,8 @@ namespace Abacus.SinglePrecision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Matrix44 a, ref Matrix44 b, out Boolean result) {
-            result = (a.R0C0 == b.R0C0) && (a.R1C1 == b.R1C1) &&
+        [MI(O.AggressiveInlining)] public static void Equals (ref Matrix44 a, ref Matrix44 b, out Boolean r) {
+            r = (a.R0C0 == b.R0C0) && (a.R1C1 == b.R1C1) &&
                      (a.R2C2 == b.R2C2) && (a.R3C3 == b.R3C3) &&
                      (a.R0C1 == b.R0C1) && (a.R0C2 == b.R0C2) &&
                      (a.R0C3 == b.R0C3) && (a.R1C0 == b.R1C0) &&
@@ -450,8 +450,8 @@ namespace Abacus.SinglePrecision
                      (a.R3C1 == b.R3C1) && (a.R3C2 == b.R3C2);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Matrix44 a, ref Matrix44 b, out Boolean result) {
-            result = Maths.ApproximateEquals (a.R0C0, b.R0C0) && Maths.ApproximateEquals (a.R1C1, b.R1C1) &&
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Matrix44 a, ref Matrix44 b, out Boolean r) {
+            r = Maths.ApproximateEquals (a.R0C0, b.R0C0) && Maths.ApproximateEquals (a.R1C1, b.R1C1) &&
                      Maths.ApproximateEquals (a.R2C2, b.R2C2) && Maths.ApproximateEquals (a.R3C3, b.R3C3) &&
                      Maths.ApproximateEquals (a.R0C1, b.R0C1) && Maths.ApproximateEquals (a.R0C2, b.R0C2) &&
                      Maths.ApproximateEquals (a.R0C3, b.R0C3) && Maths.ApproximateEquals (a.R1C0, b.R1C0) &&
@@ -461,40 +461,40 @@ namespace Abacus.SinglePrecision
                      Maths.ApproximateEquals (a.R3C1, b.R3C1) && Maths.ApproximateEquals (a.R3C2, b.R3C2);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
-            result.R0C0 = a.R0C0 + b.R0C0; result.R0C1 = a.R0C1 + b.R0C1;
-            result.R0C2 = a.R0C2 + b.R0C2; result.R0C3 = a.R0C3 + b.R0C3;
-            result.R1C0 = a.R1C0 + b.R1C0; result.R1C1 = a.R1C1 + b.R1C1;
-            result.R1C2 = a.R1C2 + b.R1C2; result.R1C3 = a.R1C3 + b.R1C3;
-            result.R2C0 = a.R2C0 + b.R2C0; result.R2C1 = a.R2C1 + b.R2C1;
-            result.R2C2 = a.R2C2 + b.R2C2; result.R2C3 = a.R2C3 + b.R2C3;
-            result.R3C0 = a.R3C0 + b.R3C0; result.R3C1 = a.R3C1 + b.R3C1;
-            result.R3C2 = a.R3C2 + b.R3C2; result.R3C3 = a.R3C3 + b.R3C3;
+        [MI(O.AggressiveInlining)] public static void Add (ref Matrix44 a, ref Matrix44 b, out Matrix44 r) {
+            r.R0C0 = a.R0C0 + b.R0C0; r.R0C1 = a.R0C1 + b.R0C1;
+            r.R0C2 = a.R0C2 + b.R0C2; r.R0C3 = a.R0C3 + b.R0C3;
+            r.R1C0 = a.R1C0 + b.R1C0; r.R1C1 = a.R1C1 + b.R1C1;
+            r.R1C2 = a.R1C2 + b.R1C2; r.R1C3 = a.R1C3 + b.R1C3;
+            r.R2C0 = a.R2C0 + b.R2C0; r.R2C1 = a.R2C1 + b.R2C1;
+            r.R2C2 = a.R2C2 + b.R2C2; r.R2C3 = a.R2C3 + b.R2C3;
+            r.R3C0 = a.R3C0 + b.R3C0; r.R3C1 = a.R3C1 + b.R3C1;
+            r.R3C2 = a.R3C2 + b.R3C2; r.R3C3 = a.R3C3 + b.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
-            result.R0C0 = a.R0C0 - b.R0C0; result.R0C1 = a.R0C1 - b.R0C1;
-            result.R0C2 = a.R0C2 - b.R0C2; result.R0C3 = a.R0C3 - b.R0C3;
-            result.R1C0 = a.R1C0 - b.R1C0; result.R1C1 = a.R1C1 - b.R1C1;
-            result.R1C2 = a.R1C2 - b.R1C2; result.R1C3 = a.R1C3 - b.R1C3;
-            result.R2C0 = a.R2C0 - b.R2C0; result.R2C1 = a.R2C1 - b.R2C1;
-            result.R2C2 = a.R2C2 - b.R2C2; result.R2C3 = a.R2C3 - b.R2C3;
-            result.R3C0 = a.R3C0 - b.R3C0; result.R3C1 = a.R3C1 - b.R3C1;
-            result.R3C2 = a.R3C2 - b.R3C2; result.R3C3 = a.R3C3 - b.R3C3;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Matrix44 a, ref Matrix44 b, out Matrix44 r) {
+            r.R0C0 = a.R0C0 - b.R0C0; r.R0C1 = a.R0C1 - b.R0C1;
+            r.R0C2 = a.R0C2 - b.R0C2; r.R0C3 = a.R0C3 - b.R0C3;
+            r.R1C0 = a.R1C0 - b.R1C0; r.R1C1 = a.R1C1 - b.R1C1;
+            r.R1C2 = a.R1C2 - b.R1C2; r.R1C3 = a.R1C3 - b.R1C3;
+            r.R2C0 = a.R2C0 - b.R2C0; r.R2C1 = a.R2C1 - b.R2C1;
+            r.R2C2 = a.R2C2 - b.R2C2; r.R2C3 = a.R2C3 - b.R2C3;
+            r.R3C0 = a.R3C0 - b.R3C0; r.R3C1 = a.R3C1 - b.R3C1;
+            r.R3C2 = a.R3C2 - b.R3C2; r.R3C3 = a.R3C3 - b.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Matrix44 m, out Matrix44 result) {
-            result.R0C0 = -m.R0C0; result.R0C1 = -m.R0C1;
-            result.R0C2 = -m.R0C2; result.R0C3 = -m.R0C3;
-            result.R1C0 = -m.R1C0; result.R1C1 = -m.R1C1;
-            result.R1C2 = -m.R1C2; result.R1C3 = -m.R1C3;
-            result.R2C0 = -m.R2C0; result.R2C1 = -m.R2C1;
-            result.R2C2 = -m.R2C2; result.R2C3 = -m.R2C3;
-            result.R3C0 = -m.R3C0; result.R3C1 = -m.R3C1;
-            result.R3C2 = -m.R3C2; result.R3C3 = -m.R3C3;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Matrix44 m, out Matrix44 r) {
+            r.R0C0 = -m.R0C0; r.R0C1 = -m.R0C1;
+            r.R0C2 = -m.R0C2; r.R0C3 = -m.R0C3;
+            r.R1C0 = -m.R1C0; r.R1C1 = -m.R1C1;
+            r.R1C2 = -m.R1C2; r.R1C3 = -m.R1C3;
+            r.R2C0 = -m.R2C0; r.R2C1 = -m.R2C1;
+            r.R2C2 = -m.R2C2; r.R2C3 = -m.R2C3;
+            r.R3C0 = -m.R3C0; r.R3C1 = -m.R3C1;
+            r.R3C2 = -m.R3C2; r.R3C3 = -m.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Product (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Product (ref Matrix44 a, ref Matrix44 b, out Matrix44 r) {
             Single r0c0 = (a.R0C0 * b.R0C0) + (a.R0C1 * b.R1C0) + (a.R0C2 * b.R2C0) + (a.R0C3 * b.R3C0);
             Single r0c1 = (a.R0C0 * b.R0C1) + (a.R0C1 * b.R1C1) + (a.R0C2 * b.R2C1) + (a.R0C3 * b.R3C1);
             Single r0c2 = (a.R0C0 * b.R0C2) + (a.R0C1 * b.R1C2) + (a.R0C2 * b.R2C2) + (a.R0C3 * b.R3C2);
@@ -511,82 +511,82 @@ namespace Abacus.SinglePrecision
             Single r3c1 = (a.R3C0 * b.R0C1) + (a.R3C1 * b.R1C1) + (a.R3C2 * b.R2C1) + (a.R3C3 * b.R3C1);
             Single r3c2 = (a.R3C0 * b.R0C2) + (a.R3C1 * b.R1C2) + (a.R3C2 * b.R2C2) + (a.R3C3 * b.R3C2);
             Single r3c3 = (a.R3C0 * b.R0C3) + (a.R3C1 * b.R1C3) + (a.R3C2 * b.R2C3) + (a.R3C3 * b.R3C3);
-            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = r0c3;
-            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = r1c3;
-            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = r2c3;
-            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = r3c3; 
+            r.R0C0 = r0c0; r.R0C1 = r0c1; r.R0C2 = r0c2; r.R0C3 = r0c3;
+            r.R1C0 = r1c0; r.R1C1 = r1c1; r.R1C2 = r1c2; r.R1C3 = r1c3;
+            r.R2C0 = r2c0; r.R2C1 = r2c1; r.R2C2 = r2c2; r.R2C3 = r2c3;
+            r.R3C0 = r3c0; r.R3C1 = r3c1; r.R3C2 = r3c2; r.R3C3 = r3c3; 
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Matrix44 m, ref Single f, out Matrix44 result) {
-            result.R0C0 = m.R0C0 * f; result.R0C1 = m.R0C1 * f;
-            result.R0C2 = m.R0C2 * f; result.R0C3 = m.R0C3 * f;
-            result.R1C0 = m.R1C0 * f; result.R1C1 = m.R1C1 * f;
-            result.R1C2 = m.R1C2 * f; result.R1C3 = m.R1C3 * f;
-            result.R2C0 = m.R2C0 * f; result.R2C1 = m.R2C1 * f;
-            result.R2C2 = m.R2C2 * f; result.R2C3 = m.R2C3 * f;
-            result.R3C0 = m.R3C0 * f; result.R3C1 = m.R3C1 * f;
-            result.R3C2 = m.R3C2 * f; result.R3C3 = m.R3C3 * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Matrix44 m, ref Single f, out Matrix44 r) {
+            r.R0C0 = m.R0C0 * f; r.R0C1 = m.R0C1 * f;
+            r.R0C2 = m.R0C2 * f; r.R0C3 = m.R0C3 * f;
+            r.R1C0 = m.R1C0 * f; r.R1C1 = m.R1C1 * f;
+            r.R1C2 = m.R1C2 * f; r.R1C3 = m.R1C3 * f;
+            r.R2C0 = m.R2C0 * f; r.R2C1 = m.R2C1 * f;
+            r.R2C2 = m.R2C2 * f; r.R2C3 = m.R2C3 * f;
+            r.R3C0 = m.R3C0 * f; r.R3C1 = m.R3C1 * f;
+            r.R3C2 = m.R3C2 * f; r.R3C3 = m.R3C3 * f;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean  result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean  result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 m)             { Matrix44 result; Negate    (ref m,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 result; Product   (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 m, Single f)   { Matrix44 result; Multiply  (ref m, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Single f, Matrix44 m)   { Matrix44 result; Multiply  (ref m, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3  result; Transform (ref m, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4  result; Transform (ref m, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3  result; Transform (ref m, ref v, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Matrix44 m, Vector4 v)  { Vector4  result; Transform (ref m, ref v, out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean  r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean  r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  - (Matrix44 m)             { Matrix44 r; Negate    (ref m,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 r; Product   (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Matrix44 m, Single f)   { Matrix44 r; Multiply  (ref m, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 operator  * (Single f, Matrix44 m)   { Matrix44 r; Multiply  (ref m, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3  r; Transform (ref m, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4  r; Transform (ref m, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3  r; Transform (ref m, ref v, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4  operator  * (Matrix44 m, Vector4 v)  { Vector4  r; Transform (ref m, ref v, out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean  Equals            (Matrix44 a, Matrix44 b) { Boolean  result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean  ApproximateEquals (Matrix44 a, Matrix44 b) { Boolean  result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Add               (Matrix44 a, Matrix44 b) { Matrix44 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Subtract          (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Negate            (Matrix44 m)             { Matrix44 result; Negate            (ref m,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Product           (Matrix44 a, Matrix44 b) { Matrix44 result; Product           (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Multiply          (Matrix44 m, Single f)   { Matrix44 result; Multiply          (ref m, ref f, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean  Equals            (Matrix44 a, Matrix44 b) { Boolean  r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean  ApproximateEquals (Matrix44 a, Matrix44 b) { Boolean  r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Add               (Matrix44 a, Matrix44 b) { Matrix44 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Subtract          (Matrix44 a, Matrix44 b) { Matrix44 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Negate            (Matrix44 m)             { Matrix44 r; Negate            (ref m,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Product           (Matrix44 a, Matrix44 b) { Matrix44 r; Product           (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Multiply          (Matrix44 m, Single f)   { Matrix44 r; Multiply          (ref m, ref f, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Matrix44 a, ref Matrix44 b, ref Single amount, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Matrix44 a, ref Matrix44 b, ref Single amount, out Matrix44 r) {
             Debug.Assert (amount > 0 && amount <= 1);
-            result.R0C0 = a.R0C0 + ((b.R0C0 - a.R0C0) * amount);
-            result.R0C1 = a.R0C1 + ((b.R0C1 - a.R0C1) * amount);
-            result.R0C2 = a.R0C2 + ((b.R0C2 - a.R0C2) * amount);
-            result.R0C3 = a.R0C3 + ((b.R0C3 - a.R0C3) * amount);
-            result.R1C0 = a.R1C0 + ((b.R1C0 - a.R1C0) * amount);
-            result.R1C1 = a.R1C1 + ((b.R1C1 - a.R1C1) * amount);
-            result.R1C2 = a.R1C2 + ((b.R1C2 - a.R1C2) * amount);
-            result.R1C3 = a.R1C3 + ((b.R1C3 - a.R1C3) * amount);
-            result.R2C0 = a.R2C0 + ((b.R2C0 - a.R2C0) * amount);
-            result.R2C1 = a.R2C1 + ((b.R2C1 - a.R2C1) * amount);
-            result.R2C2 = a.R2C2 + ((b.R2C2 - a.R2C2) * amount);
-            result.R2C3 = a.R2C3 + ((b.R2C3 - a.R2C3) * amount);
-            result.R3C0 = a.R3C0 + ((b.R3C0 - a.R3C0) * amount);
-            result.R3C1 = a.R3C1 + ((b.R3C1 - a.R3C1) * amount);
-            result.R3C2 = a.R3C2 + ((b.R3C2 - a.R3C2) * amount);
-            result.R3C3 = a.R3C3 + ((b.R3C3 - a.R3C3) * amount);
+            r.R0C0 = a.R0C0 + ((b.R0C0 - a.R0C0) * amount);
+            r.R0C1 = a.R0C1 + ((b.R0C1 - a.R0C1) * amount);
+            r.R0C2 = a.R0C2 + ((b.R0C2 - a.R0C2) * amount);
+            r.R0C3 = a.R0C3 + ((b.R0C3 - a.R0C3) * amount);
+            r.R1C0 = a.R1C0 + ((b.R1C0 - a.R1C0) * amount);
+            r.R1C1 = a.R1C1 + ((b.R1C1 - a.R1C1) * amount);
+            r.R1C2 = a.R1C2 + ((b.R1C2 - a.R1C2) * amount);
+            r.R1C3 = a.R1C3 + ((b.R1C3 - a.R1C3) * amount);
+            r.R2C0 = a.R2C0 + ((b.R2C0 - a.R2C0) * amount);
+            r.R2C1 = a.R2C1 + ((b.R2C1 - a.R2C1) * amount);
+            r.R2C2 = a.R2C2 + ((b.R2C2 - a.R2C2) * amount);
+            r.R2C3 = a.R2C3 + ((b.R2C3 - a.R2C3) * amount);
+            r.R3C0 = a.R3C0 + ((b.R3C0 - a.R3C0) * amount);
+            r.R3C1 = a.R3C1 + ((b.R3C1 - a.R3C1) * amount);
+            r.R3C2 = a.R3C2 + ((b.R3C2 - a.R3C2) * amount);
+            r.R3C3 = a.R3C3 + ((b.R3C3 - a.R3C3) * amount);
         }
         
-        [MI(O.AggressiveInlining)] public static Matrix44 Lerp (Matrix44 a, Matrix44 b, Single amount) { Matrix44 result; Lerp (ref a, ref b, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Lerp (Matrix44 a, Matrix44 b, Single amount) { Matrix44 r; Lerp (ref a, ref b, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Transpose (ref Matrix44 m, out Matrix44 result) {
-            result.R0C0 = m.R0C0; result.R1C1 = m.R1C1;
-            result.R2C2 = m.R2C2; result.R3C3 = m.R3C3;
-            Single t = m.R0C1; result.R0C1 = m.R1C0; result.R1C0 = t;
-                   t = m.R0C2; result.R0C2 = m.R2C0; result.R2C0 = t;
-                   t = m.R0C3; result.R0C3 = m.R3C0; result.R3C0 = t;
-                   t = m.R1C2; result.R1C2 = m.R2C1; result.R2C1 = t;
-                   t = m.R1C3; result.R1C3 = m.R3C1; result.R3C1 = t;
-                   t = m.R2C3; result.R2C3 = m.R3C2; result.R3C2 = t;
+        [MI(O.AggressiveInlining)] public static void Transpose (ref Matrix44 m, out Matrix44 r) {
+            r.R0C0 = m.R0C0; r.R1C1 = m.R1C1;
+            r.R2C2 = m.R2C2; r.R3C3 = m.R3C3;
+            Single t = m.R0C1; r.R0C1 = m.R1C0; r.R1C0 = t;
+                   t = m.R0C2; r.R0C2 = m.R2C0; r.R2C0 = t;
+                   t = m.R0C3; r.R0C3 = m.R3C0; r.R3C0 = t;
+                   t = m.R1C2; r.R1C2 = m.R2C1; r.R2C1 = t;
+                   t = m.R1C3; r.R1C3 = m.R3C1; r.R3C1 = t;
+                   t = m.R2C3; r.R2C3 = m.R3C2; r.R3C2 = t;
         }
 
-        [MI(O.AggressiveInlining)] public static void Decompose (ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean result) {
+        [MI(O.AggressiveInlining)] public static void Decompose (ref Matrix44 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation, out Boolean r) {
             translation.X = matrix.R3C0; translation.Y = matrix.R3C1; translation.Z = matrix.R3C2;
             Vector3 a = new Vector3 (matrix.R0C0, matrix.R1C0, matrix.R2C0);
             Vector3 b = new Vector3 (matrix.R0C1, matrix.R1C1, matrix.R2C1);
@@ -596,7 +596,7 @@ namespace Abacus.SinglePrecision
             Single cLen; Vector3.Length (ref c, out cLen); scale.Z = cLen;
             if (Maths.IsApproximatelyZero (scale.X) || Maths.IsApproximatelyZero (scale.Y) || Maths.IsApproximatelyZero (scale.Z)) {
                 rotation = Quaternion.Identity;
-                result = false;
+                r = false;
             }
             if (aLen < Maths.Epsilon) a = Vector3.Zero;
             else Vector3.Normalise (ref a, out a);
@@ -616,11 +616,11 @@ namespace Abacus.SinglePrecision
             Matrix44 rotMat;
             Matrix44.CreateFromCartesianAxes (ref right, ref up, ref backward, out rotMat);
             Quaternion.CreateFromRotationMatrix (ref rotMat, out rotation);
-            result = true;
+            r = true;
         }
 
-        [MI(O.AggressiveInlining)] public static void Determinant (ref Matrix44 m, out Single result) {
-            result = + m.R0C3 * m.R1C2 * m.R2C1 * m.R3C0 - m.R0C2 * m.R1C3 * m.R2C1 * m.R3C0
+        [MI(O.AggressiveInlining)] public static void Determinant (ref Matrix44 m, out Single r) {
+            r = + m.R0C3 * m.R1C2 * m.R2C1 * m.R3C0 - m.R0C2 * m.R1C3 * m.R2C1 * m.R3C0
                      - m.R0C3 * m.R1C1 * m.R2C2 * m.R3C0 + m.R0C1 * m.R1C3 * m.R2C2 * m.R3C0
                      + m.R0C2 * m.R1C1 * m.R2C3 * m.R3C0 - m.R0C1 * m.R1C2 * m.R2C3 * m.R3C0
                      - m.R0C3 * m.R1C2 * m.R2C0 * m.R3C1 + m.R0C2 * m.R1C3 * m.R2C0 * m.R3C1
@@ -634,7 +634,7 @@ namespace Abacus.SinglePrecision
                      - m.R0C1 * m.R1C0 * m.R2C2 * m.R3C3 + m.R0C0 * m.R1C1 * m.R2C2 * m.R3C3;
         }
 
-        [MI(O.AggressiveInlining)] public static void Invert (ref Matrix44 m, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Invert (ref Matrix44 m, out Matrix44 r) {
             Single d; Determinant (ref m, out d); Single s = 1 / d;
             Single r0c0 = m.R1C2 * m.R2C3 * m.R3C1 - m.R1C3 * m.R2C2 * m.R3C1 + m.R1C3 * m.R2C1 * m.R3C2 - m.R1C1 * m.R2C3 * m.R3C2 - m.R1C2 * m.R2C1 * m.R3C3 + m.R1C1 * m.R2C2 * m.R3C3;
             Single r0c1 = m.R0C3 * m.R2C2 * m.R3C1 - m.R0C2 * m.R2C3 * m.R3C1 - m.R0C3 * m.R2C1 * m.R3C2 + m.R0C1 * m.R2C3 * m.R3C2 + m.R0C2 * m.R2C1 * m.R3C3 - m.R0C1 * m.R2C2 * m.R3C3;
@@ -652,14 +652,14 @@ namespace Abacus.SinglePrecision
             Single r3c1 = m.R0C1 * m.R2C2 * m.R3C0 - m.R0C2 * m.R2C1 * m.R3C0 + m.R0C2 * m.R2C0 * m.R3C1 - m.R0C0 * m.R2C2 * m.R3C1 - m.R0C1 * m.R2C0 * m.R3C2 + m.R0C0 * m.R2C1 * m.R3C2;
             Single r3c2 = m.R0C2 * m.R1C1 * m.R3C0 - m.R0C1 * m.R1C2 * m.R3C0 - m.R0C2 * m.R1C0 * m.R3C1 + m.R0C0 * m.R1C2 * m.R3C1 + m.R0C1 * m.R1C0 * m.R3C2 - m.R0C0 * m.R1C1 * m.R3C2;
             Single r3c3 = m.R0C1 * m.R1C2 * m.R2C0 - m.R0C2 * m.R1C1 * m.R2C0 + m.R0C2 * m.R1C0 * m.R2C1 - m.R0C0 * m.R1C2 * m.R2C1 - m.R0C1 * m.R1C0 * m.R2C2 + m.R0C0 * m.R1C1 * m.R2C2;
-            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = r0c3;
-            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = r1c3;
-            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = r2c3;
-            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = r3c3; 
-            Multiply (ref result, ref s, out result);
+            r.R0C0 = r0c0; r.R0C1 = r0c1; r.R0C2 = r0c2; r.R0C3 = r0c3;
+            r.R1C0 = r1c0; r.R1C1 = r1c1; r.R1C2 = r1c2; r.R1C3 = r1c3;
+            r.R2C0 = r2c0; r.R2C1 = r2c1; r.R2C2 = r2c2; r.R2C3 = r2c3;
+            r.R3C0 = r3c0; r.R3C1 = r3c1; r.R3C2 = r3c2; r.R3C3 = r3c3; 
+            Multiply (ref r, ref s, out r);
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Quaternion q, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Quaternion q, out Matrix44 r) {
             Boolean qIsUnit; Quaternion.IsUnit (ref q, out qIsUnit);
             Debug.Assert (qIsUnit);
             Single twoI = q.I + q.I, twoJ = q.J + q.J, twoK = q.K + q.K;
@@ -687,158 +687,158 @@ namespace Abacus.SinglePrecision
             Single r3c0 = m.R3C0 * tR0C0 + m.R3C1 * tR1C0 + m.R3C2 * tR2C0;
             Single r3c1 = m.R3C0 * tR0C1 + m.R3C1 * tR1C1 + m.R3C2 * tR2C1;
             Single r3c2 = m.R3C0 * tR0C2 + m.R3C1 * tR1C2 + m.R3C2 * tR2C2;
-            result.R0C0 = r0c0; result.R0C1 = r0c1; result.R0C2 = r0c2; result.R0C3 = m.R0C3;
-            result.R1C0 = r1c0; result.R1C1 = r1c1; result.R1C2 = r1c2; result.R1C3 = m.R1C3;
-            result.R2C0 = r2c0; result.R2C1 = r2c1; result.R2C2 = r2c2; result.R2C3 = m.R2C3;
-            result.R3C0 = r3c0; result.R3C1 = r3c1; result.R3C2 = r3c2; result.R3C3 = m.R3C3; 
+            r.R0C0 = r0c0; r.R0C1 = r0c1; r.R0C2 = r0c2; r.R0C3 = m.R0C3;
+            r.R1C0 = r1c0; r.R1C1 = r1c1; r.R1C2 = r1c2; r.R1C3 = m.R1C3;
+            r.R2C0 = r2c0; r.R2C1 = r2c1; r.R2C2 = r2c2; r.R2C3 = m.R2C3;
+            r.R3C0 = r3c0; r.R3C1 = r3c1; r.R3C2 = r3c2; r.R3C3 = m.R3C3; 
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector3 v, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector3 v, out Vector3 r) {
             Single x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + m.R3C0;
             Single y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + m.R3C1;
             Single z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + m.R3C2;
             Single w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + m.R3C3;
-            result.X = x / w; result.Y = y / w; result.Z = z / w;
+            r.X = x / w; r.Y = y / w; r.Z = z / w;
         }
 
-        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector4 v, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Transform (ref Matrix44 m, ref Vector4 v, out Vector4 r) {
             Single x = (v.X * m.R0C0) + (v.Y * m.R1C0) + (v.Z * m.R2C0) + (v.W * m.R3C0);
             Single y = (v.X * m.R0C1) + (v.Y * m.R1C1) + (v.Z * m.R2C1) + (v.W * m.R3C1);
             Single z = (v.X * m.R0C2) + (v.Y * m.R1C2) + (v.Z * m.R2C2) + (v.W * m.R3C2);
             Single w = (v.X * m.R0C3) + (v.Y * m.R1C3) + (v.Z * m.R2C3) + (v.W * m.R3C3);
-            result.X = x; result.Y = y; result.Z = z; result.W = w;
+            r.X = x; r.Y = y; r.Z = z; r.W = w;
         }
 
-        [MI(O.AggressiveInlining)] public Single   Determinant ()                    { Single result; Determinant (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Single   Determinant ()                    { Single r; Determinant (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Matrix44 Transpose   ()                    { Transpose (ref this, out this); return this; }
         [MI(O.AggressiveInlining)] public Matrix44 Invert      ()                    { Invert (ref this, out this); return this; }
-        [MI(O.AggressiveInlining)] public Matrix44 Transform   (Quaternion rotation) { Matrix44 result; Transform (ref this, ref rotation, out result); return result; }
-        [MI(O.AggressiveInlining)] public Vector3  Transform   (Vector3 v)           { Vector3 result; Transform (ref this, ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public Vector4  Transform   (Vector4 v)           { Vector4 result; Transform (ref this, ref v, out result); return result; } 
+        [MI(O.AggressiveInlining)] public Matrix44 Transform   (Quaternion rotation) { Matrix44 r; Transform (ref this, ref rotation, out r); return r; }
+        [MI(O.AggressiveInlining)] public Vector3  Transform   (Vector3 v)           { Vector3 r; Transform (ref this, ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public Vector4  Transform   (Vector4 v)           { Vector4 r; Transform (ref this, ref v, out r); return r; } 
 
-        [MI(O.AggressiveInlining)] public static Single   Determinant (Matrix44 matrix)                      { Single result; Determinant (ref matrix, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Transpose   (Matrix44 input)                       { Matrix44 result; Transpose (ref input, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Invert      (Matrix44 matrix)                      { Matrix44 result; Invert (ref matrix, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 Transform   (Matrix44 matrix, Quaternion rotation) { Matrix44 result; Transform (ref matrix, ref rotation, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3  Transform   (Matrix44 matrix, Vector3 v)           { Vector3 result; Transform (ref matrix, ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector4  Transform   (Matrix44 matrix, Vector4 v)           { Vector4 result; Transform (ref matrix, ref v, out result); return result; } 
+        [MI(O.AggressiveInlining)] public static Single   Determinant (Matrix44 matrix)                      { Single r; Determinant (ref matrix, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Transpose   (Matrix44 input)                       { Matrix44 r; Transpose (ref input, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Invert      (Matrix44 matrix)                      { Matrix44 r; Invert (ref matrix, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 Transform   (Matrix44 matrix, Quaternion rotation) { Matrix44 r; Transform (ref matrix, ref rotation, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3  Transform   (Matrix44 matrix, Vector3 v)           { Vector3 r; Transform (ref matrix, ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector4  Transform   (Matrix44 matrix, Vector4 v)           { Vector4 r; Transform (ref matrix, ref v, out r); return r; } 
 
         // Creation //--------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Vector3 position, out Matrix44 result) {
-            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = 1;          result.R2C3 = 0;
-            result.R3C0 = position.X; result.R3C1 = position.Y; result.R3C2 = position.Z; result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Vector3 position, out Matrix44 r) {
+            r.R0C0 = 1;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = 1;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = 1;          r.R2C3 = 0;
+            r.R3C0 = position.X; r.R3C1 = position.Y; r.R3C2 = position.Z; r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Single x, ref Single y, ref Single z, out Matrix44 result) {
-            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = 1;          result.R2C3 = 0;
-            result.R3C0 = x;          result.R3C1 = y;          result.R3C2 = z;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateTranslation (ref Single x, ref Single y, ref Single z, out Matrix44 r) {
+            r.R0C0 = 1;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = 1;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = 1;          r.R2C3 = 0;
+            r.R3C0 = x;          r.R3C1 = y;          r.R3C2 = z;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateScale (ref Vector3 scale, out Matrix44 result) {
-            result.R0C0 = scale.X;    result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = scale.Y;    result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = scale.Z;    result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateScale (ref Vector3 scale, out Matrix44 r) {
+            r.R0C0 = scale.X;    r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = scale.Y;    r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = scale.Z;    r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateScale (ref Single x, ref Single y, ref Single z, out Matrix44 result) {
-            result.R0C0 = x;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = y;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = z;          result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateScale (ref Single x, ref Single y, ref Single z, out Matrix44 r) {
+            r.R0C0 = x;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = y;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = z;          r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateScale (ref Single scale, out Matrix44 result) {
-            result.R0C0 = scale;      result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = scale;      result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = 0;          result.R2C2 = scale;      result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateScale (ref Single scale, out Matrix44 r) {
+            r.R0C0 = scale;      r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = scale;      r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = 0;          r.R2C2 = scale;      r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateRotationX (ref Single radians, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateRotationX (ref Single radians, out Matrix44 r) {
             Single cos = Maths.Cos (radians), sin = Maths.Sin (radians);
-            result.R0C0 = 1;          result.R0C1 = 0;          result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = cos;        result.R1C2 = sin;        result.R1C3 = 0;
-            result.R2C0 = 0;          result.R2C1 = -sin;       result.R2C2 = cos;        result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+            r.R0C0 = 1;          r.R0C1 = 0;          r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = cos;        r.R1C2 = sin;        r.R1C3 = 0;
+            r.R2C0 = 0;          r.R2C1 = -sin;       r.R2C2 = cos;        r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateRotationY (ref Single radians, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateRotationY (ref Single radians, out Matrix44 r) {
             Single cos = Maths.Cos (radians), sin = Maths.Sin (radians);
-            result.R0C0 = cos;        result.R0C1 = 0;          result.R0C2 = -sin;       result.R0C3 = 0;
-            result.R1C0 = 0;          result.R1C1 = 1;          result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = sin;        result.R2C1 = 0;          result.R2C2 = cos;        result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+            r.R0C0 = cos;        r.R0C1 = 0;          r.R0C2 = -sin;       r.R0C3 = 0;
+            r.R1C0 = 0;          r.R1C1 = 1;          r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = sin;        r.R2C1 = 0;          r.R2C2 = cos;        r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateRotationZ (ref Single radians, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateRotationZ (ref Single radians, out Matrix44 r) {
             Single cos = Maths.Cos (radians), sin = Maths.Sin (radians);
-            result.R0C0 = cos;       result.R0C1 = sin;         result.R0C2 = 0;          result.R0C3 = 0;
-            result.R1C0 = -sin;      result.R1C1 = cos;         result.R1C2 = 0;          result.R1C3 = 0;
-            result.R2C0 = 0;         result.R2C1 = 0;           result.R2C2 = 1;          result.R2C3 = 0;
-            result.R3C0 = 0;         result.R3C1 = 0;           result.R3C2 = 0;          result.R3C3 = 1;
+            r.R0C0 = cos;       r.R0C1 = sin;         r.R0C2 = 0;          r.R0C3 = 0;
+            r.R1C0 = -sin;      r.R1C1 = cos;         r.R1C2 = 0;          r.R1C3 = 0;
+            r.R2C0 = 0;         r.R2C1 = 0;           r.R2C2 = 1;          r.R2C3 = 0;
+            r.R3C0 = 0;         r.R3C1 = 0;           r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Single angle, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Single angle, out Matrix44 r) {
             Single x = axis.X, y = axis.Y, z = axis.Z;
             Single sin = Maths.Sin (angle), cos = Maths.Cos (angle);
             Single xx = x * x, yy = y * y, zz = z * z;
             Single xy = x * y, xz = x * z, yz = y * z;
-            result.R0C0 = xx + (cos * (1 - xx));       result.R0C1 = xy - (cos * xy) + (sin * z); result.R0C2 = xz - (cos * xz) - (sin * y); result.R0C3 = 0;
-            result.R1C0 = xy - (cos * xy) - (sin * z); result.R1C1 = yy + (cos * (1 - yy));       result.R1C2 = yz - (cos * yz) + (sin * x); result.R1C3 = 0;
-            result.R2C0 = xz - (cos * xz) + (sin * y); result.R2C1 = yz - (cos * yz) - (sin * x); result.R2C2 = zz + (cos * (1 - zz));       result.R2C3 = 0;
-            result.R3C0 = 0;                           result.R3C1 = 0;                           result.R3C2 = 0;                           result.R3C3 = 1;
+            r.R0C0 = xx + (cos * (1 - xx));       r.R0C1 = xy - (cos * xy) + (sin * z); r.R0C2 = xz - (cos * xz) - (sin * y); r.R0C3 = 0;
+            r.R1C0 = xy - (cos * xy) - (sin * z); r.R1C1 = yy + (cos * (1 - yy));       r.R1C2 = yz - (cos * yz) + (sin * x); r.R1C3 = 0;
+            r.R2C0 = xz - (cos * xz) + (sin * y); r.R2C1 = yz - (cos * yz) - (sin * x); r.R2C2 = zz + (cos * (1 - zz));       r.R2C3 = 0;
+            r.R3C0 = 0;                           r.R3C1 = 0;                           r.R3C2 = 0;                           r.R3C3 = 1;
         }
 
         // Axes must be pair-wise perpendicular and have unit length.
-        [MI(O.AggressiveInlining)] public static void CreateFromCartesianAxes (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 result) {
-            result.R0C0 = right.X;    result.R0C1 = right.Y;    result.R0C2 = right.Z;    result.R0C3 = 0;
-            result.R1C0 = up.X;       result.R1C1 = up.Y;       result.R1C2 = up.Z;       result.R1C3 = 0;
-            result.R2C0 = backward.X; result.R2C1 = backward.Y; result.R2C2 = backward.Z; result.R2C3 = 0;
-            result.R3C0 = 0;          result.R3C1 = 0;          result.R3C2 = 0;          result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateFromCartesianAxes (ref Vector3 right, ref Vector3 up, ref Vector3 backward, out Matrix44 r) {
+            r.R0C0 = right.X;    r.R0C1 = right.Y;    r.R0C2 = right.Z;    r.R0C3 = 0;
+            r.R1C0 = up.X;       r.R1C1 = up.Y;       r.R1C2 = up.Z;       r.R1C3 = 0;
+            r.R2C0 = backward.X; r.R2C1 = backward.Y; r.R2C2 = backward.Z; r.R2C3 = 0;
+            r.R3C0 = 0;          r.R3C1 = 0;          r.R3C2 = 0;          r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateWorld (ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix44 r) {
             Vector3 backward; Vector3.Negate (ref forward, out backward); Vector3.Normalise (ref backward, out backward);
             Vector3 right; Vector3.Cross (ref up, ref backward, out right); Vector3.Normalise (ref right, out right);
             Vector3 finalUp; Vector3.Cross (ref right, ref backward, out finalUp); Vector3.Normalise (ref finalUp, out finalUp);
-            result.R0C0 = right.X;    result.R0C1 = right.Y;    result.R0C2 = right.Z;    result.R0C3 = 0;
-            result.R1C0 = finalUp.X;  result.R1C1 = finalUp.Y;  result.R1C2 = finalUp.Z;  result.R1C3 = 0;
-            result.R2C0 = backward.X; result.R2C1 = backward.Y; result.R2C2 = backward.Z; result.R2C3 = 0;
-            result.R3C0 = position.X; result.R3C1 = position.Y; result.R3C2 = position.Z; result.R3C3 = 1;
+            r.R0C0 = right.X;    r.R0C1 = right.Y;    r.R0C2 = right.Z;    r.R0C3 = 0;
+            r.R1C0 = finalUp.X;  r.R1C1 = finalUp.Y;  r.R1C2 = finalUp.Z;  r.R1C3 = 0;
+            r.R2C0 = backward.X; r.R2C1 = backward.Y; r.R2C2 = backward.Z; r.R2C3 = 0;
+            r.R3C0 = position.X; r.R3C1 = position.Y; r.R3C2 = position.Z; r.R3C3 = 1;
         }
 
         // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
-        [MI(O.AggressiveInlining)] public static void CreateFromQuaternion (ref Quaternion q, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromQuaternion (ref Quaternion q, out Matrix44 r) {
             Boolean qIsUnit; Quaternion.IsUnit (ref q, out qIsUnit); Debug.Assert (qIsUnit);
             Single twoI = q.I + q.I, twoJ = q.J + q.J, twoK = q.K + q.K;
             Single twoUI = q.U * twoI, twoUJ = q.U * twoJ, twoUK = q.U * twoK;
             Single twoII = q.I * twoI, twoIJ = q.I * twoJ, twoIK = q.I * twoK;
             Single twoJJ = q.J * twoJ, twoJK = q.J * twoK, twoKK = q.K * twoK;
-            result.R0C0 = 1 - twoJJ - twoKK; result.R1C0 = twoIJ - twoUK;     result.R2C0 = twoIK + twoUJ;     result.R3C0 = 0;
-            result.R0C1 = twoIJ + twoUK;     result.R1C1 = 1 - twoII - twoKK; result.R2C1 = twoJK - twoUI;     result.R3C1 = 0;
-            result.R0C2 = twoIK - twoUJ;     result.R1C2 = twoJK + twoUI;     result.R2C2 = 1 - twoII - twoJJ; result.R3C2 = 0;
-            result.R0C3 = 0;                 result.R1C3 = 0;                 result.R2C3 = 0;                 result.R3C3 = 1;
+            r.R0C0 = 1 - twoJJ - twoKK; r.R1C0 = twoIJ - twoUK;     r.R2C0 = twoIK + twoUJ;     r.R3C0 = 0;
+            r.R0C1 = twoIJ + twoUK;     r.R1C1 = 1 - twoII - twoKK; r.R2C1 = twoJK - twoUI;     r.R3C1 = 0;
+            r.R0C2 = twoIK - twoUJ;     r.R1C2 = twoJK + twoUI;     r.R2C2 = 1 - twoII - twoJJ; r.R3C2 = 0;
+            r.R0C3 = 0;                 r.R1C3 = 0;                 r.R2C3 = 0;                 r.R3C3 = 1;
         }
 
         // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
-        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Single yaw, ref Single pitch, ref Single roll, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Single yaw, ref Single pitch, ref Single roll, out Matrix44 r) {
             Single cy = Maths.Cos (yaw), sy = Maths.Sin (yaw);
             Single cx = Maths.Cos (pitch), sx = Maths.Sin (pitch);
             Single cz = Maths.Cos (roll), sz = Maths.Sin (roll);
-            result.R0C0 =  cz*cy+sz*sx*sy; result.R0C1 =  sz*cx; result.R0C2 = -cz*sy+sz*sx*cy; result.R0C3 = 0;
-            result.R1C0 = -sz*cy+cz*sx*sy; result.R1C1 =  cz*cx; result.R1C2 = -cz*sy+sz*sx*cy; result.R1C3 = 0;
-            result.R2C0 =  cx*sy;          result.R2C1 = -sx;    result.R2C2 =  cx*cy;          result.R2C3 = 0;
-            result.R3C0 = 0;               result.R3C1 = 0;      result.R3C2 = 0;               result.R3C3 = 1;
+            r.R0C0 =  cz*cy+sz*sx*sy; r.R0C1 =  sz*cx; r.R0C2 = -cz*sy+sz*sx*cy; r.R0C3 = 0;
+            r.R1C0 = -sz*cy+cz*sx*sy; r.R1C1 =  cz*cx; r.R1C2 = -cz*sy+sz*sx*cy; r.R1C3 = 0;
+            r.R2C0 =  cx*sy;          r.R2C1 = -sx;    r.R2C2 =  cx*cy;          r.R2C3 = 0;
+            r.R3C0 = 0;               r.R3C1 = 0;      r.R3C2 = 0;               r.R3C3 = 1;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreatePerspectiveFieldOfView (ref Single fieldOfView, ref Single aspectRatio, ref Single nearPlaneDistance, ref Single farPlaneDistance, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreatePerspectiveFieldOfView (ref Single fieldOfView, ref Single aspectRatio, ref Single nearPlaneDistance, ref Single farPlaneDistance, out Matrix44 r) {
             Debug.Assert (fieldOfView > 0 && fieldOfView < Maths.Pi);
             Debug.Assert (nearPlaneDistance > 0);
             Debug.Assert (farPlaneDistance > 0);
@@ -847,105 +847,105 @@ namespace Abacus.SinglePrecision
             Single xScale = yScale / aspectRatio;
             Single f1 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
             Single f2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-            result.R0C0 = xScale; result.R0C1 = 0;      result.R0C2 = 0;  result.R0C3 =  0;
-            result.R1C0 = 0;      result.R1C1 = yScale; result.R1C2 = 0;  result.R1C3 =  0;
-            result.R2C0 = 0;      result.R2C1 = 0;      result.R2C2 = f1; result.R2C3 = -1;
-            result.R3C0 = 0;      result.R3C1 = 0;      result.R3C2 = f2; result.R3C3 =  0;
+            r.R0C0 = xScale; r.R0C1 = 0;      r.R0C2 = 0;  r.R0C3 =  0;
+            r.R1C0 = 0;      r.R1C1 = yScale; r.R1C2 = 0;  r.R1C3 =  0;
+            r.R2C0 = 0;      r.R2C1 = 0;      r.R2C2 = f1; r.R2C3 = -1;
+            r.R3C0 = 0;      r.R3C1 = 0;      r.R3C2 = f2; r.R3C3 =  0;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreatePerspective (ref Single width, ref Single height, ref Single nearPlaneDistance, ref Single farPlaneDistance, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreatePerspective (ref Single width, ref Single height, ref Single nearPlaneDistance, ref Single farPlaneDistance, out Matrix44 r) {
             Debug.Assert (nearPlaneDistance > 0);
             Debug.Assert (farPlaneDistance > 0);
             Debug.Assert (nearPlaneDistance < farPlaneDistance);
-            result.R0C0 = (nearPlaneDistance * 2) / width;
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = (nearPlaneDistance * 2) / height;
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-            result.R2C0 = result.R2C1 = 0;
-            result.R2C3 = -1;
-            result.R3C0 = result.R3C1 = result.R3C3 = 0;
-            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            r.R0C0 = (nearPlaneDistance * 2) / width;
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = (nearPlaneDistance * 2) / height;
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            r.R2C0 = r.R2C1 = 0;
+            r.R2C3 = -1;
+            r.R3C0 = r.R3C1 = r.R3C3 = 0;
+            r.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreatePerspectiveOffCenter (ref Single left, ref Single right, ref Single bottom, ref Single top, ref Single nearPlaneDistance, ref Single farPlaneDistance, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreatePerspectiveOffCenter (ref Single left, ref Single right, ref Single bottom, ref Single top, ref Single nearPlaneDistance, ref Single farPlaneDistance, out Matrix44 r) {
             Debug.Assert (nearPlaneDistance > 0);
             Debug.Assert (farPlaneDistance > 0);
             Debug.Assert (nearPlaneDistance < farPlaneDistance);
-            result.R0C0 = (nearPlaneDistance * 2) / (right - left);
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = (nearPlaneDistance * 2) / (top - bottom);
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C0 = (left + right) / (right - left);
-            result.R2C1 = (top + bottom) / (top - bottom);
-            result.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-            result.R2C3 = -1;
-            result.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-            result.R3C0 = result.R3C1 = result.R3C3 = 0;
+            r.R0C0 = (nearPlaneDistance * 2) / (right - left);
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = (nearPlaneDistance * 2) / (top - bottom);
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C0 = (left + right) / (right - left);
+            r.R2C1 = (top + bottom) / (top - bottom);
+            r.R2C2 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+            r.R2C3 = -1;
+            r.R3C2 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+            r.R3C0 = r.R3C1 = r.R3C3 = 0;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreateOrthographic (ref Single width, ref Single height, ref Single zNearPlane, ref Single zFarPlane, out Matrix44 result) {
-            result.R0C0 = 2 / width;
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = 2 / height;
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C2 = 1 / (zNearPlane - zFarPlane);
-            result.R2C0 = result.R2C1 = result.R2C3 = 0;
-            result.R3C0 = result.R3C1 = 0;
-            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
-            result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateOrthographic (ref Single width, ref Single height, ref Single zNearPlane, ref Single zFarPlane, out Matrix44 r) {
+            r.R0C0 = 2 / width;
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = 2 / height;
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C2 = 1 / (zNearPlane - zFarPlane);
+            r.R2C0 = r.R2C1 = r.R2C3 = 0;
+            r.R3C0 = r.R3C1 = 0;
+            r.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            r.R3C3 = 1;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreateOrthographicOffCenter (ref Single left, ref Single right, ref Single bottom, ref Single top, ref Single zNearPlane, ref Single zFarPlane, out Matrix44 result) {
-            result.R0C0 = 2 / (right - left);
-            result.R0C1 = result.R0C2 = result.R0C3 = 0;
-            result.R1C1 = 2 / (top - bottom);
-            result.R1C0 = result.R1C2 = result.R1C3 = 0;
-            result.R2C2 = 1 / (zNearPlane - zFarPlane);
-            result.R2C0 = result.R2C1 = result.R2C3 = 0;
-            result.R3C0 = (left + right) / (left - right);
-            result.R3C1 = (top + bottom) / (bottom - top);
-            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
-            result.R3C3 = 1;
+        [MI(O.AggressiveInlining)] public static void CreateOrthographicOffCenter (ref Single left, ref Single right, ref Single bottom, ref Single top, ref Single zNearPlane, ref Single zFarPlane, out Matrix44 r) {
+            r.R0C0 = 2 / (right - left);
+            r.R0C1 = r.R0C2 = r.R0C3 = 0;
+            r.R1C1 = 2 / (top - bottom);
+            r.R1C0 = r.R1C2 = r.R1C3 = 0;
+            r.R2C2 = 1 / (zNearPlane - zFarPlane);
+            r.R2C0 = r.R2C1 = r.R2C3 = 0;
+            r.R3C0 = (left + right) / (left - right);
+            r.R3C1 = (top + bottom) / (bottom - top);
+            r.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            r.R3C3 = 1;
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-        [MI(O.AggressiveInlining)] public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 result) {
+        [MI(O.AggressiveInlining)] public static void CreateLookAt (ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix44 r) {
             Vector3 forward; Vector3.Subtract (ref cameraPosition, ref cameraTarget, out forward); Vector3.Normalise (ref forward, out forward);
             Vector3 right; Vector3.Cross (ref cameraUpVector, ref forward, out right); Vector3.Normalise (ref right, out right);
             Vector3 up; Vector3.Cross (ref forward, ref right, out up); Vector3.Normalise (ref up, out up);
             Single a; Vector3.Dot (ref right, ref cameraPosition, out a);
             Single b; Vector3.Dot (ref up, ref cameraPosition, out b);
             Single c; Vector3.Dot (ref forward, ref cameraPosition, out c);
-            result.R0C0 = right.X;    result.R0C1 = up.X;       result.R0C2 = forward.X;  result.R0C3 = 0;
-            result.R1C0 = right.Y;    result.R1C1 = up.Y;       result.R1C2 = forward.Y;  result.R1C3 = 0;
-            result.R2C0 = right.Z;    result.R2C1 = up.Z;       result.R2C2 = forward.Z;  result.R2C3 = 0;
-            result.R3C0 = -a;         result.R3C1 = -b;         result.R3C2 = -c;         result.R3C3 = 1;
+            r.R0C0 = right.X;    r.R0C1 = up.X;       r.R0C2 = forward.X;  r.R0C3 = 0;
+            r.R1C0 = right.Y;    r.R1C1 = up.Y;       r.R1C2 = forward.Y;  r.R1C3 = 0;
+            r.R2C0 = right.Z;    r.R2C1 = up.Z;       r.R2C2 = forward.Z;  r.R2C3 = 0;
+            r.R3C0 = -a;         r.R3C1 = -b;         r.R3C2 = -c;         r.R3C3 = 1;
         }
 
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Single xPosition, Single yPosition, Single zPosition) { Matrix44 result; CreateTranslation (ref xPosition, ref yPosition, ref zPosition, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Vector3 position) { Matrix44 result; CreateTranslation (ref position, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Single xScale, Single yScale, Single zScale) { Matrix44 result; CreateScale (ref xScale, ref yScale, ref zScale, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Vector3 scales) { Matrix44 result; CreateScale (ref scales, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Single scale) { Matrix44 result; CreateScale (ref scale, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationX              (Single radians) { Matrix44 result; CreateRotationX (ref radians, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationY              (Single radians) { Matrix44 result; CreateRotationY (ref radians, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationZ              (Single radians) { Matrix44 result; CreateRotationZ (ref radians, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromAxisAngle          (Vector3 axis, Single angle) { Matrix44 result; CreateFromAxisAngle (ref axis, ref angle, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromCartesianAxes      (Vector3 right, Vector3 up, Vector3 backward) { Matrix44 result; CreateFromCartesianAxes (ref right, ref up, ref backward, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateWorld                  (Vector3 position, Vector3 forward, Vector3 up) { Matrix44 result; CreateWorld (ref position, ref forward, ref up, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromQuaternion         (Quaternion quaternion) { Matrix44 result; CreateFromQuaternion (ref quaternion, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromYawPitchRoll       (Single yaw, Single pitch, Single roll) { Matrix44 result; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveFieldOfView (Single fieldOfView,  Single aspectRatio, Single nearPlane, Single farPlane) { Matrix44 result; CreatePerspectiveFieldOfView (ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspective            (Single width, Single height, Single nearPlane, Single farPlane) { Matrix44 result; CreatePerspective (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveOffCenter   (Single left, Single right, Single bottom, Single top, Single nearPlane, Single farPlane) { Matrix44 result; CreatePerspectiveOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographic           (Single width, Single height, Single nearPlane, Single farPlane) { Matrix44 result; CreateOrthographic (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographicOffCenter  (Single left, Single right, Single bottom, Single top, Single nearPlane, Single farPlane) { Matrix44 result; CreateOrthographicOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Matrix44 CreateLookAt                 (Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) { Matrix44 result; CreateLookAt (ref cameraPosition, ref cameraTarget, ref cameraUpVector, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Single xPosition, Single yPosition, Single zPosition) { Matrix44 r; CreateTranslation (ref xPosition, ref yPosition, ref zPosition, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Vector3 position) { Matrix44 r; CreateTranslation (ref position, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Single xScale, Single yScale, Single zScale) { Matrix44 r; CreateScale (ref xScale, ref yScale, ref zScale, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Vector3 scales) { Matrix44 r; CreateScale (ref scales, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Single scale) { Matrix44 r; CreateScale (ref scale, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationX              (Single radians) { Matrix44 r; CreateRotationX (ref radians, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationY              (Single radians) { Matrix44 r; CreateRotationY (ref radians, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateRotationZ              (Single radians) { Matrix44 r; CreateRotationZ (ref radians, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromAxisAngle          (Vector3 axis, Single angle) { Matrix44 r; CreateFromAxisAngle (ref axis, ref angle, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromCartesianAxes      (Vector3 right, Vector3 up, Vector3 backward) { Matrix44 r; CreateFromCartesianAxes (ref right, ref up, ref backward, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateWorld                  (Vector3 position, Vector3 forward, Vector3 up) { Matrix44 r; CreateWorld (ref position, ref forward, ref up, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromQuaternion         (Quaternion quaternion) { Matrix44 r; CreateFromQuaternion (ref quaternion, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateFromYawPitchRoll       (Single yaw, Single pitch, Single roll) { Matrix44 r; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveFieldOfView (Single fieldOfView,  Single aspectRatio, Single nearPlane, Single farPlane) { Matrix44 r; CreatePerspectiveFieldOfView (ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspective            (Single width, Single height, Single nearPlane, Single farPlane) { Matrix44 r; CreatePerspective (ref width, ref height, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreatePerspectiveOffCenter   (Single left, Single right, Single bottom, Single top, Single nearPlane, Single farPlane) { Matrix44 r; CreatePerspectiveOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographic           (Single width, Single height, Single nearPlane, Single farPlane) { Matrix44 r; CreateOrthographic (ref width, ref height, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographicOffCenter  (Single left, Single right, Single bottom, Single top, Single nearPlane, Single farPlane) { Matrix44 r; CreateOrthographicOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Matrix44 CreateLookAt                 (Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) { Matrix44 r; CreateLookAt (ref cameraPosition, ref cameraTarget, ref cameraUpVector, out r); return r; }
 
     }
 
@@ -964,9 +964,9 @@ namespace Abacus.SinglePrecision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Vector2) ? this.Equals ((Vector2) obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Vector2 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Vector2 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector2 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector2 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -987,128 +987,128 @@ namespace Abacus.SinglePrecision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Vector2 a, ref Vector2 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Vector2 a, ref Vector2 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector2 v1, ref Vector2 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y);
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector2 v1, ref Vector2 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y;
+        [MI(O.AggressiveInlining)] public static void Add (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Vector2 v, out Vector2 result) {
-            result.X = -v.X; result.Y = -v.Y;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Vector2 v, out Vector2 r) {
+            r.X = -v.X; r.Y = -v.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 v, ref Single f, out Vector2 result) {
-            result.X = v.X * f; result.Y = v.Y * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector2 v, ref Single f, out Vector2 r) {
+            r.X = v.X * f; r.Y = v.Y * f;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y;
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 v, ref Single d, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector2 v, ref Single d, out Vector2 r) {
             Single num = 1 / d;
-            result.X = v.X * num; result.Y = v.Y * num;
+            r.X = v.X * num; r.Y = v.Y * num;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 v)            { Vector2 result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 v, Single f)  { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Single f,  Vector2 v) { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 result; Divide    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Single d)  { Vector2 result; Divide    (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Single  operator  | (Vector2 a, Vector2 d) { Single  result; Dot       (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector2 operator  ~ (Vector2 v)            { Vector2 result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector2 a, Vector2 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector2 a, Vector2 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  - (Vector2 v)            { Vector2 r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Vector2 v, Single f)  { Vector2 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  * (Single f,  Vector2 v) { Vector2 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 r; Divide    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  / (Vector2 a, Single d)  { Vector2 r; Divide    (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Single  operator  | (Vector2 a, Vector2 d) { Single  r; Dot       (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector2 operator  ~ (Vector2 v)            { Vector2 r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector2 a, Vector2 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector2 a, Vector2 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Add               (Vector2 a, Vector2 b) { Vector2 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Subtract          (Vector2 a, Vector2 b) { Vector2 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Negate            (Vector2 v)            { Vector2 result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 a, Vector2 b) { Vector2 result; Multiply          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 v, Single f)  { Vector2 result; Multiply          (ref v, ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Vector2 b) { Vector2 result; Divide            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Single d)  { Vector2 result; Divide            (ref a, ref d, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector2 a, Vector2 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector2 a, Vector2 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Add               (Vector2 a, Vector2 b) { Vector2 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Subtract          (Vector2 a, Vector2 b) { Vector2 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Negate            (Vector2 v)            { Vector2 r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 a, Vector2 b) { Vector2 r; Multiply          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Multiply          (Vector2 v, Single f)  { Vector2 r; Multiply          (ref v, ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Vector2 b) { Vector2 r; Divide            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Divide            (Vector2 a, Single d)  { Vector2 r; Divide            (ref a, ref d, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = (a.X < b.X) ? a.X : b.X;
-            result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+        [MI(O.AggressiveInlining)] public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = (a.X < b.X) ? a.X : b.X;
+            r.Y = (a.Y < b.Y) ? a.Y : b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = (a.X > b.X) ? a.X : b.X;
-            result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+        [MI(O.AggressiveInlining)] public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = (a.X > b.X) ? a.X : b.X;
+            r.Y = (a.Y > b.Y) ? a.Y : b.Y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector2 v, ref Vector2 min, ref Vector2 max, out Vector2 result) {
-            Single x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            Single y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector2 v, ref Vector2 min, ref Vector2 max, out Vector2 r) {
+            Single x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            Single y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
         }
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector2 a, ref Vector2 b, Single amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector2 a, ref Vector2 b, Single amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount);
-            result.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.X = a.X + ((b.X - a.X) * amount);
+            r.Y = a.Y + ((b.Y - a.Y) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector2 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero(1 - vector.X * vector.X - vector.Y * vector.Y);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector2 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero(1 - vector.X * vector.X - vector.Y * vector.Y);
         }
 
-        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector2 Clamp         (Vector2 min, Vector2 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 result; Min (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 result; Max (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Lerp   (Vector2 a, Vector2 b, Single amount) { Vector2 result; Lerp (ref a, ref b, amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector2 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 r; Min (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 r; Max (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Lerp   (Vector2 a, Vector2 b, Single amount) { Vector2 r; Lerp (ref a, ref b, amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector2 v) { Boolean r; IsUnit (ref v, out r); return r; }
         
         // Splines //---------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, Single amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, Single amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, Single amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, Single amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Single squared = amount * amount;
             Single cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
         }
 
-        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, Single amount, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, Single amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -1121,69 +1121,69 @@ namespace Abacus.SinglePrecision
             Single b = (-cubed * 2) + (squared * 3);
             Single c = (cubed - (squared * 2)) + amount;
             Single d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, Single amount) { Vector2 result; SmoothStep (ref v1, ref v2, amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, Single amount) { Vector2 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, Single amount) { Vector2 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, Single amount) { Vector2 r; SmoothStep (ref v1, ref v2, amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, Single amount) { Vector2 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, Single amount) { Vector2 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Distance (ref Vector2 a, ref Vector2 b, out Single result) {
+        [MI(O.AggressiveInlining)] public static void Distance (ref Vector2 a, ref Vector2 b, out Single r) {
             Single dx = a.X - b.X, dy = a.Y - b.Y;
             Single lengthSquared = (dx * dx) + (dy * dy);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector2 a, ref Vector2 b, out Single result) {
+        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector2 a, ref Vector2 b, out Single r) {
             Single dx = a.X - b.X, dy = a.Y - b.Y;
-            result = (dx * dx) + (dy * dy);
+            r = (dx * dx) + (dy * dy);
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Vector2 a, ref Vector2 b, out Single result) {
-            result = (a.X * b.X) + (a.Y * b.Y);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Vector2 a, ref Vector2 b, out Single r) {
+            r = (a.X * b.X) + (a.Y * b.Y);
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector2 vector, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector2 vector, out Vector2 r) {
             Single lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y);
             Debug.Assert (lengthSquared > Maths.Epsilon && !Single.IsInfinity(lengthSquared));
             Single multiplier = 1 / Maths.Sqrt (lengthSquared);
-            result.X = vector.X * multiplier;
-            result.Y = vector.Y * multiplier;
+            r.X = vector.X * multiplier;
+            r.Y = vector.Y * multiplier;
         }
 
-        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result) {
+        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 r) {
             Boolean normalIsUnit; Vector2.IsUnit (ref normal, out normalIsUnit);
             Debug.Assert (normalIsUnit);
             Single dot; Dot(ref vector, ref normal, out dot);
             Single twoDot = dot * 2;
             Vector2 m;
             Vector2.Multiply (ref normal, ref twoDot, out m);
-            Vector2.Subtract (ref vector, ref m, out result);
+            Vector2.Subtract (ref vector, ref m, out r);
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Vector2 vector, out Single result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Vector2 vector, out Single r) {
             Single lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector2 vector, out Single result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector2 vector, out Single r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
-        [MI(O.AggressiveInlining)] public Single  Length        () { Single result; Length (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single result; LengthSquared (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Single  Length        () { Single r; Length (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single r; LengthSquared (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector2 Normalise     () { Normalise (ref this, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Single  Distance        (Vector2 a, Vector2 b) { Single result; Distance (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Single  DistanceSquared (Vector2 a, Vector2 b) { Single result; DistanceSquared (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Single  Dot             (Vector2 a, Vector2 b) { Single result; Dot (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Normalise       (Vector2 v) { Vector2 result; Normalise (ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 result; Reflect (ref v, ref normal, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Single  Length          (Vector2 v) { Single result; Length (ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector2 v) { Single result; LengthSquared (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Single  Distance        (Vector2 a, Vector2 b) { Single r; Distance (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Single  DistanceSquared (Vector2 a, Vector2 b) { Single r; DistanceSquared (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Single  Dot             (Vector2 a, Vector2 b) { Single r; Dot (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Normalise       (Vector2 v) { Vector2 r; Normalise (ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 r; Reflect (ref v, ref normal, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Single  Length          (Vector2 v) { Single r; Length (ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector2 v) { Single r; LengthSquared (ref v, out r); return r; }
     }
 
     /// <summary>
@@ -1205,9 +1205,9 @@ namespace Abacus.SinglePrecision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Vector3) ? this.Equals ((Vector3) obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Vector3 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Vector3 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector3 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector3 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -1243,137 +1243,137 @@ namespace Abacus.SinglePrecision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Vector3 a, ref Vector3 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Vector3 a, ref Vector3 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector3 v1, ref Vector3 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector3 v1, ref Vector3 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
                 && Maths.ApproximateEquals (v1.Z, v2.Z);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z;
+        [MI(O.AggressiveInlining)] public static void Add (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y; r.Z = a.Z + b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y; result.Z = a.Z - b.Z;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y; r.Z = a.Z - b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Vector3 value, out Vector3 result) {
-            result.X = -value.X; result.Y = -value.Y; result.Z = -value.Z;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Vector3 value, out Vector3 r) {
+            r.X = -value.X; r.Y = -value.Y; r.Z = -value.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y; result.Z = a.Z * b.Z;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y; r.Z = a.Z * b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Single f, out Vector3 result) {
-            result.X = a.X * f; result.Y = a.Y * f; result.Z = a.Z * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector3 a, ref Single f, out Vector3 r) {
+            r.X = a.X * f; r.Y = a.Y * f; r.Z = a.Z * f;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y; result.Z = a.Z / b.Z;
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y; r.Z = a.Z / b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Single d, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector3 a, ref Single d, out Vector3 r) {
             Single num = 1 / d;
-            result.X = a.X * num; result.Y = a.Y * num; result.Z = a.Z * num;
+            r.X = a.X * num; r.Y = a.Y * num; r.Z = a.Z * num;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector3 a, Vector3 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector3 a, Vector3 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 a, Vector3 b) { Vector3 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 v)            { Vector3 result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 a, Vector3 b) { Vector3 result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 v, Single f)  { Vector3 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Single f,  Vector3 v) { Vector3 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Vector3 b) { Vector3 result; Divide    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Single d)  { Vector3 result; Divide    (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  ^ (Vector3 a, Vector3 d) { Vector3 result; Cross     (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Single  operator  | (Vector3 a, Vector3 d) { Single  result; Dot       (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector3 operator  ~ (Vector3 v)            { Vector3 result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector3 a, Vector3 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector3 a, Vector3 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 a, Vector3 b) { Vector3 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  - (Vector3 v)            { Vector3 r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 a, Vector3 b) { Vector3 r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Vector3 v, Single f)  { Vector3 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  * (Single f,  Vector3 v) { Vector3 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Vector3 b) { Vector3 r; Divide    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  / (Vector3 a, Single d)  { Vector3 r; Divide    (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  ^ (Vector3 a, Vector3 d) { Vector3 r; Cross     (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Single  operator  | (Vector3 a, Vector3 d) { Single  r; Dot       (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector3 operator  ~ (Vector3 v)            { Vector3 r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector3 a, Vector3 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector3 a, Vector3 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Add               (Vector3 a, Vector3 b) { Vector3 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Subtract          (Vector3 a, Vector3 b) { Vector3 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Negate            (Vector3 v)            { Vector3 result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 a, Vector3 b) { Vector3 result; Multiply          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 v, Single f)  { Vector3 result; Multiply          (ref v, ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Vector3 b) { Vector3 result; Divide            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Single d)  { Vector3 result; Divide            (ref a, ref d, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector3 a, Vector3 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector3 a, Vector3 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Add               (Vector3 a, Vector3 b) { Vector3 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Subtract          (Vector3 a, Vector3 b) { Vector3 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Negate            (Vector3 v)            { Vector3 r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 a, Vector3 b) { Vector3 r; Multiply          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Multiply          (Vector3 v, Single f)  { Vector3 r; Multiply          (ref v, ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Vector3 b) { Vector3 r; Divide            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Divide            (Vector3 a, Single d)  { Vector3 r; Divide            (ref a, ref d, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Min (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = (a.X < b.X) ? a.X : b.X; result.Y = (a.Y < b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z < b.Z) ? a.Z : b.Z;
+        [MI(O.AggressiveInlining)] public static void Min (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = (a.X < b.X) ? a.X : b.X; r.Y = (a.Y < b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z < b.Z) ? a.Z : b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Max (ref Vector3 a, ref Vector3 b, out Vector3 result) {
-            result.X = (a.X > b.X) ? a.X : b.X; result.Y = (a.Y > b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z > b.Z) ? a.Z : b.Z;
+        [MI(O.AggressiveInlining)] public static void Max (ref Vector3 a, ref Vector3 b, out Vector3 r) {
+            r.X = (a.X > b.X) ? a.X : b.X; r.Y = (a.Y > b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z > b.Z) ? a.Z : b.Z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector3 v, ref Vector3 min, ref Vector3 max, out Vector3 result) {
-            Single x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            Single y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
-            Single z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; result.Z = z;
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector3 v, ref Vector3 min, ref Vector3 max, out Vector3 r) {
+            Single x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            Single y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
+            Single z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector3 a, ref Vector3 b, ref Single amount, out Vector3 result){
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector3 a, ref Vector3 b, ref Single amount, out Vector3 r){
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount); result.Y = a.Y + ((b.Y - a.Y) * amount);
-            result.Z = a.Z + ((b.Z - a.Z) * amount);
+            r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.Z = a.Z + ((b.Z - a.Z) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector3 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector3 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
         }
 
-        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector3 Clamp         (Vector3 min, Vector3 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 result; Min (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 result; Max (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Single amount) { Vector3 result; Lerp (ref a, ref b, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 r; Min (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 r; Max (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Single amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean r; IsUnit (ref v, out r); return r; }
 
         // Splines //---------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector3 v1, ref Vector3 v2, ref Single amount, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector3 v1, ref Vector3 v2, ref Single amount, out Vector3 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
-            result.Z = v1.Z + ((v2.Z - v1.Z) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.Z = v1.Z + ((v2.Z - v1.Z) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector3 v1, ref Vector3 v2, ref Vector3 v3, ref Vector3 v4, ref Single amount, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector3 v1, ref Vector3 v2, ref Vector3 v3, ref Vector3 v4, ref Single amount, out Vector3 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Single squared = amount * amount;
             Single cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
-            result.Z  = 2 * v2.Z;
-            result.Z += (v3.Z - v1.Z) * amount;
-            result.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
-            result.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
-            result.Z *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
+            r.Z  = 2 * v2.Z;
+            r.Z += (v3.Z - v1.Z) * amount;
+            r.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
+            r.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
+            r.Z *= Maths.Half;
         }
 
-        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector3 v1, ref Vector3 tangent1, ref Vector3 v2, ref Vector3 tangent2, ref Single amount, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector3 v1, ref Vector3 tangent1, ref Vector3 v2, ref Vector3 tangent2, ref Single amount, out Vector3 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -1386,80 +1386,80 @@ namespace Abacus.SinglePrecision
             Single b = (-cubed * 2) + (squared * 3);
             Single c = (cubed - (squared * 2)) + amount;
             Single d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
-            result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, Single amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, Single amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, Single amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, Single amount) { Vector3 r; SmoothStep (ref v1, ref v2, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, Single amount) { Vector3 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, Single amount) { Vector3 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Distance (ref Vector3 a, ref Vector3 b, out Single result) {
+        [MI(O.AggressiveInlining)] public static void Distance (ref Vector3 a, ref Vector3 b, out Single r) {
             Single dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z;
             Single lengthSquared = (dx * dx) + (dy * dy) + (dz * dz);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector3 a, ref Vector3 b, out Single result) {
+        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector3 a, ref Vector3 b, out Single r) {
             Single dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z;
-            result = (dx * dx) + (dy * dy) + (dz * dz);
+            r = (dx * dx) + (dy * dy) + (dz * dz);
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Vector3 a, ref Vector3 b, out Single result) {
-            result = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Vector3 a, ref Vector3 b, out Single r) {
+            r = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector3 vector, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector3 vector, out Vector3 r) {
             Single lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
             Debug.Assert (lengthSquared > Maths.Epsilon && !Single.IsInfinity(lengthSquared));
             Single multiplier = 1 / Maths.Sqrt (lengthSquared);
-            result.X = vector.X * multiplier;
-            result.Y = vector.Y * multiplier;
-            result.Z = vector.Z * multiplier;
+            r.X = vector.X * multiplier;
+            r.Y = vector.Y * multiplier;
+            r.Z = vector.Z * multiplier;
         }
 
-        [MI(O.AggressiveInlining)] public static void Cross (ref Vector3 a, ref Vector3 b, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Cross (ref Vector3 a, ref Vector3 b, out Vector3 r) {
             Single x = (a.Y * b.Z) - (a.Z * b.Y);
             Single y = (a.Z * b.X) - (a.X * b.Z);
             Single z = (a.X * b.Y) - (a.Y * b.X);
-            result.X = x; result.Y = y; result.Z = z;
+            r.X = x; r.Y = y; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 result) {
+        [MI(O.AggressiveInlining)] public static void Reflect (ref Vector3 vector, ref Vector3 normal, out Vector3 r) {
             Boolean normalIsUnit; Vector3.IsUnit (ref normal, out normalIsUnit);
             Debug.Assert (normalIsUnit);
             Single t = (vector.X * normal.X) + (vector.Y * normal.Y) + (vector.Z * normal.Z);
             Single x = vector.X - ((2 * t) * normal.X);
             Single y = vector.Y - ((2 * t) * normal.Y);
             Single z = vector.Z - ((2 * t) * normal.Z);
-            result.X = x; result.Y = y; result.Z = z;
+            r.X = x; r.Y = y; r.Z = z;
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Vector3 vector, out Single result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Vector3 vector, out Single r) {
             Single lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector3 vector, out Single result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector3 vector, out Single r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
         }
 
-        [MI(O.AggressiveInlining)] public Single  Length        () { Single result; Length (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single result; LengthSquared (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Single  Length        () { Single r; Length (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single r; LengthSquared (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector3 Normalise     () { Normalise (ref this, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Single  Distance        (Vector3 a, Vector3 b) { Single result; Distance (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Single  DistanceSquared (Vector3 a, Vector3 b) { Single result; DistanceSquared (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Single  Dot             (Vector3 a, Vector3 b) { Single result; Dot (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector3 Cross           (Vector3 a, Vector3 b) { Vector3 result; Cross (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector3 Normalise       (Vector3 v) { Vector3 result; Normalise (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Single  Distance        (Vector3 a, Vector3 b) { Single r; Distance (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Single  DistanceSquared (Vector3 a, Vector3 b) { Single r; DistanceSquared (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Single  Dot             (Vector3 a, Vector3 b) { Single r; Dot (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector3 Cross           (Vector3 a, Vector3 b) { Vector3 r; Cross (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector3 Normalise       (Vector3 v) { Vector3 r; Normalise (ref v, out r); return r; }
          
-        [MI(O.AggressiveInlining)] public static Vector3 Reflect         (Vector3 v, Vector3 normal) { Vector3 result; Reflect (ref v, ref normal, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Single  Length          (Vector3 v) { Single result; Length (ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector3 v) { Single result; LengthSquared (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 Reflect         (Vector3 v, Vector3 normal) { Vector3 r; Reflect (ref v, ref normal, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Single  Length          (Vector3 v) { Single r; Length (ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector3 v) { Single r; LengthSquared (ref v, out r); return r; }
 
     }
 
@@ -1485,9 +1485,9 @@ namespace Abacus.SinglePrecision
 
         [MI(O.AggressiveInlining)] public override Boolean Equals (Object obj) { return (obj is Vector4) ? this.Equals ((Vector4)obj) : false; }
 
-        [MI(O.AggressiveInlining)] public Boolean Equals (Vector4 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean Equals (Vector4 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector4 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean ApproximateEquals (Vector4 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -1512,143 +1512,143 @@ namespace Abacus.SinglePrecision
 
         // Operators //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
+        [MI(O.AggressiveInlining)] public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
         }
 
-        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector4 v1, ref Vector4 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
+        [MI(O.AggressiveInlining)] public static void ApproximateEquals (ref Vector4 v1, ref Vector4 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
                 && Maths.ApproximateEquals (v1.Z, v2.Z) && Maths.ApproximateEquals (v1.W, v2.W);
         }
 
-        [MI(O.AggressiveInlining)] public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z; result.W = a.W + b.W;
+        [MI(O.AggressiveInlining)] public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y; r.Z = a.Z + b.Z; r.W = a.W + b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y; result.Z = a.Z - b.Z; result.W = a.W - b.W;
+        [MI(O.AggressiveInlining)] public static void Subtract (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y; r.Z = a.Z - b.Z; r.W = a.W - b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Negate (ref Vector4 v, out Vector4 result) {
-            result.X = -v.X; result.Y = -v.Y; result.Z = -v.Z; result.W = -v.W;
+        [MI(O.AggressiveInlining)] public static void Negate (ref Vector4 v, out Vector4 r) {
+            r.X = -v.X; r.Y = -v.Y; r.Z = -v.Z; r.W = -v.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y; result.Z = a.Z * b.Z; result.W = a.W * b.W;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y; r.Z = a.Z * b.Z; r.W = a.W * b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 v, ref Single f, out Vector4 result) {
-            result.X = v.X * f; result.Y = v.Y * f; result.Z = v.Z * f; result.W = v.W * f;
+        [MI(O.AggressiveInlining)] public static void Multiply (ref Vector4 v, ref Single f, out Vector4 r) {
+            r.X = v.X * f; r.Y = v.Y * f; r.Z = v.Z * f; r.W = v.W * f;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y; result.Z = a.Z / b.Z; result.W = a.W / b.W;
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y; r.Z = a.Z / b.Z; r.W = a.W / b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 v, ref Single d, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Divide (ref Vector4 v, ref Single d, out Vector4 r) {
             Single num = 1 / d;
-            result.X = v.X * num; result.Y = v.Y * num; result.Z = v.Z * num; result.W = v.W * num;
+            r.X = v.X * num; r.Y = v.Y * num; r.Z = v.Z * num; r.W = v.W * num;
         }
 
-        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add       (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 result; Subtract  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 v)            { Vector4 result; Negate    (ref v,        out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 result; Multiply  (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 v, Single f)  { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Single f,  Vector4 v) { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 result; Divide    (ref a, ref b, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Single d)  { Vector4 result; Divide    (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Single  operator  | (Vector4 a, Vector4 d) { Single  result; Dot       (ref a, ref d, out result); return  result; }
-        [MI(O.AggressiveInlining)] public static Vector4 operator  ~ (Vector4 v)            { Vector4 result; Normalise (ref v,        out result); return  result; }
+        [MI(O.AggressiveInlining)] public static Boolean operator == (Vector4 a, Vector4 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Boolean operator != (Vector4 a, Vector4 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 r; Add       (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 r; Subtract  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  - (Vector4 v)            { Vector4 r; Negate    (ref v,        out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 r; Multiply  (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Vector4 v, Single f)  { Vector4 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  * (Single f,  Vector4 v) { Vector4 r; Multiply  (ref v, ref f, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 r; Divide    (ref a, ref b, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  / (Vector4 a, Single d)  { Vector4 r; Divide    (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Single  operator  | (Vector4 a, Vector4 d) { Single  r; Dot       (ref a, ref d, out r); return  r; }
+        [MI(O.AggressiveInlining)] public static Vector4 operator  ~ (Vector4 v)            { Vector4 r; Normalise (ref v,        out r); return  r; }
 
-        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector4 a, Vector4 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector4 a, Vector4 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Add               (Vector4 a, Vector4 b) { Vector4 result; Add               (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Subtract          (Vector4 a, Vector4 b) { Vector4 result; Subtract          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Negate            (Vector4 v)            { Vector4 result; Negate            (ref v,        out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 a, Vector4 b) { Vector4 result; Multiply          (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 v, Single f)  { Vector4 result; Multiply          (ref v, ref f, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Vector4 b) { Vector4 result; Divide            (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Single d)  { Vector4 result; Divide            (ref a, ref d, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Boolean Equals            (Vector4 a, Vector4 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Vector4 a, Vector4 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Add               (Vector4 a, Vector4 b) { Vector4 r; Add               (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Subtract          (Vector4 a, Vector4 b) { Vector4 r; Subtract          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Negate            (Vector4 v)            { Vector4 r; Negate            (ref v,        out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 a, Vector4 b) { Vector4 r; Multiply          (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Multiply          (Vector4 v, Single f)  { Vector4 r; Multiply          (ref v, ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Vector4 b) { Vector4 r; Divide            (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Divide            (Vector4 a, Single d)  { Vector4 r; Divide            (ref a, ref d, out r); return r; }
 
         // Utilities //-------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Min (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = (a.X < b.X) ? a.X : b.X; result.Y = (a.Y < b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z < b.Z) ? a.Z : b.Z; result.W = (a.W < b.W) ? a.W : b.W;
+        [MI(O.AggressiveInlining)] public static void Min (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = (a.X < b.X) ? a.X : b.X; r.Y = (a.Y < b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z < b.Z) ? a.Z : b.Z; r.W = (a.W < b.W) ? a.W : b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Max (ref Vector4 a, ref Vector4 b, out Vector4 result) {
-            result.X = (a.X > b.X) ? a.X : b.X; result.Y = (a.Y > b.Y) ? a.Y : b.Y;
-            result.Z = (a.Z > b.Z) ? a.Z : b.Z; result.W = (a.W > b.W) ? a.W : b.W;
+        [MI(O.AggressiveInlining)] public static void Max (ref Vector4 a, ref Vector4 b, out Vector4 r) {
+            r.X = (a.X > b.X) ? a.X : b.X; r.Y = (a.Y > b.Y) ? a.Y : b.Y;
+            r.Z = (a.Z > b.Z) ? a.Z : b.Z; r.W = (a.W > b.W) ? a.W : b.W;
         }
 
-        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector4 v, ref Vector4 min, ref Vector4 max, out Vector4 result) {
-            Single x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            Single y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
-            Single z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; result.Z = z;
-            Single w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; result.W = w;
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector4 v, ref Vector4 min, ref Vector4 max, out Vector4 r) {
+            Single x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            Single y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
+            Single z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; r.Z = z;
+            Single w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; r.W = w;
         }
 
-        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector4 a, ref Vector4 b, ref Single amount, out Vector4 result){
+        [MI(O.AggressiveInlining)] public static void Lerp (ref Vector4 a, ref Vector4 b, ref Single amount, out Vector4 r){
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount); result.Y = a.Y + ((b.Y - a.Y) * amount);
-            result.Z = a.Z + ((b.Z - a.Z) * amount); result.W = a.W + ((b.W - a.W) * amount);
+            r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.Z = a.Z + ((b.Z - a.Z) * amount); r.W = a.W + ((b.W - a.W) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector4 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
+        [MI(O.AggressiveInlining)] public static void IsUnit (ref Vector4 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
         }
 
-        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 result; Min (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 result; Max (ref a, ref b, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Lerp   (Vector4 a, Vector4 b, Single amount) { Vector4 result; Lerp (ref a, ref b, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector4 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 r; Min (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 r; Max (ref a, ref b, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Lerp   (Vector4 a, Vector4 b, Single amount) { Vector4 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector4 v) { Boolean r; IsUnit (ref v, out r); return r; }
 
         // Splines //---------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector4 v1, ref Vector4 v2, ref Single amount, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void SmoothStep (ref Vector4 v1, ref Vector4 v2, ref Single amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
-            result.Z = v1.Z + ((v2.Z - v1.Z) * amount);
-            result.W = v1.W + ((v2.W - v1.W) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.Z = v1.Z + ((v2.Z - v1.Z) * amount);
+            r.W = v1.W + ((v2.W - v1.W) * amount);
         }
 
-        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector4 v1, ref Vector4 v2, ref Vector4 v3, ref Vector4 v4, ref Single amount, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void CatmullRom (ref Vector4 v1, ref Vector4 v2, ref Vector4 v3, ref Vector4 v4, ref Single amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Single squared = amount * amount;
             Single cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
-            result.Z  = 2 * v2.Z;
-            result.Z += (v3.Z - v1.Z) * amount;
-            result.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
-            result.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
-            result.Z *= Maths.Half;
-            result.W  = 2 * v2.W;
-            result.W += (v3.W - v1.W) * amount;
-            result.W += ((2 * v1.W) + (4 * v3.W) - (5 * v2.W) - (v4.W)) * squared;
-            result.W += ((3 * v2.W) + (v4.W) - (v1.W) - (3 * v3.W)) * cubed;
-            result.W *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
+            r.Z  = 2 * v2.Z;
+            r.Z += (v3.Z - v1.Z) * amount;
+            r.Z += ((2 * v1.Z) + (4 * v3.Z) - (5 * v2.Z) - (v4.Z)) * squared;
+            r.Z += ((3 * v2.Z) + (v4.Z) - (v1.Z) - (3 * v3.Z)) * cubed;
+            r.Z *= Maths.Half;
+            r.W  = 2 * v2.W;
+            r.W += (v3.W - v1.W) * amount;
+            r.W += ((2 * v1.W) + (4 * v3.W) - (5 * v2.W) - (v4.W)) * squared;
+            r.W += ((3 * v2.W) + (v4.W) - (v1.W) - (3 * v3.W)) * cubed;
+            r.W *= Maths.Half;
         }
 
-        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector4 v1, ref Vector4 tangent1, ref Vector4 v2, ref Vector4 tangent2, ref Single amount, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Hermite (ref Vector4 v1, ref Vector4 tangent1, ref Vector4 v2, ref Vector4 tangent2, ref Single amount, out Vector4 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -1661,60 +1661,60 @@ namespace Abacus.SinglePrecision
             Single b = (-cubed * 2) + (squared * 3);
             Single c = (cubed - (squared * 2)) + amount;
             Single d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
-            result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
-            result.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
+            r.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, Single amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, Single amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, Single amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, Single amount) { Vector4 r; SmoothStep (ref v1, ref v2, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, Single amount) { Vector4 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, Single amount) { Vector4 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out r); return r; }
 
         // Maths //-----------------------------------------------------------//
 
-        [MI(O.AggressiveInlining)] public static void Distance (ref Vector4 a, ref Vector4 b, out Single result) {
+        [MI(O.AggressiveInlining)] public static void Distance (ref Vector4 a, ref Vector4 b, out Single r) {
             Single dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
             Single lengthSquared = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector4 a, ref Vector4 b, out Single result) {
+        [MI(O.AggressiveInlining)] public static void DistanceSquared (ref Vector4 a, ref Vector4 b, out Single r) {
             Single dx = a.X - b.X, dy = a.Y - b.Y, dz = a.Z - b.Z, dw = a.W - b.W;
-            result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+            r = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
         }
 
-        [MI(O.AggressiveInlining)] public static void Dot (ref Vector4 a, ref Vector4 b, out Single result) {
-            result = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
+        [MI(O.AggressiveInlining)] public static void Dot (ref Vector4 a, ref Vector4 b, out Single r) {
+            r = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z) + (a.W * b.W);
         }
 
-        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector4 vector, out Vector4 result) {
+        [MI(O.AggressiveInlining)] public static void Normalise (ref Vector4 vector, out Vector4 r) {
             Single lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
             Debug.Assert (lengthSquared > Maths.Epsilon && !Single.IsInfinity(lengthSquared));
             Single multiplier = 1 / (Maths.Sqrt (lengthSquared));
-            result.X = vector.X * multiplier; result.Y = vector.Y * multiplier;
-            result.Z = vector.Z * multiplier; result.W = vector.W * multiplier;
+            r.X = vector.X * multiplier; r.Y = vector.Y * multiplier;
+            r.Z = vector.Z * multiplier; r.W = vector.W * multiplier;
         }
 
-        [MI(O.AggressiveInlining)] public static void Length (ref Vector4 vector, out Single result) {
+        [MI(O.AggressiveInlining)] public static void Length (ref Vector4 vector, out Single r) {
             Single lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector4 vector, out Single result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
+        [MI(O.AggressiveInlining)] public static void LengthSquared (ref Vector4 vector, out Single r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
         }
 
-        [MI(O.AggressiveInlining)] public Single  Length        () { Single result; Length (ref this, out result); return result; }
-        [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single result; LengthSquared (ref this, out result); return result; }
+        [MI(O.AggressiveInlining)] public Single  Length        () { Single r; Length (ref this, out r); return r; }
+        [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single r; LengthSquared (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector4 Normalise     () { Normalise (ref this, out this); return this; }
 
-        [MI(O.AggressiveInlining)] public static Single  Distance        ( Vector4 a, Vector4 b) { Single result; Distance (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Single  DistanceSquared (Vector4 a, Vector4 b) { Single result; DistanceSquared (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Single  Dot             (Vector4 a, Vector4 b) { Single result; Dot (ref a, ref b, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Vector4 Normalise       (Vector4 v) { Vector4 result; Normalise (ref v, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Single  Length          (Vector4 v) { Single result; Length (ref v, out result); return result; } 
-        [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector4 v) { Single result; LengthSquared (ref v, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Single  Distance        ( Vector4 a, Vector4 b) { Single r; Distance (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Single  DistanceSquared (Vector4 a, Vector4 b) { Single r; DistanceSquared (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Single  Dot             (Vector4 a, Vector4 b) { Single r; Dot (ref a, ref b, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Vector4 Normalise       (Vector4 v) { Vector4 r; Normalise (ref v, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Single  Length          (Vector4 v) { Single r; Length (ref v, out r); return r; } 
+        [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector4 v) { Single r; LengthSquared (ref v, out r); return r; }
     }
 
     /// <summary>
@@ -1763,8 +1763,8 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Single FromString           (String str) { Single result = Zero; Single.TryParse (str, out result); return result; }
         [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Single value) { Single.TryParse (str, out value); }
 
-        [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero   (Single value) { return Abs(value) < Epsilon; }
-        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals (Single a, Single b) { Single num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
+        [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Single value) { return Abs(value) < Epsilon; }
+        [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Single a, Single b) { Single num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
         [MI(O.AggressiveInlining)] public static Int32   Sign                (Single value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
     }

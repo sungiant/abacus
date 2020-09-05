@@ -13,9 +13,9 @@
 
         <#Inl();#>public override Boolean Equals (Object obj) { return (obj is Vector2) ? this.Equals ((Vector2) obj) : false; }
 
-        <#Inl();#>public Boolean Equals (Vector2 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+        <#Inl();#>public Boolean Equals (Vector2 other) { Boolean r; Equals (ref this, ref other, out r); return r; }
 
-        <#Inl();#>public Boolean ApproximateEquals (Vector2 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+        <#Inl();#>public Boolean ApproximateEquals (Vector2 other) { Boolean r; ApproximateEquals (ref this, ref other, out r); return r; }
 
         // Constants //-------------------------------------------------------//
 
@@ -36,132 +36,132 @@
 
         // Operators //-------------------------------------------------------//
 
-        <#Inl();#>public static void Equals (ref Vector2 a, ref Vector2 b, out Boolean result) {
-            result = (a.X == b.X) && (a.Y == b.Y);
+        <#Inl();#>public static void Equals (ref Vector2 a, ref Vector2 b, out Boolean r) {
+            r = (a.X == b.X) && (a.Y == b.Y);
         }
 
-        <#Inl();#>public static void ApproximateEquals (ref Vector2 v1, ref Vector2 v2, out Boolean result) {
-            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y);
+        <#Inl();#>public static void ApproximateEquals (ref Vector2 v1, ref Vector2 v2, out Boolean r) {
+            r = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y);
         }
 
-        <#Inl();#>public static void Add (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X + b.X; result.Y = a.Y + b.Y;
+        <#Inl();#>public static void Add (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X + b.X; r.Y = a.Y + b.Y;
         }
 
-        <#Inl();#>public static void Subtract (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X - b.X; result.Y = a.Y - b.Y;
+        <#Inl();#>public static void Subtract (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X - b.X; r.Y = a.Y - b.Y;
         }
 
-        <#Inl();#>public static void Negate (ref Vector2 v, out Vector2 result) {
-            result.X = -v.X; result.Y = -v.Y;
+        <#Inl();#>public static void Negate (ref Vector2 v, out Vector2 r) {
+            r.X = -v.X; r.Y = -v.Y;
         }
 
-        <#Inl();#>public static void Multiply (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X * b.X; result.Y = a.Y * b.Y;
+        <#Inl();#>public static void Multiply (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X * b.X; r.Y = a.Y * b.Y;
         }
 
-        <#Inl();#>public static void Multiply (ref Vector2 v, ref <#=T#> f, out Vector2 result) {
-            result.X = v.X * f; result.Y = v.Y * f;
+        <#Inl();#>public static void Multiply (ref Vector2 v, ref <#=T#> f, out Vector2 r) {
+            r.X = v.X * f; r.Y = v.Y * f;
         }
 
-        <#Inl();#>public static void Divide (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = a.X / b.X; result.Y = a.Y / b.Y;
+        <#Inl();#>public static void Divide (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = a.X / b.X; r.Y = a.Y / b.Y;
         }
 
-        <#Inl();#>public static void Divide (ref Vector2 v, ref <#=T#> d, out Vector2 result) {
+        <#Inl();#>public static void Divide (ref Vector2 v, ref <#=T#> d, out Vector2 r) {
             <#=T#> num = 1 / d;
-            result.X = v.X * num; result.Y = v.Y * num;
+            r.X = v.X * num; r.Y = v.Y * num;
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Boolean operator == (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Boolean operator != (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
-        <#Inl();#>public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 result; Add       (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 result; Subtract  (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  - (Vector2 v)            { Vector2 result; Negate    (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 result; Multiply  (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  * (Vector2 v, <#=T#> f)  { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  * (<#=T#> f,  Vector2 v) { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 result; Divide    (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  / (Vector2 a, <#=T#> d)  { Vector2 result; Divide    (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static <#=T#>  operator  | (Vector2 a, Vector2 d) { <#=T#>  result; Dot       (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  ~ (Vector2 v)            { Vector2 result; Normalise (ref v,        out result); return  result; }
+        <#Inl();#>public static Boolean operator == (Vector2 a, Vector2 b) { Boolean r; Equals    (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Boolean operator != (Vector2 a, Vector2 b) { Boolean r; Equals    (ref a, ref b, out r); return !r; }
+        <#Inl();#>public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 r; Add       (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 r; Subtract  (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector2 operator  - (Vector2 v)            { Vector2 r; Negate    (ref v,        out r); return  r; }
+        <#Inl();#>public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 r; Multiply  (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector2 operator  * (Vector2 v, <#=T#> f)  { Vector2 r; Multiply  (ref v, ref f, out r); return  r; }
+        <#Inl();#>public static Vector2 operator  * (<#=T#> f,  Vector2 v) { Vector2 r; Multiply  (ref v, ref f, out r); return  r; }
+        <#Inl();#>public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 r; Divide    (ref a, ref b, out r); return  r; }
+        <#Inl();#>public static Vector2 operator  / (Vector2 a, <#=T#> d)  { Vector2 r; Divide    (ref a, ref d, out r); return  r; }
+        <#Inl();#>public static <#=T#>  operator  | (Vector2 a, Vector2 d) { <#=T#>  r; Dot       (ref a, ref d, out r); return  r; }
+        <#Inl();#>public static Vector2 operator  ~ (Vector2 v)            { Vector2 r; Normalise (ref v,        out r); return  r; }
 
-        <#Inl();#>public static Boolean Equals            (Vector2 a, Vector2 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Boolean ApproximateEquals (Vector2 a, Vector2 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Add               (Vector2 a, Vector2 b) { Vector2 result; Add               (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Subtract          (Vector2 a, Vector2 b) { Vector2 result; Subtract          (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Negate            (Vector2 v)            { Vector2 result; Negate            (ref v,        out result); return result; }
-        <#Inl();#>public static Vector2 Multiply          (Vector2 a, Vector2 b) { Vector2 result; Multiply          (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Multiply          (Vector2 v, <#=T#> f)  { Vector2 result; Multiply          (ref v, ref f, out result); return result; }
-        <#Inl();#>public static Vector2 Divide            (Vector2 a, Vector2 b) { Vector2 result; Divide            (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Divide            (Vector2 a, <#=T#> d)  { Vector2 result; Divide            (ref a, ref d, out result); return result; }
+        <#Inl();#>public static Boolean Equals            (Vector2 a, Vector2 b) { Boolean r; Equals            (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Boolean ApproximateEquals (Vector2 a, Vector2 b) { Boolean r; ApproximateEquals (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Add               (Vector2 a, Vector2 b) { Vector2 r; Add               (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Subtract          (Vector2 a, Vector2 b) { Vector2 r; Subtract          (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Negate            (Vector2 v)            { Vector2 r; Negate            (ref v,        out r); return r; }
+        <#Inl();#>public static Vector2 Multiply          (Vector2 a, Vector2 b) { Vector2 r; Multiply          (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Multiply          (Vector2 v, <#=T#> f)  { Vector2 r; Multiply          (ref v, ref f, out r); return r; }
+        <#Inl();#>public static Vector2 Divide            (Vector2 a, Vector2 b) { Vector2 r; Divide            (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Divide            (Vector2 a, <#=T#> d)  { Vector2 r; Divide            (ref a, ref d, out r); return r; }
 <# } #>
 
         // Utilities //-------------------------------------------------------//
 
-        <#Inl();#>public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = (a.X < b.X) ? a.X : b.X;
-            result.Y = (a.Y < b.Y) ? a.Y : b.Y;
+        <#Inl();#>public static void Min (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = (a.X < b.X) ? a.X : b.X;
+            r.Y = (a.Y < b.Y) ? a.Y : b.Y;
         }
 
-        <#Inl();#>public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 result) {
-            result.X = (a.X > b.X) ? a.X : b.X;
-            result.Y = (a.Y > b.Y) ? a.Y : b.Y;
+        <#Inl();#>public static void Max (ref Vector2 a, ref Vector2 b, out Vector2 r) {
+            r.X = (a.X > b.X) ? a.X : b.X;
+            r.Y = (a.Y > b.Y) ? a.Y : b.Y;
         }
 
-        <#Inl();#>public static void Clamp (ref Vector2 v, ref Vector2 min, ref Vector2 max, out Vector2 result) {
-            <#=T#> x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; result.X = x;
-            <#=T#> y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; result.Y = y;
+        <#Inl();#>public static void Clamp (ref Vector2 v, ref Vector2 min, ref Vector2 max, out Vector2 r) {
+            <#=T#> x = v.X; x = (x > max.X) ? max.X : x; x = (x < min.X) ? min.X : x; r.X = x;
+            <#=T#> y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
         }
 
-        <#Inl();#>public static void Lerp (ref Vector2 a, ref Vector2 b, <#=T#> amount, out Vector2 result) {
+        <#Inl();#>public static void Lerp (ref Vector2 a, ref Vector2 b, <#=T#> amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
-            result.X = a.X + ((b.X - a.X) * amount);
-            result.Y = a.Y + ((b.Y - a.Y) * amount);
+            r.X = a.X + ((b.X - a.X) * amount);
+            r.Y = a.Y + ((b.Y - a.Y) * amount);
         }
 
-        <#Inl();#>public static void IsUnit (ref Vector2 vector, out Boolean result) {
-            result = Maths.IsApproximatelyZero(1 - vector.X * vector.X - vector.Y * vector.Y);
+        <#Inl();#>public static void IsUnit (ref Vector2 vector, out Boolean r) {
+            r = Maths.IsApproximatelyZero(1 - vector.X * vector.X - vector.Y * vector.Y);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
+        <#Inl();#>public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         <#Inl();#>public Vector2 Clamp         (Vector2 min, Vector2 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
-        <#Inl();#>public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 result; Min (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 result; Max (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 result; Clamp (ref v, ref min, ref max, out result); return result; }
-        <#Inl();#>public static Vector2 Lerp   (Vector2 a, Vector2 b, <#=T#> amount) { Vector2 result; Lerp (ref a, ref b, amount, out result); return result; }
-        <#Inl();#>public static Boolean IsUnit (Vector2 v) { Boolean result; IsUnit (ref v, out result); return result; }
+        <#Inl();#>public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 r; Min (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 r; Max (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 r; Clamp (ref v, ref min, ref max, out r); return r; }
+        <#Inl();#>public static Vector2 Lerp   (Vector2 a, Vector2 b, <#=T#> amount) { Vector2 r; Lerp (ref a, ref b, amount, out r); return r; }
+        <#Inl();#>public static Boolean IsUnit (Vector2 v) { Boolean r; IsUnit (ref v, out r); return r; }
 <# } #>
         
         // Splines //---------------------------------------------------------//
 
-        <#Inl();#>public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, <#=T#> amount, out Vector2 result) {
+        <#Inl();#>public static void SmoothStep (ref Vector2 v1, ref Vector2 v2, <#=T#> amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             amount = (amount * amount) * (3 - (2 * amount));
-            result.X = v1.X + ((v2.X - v1.X) * amount);
-            result.Y = v1.Y + ((v2.Y - v1.Y) * amount);
+            r.X = v1.X + ((v2.X - v1.X) * amount);
+            r.Y = v1.Y + ((v2.Y - v1.Y) * amount);
         }
 
-        <#Inl();#>public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, <#=T#> amount, out Vector2 result) {
+        <#Inl();#>public static void CatmullRom (ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, ref Vector2 v4, <#=T#> amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             <#=T#> squared = amount * amount;
             <#=T#> cubed = amount * squared;
-            result.X  = 2 * v2.X;
-            result.X += (v3.X - v1.X) * amount;
-            result.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
-            result.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
-            result.X *= Maths.Half;
-            result.Y  = 2 * v2.Y;
-            result.Y += (v3.Y - v1.Y) * amount;
-            result.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
-            result.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
-            result.Y *= Maths.Half;
+            r.X  = 2 * v2.X;
+            r.X += (v3.X - v1.X) * amount;
+            r.X += ((2 * v1.X) + (4 * v3.X) - (5 * v2.X) - (v4.X)) * squared;
+            r.X += ((3 * v2.X) + (v4.X) - (v1.X)  - (3 * v3.X)) * cubed;
+            r.X *= Maths.Half;
+            r.Y  = 2 * v2.Y;
+            r.Y += (v3.Y - v1.Y) * amount;
+            r.Y += ((2 * v1.Y) + (4 * v3.Y) - (5 * v2.Y) - (v4.Y)) * squared;
+            r.Y += ((3 * v2.Y) + (v4.Y) - (v1.Y) - (3 * v3.Y)) * cubed;
+            r.Y *= Maths.Half;
         }
 
-        <#Inl();#>public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, <#=T#> amount, out Vector2 result) {
+        <#Inl();#>public static void Hermite (ref Vector2 v1, ref Vector2 tangent1, ref Vector2 v2, ref Vector2 tangent2, <#=T#> amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             Boolean tangent1IsUnit;
             Boolean tangent2IsUnit;
@@ -174,72 +174,72 @@
             <#=T#> b = (-cubed * 2) + (squared * 3);
             <#=T#> c = (cubed - (squared * 2)) + amount;
             <#=T#> d = cubed - squared;
-            result.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
-            result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
+            r.X = (v1.X * a) + (v2.X * b) + (tangent1.X * c) + (tangent2.X * d);
+            r.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, <#=T#> amount) { Vector2 result; SmoothStep (ref v1, ref v2, amount, out result); return result; }
-        <#Inl();#>public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, <#=T#> amount) { Vector2 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out result); return result; }
-        <#Inl();#>public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, <#=T#> amount) { Vector2 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out result); return result; }
+        <#Inl();#>public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, <#=T#> amount) { Vector2 r; SmoothStep (ref v1, ref v2, amount, out r); return r; }
+        <#Inl();#>public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, <#=T#> amount) { Vector2 r; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out r); return r; }
+        <#Inl();#>public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, <#=T#> amount) { Vector2 r; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out r); return r; }
 <# } #>
 
         // Maths //-----------------------------------------------------------//
 
-        <#Inl();#>public static void Distance (ref Vector2 a, ref Vector2 b, out <#=T#> result) {
+        <#Inl();#>public static void Distance (ref Vector2 a, ref Vector2 b, out <#=T#> r) {
             <#=T#> dx = a.X - b.X, dy = a.Y - b.Y;
             <#=T#> lengthSquared = (dx * dx) + (dy * dy);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        <#Inl();#>public static void DistanceSquared (ref Vector2 a, ref Vector2 b, out <#=T#> result) {
+        <#Inl();#>public static void DistanceSquared (ref Vector2 a, ref Vector2 b, out <#=T#> r) {
             <#=T#> dx = a.X - b.X, dy = a.Y - b.Y;
-            result = (dx * dx) + (dy * dy);
+            r = (dx * dx) + (dy * dy);
         }
 
-        <#Inl();#>public static void Dot (ref Vector2 a, ref Vector2 b, out <#=T#> result) {
-            result = (a.X * b.X) + (a.Y * b.Y);
+        <#Inl();#>public static void Dot (ref Vector2 a, ref Vector2 b, out <#=T#> r) {
+            r = (a.X * b.X) + (a.Y * b.Y);
         }
 
-        <#Inl();#>public static void Normalise (ref Vector2 vector, out Vector2 result) {
+        <#Inl();#>public static void Normalise (ref Vector2 vector, out Vector2 r) {
             <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y);
             Debug.Assert (lengthSquared > Maths.Epsilon && !<#=T#>.IsInfinity(lengthSquared));
             <#=T#> multiplier = 1 / Maths.Sqrt (lengthSquared);
-            result.X = vector.X * multiplier;
-            result.Y = vector.Y * multiplier;
+            r.X = vector.X * multiplier;
+            r.Y = vector.Y * multiplier;
         }
 
-        <#Inl();#>public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 result) {
+        <#Inl();#>public static void Reflect (ref Vector2 vector, ref Vector2 normal, out Vector2 r) {
             Boolean normalIsUnit; Vector2.IsUnit (ref normal, out normalIsUnit);
             Debug.Assert (normalIsUnit);
             <#=T#> dot; Dot(ref vector, ref normal, out dot);
             <#=T#> twoDot = dot * 2;
             Vector2 m;
             Vector2.Multiply (ref normal, ref twoDot, out m);
-            Vector2.Subtract (ref vector, ref m, out result);
+            Vector2.Subtract (ref vector, ref m, out r);
         }
 
-        <#Inl();#>public static void Length (ref Vector2 vector, out <#=T#> result) {
+        <#Inl();#>public static void Length (ref Vector2 vector, out <#=T#> r) {
             <#=T#> lengthSquared = (vector.X * vector.X) + (vector.Y * vector.Y);
-            result = Maths.Sqrt (lengthSquared);
+            r = Maths.Sqrt (lengthSquared);
         }
 
-        <#Inl();#>public static void LengthSquared (ref Vector2 vector, out <#=T#> result) {
-            result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        <#Inl();#>public static void LengthSquared (ref Vector2 vector, out <#=T#> r) {
+            r = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public <#=T#>  Length        () { <#=T#> result; Length (ref this, out result); return result; }
-        <#Inl();#>public <#=T#>  LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
+        <#Inl();#>public <#=T#>  Length        () { <#=T#> r; Length (ref this, out r); return r; }
+        <#Inl();#>public <#=T#>  LengthSquared () { <#=T#> r; LengthSquared (ref this, out r); return r; }
         <#Inl();#>public Vector2 Normalise     () { Normalise (ref this, out this); return this; }
 
-        <#Inl();#>public static <#=T#>  Distance        (Vector2 a, Vector2 b) { <#=T#> result; Distance (ref a, ref b, out result); return result; }
-        <#Inl();#>public static <#=T#>  DistanceSquared (Vector2 a, Vector2 b) { <#=T#> result; DistanceSquared (ref a, ref b, out result); return result; }
-        <#Inl();#>public static <#=T#>  Dot             (Vector2 a, Vector2 b) { <#=T#> result; Dot (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector2 Normalise       (Vector2 v) { Vector2 result; Normalise (ref v, out result); return result; }
-        <#Inl();#>public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 result; Reflect (ref v, ref normal, out result); return result; }
-        <#Inl();#>public static <#=T#>  Length          (Vector2 v) { <#=T#> result; Length (ref v, out result); return result; }
-        <#Inl();#>public static <#=T#>  LengthSquared   (Vector2 v) { <#=T#> result; LengthSquared (ref v, out result); return result; }
+        <#Inl();#>public static <#=T#>  Distance        (Vector2 a, Vector2 b) { <#=T#> r; Distance (ref a, ref b, out r); return r; }
+        <#Inl();#>public static <#=T#>  DistanceSquared (Vector2 a, Vector2 b) { <#=T#> r; DistanceSquared (ref a, ref b, out r); return r; }
+        <#Inl();#>public static <#=T#>  Dot             (Vector2 a, Vector2 b) { <#=T#> r; Dot (ref a, ref b, out r); return r; }
+        <#Inl();#>public static Vector2 Normalise       (Vector2 v) { Vector2 r; Normalise (ref v, out r); return r; }
+        <#Inl();#>public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 r; Reflect (ref v, ref normal, out r); return r; }
+        <#Inl();#>public static <#=T#>  Length          (Vector2 v) { <#=T#> r; Length (ref v, out r); return r; }
+        <#Inl();#>public static <#=T#>  LengthSquared   (Vector2 v) { <#=T#> r; LengthSquared (ref v, out r); return r; }
 <# } #>
     }
 
