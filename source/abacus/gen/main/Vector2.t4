@@ -15,6 +15,8 @@
 
         <#Inl();#>public Boolean Equals (Vector2 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
 
+        <#Inl();#>public Boolean ApproximateEquals (Vector2 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
+
         // Constants //-------------------------------------------------------//
 
         readonly static Vector2 zero, one;
@@ -36,6 +38,10 @@
 
         <#Inl();#>public static void Equals (ref Vector2 a, ref Vector2 b, out Boolean result) {
             result = (a.X == b.X) && (a.Y == b.Y);
+        }
+
+        <#Inl();#>public static void ApproximateEquals (ref Vector2 v1, ref Vector2 v2, out Boolean result) {
+            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y);
         }
 
         <#Inl();#>public static void Add (ref Vector2 a, ref Vector2 b, out Vector2 result) {
@@ -68,27 +74,28 @@
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Boolean operator == (Vector2 a, Vector2 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Boolean operator != (Vector2 a, Vector2 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
-        <#Inl();#>public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  - (Vector2 v)            { Vector2 result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 result; Multiply (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  * (Vector2 v, <#=T#> f)  { Vector2 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  * (<#=T#> f,  Vector2 v) { Vector2 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 result; Divide   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  / (Vector2 a, <#=T#> d)  { Vector2 result; Divide   (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static <#=T#>  operator  | (Vector2 a, Vector2 d) { <#=T#>  result; Dot      (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static Vector2 operator  ~ (Vector2 v)            { Vector2 result; Normalise(ref v,        out result); return  result; }
+        <#Inl();#>public static Boolean operator == (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Boolean operator != (Vector2 a, Vector2 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
+        <#Inl();#>public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 result; Add       (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector2 operator  - (Vector2 a, Vector2 b) { Vector2 result; Subtract  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector2 operator  - (Vector2 v)            { Vector2 result; Negate    (ref v,        out result); return  result; }
+        <#Inl();#>public static Vector2 operator  * (Vector2 a, Vector2 b) { Vector2 result; Multiply  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector2 operator  * (Vector2 v, <#=T#> f)  { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
+        <#Inl();#>public static Vector2 operator  * (<#=T#> f,  Vector2 v) { Vector2 result; Multiply  (ref v, ref f, out result); return  result; }
+        <#Inl();#>public static Vector2 operator  / (Vector2 a, Vector2 b) { Vector2 result; Divide    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector2 operator  / (Vector2 a, <#=T#> d)  { Vector2 result; Divide    (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static <#=T#>  operator  | (Vector2 a, Vector2 d) { <#=T#>  result; Dot       (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static Vector2 operator  ~ (Vector2 v)            { Vector2 result; Normalise (ref v,        out result); return  result; }
 
-        <#Inl();#>public static Boolean Equals      (Vector2 a, Vector2 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 Add         (Vector2 a, Vector2 b) { Vector2 result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 Subtract    (Vector2 a, Vector2 b) { Vector2 result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 Negate      (Vector2 v)            { Vector2 result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector2 Multiply    (Vector2 a, Vector2 b) { Vector2 result; Multiply (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 Multiply    (Vector2 v, <#=T#> f)  { Vector2 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector2 Divide      (Vector2 a, Vector2 b) { Vector2 result; Divide   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector2 Divide      (Vector2 a, <#=T#> d)  { Vector2 result; Divide   (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static Boolean Equals            (Vector2 a, Vector2 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Boolean ApproximateEquals (Vector2 a, Vector2 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector2 Add               (Vector2 a, Vector2 b) { Vector2 result; Add               (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector2 Subtract          (Vector2 a, Vector2 b) { Vector2 result; Subtract          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector2 Negate            (Vector2 v)            { Vector2 result; Negate            (ref v,        out result); return result; }
+        <#Inl();#>public static Vector2 Multiply          (Vector2 a, Vector2 b) { Vector2 result; Multiply          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector2 Multiply          (Vector2 v, <#=T#> f)  { Vector2 result; Multiply          (ref v, ref f, out result); return result; }
+        <#Inl();#>public static Vector2 Divide            (Vector2 a, Vector2 b) { Vector2 result; Divide            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector2 Divide            (Vector2 a, <#=T#> d)  { Vector2 result; Divide            (ref a, ref d, out result); return result; }
 <# } #>
 
         // Utilities //-------------------------------------------------------//
@@ -115,7 +122,7 @@
         }
 
         <#Inl();#>public static void IsUnit (ref Vector2 vector, out Boolean result) {
-            result = Maths.IsZero(1 - vector.X * vector.X - vector.Y * vector.Y);
+            result = Maths.IsApproximatelyZero(1 - vector.X * vector.X - vector.Y * vector.Y);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>

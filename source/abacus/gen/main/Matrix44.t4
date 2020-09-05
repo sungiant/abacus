@@ -37,11 +37,9 @@
 
         <#Inl();#>public override Boolean Equals (Object obj) { return (obj is Matrix44) ? this.Equals ((Matrix44)obj) : false; }
 
-        <#Inl();#>public Boolean Equals (Matrix44 other) {
-            Boolean result;
-            Equals (ref this, ref other, out result);
-            return result;
-        }
+        <#Inl();#>public Boolean Equals (Matrix44 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+
+        <#Inl();#>public Boolean ApproximateEquals (Matrix44 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
 
         <#Inl();#>public Boolean IsSymmetric () {
             Matrix44 transpose = this;
@@ -89,6 +87,17 @@
                      (a.R2C0 == b.R2C0) && (a.R2C1 == b.R2C1) &&
                      (a.R2C3 == b.R2C3) && (a.R3C0 == b.R3C0) &&
                      (a.R3C1 == b.R3C1) && (a.R3C2 == b.R3C2);
+        }
+
+        <#Inl();#>public static void ApproximateEquals (ref Matrix44 a, ref Matrix44 b, out Boolean result) {
+            result = Maths.ApproximateEquals (a.R0C0, b.R0C0) && Maths.ApproximateEquals (a.R1C1, b.R1C1) &&
+                     Maths.ApproximateEquals (a.R2C2, b.R2C2) && Maths.ApproximateEquals (a.R3C3, b.R3C3) &&
+                     Maths.ApproximateEquals (a.R0C1, b.R0C1) && Maths.ApproximateEquals (a.R0C2, b.R0C2) &&
+                     Maths.ApproximateEquals (a.R0C3, b.R0C3) && Maths.ApproximateEquals (a.R1C0, b.R1C0) &&
+                     Maths.ApproximateEquals (a.R1C2, b.R1C2) && Maths.ApproximateEquals (a.R1C3, b.R1C3) &&
+                     Maths.ApproximateEquals (a.R2C0, b.R2C0) && Maths.ApproximateEquals (a.R2C1, b.R2C1) &&
+                     Maths.ApproximateEquals (a.R2C3, b.R2C3) && Maths.ApproximateEquals (a.R3C0, b.R3C0) &&
+                     Maths.ApproximateEquals (a.R3C1, b.R3C1) && Maths.ApproximateEquals (a.R3C2, b.R3C2);
         }
 
         <#Inl();#>public static void Add (ref Matrix44 a, ref Matrix44 b, out Matrix44 result) {
@@ -159,25 +168,26 @@
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return !result; }
-        <#Inl();#>public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Matrix44 operator  - (Matrix44 m)             { Matrix44 result; Negate   (ref m, out result);        return  result; }
-        <#Inl();#>public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Matrix44 operator  * (Matrix44 m, <#=T#> f)   { Matrix44 result; Multiply (ref m, ref f, out result); return  result; }
-        <#Inl();#>public static Matrix44 operator  * (<#=T#> f, Matrix44 m)   { Matrix44 result; Multiply (ref m, ref f, out result); return  result; }
-        <#Inl();#>public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3 result; Transform (ref m, ref v, out result); return  result; }
-        <#Inl();#>public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4 result; Transform (ref m, ref v, out result); return  result; }
-        <#Inl();#>public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3 result; Transform (ref m, ref v, out result); return  result; }
-        <#Inl();#>public static Vector4  operator  * (Matrix44 m, Vector4 v)  { Vector4 result; Transform (ref m, ref v, out result); return  result; }
+        <#Inl();#>public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean  result; Equals    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean  result; Equals    (ref a, ref b, out result); return !result; }
+        <#Inl();#>public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add       (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Matrix44 operator  - (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Matrix44 operator  - (Matrix44 m)             { Matrix44 result; Negate    (ref m,        out result); return  result; }
+        <#Inl();#>public static Matrix44 operator  * (Matrix44 a, Matrix44 b) { Matrix44 result; Product   (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Matrix44 operator  * (Matrix44 m, <#=T#> f)   { Matrix44 result; Multiply  (ref m, ref f, out result); return  result; }
+        <#Inl();#>public static Matrix44 operator  * (<#=T#> f, Matrix44 m)   { Matrix44 result; Multiply  (ref m, ref f, out result); return  result; }
+        <#Inl();#>public static Vector3  operator  * (Vector3 v, Matrix44 m)  { Vector3  result; Transform (ref m, ref v, out result); return  result; }
+        <#Inl();#>public static Vector4  operator  * (Vector4 v, Matrix44 m)  { Vector4  result; Transform (ref m, ref v, out result); return  result; }
+        <#Inl();#>public static Vector3  operator  * (Matrix44 m, Vector3 v)  { Vector3  result; Transform (ref m, ref v, out result); return  result; }
+        <#Inl();#>public static Vector4  operator  * (Matrix44 m, Vector4 v)  { Vector4  result; Transform (ref m, ref v, out result); return  result; }
 
-        <#Inl();#>public static Boolean  Equals      (Matrix44 a, Matrix44 b) { Boolean  result; Equals   (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Matrix44 Add         (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Matrix44 Subtract    (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Matrix44 Negate      (Matrix44 m)             { Matrix44 result; Negate   (ref m, out result);        return result; }
-        <#Inl();#>public static Matrix44 Product     (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Matrix44 Multiply    (Matrix44 m, <#=T#> f)   { Matrix44 result; Multiply (ref m, ref f, out result); return result; }
+        <#Inl();#>public static Boolean  Equals            (Matrix44 a, Matrix44 b) { Boolean  result; Equals            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Boolean  ApproximateEquals (Matrix44 a, Matrix44 b) { Boolean  result; ApproximateEquals (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Matrix44 Add               (Matrix44 a, Matrix44 b) { Matrix44 result; Add               (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Matrix44 Subtract          (Matrix44 a, Matrix44 b) { Matrix44 result; Subtract          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Matrix44 Negate            (Matrix44 m)             { Matrix44 result; Negate            (ref m,        out result); return result; }
+        <#Inl();#>public static Matrix44 Product           (Matrix44 a, Matrix44 b) { Matrix44 result; Product           (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Matrix44 Multiply          (Matrix44 m, <#=T#> f)   { Matrix44 result; Multiply          (ref m, ref f, out result); return result; }
 <# } #>
 
         // Utilities //-------------------------------------------------------//
@@ -227,7 +237,7 @@
             <#=T#> aLen; Vector3.Length (ref a, out aLen); scale.X = aLen;
             <#=T#> bLen; Vector3.Length (ref b, out bLen); scale.Y = bLen;
             <#=T#> cLen; Vector3.Length (ref c, out cLen); scale.Z = cLen;
-            if (Maths.IsZero (scale.X) || Maths.IsZero (scale.Y) || Maths.IsZero (scale.Z)) {
+            if (Maths.IsApproximatelyZero (scale.X) || Maths.IsApproximatelyZero (scale.Y) || Maths.IsApproximatelyZero (scale.Z)) {
                 rotation = Quaternion.Identity;
                 result = false;
             }

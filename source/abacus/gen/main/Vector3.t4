@@ -17,11 +17,9 @@
 
         <#Inl();#>public override Boolean Equals (Object obj) { return (obj is Vector3) ? this.Equals ((Vector3) obj) : false; }
 
-        <#Inl();#>public Boolean Equals (Vector3 other) {
-            Boolean result;
-            Equals (ref this, ref other, out result);
-            return result;
-        }
+        <#Inl();#>public Boolean Equals (Vector3 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+
+        <#Inl();#>public Boolean ApproximateEquals (Vector3 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
 
         // Constants //-------------------------------------------------------//
 
@@ -61,6 +59,11 @@
             result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z);
         }
 
+        <#Inl();#>public static void ApproximateEquals (ref Vector3 v1, ref Vector3 v2, out Boolean result) {
+            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
+                && Maths.ApproximateEquals (v1.Z, v2.Z);
+        }
+
         <#Inl();#>public static void Add (ref Vector3 a, ref Vector3 b, out Vector3 result) {
             result.X = a.X + b.X; result.Y = a.Y + b.Y; result.Z = a.Z + b.Z;
         }
@@ -91,28 +94,29 @@
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Boolean operator == (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Boolean operator != (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
-        <#Inl();#>public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  - (Vector3 a, Vector3 b) { Vector3 result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  - (Vector3 v)            { Vector3 result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector3 operator  * (Vector3 a, Vector3 b) { Vector3 result; Multiply (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  * (Vector3 v, <#=T#> f)  { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  * (<#=T#> f,  Vector3 v) { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  / (Vector3 a, Vector3 b) { Vector3 result; Divide   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  / (Vector3 a, <#=T#> d)  { Vector3 result; Divide   (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  ^ (Vector3 a, Vector3 d) { Vector3 result; Cross    (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static <#=T#>  operator  | (Vector3 a, Vector3 d) { <#=T#>  result; Dot      (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static Vector3 operator  ~ (Vector3 v)            { Vector3 result; Normalise(ref v,        out result); return  result; }
+        <#Inl();#>public static Boolean operator == (Vector3 a, Vector3 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Boolean operator != (Vector3 a, Vector3 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
+        <#Inl();#>public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 result; Add       (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  - (Vector3 a, Vector3 b) { Vector3 result; Subtract  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  - (Vector3 v)            { Vector3 result; Negate    (ref v,        out result); return  result; }
+        <#Inl();#>public static Vector3 operator  * (Vector3 a, Vector3 b) { Vector3 result; Multiply  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  * (Vector3 v, <#=T#> f)  { Vector3 result; Multiply  (ref v, ref f, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  * (<#=T#> f,  Vector3 v) { Vector3 result; Multiply  (ref v, ref f, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  / (Vector3 a, Vector3 b) { Vector3 result; Divide    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  / (Vector3 a, <#=T#> d)  { Vector3 result; Divide    (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  ^ (Vector3 a, Vector3 d) { Vector3 result; Cross     (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static <#=T#>  operator  | (Vector3 a, Vector3 d) { <#=T#>  result; Dot       (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static Vector3 operator  ~ (Vector3 v)            { Vector3 result; Normalise (ref v,        out result); return  result; }
 
-        <#Inl();#>public static Boolean Equals      (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 Add         (Vector3 a, Vector3 b) { Vector3 result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 Subtract    (Vector3 a, Vector3 b) { Vector3 result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 Negate      (Vector3 v)            { Vector3 result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector3 Multiply    (Vector3 a, Vector3 b) { Vector3 result; Multiply (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 Multiply    (Vector3 v, <#=T#> f)  { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector3 Divide      (Vector3 a, Vector3 b) { Vector3 result; Divide   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3 Divide      (Vector3 a, <#=T#> d)  { Vector3 result; Divide   (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static Boolean Equals            (Vector3 a, Vector3 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Boolean ApproximateEquals (Vector3 a, Vector3 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector3 Add               (Vector3 a, Vector3 b) { Vector3 result; Add               (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector3 Subtract          (Vector3 a, Vector3 b) { Vector3 result; Subtract          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector3 Negate            (Vector3 v)            { Vector3 result; Negate            (ref v,        out result); return result; }
+        <#Inl();#>public static Vector3 Multiply          (Vector3 a, Vector3 b) { Vector3 result; Multiply          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector3 Multiply          (Vector3 v, <#=T#> f)  { Vector3 result; Multiply          (ref v, ref f, out result); return result; }
+        <#Inl();#>public static Vector3 Divide            (Vector3 a, Vector3 b) { Vector3 result; Divide            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector3 Divide            (Vector3 a, <#=T#> d)  { Vector3 result; Divide            (ref a, ref d, out result); return result; }
 <# } #>
 
         // Utilities //-------------------------------------------------------//
@@ -140,7 +144,7 @@
         }
 
         <#Inl();#>public static void IsUnit (ref Vector3 vector, out Boolean result) {
-            result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
+            result = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>

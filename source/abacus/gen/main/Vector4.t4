@@ -20,11 +20,9 @@
 
         <#Inl();#>public override Boolean Equals (Object obj) { return (obj is Vector4) ? this.Equals ((Vector4)obj) : false; }
 
-        <#Inl();#>public Boolean Equals (Vector4 other) {
-            Boolean result;
-            Equals (ref this, ref other, out result);
-            return result;
-        }
+        <#Inl();#>public Boolean Equals (Vector4 other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+
+        <#Inl();#>public Boolean ApproximateEquals (Vector4 other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
 
         // Constants //-------------------------------------------------------//
 
@@ -51,6 +49,11 @@
 
         <#Inl();#>public static void Equals (ref Vector4 a, ref Vector4 b, out Boolean result) {
             result = (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
+        }
+
+        <#Inl();#>public static void ApproximateEquals (ref Vector4 v1, ref Vector4 v2, out Boolean result) {
+            result = Maths.ApproximateEquals (v1.X, v2.X) && Maths.ApproximateEquals (v1.Y, v2.Y)
+                && Maths.ApproximateEquals (v1.Z, v2.Z) && Maths.ApproximateEquals (v1.W, v2.W);
         }
 
         <#Inl();#>public static void Add (ref Vector4 a, ref Vector4 b, out Vector4 result) {
@@ -83,27 +86,28 @@
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
-        <#Inl();#>public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  - (Vector4 v)            { Vector4 result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 result; Multiply (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  * (Vector4 v, <#=T#> f)  { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  * (<#=T#> f,  Vector4 v) { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 result; Divide   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  / (Vector4 a, <#=T#> d)  { Vector4 result; Divide   (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static <#=T#>  operator  | (Vector4 a, Vector4 d) { <#=T#>  result; Dot      (ref a, ref d, out result); return  result; }
-        <#Inl();#>public static Vector4 operator  ~ (Vector4 v)            { Vector4 result; Normalise(ref v,        out result); return  result; }
+        <#Inl();#>public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals    (ref a, ref b, out result); return !result; }
+        <#Inl();#>public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add       (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector4 operator  - (Vector4 a, Vector4 b) { Vector4 result; Subtract  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector4 operator  - (Vector4 v)            { Vector4 result; Negate    (ref v,        out result); return  result; }
+        <#Inl();#>public static Vector4 operator  * (Vector4 a, Vector4 b) { Vector4 result; Multiply  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector4 operator  * (Vector4 v, <#=T#> f)  { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
+        <#Inl();#>public static Vector4 operator  * (<#=T#> f,  Vector4 v) { Vector4 result; Multiply  (ref v, ref f, out result); return  result; }
+        <#Inl();#>public static Vector4 operator  / (Vector4 a, Vector4 b) { Vector4 result; Divide    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector4 operator  / (Vector4 a, <#=T#> d)  { Vector4 result; Divide    (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static <#=T#>  operator  | (Vector4 a, Vector4 d) { <#=T#>  result; Dot       (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static Vector4 operator  ~ (Vector4 v)            { Vector4 result; Normalise (ref v,        out result); return  result; }
 
-        <#Inl();#>public static Boolean Equals      (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 Add         (Vector4 a, Vector4 b) { Vector4 result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 Subtract    (Vector4 a, Vector4 b) { Vector4 result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 Negate      (Vector4 v)            { Vector4 result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Vector4 Multiply    (Vector4 a, Vector4 b) { Vector4 result; Multiply (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 Multiply    (Vector4 v, <#=T#> f)  { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
-        <#Inl();#>public static Vector4 Divide      (Vector4 a, Vector4 b) { Vector4 result; Divide   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector4 Divide      (Vector4 a, <#=T#> d)  { Vector4 result; Divide   (ref a, ref d, out result); return  result; }
+        <#Inl();#>public static Boolean Equals            (Vector4 a, Vector4 b) { Boolean result; Equals            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Boolean ApproximateEquals (Vector4 a, Vector4 b) { Boolean result; ApproximateEquals (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector4 Add               (Vector4 a, Vector4 b) { Vector4 result; Add               (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector4 Subtract          (Vector4 a, Vector4 b) { Vector4 result; Subtract          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector4 Negate            (Vector4 v)            { Vector4 result; Negate            (ref v,        out result); return result; }
+        <#Inl();#>public static Vector4 Multiply          (Vector4 a, Vector4 b) { Vector4 result; Multiply          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector4 Multiply          (Vector4 v, <#=T#> f)  { Vector4 result; Multiply          (ref v, ref f, out result); return result; }
+        <#Inl();#>public static Vector4 Divide            (Vector4 a, Vector4 b) { Vector4 result; Divide            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector4 Divide            (Vector4 a, <#=T#> d)  { Vector4 result; Divide            (ref a, ref d, out result); return result; }
 <# } #>
 
         // Utilities //-------------------------------------------------------//
@@ -132,7 +136,7 @@
         }
 
         <#Inl();#>public static void IsUnit (ref Vector4 vector, out Boolean result) {
-            result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
+            result = Maths.IsApproximatelyZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>

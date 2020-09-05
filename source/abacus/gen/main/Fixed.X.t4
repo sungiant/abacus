@@ -23,7 +23,7 @@
 
         <#Inl();#>public static <#= ftd.TypeName #> CreateRaw (<#= ftd.RawTypeName #> value) { <#= ftd.TypeName #> f; f.numerator = value; return f; }
 
-        <#Inl();#>public override Boolean Equals(object obj) {
+        <#Inl();#>public override Boolean Equals (object obj) {
             if (obj is <#= ftd.TypeName #>)
                 return ((<#= ftd.TypeName #>)obj).numerator == numerator;
             return false;

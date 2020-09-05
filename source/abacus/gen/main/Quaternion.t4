@@ -18,11 +18,9 @@
 
         <#Inl();#>public override Boolean Equals (Object obj) { return (obj is Quaternion) ? this.Equals ((Quaternion) obj) : false; }
 
-        <#Inl();#>public Boolean Equals (Quaternion other) {
-            Boolean result;
-            Equals (ref this, ref other, out result);
-            return result;
-        }
+        <#Inl();#>public Boolean Equals (Quaternion other) { Boolean result; Equals (ref this, ref other, out result); return result; }
+
+        <#Inl();#>public Boolean ApproximateEquals (Quaternion other) { Boolean result; ApproximateEquals (ref this, ref other, out result); return result; }
 
         // Constants //-------------------------------------------------------//
 
@@ -40,6 +38,11 @@
 
         <#Inl();#>public static void Equals (ref Quaternion q1, ref Quaternion q2, out Boolean result) {
             result = (q1.I == q2.I) && (q1.J == q2.J) && (q1.K == q2.K) && (q1.U == q2.U);
+        }
+
+        <#Inl();#>public static void ApproximateEquals (ref Quaternion q1, ref Quaternion q2, out Boolean result) {
+            result = Maths.ApproximateEquals (q1.I, q2.I) && Maths.ApproximateEquals (q1.J, q2.J)
+                && Maths.ApproximateEquals (q1.K, q2.K) && Maths.ApproximateEquals (q1.U, q2.U);
         }
 
         <#Inl();#>public static void Add (ref Quaternion q1, ref Quaternion q2, out Quaternion result) {
@@ -63,23 +66,24 @@
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return !result; }
-        <#Inl();#>public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Quaternion operator  - (Quaternion v)               { Quaternion result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion result; Multiply (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Vector3  operator    * (Vector3 v, Quaternion q)    { Vector3 result; Transform   (ref q, ref v, out result); return  result; }
-        <#Inl();#>public static Vector4  operator    * (Vector4 v, Quaternion q)    { Vector4 result; Transform   (ref q, ref v, out result); return  result; }
-        <#Inl();#>public static Vector3  operator    * (Quaternion q, Vector3 v)    { Vector3 result; Transform   (ref q, ref v, out result); return  result; }
-        <#Inl();#>public static Vector4  operator    * (Quaternion q, Vector4 v)    { Vector4 result; Transform   (ref q, ref v, out result); return  result; }
-        <#Inl();#>public static Quaternion operator  ~ (Quaternion v)               { Quaternion result; Normalise(ref v,        out result); return  result; }
+        <#Inl();#>public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    result; Equals    (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    result; Equals    (ref a, ref b, out result); return !result; }
+        <#Inl();#>public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion result; Add       (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Quaternion operator  - (Quaternion a, Quaternion b) { Quaternion result; Subtract  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Quaternion operator  - (Quaternion v)               { Quaternion result; Negate    (ref v,        out result); return  result; }
+        <#Inl();#>public static Quaternion operator  * (Quaternion a, Quaternion b) { Quaternion result; Multiply  (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Vector3    operator  * (Vector3 v, Quaternion q)    { Vector3    result; Transform (ref q, ref v, out result); return  result; }
+        <#Inl();#>public static Vector4    operator  * (Vector4 v, Quaternion q)    { Vector4    result; Transform (ref q, ref v, out result); return  result; }
+        <#Inl();#>public static Vector3    operator  * (Quaternion q, Vector3 v)    { Vector3    result; Transform (ref q, ref v, out result); return  result; }
+        <#Inl();#>public static Vector4    operator  * (Quaternion q, Vector4 v)    { Vector4    result; Transform (ref q, ref v, out result); return  result; }
+        <#Inl();#>public static Quaternion operator  ~ (Quaternion v)               { Quaternion result; Normalise (ref v,        out result); return  result; }
 
-        <#Inl();#>public static Boolean    Equals      (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Quaternion Add         (Quaternion a, Quaternion b) { Quaternion result; Add      (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Quaternion Subtract    (Quaternion a, Quaternion b) { Quaternion result; Subtract (ref a, ref b, out result); return  result; }
-        <#Inl();#>public static Quaternion Negate      (Quaternion v)               { Quaternion result; Negate   (ref v,        out result); return  result; }
-        <#Inl();#>public static Quaternion Multiply    (Quaternion a, Quaternion b) { Quaternion result; Multiply (ref a, ref b, out result); return  result; }
+        <#Inl();#>public static Boolean    Equals            (Quaternion a, Quaternion b) { Boolean    result; Equals            (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Boolean    ApproximateEquals (Quaternion a, Quaternion b) { Boolean    result; ApproximateEquals (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Quaternion Add               (Quaternion a, Quaternion b) { Quaternion result; Add               (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Quaternion Subtract          (Quaternion a, Quaternion b) { Quaternion result; Subtract          (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Quaternion Negate            (Quaternion v)               { Quaternion result; Negate            (ref v,        out result); return result; }
+        <#Inl();#>public static Quaternion Multiply          (Quaternion a, Quaternion b) { Quaternion result; Multiply          (ref a, ref b, out result); return result; }
 <# } #>
 
         // Utilities //-------------------------------------------------------//
@@ -122,7 +126,7 @@
         }
 
         <#Inl();#>public static void IsUnit (ref Quaternion q, out Boolean result) {
-            result = Maths.IsZero((<#=T#>) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
+            result = Maths.IsApproximatelyZero((<#=T#>) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
@@ -135,14 +139,12 @@
 
         // Maths //-----------------------------------------------------------//
 
-        <#Inl();#>public static void LengthSquared (ref Quaternion quaternion, out <#=T#> result) {
-            result = (quaternion.I * quaternion.I) + (quaternion.J * quaternion.J)
-                   + (quaternion.K * quaternion.K) + (quaternion.U * quaternion.U);
+        <#Inl();#>public static void LengthSquared (ref Quaternion q, out <#=T#> result) {
+            result = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
         }
 
-        <#Inl();#>public static void Length (ref Quaternion quaternion, out <#=T#> result) {
-            <#=T#> lengthSquared = (quaternion.I * quaternion.I) + (quaternion.J * quaternion.J)
-                                 + (quaternion.K * quaternion.K) + (quaternion.U * quaternion.U);
+        <#Inl();#>public static void Length (ref Quaternion q, out <#=T#> result) {
+            <#=T#> lengthSquared = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
             result = Maths.Sqrt (lengthSquared);
         }
 
@@ -151,12 +153,11 @@
             result.K = -value.K; result.U = value.U;
         }
 
-        <#Inl();#>public static void Inverse (ref Quaternion quaternion, out Quaternion result) {
-            <#=T#> a = (quaternion.I * quaternion.I) + (quaternion.J * quaternion.J)
-                     + (quaternion.K * quaternion.K) + (quaternion.U * quaternion.U);
+        <#Inl();#>public static void Inverse (ref Quaternion q, out Quaternion result) {
+            <#=T#> a = (q.I * q.I) + (q.J * q.J) + (q.K * q.K) + (q.U * q.U);
             <#=T#> b = 1 / a;
-            result.I = -quaternion.I * b; result.J = -quaternion.J * b;
-            result.K = -quaternion.K * b; result.U =  quaternion.U * b;
+            result.I = -q.I * b; result.J = -q.J * b;
+            result.K = -q.K * b; result.U =  q.U * b;
         }
 
         <#Inl();#>public static void Dot (ref Quaternion q1, ref Quaternion q2, out <#=T#> result) {
@@ -175,12 +176,12 @@
             result.I = i; result.J = j; result.K = k; result.U = u;
         }
 
-        <#Inl();#>public static void Normalise (ref Quaternion quaternion, out Quaternion result) {
-            <#=T#> a = (quaternion.I * quaternion.I) + (quaternion.J * quaternion.J)
-                     + (quaternion.K * quaternion.K) + (quaternion.U * quaternion.U);
+        <#Inl();#>public static void Normalise (ref Quaternion q, out Quaternion result) {
+            <#=T#> a = (q.I * q.I) + (q.J * q.J)
+                     + (q.K * q.K) + (q.U * q.U);
             <#=T#> b = 1 / Maths.Sqrt (a);
-            result.I = quaternion.I * b; result.J = quaternion.J * b;
-            result.K = quaternion.K * b; result.U = quaternion.U * b;
+            result.I = q.I * b; result.J = q.J * b;
+            result.K = q.K * b; result.U = q.U * b;
         }
 
         <#Inl();#>public static void Transform (ref Quaternion rotation, ref Vector3 vector, out Vector3 result) {
@@ -206,26 +207,48 @@
             result.X = x; result.Y = y; result.Z = z; result.W = w;
         }
 
-<# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public <#=T#>     LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
-        <#Inl();#>public <#=T#>     Length        () { <#=T#> result; Length (ref this, out result); return result; }
-        <#Inl();#>public void       Normalise     () { Normalise (ref this, out this); }
-        <#Inl();#>public Quaternion Conjugate     () { Conjugate (ref this, out this); return this; }
-        <#Inl();#>public Quaternion Inverse       () { Inverse (ref this, out this); return this; }
-        <#Inl();#>public <#=T#>     Dot           (Quaternion q) { <#=T#> result; Dot (ref this, ref q, out result); return result; }
-        <#Inl();#>public Quaternion Concatenate   (Quaternion q) { Concatenate (ref this, ref q, out this); return this; }
-        <#Inl();#>public Vector3    Transform     (Vector3 v) { Vector3 result; Transform (ref this, ref v, out result); return result; }
-        <#Inl();#>public Vector4    Transform     (Vector4 v) { Vector4 result; Transform (ref this, ref v, out result); return result; }
+        <#Inl();#>public static void ToYawPitchRoll (ref Quaternion q, out Vector3 result) { // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
+            // roll (x-axis rotation)
+            <#=T#> sinr_cosp = 2 * (q.U * q.K + q.I * q.J);
+            <#=T#> cosr_cosp = ((<#=T#>) 1) - 2 * (q.K * q.K + q.I * q.I);
+            result.Z = Maths.ArcTan2 (sinr_cosp, cosr_cosp);
+            // pitch (y-axis rotation)
+            <#=T#> sinp = 2 * (q.U * q.I - q.J * q.K);
+            if (Maths.Abs (sinp) >= 1f)
+                if (sinp < 0f)
+                    result.Y = -Maths.Pi / 2;
+                else
+                    result.Y = Maths.Pi / 2;
+            else
+                result.Y = Maths.ArcSin (sinp);
+            // yaw (z-axis rotation)
+            <#=T#> siny_cosp = 2 * (q.U * q.J + q.K * q.I);
+            <#=T#> cosy_cosp = ((<#=T#>) 1) - 2 * (q.I * q.I + q.J * q.J);
+            result.X = Maths.ArcTan2 (siny_cosp, cosy_cosp);
+        }
 
-        <#Inl();#>public static <#=T#>     LengthSquared (Quaternion q) { <#=T#> result; LengthSquared (ref q, out result); return result; }
-        <#Inl();#>public static <#=T#>     Length        (Quaternion q) { <#=T#> result; Length (ref q, out result); return result; }
-        <#Inl();#>public static Quaternion Normalise     (Quaternion q) { Quaternion result; Normalise (ref q, out result); return result; }
-        <#Inl();#>public static Quaternion Conjugate     (Quaternion q) { Quaternion result; Conjugate (ref q, out result); return result; }
-        <#Inl();#>public static Quaternion Inverse       (Quaternion q) { Quaternion result; Inverse (ref q, out result); return result; }
-        <#Inl();#>public static <#=T#>     Dot           (Quaternion a, Quaternion b) { <#=T#> result; Dot (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Quaternion Concatenate   (Quaternion a, Quaternion b) { Quaternion result; Concatenate (ref a, ref b, out result); return result; }
-        <#Inl();#>public static Vector3    Transform     (Quaternion rotation, Vector3 v) { Vector3 result; Transform (ref rotation, ref v, out result); return result; }
-        <#Inl();#>public static Vector4    Transform     (Quaternion rotation, Vector4 v) { Vector4 result; Transform (ref rotation, ref v, out result); return result; }
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
+        <#Inl();#>public <#=T#>     LengthSquared  () { <#=T#> result; LengthSquared (ref this, out result); return result; }
+        <#Inl();#>public <#=T#>     Length         () { <#=T#> result; Length (ref this, out result); return result; }
+        <#Inl();#>public void       Normalise      () { Normalise (ref this, out this); }
+        <#Inl();#>public Quaternion Conjugate      () { Conjugate (ref this, out this); return this; }
+        <#Inl();#>public Quaternion Inverse        () { Inverse (ref this, out this); return this; }
+        <#Inl();#>public <#=T#>     Dot            (Quaternion q) { <#=T#> result; Dot (ref this, ref q, out result); return result; }
+        <#Inl();#>public Quaternion Concatenate    (Quaternion q) { Concatenate (ref this, ref q, out this); return this; }
+        <#Inl();#>public Vector3    Transform      (Vector3 v) { Vector3 result; Transform (ref this, ref v, out result); return result; }
+        <#Inl();#>public Vector4    Transform      (Vector4 v) { Vector4 result; Transform (ref this, ref v, out result); return result; }
+        <#Inl();#>public Vector3    ToYawPitchRoll () { Vector3 result; ToYawPitchRoll (ref this, out result); return result; }
+
+        <#Inl();#>public static <#=T#>     LengthSquared  (Quaternion q) { <#=T#> result; LengthSquared (ref q, out result); return result; }
+        <#Inl();#>public static <#=T#>     Length         (Quaternion q) { <#=T#> result; Length (ref q, out result); return result; }
+        <#Inl();#>public static Quaternion Normalise      (Quaternion q) { Quaternion result; Normalise (ref q, out result); return result; }
+        <#Inl();#>public static Quaternion Conjugate      (Quaternion q) { Quaternion result; Conjugate (ref q, out result); return result; }
+        <#Inl();#>public static Quaternion Inverse        (Quaternion q) { Quaternion result; Inverse (ref q, out result); return result; }
+        <#Inl();#>public static <#=T#>     Dot            (Quaternion a, Quaternion b) { <#=T#> result; Dot (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Quaternion Concatenate    (Quaternion a, Quaternion b) { Quaternion result; Concatenate (ref a, ref b, out result); return result; }
+        <#Inl();#>public static Vector3    Transform      (Quaternion rotation, Vector3 v) { Vector3 result; Transform (ref rotation, ref v, out result); return result; }
+        <#Inl();#>public static Vector4    Transform      (Quaternion rotation, Vector4 v) { Vector4 result; Transform (ref rotation, ref v, out result); return result; }
+        <#Inl();#>public static Vector3    ToYawPitchRoll (Quaternion q) { Vector3 result; ToYawPitchRoll (ref q, out result); return result; }
 <# } #>
         // Creation //--------------------------------------------------------//
 

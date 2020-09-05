@@ -96,39 +96,42 @@ public static <#= type #> <#= name #> <#= s #>
         };
 
         var singleSpecificStrings = new Dictionary <String, String> () {
-            { "Epsilon",        "0.000001f"                                               },
-            { "Sqrt",           "(Single v) { return (Single) Math.Sqrt (v); }"           },
-            { "Abs",            "(Single v) { return (Single) Math.Abs (v); }"            },
-            { "Sin",            "(Single v) { return (Single) Math.Sin (v); }"            },
-            { "Cos",            "(Single v) { return (Single) Math.Cos (v); }"            },
-            { "Tan",            "(Single v) { return (Single) Math.Tan (v); }"            },
-            { "ArcSin",         "(Single v) { return (Single) Math.Asin (v); }"           },
-            { "ArcCos",         "(Single v) { return (Single) Math.Acos (v); }"           },
-            { "ArcTan",         "(Single v) { return (Single) Math.Atan (v); }"           },
+            { "Epsilon",        "0.000001f"                                                   },
+            { "Sqrt",           "(Single v) { return (Single) Math.Sqrt (v); }"               },
+            { "Abs",            "(Single v) { return (Single) Math.Abs (v); }"                },
+            { "Sin",            "(Single v) { return (Single) Math.Sin (v); }"                },
+            { "Cos",            "(Single v) { return (Single) Math.Cos (v); }"                },
+            { "Tan",            "(Single v) { return (Single) Math.Tan (v); }"                },
+            { "ArcSin",         "(Single v) { return (Single) Math.Asin (v); }"               },
+            { "ArcCos",         "(Single v) { return (Single) Math.Acos (v); }"               },
+            { "ArcTan",         "(Single v) { return (Single) Math.Atan (v); }"               },
+            { "ArcTan2",        "(Single y, Single x) { return (Single) Math.Atan2 (y, x); }" },
         };
 
         var doubleSpecificStrings = new Dictionary <String, String> () {
-            { "Epsilon",        "(Double) 0.000001"                                       },
-            { "Sqrt",           "(Double v) { return Math.Sqrt (v); }"                    },
-            { "Abs",            "(Double v) { return Math.Abs (v); }"                     },
-            { "Sin",            "(Double v) { return Math.Sin (v); }"                     },
-            { "Cos",            "(Double v) { return Math.Cos (v); }"                     },
-            { "Tan",            "(Double v) { return Math.Tan (v); }"                     },
-            { "ArcSin",         "(Double v) { return Math.Asin (v); }"                    },
-            { "ArcCos",         "(Double v) { return Math.Acos (v); }"                    },
-            { "ArcTan",         "(Double v) { return Math.Atan (v); }"                    },
+            { "Epsilon",        "(Double) 0.000001"                                           },
+            { "Sqrt",           "(Double v) { return Math.Sqrt (v); }"                        },
+            { "Abs",            "(Double v) { return Math.Abs (v); }"                         },
+            { "Sin",            "(Double v) { return Math.Sin (v); }"                         },
+            { "Cos",            "(Double v) { return Math.Cos (v); }"                         },
+            { "Tan",            "(Double v) { return Math.Tan (v); }"                         },
+            { "ArcSin",         "(Double v) { return Math.Asin (v); }"                        },
+            { "ArcCos",         "(Double v) { return Math.Acos (v); }"                        },
+            { "ArcTan",         "(Double v) { return Math.Atan (v); }"                        },
+            { "ArcTan2",        "(Double y, Double x) { return Math.Atan2 (y, x); }"          },
         };
 
         var fixed32SpecificStrings = new Dictionary <String, String> () {
-            { "Epsilon",        "(Fixed32) 0.000001"                                      },
-            { "Sqrt",           "(Fixed32 v) { return Fixed32.Sqrt (v); }"                },
-            { "Abs",            "(Fixed32 v) { return Fixed32.Abs (v); }"                 },
-            { "Sin",            "(Fixed32 v) { return Fixed32.Sin (v); }"                 },
-            { "Cos",            "(Fixed32 v) { return Fixed32.Cos (v); }"                 },
-            { "Tan",            "(Fixed32 v) { return Fixed32.Tan (v); }"                 },
-            { "ArcSin",         "(Fixed32 v) { return Fixed32.ArcSin (v); }"              },
-            { "ArcCos",         "(Fixed32 v) { return Fixed32.ArcCos (v); }"              },
-            { "ArcTan",         "(Fixed32 v) { return Fixed32.ArcTan (v); }"              },
+            { "Epsilon",        "(Fixed32) 0.000001"                                          },
+            { "Sqrt",           "(Fixed32 v) { return Fixed32.Sqrt (v); }"                    },
+            { "Abs",            "(Fixed32 v) { return Fixed32.Abs (v); }"                     },
+            { "Sin",            "(Fixed32 v) { return Fixed32.Sin (v); }"                     },
+            { "Cos",            "(Fixed32 v) { return Fixed32.Cos (v); }"                     },
+            { "Tan",            "(Fixed32 v) { return Fixed32.Tan (v); }"                     },
+            { "ArcSin",         "(Fixed32 v) { return Fixed32.ArcSin (v); }"                  },
+            { "ArcCos",         "(Fixed32 v) { return Fixed32.ArcCos (v); }"                  },
+            { "ArcTan",         "(Fixed32 v) { return Fixed32.ArcTan (v); }"                  },
+            { "ArcTan2",        "(Fixed32 y, Fixed32 x) { throw new NotImplementedException (); }" },
         };
 
         var fixed64SpecificStrings = new Dictionary <String, String> () {
@@ -141,6 +144,7 @@ public static <#= type #> <#= name #> <#= s #>
             { "ArcSin",         "(Fixed64 v) { return Fixed64.ArcSin (v); }"              },
             { "ArcCos",         "(Fixed64 v) { return Fixed64.ArcCos (v); }"              },
             { "ArcTan",         "(Fixed64 v) { return Fixed64.ArcTan (v); }"              },
+            { "ArcTan2",        "(Fixed64 y, Fixed64 x) { throw new NotImplementedException (); }" },
         };
 
         if (rt == "Single" && singleSpecificStrings.ContainsKey (ct)) return singleSpecificStrings[ct];
