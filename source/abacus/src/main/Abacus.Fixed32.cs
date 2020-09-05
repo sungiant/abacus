@@ -737,10 +737,7 @@ namespace Abacus.Fixed32Precision
             // pitch (y-axis rotation)
             Fixed32 sinp = 2 * (q.U * q.I - q.J * q.K);
             if (Maths.Abs (sinp) >= 1f)
-                if (sinp < 0f)
-                    r.Y = -Maths.Pi / 2;
-                else
-                    r.Y = Maths.Pi / 2;
+                r.Y = Maths.CopySign (Maths.HalfPi, sinp);
             else
                 r.Y = Maths.ArcSin (sinp);
             // yaw (z-axis rotation)
@@ -2251,13 +2248,14 @@ namespace Abacus.Fixed32Precision
         [MI(O.AggressiveInlining)] public static Fixed32 Clamp                (Fixed32 value, Fixed32 min, Fixed32 max) { if (value < min) return min; else if (value > max) return max; else return value; }
         [MI(O.AggressiveInlining)] public static Fixed32 Lerp                 (Fixed32 a, Fixed32 b, Fixed32 t) { return a + ((b - a) * t); }
 
-        [MI(O.AggressiveInlining)] public static Fixed32 FromString           (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Fixed32 FromString          (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
         [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Fixed32 value) { Fixed32.TryParse (str, out value); }
 
         [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Fixed32 value) { return Abs(value) < Epsilon; }
         [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Fixed32 a, Fixed32 b) { Fixed32 num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
         [MI(O.AggressiveInlining)] public static Int32   Sign                (Fixed32 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
+        [MI(O.AggressiveInlining)] public static Fixed32 CopySign            (Fixed32 x, Fixed32 y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
     }
 
 

@@ -267,10 +267,7 @@ namespace Abacus.DoublePrecision
             // pitch (y-axis rotation)
             Double sinp = 2 * (q.U * q.I - q.J * q.K);
             if (Maths.Abs (sinp) >= 1f)
-                if (sinp < 0f)
-                    r.Y = -Maths.Pi / 2;
-                else
-                    r.Y = Maths.Pi / 2;
+                r.Y = Maths.CopySign (Maths.HalfPi, sinp);
             else
                 r.Y = Maths.ArcSin (sinp);
             // yaw (z-axis rotation)
@@ -1781,13 +1778,14 @@ namespace Abacus.DoublePrecision
         [MI(O.AggressiveInlining)] public static Double Clamp                (Double value, Double min, Double max) { if (value < min) return min; else if (value > max) return max; else return value; }
         [MI(O.AggressiveInlining)] public static Double Lerp                 (Double a, Double b, Double t) { return a + ((b - a) * t); }
 
-        [MI(O.AggressiveInlining)] public static Double FromString           (String str) { Double result = Zero; Double.TryParse (str, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Double FromString          (String str) { Double result = Zero; Double.TryParse (str, out result); return result; }
         [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Double value) { Double.TryParse (str, out value); }
 
         [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Double value) { return Abs(value) < Epsilon; }
         [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Double a, Double b) { Double num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
         [MI(O.AggressiveInlining)] public static Int32   Sign                (Double value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
+        [MI(O.AggressiveInlining)] public static Double CopySign            (Double x, Double y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
     }
 
 

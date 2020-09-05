@@ -267,10 +267,7 @@ namespace Abacus.SinglePrecision
             // pitch (y-axis rotation)
             Single sinp = 2 * (q.U * q.I - q.J * q.K);
             if (Maths.Abs (sinp) >= 1f)
-                if (sinp < 0f)
-                    r.Y = -Maths.Pi / 2;
-                else
-                    r.Y = Maths.Pi / 2;
+                r.Y = Maths.CopySign (Maths.HalfPi, sinp);
             else
                 r.Y = Maths.ArcSin (sinp);
             // yaw (z-axis rotation)
@@ -1781,13 +1778,14 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Single Clamp                (Single value, Single min, Single max) { if (value < min) return min; else if (value > max) return max; else return value; }
         [MI(O.AggressiveInlining)] public static Single Lerp                 (Single a, Single b, Single t) { return a + ((b - a) * t); }
 
-        [MI(O.AggressiveInlining)] public static Single FromString           (String str) { Single result = Zero; Single.TryParse (str, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Single FromString          (String str) { Single result = Zero; Single.TryParse (str, out result); return result; }
         [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Single value) { Single.TryParse (str, out value); }
 
         [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Single value) { return Abs(value) < Epsilon; }
         [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Single a, Single b) { Single num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
         [MI(O.AggressiveInlining)] public static Int32   Sign                (Single value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
+        [MI(O.AggressiveInlining)] public static Single CopySign            (Single x, Single y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
     }
 
 

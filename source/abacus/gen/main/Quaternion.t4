@@ -215,10 +215,7 @@
             // pitch (y-axis rotation)
             <#=T#> sinp = 2 * (q.U * q.I - q.J * q.K);
             if (Maths.Abs (sinp) >= 1f)
-                if (sinp < 0f)
-                    r.Y = -Maths.Pi / 2;
-                else
-                    r.Y = Maths.Pi / 2;
+                r.Y = Maths.CopySign (Maths.HalfPi, sinp);
             else
                 r.Y = Maths.ArcSin (sinp);
             // yaw (z-axis rotation)
