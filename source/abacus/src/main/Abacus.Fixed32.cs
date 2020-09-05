@@ -1791,9 +1791,9 @@ namespace Abacus.Fixed32Precision
             result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, ref Fixed32 amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, ref Fixed32 amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, ref Fixed32 amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, Fixed32 amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, Fixed32 amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, Fixed32 amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
 
         // Maths //-----------------------------------------------------------//
 
@@ -2063,9 +2063,9 @@ namespace Abacus.Fixed32Precision
             result.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
         }
 
-        [MI(O.AggressiveInlining)] public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, ref Fixed32 amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, ref Fixed32 amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        [MI(O.AggressiveInlining)] public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, ref Fixed32 amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, Fixed32 amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, Fixed32 amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
+        [MI(O.AggressiveInlining)] public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, Fixed32 amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
 
         // Maths //-----------------------------------------------------------//
 

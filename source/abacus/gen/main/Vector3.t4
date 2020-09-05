@@ -204,9 +204,9 @@
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, ref <#=T#> amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        <#Inl();#>public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, ref <#=T#> amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        <#Inl();#>public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, ref <#=T#> amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        <#Inl();#>public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, <#=T#> amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
+        <#Inl();#>public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, <#=T#> amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
+        <#Inl();#>public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, <#=T#> amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
 <# } #>
 
         // Maths //-----------------------------------------------------------//

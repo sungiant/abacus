@@ -203,9 +203,9 @@
         }
 
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
-        <#Inl();#>public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, ref <#=T#> amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
-        <#Inl();#>public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, ref <#=T#> amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
-        <#Inl();#>public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, ref <#=T#> amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
+        <#Inl();#>public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, <#=T#> amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
+        <#Inl();#>public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, <#=T#> amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
+        <#Inl();#>public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, <#=T#> amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
 <# } #>
 
         // Maths //-----------------------------------------------------------//
