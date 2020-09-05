@@ -131,7 +131,7 @@ public static <#= type #> <#= name #> <#= s #>
             { "ArcSin",         "(Fixed32 v) { return Fixed32.ArcSin (v); }"                  },
             { "ArcCos",         "(Fixed32 v) { return Fixed32.ArcCos (v); }"                  },
             { "ArcTan",         "(Fixed32 v) { return Fixed32.ArcTan (v); }"                  },
-            { "ArcTan2",        "(Fixed32 y, Fixed32 x) { throw new NotImplementedException (); }" },
+            { "ArcTan2",        "(Fixed32 y, Fixed32 x) { return Fixed32.ArcTan2 (y, x); }"   },
         };
 
         var fixed64SpecificStrings = new Dictionary <String, String> () {
@@ -144,7 +144,7 @@ public static <#= type #> <#= name #> <#= s #>
             { "ArcSin",         "(Fixed64 v) { return Fixed64.ArcSin (v); }"              },
             { "ArcCos",         "(Fixed64 v) { return Fixed64.ArcCos (v); }"              },
             { "ArcTan",         "(Fixed64 v) { return Fixed64.ArcTan (v); }"              },
-            { "ArcTan2",        "(Fixed64 y, Fixed64 x) { throw new NotImplementedException (); }" },
+            { "ArcTan2",        "(Fixed64 y, Fixed64 x) { return Fixed64.ArcTan2 (y, x); }"   },
         };
 
         if (rt == "Single" && singleSpecificStrings.ContainsKey (ct)) return singleSpecificStrings[ct];

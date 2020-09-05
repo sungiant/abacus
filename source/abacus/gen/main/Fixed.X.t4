@@ -338,6 +338,31 @@
             if (use_negative_identity) r = -r;           // arctan (-f) == -arctan (f)
         }
 
+        <#Inl();#>public static void ArcTan2 (ref <#= ftd.TypeName #> y, ref <#= ftd.TypeName #> x, out <#= ftd.TypeName #> r) {
+            <# GenerateInlineConstant (T, "Pi"); #>
+            <# GenerateInlineConstant (T, "HalfPi"); #>
+            // From definition and computation section of: https://en.wikipedia.org/wiki/Atan2
+            if (x > 0) {
+                r = y / x;
+                ArcTan (ref r, out r);
+            }
+            else if (y > 0) {
+                r = x / y;
+                ArcTan (ref r, out r);
+                r = HalfPi - r;
+            }
+            else if (y < 0) {
+                r = x / y;
+                ArcTan (ref r, out r);
+                r = - HalfPi - r;
+            }
+            else if (x < 0) {
+                r = y / x;
+                ArcTan (ref r, out r);
+                r += Pi;
+            }
+            else { r = 0; } // undefined
+        }
 
         // Internal //--------------------------------------------------------//
 
@@ -404,6 +429,7 @@
         <#Inl();#>public static <#= ftd.TypeName #> ArcSin   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> r; ArcSin  (ref f, out r); return r; }
         <#Inl();#>public static <#= ftd.TypeName #> ArcCos   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> r; ArcCos  (ref f, out r); return r; }
         <#Inl();#>public static <#= ftd.TypeName #> ArcTan   (<#= ftd.TypeName #> f) { <#= ftd.TypeName #> r; ArcTan  (ref f, out r); return r; }
+        <#Inl();#>public static <#= ftd.TypeName #> ArcTan2  (<#= ftd.TypeName #> y, <#= ftd.TypeName #> x) { <#= ftd.TypeName #> r; ArcTan2  (ref y, ref x, out r); return r; }
 
         <#Inl();#>public static Boolean operator == (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return a.Equals (b); }
         <#Inl();#>public static Boolean operator != (<#= ftd.TypeName #> a, <#= ftd.TypeName #> b) { return !a.Equals (b); }

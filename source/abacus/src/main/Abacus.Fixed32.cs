@@ -395,6 +395,31 @@ namespace Abacus.Fixed32Precision
             if (use_negative_identity) r = -r;           // arctan (-f) == -arctan (f)
         }
 
+        [MI(O.AggressiveInlining)] public static void ArcTan2 (ref Fixed32 y, ref Fixed32 x, out Fixed32 r) {
+            Fixed32 Pi = Fixed32.CreateFrom (3.14159265358979323846264338328);
+            Fixed32 HalfPi = Fixed32.CreateFrom (1.57079632679489661923132169164);
+            // From definition and computation section of: https://en.wikipedia.org/wiki/Atan2
+            if (x > 0) {
+                r = y / x;
+                ArcTan (ref r, out r);
+            }
+            else if (y > 0) {
+                r = x / y;
+                ArcTan (ref r, out r);
+                r = HalfPi - r;
+            }
+            else if (y < 0) {
+                r = x / y;
+                ArcTan (ref r, out r);
+                r = - HalfPi - r;
+            }
+            else if (x < 0) {
+                r = y / x;
+                ArcTan (ref r, out r);
+                r += Pi;
+            }
+            else { r = 0; } // undefined
+        }
 
         // Internal //--------------------------------------------------------//
 
@@ -474,6 +499,7 @@ namespace Abacus.Fixed32Precision
         [MI(O.AggressiveInlining)] public static Fixed32 ArcSin   (Fixed32 f) { Fixed32 r; ArcSin  (ref f, out r); return r; }
         [MI(O.AggressiveInlining)] public static Fixed32 ArcCos   (Fixed32 f) { Fixed32 r; ArcCos  (ref f, out r); return r; }
         [MI(O.AggressiveInlining)] public static Fixed32 ArcTan   (Fixed32 f) { Fixed32 r; ArcTan  (ref f, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Fixed32 ArcTan2  (Fixed32 y, Fixed32 x) { Fixed32 r; ArcTan2  (ref y, ref x, out r); return r; }
 
         [MI(O.AggressiveInlining)] public static Boolean operator == (Fixed32 a, Fixed32 b) { return a.Equals (b); }
         [MI(O.AggressiveInlining)] public static Boolean operator != (Fixed32 a, Fixed32 b) { return !a.Equals (b); }
@@ -2212,7 +2238,7 @@ namespace Abacus.Fixed32Precision
         [MI(O.AggressiveInlining)] public static Fixed32 ArcCos (Fixed32 v) { return Fixed32.ArcCos (v); }
         [MI(O.AggressiveInlining)] public static Fixed32 ArcSin (Fixed32 v) { return Fixed32.ArcSin (v); }
         [MI(O.AggressiveInlining)] public static Fixed32 ArcTan (Fixed32 v) { return Fixed32.ArcTan (v); }
-        [MI(O.AggressiveInlining)] public static Fixed32 ArcTan2 (Fixed32 y, Fixed32 x) { throw new NotImplementedException (); }
+        [MI(O.AggressiveInlining)] public static Fixed32 ArcTan2 (Fixed32 y, Fixed32 x) { return Fixed32.ArcTan2 (y, x); }
 
         
         [MI(O.AggressiveInlining)] public static Fixed32 ToRadians            (Fixed32 input) { return input * Deg2Rad; }

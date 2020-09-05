@@ -537,7 +537,7 @@ namespace Abacus.Fixed32Precision {
 
         [Test]
         public void TestArcTan () {
-            for (Double x = -360.0; x <= 360.0; x += 0.01) {
+            for (Double x = -18.0; x <= 18.0; x += 0.01) {
                 Fixed32 f = x;
                 Fixed32 fs = Fixed32.ArcTan (f);
                 Double result = fs.ToDouble ();
@@ -545,6 +545,22 @@ namespace Abacus.Fixed32Precision {
                 Assert.That (result,
                     Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed32
                     Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed32.
+            }
+        }
+
+        [Test]
+        public void TestArcTan2 () {
+            for (Double x = -10f; x <= 10f; x += 1f) {
+                for (Double y = -10f; y <= 10f; y += 1f) {
+                    Fixed32 fx = x;
+                    Fixed32 fy = y;
+                    Fixed32 fs = Fixed32.ArcTan2 (fy, fx);
+                    Double result = fs.ToDouble ();
+                    Double expected = Math.Atan2 (y, x);
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for Fixed32
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for Fixed32.
+                }
             }
         }
     }

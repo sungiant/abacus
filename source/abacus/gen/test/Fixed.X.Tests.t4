@@ -484,7 +484,7 @@
 
         [Test]
         public void TestArcTan () {
-            for (Double x = -360.0; x <= 360.0; x += 0.01) {
+            for (Double x = -18.0; x <= 18.0; x += 0.01) {
                 <#= ftd.TypeName #> f = x;
                 <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.ArcTan (f);
                 Double result = fs.ToDouble ();
@@ -492,6 +492,22 @@
                 Assert.That (result,
                     Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
                     Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+            }
+        }
+
+        [Test]
+        public void TestArcTan2 () {
+            for (Double x = -10f; x <= 10f; x += 1f) {
+                for (Double y = -10f; y <= 10f; y += 1f) {
+                    <#= ftd.TypeName #> fx = x;
+                    <#= ftd.TypeName #> fy = y;
+                    <#= ftd.TypeName #> fs = <#= ftd.TypeName #>.ArcTan2 (fy, fx);
+                    Double result = fs.ToDouble ();
+                    Double expected = Math.Atan2 (y, x);
+                    Assert.That (result,
+                        Is.EqualTo (expected).Within (MathsTests.TestTolerance).                            // Check that result is within test tolerance for <#= ftd.TypeName #>
+                        Or.EqualTo (expected).Within (MathsTests.PercentageTolerance * Math.Abs (result))); // or that result is within test percentage for <#= ftd.TypeName #>.
+                }
             }
         }
     }
