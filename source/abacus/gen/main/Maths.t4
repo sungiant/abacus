@@ -2,48 +2,49 @@
     /// Provides maths functions with consistent function signatures across supported precisions.
     /// </summary>
     public static class Maths {
-<# GenerateMathsConstant (T, "Epsilon"); #>
-<# GenerateMathsConstant (T, "E"); #>
-<# GenerateMathsConstant (T, "Half"); #>
-<# GenerateMathsConstant (T, "Quarter"); #>
-<# GenerateMathsConstant (T, "Log10E"); #>
-<# GenerateMathsConstant (T, "Log2E"); #>
-<# GenerateMathsConstant (T, "Pi"); #>
-<# GenerateMathsConstant (T, "HalfPi"); #>
-<# GenerateMathsConstant (T, "QuarterPi"); #>
-<# GenerateMathsConstant (T, "Root2"); #>
-<# GenerateMathsConstant (T, "Root3"); #>
-<# GenerateMathsConstant (T, "Tau"); #>
-<# GenerateMathsConstant (T, "Deg2Rad"); #>
-<# GenerateMathsConstant (T, "Rad2Deg"); #>
-<# GenerateMathsConstant (T, "Zero"); #>
-<# GenerateMathsConstant (T, "One"); #>
+        <# GenerateMathsConstant (T, "Epsilon"); #>
+        <# GenerateMathsConstant (T, "E"); #>
+        <# GenerateMathsConstant (T, "Half"); #>
+        <# GenerateMathsConstant (T, "Quarter"); #>
+        <# GenerateMathsConstant (T, "Log10E"); #>
+        <# GenerateMathsConstant (T, "Log2E"); #>
+        <# GenerateMathsConstant (T, "Pi"); #>
+        <# GenerateMathsConstant (T, "HalfPi"); #>
+        <# GenerateMathsConstant (T, "QuarterPi"); #>
+        <# GenerateMathsConstant (T, "Root2"); #>
+        <# GenerateMathsConstant (T, "Root3"); #>
+        <# GenerateMathsConstant (T, "Tau"); #>
+        <# GenerateMathsConstant (T, "Deg2Rad"); #>
+        <# GenerateMathsConstant (T, "Rad2Deg"); #>
+        <# GenerateMathsConstant (T, "Zero"); #>
+        <# GenerateMathsConstant (T, "One"); #>
 
-<# GenerateMathsFunction (T, "Sqrt"); #>
-<# GenerateMathsFunction (T, "Abs"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "Sqrt"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "Abs"); #>
 
-<# GenerateMathsFunction (T, "Sin"); #>
-<# GenerateMathsFunction (T, "Cos"); #>
-<# GenerateMathsFunction (T, "Tan"); #>
-<# GenerateMathsFunction (T, "ArcCos"); #>
-<# GenerateMathsFunction (T, "ArcSin"); #>
-<# GenerateMathsFunction (T, "ArcTan"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "Sin"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "Cos"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "Tan"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "ArcCos"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "ArcSin"); #>
+        <# Inl(); #><# GenerateMathsFunction (T, "ArcTan"); #>
 
-        public static <#=T#> ToRadians          (<#=T#> input) { return input * Deg2Rad; }
-        public static <#=T#> ToDegrees          (<#=T#> input) { return input * Rad2Deg; }
-        public static <#=T#> FromFraction       (Int32 numerator, Int32 denominator) { return (<#=T#>) numerator / (<#=T#>) denominator; }
-        public static <#=T#> FromFraction       (Int64 numerator, Int64 denominator) { return (<#=T#>) numerator / (<#=T#>) denominator; }
+        
+        <# Inl(); #>public static <#=T#> ToRadians          (<#=T#> input) { return input * Deg2Rad; }
+        <# Inl(); #>public static <#=T#> ToDegrees          (<#=T#> input) { return input * Rad2Deg; }
+        <# Inl(); #>public static <#=T#> FromFraction       (Int32 numerator, Int32 denominator) { return (<#=T#>) numerator / (<#=T#>) denominator; }
+        <# Inl(); #>public static <#=T#> FromFraction       (Int64 numerator, Int64 denominator) { return (<#=T#>) numerator / (<#=T#>) denominator; }
 
-        public static <#=T#> Min                (<#=T#> a, <#=T#> b) { return a < b ? a : b; }
-        public static <#=T#> Max                (<#=T#> a, <#=T#> b) { return a > b ? a : b; }
-        public static <#=T#> Clamp              (<#=T#> value, <#=T#> min, <#=T#> max) { if (value < min) return min; else if (value > max) return max; else return value; }
-        public static <#=T#> Lerp               (<#=T#> a, <#=T#> b, <#=T#> t) { return a + ((b - a) * t); }
+        <# Inl(); #>public static <#=T#> Min                (<#=T#> a, <#=T#> b) { return a < b ? a : b; }
+        <# Inl(); #>public static <#=T#> Max                (<#=T#> a, <#=T#> b) { return a > b ? a : b; }
+        <# Inl(); #>public static <#=T#> Clamp              (<#=T#> value, <#=T#> min, <#=T#> max) { if (value < min) return min; else if (value > max) return max; else return value; }
+        <# Inl(); #>public static <#=T#> Lerp               (<#=T#> a, <#=T#> b, <#=T#> t) { return a + ((b - a) * t); }
 
-        public static <#=T#> FromString         (String str) { <#=T#> result = Zero; <#=T#>.TryParse (str, out result); return result; }
-        public static void    FromString        (String str, out <#=T#> value) { <#=T#>.TryParse (str, out value); }
+        <# Inl(); #>public static <#=T#> FromString         (String str) { <#=T#> result = Zero; <#=T#>.TryParse (str, out result); return result; }
+        <# Inl(); #>public static void    FromString        (String str, out <#=T#> value) { <#=T#>.TryParse (str, out value); }
 
-        public static Boolean IsZero            (<#=T#> value) { return Abs(value) < Epsilon; }
-        public static Boolean WithinEpsilon     (<#=T#> a, <#=T#> b) { <#=T#> num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
-        public static Int32   Sign              (<#=T#> value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
+        <# Inl(); #>public static Boolean IsZero            (<#=T#> value) { return Abs(value) < Epsilon; }
+        <# Inl(); #>public static Boolean WithinEpsilon     (<#=T#> a, <#=T#> b) { <#=T#> num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
+        <# Inl(); #>public static Int32   Sign              (<#=T#> value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
     }
 

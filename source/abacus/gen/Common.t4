@@ -1,4 +1,8 @@
 ﻿<#+
+    static class CodeGenSettings {
+        public static bool EnableAggressiveInlining = true;
+    }
+
     class FixedTypeDefinition { // Used only for text templating.
         public String TypeName            { get; private set; }
         public String RawTypeName         { get; private set; }
@@ -21,6 +25,12 @@
 
         public static readonly FixedTypeDefinition DefaultFixed32 = new FixedTypeDefinition ("Fixed32", "Int32", 32, 16, "Int64", "1073741824");
         public static readonly FixedTypeDefinition DefaultFixed64 = new FixedTypeDefinition ("Fixed64", "Int64", 64, 24, "BigInteger", "274877906944L");
+    }
+
+    void Inl () {
+        if (CodeGenSettings.EnableAggressiveInlining) {
+#>[MI(O.AggressiveInlining)] <#+
+        }
     }
 
     void GenerateTestTolerance (string type) {
@@ -47,21 +57,21 @@
     void GenerateMathsConstant (string type, string name) {
         string s = GetMathsStr (type, name);
 #>
-        public static readonly <#= type #> <#= name #> = <#= s #>;
+public static readonly <#= type #> <#= name #> = <#= s #>;
 <#+
     }
 
     void GenerateInlineConstant (string type, string name) {
         string s = GetMathsStr (type, name);
 #>
-            <#= type #> <#= name #> = <#= s #>;
+<#= type #> <#= name #> = <#= s #>;
 <#+
     }
 
     void GenerateMathsFunction (string type, string name) {
         string s = GetMathsStr (type, name);
 #>
-        public static <#= type #> <#= name #> <#= s #>
+public static <#= type #> <#= name #> <#= s #>
 <#+
     }
 
@@ -147,7 +157,7 @@
 
     void GenerateSinLookUpTable (FixedTypeDefinition ftd) {
 #>
-        static readonly <#= ftd.RawTypeName #>[] sinLUT = {
+static readonly <#= ftd.RawTypeName #>[] sinLUT = {
             <#+
         int i = 0;
         for (int deg = 0; deg <= 90; ++deg) {

@@ -48,6 +48,11 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
+<# if (CodeGenSettings.EnableAggressiveInlining) { #>
+using MI = System.Runtime.CompilerServices.MethodImplAttribute;
+using O = System.Runtime.CompilerServices.MethodImplOptions;
+<# } #>
 <# if (ftd != null) { #>
 using System.Globalization;
 <# } #>
