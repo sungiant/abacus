@@ -62,7 +62,7 @@
             result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return !result; }
         <#Inl();#>public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion result; Add      (ref a, ref b, out result); return  result; }
@@ -80,7 +80,7 @@
         <#Inl();#>public static Quaternion Subtract    (Quaternion a, Quaternion b) { Quaternion result; Subtract (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Quaternion Negate      (Quaternion v)               { Quaternion result; Negate   (ref v,        out result); return  result; }
         <#Inl();#>public static Quaternion Multiply    (Quaternion a, Quaternion b) { Quaternion result; Multiply (ref a, ref b, out result); return  result; }
-#endif
+<# } #>
 
         // Utilities //-------------------------------------------------------//
 
@@ -125,14 +125,13 @@
             result = Maths.IsZero((<#=T#>) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public bool IsUnit () { Boolean result; IsUnit (ref this, out result); return result; }
 
         <#Inl();#>public static Boolean    IsUnit (Quaternion q) { Boolean result; IsUnit (ref q, out result); return result; }
         <#Inl();#>public static Quaternion Lerp   (Quaternion a, Quaternion b, <#=T#> amount) { Quaternion result; Lerp (ref a, ref b, ref amount, out result); return result; }
         <#Inl();#>public static Quaternion Slerp  (Quaternion a, Quaternion b, <#=T#> amount) { Quaternion result; Slerp (ref a, ref b, ref amount, out result); return result; }
-
-#endif
+<# } #>
 
         // Maths //-----------------------------------------------------------//
 
@@ -207,7 +206,7 @@
             result.X = x; result.Y = y; result.Z = z; result.W = w;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public <#=T#>     LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
         <#Inl();#>public <#=T#>     Length        () { <#=T#> result; Length (ref this, out result); return result; }
         <#Inl();#>public void       Normalise     () { Normalise (ref this, out this); }
@@ -227,7 +226,7 @@
         <#Inl();#>public static Quaternion Concatenate   (Quaternion a, Quaternion b) { Quaternion result; Concatenate (ref a, ref b, out result); return result; }
         <#Inl();#>public static Vector3    Transform     (Quaternion rotation, Vector3 v) { Vector3 result; Transform (ref rotation, ref v, out result); return result; }
         <#Inl();#>public static Vector4    Transform     (Quaternion rotation, Vector4 v) { Vector4 result; Transform (ref rotation, ref v, out result); return result; }
-#endif
+<# } #>
         // Creation //--------------------------------------------------------//
 
         <#Inl();#>public static void CreateFromAxisAngle (ref Vector3 axis, ref <#=T#> angle, out Quaternion result) {
@@ -283,10 +282,9 @@
             }
         }
 
-
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Quaternion CreateFromAxisAngle      (Vector3 axis, <#=T#> angle) { Quaternion result; CreateFromAxisAngle (ref axis, ref angle, out result); return result; }
         <#Inl();#>public static Quaternion CreateFromYawPitchRoll   (<#=T#> yaw, <#=T#> pitch, <#=T#> roll) { Quaternion result; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result); return result; }
         <#Inl();#>public static Quaternion CreateFromRotationMatrix (Matrix44 matrix) { Quaternion result; CreateFromRotationMatrix (ref matrix, out result); return result; }
-#endif
+<# } #>
     }

@@ -1,6 +1,7 @@
 ﻿<#+
     static class CodeGenSettings {
         public static bool EnableAggressiveInlining = true;
+        public static bool EnableFunctionVariants = true;
     }
 
     class FixedTypeDefinition { // Used only for text templating.

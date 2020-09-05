@@ -158,7 +158,7 @@
             result.R3C2 = m.R3C2 * f; result.R3C3 = m.R3C3 * f;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return !result; }
         <#Inl();#>public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return  result; }
@@ -178,7 +178,7 @@
         <#Inl();#>public static Matrix44 Negate      (Matrix44 m)             { Matrix44 result; Negate   (ref m, out result);        return result; }
         <#Inl();#>public static Matrix44 Product     (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return result; }
         <#Inl();#>public static Matrix44 Multiply    (Matrix44 m, <#=T#> f)   { Matrix44 result; Multiply (ref m, ref f, out result); return result; }
-#endif
+<# } #>
 
         // Utilities //-------------------------------------------------------//
 
@@ -202,9 +202,9 @@
             result.R3C3 = a.R3C3 + ((b.R3C3 - a.R3C3) * amount);
         }
         
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Matrix44 Lerp (Matrix44 a, Matrix44 b, <#=T#> amount) { Matrix44 result; Lerp (ref a, ref b, ref amount, out result); return result; }
-#endif
+<# } #>
 
         // Maths //-----------------------------------------------------------//
 
@@ -342,7 +342,7 @@
             result.X = x; result.Y = y; result.Z = z; result.W = w;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public <#=T#>   Determinant ()                    { <#=T#> result; Determinant (ref this, out result); return result; }
         <#Inl();#>public Matrix44 Transpose   ()                    { Transpose (ref this, out this); return this; }
         <#Inl();#>public Matrix44 Invert      ()                    { Invert (ref this, out this); return this; }
@@ -356,7 +356,7 @@
         <#Inl();#>public static Matrix44 Transform   (Matrix44 matrix, Quaternion rotation) { Matrix44 result; Transform (ref matrix, ref rotation, out result); return result; }
         <#Inl();#>public static Vector3  Transform   (Matrix44 matrix, Vector3 v)           { Vector3 result; Transform (ref matrix, ref v, out result); return result; } 
         <#Inl();#>public static Vector4  Transform   (Matrix44 matrix, Vector4 v)           { Vector4 result; Transform (ref matrix, ref v, out result); return result; } 
-#endif
+<# } #>
 
         // Creation //--------------------------------------------------------//
 
@@ -562,7 +562,7 @@
             result.R3C0 = -a;         result.R3C1 = -b;         result.R3C2 = -c;         result.R3C3 = 1;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Matrix44 CreateTranslation            (<#=T#> xPosition, <#=T#> yPosition, <#=T#> zPosition) { Matrix44 result; CreateTranslation (ref xPosition, ref yPosition, ref zPosition, out result); return result; }
         <#Inl();#>public static Matrix44 CreateTranslation            (Vector3 position) { Matrix44 result; CreateTranslation (ref position, out result); return result; }
         <#Inl();#>public static Matrix44 CreateScale                  (<#=T#> xScale, <#=T#> yScale, <#=T#> zScale) { Matrix44 result; CreateScale (ref xScale, ref yScale, ref zScale, out result); return result; }
@@ -582,7 +582,7 @@
         <#Inl();#>public static Matrix44 CreateOrthographic           (<#=T#> width, <#=T#> height, <#=T#> nearPlane, <#=T#> farPlane) { Matrix44 result; CreateOrthographic (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
         <#Inl();#>public static Matrix44 CreateOrthographicOffCenter  (<#=T#> left, <#=T#> right, <#=T#> bottom, <#=T#> top, <#=T#> nearPlane, <#=T#> farPlane) { Matrix44 result; CreateOrthographicOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
         <#Inl();#>public static Matrix44 CreateLookAt                 (Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) { Matrix44 result; CreateLookAt (ref cameraPosition, ref cameraTarget, ref cameraUpVector, out result); return result; }
-#endif
+<# } #>
 
     }
 

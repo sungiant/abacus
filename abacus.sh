@@ -90,7 +90,6 @@ if [ "$task_build" == 1 ]; then
     mkdir bin/
     cp packages/NUnit.*/lib/nunit.framework.dll bin/
     mcs \
-        -define:FUNCTION_VARIANTS \
         -out:bin/abacus.dll \
         -target:library \
         -recurse:source/abacus/src/main/*.cs \
@@ -98,17 +97,11 @@ if [ "$task_build" == 1 ]; then
         -lib:bin/ \
         -reference:System.Numerics.dll
     mcs \
-        -out:bin/abacus.min.dll \
-        -target:library \
-        -recurse:source/abacus/src/main/*.cs \
-        -lib:bin/ \
-        -reference:System.Numerics.dll
-    mcs \
         -out:bin/abacus.test.dll \
         -target:library \
         -recurse:source/abacus/src/test/*.cs \
         -lib:bin/ \
-        -reference:abacus.min.dll \
+        -reference:abacus.dll \
         -reference:nunit.framework.dll
     set +x
 fi

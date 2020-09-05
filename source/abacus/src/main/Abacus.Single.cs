@@ -118,7 +118,6 @@ namespace Abacus.SinglePrecision
             result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Boolean    operator == (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Boolean    operator != (Quaternion a, Quaternion b) { Boolean    result; Equals   (ref a, ref b, out result); return !result; }
         [MI(O.AggressiveInlining)] public static Quaternion operator  + (Quaternion a, Quaternion b) { Quaternion result; Add      (ref a, ref b, out result); return  result; }
@@ -136,7 +135,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Quaternion Subtract    (Quaternion a, Quaternion b) { Quaternion result; Subtract (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Quaternion Negate      (Quaternion v)               { Quaternion result; Negate   (ref v,        out result); return  result; }
         [MI(O.AggressiveInlining)] public static Quaternion Multiply    (Quaternion a, Quaternion b) { Quaternion result; Multiply (ref a, ref b, out result); return  result; }
-#endif
 
         // Utilities //-------------------------------------------------------//
 
@@ -181,14 +179,11 @@ namespace Abacus.SinglePrecision
             result = Maths.IsZero((Single) 1 - q.U * q.U - q.I * q.I - q.J * q.J - q.K * q.K);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public bool IsUnit () { Boolean result; IsUnit (ref this, out result); return result; }
 
         [MI(O.AggressiveInlining)] public static Boolean    IsUnit (Quaternion q) { Boolean result; IsUnit (ref q, out result); return result; }
         [MI(O.AggressiveInlining)] public static Quaternion Lerp   (Quaternion a, Quaternion b, Single amount) { Quaternion result; Lerp (ref a, ref b, ref amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Quaternion Slerp  (Quaternion a, Quaternion b, Single amount) { Quaternion result; Slerp (ref a, ref b, ref amount, out result); return result; }
-
-#endif
 
         // Maths //-----------------------------------------------------------//
 
@@ -263,7 +258,6 @@ namespace Abacus.SinglePrecision
             result.X = x; result.Y = y; result.Z = z; result.W = w;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Single     LengthSquared () { Single result; LengthSquared (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Single     Length        () { Single result; Length (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public void       Normalise     () { Normalise (ref this, out this); }
@@ -283,7 +277,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Quaternion Concatenate   (Quaternion a, Quaternion b) { Quaternion result; Concatenate (ref a, ref b, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector3    Transform     (Quaternion rotation, Vector3 v) { Vector3 result; Transform (ref rotation, ref v, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector4    Transform     (Quaternion rotation, Vector4 v) { Vector4 result; Transform (ref rotation, ref v, out result); return result; }
-#endif
         // Creation //--------------------------------------------------------//
 
         [MI(O.AggressiveInlining)] public static void CreateFromAxisAngle (ref Vector3 axis, ref Single angle, out Quaternion result) {
@@ -339,12 +332,9 @@ namespace Abacus.SinglePrecision
             }
         }
 
-
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Quaternion CreateFromAxisAngle      (Vector3 axis, Single angle) { Quaternion result; CreateFromAxisAngle (ref axis, ref angle, out result); return result; }
         [MI(O.AggressiveInlining)] public static Quaternion CreateFromYawPitchRoll   (Single yaw, Single pitch, Single roll) { Quaternion result; CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result); return result; }
         [MI(O.AggressiveInlining)] public static Quaternion CreateFromRotationMatrix (Matrix44 matrix) { Quaternion result; CreateFromRotationMatrix (ref matrix, out result); return result; }
-#endif
     }
     /// <summary>
     /// Single precision Matrix44.
@@ -506,7 +496,6 @@ namespace Abacus.SinglePrecision
             result.R3C2 = m.R3C2 * f; result.R3C3 = m.R3C3 * f;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Boolean  operator == (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Boolean  operator != (Matrix44 a, Matrix44 b) { Boolean result;  Equals   (ref a, ref b, out result); return !result; }
         [MI(O.AggressiveInlining)] public static Matrix44 operator  + (Matrix44 a, Matrix44 b) { Matrix44 result; Add      (ref a, ref b, out result); return  result; }
@@ -526,7 +515,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Matrix44 Negate      (Matrix44 m)             { Matrix44 result; Negate   (ref m, out result);        return result; }
         [MI(O.AggressiveInlining)] public static Matrix44 Product     (Matrix44 a, Matrix44 b) { Matrix44 result; Product  (ref a, ref b, out result); return result; }
         [MI(O.AggressiveInlining)] public static Matrix44 Multiply    (Matrix44 m, Single f)   { Matrix44 result; Multiply (ref m, ref f, out result); return result; }
-#endif
 
         // Utilities //-------------------------------------------------------//
 
@@ -550,9 +538,7 @@ namespace Abacus.SinglePrecision
             result.R3C3 = a.R3C3 + ((b.R3C3 - a.R3C3) * amount);
         }
         
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Matrix44 Lerp (Matrix44 a, Matrix44 b, Single amount) { Matrix44 result; Lerp (ref a, ref b, ref amount, out result); return result; }
-#endif
 
         // Maths //-----------------------------------------------------------//
 
@@ -690,7 +676,6 @@ namespace Abacus.SinglePrecision
             result.X = x; result.Y = y; result.Z = z; result.W = w;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Single   Determinant ()                    { Single result; Determinant (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Matrix44 Transpose   ()                    { Transpose (ref this, out this); return this; }
         [MI(O.AggressiveInlining)] public Matrix44 Invert      ()                    { Invert (ref this, out this); return this; }
@@ -704,7 +689,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Matrix44 Transform   (Matrix44 matrix, Quaternion rotation) { Matrix44 result; Transform (ref matrix, ref rotation, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector3  Transform   (Matrix44 matrix, Vector3 v)           { Vector3 result; Transform (ref matrix, ref v, out result); return result; } 
         [MI(O.AggressiveInlining)] public static Vector4  Transform   (Matrix44 matrix, Vector4 v)           { Vector4 result; Transform (ref matrix, ref v, out result); return result; } 
-#endif
 
         // Creation //--------------------------------------------------------//
 
@@ -910,7 +894,6 @@ namespace Abacus.SinglePrecision
             result.R3C0 = -a;         result.R3C1 = -b;         result.R3C2 = -c;         result.R3C3 = 1;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Single xPosition, Single yPosition, Single zPosition) { Matrix44 result; CreateTranslation (ref xPosition, ref yPosition, ref zPosition, out result); return result; }
         [MI(O.AggressiveInlining)] public static Matrix44 CreateTranslation            (Vector3 position) { Matrix44 result; CreateTranslation (ref position, out result); return result; }
         [MI(O.AggressiveInlining)] public static Matrix44 CreateScale                  (Single xScale, Single yScale, Single zScale) { Matrix44 result; CreateScale (ref xScale, ref yScale, ref zScale, out result); return result; }
@@ -930,7 +913,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographic           (Single width, Single height, Single nearPlane, Single farPlane) { Matrix44 result; CreateOrthographic (ref width, ref height, ref nearPlane, ref farPlane, out result); return result; }
         [MI(O.AggressiveInlining)] public static Matrix44 CreateOrthographicOffCenter  (Single left, Single right, Single bottom, Single top, Single nearPlane, Single farPlane) { Matrix44 result; CreateOrthographicOffCenter (ref left, ref right, ref bottom, ref top, ref nearPlane, ref farPlane, out result); return result; }
         [MI(O.AggressiveInlining)] public static Matrix44 CreateLookAt                 (Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) { Matrix44 result; CreateLookAt (ref cameraPosition, ref cameraTarget, ref cameraUpVector, out result); return result; }
-#endif
 
     }
 
@@ -1003,7 +985,6 @@ namespace Abacus.SinglePrecision
             result.X = v.X * num; result.Y = v.Y * num;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Boolean operator == (Vector2 a, Vector2 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Boolean operator != (Vector2 a, Vector2 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
         [MI(O.AggressiveInlining)] public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 result; Add      (ref a, ref b, out result); return  result; }
@@ -1025,7 +1006,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector2 Multiply    (Vector2 v, Single f)  { Vector2 result; Multiply (ref v, ref f, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Vector2 Divide      (Vector2 a, Vector2 b) { Vector2 result; Divide   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Vector2 Divide      (Vector2 a, Single d)  { Vector2 result; Divide   (ref a, ref d, out result); return  result; }
-#endif
 
         // Utilities //-------------------------------------------------------//
 
@@ -1054,7 +1034,6 @@ namespace Abacus.SinglePrecision
             result = Maths.IsZero(1 - vector.X * vector.X - vector.Y * vector.Y);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Vector2 Clamp         (Vector2 min, Vector2 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
@@ -1063,8 +1042,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 result; Clamp (ref v, ref min, ref max, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector2 Lerp   (Vector2 a, Vector2 b, Single amount) { Vector2 result; Lerp (ref a, ref b, amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector2 v) { Boolean result; IsUnit (ref v, out result); return result; }
-
-#endif
         
         // Splines //---------------------------------------------------------//
 
@@ -1108,11 +1085,9 @@ namespace Abacus.SinglePrecision
             result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, Single amount) { Vector2 result; SmoothStep (ref v1, ref v2, amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, Single amount) { Vector2 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, Single amount) { Vector2 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out result); return result; }
-#endif
 
         // Maths //-----------------------------------------------------------//
 
@@ -1158,7 +1133,6 @@ namespace Abacus.SinglePrecision
             result = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Single  Length        () { Single result; Length (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single result; LengthSquared (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Vector2 Normalise     () { Normalise (ref this, out this); return this; }
@@ -1170,9 +1144,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 result; Reflect (ref v, ref normal, out result); return result; }
         [MI(O.AggressiveInlining)] public static Single  Length          (Vector2 v) { Single result; Length (ref v, out result); return result; }
         [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector2 v) { Single result; LengthSquared (ref v, out result); return result; }
-#endif
-
-
     }
 
     /// <summary>
@@ -1267,7 +1238,6 @@ namespace Abacus.SinglePrecision
             result.X = a.X * num; result.Y = a.Y * num; result.Z = a.Z * num;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Boolean operator == (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Boolean operator != (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
         [MI(O.AggressiveInlining)] public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 result; Add      (ref a, ref b, out result); return  result; }
@@ -1290,7 +1260,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector3 Multiply    (Vector3 v, Single f)  { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Vector3 Divide      (Vector3 a, Vector3 b) { Vector3 result; Divide   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Vector3 Divide      (Vector3 a, Single d)  { Vector3 result; Divide   (ref a, ref d, out result); return  result; }
-#endif
 
         // Utilities //-------------------------------------------------------//
 
@@ -1320,7 +1289,6 @@ namespace Abacus.SinglePrecision
             result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Vector3 Clamp         (Vector3 min, Vector3 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
@@ -1329,8 +1297,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 result; Clamp (ref v, ref min, ref max, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Single amount) { Vector3 result; Lerp (ref a, ref b, ref amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean result; IsUnit (ref v, out result); return result; }
-
-#endif
 
         // Splines //---------------------------------------------------------//
 
@@ -1381,11 +1347,9 @@ namespace Abacus.SinglePrecision
             result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, ref Single amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, ref Single amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, ref Single amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
-#endif
 
         // Maths //-----------------------------------------------------------//
 
@@ -1439,7 +1403,6 @@ namespace Abacus.SinglePrecision
             result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Single  Length        () { Single result; Length (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single result; LengthSquared (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Vector3 Normalise     () { Normalise (ref this, out this); return this; }
@@ -1453,7 +1416,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector3 Reflect         (Vector3 v, Vector3 normal) { Vector3 result; Reflect (ref v, ref normal, out result); return result; } 
         [MI(O.AggressiveInlining)] public static Single  Length          (Vector3 v) { Single result; Length (ref v, out result); return result; } 
         [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector3 v) { Single result; LengthSquared (ref v, out result); return result; }
-#endif
 
     }
 
@@ -1541,7 +1503,6 @@ namespace Abacus.SinglePrecision
             result.X = v.X * num; result.Y = v.Y * num; result.Z = v.Z * num; result.W = v.W * num;
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
         [MI(O.AggressiveInlining)] public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add      (ref a, ref b, out result); return  result; }
@@ -1563,7 +1524,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector4 Multiply    (Vector4 v, Single f)  { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Vector4 Divide      (Vector4 a, Vector4 b) { Vector4 result; Divide   (ref a, ref b, out result); return  result; }
         [MI(O.AggressiveInlining)] public static Vector4 Divide      (Vector4 a, Single d)  { Vector4 result; Divide   (ref a, ref d, out result); return  result; }
-#endif
 
         // Utilities //-------------------------------------------------------//
 
@@ -1594,7 +1554,6 @@ namespace Abacus.SinglePrecision
             result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
@@ -1603,8 +1562,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 result; Clamp (ref v, ref min, ref max, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector4 Lerp   (Vector4 a, Vector4 b, Single amount) { Vector4 result; Lerp (ref a, ref b, ref amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector4 v) { Boolean result; IsUnit (ref v, out result); return result; }
-
-#endif
 
         // Splines //---------------------------------------------------------//
 
@@ -1662,11 +1619,9 @@ namespace Abacus.SinglePrecision
             result.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
         }
 
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, ref Single amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, ref Single amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
         [MI(O.AggressiveInlining)] public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, ref Single amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
-#endif
 
         // Maths //-----------------------------------------------------------//
 
@@ -1702,8 +1657,6 @@ namespace Abacus.SinglePrecision
             result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
         }
 
-
-#if (FUNCTION_VARIANTS)
         [MI(O.AggressiveInlining)] public Single  Length        () { Single result; Length (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Single  LengthSquared () { Single result; LengthSquared (ref this, out result); return result; }
         [MI(O.AggressiveInlining)] public Vector4 Normalise     () { Normalise (ref this, out this); return this; }
@@ -1714,7 +1667,6 @@ namespace Abacus.SinglePrecision
         [MI(O.AggressiveInlining)] public static Vector4 Normalise       (Vector4 v) { Vector4 result; Normalise (ref v, out result); return result; }
         [MI(O.AggressiveInlining)] public static Single  Length          (Vector4 v) { Single result; Length (ref v, out result); return result; } 
         [MI(O.AggressiveInlining)] public static Single  LengthSquared   (Vector4 v) { Single result; LengthSquared (ref v, out result); return result; }
-#endif
     }
 
     /// <summary>

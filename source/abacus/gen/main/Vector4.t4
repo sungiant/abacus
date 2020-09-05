@@ -82,7 +82,7 @@
             result.X = v.X * num; result.Y = v.Y * num; result.Z = v.Z * num; result.W = v.W * num;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Boolean operator == (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Boolean operator != (Vector4 a, Vector4 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
         <#Inl();#>public static Vector4 operator  + (Vector4 a, Vector4 b) { Vector4 result; Add      (ref a, ref b, out result); return  result; }
@@ -104,7 +104,7 @@
         <#Inl();#>public static Vector4 Multiply    (Vector4 v, <#=T#> f)  { Vector4 result; Multiply (ref v, ref f, out result); return  result; }
         <#Inl();#>public static Vector4 Divide      (Vector4 a, Vector4 b) { Vector4 result; Divide   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Vector4 Divide      (Vector4 a, <#=T#> d)  { Vector4 result; Divide   (ref a, ref d, out result); return  result; }
-#endif
+<# } #>
 
         // Utilities //-------------------------------------------------------//
 
@@ -135,7 +135,7 @@
             result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z - vector.W * vector.W);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
         <#Inl();#>public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
@@ -144,8 +144,7 @@
         <#Inl();#>public static Vector4 Clamp  (Vector4 v, Vector4 min, Vector4 max) { Vector4 result; Clamp (ref v, ref min, ref max, out result); return result; }
         <#Inl();#>public static Vector4 Lerp   (Vector4 a, Vector4 b, <#=T#> amount) { Vector4 result; Lerp (ref a, ref b, ref amount, out result); return result; }
         <#Inl();#>public static Boolean IsUnit (Vector4 v) { Boolean result; IsUnit (ref v, out result); return result; }
-
-#endif
+<# } #>
 
         // Splines //---------------------------------------------------------//
 
@@ -203,11 +202,11 @@
             result.W = (v1.W * a) + (v2.W * b) + (tangent1.W * c) + (tangent2.W * d);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Vector4 SmoothStep (Vector4 v1, Vector4 v2, ref <#=T#> amount) { Vector4 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
         <#Inl();#>public static Vector4 CatmullRom (Vector4 v1, Vector4 v2, Vector4 v3, Vector4 v4, ref <#=T#> amount) { Vector4 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
         <#Inl();#>public static Vector4 Hermite    (Vector4 v1, Vector4 tangent1, Vector4 v2, Vector4 tangent2, ref <#=T#> amount) { Vector4 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
-#endif
+<# } #>
 
         // Maths //-----------------------------------------------------------//
 
@@ -243,8 +242,7 @@
             result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z) + (vector.W * vector.W);
         }
 
-
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public <#=T#>  Length        () { <#=T#> result; Length (ref this, out result); return result; }
         <#Inl();#>public <#=T#>  LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
         <#Inl();#>public Vector4 Normalise     () { Normalise (ref this, out this); return this; }
@@ -255,6 +253,6 @@
         <#Inl();#>public static Vector4 Normalise       (Vector4 v) { Vector4 result; Normalise (ref v, out result); return result; }
         <#Inl();#>public static <#=T#>  Length          (Vector4 v) { <#=T#> result; Length (ref v, out result); return result; } 
         <#Inl();#>public static <#=T#>  LengthSquared   (Vector4 v) { <#=T#> result; LengthSquared (ref v, out result); return result; }
-#endif
+<# } #>
     }
 

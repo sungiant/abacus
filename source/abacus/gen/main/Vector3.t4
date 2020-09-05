@@ -90,7 +90,7 @@
             result.X = a.X * num; result.Y = a.Y * num; result.Z = a.Z * num;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Boolean operator == (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Boolean operator != (Vector3 a, Vector3 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
         <#Inl();#>public static Vector3 operator  + (Vector3 a, Vector3 b) { Vector3 result; Add      (ref a, ref b, out result); return  result; }
@@ -113,7 +113,7 @@
         <#Inl();#>public static Vector3 Multiply    (Vector3 v, <#=T#> f)  { Vector3 result; Multiply (ref v, ref f, out result); return  result; }
         <#Inl();#>public static Vector3 Divide      (Vector3 a, Vector3 b) { Vector3 result; Divide   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Vector3 Divide      (Vector3 a, <#=T#> d)  { Vector3 result; Divide   (ref a, ref d, out result); return  result; }
-#endif
+<# } #>
 
         // Utilities //-------------------------------------------------------//
 
@@ -143,7 +143,7 @@
             result = Maths.IsZero (1 - vector.X * vector.X - vector.Y * vector.Y - vector.Z * vector.Z);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
         <#Inl();#>public Vector3 Clamp         (Vector3 min, Vector3 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
@@ -152,8 +152,7 @@
         <#Inl();#>public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 result; Clamp (ref v, ref min, ref max, out result); return result; }
         <#Inl();#>public static Vector3 Lerp   (Vector3 a, Vector3 b, ref <#=T#> amount) { Vector3 result; Lerp (ref a, ref b, ref amount, out result); return result; }
         <#Inl();#>public static Boolean IsUnit (Vector3 v) { Boolean result; IsUnit (ref v, out result); return result; }
-
-#endif
+<# } #>
 
         // Splines //---------------------------------------------------------//
 
@@ -204,11 +203,11 @@
             result.Z = (v1.Z * a) + (v2.Z * b) + (tangent1.Z * c) + (tangent2.Z * d);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Vector3 SmoothStep (Vector3 v1, Vector3 v2, ref <#=T#> amount) { Vector3 result; SmoothStep (ref v1, ref v2, ref amount, out result); return result; }
         <#Inl();#>public static Vector3 CatmullRom (Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, ref <#=T#> amount) { Vector3 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, ref amount, out result); return result; }
         <#Inl();#>public static Vector3 Hermite    (Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, ref <#=T#> amount) { Vector3 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, ref amount, out result); return result; }
-#endif
+<# } #>
 
         // Maths //-----------------------------------------------------------//
 
@@ -262,7 +261,7 @@
             result = (vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public <#=T#>  Length        () { <#=T#> result; Length (ref this, out result); return result; }
         <#Inl();#>public <#=T#>  LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
         <#Inl();#>public Vector3 Normalise     () { Normalise (ref this, out this); return this; }
@@ -276,7 +275,7 @@
         <#Inl();#>public static Vector3 Reflect         (Vector3 v, Vector3 normal) { Vector3 result; Reflect (ref v, ref normal, out result); return result; } 
         <#Inl();#>public static <#=T#>  Length          (Vector3 v) { <#=T#> result; Length (ref v, out result); return result; } 
         <#Inl();#>public static <#=T#>  LengthSquared   (Vector3 v) { <#=T#> result; LengthSquared (ref v, out result); return result; }
-#endif
+<# } #>
 
     }
 

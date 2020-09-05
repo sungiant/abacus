@@ -67,7 +67,7 @@
             result.X = v.X * num; result.Y = v.Y * num;
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Boolean operator == (Vector2 a, Vector2 b) { Boolean result; Equals   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Boolean operator != (Vector2 a, Vector2 b) { Boolean result; Equals   (ref a, ref b, out result); return !result; }
         <#Inl();#>public static Vector2 operator  + (Vector2 a, Vector2 b) { Vector2 result; Add      (ref a, ref b, out result); return  result; }
@@ -89,7 +89,7 @@
         <#Inl();#>public static Vector2 Multiply    (Vector2 v, <#=T#> f)  { Vector2 result; Multiply (ref v, ref f, out result); return  result; }
         <#Inl();#>public static Vector2 Divide      (Vector2 a, Vector2 b) { Vector2 result; Divide   (ref a, ref b, out result); return  result; }
         <#Inl();#>public static Vector2 Divide      (Vector2 a, <#=T#> d)  { Vector2 result; Divide   (ref a, ref d, out result); return  result; }
-#endif
+<# } #>
 
         // Utilities //-------------------------------------------------------//
 
@@ -118,7 +118,7 @@
             result = Maths.IsZero(1 - vector.X * vector.X - vector.Y * vector.Y);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public Boolean IsUnit        () { Boolean result; IsUnit (ref this, out result); return result; }
         <#Inl();#>public Vector2 Clamp         (Vector2 min, Vector2 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
@@ -127,8 +127,7 @@
         <#Inl();#>public static Vector2 Clamp  (Vector2 v, Vector2 min, Vector2 max) { Vector2 result; Clamp (ref v, ref min, ref max, out result); return result; }
         <#Inl();#>public static Vector2 Lerp   (Vector2 a, Vector2 b, <#=T#> amount) { Vector2 result; Lerp (ref a, ref b, amount, out result); return result; }
         <#Inl();#>public static Boolean IsUnit (Vector2 v) { Boolean result; IsUnit (ref v, out result); return result; }
-
-#endif
+<# } #>
         
         // Splines //---------------------------------------------------------//
 
@@ -172,11 +171,11 @@
             result.Y = (v1.Y * a) + (v2.Y * b) + (tangent1.Y * c) + (tangent2.Y * d);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public static Vector2 SmoothStep (Vector2 v1, Vector2 v2, <#=T#> amount) { Vector2 result; SmoothStep (ref v1, ref v2, amount, out result); return result; }
         <#Inl();#>public static Vector2 CatmullRom (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, <#=T#> amount) { Vector2 result; CatmullRom (ref v1, ref v2, ref v3, ref v4, amount, out result); return result; }
         <#Inl();#>public static Vector2 Hermite    (Vector2 v1, Vector2 tangent1, Vector2 v2, Vector2 tangent2, <#=T#> amount) { Vector2 result; Hermite (ref v1, ref tangent1, ref v2, ref tangent2, amount, out result); return result; }
-#endif
+<# } #>
 
         // Maths //-----------------------------------------------------------//
 
@@ -222,7 +221,7 @@
             result = (vector.X * vector.X) + (vector.Y * vector.Y);
         }
 
-#if (FUNCTION_VARIANTS)
+<# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public <#=T#>  Length        () { <#=T#> result; Length (ref this, out result); return result; }
         <#Inl();#>public <#=T#>  LengthSquared () { <#=T#> result; LengthSquared (ref this, out result); return result; }
         <#Inl();#>public Vector2 Normalise     () { Normalise (ref this, out this); return this; }
@@ -234,8 +233,6 @@
         <#Inl();#>public static Vector2 Reflect         (Vector2 v, Vector2 normal) { Vector2 result; Reflect (ref v, ref normal, out result); return result; }
         <#Inl();#>public static <#=T#>  Length          (Vector2 v) { <#=T#> result; Length (ref v, out result); return result; }
         <#Inl();#>public static <#=T#>  LengthSquared   (Vector2 v) { <#=T#> result; LengthSquared (ref v, out result); return result; }
-#endif
-
-
+<# } #>
     }
 
