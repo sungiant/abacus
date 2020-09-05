@@ -1820,7 +1820,7 @@ namespace Abacus.Fixed64Precision
         [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 r; Min (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 r; Max (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 r; Clamp (ref v, ref min, ref max, out r); return r; }
-        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Fixed64 amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, Fixed64 amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
         [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean r; IsUnit (ref v, out r); return r; }
 
         // Splines //---------------------------------------------------------//
@@ -2249,14 +2249,14 @@ namespace Abacus.Fixed64Precision
         [MI(O.AggressiveInlining)] public static Fixed64 Clamp                (Fixed64 value, Fixed64 min, Fixed64 max) { if (value < min) return min; else if (value > max) return max; else return value; }
         [MI(O.AggressiveInlining)] public static Fixed64 Lerp                 (Fixed64 a, Fixed64 b, Fixed64 t) { return a + ((b - a) * t); }
 
-        [MI(O.AggressiveInlining)] public static Fixed64 FromString          (String str) { Fixed64 result = Zero; Fixed64.TryParse (str, out result); return result; }
-        [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Fixed64 value) { Fixed64.TryParse (str, out value); }
+        [MI(O.AggressiveInlining)] public static Fixed64 FromString           (String str) { Fixed64 result = Zero; Fixed64.TryParse (str, out result); return result; }
+        [MI(O.AggressiveInlining)] public static void   FromString           (String str, out Fixed64 value) { Fixed64.TryParse (str, out value); }
 
         [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Fixed64 value) { return Abs(value) < Epsilon; }
         [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Fixed64 a, Fixed64 b) { Fixed64 num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
-        [MI(O.AggressiveInlining)] public static Int32   Sign                (Fixed64 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
-        [MI(O.AggressiveInlining)] public static Fixed64 CopySign            (Fixed64 x, Fixed64 y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
+        [MI(O.AggressiveInlining)] public static Int32  Sign                 (Fixed64 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
+        [MI(O.AggressiveInlining)] public static Fixed64 CopySign             (Fixed64 x, Fixed64 y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
     }
 
 

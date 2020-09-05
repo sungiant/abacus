@@ -161,7 +161,7 @@
         <#Inl();#>public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 r; Min (ref a, ref b, out r); return r; }
         <#Inl();#>public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 r; Max (ref a, ref b, out r); return r; }
         <#Inl();#>public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 r; Clamp (ref v, ref min, ref max, out r); return r; }
-        <#Inl();#>public static Vector3 Lerp   (Vector3 a, Vector3 b, ref <#=T#> amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        <#Inl();#>public static Vector3 Lerp   (Vector3 a, Vector3 b, <#=T#> amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
         <#Inl();#>public static Boolean IsUnit (Vector3 v) { Boolean r; IsUnit (ref v, out r); return r; }
 <# } #>
 

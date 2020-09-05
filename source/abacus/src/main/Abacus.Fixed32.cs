@@ -1819,7 +1819,7 @@ namespace Abacus.Fixed32Precision
         [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 r; Min (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 r; Max (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 r; Clamp (ref v, ref min, ref max, out r); return r; }
-        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Fixed32 amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, Fixed32 amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
         [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean r; IsUnit (ref v, out r); return r; }
 
         // Splines //---------------------------------------------------------//
@@ -2248,14 +2248,14 @@ namespace Abacus.Fixed32Precision
         [MI(O.AggressiveInlining)] public static Fixed32 Clamp                (Fixed32 value, Fixed32 min, Fixed32 max) { if (value < min) return min; else if (value > max) return max; else return value; }
         [MI(O.AggressiveInlining)] public static Fixed32 Lerp                 (Fixed32 a, Fixed32 b, Fixed32 t) { return a + ((b - a) * t); }
 
-        [MI(O.AggressiveInlining)] public static Fixed32 FromString          (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
-        [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Fixed32 value) { Fixed32.TryParse (str, out value); }
+        [MI(O.AggressiveInlining)] public static Fixed32 FromString           (String str) { Fixed32 result = Zero; Fixed32.TryParse (str, out result); return result; }
+        [MI(O.AggressiveInlining)] public static void   FromString           (String str, out Fixed32 value) { Fixed32.TryParse (str, out value); }
 
         [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Fixed32 value) { return Abs(value) < Epsilon; }
         [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Fixed32 a, Fixed32 b) { Fixed32 num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
-        [MI(O.AggressiveInlining)] public static Int32   Sign                (Fixed32 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
-        [MI(O.AggressiveInlining)] public static Fixed32 CopySign            (Fixed32 x, Fixed32 y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
+        [MI(O.AggressiveInlining)] public static Int32  Sign                 (Fixed32 value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
+        [MI(O.AggressiveInlining)] public static Fixed32 CopySign             (Fixed32 x, Fixed32 y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
     }
 
 

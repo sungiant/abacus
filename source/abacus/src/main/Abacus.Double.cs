@@ -1349,7 +1349,7 @@ namespace Abacus.DoublePrecision
         [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 r; Min (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 r; Max (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector3 Clamp  (Vector3 v, Vector3 min, Vector3 max) { Vector3 r; Clamp (ref v, ref min, ref max, out r); return r; }
-        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, ref Double amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
+        [MI(O.AggressiveInlining)] public static Vector3 Lerp   (Vector3 a, Vector3 b, Double amount) { Vector3 r; Lerp (ref a, ref b, ref amount, out r); return r; }
         [MI(O.AggressiveInlining)] public static Boolean IsUnit (Vector3 v) { Boolean r; IsUnit (ref v, out r); return r; }
 
         // Splines //---------------------------------------------------------//
@@ -1778,14 +1778,14 @@ namespace Abacus.DoublePrecision
         [MI(O.AggressiveInlining)] public static Double Clamp                (Double value, Double min, Double max) { if (value < min) return min; else if (value > max) return max; else return value; }
         [MI(O.AggressiveInlining)] public static Double Lerp                 (Double a, Double b, Double t) { return a + ((b - a) * t); }
 
-        [MI(O.AggressiveInlining)] public static Double FromString          (String str) { Double result = Zero; Double.TryParse (str, out result); return result; }
-        [MI(O.AggressiveInlining)] public static void    FromString          (String str, out Double value) { Double.TryParse (str, out value); }
+        [MI(O.AggressiveInlining)] public static Double FromString           (String str) { Double result = Zero; Double.TryParse (str, out result); return result; }
+        [MI(O.AggressiveInlining)] public static void   FromString           (String str, out Double value) { Double.TryParse (str, out value); }
 
         [MI(O.AggressiveInlining)] public static Boolean IsApproximatelyZero (Double value) { return Abs(value) < Epsilon; }
         [MI(O.AggressiveInlining)] public static Boolean ApproximateEquals   (Double a, Double b) { Double num = a - b; return ((-Epsilon <= num) && (num <= Epsilon)); }
         
-        [MI(O.AggressiveInlining)] public static Int32   Sign                (Double value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
-        [MI(O.AggressiveInlining)] public static Double CopySign            (Double x, Double y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
+        [MI(O.AggressiveInlining)] public static Int32  Sign                 (Double value) { if (value > 0) return 1; else if (value < 0) return -1; return 0; }
+        [MI(O.AggressiveInlining)] public static Double CopySign             (Double x, Double y) { if ((x >= 0 && y >= 0) || (x <= 0 && y <= 0)) return x; else return -x; }
     }
 
 
