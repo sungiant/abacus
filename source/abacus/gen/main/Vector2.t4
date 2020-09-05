@@ -115,6 +115,11 @@
             <#=T#> y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
         }
 
+        <#Inl();#>public static void Clamp (ref Vector2 v, ref <#=T#> min, ref <#=T#> max, out Vector2 r) {
+            <#=T#> x = v.X; x = (x > max) ? max : x; x = (x < min) ? min : x; r.X = x;
+            <#=T#> y = v.Y; y = (y > max) ? max : y; y = (y < min) ? min : y; r.Y = y;
+        }
+
         <#Inl();#>public static void Lerp (ref Vector2 a, ref Vector2 b, <#=T#> amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             r.X = a.X + ((b.X - a.X) * amount);
@@ -128,6 +133,7 @@
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         <#Inl();#>public Vector2 Clamp         (Vector2 min, Vector2 max) { Clamp (ref this, ref min, ref max, out this); return this; }
+        <#Inl();#>public Vector2 Clamp         (<#=T#> min, <#=T#> max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
         <#Inl();#>public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 r; Min (ref a, ref b, out r); return r; }
         <#Inl();#>public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 r; Max (ref a, ref b, out r); return r; }

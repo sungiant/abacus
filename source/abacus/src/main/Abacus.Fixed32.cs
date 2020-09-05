@@ -1508,6 +1508,11 @@ namespace Abacus.Fixed32Precision
             Fixed32 y = v.Y; y = (y > max.Y) ? max.Y : y; y = (y < min.Y) ? min.Y : y; r.Y = y;
         }
 
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector2 v, ref Fixed32 min, ref Fixed32 max, out Vector2 r) {
+            Fixed32 x = v.X; x = (x > max) ? max : x; x = (x < min) ? min : x; r.X = x;
+            Fixed32 y = v.Y; y = (y > max) ? max : y; y = (y < min) ? min : y; r.Y = y;
+        }
+
         [MI(O.AggressiveInlining)] public static void Lerp (ref Vector2 a, ref Vector2 b, Fixed32 amount, out Vector2 r) {
             Debug.Assert (amount >= 0 && amount <= 1);
             r.X = a.X + ((b.X - a.X) * amount);
@@ -1520,6 +1525,7 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector2 Clamp         (Vector2 min, Vector2 max) { Clamp (ref this, ref min, ref max, out this); return this; }
+        [MI(O.AggressiveInlining)] public Vector2 Clamp         (Fixed32 min, Fixed32 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
         [MI(O.AggressiveInlining)] public static Vector2 Min    (Vector2 a, Vector2 b) { Vector2 r; Min (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector2 Max    (Vector2 a, Vector2 b) { Vector2 r; Max (ref a, ref b, out r); return r; }
@@ -1767,6 +1773,12 @@ namespace Abacus.Fixed32Precision
             Fixed32 z = v.Z; z = (z > max.Z) ? max.Z : z; z = (z < min.Z) ? min.Z : z; r.Z = z;
         }
 
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector3 v, ref Fixed32 min, ref Fixed32 max, out Vector3 r) {
+            Fixed32 x = v.X; x = (x > max) ? max : x; x = (x < min) ? min : x; r.X = x;
+            Fixed32 y = v.Y; y = (y > max) ? max : y; y = (y < min) ? min : y; r.Y = y;
+            Fixed32 z = v.Z; z = (z > max) ? max : z; z = (z < min) ? min : z; r.Z = z;
+        }
+
         [MI(O.AggressiveInlining)] public static void Lerp (ref Vector3 a, ref Vector3 b, ref Fixed32 amount, out Vector3 r){
             Debug.Assert (amount >= 0 && amount <= 1);
             r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
@@ -1779,6 +1791,7 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector3 Clamp         (Vector3 min, Vector3 max) { Clamp (ref this, ref min, ref max, out this); return this; }
+        [MI(O.AggressiveInlining)] public Vector3 Clamp         (Fixed32 min, Fixed32 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
         [MI(O.AggressiveInlining)] public static Vector3 Min    (Vector3 a, Vector3 b) { Vector3 r; Min (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector3 Max    (Vector3 a, Vector3 b) { Vector3 r; Max (ref a, ref b, out r); return r; }
@@ -2036,6 +2049,13 @@ namespace Abacus.Fixed32Precision
             Fixed32 w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; r.W = w;
         }
 
+        [MI(O.AggressiveInlining)] public static void Clamp (ref Vector4 v, ref Fixed32 min, ref Fixed32 max, out Vector4 r) {
+            Fixed32 x = v.X; x = (x > max) ? max : x; x = (x < min) ? min : x; r.X = x;
+            Fixed32 y = v.Y; y = (y > max) ? max : y; y = (y < min) ? min : y; r.Y = y;
+            Fixed32 z = v.Z; z = (z > max) ? max : z; z = (z < min) ? min : z; r.Z = z;
+            Fixed32 w = v.W; w = (w > max) ? max : w; w = (w < min) ? min : w; r.W = w;
+        }
+
         [MI(O.AggressiveInlining)] public static void Lerp (ref Vector4 a, ref Vector4 b, ref Fixed32 amount, out Vector4 r){
             Debug.Assert (amount >= 0 && amount <= 1);
             r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
@@ -2048,6 +2068,7 @@ namespace Abacus.Fixed32Precision
 
         [MI(O.AggressiveInlining)] public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         [MI(O.AggressiveInlining)] public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
+        [MI(O.AggressiveInlining)] public Vector4 Clamp         (Fixed32 min, Fixed32 max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
         [MI(O.AggressiveInlining)] public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 r; Min (ref a, ref b, out r); return r; }
         [MI(O.AggressiveInlining)] public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 r; Max (ref a, ref b, out r); return r; }

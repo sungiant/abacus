@@ -129,6 +129,13 @@
             <#=T#> w = v.W; w = (w > max.W) ? max.W : w; w = (w < min.W) ? min.W : w; r.W = w;
         }
 
+        <#Inl();#>public static void Clamp (ref Vector4 v, ref <#=T#> min, ref <#=T#> max, out Vector4 r) {
+            <#=T#> x = v.X; x = (x > max) ? max : x; x = (x < min) ? min : x; r.X = x;
+            <#=T#> y = v.Y; y = (y > max) ? max : y; y = (y < min) ? min : y; r.Y = y;
+            <#=T#> z = v.Z; z = (z > max) ? max : z; z = (z < min) ? min : z; r.Z = z;
+            <#=T#> w = v.W; w = (w > max) ? max : w; w = (w < min) ? min : w; r.W = w;
+        }
+
         <#Inl();#>public static void Lerp (ref Vector4 a, ref Vector4 b, ref <#=T#> amount, out Vector4 r){
             Debug.Assert (amount >= 0 && amount <= 1);
             r.X = a.X + ((b.X - a.X) * amount); r.Y = a.Y + ((b.Y - a.Y) * amount);
@@ -142,6 +149,7 @@
 <# if (CodeGenSettings.EnableFunctionVariants) { #>
         <#Inl();#>public Boolean IsUnit        () { Boolean r; IsUnit (ref this, out r); return r; }
         <#Inl();#>public Vector4 Clamp         (Vector4 min, Vector4 max) { Clamp (ref this, ref min, ref max, out this); return this; }
+        <#Inl();#>public Vector4 Clamp         (<#=T#> min, <#=T#> max) { Clamp (ref this, ref min, ref max, out this); return this; }
 
         <#Inl();#>public static Vector4 Min    (Vector4 a, Vector4 b) { Vector4 r; Min (ref a, ref b, out r); return r; }
         <#Inl();#>public static Vector4 Max    (Vector4 a, Vector4 b) { Vector4 r; Max (ref a, ref b, out r); return r; }
