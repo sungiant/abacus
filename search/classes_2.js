@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['quaternion',['Quaternion',['../struct_abacus_1_1_single_precision_1_1_quaternion.html',1,'Abacus::SinglePrecision']]],
-  ['quaternion',['Quaternion',['../struct_abacus_1_1_fixed32_precision_1_1_quaternion.html',1,'Abacus::Fixed32Precision']]],
-  ['quaternion',['Quaternion',['../struct_abacus_1_1_double_precision_1_1_quaternion.html',1,'Abacus::DoublePrecision']]]
+  ['quaternion',['Quaternion',['../structAbacus_1_1DoublePrecision_1_1Quaternion.html',1,'Abacus::DoublePrecision']]],
+  ['quaternion',['Quaternion',['../structAbacus_1_1SinglePrecision_1_1Quaternion.html',1,'Abacus::SinglePrecision']]],
+  ['quaternion',['Quaternion',['../structAbacus_1_1Fixed32Precision_1_1Quaternion.html',1,'Abacus::Fixed32Precision']]],
+  ['quaternion',['Quaternion',['../structAbacus_1_1Fixed64Precision_1_1Quaternion.html',1,'Abacus::Fixed64Precision']]]
 ];
