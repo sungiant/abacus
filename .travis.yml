@@ -17,11 +17,11 @@ addons:
       - doxygen-gui
       - graphviz
 before_script:
-  - sh abacus.sh --nu
-  - sh abacus.sh --clean
-  - sh abacus.sh --gen
+  - ./abacus.sh --nu
+  - ./abacus.sh --clean
+  - ./abacus.sh --gen
 script:
-  - sh abacus.sh --build
-  - sh abacus.sh --test
+  - ./abacus.sh --build
+  - ./abacus.sh --test
 after_script:
-  - sh abacus.sh --docs
+  - ./abacus.sh --docs
