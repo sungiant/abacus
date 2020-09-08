@@ -118,7 +118,8 @@ if [ "$task_docs" == 1 ]; then
     set -x
     doxygen doxygen.conf
     ls -lah docs/
-    git clone -b gh-pages https://git@$GH_REPO_REF temp
+    git clone -b master https://github.com/sungiant/abacus.git main
+    git clone -b gh-pages https://github.com/sungiant/abacus.git temp
     cd temp
     git config --global push.default simple
     git config user.name "Travis CI"
@@ -132,7 +133,16 @@ if [ "$task_docs" == 1 ]; then
         echo 'Uploading documentation to the gh-pages branch...'
         git add --all
         git commit -m "Deploy code docs to GitHub Pages Travis build: ${TRAVIS_BUILD_NUMBER}" -m "Commit: ${TRAVIS_COMMIT}"
-        git push --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}" > /dev/null 2>&1
+
+        openssl aes-256-cbc -k "$abacus_ci_password" -d -md sha256 -a -in ../main/abacus_ci.enc -out abacus_ci
+        echo "Host github.com" > ~/.ssh/config
+        echo "  IdentityFile  $(pwd)/abacus_ci" >> ~/.ssh/config
+        chmod 400 abacus_ci
+        echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
+
+        if ! git push --force git@github.com:sungiant/abacus.git ; then
+            _err "git push error"
+        fi
     else
         echo '' >&2
         echo 'Warning: No documentation (html) files have been found!' >&2
