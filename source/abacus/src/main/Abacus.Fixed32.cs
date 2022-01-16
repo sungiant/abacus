@@ -4,7 +4,7 @@
 // │  /  /_\  \| __ \\__  \ _/ ___\|  |  \/  ___/                           │ \\
 // │ /    |    \ \_\ \/ __ \\  \___|  |  /\___ \                            │ \\
 // │ \____|__  /___  (____  /\___  >____//____  >                           │ \\
-// │         \/    \/     \/     \/           \/  v1.1.0                    │ \\
+// │         \/    \/     \/     \/           \/  v1.1.1                    │ \\
 // │                                                                        │ \\
 // │ Fast, efficient, cross platform, cross precision, maths library.       │ \\
 // │                                                                        │ \\
@@ -23,7 +23,7 @@
 // │       \________________________________________________________/       │ \\
 // │                                                                        │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2012 - 2020 Ash Pook                                       │ \\
+// │ Copyright © 2012 - 2022 Ash Pook                                       │ \\
 // ├────────────────────────────────────────────────────────────────────────┤ \\
 // │ Permission is hereby granted, free of charge, to any person obtaining  │ \\
 // │ a copy of this software and associated documentation files (the        │ \\
@@ -1295,13 +1295,9 @@ namespace Abacus.Fixed32Precision
 
         // Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
         [MI(O.AggressiveInlining)] public static void CreateFromYawPitchRoll (ref Fixed32 yaw, ref Fixed32 pitch, ref Fixed32 roll, out Matrix44 r) {
-            Fixed32 cy = Maths.Cos (yaw), sy = Maths.Sin (yaw);
-            Fixed32 cx = Maths.Cos (pitch), sx = Maths.Sin (pitch);
-            Fixed32 cz = Maths.Cos (roll), sz = Maths.Sin (roll);
-            r.R0C0 =  cz*cy+sz*sx*sy; r.R0C1 =  sz*cx; r.R0C2 = -cz*sy+sz*sx*cy; r.R0C3 = 0;
-            r.R1C0 = -sz*cy+cz*sx*sy; r.R1C1 =  cz*cx; r.R1C2 = -cz*sy+sz*sx*cy; r.R1C3 = 0;
-            r.R2C0 =  cx*sy;          r.R2C1 = -sx;    r.R2C2 =  cx*cy;          r.R2C3 = 0;
-            r.R3C0 = 0;               r.R3C1 = 0;      r.R3C2 = 0;               r.R3C3 = 1;
+            Quaternion quaternion;
+            Quaternion.CreateFromYawPitchRoll(ref yaw, ref pitch, ref roll, out quaternion);
+            CreateFromQuaternion(ref quaternion, out r);
         }
 
         // http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
