@@ -1,0 +1,46 @@
+﻿        // Constants //-------------------------------------------------------//
+
+        /// <summary>
+        /// Defines the identity matrix.
+        /// </summary>
+        static Matrix44 identity;
+
+        /// <summary>
+        /// Defines the zero matrix.
+        /// </summary>
+        static Matrix44 zero;
+
+        /// <summary>
+        /// Static constructor used to initilise static constants.
+        /// </summary>
+        static Matrix44 ()
+        {
+            identity = new Matrix44 (
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
+
+            zero = new Matrix44 (
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
+        }
+
+        /// <summary>
+        /// Returns the identity matrix.
+        /// </summary>
+        public static Matrix44 Identity
+        {
+            get { return identity; }
+        }
+
+        /// <summary>
+        /// Returns the zero matrix.
+        /// </summary>
+        public static Matrix44 Zero
+        {
+            get { return zero; }
+        }
+

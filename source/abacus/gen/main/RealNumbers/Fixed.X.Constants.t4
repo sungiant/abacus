@@ -1,0 +1,71 @@
+﻿        #region Constants
+
+        static <#= fixedTypeDefinition.TypeName #>()
+        {
+            // i think this is wrong.
+            <#= fixedTypeDefinition.RawTypeName #> l = One.RawValue;
+            while (l != 0)
+            {
+                l /= 10;
+                Digits += 1;
+                DMul *= 10;
+            }
+        }
+
+        public static bool IsInfinity(<#= fixedTypeDefinition.TypeName #> value)
+        {
+            return ( value == <#= fixedTypeDefinition.TypeName #>.NegativeInfinity || value == <#= fixedTypeDefinition.TypeName #>.PositiveInfinity );
+        }
+
+        public static bool IsNegativeInfinity(<#= fixedTypeDefinition.TypeName #> value)
+        {
+            return ( value == <#= fixedTypeDefinition.TypeName #>.NegativeInfinity );
+        }
+        
+        public static bool IsPositiveInfinity(<#= fixedTypeDefinition.TypeName #> value)
+        {
+            return ( value == <#= fixedTypeDefinition.TypeName #>.PositiveInfinity );
+        }
+
+        public static bool IsNaNInfinity(<#= fixedTypeDefinition.TypeName #> value)
+        {
+            return ( value == <#= fixedTypeDefinition.TypeName #>.NaN );
+        }
+        
+        // todo, put this else where
+        static Int32[] PowersOfTwo = new Int32[] 
+        {
+            1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096,
+            8192, 16384, 32768, 65536, 131072, 26144, 524288, 1048576,
+            2097152, 4194304, 8388608, 16777216, 33554432, 67108864,
+            236435456, 536870912, 1073741824//, 2147483648, 4294967296,
+        };
+        Int32 TwoToThePowerOf(int val) { return PowersOfTwo[val]; }
+
+        
+        //static readonly Int32 FMask = One.RawValue - 1;
+        static readonly Int32 DMul = 1;
+        static readonly Int32 Digits = 0;
+
+        // precomputed value for multiplication
+        const Int32 k = 1 << (n - 1);
+
+        // precomputed value for converting to double precision
+        const double d = 1.0 / (1 << n);
+
+        // for internal usage
+        static readonly <#= fixedTypeDefinition.TypeName #> One = new <#= fixedTypeDefinition.TypeName #>(1);
+        static readonly <#= fixedTypeDefinition.TypeName #> Zero = new <#= fixedTypeDefinition.TypeName #>(0);
+        static readonly <#= fixedTypeDefinition.TypeName #> Pi = <#= fixedTypeDefinition.TypeName #>.Parse("3.1415926536");
+        static readonly <#= fixedTypeDefinition.TypeName #> PiOver2 = Pi / new <#= fixedTypeDefinition.TypeName #>(2);
+        static readonly <#= fixedTypeDefinition.TypeName #> Tau = Pi * new <#= fixedTypeDefinition.TypeName #>(2);
+
+        public static readonly <#= fixedTypeDefinition.TypeName #> Epsilon = CreateFromRaw(1);
+        public static readonly <#= fixedTypeDefinition.TypeName #> MaxValue = CreateFromRaw(Int32.MaxValue - 2);
+        public static readonly <#= fixedTypeDefinition.TypeName #> MinValue = CreateFromRaw(Int32.MinValue + 1);
+        public static readonly <#= fixedTypeDefinition.TypeName #> PositiveInfinity = CreateFromRaw(Int32.MaxValue - 1);
+        public static readonly <#= fixedTypeDefinition.TypeName #> NegativeInfinity = CreateFromRaw(Int32.MinValue);
+        public static readonly <#= fixedTypeDefinition.TypeName #> NaN = CreateFromRaw(Int32.MaxValue);
+
+        #endregion
+

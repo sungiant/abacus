@@ -1,0 +1,201 @@
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean Equals (Vector3 vector1, Vector3 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean operator == (Vector3 vector1, Vector3 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean operator != (Vector3 vector1, Vector3 vector2)
+        {
+            Boolean result;
+            Equals (ref vector1, ref vector2, out result);
+            return !result;
+        }
+
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Add (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator + (Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Add (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Subtraction Operators //-----------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Subtract (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator - (Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Subtract (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        // Variant Negation Operators //--------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Negate (Vector3 vector)
+        {
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator - (Vector3 vector)
+        {
+            Vector3 result;
+            Negate (ref vector, out result);
+            return result;
+        }
+
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Multiply (
+            Vector3 vector, <#=T#> scaleFactor)
+        {
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator * (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Multiply (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator * (
+            Vector3 vector, <#=T#> scaleFactor)
+        {
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator * (
+            <#=T#> scaleFactor, Vector3 vector)
+        {
+            Vector3 result;
+            Multiply (ref vector, ref scaleFactor, out result);
+            return result;
+        }
+
+        // Variant Division Operators //--------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Divide (
+            Vector3 vector1, <#=T#> divider)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator / (Vector3 vector1, Vector3 vector2)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 operator / (Vector3 vector1, <#=T#> divider)
+        {
+            Vector3 result;
+            Divide (ref vector1, ref divider, out result);
+            return result;
+        }
+

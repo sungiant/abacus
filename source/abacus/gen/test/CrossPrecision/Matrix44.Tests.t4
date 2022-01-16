@@ -1,0 +1,165 @@
+﻿    /// <summary>
+    ///
+    /// </summary>
+    [TestFixture]
+    public class Matrix44Tests
+    {
+<#@ include file="Matrix44.TestHelpers.t4"#>
+
+        /// <summary>
+        /// This test makes sure that the struct layout has been defined
+        /// correctly.
+        /// </summary>
+        [Test]
+        public void Test_StructLayout_i ()
+        {
+            Type t = typeof(Matrix44);
+
+            Assert.That(
+                t.StructLayoutAttribute.Value,
+                Is.EqualTo(LayoutKind.Sequential));
+        }
+
+        /// <summary>
+        /// This test makes sure that when examining the memory addresses of the
+        /// member variables of a number of randomly generated Matrix44
+        /// objects the results are as expected.
+        /// </summary>
+        [Test]
+        public unsafe void Test_StructLayout_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Matrix44 mat = GetNextRandomMatrix44();
+
+                GCHandle h_vec = GCHandle.Alloc(mat, GCHandleType.Pinned);
+
+                IntPtr vecAddress = h_vec.AddrOfPinnedObject();
+
+                <#=T#>[] data = new <#=T#>[16];
+
+                // nb: when Fixed32 and Half are moved back into the main
+                //     dev branch there will be need for an extension method for
+                //     Marshal that will perform the copy for those types.
+                MarshalHelper.Copy(vecAddress, data, 0, 16);
+                Assert.That(data[0], Is.EqualTo(mat.R0C0));
+                Assert.That(data[1], Is.EqualTo(mat.R0C1));
+                Assert.That(data[2], Is.EqualTo(mat.R0C2));
+                Assert.That(data[3], Is.EqualTo(mat.R0C3));
+                Assert.That(data[4], Is.EqualTo(mat.R1C0));
+                Assert.That(data[5], Is.EqualTo(mat.R1C1));
+                Assert.That(data[6], Is.EqualTo(mat.R1C2));
+                Assert.That(data[7], Is.EqualTo(mat.R1C3));
+                Assert.That(data[8], Is.EqualTo(mat.R2C0));
+                Assert.That(data[9], Is.EqualTo(mat.R2C1));
+                Assert.That(data[10], Is.EqualTo(mat.R2C2));
+                Assert.That(data[11], Is.EqualTo(mat.R2C3));
+                Assert.That(data[12], Is.EqualTo(mat.R3C0));
+                Assert.That(data[13], Is.EqualTo(mat.R3C1));
+                Assert.That(data[14], Is.EqualTo(mat.R3C2));
+                Assert.That(data[15], Is.EqualTo(mat.R3C3));
+
+                h_vec.Free();
+            }
+        }
+
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
+        [Test]
+        public void Test_Constructors ()
+        {
+            {
+                // Test default values
+                Matrix44 a = new Matrix44();
+                Assert.That(a, Is.EqualTo(Matrix44.Zero));
+            }
+            {
+                <#=T#> a = -18759;
+                <#=T#> b = 345;
+                <#=T#> c = 774;
+                <#=T#> d = -3431;
+                <#=T#> e = -55;
+                <#=T#> f = 47;
+                <#=T#> g = 45;
+                <#=T#> h = 3461;
+                <#=T#> i = -4;
+                <#=T#> j = 453;
+                <#=T#> k = -3;
+                <#=T#> l = -3441;
+                <#=T#> m = -189;
+                <#=T#> n = 5;
+                <#=T#> o = -87;
+                <#=T#> p = 341;
+
+                Matrix44 expected = new Matrix44(
+                    a, b, c, d,
+                    e, f, g, h,
+                    i, j, k, l,
+                    m, n, o, p);
+
+                Assert.That(expected.R0C0, Is.EqualTo(a));
+                Assert.That(expected.R0C1, Is.EqualTo(b));
+                Assert.That(expected.R0C2, Is.EqualTo(c));
+                Assert.That(expected.R0C3, Is.EqualTo(d));
+                Assert.That(expected.R1C0, Is.EqualTo(e));
+                Assert.That(expected.R1C1, Is.EqualTo(f));
+                Assert.That(expected.R1C2, Is.EqualTo(g));
+                Assert.That(expected.R1C3, Is.EqualTo(h));
+                Assert.That(expected.R2C0, Is.EqualTo(i));
+                Assert.That(expected.R2C1, Is.EqualTo(j));
+                Assert.That(expected.R2C2, Is.EqualTo(k));
+                Assert.That(expected.R2C3, Is.EqualTo(l));
+                Assert.That(expected.R3C0, Is.EqualTo(m));
+                Assert.That(expected.R3C1, Is.EqualTo(n));
+                Assert.That(expected.R3C2, Is.EqualTo(o));
+                Assert.That(expected.R3C3, Is.EqualTo(p));
+            }
+        }
+
+        [Test]
+        public void TestMemberFn_ToString ()
+        {
+            Matrix44 a = new Matrix44(
+                42, -17, 13, -44,
+                46, -23, -22, 90,
+                34, -21, 52, 33,
+                88, -12, -78, 50);
+
+            String result = a.ToString();
+
+            String expected =
+                "{ " +
+                "{R0C0:42 R0C1:-17 R0C2:13 R0C3:-44} " +
+                "{R1C0:46 R1C1:-23 R1C2:-22 R1C3:90} " +
+                "{R2C0:34 R2C1:-21 R2C2:52 R2C3:33} " +
+                "{R3C0:88 R3C1:-12 R3C2:-78 R3C3:50} " +
+                "}";
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void TestMemberFn_GetHashCode ()
+        {
+            var hs1 = new System.Collections.Generic.HashSet<Matrix44>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomMatrix44 ();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode ());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+
+<#@ include file="Matrix44.Constants.Tests.t4"#>
+<#@ include file="Matrix44.Create.Tests.t4"#>
+<#@ include file="Matrix44.Maths.Tests.t4"#>
+<#@ include file="Matrix44.Operators.Tests.t4"#>
+<#@ include file="Matrix44.Utilities.Tests.t4"#>
+    }

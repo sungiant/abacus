@@ -1,0 +1,84 @@
+        // Test Constant: Zero //---------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector4 initilised using the Zero constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Zero_i ()
+        {
+            Vector4 result = Vector4.Zero;
+            Vector4 expected = new Vector4(0, 0, 0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: One //----------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector4 initilised using the One constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_One_i ()
+        {
+            Vector4 result = Vector4.One;
+            Vector4 expected = new Vector4(1, 1, 1, 1);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitX //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector4 initilised using the UnitX 
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitX_i ()
+        {
+            Vector4 result = Vector4.UnitX;
+            Vector4 expected = new Vector4(1, 0, 0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitY //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector4 initilised using the UnitY
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitY_i ()
+        {
+            Vector4 result = Vector4.UnitY;
+            Vector4 expected = new Vector4(0, 1, 0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitZ //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector4 initilised using the UnitZ 
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitZ_i ()
+        {
+            Vector4 result = Vector4.UnitZ;
+            Vector4 expected = new Vector4(0, 0, 1, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitW //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector4 initilised using the UnitW
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitW_i ()
+        {
+            Vector4 result = Vector4.UnitW;
+            Vector4 expected = new Vector4(0, 0, 0, 1);
+            AssertEqualWithinReason(result, expected);
+        }
+

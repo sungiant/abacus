@@ -1,0 +1,309 @@
+﻿        /// <summary>
+        /// Transposes the rows and columns of a matrix.  The transpose of a
+        /// given matrix is the matrix which is formed by turning all the rows
+        /// of a given matrix into columns and vice-versa.
+        /// N.B. On a computer, one can often avoid explicitly transposing a
+        /// matrix in memory by simply accessing the same data in a
+        /// different order.
+        /// </summary>
+        public static void Transpose (ref Matrix44 m, out Matrix44 result)
+        {
+            result.R0C0 = m.R0C0;
+            result.R1C1 = m.R1C1;
+            result.R2C2 = m.R2C2;
+            result.R3C3 = m.R3C3;
+
+            <#=T#> t = m.R0C1;
+            result.R0C1 = m.R1C0;
+            result.R1C0 = t;
+
+            t = m.R0C2;
+            result.R0C2 = m.R2C0;
+            result.R2C0 = t;
+
+            t = m.R0C3;
+            result.R0C3 = m.R3C0;
+            result.R3C0 = t;
+
+            t = m.R1C2;
+            result.R1C2 = m.R2C1;
+            result.R2C1 = t;
+
+            t = m.R1C3;
+            result.R1C3 = m.R3C1;
+            result.R3C1 = t;
+
+            t =  m.R2C3;
+            result.R2C3 = m.R3C2;
+            result.R3C2 = t;
+        }
+
+        /// <summary>
+        /// Reference Implementation:
+        /// Essential Mathemathics For Games and Interactive Applications
+        /// </summary>
+        public static void Decompose (
+            ref Matrix44 matrix,
+            out Vector3 scale,
+            out Quaternion rotation,
+            out Vector3 translation,
+            out Boolean result)
+        {
+            translation.X = matrix.R3C0;
+            translation.Y = matrix.R3C1;
+            translation.Z = matrix.R3C2;
+
+            Vector3 a = new Vector3(matrix.R0C0, matrix.R1C0, matrix.R2C0);
+            Vector3 b = new Vector3(matrix.R0C1, matrix.R1C1, matrix.R2C1);
+            Vector3 c = new Vector3(matrix.R0C2, matrix.R1C2, matrix.R2C2);
+
+            <#=T#> aLen; Vector3.Length(ref a, out aLen); scale.X = aLen;
+            <#=T#> bLen; Vector3.Length(ref b, out bLen); scale.Y = bLen;
+            <#=T#> cLen; Vector3.Length(ref c, out cLen); scale.Z = cLen;
+
+            if ( Maths.IsZero(scale.X) ||
+                 Maths.IsZero(scale.Y) ||
+                 Maths.IsZero(scale.Z) )
+            {
+                rotation = Quaternion.Identity;
+                result = false;
+            }
+
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
+
+            if (aLen < epsilon) a = Vector3.Zero;
+            else Vector3.Normalise(ref a, out a);
+
+            if (bLen < epsilon) b = Vector3.Zero;
+            else Vector3.Normalise(ref b, out b);
+
+            if (cLen < epsilon) c = Vector3.Zero;
+            else Vector3.Normalise(ref c, out c);
+
+            Vector3 right = new Vector3 (a.X, b.X, c.X);
+            Vector3 up = new Vector3 (a.Y, b.Y, c.Y);
+            Vector3 backward = new Vector3 (a.Z, b.Z, c.Z);
+
+            if (right == Vector3.Zero) right = Vector3.Right;
+            if (up == Vector3.Zero) up = Vector3.Up;
+            if (backward == Vector3.Zero) backward = Vector3.Backward;
+
+            Vector3.Normalise (ref right, out right);
+            Vector3.Normalise (ref up, out up);
+            Vector3.Normalise (ref backward, out backward);
+
+            Matrix44 rotMat;
+            Matrix44.CreateFromCartesianAxes(
+                ref right, ref up, ref backward, out rotMat);
+
+            Quaternion.CreateFromRotationMatrix (ref rotMat, out rotation);
+
+            result = true;
+        }
+
+        /// <summary>
+        /// A determinant is a scalar number which is calculated from a matrix.
+        /// This number can determine whether a set of linear equations are
+        /// solvable, in other words whether the matrix can be inverted.
+        /// </summary>
+        public static void Determinant (ref Matrix44 m, out <#=T#> result)
+        {
+            result =
+                + m.R0C3 * m.R1C2 * m.R2C1 * m.R3C0
+                - m.R0C2 * m.R1C3 * m.R2C1 * m.R3C0
+                - m.R0C3 * m.R1C1 * m.R2C2 * m.R3C0
+                + m.R0C1 * m.R1C3 * m.R2C2 * m.R3C0
+                + m.R0C2 * m.R1C1 * m.R2C3 * m.R3C0
+                - m.R0C1 * m.R1C2 * m.R2C3 * m.R3C0
+                - m.R0C3 * m.R1C2 * m.R2C0 * m.R3C1
+                + m.R0C2 * m.R1C3 * m.R2C0 * m.R3C1
+                + m.R0C3 * m.R1C0 * m.R2C2 * m.R3C1
+                - m.R0C0 * m.R1C3 * m.R2C2 * m.R3C1
+                - m.R0C2 * m.R1C0 * m.R2C3 * m.R3C1
+                + m.R0C0 * m.R1C2 * m.R2C3 * m.R3C1
+                + m.R0C3 * m.R1C1 * m.R2C0 * m.R3C2
+                - m.R0C1 * m.R1C3 * m.R2C0 * m.R3C2
+                - m.R0C3 * m.R1C0 * m.R2C1 * m.R3C2
+                + m.R0C0 * m.R1C3 * m.R2C1 * m.R3C2
+                + m.R0C1 * m.R1C0 * m.R2C3 * m.R3C2
+                - m.R0C0 * m.R1C1 * m.R2C3 * m.R3C2
+                - m.R0C2 * m.R1C1 * m.R2C0 * m.R3C3
+                + m.R0C1 * m.R1C2 * m.R2C0 * m.R3C3
+                + m.R0C2 * m.R1C0 * m.R2C1 * m.R3C3
+                - m.R0C0 * m.R1C2 * m.R2C1 * m.R3C3
+                - m.R0C1 * m.R1C0 * m.R2C2 * m.R3C3
+                + m.R0C0 * m.R1C1 * m.R2C2 * m.R3C3;
+        }
+
+        /// <summary>
+        /// The inverse of a matrix is another matrix that when multiplied
+        /// by the original matrix yields the identity matrix.
+        /// </summary>
+        public static void Invert (ref Matrix44 m, out Matrix44 result)
+        {
+            <#=T#> one = 1;
+            <#=T#> d;
+            Determinant (ref m, out d);
+            <#=T#> s = one / d;
+
+            result.R0C0 =
+                + m.R1C2 * m.R2C3 * m.R3C1 - m.R1C3 * m.R2C2 * m.R3C1
+                + m.R1C3 * m.R2C1 * m.R3C2 - m.R1C1 * m.R2C3 * m.R3C2
+                - m.R1C2 * m.R2C1 * m.R3C3 + m.R1C1 * m.R2C2 * m.R3C3;
+
+            result.R0C1 =
+                + m.R0C3 * m.R2C2 * m.R3C1 - m.R0C2 * m.R2C3 * m.R3C1
+                - m.R0C3 * m.R2C1 * m.R3C2 + m.R0C1 * m.R2C3 * m.R3C2
+                + m.R0C2 * m.R2C1 * m.R3C3 - m.R0C1 * m.R2C2 * m.R3C3;
+
+            result.R0C2 =
+                + m.R0C2 * m.R1C3 * m.R3C1 - m.R0C3 * m.R1C2 * m.R3C1
+                + m.R0C3 * m.R1C1 * m.R3C2 - m.R0C1 * m.R1C3 * m.R3C2
+                - m.R0C2 * m.R1C1 * m.R3C3 + m.R0C1 * m.R1C2 * m.R3C3;
+
+            result.R0C3 =
+                + m.R0C3 * m.R1C2 * m.R2C1 - m.R0C2 * m.R1C3 * m.R2C1
+                - m.R0C3 * m.R1C1 * m.R2C2 + m.R0C1 * m.R1C3 * m.R2C2
+                + m.R0C2 * m.R1C1 * m.R2C3 - m.R0C1 * m.R1C2 * m.R2C3;
+
+            result.R1C0 =
+                + m.R1C3 * m.R2C2 * m.R3C0 - m.R1C2 * m.R2C3 * m.R3C0
+                - m.R1C3 * m.R2C0 * m.R3C2 + m.R1C0 * m.R2C3 * m.R3C2
+                + m.R1C2 * m.R2C0 * m.R3C3 - m.R1C0 * m.R2C2 * m.R3C3;
+
+            result.R1C1 =
+                + m.R0C2 * m.R2C3 * m.R3C0 - m.R0C3 * m.R2C2 * m.R3C0
+                + m.R0C3 * m.R2C0 * m.R3C2 - m.R0C0 * m.R2C3 * m.R3C2
+                - m.R0C2 * m.R2C0 * m.R3C3 + m.R0C0 * m.R2C2 * m.R3C3;
+
+            result.R1C2 =
+                + m.R0C3 * m.R1C2 * m.R3C0 - m.R0C2 * m.R1C3 * m.R3C0
+                - m.R0C3 * m.R1C0 * m.R3C2 + m.R0C0 * m.R1C3 * m.R3C2
+                + m.R0C2 * m.R1C0 * m.R3C3 - m.R0C0 * m.R1C2 * m.R3C3;
+
+            result.R1C3 =
+                + m.R0C2 * m.R1C3 * m.R2C0 - m.R0C3 * m.R1C2 * m.R2C0
+                + m.R0C3 * m.R1C0 * m.R2C2 - m.R0C0 * m.R1C3 * m.R2C2
+                - m.R0C2 * m.R1C0 * m.R2C3 + m.R0C0 * m.R1C2 * m.R2C3;
+
+            result.R2C0 =
+                + m.R1C1 * m.R2C3 * m.R3C0 - m.R1C3 * m.R2C1 * m.R3C0
+                + m.R1C3 * m.R2C0 * m.R3C1 - m.R1C0 * m.R2C3 * m.R3C1
+                - m.R1C1 * m.R2C0 * m.R3C3 + m.R1C0 * m.R2C1 * m.R3C3;
+
+            result.R2C1 =
+                + m.R0C3 * m.R2C1 * m.R3C0 - m.R0C1 * m.R2C3 * m.R3C0
+                - m.R0C3 * m.R2C0 * m.R3C1 + m.R0C0 * m.R2C3 * m.R3C1
+                + m.R0C1 * m.R2C0 * m.R3C3 - m.R0C0 * m.R2C1 * m.R3C3;
+
+            result.R2C2 =
+                + m.R0C1 * m.R1C3 * m.R3C0 - m.R0C3 * m.R1C1 * m.R3C0
+                + m.R0C3 * m.R1C0 * m.R3C1 - m.R0C0 * m.R1C3 * m.R3C1
+                - m.R0C1 * m.R1C0 * m.R3C3 + m.R0C0 * m.R1C1 * m.R3C3;
+
+            result.R2C3 =
+                + m.R0C3 * m.R1C1 * m.R2C0 - m.R0C1 * m.R1C3 * m.R2C0
+                - m.R0C3 * m.R1C0 * m.R2C1 + m.R0C0 * m.R1C3 * m.R2C1
+                + m.R0C1 * m.R1C0 * m.R2C3 - m.R0C0 * m.R1C1 * m.R2C3;
+
+            result.R3C0 =
+                + m.R1C2 * m.R2C1 * m.R3C0 - m.R1C1 * m.R2C2 * m.R3C0
+                - m.R1C2 * m.R2C0 * m.R3C1 + m.R1C0 * m.R2C2 * m.R3C1
+                + m.R1C1 * m.R2C0 * m.R3C2 - m.R1C0 * m.R2C1 * m.R3C2;
+
+            result.R3C1 =
+                + m.R0C1 * m.R2C2 * m.R3C0 - m.R0C2 * m.R2C1 * m.R3C0
+                + m.R0C2 * m.R2C0 * m.R3C1 - m.R0C0 * m.R2C2 * m.R3C1
+                - m.R0C1 * m.R2C0 * m.R3C2 + m.R0C0 * m.R2C1 * m.R3C2;
+
+            result.R3C2 =
+                + m.R0C2 * m.R1C1 * m.R3C0 - m.R0C1 * m.R1C2 * m.R3C0
+                - m.R0C2 * m.R1C0 * m.R3C1 + m.R0C0 * m.R1C2 * m.R3C1
+                + m.R0C1 * m.R1C0 * m.R3C2 - m.R0C0 * m.R1C1 * m.R3C2;
+
+            result.R3C3 =
+                + m.R0C1 * m.R1C2 * m.R2C0 - m.R0C2 * m.R1C1 * m.R2C0
+                + m.R0C2 * m.R1C0 * m.R2C1 - m.R0C0 * m.R1C2 * m.R2C1
+                - m.R0C1 * m.R1C0 * m.R2C2 + m.R0C0 * m.R1C1 * m.R2C2;
+
+
+            Multiply (ref result, ref s, out result);
+        }
+
+        /// <summary>
+        /// Transforms a Matrix (m) by applying a Quaternion rotation (q).
+        /// </summary>
+        public static void Transform (
+            ref Matrix44 m, ref Quaternion q, out Matrix44 result)
+        {
+            Boolean qIsUnit;
+            Quaternion.IsUnit (ref q, out qIsUnit);
+
+            if(!qIsUnit)
+                throw new ArgumentException(
+                    "Input quaternion must be normalised.");
+
+            // Could just do Matrix44.CreateFromQuaternionHere, but we won't
+            // use all of the data, so just calculate what we need.
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            <#=T#> twoI = q.I + q.I;
+            <#=T#> twoJ = q.J + q.J;
+            <#=T#> twoK = q.K + q.K;
+
+            <#=T#> twoUI = q.U * twoI;
+            <#=T#> twoUJ = q.U * twoJ;
+            <#=T#> twoUK = q.U * twoK;
+            <#=T#> twoII = q.I * twoI;
+            <#=T#> twoIJ = q.I * twoJ;
+            <#=T#> twoIK = q.I * twoK;
+            <#=T#> twoJJ = q.J * twoJ;
+            <#=T#> twoJK = q.J * twoK;
+            <#=T#> twoKK = q.K * twoK;
+
+            <#=T#> tR0C0 = one - twoJJ - twoKK;
+            <#=T#> tR1C0 = twoIJ - twoUK;
+            <#=T#> tR2C0 = twoIK + twoUJ;
+            //<#=T#> tR3C0 = zero;
+
+            <#=T#> tR0C1 = twoIJ + twoUK;
+            <#=T#> tR1C1 = one - twoII - twoKK;
+            <#=T#> tR2C1 = twoJK - twoUI;
+            //<#=T#> tR3C1 = zero;
+
+            <#=T#> tR0C2 = twoIK - twoUJ;
+            <#=T#> tR1C2 = twoJK + twoUI;
+            <#=T#> tR2C2 = one - twoII - twoJJ;
+            //<#=T#> tR3C2 = zero;
+
+            //<#=T#> tR0C3 = zero;
+            //<#=T#> tR1C3 = zero;
+            //<#=T#> tR2C3 = zero;
+            //<#=T#> tR3C3 = zero;
+
+
+            // Could just multiply here, but we know a bunch of stuff in `t`
+            // will be zero, so doing the following is the same, but with less
+            // operations.
+            result.R0C0 = m.R0C0 * tR0C0 + m.R0C1 * tR1C0 + m.R0C2 * tR2C0;
+            result.R0C1 = m.R0C0 * tR0C1 + m.R0C1 * tR1C1 + m.R0C2 * tR2C1;
+            result.R0C2 = m.R0C0 * tR0C2 + m.R0C1 * tR1C2 + m.R0C2 * tR2C2;
+            result.R0C3 = m.R0C3;
+
+            result.R1C0 = m.R1C0 * tR0C0 + m.R1C1 * tR1C0 + m.R1C2 * tR2C0;
+            result.R1C1 = m.R1C0 * tR0C1 + m.R1C1 * tR1C1 + m.R1C2 * tR2C1;
+            result.R1C2 = m.R1C0 * tR0C2 + m.R1C1 * tR1C2 + m.R1C2 * tR2C2;
+            result.R1C3 = m.R1C3;
+
+            result.R2C0 = m.R2C0 * tR0C0 + m.R2C1 * tR1C0 + m.R2C2 * tR2C0;
+            result.R2C1 = m.R2C0 * tR0C1 + m.R2C1 * tR1C1 + m.R2C2 * tR2C1;
+            result.R2C2 = m.R2C0 * tR0C2 + m.R2C1 * tR1C2 + m.R2C2 * tR2C2;
+            result.R2C3 = m.R2C3;
+
+            result.R3C0 = m.R3C0 * tR0C0 + m.R3C1 * tR1C0 + m.R3C2 * tR2C0;
+            result.R3C1 = m.R3C0 * tR0C1 + m.R3C1 * tR1C1 + m.R3C2 * tR2C1;
+            result.R3C2 = m.R3C0 * tR0C2 + m.R3C1 * tR1C2 + m.R3C2 * tR2C2;
+            result.R3C3 = m.R3C3;
+        }
+

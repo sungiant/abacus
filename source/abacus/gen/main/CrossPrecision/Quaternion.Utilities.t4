@@ -1,0 +1,101 @@
+﻿        /// <summary>
+        /// Perform a spherical linear interpolation between two Quaternions.
+        /// Provides a constant-speed motion along a unit-radius great circle
+        /// arc, given the ends and an interpolation parameter between 0 and 1.
+        /// http://en.wikipedia.org/wiki/Slerp
+        /// </summary>
+        public static void Slerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref <#=T#> amount,
+            out Quaternion result)
+        {
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> epsilon; Maths.Epsilon (out epsilon);
+
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#=T#> remaining = one - amount;
+
+            <#=T#> angle;
+            Dot (ref quaternion1, ref quaternion2, out angle);
+
+            if (angle < zero)
+            {
+                Negate (ref quaternion1, out quaternion1);
+                angle = -angle;
+            }
+
+            <#=T#> theta = Maths.ArcCos (angle);
+
+
+            <#=T#> r = remaining;
+            <#=T#> a = amount;
+
+            // To avoid division by 0 and by very small numbers the
+            // Lerp is used when theta is small.
+            if (theta > epsilon)
+            {
+                <#=T#> x = Maths.Sin (remaining * theta);
+                <#=T#> y = Maths.Sin (amount * theta);
+                <#=T#> z = Maths.Sin (theta);
+
+                r = x / z;
+                a = y / z;
+            }
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
+        }
+
+        /// <summary>
+        /// Perform a linear interpolation between two Quaternions.
+        /// </summary>
+        public static void Lerp (
+            ref Quaternion quaternion1,
+            ref Quaternion quaternion2,
+            ref <#=T#> amount,
+            out Quaternion result)
+        {
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            if (amount < zero || amount > one)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#=T#> remaining = one - amount;
+
+            <#=T#> r = remaining;
+            <#=T#> a = amount;
+
+            result.U = (r * quaternion1.U) + (a * quaternion2.U);
+            result.I = (r * quaternion1.I) + (a * quaternion2.I);
+            result.J = (r * quaternion1.J) + (a * quaternion2.J);
+            result.K = (r * quaternion1.K) + (a * quaternion2.K);
+        }
+
+        /// <summary>
+        /// Detemines whether or not the Vector2 is of unit length.
+        /// </summary>
+        public static void IsUnit (
+            ref Quaternion quaternion,
+            out Boolean result)
+        {
+            <#=T#> one = 1;
+
+            result = Maths.IsZero(
+                one -
+                quaternion.U * quaternion.U -
+                quaternion.I * quaternion.I -
+                quaternion.J * quaternion.J -
+                quaternion.K * quaternion.K);
+        }
+

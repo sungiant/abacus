@@ -1,0 +1,9 @@
+﻿        #region IFormattable
+
+        String IFormattable.ToString(String format, IFormatProvider formatProvider)
+        {
+            return ToDouble().ToString(format, formatProvider);
+        }
+
+        #endregion
+

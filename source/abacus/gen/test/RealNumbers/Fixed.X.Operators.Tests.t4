@@ -1,0 +1,128 @@
+        [Test]
+        public void Test_Operators_Addition ()
+        {
+            throw new InconclusiveException ("Not Implemented");
+        }
+
+        [Test]
+        public void Test_Operators_Subtraction ()
+        {
+            throw new InconclusiveException ("Not Implemented");
+        }
+
+        /// <summary>
+        /// Make sure tiny multiplies work properly - these inputs are so small
+        /// they underflow to zero
+        /// </summary>
+        [Test]
+        public void Test_Operators_Multiplication_i ()
+        {
+            int[] values = { 2, 1, 0, -1, -2 };
+
+            foreach (int value in values) {
+                <#= fixedTypeDefinition.TypeName #> f = <#= fixedTypeDefinition.TypeName #>.CreateFromRaw (value);
+                <#= fixedTypeDefinition.TypeName #> fsq = f * f;
+                Assert.That (fsq, Is.EqualTo (new <#= fixedTypeDefinition.TypeName #>(0)));
+            }
+        }
+
+
+        /// <summary>
+        /// Make sure signs are handled correctly during multiplication
+        /// </summary>
+        [Test]
+        public void Test_Operators_Multiplication_ii ()
+        {
+
+            <#= fixedTypeDefinition.TypeName #> one = 1;
+            <#= fixedTypeDefinition.TypeName #> negOne = -one;
+
+            Assert.That (one * one, Is.EqualTo (one));
+            Assert.That (negOne * one, Is.EqualTo (negOne));
+            Assert.That (one * negOne, Is.EqualTo (negOne));
+            Assert.That (negOne * negOne, Is.EqualTo (one));
+        }
+
+
+        [Test]
+        public void Test_Operators_Multiplication_iii ()
+        {
+            double[] values = { 0.9, 0.5, 0.1, 0.01, 0.001, -0.001, -0.01, -0.1, -0.5, -0.9 };
+
+            foreach (double value in values)
+            {
+                <#= fixedTypeDefinition.TypeName #> f = new <#= fixedTypeDefinition.TypeName #> (value);
+                <#= fixedTypeDefinition.TypeName #> fsq = f * f;
+
+                // Actually we tolerate a slight rounding error here.  We shouldn't have to, but it's not crucial to fix it.
+                long diff = System.Math.Abs (new <#= fixedTypeDefinition.TypeName #> (value * value).RawValue - fsq.RawValue);
+                Assert.That (diff < 2);
+           }
+        }
+
+        [Test]
+        public void Test_Operators_Multiplication_iv ()
+        {
+            <#= fixedTypeDefinition.TypeName #> a = <#= fixedTypeDefinition.TypeName #>.MaxValue / 2;
+            a -= 1;
+
+            Assert.That((a * 2) + 1, Is.Not.EqualTo(<#= fixedTypeDefinition.TypeName #>.MaxValue));
+
+
+            /*
+            long basevalue = 1000000;
+            <#= fixedTypeDefinition.TypeName #> f = new <#= fixedTypeDefinition.TypeName #> (basevalue);
+            <#= fixedTypeDefinition.TypeName #> g = new <#= fixedTypeDefinition.TypeName #> (basevalue);
+            <#= fixedTypeDefinition.TypeName #> h = new <#= fixedTypeDefinition.TypeName #> (basevalue * basevalue);
+            Assert.That (f * g, Is.EqualTo (h));
+
+            // This is testing the test, really, to make sure 'basevalue' was
+            // large enough to trigger overflow in the first place.
+            <#= fixedTypeDefinition.TypeName #> bad_h = <#= fixedTypeDefinition.TypeName #>.CreateFromRaw ((f.RawValue * g.RawValue) >> <#= fixedTypeDefinition.TypeName #>.n);
+            Assert.That (bad_h, Is.Not.EqualTo (h));
+             *
+             */
+        }
+
+        [Test]
+        public void Test_Operators_Multiplication_v()
+        {
+            Assert.That((<#= fixedTypeDefinition.TypeName #>.MaxValue - 10) * (<#= fixedTypeDefinition.TypeName #>.MaxValue - 10), Is.EqualTo(<#= fixedTypeDefinition.TypeName #>.MaxValue));
+            Assert.That(<#= fixedTypeDefinition.TypeName #>.MaxValue * <#= fixedTypeDefinition.TypeName #>.MaxValue, Is.EqualTo(<#= fixedTypeDefinition.TypeName #>.MaxValue));
+
+            Assert.That(<#= fixedTypeDefinition.TypeName #>.MinValue * <#= fixedTypeDefinition.TypeName #>.MinValue, Is.EqualTo(<#= fixedTypeDefinition.TypeName #>.MaxValue));
+
+            Assert.That(<#= fixedTypeDefinition.TypeName #>.MaxValue * <#= fixedTypeDefinition.TypeName #>.MinValue, Is.EqualTo(<#= fixedTypeDefinition.TypeName #>.MinValue));
+        }
+
+        /// <summary>
+        /// Check that division doesn't get rounded to integers
+        /// </summary>
+        [Test]
+        public void Test_Operators_Division ()
+        {
+            const long numerator = 1;
+            const long denominator = 10;
+
+            <#= fixedTypeDefinition.TypeName #> f = new <#= fixedTypeDefinition.TypeName #> (numerator);
+            <#= fixedTypeDefinition.TypeName #> g = new <#= fixedTypeDefinition.TypeName #> (denominator);
+            <#= fixedTypeDefinition.TypeName #> h = new <#= fixedTypeDefinition.TypeName #> (((double)numerator) / denominator);
+
+            Assert.That (f / g, Is.EqualTo (h));
+        }
+
+        [Test]
+        public void Test_Operators_LessThan ()
+        {
+            <#= fixedTypeDefinition.TypeName #> f = new <#= fixedTypeDefinition.TypeName #> (419);
+
+            int i = 1000;
+            Assert.That (f < i);
+        }
+
+        [Test]
+        public void Test_Operators_GreaterThan ()
+        {
+            throw new InconclusiveException ("Not Implemented");
+        }
+

@@ -1,0 +1,196 @@
+﻿    [TestFixture]
+    public class MathsTests
+    {
+<# GenerateMathsConstant (T, "TestTolerance"); #>
+
+        <#=T#> tolerance;
+
+        public MathsTests ()
+        {
+            MathsTests.TestTolerance (out tolerance);
+        }
+
+        [Test]
+        public void TestConstant_Zero_i ()
+        {
+            <#= T #> zero; Maths.Zero (out zero);
+            Assert.That (zero, Is.EqualTo ((<#= T #>) 0));
+        }
+        [Test]
+        public void TestConstant_Half_i ()
+        {
+            <#= T #> half; Maths.Half (out half);
+            Assert.That (half, Is.EqualTo ((<#= T #>) 0.5));
+        }
+        [Test]
+        public void TestConstant_One_i ()
+        {   <#= T #> one; Maths.One (out one);
+            Assert.That (one, Is.EqualTo ((<#= T #>) 1));
+        }
+
+        [Test]
+        public void TestConstant_E_i ()
+        {
+            <#= T #> e; Maths.E (out e);
+            Assert.That (e, Is.EqualTo ((<#= T #>) 2.71828182845904523536028747135).Within (tolerance));
+        }
+        [Test]
+        public void TestConstant_Log10E_i ()
+        {
+            <#= T #> log10E; Maths.Log10E (out log10E);
+            Assert.That (log10E, Is.EqualTo ((<#= T #>) 0.43429448190325182765112891892).Within (tolerance));
+        }
+        [Test]
+        public void TestConstant_Log2E_i ()
+        {
+            <#= T #> log2E; Maths.Log2E (out log2E);
+            Assert.That (log2E, Is.EqualTo ((<#= T #>) 1.442695).Within (tolerance));
+        }
+
+        [Test]
+        public void TestConstant_Pi_i ()
+        {
+            <#= T #> pi; Maths.Pi (out pi);
+            Assert.That (pi, Is.EqualTo ((<#= T #>) 3.14159265358979323846264338327950288).Within (tolerance));
+        }
+
+        [Test]
+        public void TestConstant_Tau_i ()
+        {
+            <#= T #> tau; Maths.Tau (out tau);
+            Assert.That (tau, Is.EqualTo ((<#= T #>) 6.28318530717958647692528676655900576).Within (tolerance));
+        }
+
+        [Test]
+        public void TestConstant_Root2_i ()
+        {
+            <#= T #> root2; Maths.Root2 (out root2);
+            Assert.That (root2, Is.EqualTo ((<#= T #>) 1.41421356237309504880168872420969807).Within (tolerance));
+        }
+
+        [Test]
+        public void TestConstant_Root3_i ()
+        {
+            <#= T #> root3; Maths.Root3 (out root3);
+            Assert.That (root3, Is.EqualTo ((<#= T #>) 1.73205080756887729352744634150587236).Within (tolerance));
+        }
+
+        [Test]
+        public void TestStaticFn_IsZero_i ()
+        {
+            <#= T #> zero; Maths.Zero (out zero);
+            Assert.That (Maths.IsZero (zero), Is.EqualTo (true));
+        }
+
+        [Test]
+        public void TestStaticFn_IsZero_ii ()
+        {
+            <#= T #> one; Maths.One (out one);
+            Assert.That (Maths.IsZero (one), Is.EqualTo (false));
+        }
+
+        [Test]
+        public void TestConstant_Epsilon_i ()
+        {
+            <#= T #> epsilon; Maths.Epsilon (out epsilon);
+            Assert.That (epsilon, Is.LessThan ((<#= T #>) 0.01));
+            Assert.That (epsilon, Is.GreaterThan ((<#= T #>) 0.0));
+        }
+
+        [Test]
+        public void TestStaticFn_FromString_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_FromFraction_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_ToRadians_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_ToDegrees_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Sqrt_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Sin_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Cos_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Tan_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Abs_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_ArcSin_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_ArcCos_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_ArcTan_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Min_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Max_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_WithinEpsilon_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public void TestStaticFn_Sign_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+    }
+

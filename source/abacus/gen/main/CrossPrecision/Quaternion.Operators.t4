@@ -1,0 +1,80 @@
+﻿        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Quaternion objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static void Equals (
+            ref Quaternion q1, ref Quaternion q2, out Boolean result)
+        {
+            result =
+                (q1.I == q2.I) && (q1.J == q2.J) &&
+                (q1.K == q2.K) && (q1.U == q2.U);
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Quaternion objects.
+        /// </summary>
+        public static void Add (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            result.I = q1.I + q2.I;
+            result.J = q1.J + q2.J;
+            result.K = q1.K + q2.K;
+            result.U = q1.U + q2.U;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Quaternion objects.
+        /// </summary>
+        public static void Subtract (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            result.I = q1.I - q2.I;
+            result.J = q1.J - q2.J;
+            result.K = q1.K - q2.K;
+            result.U = q1.U - q2.U;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Quaternion object.
+        /// </summary>
+        public static void Negate (
+            ref Quaternion quaternion, out Quaternion result)
+        {
+            result.I = -quaternion.I;
+            result.J = -quaternion.J;
+            result.K = -quaternion.K;
+            result.U = -quaternion.U;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Quaternion objects,
+        /// (Quaternion multiplication is not commutative),
+        /// (i^2 = j^2 = k^2 = i j k = -1).
+        ///
+        /// For Quaternion division the notation q1 / q2 is not ideal, since
+        /// Quaternion multiplication is not commutative we need to be able
+        /// to distinguish between q1*(q2^-1) and (q2^-1)*q1. This is why
+        /// Abacus does not have a division opperator.  If you need
+        /// a divide operation just multiply by the inverse.
+        /// </summary>
+        public static void Multiply (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            // http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
+
+            result.I = q1.I * q2.U + q1.U * q2.I + q1.J * q2.K - q1.K * q2.J;
+            result.J = q1.U * q2.J - q1.I * q2.K + q1.J * q2.U + q1.K * q2.I;
+            result.K = q1.U * q2.K + q1.I * q2.J - q1.J * q2.I + q1.K * q2.U;
+            result.U = q1.U * q2.U - q1.I * q2.I - q1.J * q2.J - q1.K * q2.K;
+        }
+

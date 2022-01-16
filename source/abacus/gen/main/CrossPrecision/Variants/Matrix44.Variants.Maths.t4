@@ -1,0 +1,40 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Transpose (Matrix44 input)
+        {
+            Matrix44 result;
+            Transpose (ref input, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public <#=T#> Determinant (Matrix44 matrix)
+        {
+            <#=T#> result;
+            Determinant (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Invert (Matrix44 matrix)
+        {
+            Matrix44 result;
+            Invert (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Transform (Matrix44 value, Quaternion rotation)
+        {
+            Matrix44 result;
+            Transform (ref value, ref rotation, out result);
+            return result;
+        }
+

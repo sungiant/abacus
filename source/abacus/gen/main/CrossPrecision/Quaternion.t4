@@ -1,0 +1,115 @@
+﻿    /// <summary>
+    /// <#=T#> precision Quaternion.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Quaternion
+        : IEquatable<Quaternion>
+    {
+        /// <summary>
+        /// Gets or sets the imaginary I-component of the Quaternion.
+        /// </summary>
+        public <#=T#> I;
+
+        /// <summary>
+        /// Gets or sets the imaginary J-component of the Quaternion.
+        /// </summary>
+        public <#=T#> J;
+
+        /// <summary>
+        /// Gets or sets the imaginary K-component of the Quaternion.
+        /// </summary>
+        public <#=T#> K;
+
+        /// <summary>
+        /// Gets or sets the real U-component of the Quaternion.
+        /// </summary>
+        public <#=T#> U;
+
+        /// <summary>
+        /// Initilises a new instance of Quaternion from three imaginary
+        /// <#=T#> values and one real <#=T#> value representing
+        /// I, J, K and U respectively.
+        /// </summary>
+        public Quaternion (
+            <#=T#> i, <#=T#> j, <#=T#> k, <#=T#> u)
+        {
+            this.I = i;
+            this.J = j;
+            this.K = k;
+            this.U = u;
+        }
+
+        /// <summary>
+        /// Initilises a new instance of Quaternion from a Vector3 representing
+        /// the imaginary parts of the quaternion (I, J and K) and one
+        /// <#=T#> value representing the real part of the
+        /// Quaternion (U).
+        /// </summary>
+        public Quaternion (Vector3 vectorPart, <#=T#> scalarPart)
+        {
+            this.I = vectorPart.X;
+            this.J = vectorPart.Y;
+            this.K = vectorPart.Z;
+            this.U = scalarPart;
+        }
+
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return String.Format ("{{I:{0} J:{1} K:{2} U:{3}}}",
+                I.ToString (), J.ToString (), K.ToString (), U.ToString ());
+        }
+
+        /// <summary>
+        /// Gets the hash code of the Quaternion object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return U.GetHashCode ().ShiftAndWrap (6)
+                 ^ K.GetHashCode ().ShiftAndWrap (4)
+                 ^ J.GetHashCode ().ShiftAndWrap (2)
+                 ^ I.GetHashCode ();
+        }
+
+        /// <summary>
+        /// Determines whether or not this Quaternion object is equal to another
+        /// object
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            return (obj is Quaternion)
+                ? this.Equals ((Quaternion) obj)
+                : false;
+        }
+
+        #region IEquatable<Quaternion>
+
+        /// <summary>
+        /// Determines whether or not this Quaternion object is equal to another
+        /// Quaternion object.
+        /// </summary>
+        public Boolean Equals (Quaternion other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
+
+<#@ include file="Quaternion.Constants.t4"#>
+<#@ include file="Quaternion.Create.t4"#>
+<#@ include file="Quaternion.Maths.t4"#>
+<#@ include file="Quaternion.Operators.t4"#>
+<#@ include file="Quaternion.Utilities.t4"#>
+#if (VARIANTS_ENABLED)
+
+<#@ include file="Variants/Quaternion.Variants.Create.t4"#>
+<#@ include file="Variants/Quaternion.Variants.Maths.t4"#>
+<#@ include file="Variants/Quaternion.Variants.Operators.t4"#>
+<#@ include file="Variants/Quaternion.Variants.Utilities.t4"#>
+<#@ include file="Variants/Quaternion.Variants.MemberFunctions.t4"#>
+#endif
+    }

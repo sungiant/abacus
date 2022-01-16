@@ -1,0 +1,114 @@
+﻿        /// <summary>
+        /// Calculates the length² of a Quaternion.
+        /// </summary>
+        public static void LengthSquared (
+            ref Quaternion quaternion, out <#=T#> result)
+        {
+            result =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+        }
+
+        /// <summary>
+        /// Calculates the length of a Quaternion.
+        /// </summary>
+        public static void Length (
+            ref Quaternion quaternion, out <#=T#> result)
+        {
+            <#=T#> lengthSquared =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+
+        /// <summary>
+        /// Calculates the conjugate of a Quaternion.
+        /// </summary>
+        public static void Conjugate (
+            ref Quaternion value, out Quaternion result)
+        {
+            result.I = -value.I;
+            result.J = -value.J;
+            result.K = -value.K;
+            result.U = value.U;
+        }
+
+        /// <summary>
+        /// Calculates the inverse of two Quaternions.
+        /// </summary>
+        public static void Inverse (
+            ref Quaternion quaternion, out Quaternion result)
+        {
+            <#=T#> one = 1;
+            <#=T#> a =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+
+            <#=T#> b = one / a;
+
+            result.I = -quaternion.I * b;
+            result.J = -quaternion.J * b;
+            result.K = -quaternion.K * b;
+            result.U =  quaternion.U * b;
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two Quaternions.
+        /// </summary>
+        public static void Dot (
+            ref Quaternion q1, ref Quaternion q2, out <#=T#> result)
+        {
+            result =
+                (q1.I * q2.I) + (q1.J * q2.J) +
+                (q1.K * q2.K) + (q1.U * q2.U);
+        }
+
+        /// <summary>
+        /// Concatenates two Quaternions; the result represents the first
+        /// rotation followed by the second rotation.
+        /// </summary>
+        public static void Concatenate (
+            ref Quaternion q1, ref Quaternion q2, out Quaternion result)
+        {
+            <#=T#> a = (q2.J * q1.K) - (q2.K * q1.J);
+            <#=T#> b = (q2.K * q1.I) - (q2.I * q1.K);
+            <#=T#> c = (q2.I * q1.J) - (q2.J * q1.I);
+            <#=T#> d = (q2.I * q1.I) - (q2.J * q1.J);
+
+            result.I = (q2.I * q1.U) + (q1.I * q2.U) + a;
+            result.J = (q2.J * q1.U) + (q1.J * q2.U) + b;
+            result.K = (q2.K * q1.U) + (q1.K * q2.U) + c;
+            result.U = (q2.U * q1.U) - (q2.K * q1.K) - d;
+        }
+
+        /// <summary>
+        /// Divides each component of the quaternion by the length of the
+        /// quaternion.
+        /// </summary>
+        public static void Normalise (
+            ref Quaternion quaternion, out Quaternion result)
+        {
+            <#=T#> one = 1;
+
+            <#=T#> a =
+                (quaternion.I * quaternion.I) +
+                (quaternion.J * quaternion.J) +
+                (quaternion.K * quaternion.K) +
+                (quaternion.U * quaternion.U);
+
+            <#=T#> b = one / Maths.Sqrt (a);
+
+            result.I = quaternion.I * b;
+            result.J = quaternion.J * b;
+            result.K = quaternion.K * b;
+            result.U = quaternion.U * b;
+        }
+

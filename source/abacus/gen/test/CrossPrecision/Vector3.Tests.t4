@@ -1,0 +1,135 @@
+    [TestFixture]
+    public class Vector3Tests
+    {
+<#@ include file="Vector3.TestHelpers.t4"#>
+
+        // Test: StructLayout //----------------------------------------------//
+
+        /// <summary>
+        /// This test makes sure that the struct layout has been defined
+        /// correctly.
+        /// </summary>
+        [Test]
+        public void Test_StructLayout_i ()
+        {
+            Type t = typeof(Vector3);
+
+            Assert.That(
+                t.StructLayoutAttribute.Value,
+                Is.EqualTo(LayoutKind.Sequential));
+        }
+
+        /// <summary>
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y and Z member variables of a number of randomly generated
+        /// Vector3 objects the results are as expected.
+        /// </summary>
+        [Test]
+        public unsafe void Test_StructLayout_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 vec = GetNextRandomVector3();
+
+                GCHandle h_vec = GCHandle.Alloc(vec, GCHandleType.Pinned);
+
+                IntPtr vecAddress = h_vec.AddrOfPinnedObject();
+
+                <#=T#>[] data = new <#=T#>[3];
+
+                // nb: when Fixed32 and Half are moved back into the main
+                //     dev branch there will be need for an extension method for
+                //     Marshal that will perform the copy for those types.
+                MarshalHelper.Copy(vecAddress, data, 0, 3);
+                Assert.That(data[0], Is.EqualTo(vec.X));
+                Assert.That(data[1], Is.EqualTo(vec.Y));
+                Assert.That(data[2], Is.EqualTo(vec.Z));
+
+                h_vec.Free();
+            }
+        }
+
+        // Test: Constructors //----------------------------------------------//
+
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
+        [Test]
+        public void Test_Constructors_i ()
+        {
+            {
+                // Test default values
+                Vector3 a = new Vector3();
+                Assert.That(a, Is.EqualTo(Vector3.Zero));
+            }
+            {
+                // Test Vector3( <#=T#>, <#=T#>, <#=T#> )
+                <#=T#> a = -189;
+                <#=T#> b = 429;
+                <#=T#> c = 4298;
+                Vector3 d = new Vector3(a, b, c);
+                Assert.That(d.X, Is.EqualTo(a));
+                Assert.That(d.Y, Is.EqualTo(b));
+                Assert.That(d.Z, Is.EqualTo(c));
+            }
+            {
+                // Test Vector3( Vector2, <#=T#> )
+                Vector2 a = new Vector2(-189, 429);
+                <#=T#> b = 4298;
+                Vector3 c = new Vector3(a, b);
+                Assert.That(c.X, Is.EqualTo(a.X));
+                Assert.That(c.Y, Is.EqualTo(a.Y));
+                Assert.That(c.Z, Is.EqualTo(b));
+            }
+        }
+
+        // Test Member Fn: ToString //----------------------------------------//
+
+        /// <summary>
+        /// For a given example, this test ensures that the ToString function
+        /// yields the expected string.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_ToString_i ()
+        {
+            Vector3 a = new Vector3(42, -17, 13);
+
+            String result = a.ToString();
+
+            String expected = "{X:42 Y:-17 Z:13}";
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        // Test Member Fn: GetHashCode //-------------------------------------//
+
+        /// <summary>
+        /// Makes sure that the hashing function is good by testing 10,000
+        /// random scenarios and ensuring that there are no more than 10
+        /// collisions.
+        /// </summary>
+        [Test]
+        public void TestMemberFn_GetHashCode_i ()
+        {
+            var hs1 = new System.Collections.Generic.HashSet<Vector3>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomVector3();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+
+<#@ include file="Vector3.Constants.Tests.t4"#>
+<#@ include file="Vector3.Maths.Tests.t4"#>
+<#@ include file="Vector3.Operators.Tests.t4"#>
+<#@ include file="Vector3.Splines.Tests.t4"#>
+<#@ include file="Vector3.Utilities.Tests.t4"#>
+
+    }

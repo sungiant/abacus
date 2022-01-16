@@ -1,0 +1,892 @@
+﻿        /// <summary>
+        /// Creates a translation matrix from a position.
+        /// </summary>
+        public static void CreateTranslation (
+            ref Vector3 position,
+            out Matrix44 result)
+        {
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a translation matrix from a position.
+        /// </summary>
+        public static void CreateTranslation (
+            ref <#=T#> xPosition,
+            ref <#=T#> yPosition,
+            ref <#=T#> zPosition,
+            out Matrix44 result)
+        {
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = xPosition;
+            result.R3C1 = yPosition;
+            result.R3C2 = zPosition;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a scaling matrix based on x, y, z.
+        /// </summary>
+        public static void CreateScale (
+            ref <#=T#> xScale,
+            ref <#=T#> yScale,
+            ref <#=T#> zScale,
+            out Matrix44 result)
+        {
+            result.R0C0 = xScale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = yScale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = zScale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a scaling matrix based on a vector.
+        /// </summary>
+        public static void CreateScale (
+            ref Vector3 scales,
+            out Matrix44 result)
+        {
+            result.R0C0 = scales.X;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scales.Y;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scales.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Create a scaling matrix consistant along each axis.
+        /// </summary>
+        public static void CreateScale (
+            ref <#=T#> scale,
+            out Matrix44 result)
+        {
+            result.R0C0 = scale;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = scale;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = scale;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a matrix representing a given rotation about the X axis.
+        /// </summary>
+        public static void CreateRotationX (
+            ref <#=T#> radians,
+            out Matrix44 result)
+        {
+            // http://en.wikipedia.org/wiki/Rotation_matrix
+            <#=T#> cos = Maths.Cos (radians);
+            <#=T#> sin = Maths.Sin (radians);
+
+            result.R0C0 = 1;
+            result.R0C1 = 0;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = cos;
+            result.R1C2 = sin;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = -sin;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a matrix representing a given rotation about the Y axis.
+        /// </summary>
+        public static void CreateRotationY (
+            ref <#=T#> radians,
+            out Matrix44 result)
+        {
+            // http://en.wikipedia.org/wiki/Rotation_matrix
+            <#=T#> cos = Maths.Cos (radians);
+            <#=T#> sin = Maths.Sin (radians);
+
+            result.R0C0 = cos;
+            result.R0C1 = 0;
+            result.R0C2 = -sin;
+            result.R0C3 = 0;
+            result.R1C0 = 0;
+            result.R1C1 = 1;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = sin;
+            result.R2C1 = 0;
+            result.R2C2 = cos;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a matrix representing a given rotation about the Z axis.
+        /// </summary>
+        public static void CreateRotationZ (
+            ref <#=T#> radians,
+            out Matrix44 result)
+        {
+            // http://en.wikipedia.org/wiki/Rotation_matrix
+            <#=T#> cos = Maths.Cos (radians);
+            <#=T#> sin = Maths.Sin (radians);
+
+            result.R0C0 = cos;
+            result.R0C1 = sin;
+            result.R0C2 = 0;
+            result.R0C3 = 0;
+            result.R1C0 = -sin;
+            result.R1C1 = cos;
+            result.R1C2 = 0;
+            result.R1C3 = 0;
+            result.R2C0 = 0;
+            result.R2C1 = 0;
+            result.R2C2 = 1;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a new Matrix44 that rotates around an arbitrary vector.
+        /// </summary>
+        public static void CreateFromAxisAngle (
+            ref Vector3 axis,
+            ref <#=T#> angle,
+            out Matrix44 result)
+        {
+            <#=T#> x = axis.X;
+            <#=T#> y = axis.Y;
+            <#=T#> z = axis.Z;
+
+            <#=T#> sin = Maths.Sin (angle);
+            <#=T#> cos = Maths.Cos (angle);
+
+            <#=T#> xx = x * x;
+            <#=T#> yy = y * y;
+            <#=T#> zz = z * z;
+
+            <#=T#> xy = x * y;
+            <#=T#> xz = x * z;
+            <#=T#> yz = y * z;
+
+            result.R0C0 = xx + (cos * (1 - xx));
+            result.R0C1 = xy - (cos * xy) + (sin * z);
+            result.R0C2 = xz - (cos * xz) - (sin * y);
+            result.R0C3 = 0;
+
+            result.R1C0 = xy - (cos * xy) - (sin * z);
+            result.R1C1 = yy + (cos * (1 - yy));
+            result.R1C2 = yz - (cos * yz) + (sin * x);
+            result.R1C3 = 0;
+
+            result.R2C0 = xz - (cos * xz) + (sin * y);
+            result.R2C1 = yz - (cos * yz) - (sin * x);
+            result.R2C2 = zz + (cos * (1 - zz));
+            result.R2C3 = 0;
+
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a new Matrix44 from an ordered triplet of vectors (axes)
+        /// that are pair-wise perpendicular, have unit length and have an
+        /// orientation for each axis.
+        /// </summary>
+        public static void CreateFromCartesianAxes (
+            ref Vector3 right,
+            ref Vector3 up,
+            ref Vector3 backward,
+            out Matrix44 result)
+        {
+            Boolean isRightUnit; Vector3.IsUnit (ref right, out isRightUnit);
+            Boolean isUpUnit; Vector3.IsUnit (ref up, out isUpUnit);
+            Boolean isBackwardUnit;
+            Vector3.IsUnit (ref backward, out isBackwardUnit);
+
+            if(!isRightUnit || !isUpUnit || !isBackwardUnit )
+                throw new ArgumentException(
+                    "The input vertors must be normalised.");
+
+            // Perhaps we shd assert here is the Vectors are not pair-wise
+            // perpendicular.
+
+            result.R0C0 = right.X;
+            result.R0C1 = right.Y;
+            result.R0C2 = right.Z;
+            result.R0C3 = 0;
+            result.R1C0 = up.X;
+            result.R1C1 = up.Y;
+            result.R1C2 = up.Z;
+            result.R1C3 = 0;
+            result.R2C0 = backward.X;
+            result.R2C1 = backward.Y;
+            result.R2C2 = backward.Z;
+            result.R2C3 = 0;
+            result.R3C0 = 0;
+            result.R3C1 = 0;
+            result.R3C2 = 0;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a world matrix.
+        /// This matrix includes rotation and translation, but not scaling.
+        /// </summary>
+        public static void CreateWorld (
+            ref Vector3 position,
+            ref Vector3 forward,
+            ref Vector3 up,
+            out Matrix44 result)
+        {
+            Vector3 backward;
+            Vector3.Negate (ref forward, out backward);
+            Vector3.Normalise (ref backward, out backward);
+
+            Vector3 right;
+            Vector3.Cross (ref up, ref backward, out right);
+            Vector3.Normalise (ref right, out right);
+
+            // We don't know if the inputs were actually perpendicular,
+            // best make sure.
+            Vector3 finalUp;
+            Vector3.Cross (ref right, ref backward, out finalUp);
+            Vector3.Normalise (ref finalUp, out finalUp);
+
+            result.R0C0 = right.X;
+            result.R0C1 = right.Y;
+            result.R0C2 = right.Z;
+            result.R0C3 = 0;
+            result.R1C0 = finalUp.X;
+            result.R1C1 = finalUp.Y;
+            result.R1C2 = finalUp.Z;
+            result.R1C3 = 0;
+            result.R2C0 = backward.X;
+            result.R2C1 = backward.Y;
+            result.R2C2 = backward.Z;
+            result.R2C3 = 0;
+            result.R3C0 = position.X;
+            result.R3C1 = position.Y;
+            result.R3C2 = position.Z;
+            result.R3C3 = 1;
+        }
+
+        /// <summary>
+        /// Creates a rotation matrix from the given quaternion.
+        /// </summary>
+        public static void CreateFromQuaternion (
+            ref Quaternion q, out Matrix44 result)
+        {
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
+
+            Boolean qIsUnit;
+            Quaternion.IsUnit (ref q, out qIsUnit);
+
+            if(!qIsUnit)
+                throw new ArgumentException(
+                    "Input quaternion must be normalised.");
+
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            <#=T#> twoI = q.I + q.I;
+            <#=T#> twoJ = q.J + q.J;
+            <#=T#> twoK = q.K + q.K;
+
+            <#=T#> twoUI = q.U * twoI;
+            <#=T#> twoUJ = q.U * twoJ;
+            <#=T#> twoUK = q.U * twoK;
+            <#=T#> twoII = q.I * twoI;
+            <#=T#> twoIJ = q.I * twoJ;
+            <#=T#> twoIK = q.I * twoK;
+            <#=T#> twoJJ = q.J * twoJ;
+            <#=T#> twoJK = q.J * twoK;
+            <#=T#> twoKK = q.K * twoK;
+
+            result.R0C0 = one - twoJJ - twoKK;
+            result.R1C0 = twoIJ - twoUK;
+            result.R2C0 = twoIK + twoUJ;
+            result.R3C0 = zero;
+
+            result.R0C1 = twoIJ + twoUK;
+            result.R1C1 = one - twoII - twoKK;
+            result.R2C1 = twoJK - twoUI;
+            result.R3C1 = zero;
+
+            result.R0C2 = twoIK - twoUJ;
+            result.R1C2 = twoJK + twoUI;
+            result.R2C2 = one - twoII - twoJJ;
+            result.R3C2 = zero;
+
+            result.R0C3 = zero;
+            result.R1C3 = zero;
+            result.R2C3 = zero;
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// Creates a new rotation matrix from a specified yaw, pitch, and roll.
+        /// </summary>
+        public static void CreateFromYawPitchRoll (
+            ref <#=T#> yaw,
+            ref <#=T#> pitch,
+            ref <#=T#> roll,
+            out Matrix44 result)
+        {
+            Quaternion quaternion;
+
+            Quaternion.CreateFromYawPitchRoll (
+                ref yaw, ref pitch, ref roll, out quaternion);
+
+            CreateFromQuaternion (ref quaternion, out result);
+        }
+
+        /// <summary>
+        /// Creates a cylindrical billboard that rotates around a specified
+        /// axis.  This method computes the facing direction of the billboard
+        /// from the object position and camera position.  When the object and
+        /// camera positions are too close, the matrix will not be accurate.
+        /// To avoid this problem, the method uses the optional camera forward
+        /// vector if the positions are too close.
+        /// </summary>
+        public static void CreateBillboard (
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraUpVector,
+            ref Vector3? cameraForwardVector,
+            out Matrix44 result)
+        {
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> epsilon; Maths.Epsilon (out epsilon);
+
+            Vector3 camToObjVec = objectPosition - cameraPosition;
+            <#=T#> camToObjVecLL = camToObjVec.LengthSquared ();
+
+            Vector3 v1;
+            if (camToObjVecLL < epsilon)
+            {
+                v1 = cameraForwardVector.HasValue
+                   ? -cameraForwardVector.Value
+                   : Vector3.Forward;
+            }
+            else
+            {
+                <#=T#> t = one / Maths.Sqrt (camToObjVecLL);
+                Vector3.Multiply (ref camToObjVec, ref t, out v1);
+            }
+
+            Vector3 v2;
+            Vector3.Cross (ref cameraUpVector, ref v1, out v2);
+            Vector3.Normalise (ref v2, out v2);
+
+            Vector3 v3;
+            Vector3.Cross (ref v1, ref v2, out v3);
+
+            result.R0C0 = v2.X;
+            result.R0C1 = v2.Y;
+            result.R0C2 = v2.Z;
+            result.R0C3 = zero;
+            result.R1C0 = v3.X;
+            result.R1C1 = v3.Y;
+            result.R1C2 = v3.Z;
+            result.R1C3 = zero;
+            result.R2C0 = v1.X;
+            result.R2C1 = v1.Y;
+            result.R2C2 = v1.Z;
+            result.R2C3 = zero;
+            result.R3C0 = objectPosition.X;
+            result.R3C1 = objectPosition.Y;
+            result.R3C2 = objectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// Creates a cylindrical billboard that rotates around a specified
+        /// axis.
+        /// </summary>
+        /// <remarks>
+        /// This method computes the facing direction of the billboard from the
+        /// object position and camera position. When the object and camera
+        /// positions are too close, the matrix will not be accurate. To avoid
+        /// this problem, the method uses the optional camera forward vector if
+        /// the positions are too close.
+        /// </remarks>
+        public static void CreateConstrainedBillboard (
+            ref Vector3 objectPosition,
+            ref Vector3 cameraPosition,
+            ref Vector3 rotateAxis,
+            ref Vector3? cameraForwardVector,
+            ref Vector3? objectForwardVector,
+            out Matrix44 result)
+        {
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            <#=T#> num;
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
+            vector2.X = objectPosition.X - cameraPosition.X;
+            vector2.Y = objectPosition.Y - cameraPosition.Y;
+            vector2.Z = objectPosition.Z - cameraPosition.Z;
+            <#=T#> num2 = vector2.LengthSquared ();
+            <#=T#> limit;
+            Maths.FromString("0.0001", out limit);
+
+            if (num2 < limit)
+            {
+                vector2 = cameraForwardVector.HasValue
+                        ? -cameraForwardVector.Value
+                        : Vector3.Forward;
+            }
+            else
+            {
+                <#=T#> t = one / Maths.Sqrt (num2);
+                Vector3.Multiply (ref vector2, ref t, out vector2);
+            }
+
+            Vector3 vector4 = rotateAxis;
+            Vector3.Dot (ref rotateAxis, ref vector2, out num);
+
+            <#=T#> realHorrid;
+            Maths.FromString("0.9982547", out realHorrid);
+
+            if (Maths.Abs (num) > realHorrid)
+            {
+                if (objectForwardVector.HasValue)
+                {
+                    vector = objectForwardVector.Value;
+                    Vector3.Dot (ref rotateAxis, ref vector, out num);
+
+                    if (Maths.Abs (num) > realHorrid)
+                    {
+                        num = (rotateAxis.X * Vector3.Forward.X)
+                            + (rotateAxis.Y * Vector3.Forward.Y)
+                            + (rotateAxis.Z * Vector3.Forward.Z);
+
+                        vector = (Maths.Abs (num) > realHorrid)
+                               ? Vector3.Right
+                               : Vector3.Forward;
+                    }
+                }
+                else
+                {
+                    num = (rotateAxis.X * Vector3.Forward.X)
+                        + (rotateAxis.Y * Vector3.Forward.Y)
+                        + (rotateAxis.Z * Vector3.Forward.Z);
+
+                    vector = (Maths.Abs (num) > realHorrid)
+                           ? Vector3.Right
+                           : Vector3.Forward;
+                }
+
+                Vector3.Cross (ref rotateAxis, ref vector, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref rotateAxis, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            }
+            else
+            {
+                Vector3.Cross (ref rotateAxis, ref vector2, out vector3);
+                Vector3.Normalise (ref vector3, out vector3);
+                Vector3.Cross (ref vector3, ref vector4, out vector);
+                Vector3.Normalise (ref vector, out vector);
+            }
+
+            result.R0C0 = vector3.X;
+            result.R0C1 = vector3.Y;
+            result.R0C2 = vector3.Z;
+            result.R0C3 = zero;
+            result.R1C0 = vector4.X;
+            result.R1C1 = vector4.Y;
+            result.R1C2 = vector4.Z;
+            result.R1C3 = zero;
+            result.R2C0 = vector.X;
+            result.R2C1 = vector.Y;
+            result.R2C2 = vector.Z;
+            result.R2C3 = zero;
+            result.R3C0 = objectPosition.X;
+            result.R3C1 = objectPosition.Y;
+            result.R3C2 = objectPosition.Z;
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// Builds a perspective projection matrix based on a field of view.
+        /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x- and y-coordinates ranging from −1 to 1, and a
+        /// z-coordinate ranging from 0 to 1.
+        /// </remarks>
+        public static void CreatePerspectiveFieldOfView (
+            ref <#=T#> fieldOfView,
+            ref <#=T#> aspectRatio,
+            ref <#=T#> nearPlaneDistance,
+            ref <#=T#> farPlaneDistance,
+            out Matrix44 result)
+        {
+            // http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+            <#=T#> zero = 0;
+            <#=T#> half; Maths.Half (out half);
+            <#=T#> one = 1;
+            <#=T#> pi; Maths.Pi (out pi);
+
+            if (fieldOfView <= zero || fieldOfView >= pi)
+                throw new ArgumentOutOfRangeException ("fieldOfView");
+
+            if (nearPlaneDistance <= zero)
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+
+            if (farPlaneDistance <= zero)
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+
+            if (nearPlaneDistance >= farPlaneDistance)
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+
+            // xScale     0          0              0
+            // 0        yScale       0              0
+            // 0        0        zf/(zn-zf)        -1
+            // 0        0        zn*zf/(zn-zf)      0
+
+            // where:
+            // yScale = cot(fovY/2)
+            // xScale = yScale / aspect ratio
+
+            // yScale = cot(fovY/2)
+            <#=T#> yScale = one / (Maths.Tan (fieldOfView * half));
+
+            // xScale = yScale / aspect ratio
+            <#=T#> xScale = yScale / aspectRatio;
+
+            result.R0C0 = xScale;
+            result.R0C1 = zero;
+            result.R0C2 = zero;
+            result.R0C3 = zero;
+
+            result.R1C0 = zero;
+            result.R1C1 = yScale;
+            result.R1C2 = zero;
+            result.R1C3 = zero;
+
+            result.R2C0 = zero;
+            result.R2C1 = zero;
+            // zf/(zn-zf)
+            result.R2C2 = farPlaneDistance
+                        / (nearPlaneDistance - farPlaneDistance);
+            result.R2C3 = -one;
+
+            result.R3C0 = zero;
+            result.R3C1 = zero;
+            // zn*zf/(zn-zf)
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance)
+                        / (nearPlaneDistance - farPlaneDistance);
+            result.R3C3 = zero;
+        }
+
+        /// <summary>
+        /// Builds a perspective projection matrix.
+        /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x- and y-coordinates ranging from −1 to 1, and a
+        /// z-coordinate ranging from 0 to 1.
+        /// </remarks>
+        public static void CreatePerspective (
+            ref <#=T#> width,
+            ref <#=T#> height,
+            ref <#=T#> nearPlaneDistance,
+            ref <#=T#> farPlaneDistance,
+            out Matrix44 result)
+        {
+            // http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = farPlaneDistance
+                        / (nearPlaneDistance - farPlaneDistance);
+            result.R2C0 = result.R2C1 = zero;
+            result.R2C3 = -one;
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance)
+                        / (nearPlaneDistance - farPlaneDistance);
+        }
+
+        /// <summary>
+        /// Builds a customized, perspective projection matrix.
+        /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x- and y-coordinates ranging from −1 to 1, and a
+        /// z-coordinate ranging from 0 to 1.
+        /// </remarks>
+        public static void CreatePerspectiveOffCenter (
+            ref <#=T#> left,
+            ref <#=T#> right,
+            ref <#=T#> bottom,
+            ref <#=T#> top,
+            ref <#=T#> nearPlaneDistance,
+            ref <#=T#> farPlaneDistance,
+            out Matrix44 result)
+        {
+            // http://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
+
+            if (nearPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            if (farPlaneDistance <= zero) {
+                throw new ArgumentOutOfRangeException ("farPlaneDistance");
+            }
+            if (nearPlaneDistance >= farPlaneDistance) {
+                throw new ArgumentOutOfRangeException ("nearPlaneDistance");
+            }
+            result.R0C0 = (two * nearPlaneDistance) / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = (two * nearPlaneDistance) / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C0 = (left + right) / (right - left);
+            result.R2C1 = (top + bottom) / (top - bottom);
+            result.R2C2 = farPlaneDistance
+                        / (nearPlaneDistance - farPlaneDistance);
+            result.R2C3 = -one;
+            result.R3C2 = (nearPlaneDistance * farPlaneDistance)
+                        / (nearPlaneDistance - farPlaneDistance);
+            result.R3C0 = result.R3C1 = result.R3C3 = zero;
+        }
+
+        /// <summary>
+        /// Builds an orthogonal projection matrix.
+        /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x and y coordinates ranging from -1 to 1, and z
+        /// coordinates ranging from 0 to 1.
+        ///
+        /// Unlike perspective projection, in orthographic projection there is
+        /// no perspective foreshortening.
+        ///
+        /// The viewable area of this orthographic projection extends from left
+        /// to right on the x-axis, bottom to top on the y-axis, and zNearPlane
+        /// to zFarPlane on the z-axis. These values are relative to the
+        /// position and x, y, and z-axes of the view.
+        /// </remarks>
+        public static void CreateOrthographic (
+            ref <#=T#> width,
+            ref <#=T#> height,
+            ref <#=T#> zNearPlane,
+            ref <#=T#> zFarPlane,
+            out Matrix44 result)
+        {
+            // http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
+
+            result.R0C0 = two / width;
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / height;
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = result.R3C1 = zero;
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// Builds a customized, orthogonal projection matrix.
+        /// </summary>
+        /// <remarks>
+        /// Projection space refers to the space after applying projection
+        /// transformation from view space. After the projection transformation,
+        /// visible content has x and y coordinates ranging from -1 to 1, and z
+        /// coordinates ranging from 0 to 1.
+        ///
+        /// Unlike perspective projection, in orthographic projection there is
+        /// no perspective foreshortening.
+        ///
+        /// The viewable area of this orthographic projection extends from left
+        /// to right on the x-axis, bottom to top on the y-axis, and zNearPlane
+        /// to zFarPlane on the z-axis. These values are relative to the
+        /// position and x, y, and z-axes of the view.
+        /// </remarks>
+        public static void CreateOrthographicOffCenter (
+            ref <#=T#> left,
+            ref <#=T#> right,
+            ref <#=T#> bottom,
+            ref <#=T#> top,
+            ref <#=T#> zNearPlane,
+            ref <#=T#> zFarPlane,
+            out Matrix44 result)
+        {
+            // http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+            <#=T#> two = 2;
+
+            result.R0C0 = two / (right - left);
+            result.R0C1 = result.R0C2 = result.R0C3 = zero;
+            result.R1C1 = two / (top - bottom);
+            result.R1C0 = result.R1C2 = result.R1C3 = zero;
+            result.R2C2 = one / (zNearPlane - zFarPlane);
+            result.R2C0 = result.R2C1 = result.R2C3 = zero;
+            result.R3C0 = (left + right) / (left - right);
+            result.R3C1 = (top + bottom) / (bottom - top);
+            result.R3C2 = zNearPlane / (zNearPlane - zFarPlane);
+            result.R3C3 = one;
+        }
+
+        /// <summary>
+        /// Creates a view matrix.
+        /// </summary>
+        /// <remarks>
+        /// View space, sometimes called camera space, is similar to world space
+        /// in that it is typically used for the entire scene. However, in view
+        /// space, the origin is at the viewer or camera.
+        /// </remarks>
+        public static void CreateLookAt (
+            ref Vector3 cameraPosition,
+            ref Vector3 cameraTarget,
+            ref Vector3 cameraUpVector,
+            out Matrix44 result)
+        {
+            // http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
+
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            Vector3 forward = cameraPosition - cameraTarget;
+            Vector3.Normalise (ref forward, out forward);
+
+            Vector3 right;
+            Vector3.Cross (ref cameraUpVector, ref forward, out right);
+            Vector3.Normalise (ref right, out right);
+
+            Vector3 up;
+            Vector3.Cross (ref forward, ref right, out up);
+            Vector3.Normalise (ref up, out up);
+
+            result.R0C0 = right.X;
+            result.R0C1 = up.X;
+            result.R0C2 = forward.X;
+            result.R0C3 = zero;
+
+            result.R1C0 = right.Y;
+            result.R1C1 = up.Y;
+            result.R1C2 = forward.Y;
+            result.R1C3 = zero;
+
+            result.R2C0 = right.Z;
+            result.R2C1 = up.Z;
+            result.R2C2 = forward.Z;
+            result.R2C3 = zero;
+
+            <#=T#> a;
+            <#=T#> b;
+            <#=T#> c;
+
+            Vector3.Dot (ref right, ref cameraPosition, out a);
+            Vector3.Dot (ref up, ref cameraPosition, out b);
+            Vector3.Dot (ref forward, ref cameraPosition, out c);
+
+            result.R3C0 = -a;
+            result.R3C1 = -b;
+            result.R3C2 = -c;
+
+            result.R3C3 = one;
+        }
+

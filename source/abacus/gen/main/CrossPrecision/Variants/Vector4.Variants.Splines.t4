@@ -1,0 +1,50 @@
+        // Variant Splines //-------------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 SmoothStep (
+            Vector4 vector1,
+            Vector4 vector2,
+            <#=T#> amount)
+        {
+            Vector4 result;
+            SmoothStep (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 CatmullRom (
+            Vector4 vector1,
+            Vector4 vector2,
+            Vector4 vector3,
+            Vector4 vector4,
+            <#=T#> amount)
+        {
+            Vector4 result;
+            CatmullRom (
+                ref vector1, ref vector2, ref vector3, ref vector4,
+                ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Hermite (
+            Vector4 vector1,
+            Vector4 tangent1,
+            Vector4 vector2,
+            Vector4 tangent2,
+            <#=T#> amount)
+        {
+            Vector4 result;
+            Hermite (
+                ref vector1, ref tangent1,
+                ref vector2, ref tangent2,
+                ref amount, out result);
+            return result;
+        }
+

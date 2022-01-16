@@ -1,0 +1,87 @@
+﻿    /// <summary>
+    /// <#=T#> precision Vector2.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector2
+        : IEquatable<Vector2>
+    {
+        /// <summary>
+        /// Gets or sets the X-component of the Vector2.
+        /// </summary>
+        public <#=T#> X;
+
+        /// <summary>
+        /// Gets or sets the Y-component of the Vector2.
+        /// </summary>
+        public <#=T#> Y;
+
+        /// <summary>
+        /// Initilises a new instance of Vector2 from two <#=T#> values
+        /// representing X and Y respectively.
+        /// </summary>
+        public Vector2 (<#=T#> x, <#=T#> y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return String.Format ("{{X:{0} Y:{1}}}",
+                X.ToString (), Y.ToString ());
+        }
+
+        /// <summary>
+        /// Gets the hash code of the Vector2 object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return X.GetHashCode ()
+                 ^ Y.GetHashCode ().ShiftAndWrap (2);
+        }
+
+        /// <summary>
+        /// Determines whether or not this Vector2 object is equal to another
+        /// object.
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            return (obj is Vector2)
+                ? this.Equals ((Vector2) obj)
+                : false;
+        }
+
+        #region IEquatable<Vector2>
+
+        /// <summary>
+        /// Determines whether or not this Vector2 object is equal to another
+        /// Vector2 object.
+        /// </summary>
+        public Boolean Equals (Vector2 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
+
+<#@ include file="Vector2.Constants.t4"#>
+<#@ include file="Vector2.Maths.t4"#>
+<#@ include file="Vector2.Operators.t4"#>
+<#@ include file="Vector2.Splines.t4"#>
+<#@ include file="Vector2.Utilities.t4"#>
+#if (VARIANTS_ENABLED)
+
+<#@ include file="Variants/Vector2.Variants.Maths.t4"#>
+<#@ include file="Variants/Vector2.Variants.Operators.t4"#>
+<#@ include file="Variants/Vector2.Variants.Splines.t4"#>
+<#@ include file="Variants/Vector2.Variants.Utilities.t4"#>
+<#@ include file="Variants/Vector2.Variants.MemberFunctions.t4"#>
+#endif
+
+    }
+

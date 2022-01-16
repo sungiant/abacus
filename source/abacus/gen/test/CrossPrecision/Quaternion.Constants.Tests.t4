@@ -1,0 +1,15 @@
+        // Test Constant: Identity //-----------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Quaternion initilised using the Identity 
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Identity_i ()
+        {
+            Quaternion result = Quaternion.Identity;
+            Quaternion expected = new Quaternion (
+                0, 0, 0, 1);
+
+            AssertEqualWithinReason(result, expected);
+        }

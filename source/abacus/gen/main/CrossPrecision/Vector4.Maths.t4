@@ -1,0 +1,225 @@
+﻿        // Maths //-----------------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static void Distance (
+            ref Vector4 vector1, ref Vector4 vector2, out <#=T#> result)
+        {
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
+            <#=T#> dz = vector1.Z - vector2.Z;
+            <#=T#> dw = vector1.W - vector2.W;
+
+            <#=T#> lengthSquared =
+                (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static void DistanceSquared (
+            ref Vector4 vector1, ref Vector4 vector2, out <#=T#> result)
+        {
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
+            <#=T#> dz = vector1.Z - vector2.Z;
+            <#=T#> dw = vector1.W - vector2.W;
+
+            result = (dx * dx) + (dy * dy) + (dz * dz) + (dw * dw);
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static void Dot (
+            ref Vector4 vector1, ref Vector4 vector2, out <#=T#> result)
+        {
+            result =
+                (vector1.X * vector2.X) +
+                (vector1.Y * vector2.Y) +
+                (vector1.Z * vector2.Z) +
+                (vector1.W * vector2.W);
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static void Normalise (
+            ref Vector4 vector, out Vector4 result)
+        {
+            <#=T#> lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
+
+            if( lengthSquared <= epsilon ||
+                <#=T#>.IsInfinity(lengthSquared) )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#=T#> one = 1;
+            <#=T#> multiplier = one / (Maths.Sqrt (lengthSquared));
+
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+            result.Z = vector.Z * multiplier;
+            result.W = vector.W * multiplier;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Matrix44.
+        /// </summary>
+        public static void Transform (
+            ref Vector4 vector, ref Matrix44 matrix, out Vector4 result)
+        {
+            <#=T#> x =
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                (vector.Z * matrix.R2C0) +
+                (vector.W * matrix.R3C0);
+
+            <#=T#> y =
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                (vector.Z * matrix.R2C1) +
+                (vector.W * matrix.R3C1);
+
+            <#=T#> z =
+                (vector.X * matrix.R0C2) +
+                (vector.Y * matrix.R1C2) +
+                (vector.Z * matrix.R2C2) +
+                (vector.W * matrix.R3C2);
+
+            <#=T#> w =
+                (vector.X * matrix.R0C3) +
+                (vector.Y * matrix.R1C3) +
+                (vector.Z * matrix.R2C3) +
+                (vector.W * matrix.R3C3);
+
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
+            result.W = w;
+        }
+
+        /// <summary>
+        /// Transforms a Vector4 by the specified Quaternion.
+        /// </summary>
+        public static void Transform (
+            ref Vector4 vector, ref Quaternion rotation, out Vector4 result)
+        {
+            <#=T#> two = 2;
+
+            <#=T#> i = rotation.I;
+            <#=T#> j = rotation.J;
+            <#=T#> k = rotation.K;
+            <#=T#> u = rotation.U;
+
+            <#=T#> ii = i * i;
+            <#=T#> jj = j * j;
+            <#=T#> kk = k * k;
+
+            <#=T#> ui = u * i;
+            <#=T#> uj = u * j;
+            <#=T#> uk = u * k;
+            <#=T#> ij = i * j;
+            <#=T#> ik = i * k;
+            <#=T#> jk = j * k;
+
+            result.X =
+                + vector.X
+                - (two * vector.X * (jj + kk))
+                + (two * vector.Y * (ij - uk))
+                + (two * vector.Z * (ik + uj));
+
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk))
+                + (two * vector.Z * (jk - ui));
+
+            result.Z =
+                + vector.Z
+                + (two * vector.X * (ik - uj))
+                + (two * vector.Y * (jk + ui))
+                - (two * vector.Z * (ii + jj));
+
+            result.W = vector.W;
+        }
+
+        /// <summary>
+        /// Transforms a normalised Vector4 by a Matrix44.
+        /// </summary>
+        public static void TransformNormal (
+            ref Vector4 normal, ref Matrix44 matrix, out Vector4 result)
+        {
+            Boolean normalIsUnit;
+            Vector4.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
+            {
+                throw new ArgumentOutOfRangeException(
+                    "The normal vector: " + normal + " must be normalised.");
+            }
+
+            <#=T#> x =
+                (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0) +
+                (normal.Z * matrix.R2C0) + (normal.W * matrix.R3C0);
+
+            <#=T#> y =
+                (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1) +
+                (normal.Z * matrix.R2C1) + (normal.W * matrix.R3C1);
+
+            <#=T#> z =
+                (normal.X * matrix.R0C2) + (normal.Y * matrix.R1C2) +
+                (normal.Z * matrix.R2C2) + (normal.W * matrix.R3C2);
+
+            <#=T#> w =
+                (normal.X * matrix.R0C3) + (normal.Y * matrix.R1C3) +
+                (normal.Z * matrix.R2C3) + (normal.W * matrix.R3C3);
+
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
+            result.W = w;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4.
+        /// </summary>
+        public static void Length (ref Vector4 vector, out <#=T#> result)
+        {
+            <#=T#> lengthSquared =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector4 squared.
+        /// </summary>
+        public static void LengthSquared (
+            ref Vector4 vector, out <#=T#> result)
+        {
+            result =
+                (vector.X * vector.X) +
+                (vector.Y * vector.Y) +
+                (vector.Z * vector.Z) +
+                (vector.W * vector.W);
+        }

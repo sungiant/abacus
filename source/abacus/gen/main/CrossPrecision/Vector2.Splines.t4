@@ -1,0 +1,183 @@
+﻿        // Splines //---------------------------------------------------------//
+
+        /// <summary>
+        /// Interpolates between two vectors using a cubic equation.
+        /// </summary>
+        public static void SmoothStep (
+            ref Vector2 vector1,
+            ref Vector2 vector2,
+            ref <#=T#> amount,
+            out Vector2 result)
+        {
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            // Make sure that the weighting vector is within the supported
+            // range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#=T#> two = 2;
+            <#=T#> three = 3;
+
+            amount = (amount * amount) * (three - (two * amount));
+
+            result.X = vector1.X + ((vector2.X - vector1.X) * amount);
+            result.Y = vector1.Y + ((vector2.Y - vector1.Y) * amount);
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// Features:
+        /// - The spline passes through all of the control points.
+        /// - The spline is C^1 continuous, meaning that there are no
+        ///   discontinuities in the tangent direction and magnitude.
+        /// - The spline is not C^2 continuous.  The second derivative is
+        ///   linearly interpolated within each segment, causing the curvature
+        ///   to vary linearly over the length of the segment.
+        /// </summary>
+        public static void CatmullRom (
+            ref Vector2 vector1,
+            ref Vector2 vector2,
+            ref Vector2 vector3,
+            ref Vector2 vector4,
+            ref <#=T#> amount,
+            out Vector2 result)
+        {
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            // Make sure that the weighting vector is within the supported
+            // range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#=T#> two = 2;
+            <#=T#> three = 3;
+            <#=T#> four = 4;
+            <#=T#> five = 5;
+            <#=T#> half; Maths.Half(out half);
+
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
+
+            ///////
+            // X //
+            ///////
+
+            // (2 * P2)
+            result.X = (two * vector2.X);
+
+            // (-P1 + P3) * t
+            result.X += (
+                    - vector1.X
+                    + vector3.X
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.X += (
+                    + (two * vector1.X)
+                    - (five * vector2.X)
+                    + (four * vector3.X)
+                    - (vector4.X)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.X += (
+                    - (vector1.X)
+                    + (three * vector2.X)
+                    - (three * vector3.X)
+                    + (vector4.X)
+                ) * cubed;
+
+            // 0.5
+            result.X *= half;
+
+            ///////
+            // Y //
+            ///////
+
+            // (2 * P2)
+            result.Y = (two * vector2.Y);
+
+            // (-P1 + P3) * t
+            result.Y += (
+                    - vector1.Y
+                    + vector3.Y
+                ) * amount;
+
+            // (2*P1 - 5*P2 + 4*P3 - P4) * t^2
+            result.Y += (
+                    + (two * vector1.Y)
+                    - (five * vector2.Y)
+                    + (four * vector3.Y)
+                    - (vector4.Y)
+                ) * squared;
+
+            // (-P1 + 3*P2- 3*P3 + P4) * t^3
+            result.Y += (
+                    - (vector1.Y)
+                    + (three * vector2.Y)
+                    - (three * vector3.Y)
+                    + (vector4.Y)
+                ) * cubed;
+
+            // 0.5
+            result.Y *= half;
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        public static void Hermite (
+            ref Vector2 vector1,
+            ref Vector2 tangent1,
+            ref Vector2 vector2,
+            ref Vector2 tangent2,
+            ref <#=T#> amount,
+            out Vector2 result)
+        {
+            <#=T#> zero = 0;
+            <#=T#> one = 1;
+
+            // Make sure that the weighting vector is within the supported
+            // range.
+            if( amount < zero || amount > one )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // Make sure that the tangents have been normalised.
+            Boolean tangent1IsUnit;
+            Boolean tangent2IsUnit;
+            Vector2.IsUnit (ref tangent1, out tangent1IsUnit);
+            Vector2.IsUnit (ref tangent2, out tangent2IsUnit);
+            if( !tangent1IsUnit || !tangent2IsUnit )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#=T#> two = 2;
+            <#=T#> three = 3;
+
+            <#=T#> squared = amount * amount;
+            <#=T#> cubed = amount * squared;
+
+            <#=T#> a = ((two * cubed) - (three * squared)) + one;
+            <#=T#> b = (-two * cubed) + (three * squared);
+            <#=T#> c = (cubed - (two * squared)) + amount;
+            <#=T#> d = cubed - squared;
+
+            result.X =
+                (vector1.X * a) + (vector2.X * b) +
+                (tangent1.X * c) + (tangent2.X * d);
+
+            result.Y =
+                (vector1.Y * a) + (vector2.Y * b) +
+                (tangent1.Y * c) + (tangent2.Y * d);
+        }
+

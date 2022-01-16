@@ -1,0 +1,192 @@
+﻿        // Maths //-----------------------------------------------------------//
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        public static void Distance (
+            ref Vector2 vector1, ref Vector2 vector2, out <#=T#> result)
+        {
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
+
+            <#=T#> lengthSquared = (dx * dx) + (dy * dy);
+
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors squared.
+        /// </summary>
+        public static void DistanceSquared (
+            ref Vector2 vector1, ref Vector2 vector2, out <#=T#> result)
+        {
+            <#=T#> dx = vector1.X - vector2.X;
+            <#=T#> dy = vector1.Y - vector2.Y;
+
+            result = (dx * dx) + (dy * dy);
+        }
+
+        /// <summary>
+        /// Calculates the dot product of two vectors. If the two vectors are
+        /// unit vectors, the dot product returns a floating point vector between
+        /// -1 and 1 that can be used to determine some properties of the angle
+        /// between two vectors. For example, it can show whether the vectors
+        /// are orthogonal, parallel, or have an acute or obtuse angle between
+        /// them.
+        /// </summary>
+        public static void Dot (
+            ref Vector2 vector1, ref Vector2 vector2, out <#=T#> result)
+        {
+            result = (vector1.X * vector2.X) + (vector1.Y * vector2.Y);
+        }
+
+        /// <summary>
+        /// Creates a unit vector from the specified vector. The result is a
+        /// vector one unit in length pointing in the same direction as the
+        /// original vector.
+        /// </summary>
+        public static void Normalise (ref Vector2 vector, out Vector2 result)
+        {
+            <#=T#> lengthSquared =
+                (vector.X * vector.X) + (vector.Y * vector.Y);
+
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
+
+            if( lengthSquared <= epsilon ||
+                <#=T#>.IsInfinity(lengthSquared) )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            <#=T#> one = 1;
+            <#=T#> multiplier = one / Maths.Sqrt (lengthSquared);
+
+            result.X = vector.X * multiplier;
+            result.Y = vector.Y * multiplier;
+
+        }
+
+        /// <summary>
+        /// Returns the vector of an incident vector reflected across the a
+        /// specified normal vector.
+        /// </summary>
+        public static void Reflect (
+            ref Vector2 vector, ref Vector2 normal, out Vector2 result)
+        {
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            // dot = vector . normal
+            //     = |vector| * [normal] * cosθ
+            //     = |vector| * cosθ
+            //     = adjacent
+            <#=T#> dot;
+            Dot(ref vector, ref normal, out dot);
+
+            <#=T#> two = 2;
+            <#=T#> twoDot = dot * two;
+
+            // Starting vector minus twice the length of the adjcent projected
+            // along the normal.
+            Vector2 m;
+            Vector2.Multiply (ref normal, ref twoDot, out m);
+            Vector2.Subtract (ref vector, ref m, out result);
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Matrix44.
+        /// </summary>
+        public static void Transform (
+            ref Vector2 vector, ref Matrix44 matrix, out Vector2 result)
+        {
+            <#=T#> x =
+                (vector.X * matrix.R0C0) +
+                (vector.Y * matrix.R1C0) +
+                matrix.R3C0;
+
+            <#=T#> y =
+                (vector.X * matrix.R0C1) +
+                (vector.Y * matrix.R1C1) +
+                matrix.R3C1;
+
+            result.X = x;
+            result.Y = y;
+        }
+
+        /// <summary>
+        /// Transforms a Vector2 by the specified Quaternion.
+        /// </summary>
+        public static void Transform (
+            ref Vector2 vector, ref Quaternion rotation, out Vector2 result)
+        {
+            <#=T#> two = 2;
+
+            <#=T#> i = rotation.I;
+            <#=T#> j = rotation.J;
+            <#=T#> k = rotation.K;
+            <#=T#> u = rotation.U;
+
+            <#=T#> ii = i * i;
+            <#=T#> jj = j * j;
+            <#=T#> kk = k * k;
+
+            <#=T#> uk = u * k;
+            <#=T#> ij = i * j;
+
+            result.X =
+                + vector.X
+                - (two * vector.X  * (jj + kk))
+                + (two * vector.Y  * (ij - uk));
+
+            result.Y =
+                + vector.Y
+                + (two * vector.X * (ij + uk))
+                - (two * vector.Y * (ii + kk));
+        }
+
+        /// <summary>
+        /// Transforms a normalised Vector2 by the specified Matrix.
+        /// </summary>
+        public static void TransformNormal (
+            ref Vector2 normal, ref Matrix44 matrix, out Vector2 result)
+        {
+            Boolean normalIsUnit;
+            Vector2.IsUnit (ref normal, out normalIsUnit);
+            if( !normalIsUnit )
+            {
+                throw new ArgumentOutOfRangeException(
+                    "The normal vector: " + normal + " must be normalised.");
+            }
+
+            <#=T#> x = (normal.X * matrix.R0C0) + (normal.Y * matrix.R1C0);
+            <#=T#> y = (normal.X * matrix.R0C1) + (normal.Y * matrix.R1C1);
+
+            result.X = x;
+            result.Y = y;
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector2.
+        /// </summary>
+        public static void Length (
+            ref Vector2 vector, out <#=T#> result)
+        {
+            <#=T#> lengthSquared =
+                (vector.X * vector.X) + (vector.Y * vector.Y);
+
+            result = Maths.Sqrt (lengthSquared);
+        }
+
+        /// <summary>
+        /// Calculates the length of the Vector2 squared.
+        /// </summary>
+        public static void LengthSquared (
+            ref Vector2 vector, out <#=T#> result)
+        {
+            result = (vector.X * vector.X) + (vector.Y * vector.Y);
+        }
+

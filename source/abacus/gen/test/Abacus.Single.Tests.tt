@@ -1,0 +1,8 @@
+<#@ template debug="true" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<# string T = "Single"; #>
+<#@ include file="../Common.t4"#>
+<# FixedTypeDefinition fixedTypeDefinition = null; #>
+<#@ include file="Abacus.X.Tests.t4"#>

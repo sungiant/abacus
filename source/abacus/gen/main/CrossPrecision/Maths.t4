@@ -1,0 +1,118 @@
+    /// <summary>
+    /// This class provides maths functions with consistent function
+    /// signatures across all supported precisions.  The idea being
+    /// the more you use this, the more you will be able to write
+    /// code once and easily change the precision later.
+    /// </summary>
+    public static class Maths
+    {
+<# GenerateMathsConstant (T, "E"); #>
+<# GenerateMathsConstant (T, "Epsilon"); #>
+<# GenerateMathsConstant (T, "Half"); #>
+<# GenerateMathsConstant (T, "Quarter"); #>
+<# GenerateMathsConstant (T, "Log10E"); #>
+<# GenerateMathsConstant (T, "Log2E"); #>
+<# GenerateMathsConstant (T, "Pi"); #>
+<# GenerateMathsConstant (T, "Root2"); #>
+<# GenerateMathsConstant (T, "Root3"); #>
+<# GenerateMathsConstant (T, "Tau"); #>
+<# GenerateMathsConstant (T, "Zero"); #>
+<# GenerateMathsConstant (T, "One"); #>
+
+<# GenerateMathsFunction (T, "ArcCos"); #>
+<# GenerateMathsFunction (T, "ArcSin"); #>
+<# GenerateMathsFunction (T, "ArcTan"); #>
+<# GenerateMathsFunction (T, "Cos"); #>
+<# GenerateMathsFunction (T, "Sin"); #>
+<# GenerateMathsFunction (T, "Tan"); #>
+<# GenerateMathsFunction (T, "Sqrt"); #>
+<# GenerateMathsFunction (T, "Square"); #>
+<# GenerateMathsFunction (T, "Abs"); #>
+
+        /// <summary>
+        /// ToRadians
+        /// </summary>
+        public static <#=T#> ToRadians(<#=T#> input)
+        {
+            <#=T#> tau; Tau(out tau);
+            return input * tau / ((<#=T#>)360);
+        }
+
+        /// <summary>
+        /// ToDegrees
+        /// </summary>
+        public static <#=T#> ToDegrees(<#=T#> input)
+        {
+            <#=T#> tau; Tau(out tau);
+            return input / tau * ((<#=T#>)360);
+        }
+
+        /// <summary>
+        /// FromFraction
+        /// </summary>
+        public static void FromFraction(
+            Int32 numerator, Int32 denominator, out <#=T#> value)
+        {
+            value = (<#=T#>) numerator / (<#=T#>) denominator;
+        }
+
+        /// <summary>
+        /// FromString
+        /// </summary>
+        public static void FromString(String str, out <#=T#> value)
+        {
+            <#=T#>.TryParse(str, out value);
+        }
+
+        /// <summary>
+        /// IsZero
+        /// </summary>
+        public static Boolean IsZero(<#=T#> value)
+        {
+            <#=T#> ep;
+            Epsilon(out ep);
+            return Abs(value) < ep;
+        }
+
+        /// <summary>
+        /// Min
+        /// </summary>
+        public static <#=T#> Min(<#=T#> a, <#=T#> b)
+        {
+            return a < b ? a : b;
+        }
+
+        /// <summary>
+        /// Max
+        /// </summary>
+        public static <#=T#> Max(<#=T#> a, <#=T#> b)
+        {
+            return a > b ? a : b;
+        }
+
+        /// <summary>
+        /// WithinEpsilon
+        /// </summary>
+        public static Boolean WithinEpsilon(<#=T#> a, <#=T#> b)
+        {
+            <#=T#> num = a - b;
+            return ((-<#=T#>.Epsilon <= num) && (num <= <#=T#>.Epsilon));
+        }
+
+        /// <summary>
+        /// Sign
+        /// </summary>
+        public static Int32 Sign(<#=T#> value)
+        {
+            if (value > 0)
+            {
+                return 1;
+            }
+            else if (value < 0)
+            {
+                return -1;
+            }
+
+            return 0;
+        }
+    }

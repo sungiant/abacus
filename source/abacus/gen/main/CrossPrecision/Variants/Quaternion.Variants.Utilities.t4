@@ -1,0 +1,26 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Slerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            <#=T#> amount)
+        {
+            Quaternion result;
+            Slerp (ref quaternion1, ref quaternion2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Lerp (
+            Quaternion quaternion1,
+            Quaternion quaternion2,
+            <#=T#> amount)
+        {
+            Quaternion result;
+            Lerp (ref quaternion1, ref quaternion2, ref amount, out result);
+            return result;
+        }
+

@@ -1,0 +1,96 @@
+        /// <summary>
+        /// The random number generator used for testing.
+        /// </summary>
+        static readonly System.Random rand;
+
+        /// <summary>
+        /// Static constructor used to ensure that the random number generator
+        /// always gets initilised with the same seed, making the tests
+        /// behave in a deterministic manner.
+        /// </summary>
+        static Matrix44Tests ()
+        {
+            rand = new System.Random(0);
+        }
+
+        /// <summary>
+        /// Helper function for getting the next random <#=T#> value.
+        /// </summary>
+        static <#=T#> GetNextRandom<#=T#> ()
+        {
+            <#=T#> randomValue = rand.Next<#=T#>();
+
+            <#=T#> zero = 0;
+            <#=T#> multiplier = 1000;
+
+            randomValue *= multiplier;
+
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+            if( randomBoolean )
+                randomValue = zero - randomValue;
+
+            return randomValue;
+        }
+
+        /// <summary>
+        /// Helper function for getting the next random Matrix44.
+        /// </summary>
+        internal static Matrix44 GetNextRandomMatrix44 ()
+        {
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
+            <#=T#> c = GetNextRandom<#=T#>();
+            <#=T#> d = GetNextRandom<#=T#>();
+
+            <#=T#> e = GetNextRandom<#=T#>();
+            <#=T#> f = GetNextRandom<#=T#>();
+            <#=T#> g = GetNextRandom<#=T#>();
+            <#=T#> h = GetNextRandom<#=T#>();
+
+            <#=T#> i = GetNextRandom<#=T#>();
+            <#=T#> j = GetNextRandom<#=T#>();
+            <#=T#> k = GetNextRandom<#=T#>();
+            <#=T#> l = GetNextRandom<#=T#>();
+
+            <#=T#> m = GetNextRandom<#=T#>();
+            <#=T#> n = GetNextRandom<#=T#>();
+            <#=T#> o = GetNextRandom<#=T#>();
+            <#=T#> p = GetNextRandom<#=T#>();
+
+            return new Matrix44(
+                a, b, c, d,
+                e, f, g, h,
+                i, j, k, l,
+                m, n, o, p);
+        }
+
+        /// <summary>
+        /// Helper to encapsulate asserting that two Matrix44s are equal.
+        /// </summary>
+        internal static void AssertEqualWithinReason (Matrix44 a, Matrix44 b)
+        {
+            <#=T#> tolerance;
+            MathsTests.TestTolerance(out tolerance);
+
+            Assert.That(a.R0C0, Is.EqualTo(b.R0C0).Within(tolerance));
+            Assert.That(a.R0C1, Is.EqualTo(b.R0C1).Within(tolerance));
+            Assert.That(a.R0C2, Is.EqualTo(b.R0C2).Within(tolerance));
+            Assert.That(a.R0C3, Is.EqualTo(b.R0C3).Within(tolerance));
+
+            Assert.That(a.R1C0, Is.EqualTo(b.R1C0).Within(tolerance));
+            Assert.That(a.R1C1, Is.EqualTo(b.R1C1).Within(tolerance));
+            Assert.That(a.R1C2, Is.EqualTo(b.R1C2).Within(tolerance));
+            Assert.That(a.R1C3, Is.EqualTo(b.R1C3).Within(tolerance));
+
+            Assert.That(a.R2C0, Is.EqualTo(b.R2C0).Within(tolerance));
+            Assert.That(a.R2C1, Is.EqualTo(b.R2C1).Within(tolerance));
+            Assert.That(a.R2C2, Is.EqualTo(b.R2C2).Within(tolerance));
+            Assert.That(a.R2C3, Is.EqualTo(b.R2C3).Within(tolerance));
+
+            Assert.That(a.R3C0, Is.EqualTo(b.R3C0).Within(tolerance));
+            Assert.That(a.R3C1, Is.EqualTo(b.R3C1).Within(tolerance));
+            Assert.That(a.R3C2, Is.EqualTo(b.R3C2).Within(tolerance));
+            Assert.That(a.R3C3, Is.EqualTo(b.R3C3).Within(tolerance));
+        }
+

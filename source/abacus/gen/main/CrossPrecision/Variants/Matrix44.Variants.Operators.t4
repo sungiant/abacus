@@ -1,0 +1,160 @@
+        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean Equals (
+            Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Boolean result;
+            Equals (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean operator == (
+            Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Boolean result;
+            Equals (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean operator != (
+            Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Boolean result;
+            Equals (ref matrix1, ref matrix2, out result);
+            return !result;
+        }
+
+        // Variant Addition Operators //--------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Add (
+            Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Matrix44 result;
+            Add (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 operator + (Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Matrix44 result;
+            Add (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        // Variant Subtraction Operators //-----------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Subtract (
+            Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Matrix44 result;
+            Subtract (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 operator - (Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Matrix44 result;
+            Subtract (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        // Variant Negation Operators //--------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Negate (Matrix44 matrix)
+        {
+            Matrix44 result;
+            Negate (ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 operator - (Matrix44 matrix)
+        {
+            Matrix44 result;
+            Negate (ref matrix, out result);
+            return result;
+        }
+
+        // Variant Multiplication Operators //--------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Multiply (
+            Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Matrix44 result;
+            Multiply (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 Multiply (
+            Matrix44 matrix, <#=T#> scaleFactor)
+        {
+            Matrix44 result;
+            Multiply (ref matrix, ref scaleFactor, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 operator * (
+            Matrix44 matrix1, Matrix44 matrix2)
+        {
+            Matrix44 result;
+            Multiply (ref matrix1, ref matrix2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 operator * (
+            Matrix44 matrix, <#=T#> scaleFactor)
+        {
+            Matrix44 result;
+            Multiply (ref matrix, ref scaleFactor, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 operator * (
+            <#=T#> scaleFactor, Matrix44 matrix)
+        {
+            Matrix44 result;
+            Multiply (ref matrix, ref scaleFactor, out result);
+            return result;
+        }
+

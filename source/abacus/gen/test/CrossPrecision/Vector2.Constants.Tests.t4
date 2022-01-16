@@ -1,0 +1,56 @@
+        // Test Constant: Zero //---------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector2 initilised using the Zero constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Zero_i ()
+        {
+            Vector2 result = Vector2.Zero;
+            Vector2 expected = new Vector2(0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: One //----------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector2 initilised using the One constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_One_i ()
+        {
+            Vector2 result = Vector2.One;
+            Vector2 expected = new Vector2(1, 1);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitX //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector2 initilised using the UnitX 
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitX_i ()
+        {
+            Vector2 result = Vector2.UnitX;
+            Vector2 expected = new Vector2(1, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitY //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector2 initilised using the UnitY
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitY_i ()
+        {
+            Vector2 result = Vector2.UnitY;
+            Vector2 expected = new Vector2(0, 1);
+            AssertEqualWithinReason(result, expected);
+        }
+

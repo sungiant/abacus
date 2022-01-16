@@ -1,0 +1,8 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public void Transpose ()
+        {
+            Transpose (ref this, out this);
+        }
+

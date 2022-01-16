@@ -1,0 +1,129 @@
+﻿    /// <summary>
+    /// <#=T#> precision Vector4.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector4
+        : IEquatable<Vector4>
+    {
+        /// <summary>
+        /// Gets or sets the X-component of the Vector4.
+        /// </summary>
+        public <#=T#> X;
+
+        /// <summary>
+        /// Gets or sets the Y-component of the Vector4.
+        /// </summary>
+        public <#=T#> Y;
+
+        /// <summary>
+        /// Gets or sets the Z-component of the Vector4.
+        /// </summary>
+        public <#=T#> Z;
+
+        /// <summary>
+        /// Gets or sets the W-component of the Vector4.
+        /// </summary>
+        public <#=T#> W;
+
+        /// <summary>
+        /// Initilises a new instance of Vector4 from four <#=T#> values
+        /// representing X, Y, Z and W respectively.
+        /// </summary>
+        public Vector4 (
+            <#=T#> x,
+            <#=T#> y,
+            <#=T#> z,
+            <#=T#> w)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.W = w;
+        }
+
+        /// <summary>
+        /// Initilises a new instance of Vector4 from one Vector2 value
+        /// representing X and Y and two <#=T#> values representing Z and
+        /// W respectively.
+        /// </summary>
+        public Vector4 (Vector2 value, <#=T#> z, <#=T#> w)
+        {
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = z;
+            this.W = w;
+        }
+
+        /// <summary>
+        /// Initilises a new instance of Vector4 from one Vector3 value
+        /// representing X, Y and Z and one <#=T#> value representing W.
+        /// </summary>
+        public Vector4 (Vector3 value, <#=T#> w)
+        {
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = value.Z;
+            this.W = w;
+        }
+
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return string.Format ("{{X:{0} Y:{1} Z:{2} W:{3}}}",
+                X.ToString (), Y.ToString (), Z.ToString (), W.ToString ());
+        }
+
+        /// <summary>
+        /// Gets the hash code of the Vector4 object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return X.GetHashCode ()
+                 ^ Y.GetHashCode ().ShiftAndWrap (2)
+                 ^ Z.GetHashCode ().ShiftAndWrap (4)
+                 ^ W.GetHashCode ().ShiftAndWrap (6);
+        }
+
+        /// <summary>
+        /// Determines whether or not this Vector4 object is equal to another
+        /// object.
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            return (obj is Vector4)
+                ? this.Equals ((Vector4)obj)
+                : false;
+        }
+
+        #region IEquatable<Vector4>
+
+        /// <summary>
+        /// Determines whether or not this Vector4 object is equal to another
+        /// Vector4 object.
+        /// </summary>
+        public Boolean Equals (Vector4 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
+
+<#@ include file="Vector4.Constants.t4"#>
+<#@ include file="Vector4.Maths.t4"#>
+<#@ include file="Vector4.Operators.t4"#>
+<#@ include file="Vector4.Splines.t4"#>
+<#@ include file="Vector4.Utilities.t4"#>
+#if (VARIANTS_ENABLED)
+
+<#@ include file="Variants/Vector4.Variants.Maths.t4"#>
+<#@ include file="Variants/Vector4.Variants.Operators.t4"#>
+<#@ include file="Variants/Vector4.Variants.Splines.t4"#>
+<#@ include file="Variants/Vector4.Variants.Utilities.t4"#>
+<#@ include file="Variants/Vector4.Variants.MemberFunctions.t4"#>
+#endif
+    }
+

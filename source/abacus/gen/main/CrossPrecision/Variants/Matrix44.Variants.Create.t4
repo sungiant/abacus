@@ -1,0 +1,288 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateTranslation (Vector3 position)
+        {
+            Matrix44 result;
+            CreateTranslation (ref position, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateTranslation (
+            <#=T#> xPosition,
+            <#=T#> yPosition,
+            <#=T#> zPosition)
+        {
+            Matrix44 result;
+            CreateTranslation (
+                ref xPosition, ref yPosition, ref zPosition,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateScale (
+            <#=T#> xScale,
+            <#=T#> yScale,
+            <#=T#> zScale)
+        {
+            Matrix44 result;
+            CreateScale (
+                ref xScale, ref yScale, ref zScale,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateScale (Vector3 scales)
+        {
+            Matrix44 result;
+            CreateScale (ref scales, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateScale (<#=T#> scale)
+        {
+            Matrix44 result;
+            CreateScale (ref scale, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateRotationX (<#=T#> radians)
+        {
+            Matrix44 result;
+            CreateRotationX (ref radians, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateRotationY (<#=T#> radians)
+        {
+            Matrix44 result;
+            CreateRotationY (ref radians, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateRotationZ (<#=T#> radians)
+        {
+            Matrix44 result;
+            CreateRotationZ (ref radians, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromAxisAngle (
+            Vector3 axis,
+            <#=T#> angle)
+        {
+            Matrix44 result;
+            CreateFromAxisAngle (ref axis, ref angle, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromCartesianAxes (
+            Vector3 right,
+            Vector3 up,
+            Vector3 backward)
+        {
+            Matrix44 result;
+            CreateFromCartesianAxes (
+                ref right, ref up, ref backward, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateWorld (
+            Vector3 position,
+            Vector3 forward,
+            Vector3 up)
+        {
+            Matrix44 result;
+            CreateWorld (ref position, ref forward, ref up, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromQuaternion (Quaternion quaternion)
+        {
+            Matrix44 result;
+            CreateFromQuaternion (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateFromYawPitchRoll (
+            <#=T#> yaw,
+            <#=T#> pitch,
+            <#=T#> roll)
+        {
+            Matrix44 result;
+            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 cameraUpVector,
+            Vector3? cameraForwardVector)
+        {
+            Matrix44 result;
+            CreateBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref cameraUpVector, ref cameraForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateConstrainedBillboard (
+            Vector3 objectPosition,
+            Vector3 cameraPosition,
+            Vector3 rotateAxis,
+            Vector3? cameraForwardVector,
+            Vector3? objectForwardVector)
+        {
+            Matrix44 result;
+            CreateConstrainedBillboard (
+                ref objectPosition, ref cameraPosition,
+                ref rotateAxis, ref cameraForwardVector, ref objectForwardVector,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveFieldOfView (
+            <#=T#> fieldOfView,
+            <#=T#> aspectRatio,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveFieldOfView (
+                ref fieldOfView, ref aspectRatio, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspective (
+            <#=T#> width,
+            <#=T#> height,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
+        {
+            Matrix44 result;
+            CreatePerspective (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreatePerspectiveOffCenter (
+            <#=T#> left,
+            <#=T#> right,
+            <#=T#> bottom,
+            <#=T#> top,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
+        {
+            Matrix44 result;
+            CreatePerspectiveOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographic (
+            <#=T#> width,
+            <#=T#> height,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographic (
+                ref width, ref height, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateOrthographicOffCenter (
+            <#=T#> left,
+            <#=T#> right,
+            <#=T#> bottom,
+            <#=T#> top,
+            <#=T#> nearPlane,
+            <#=T#> farPlane)
+        {
+            Matrix44 result;
+            CreateOrthographicOffCenter (
+                ref left, ref right, ref bottom,
+                ref top, ref nearPlane, ref farPlane,
+                out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Matrix44 CreateLookAt (
+            Vector3 cameraPosition,
+            Vector3 cameraTarget,
+            Vector3 cameraUpVector)
+        {
+            Matrix44 result;
+            CreateLookAt (
+                ref cameraPosition, ref cameraTarget, ref cameraUpVector,
+                out result);
+            return result;
+        }
+

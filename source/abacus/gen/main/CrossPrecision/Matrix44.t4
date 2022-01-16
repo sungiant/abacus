@@ -1,0 +1,230 @@
+    /// <summary>
+    /// <#=T#> precision Matrix44.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Matrix44
+        : IEquatable<Matrix44>
+    {
+        /// <summary>
+        /// Gets or sets (Row 0, Column 0) of the Matrix44.
+        /// </summary>
+        public <#=T#> R0C0;
+
+        /// <summary>
+        /// Gets or sets (Row 0, Column 1) of the Matrix44.
+        /// </summary>
+        public <#=T#> R0C1;
+
+        /// <summary>
+        /// Gets or sets (Row 0, Column 2) of the Matrix44.
+        /// </summary>
+        public <#=T#> R0C2;
+
+        /// <summary>
+        /// Gets or sets (Row 0, Column 3) of the Matrix44.
+        /// </summary>
+        public <#=T#> R0C3;
+
+        /// <summary>
+        /// Gets or sets (Row 1, Column 0) of the Matrix44.
+        /// </summary>
+        public <#=T#> R1C0;
+
+        /// <summary>
+        /// Gets or sets (Row 1, Column 1) of the Matrix44.
+        /// </summary>
+        public <#=T#> R1C1;
+
+        /// <summary>
+        /// Gets or sets (ow 1, Column 2) of the Matrix44.
+        /// </summary>
+        public <#=T#> R1C2;
+
+        /// <summary>
+        /// Gets or sets (Row 1, Column 3) of the Matrix44.
+        /// </summary>
+        public <#=T#> R1C3;
+
+        /// <summary>
+        /// Gets or sets (Row 2, Column 0) of the Matrix44.
+        /// </summary>
+        public <#=T#> R2C0;
+
+        /// <summary>
+        /// Gets or sets (Row 2, Column 1) of the Matrix44.
+        /// </summary>
+        public <#=T#> R2C1;
+
+        /// <summary>
+        /// Gets or sets (Row 2, Column 2) of the Matrix44.
+        /// </summary>
+        public <#=T#> R2C2;
+
+        /// <summary>
+        /// Gets or sets (Row 2, Column 3) of the Matrix44.
+        /// </summary>
+        public <#=T#> R2C3;
+
+        /// <summary>
+        /// Gets or sets (Row 3, Column 0) of the Matrix44.
+        /// </summary>
+        public <#=T#> R3C0; // translation.x
+
+        /// <summary>
+        /// Gets or sets (Row 3, Column 1) of the Matrix44.
+        /// </summary>
+        public <#=T#> R3C1; // translation.y
+
+        /// <summary>
+        /// Gets or sets (Row 3, Column 2) of the Matrix44.
+        /// </summary>
+        public <#=T#> R3C2; // translation.z
+
+        /// <summary>
+        /// Gets or sets (Row 3, Column 3) of the Matrix44.
+        /// </summary>
+        public <#=T#> R3C3;
+
+        /// <summary>
+        /// Initilises a new instance of Matrix44 from sixteen <#=T#>
+        /// values representing the matrix, in row major order, respectively.
+        /// </summary>
+        public Matrix44 (
+            <#=T#> m00,
+            <#=T#> m01,
+            <#=T#> m02,
+            <#=T#> m03,
+            <#=T#> m10,
+            <#=T#> m11,
+            <#=T#> m12,
+            <#=T#> m13,
+            <#=T#> m20,
+            <#=T#> m21,
+            <#=T#> m22,
+            <#=T#> m23,
+            <#=T#> m30,
+            <#=T#> m31,
+            <#=T#> m32,
+            <#=T#> m33)
+        {
+            this.R0C0 = m00;
+            this.R0C1 = m01;
+            this.R0C2 = m02;
+            this.R0C3 = m03;
+            this.R1C0 = m10;
+            this.R1C1 = m11;
+            this.R1C2 = m12;
+            this.R1C3 = m13;
+            this.R2C0 = m20;
+            this.R2C1 = m21;
+            this.R2C2 = m22;
+            this.R2C3 = m23;
+            this.R3C0 = m30;
+            this.R3C1 = m31;
+            this.R3C2 = m32;
+            this.R3C3 = m33;
+        }
+
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return
+                "{ " +
+                String.Format (
+                    "{{R0C0:{0} R0C1:{1} R0C2:{2} R0C3:{3}}} ",
+                    new Object[] {
+                        this.R0C0.ToString (),
+                        this.R0C1.ToString (),
+                        this.R0C2.ToString (),
+                        this.R0C3.ToString ()}) +
+                String.Format (
+                    "{{R1C0:{0} R1C1:{1} R1C2:{2} R1C3:{3}}} ",
+                    new Object[] {
+                        this.R1C0.ToString (),
+                        this.R1C1.ToString (),
+                        this.R1C2.ToString (),
+                        this.R1C3.ToString ()}) +
+                String.Format (
+                    "{{R2C0:{0} R2C1:{1} R2C2:{2} R2C3:{3}}} ",
+                    new Object[] {
+                        this.R2C0.ToString (),
+                        this.R2C1.ToString (),
+                        this.R2C2.ToString (),
+                        this.R2C3.ToString ()}) +
+                String.Format (
+                    "{{R3C0:{0} R3C1:{1} R3C2:{2} R3C3:{3}}} ",
+                    new Object[] {
+                        this.R3C0.ToString (),
+                        this.R3C1.ToString (),
+                        this.R3C2.ToString (),
+                        this.R3C3.ToString ()}) +
+                "}";
+        }
+
+        /// <summary>
+        /// Gets the hash code of the Matrix44 object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return R0C0.GetHashCode ()
+                ^ R0C1.GetHashCode ().ShiftAndWrap (2)
+                ^ R0C2.GetHashCode ().ShiftAndWrap (4)
+                ^ R0C3.GetHashCode ().ShiftAndWrap (6)
+                ^ R1C0.GetHashCode ().ShiftAndWrap (8)
+                ^ R1C1.GetHashCode ().ShiftAndWrap (10)
+                ^ R1C2.GetHashCode ().ShiftAndWrap (12)
+                ^ R1C3.GetHashCode ().ShiftAndWrap (14)
+                ^ R2C0.GetHashCode ().ShiftAndWrap (16)
+                ^ R2C1.GetHashCode ().ShiftAndWrap (18)
+                ^ R2C2.GetHashCode ().ShiftAndWrap (20)
+                ^ R2C3.GetHashCode ().ShiftAndWrap (22)
+                ^ R3C0.GetHashCode ().ShiftAndWrap (24)
+                ^ R3C1.GetHashCode ().ShiftAndWrap (26)
+                ^ R3C2.GetHashCode ().ShiftAndWrap (28)
+                ^ R3C3.GetHashCode ().ShiftAndWrap (30);
+        }
+
+        /// <summary>
+        /// Determines whether or not this Matrix44 object is equal to another
+        /// object.
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            return (obj is Matrix44)
+                ? this.Equals ((Matrix44)obj)
+                : false;
+        }
+
+        #region IEquatable<Matrix44>
+
+        /// <summary>
+        /// Determines whether or not this Matrix44 object is equal to another
+        /// Matrix44 object.
+        /// </summary>
+        public Boolean Equals (Matrix44 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
+
+<#@ include file="Matrix44.Accessors.t4"#>
+<#@ include file="Matrix44.Constants.t4"#>
+<#@ include file="Matrix44.Create.t4"#>
+<#@ include file="Matrix44.Maths.t4"#>
+<#@ include file="Matrix44.Operators.t4"#>
+<#@ include file="Matrix44.Utilities.t4"#>
+#if (VARIANTS_ENABLED)
+
+<#@ include file="Variants/Matrix44.Variants.Create.t4"#>
+<#@ include file="Variants/Matrix44.Variants.Maths.t4"#>
+<#@ include file="Variants/Matrix44.Variants.Operators.t4"#>
+<#@ include file="Variants/Matrix44.Variants.Utilities.t4"#>
+<#@ include file="Variants/Matrix44.Variants.MemberFunctions.t4"#>
+#endif
+    }
+

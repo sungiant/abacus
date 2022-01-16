@@ -1,0 +1,313 @@
+        // Test Operator: Equality //-----------------------------------------//
+
+        /// <summary>
+        /// Helper method for testing equality.
+        /// </summary>
+        void TestEquality (Quaternion a, Quaternion b, Boolean expected )
+        {
+            // This test asserts the following:
+            //   (a == b) == expected
+            //   (b == a) == expected
+            //   (a != b) == !expected
+            //   (b != a) == !expected
+
+            Boolean result_1a = (a == b);
+            Boolean result_1b = (a.Equals(b));
+            Boolean result_1c = (a.Equals((Object)b));
+
+            Boolean result_2a = (b == a);
+            Boolean result_2b = (b.Equals(a));
+            Boolean result_2c = (b.Equals((Object)a));
+
+            Boolean result_3a = (a != b);
+            Boolean result_4a = (b != a);
+
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+            Assert.That(result_1c, Is.EqualTo(expected));
+            Assert.That(result_2a, Is.EqualTo(expected));
+            Assert.That(result_2b, Is.EqualTo(expected));
+            Assert.That(result_2c, Is.EqualTo(expected));
+            Assert.That(result_3a, Is.EqualTo(!expected));
+            Assert.That(result_4a, Is.EqualTo(!expected));
+        }
+
+        /// <summary>
+        /// Makes sure that, for a known example, all the equality opperators
+        /// and functions yield the expected result of TRUE when two equal
+        /// Quaternion objects are compared.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_i ()
+        {
+            var a = new Quaternion(44, -54, -22, 11);
+            var b = new Quaternion(44, -54, -22, 11);
+
+            Boolean expected = true;
+
+            this.TestEquality(a, b, expected);
+        }
+
+        /// <summary>
+        /// Makes sure that, for a known example, all the equality opperators
+        /// and functions yield the expected result of FALSE when two unequal
+        /// Quaternion objects are compared.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_ii ()
+        {
+            var a = new Quaternion(44, 54, 2, 11);
+            var b = new Quaternion(44, -54, 2, -1);
+
+            Boolean expected = false;
+
+            this.TestEquality(a, b, expected);
+        }
+
+        /// <summary>
+        /// Tests to make sure that all the equality opperators and functions
+        /// yield the expected result of TRUE when used on a number of randomly
+        /// generated pairs of equal Quaternion objects.
+        /// </summary>
+        [Test]
+        public void TestOperator_Equality_iii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+
+                Quaternion b = a;
+
+                this.TestEquality(a, b, true);
+            }
+        }
+
+
+        // Test Operator: Addition //-----------------------------------------//
+
+        /// <summary>
+        /// Helper method for testing addition.
+        /// </summary>
+        void TestAddition (Quaternion a, Quaternion b, Quaternion expected )
+        {
+            // This test asserts the following:
+            //   a + b == expected
+            //   b + a == expected
+
+            var result_1a = a + b;
+            var result_2a = b + a;
+
+            Quaternion result_1b; Quaternion.Add(ref a, ref b, out result_1b);
+            Quaternion result_2b; Quaternion.Add(ref b, ref a, out result_2b);
+
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_2a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+            Assert.That(result_2b, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that, for a known example, all the addition opperators
+        /// and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Addition_i ()
+        {
+            var a = new Quaternion(3, -6, 44, 11);
+            var b = new Quaternion(-6, 12, 18, -3);
+
+            var expected = new Quaternion(-3, 6, 62, 8);
+
+            this.TestAddition(a, b, expected);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the
+        /// addition opperators and functions yield the same results as a
+        /// manual addition calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Addition_ii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+                var b = GetNextRandomQuaternion();
+
+                var expected = new Quaternion(
+                    a.I + b.I, a.J + b.J, a.K + b.K, a.U + b.U);
+
+                this.TestAddition(a, b, expected);
+            }
+        }
+
+        // Test Operator: Subtraction //--------------------------------------//
+
+        /// <summary>
+        /// Helper method for testing subtraction.
+        /// </summary>
+        void TestSubtraction (Quaternion a, Quaternion b, Quaternion expected )
+        {
+            // This test asserts the following:
+            //   a - b == expected
+            //   b - a == -expected
+
+            var result_1a = a - b;
+            var result_2a = b - a;
+
+            Quaternion result_1b; Quaternion.Subtract(ref a, ref b, out result_1b);
+            Quaternion result_2b; Quaternion.Subtract(ref b, ref a, out result_2b);
+
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_2a, Is.EqualTo(-expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+            Assert.That(result_2b, Is.EqualTo(-expected));
+        }
+
+        /// <summary>
+        /// Assert that, for known examples, all the subtraction opperators
+        /// and functions yield the correct result.
+        /// <summary>
+        [Test]
+        public void TestOperator_Subtraction_i ()
+        {
+            var a = new Quaternion(12, -4, 14, 18);
+            var b = new Quaternion(15, 11, 7, 27);
+            var expected = new Quaternion(-3, -15, 7, -9);
+            this.TestSubtraction(a, b, expected);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the
+        /// subtraction opperators and functions yield the same results as a
+        /// manual subtraction calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Subtraction_ii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+                var b = GetNextRandomQuaternion();
+
+                var expected = new Quaternion(
+                    a.I - b.I, a.J - b.J, a.K - b.K, a.U - b.U);
+
+                this.TestSubtraction(a, b, expected);
+            }
+        }
+
+        // Test Operator: Negation //-----------------------------------------//
+
+        /// <summary>
+        /// Helper method for testing negation.
+        /// </summary>
+        void TestNegation (Quaternion a, Quaternion expected )
+        {
+            // This test asserts the following:
+            //   -a == expected
+
+            var result_1a = -a;
+
+            Quaternion result_1b; Quaternion.Negate(ref a, out result_1b);
+
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that, for known examples, all the negation opperators
+        /// and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Negation_i ()
+        {
+            <#=T#> r = 3432;
+            <#=T#> s = -6218;
+            <#=T#> t = -3432;
+            <#=T#> u = 6218;
+
+            var a = new Quaternion(r, s, t, u);
+            var b = new Quaternion(u, t, s, r);
+            var c = new Quaternion(t, u, r, s);
+            var d = new Quaternion(s, r, u, t);
+
+            this.TestNegation(a, c);
+            this.TestNegation(b, d);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the
+        /// negation opperators and functions yield the same results as a
+        /// manual negation calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Negation_ii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+                this.TestNegation(a, Quaternion.Zero - a);
+            }
+        }
+
+        // Test Operator: Multiplication //-----------------------------------//
+
+        /// <summary>
+        /// Helper method for testing multiplication.
+        /// </summary>
+        void TestMultiplication (Quaternion a, Quaternion b, Quaternion expected )
+        {
+            // This test asserts the following:
+            //   a * b == expected
+            //   Quaternion multiplication is not commutative,
+            //   so don't need to test b * a.
+
+            var result_1a = a * b;
+
+            Quaternion result_1b; Quaternion.Multiply(ref a, ref b, out result_1b);
+
+            Assert.That(result_1a, Is.EqualTo(expected));
+            Assert.That(result_1b, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that, for a known example, all the multiplication opperators
+        /// and functions yield the correct result.
+        /// </summary>
+        [Test]
+        public void TestOperator_Multiplication_i ()
+        {
+            var a = new Quaternion(12, 2, 24, 3);
+            var b = new Quaternion(12, 6, -2, 2);
+            var c = new Quaternion(-88, 334, 90, -102);
+            var d = new Quaternion(208, -290, -6, -102);
+
+            this.TestMultiplication(a, b, c);
+            this.TestMultiplication(b, a, d);
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated scenarios, all the
+        /// multiplication opperators and functions yield the same results as a
+        /// manual multiplication calculation.
+        /// </summary>
+        [Test]
+        public void TestOperator_Multiplication_ii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+                var b = GetNextRandomQuaternion();
+
+                var c = new Quaternion(
+                    a.I*b.U + a.U*b.I + a.J*b.K - a.K*b.J,
+                    a.U*b.J - a.I*b.K + a.J*b.U + a.K*b.I,
+                    a.U*b.K + a.I*b.J - a.J*b.I + a.K*b.U,
+                    a.U*b.U - a.I*b.I - a.J*b.J - a.K*b.K
+                );
+
+                this.TestMultiplication(a, b, c);
+            }
+        }
+

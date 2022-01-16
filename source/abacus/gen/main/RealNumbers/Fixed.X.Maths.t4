@@ -1,0 +1,130 @@
+﻿        #region Maths
+
+        static <#= fixedTypeDefinition.TypeName #> Sqrt (<#= fixedTypeDefinition.TypeName #> f, Int32 numberOfIterations)
+        {
+            if (f.numerator < 0) //NaN in Math.Sqrt
+            {
+                throw new ArithmeticException("Input Error");
+            }
+            
+            if (f.numerator == 0)
+            {
+                return Zero;
+            }
+
+            <#= fixedTypeDefinition.TypeName #> k = (f + One) >> 1;
+            
+            for (Int32 i = 0; i < numberOfIterations; i++)
+            {
+                k = (k + (f / k)) >> 1;
+            }
+            
+            if (k.numerator < 0)
+            {
+                throw new ArithmeticException("Overflow");
+            }
+            
+            return k;
+        }
+        
+        public static <#= fixedTypeDefinition.TypeName #> Sqrt (<#= fixedTypeDefinition.TypeName #> f)
+        {
+            Int32 numberOfIterations = 8;
+            
+            if (f.numerator > 0x64000) // 409,600
+            {
+                numberOfIterations = 12;
+            }
+
+            if (f.numerator > 0x3e8000) // 4,096,000
+            {
+                numberOfIterations = 16;
+            }
+            
+            return Sqrt (f, numberOfIterations);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> Square (<#= fixedTypeDefinition.TypeName #> f)
+        {
+            int v = f.numerator >> (n / 2);
+            int w = f.numerator >> (n - (n / 2));
+            return CreateFromRaw (v * w);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> Sin (<#= fixedTypeDefinition.TypeName #> f)
+        {
+            <#= fixedTypeDefinition.TypeName #> x_ = f % <#= fixedTypeDefinition.TypeName #>.Tau;
+
+            if (x_ > <#= fixedTypeDefinition.TypeName #>.Pi)
+                x_ -= <#= fixedTypeDefinition.TypeName #>.Tau;
+
+            <#= fixedTypeDefinition.TypeName #> xx = x_ * x_;
+
+            <#= fixedTypeDefinition.TypeName #> y = 0;
+            y -= <#= fixedTypeDefinition.TypeName #>.One / new <#= fixedTypeDefinition.TypeName #>(2 * 3 * 4 * 5 * 6 * 7);
+            y *= xx;
+            y += <#= fixedTypeDefinition.TypeName #>.One / new <#= fixedTypeDefinition.TypeName #>(2 * 3 * 4 * 5);
+            y *= xx;
+            y -= <#= fixedTypeDefinition.TypeName #>.One / new <#= fixedTypeDefinition.TypeName #>(2 * 3);
+            y *= xx;
+            y += <#= fixedTypeDefinition.TypeName #>.One;
+            y *= x_;
+
+            return y;
+        }
+        
+        public static <#= fixedTypeDefinition.TypeName #> Cos (<#= fixedTypeDefinition.TypeName #> f)
+        {
+            return Sin (PiOver2 - f);
+        }
+        
+        public static <#= fixedTypeDefinition.TypeName #> Tan (<#= fixedTypeDefinition.TypeName #> f)
+        {
+            return Sin (f) / Cos (f);
+        }
+        
+        public static void Add (ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> ouput)
+        {
+            ouput.numerator = checked(one.numerator + other.numerator);
+        }
+
+        public static void Subtract(ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> ouput)
+        {
+            ouput.numerator = checked(one.numerator - other.numerator);
+        }
+
+        public static void Multiply(ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> output)
+        {
+            Int64 temp = (Int64)one.numerator * (Int64)other.numerator;
+
+            // rounds: mid values are rounded up
+            temp = temp + k;
+
+            // correct by dividing by base
+            try
+            {
+                output.numerator = (Int32)(temp >> n);
+            }
+            catch (OverflowException)
+            {
+                if (temp > 0)
+                    output.numerator = Int32.MaxValue;
+                else
+                    output.numerator = Int32.MinValue;
+                
+            }
+        }
+
+        public static void Divide(ref <#= fixedTypeDefinition.TypeName #> one, ref <#= fixedTypeDefinition.TypeName #> other, out <#= fixedTypeDefinition.TypeName #> output)
+        {
+            Int64 temp = ((Int64)one.numerator) << n;
+
+            // pre-multiply by the base (Upscale to Q16 so that the result will be in Q8 format)
+            temp = temp + (((Int64)other.numerator) >> 1);
+
+            // So the result will be rounded ; mid values are rounded up.
+            output.numerator = (Int32)(temp / ((Int64)other.numerator));
+        }
+
+        #endregion
+

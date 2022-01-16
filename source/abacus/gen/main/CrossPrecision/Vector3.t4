@@ -1,0 +1,104 @@
+﻿    /// <summary>
+    /// <#=T#> precision Vector3.
+    /// </summary>
+    [StructLayout (LayoutKind.Sequential), Serializable]
+    public struct Vector3
+        : IEquatable<Vector3>
+    {
+        /// <summary>
+        /// Gets or sets the X-component of the Vector3.
+        /// </summary>
+        public <#=T#> X;
+
+        /// <summary>
+        /// Gets or sets the Y-component of the Vector3.
+        /// </summary>
+        public <#=T#> Y;
+
+        /// <summary>
+        /// Gets or sets the Z-component of the Vector3.
+        /// </summary>
+        public <#=T#> Z;
+
+        /// <summary>
+        /// Initilises a new instance of Vector3 from three <#=T#> values
+        /// representing X, Y and Z respectively.
+        /// </summary>
+        public Vector3 (<#=T#> x, <#=T#> y, <#=T#> z)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+        }
+
+        /// <summary>
+        /// Initilises a new instance of Vector3 from one Vector2 value
+        /// representing X and Y and one <#=T#> value representing Z.
+        /// </summary>
+        public Vector3 (Vector2 value, <#=T#> z)
+        {
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = z;
+        }
+
+        /// <summary>
+        /// Retrieves a string representation of the current object.
+        /// </summary>
+        public override String ToString ()
+        {
+            return string.Format ("{{X:{0} Y:{1} Z:{2}}}",
+                X.ToString (), Y.ToString (), Z.ToString ());
+        }
+
+        /// <summary>
+        /// Gets the hash code of the Vector3 object.
+        /// </summary>
+        public override Int32 GetHashCode ()
+        {
+            return X.GetHashCode ()
+                 ^ Y.GetHashCode ().ShiftAndWrap (2)
+                 ^ Z.GetHashCode ().ShiftAndWrap (4);
+        }
+
+        /// <summary>
+        /// Determines whether or not this Vector3 object is equal to another
+        /// object.
+        /// </summary>
+        public override Boolean Equals (Object obj)
+        {
+            return (obj is Vector3)
+                ? this.Equals ((Vector3) obj)
+                : false;
+        }
+
+        #region IEquatable<Vector3>
+
+        /// <summary>
+        /// Determines whether or not this Vector3 object is equal to another
+        /// Vector3 object.
+        /// </summary>
+        public Boolean Equals (Vector3 other)
+        {
+            Boolean result;
+            Equals (ref this, ref other, out result);
+            return result;
+        }
+
+        #endregion
+
+<#@ include file="Vector3.Constants.t4"#>
+<#@ include file="Vector3.Maths.t4"#>
+<#@ include file="Vector3.Operators.t4"#>
+<#@ include file="Vector3.Splines.t4"#>
+<#@ include file="Vector3.Utilities.t4"#>
+#if (VARIANTS_ENABLED)
+
+<#@ include file="Variants/Vector3.Variants.Maths.t4"#>
+<#@ include file="Variants/Vector3.Variants.Operators.t4"#>
+<#@ include file="Variants/Vector3.Variants.Splines.t4"#>
+<#@ include file="Variants/Vector3.Variants.Utilities.t4"#>
+<#@ include file="Variants/Vector3.Variants.MemberFunctions.t4"#>
+#endif
+    }
+

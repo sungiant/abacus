@@ -1,0 +1,93 @@
+        // Test Static Fn: Transpose //---------------------------------------//
+
+        [Test]
+        public void TestStaticFn_Transpose_i ()
+        {
+            Matrix44 startMatrix = new Matrix44(
+                0, 1, 2, 3,
+                4, 5, 6, 7,
+                8, 9, 10, 11,
+                12, 13, 14, 15);
+
+            Matrix44 testMatrix = startMatrix;
+
+            Matrix44 testMatrixExpectedTranspose = new Matrix44(
+                0, 4, 8, 12,
+                1, 5, 9, 13,
+                2, 6, 10, 14,
+                3, 7, 11, 15);
+
+            // RUN THE STATIC VERSION OF THE FUNCTION
+            Matrix44 resultMatrix = Matrix44.Identity;
+
+            Matrix44.Transpose(ref testMatrix, out resultMatrix);
+
+            Assert.That(resultMatrix, Is.EqualTo(testMatrixExpectedTranspose));
+        }
+
+        // Test Static Fn: Decompose //---------------------------------------//
+
+        [Test]
+        public void TestStaticFn_Decompose_i ()
+        {
+            <#=T#> a1 = 4;
+            <#=T#> a2 = 2;
+            <#=T#> a3 = 3;
+
+            Matrix44 scale;
+            Matrix44.CreateScale(ref a1, ref a2, ref a3, out scale);
+
+            Matrix44 rotation;
+            <#=T#> pi; Maths.Pi(out pi);
+            Matrix44.CreateRotationY(ref pi, out rotation);
+
+
+            <#=T#> b1 = 100;
+            <#=T#> b2 = 5;
+            <#=T#> b3 = 3;
+
+            Matrix44 translation;
+            Matrix44.CreateTranslation(ref b1, ref b2, ref b3, out translation);
+
+            Matrix44 m = rotation * scale;
+            //m = translation * m;
+            m.Translation = new Vector3(100, 5, 3);
+
+            Vector3 outScale;
+            Quaternion outRotation;
+            Vector3 outTranslation;
+
+            Boolean decomposeOk;
+            Matrix44.Decompose(ref m, out outScale, out outRotation, out outTranslation, out decomposeOk);
+
+            Matrix44 mat;
+            Matrix44.CreateFromQuaternion(ref outRotation, out mat);
+
+            Assert.That(outScale, Is.EqualTo(new Vector3(4, 2, 3)));
+            Assert.That(mat, Is.EqualTo(rotation));
+            Assert.That(outTranslation, Is.EqualTo(new Vector3(100, 5, 3)));
+        }
+
+        // Test Static Fn: Determinant //-------------------------------------//
+
+        [Test]
+        public void TestStaticFn_Determinant_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        // Test Static Fn: Invert //------------------------------------------//
+
+        [Test]
+        public void TestStaticFn_Invert_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        // Test Static Fn: Transform //---------------------------------------//
+
+        [Test]
+        public void TestStaticFn_Transform_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }

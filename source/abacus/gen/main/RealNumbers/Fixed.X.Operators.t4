@@ -1,0 +1,222 @@
+﻿        #region Operators
+
+        public static implicit operator Int32 (<#= fixedTypeDefinition.TypeName #> src)
+        {
+            return src.ToInt32 ();
+        }
+
+        public static explicit operator Single (<#= fixedTypeDefinition.TypeName #> src)
+        {
+            return src.ToSingle ();
+        }
+
+        public static explicit operator Double (<#= fixedTypeDefinition.TypeName #> src)
+        {
+            return src.ToDouble ();
+        }
+
+        public static implicit operator <#= fixedTypeDefinition.TypeName #> (Int32 src)
+        {
+            return new <#= fixedTypeDefinition.TypeName #>((Double) src);
+        }
+
+        public static explicit operator <#= fixedTypeDefinition.TypeName #> (Single src)
+        {
+            return new <#= fixedTypeDefinition.TypeName #>((Double) src);
+        }
+
+        public static explicit operator <#= fixedTypeDefinition.TypeName #> (Double src)
+        {
+            return new <#= fixedTypeDefinition.TypeName #>(src);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator * (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            <#= fixedTypeDefinition.TypeName #> output;
+            Multiply(ref one, ref other, out output);
+            return output;
+        }
+        
+        public static <#= fixedTypeDefinition.TypeName #> operator * (<#= fixedTypeDefinition.TypeName #> one, Int32 multi)
+        {
+            return CreateFromRaw (one.numerator * multi);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator *(Int32 multi, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return CreateFromRaw (one.numerator * multi);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator / (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            <#= fixedTypeDefinition.TypeName #> output;
+            Divide(ref one, ref other, out output);
+            return output;
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator /(<#= fixedTypeDefinition.TypeName #> one, Int32 divisor)
+        {
+            return one / new <#= fixedTypeDefinition.TypeName #>(divisor);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator /(Int32 divisor, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (divisor) / one;
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator % (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            return CreateFromRaw (one.numerator % other.numerator);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator %(<#= fixedTypeDefinition.TypeName #> one, Int32 divisor)
+        {
+            return one % new <#= fixedTypeDefinition.TypeName #> (divisor);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator %(Int32 divisor, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (divisor) % one;
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator + (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            <#= fixedTypeDefinition.TypeName #> output;
+            Add(ref one, ref other, out output);
+            return output;
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator +(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one + new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator +(Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return one + new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator - (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            <#= fixedTypeDefinition.TypeName #> output;
+            Subtract(ref one, ref other, out output);
+            return output;
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator -(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one - new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator -(Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (other) - one;
+        }
+        
+        public static <#= fixedTypeDefinition.TypeName #> operator - (<#= fixedTypeDefinition.TypeName #> f)
+        {
+            return CreateFromRaw (-f.numerator);
+        }
+
+        public static Boolean operator != (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            return one.numerator != other.numerator;
+        }
+
+        public static Boolean operator !=(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one != new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static Boolean operator !=(Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (other) != one;
+        }
+
+        public static Boolean operator >= (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            return one.numerator >= other.numerator;
+        }
+
+        public static Boolean operator >=(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one >= new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static Boolean operator >=(Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (other) >= one;
+        }
+
+        public static Boolean operator <= (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            return one.numerator <= other.numerator;
+        }
+
+        public static Boolean operator <=(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one <= new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static Boolean operator <=(Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (other) <= one;
+        }
+
+        public static Boolean operator > (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            return one.numerator > other.numerator;
+        }
+
+        public static Boolean operator >(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one > new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static Boolean operator >(Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (other) > one;
+        }
+
+        public static Boolean operator < (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            return one.numerator < other.numerator;
+        }
+
+        public static Boolean operator <(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one < new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+
+        public static Boolean operator <(Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (other) < one;
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator <<(<#= fixedTypeDefinition.TypeName #> one, Int32 amount)
+        {
+            return CreateFromRaw (one.numerator << amount);
+        }
+
+        public static <#= fixedTypeDefinition.TypeName #> operator >>(<#= fixedTypeDefinition.TypeName #> one, Int32 amount)
+        {
+            return CreateFromRaw (one.numerator >> amount);
+        }
+
+        public static Boolean operator == (<#= fixedTypeDefinition.TypeName #> one, <#= fixedTypeDefinition.TypeName #> other)
+        {
+            return one.numerator == other.numerator;
+        }
+
+        public static Boolean operator ==(<#= fixedTypeDefinition.TypeName #> one, Int32 other)
+        {
+            return one == new <#= fixedTypeDefinition.TypeName #> (other);
+        }
+        
+        public static Boolean operator == (Int32 other, <#= fixedTypeDefinition.TypeName #> one)
+        {
+            return new <#= fixedTypeDefinition.TypeName #> (other) == one;
+        }
+
+        #endregion
+

@@ -1,0 +1,8 @@
+        public static <#= fixedTypeDefinition.TypeName #> CreateFromRaw (
+            <#= fixedTypeDefinition.RawTypeName #> rawValue)
+        {
+            <#= fixedTypeDefinition.TypeName #> f;
+            f.numerator = rawValue;
+            return f;
+        }
+

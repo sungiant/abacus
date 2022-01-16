@@ -1,0 +1,8 @@
+<#@ template debug="true" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<# string T = "Fixed32"; #>
+<#@ include file="../Common.t4"#>
+<# var fixedTypeDefinition = new FixedTypeDefinition ("Fixed32", "Int32", 32, 12); #>
+<#@ include file="Abacus.X.t4"#>

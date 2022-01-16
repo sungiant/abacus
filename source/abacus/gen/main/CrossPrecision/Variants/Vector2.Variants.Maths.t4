@@ -1,0 +1,109 @@
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Distance (
+            Vector2 vector1, Vector2 vector2)
+        {
+            <#=T#> result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> DistanceSquared (
+            Vector2 vector1, Vector2 vector2)
+        {
+            <#=T#> result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Dot (
+            Vector2 vector1, Vector2 vector2)
+        {
+            <#=T#> result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector2 Normalise (Vector2 vector)
+        {
+            Vector2 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector2 Reflect (
+            Vector2 vector, Vector2 normal)
+        {
+            Vector2 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Matrix44 matrix)
+        {
+            Vector2 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector2 Transform (
+            Vector2 vector, Quaternion rotation)
+        {
+            Vector2 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector2 TransformNormal (
+            Vector2 normal, Matrix44 matrix)
+        {
+            Vector2 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Length (Vector2 vector)
+        {
+            <#=T#> result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> LengthSquared (Vector2 vector)
+        {
+            <#=T#> result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+

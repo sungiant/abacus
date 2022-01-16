@@ -1,0 +1,57 @@
+        /// <summary>
+        /// The random number generator used for testing.
+        /// </summary>
+        static readonly System.Random rand;
+
+        /// <summary>
+        /// Static constructor used to ensure that the random number generator
+        /// always gets initilised with the same seed, making the tests
+        /// behave in a deterministic manner.
+        /// </summary>
+        static Vector2Tests ()
+        {
+            rand = new System.Random(0);
+        }
+
+        /// <summary>
+        /// Helper function for getting the next random <#=T#> value.
+        /// </summary>
+        static <#=T#> GetNextRandom<#=T#> ()
+        {
+            <#=T#> randomValue = rand.Next<#=T#>();
+
+            <#=T#> zero = 0;
+            <#=T#> multiplier = 1000;
+
+            randomValue *= multiplier;
+
+            Boolean randomBoolean = (rand.Next(0, 1) == 0) ? true : false;
+
+            if( randomBoolean )
+                randomValue = zero - randomValue;
+
+            return randomValue;
+        }
+
+        /// <summary>
+        /// Helper function for getting the next random Vector2.
+        /// </summary>
+        static Vector2 GetNextRandomVector2 ()
+        {
+            <#=T#> a = GetNextRandom<#=T#>();
+            <#=T#> b = GetNextRandom<#=T#>();
+
+            return new Vector2(a, b);
+        }
+
+        /// <summary>
+        /// Helper to encapsulate asserting that two Vector2s are equal.
+        /// </summary>
+        static void AssertEqualWithinReason (Vector2 a, Vector2 b)
+        {
+            <#=T#> tolerance; MathsTests.TestTolerance(out tolerance);
+
+            Assert.That(a.X, Is.EqualTo(b.X).Within(tolerance));
+            Assert.That(a.Y, Is.EqualTo(b.Y).Within(tolerance));
+        }
+

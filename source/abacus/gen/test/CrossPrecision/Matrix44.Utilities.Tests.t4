@@ -1,0 +1,55 @@
+        /// <summary>
+        /// Assert that, running the Lerp function on a number of randomly
+        /// generated pairs of Matrix44 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
+        /// Lerp calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_i ()
+        {
+            for(Int32 j = 0; j < 100; ++j)
+            {
+                <#=T#> delta = j;
+
+                delta = delta / 100;
+
+                for(Int32 i = 0; i < 100; ++i)
+                {
+                    Matrix44 a = GetNextRandomMatrix44();
+                    Matrix44 b = GetNextRandomMatrix44();
+
+                    Matrix44 result;
+                    Matrix44.Lerp (ref a, ref b, ref delta, out result);
+
+                    Matrix44 expected = a + ( ( b - a ) * delta );
+
+                    AssertEqualWithinReason(result, expected);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_ii ()
+        {
+            Matrix44 a = GetNextRandomMatrix44();
+            Matrix44 b = GetNextRandomMatrix44();
+
+            <#=T#> half; Maths.Half(out half);
+
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
+
+            for( Int32 i = 0; i < tests.Length; ++i )
+            {
+                Matrix44 result;
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                        Matrix44.Lerp (
+                            ref a, ref b, ref tests[i], out result)
+                    );
+            }
+        }

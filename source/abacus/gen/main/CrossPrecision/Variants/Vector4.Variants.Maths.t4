@@ -1,0 +1,98 @@
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Distance (
+            Vector4 vector1, Vector4 vector2)
+        {
+            <#=T#> result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> DistanceSquared (
+            Vector4 vector1, Vector4 vector2)
+        {
+            <#=T#> result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Dot (
+            Vector4 vector1, Vector4 vector2)
+        {
+            <#=T#> result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Normalise (Vector4 vector)
+        {
+            Vector4 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Matrix44 matrix)
+        {
+            Vector4 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Transform (
+            Vector4 vector, Quaternion rotation)
+        {
+            Vector4 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 TransformNormal (
+            Vector4 normal, Matrix44 matrix)
+        {
+            Vector4 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Length (Vector4 vector)
+        {
+            <#=T#> result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> LengthSquared (Vector4 vector)
+        {
+            <#=T#> result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+

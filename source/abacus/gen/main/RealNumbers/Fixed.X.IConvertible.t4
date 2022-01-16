@@ -1,0 +1,96 @@
+﻿        #region IConvertible
+
+        public TypeCode GetTypeCode()
+        {
+            return TypeCode.Object;
+        }
+
+        public bool ToBoolean(IFormatProvider provider)
+        {
+            if (numerator != 0)
+                return false;
+
+            return true;
+        }
+
+        byte IConvertible.ToByte(IFormatProvider provider)
+        {
+            return Convert.ToByte(ToDouble());
+        }
+
+        char IConvertible.ToChar(IFormatProvider provider)
+        {
+            return Convert.ToChar(ToDouble());
+        }
+
+        DateTime IConvertible.ToDateTime(IFormatProvider provider)
+        {
+            return Convert.ToDateTime(ToDouble());
+        }
+
+        decimal IConvertible.ToDecimal(IFormatProvider provider)
+        {
+            return Convert.ToDecimal(ToDouble());
+        }
+
+        double IConvertible.ToDouble(IFormatProvider provider)
+        {
+            return ToDouble();
+        }
+
+        short IConvertible.ToInt16(IFormatProvider provider)
+        {
+            return Convert.ToInt16(ToDouble());
+        }
+
+        int IConvertible.ToInt32(IFormatProvider provider)
+        {
+            return Convert.ToInt32(ToDouble());
+        }
+
+        long IConvertible.ToInt64(IFormatProvider provider)
+        {
+            return Convert.ToInt64(ToDouble());
+        }
+
+        sbyte IConvertible.ToSByte(IFormatProvider provider)
+        {
+            return Convert.ToSByte(ToDouble());
+        }
+
+        float IConvertible.ToSingle(IFormatProvider provider)
+        {
+            return Convert.ToSingle(ToDouble());
+        }
+
+        string IConvertible.ToString(IFormatProvider provider)
+        {
+            return this.ToString();
+        }
+
+        object IConvertible.ToType(Type conversionType, IFormatProvider provider)
+        {
+#if NETFW_XBOX360 || NETFW_WP75
+            return Convert.ChangeType(ToDouble(), conversionType, null);
+#else
+            return Convert.ChangeType(ToDouble(), conversionType);
+#endif
+        }
+
+        ushort IConvertible.ToUInt16(IFormatProvider provider)
+        {
+            return Convert.ToUInt16(ToDouble());
+        }
+
+        uint IConvertible.ToUInt32(IFormatProvider provider)
+        {
+            return Convert.ToUInt32(ToDouble());
+        }
+
+        ulong IConvertible.ToUInt64(IFormatProvider provider)
+        {
+            return Convert.ToUInt64(ToDouble());
+        }
+
+        #endregion
+

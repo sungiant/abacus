@@ -1,0 +1,147 @@
+        /// <summary>
+        /// Gets and sets the up vector of the Matrix44.
+        /// </summary>
+        public Vector3 Up
+        {
+            get
+            {
+                Vector3 vector;
+                vector.X = this.R1C0;
+                vector.Y = this.R1C1;
+                vector.Z = this.R1C2;
+                return vector;
+            }
+            set
+            {
+                this.R1C0 = value.X;
+                this.R1C1 = value.Y;
+                this.R1C2 = value.Z;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the down vector of the Matrix44.
+        /// </summary>
+        public Vector3 Down
+        {
+            get
+            {
+                Vector3 vector;
+                vector.X = -this.R1C0;
+                vector.Y = -this.R1C1;
+                vector.Z = -this.R1C2;
+                return vector;
+            }
+            set
+            {
+                this.R1C0 = -value.X;
+                this.R1C1 = -value.Y;
+                this.R1C2 = -value.Z;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the right vector of the Matrix44.
+        /// </summary>
+        public Vector3 Right
+        {
+            get
+            {
+                Vector3 vector;
+                vector.X = this.R0C0;
+                vector.Y = this.R0C1;
+                vector.Z = this.R0C2;
+                return vector;
+            }
+            set
+            {
+                this.R0C0 = value.X;
+                this.R0C1 = value.Y;
+                this.R0C2 = value.Z;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the left vector of the Matrix44.
+        /// </summary>
+        public Vector3 Left
+        {
+            get
+            {
+                Vector3 vector;
+                vector.X = -this.R0C0;
+                vector.Y = -this.R0C1;
+                vector.Z = -this.R0C2;
+                return vector;
+            }
+            set
+            {
+                this.R0C0 = -value.X;
+                this.R0C1 = -value.Y;
+                this.R0C2 = -value.Z;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the forward vector of the Matrix44.
+        /// </summary>
+        public Vector3 Forward
+        {
+            get
+            {
+                Vector3 vector;
+                vector.X = -this.R2C0;
+                vector.Y = -this.R2C1;
+                vector.Z = -this.R2C2;
+                return vector;
+            }
+            set
+            {
+                this.R2C0 = -value.X;
+                this.R2C1 = -value.Y;
+                this.R2C2 = -value.Z;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the backward vector of the Matrix44.
+        /// </summary>
+        public Vector3 Backward
+        {
+            get
+            {
+                Vector3 vector;
+                vector.X = this.R2C0;
+                vector.Y = this.R2C1;
+                vector.Z = this.R2C2;
+                return vector;
+            }
+            set
+            {
+                this.R2C0 = value.X;
+                this.R2C1 = value.Y;
+                this.R2C2 = value.Z;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the translation vector of the Matrix44.
+        /// </summary>
+        public Vector3 Translation
+        {
+            get
+            {
+                Vector3 vector;
+                vector.X = this.R3C0;
+                vector.Y = this.R3C1;
+                vector.Z = this.R3C2;
+                return vector;
+            }
+            set
+            {
+                this.R3C0 = value.X;
+                this.R3C1 = value.Y;
+                this.R3C2 = value.Z;
+            }
+        }
+

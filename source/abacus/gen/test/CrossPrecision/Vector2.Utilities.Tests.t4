@@ -1,0 +1,253 @@
+        /// <summary>
+        /// Assert that, running the Min function on a number of randomly
+        /// generated pairs of Vector2 objects, yields the same results as those
+        /// obtained from performing a manual Min calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Min ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Vector2 b = a * 2;
+
+                Vector2 result;
+                Vector2.Min (ref a, ref b, out result);
+
+                Assert.That(result.X, Is.EqualTo(a.X < b.X ? a.X : b.X ));
+                Assert.That(result.Y, Is.EqualTo(a.Y < b.Y ? a.Y : b.Y ));
+            }
+        }
+
+        /// <summary>
+        /// Assert that, running the Max function on a number of randomly
+        /// generated pairs of Vector2 objects, yields the same results as those
+        /// obtained from performing a manual Max calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Max ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Vector2 b = GetNextRandomVector2();
+
+                Vector2 result;
+                Vector2.Max (ref a, ref b, out result);
+
+                Assert.That(result.X, Is.EqualTo(a.X > b.X ? a.X : b.X ));
+                Assert.That(result.Y, Is.EqualTo(a.Y > b.Y ? a.Y : b.Y ));
+            }
+        }
+
+        /// <summary>
+        /// Assert that, running the Clamp function on a number of randomly
+        /// generated Vector2 objects for a given min-max range, yields
+        /// results that fall within that range.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Clamp_i ()
+        {
+            Vector2 min = new Vector2(-30, 1);
+            Vector2 max = new Vector2(32, 130);
+
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector2 a = GetNextRandomVector2();
+
+                Vector2 result;
+                Vector2.Clamp (ref a, ref min, ref max, out result);
+
+                Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+                Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+                Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+                Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+            }
+        }
+
+        /// <summary>
+        /// Assert that, running the Clamp function on an a Vector2 object known
+        /// to fall outside of a given min-max range, yields a result that fall
+        /// within that range.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Clamp_ii ()
+        {
+            Vector2 min = new Vector2(-30, 1);
+            Vector2 max = new Vector2(32, 130);
+
+            Vector2 a = new Vector2(-100, 1113);
+
+            Vector2 expected = new Vector2(-30, 130);
+
+            Vector2 result;
+            Vector2.Clamp (ref a, ref min, ref max, out result);
+
+            Assert.That(result.X, Is.LessThanOrEqualTo(max.X));
+            Assert.That(result.Y, Is.LessThanOrEqualTo(max.Y));
+            Assert.That(result.X, Is.GreaterThanOrEqualTo(min.X));
+            Assert.That(result.Y, Is.GreaterThanOrEqualTo(min.Y));
+
+            AssertEqualWithinReason(result, expected);
+
+        }
+
+        /// <summary>
+        /// Assert that, running the Lerp function on a number of randomly
+        /// generated pairs of Vector2 objects for a range of weighting amounts,
+        /// yields the same results as those obtained from performing a manual
+        /// Lerp calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_i ()
+        {
+            for(Int32 j = 0; j < 100; ++j)
+            {
+                <#=T#> delta = j;
+
+                delta = delta / 100;
+
+                for(Int32 i = 0; i < 100; ++i)
+                {
+                    Vector2 a = GetNextRandomVector2();
+                    Vector2 b = GetNextRandomVector2();
+
+                    Vector2 result;
+                    Vector2.Lerp (ref a, ref b, ref delta, out result);
+
+                    Vector2 expected = a + ( ( b - a ) * delta );
+
+                    AssertEqualWithinReason(result, expected);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Lerp_ii ()
+        {
+            Vector2 a = GetNextRandomVector2();
+            Vector2 b = GetNextRandomVector2();
+
+            <#=T#> half; Maths.Half(out half);
+
+            var tests = new <#=T#>[] { 2, half + 1, -half, -1 };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                Vector2 result;
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                        Vector2.Lerp (
+                            ref a, ref b, ref tests[i], out result)
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Tests that for the simple vectors the IsUnit member function
+        /// returns the correct result of TRUE.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_i ()
+        {
+            Vector2 a = new Vector2( 1,  0);
+            Vector2 b = new Vector2(-1,  0);
+            Vector2 c = new Vector2( 0,  1);
+            Vector2 d = new Vector2( 0, -1);
+            Vector2 e = new Vector2( 1,  1);
+            Vector2 f = new Vector2( 0,  0);
+
+            Boolean aIsUnit;
+            Boolean bIsUnit;
+            Boolean cIsUnit;
+            Boolean dIsUnit;
+            Boolean eIsUnit;
+            Boolean fIsUnit;
+
+            Vector2.IsUnit(ref a, out aIsUnit);
+            Vector2.IsUnit(ref b, out bIsUnit);
+            Vector2.IsUnit(ref c, out cIsUnit);
+            Vector2.IsUnit(ref d, out dIsUnit);
+            Vector2.IsUnit(ref e, out eIsUnit);
+            Vector2.IsUnit(ref f, out fIsUnit);
+
+            Assert.That(aIsUnit, Is.EqualTo(true));
+            Assert.That(bIsUnit, Is.EqualTo(true));
+            Assert.That(cIsUnit, Is.EqualTo(true));
+            Assert.That(dIsUnit, Is.EqualTo(true));
+
+            Assert.That(eIsUnit, Is.EqualTo(false));
+            Assert.That(fIsUnit, Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of TRUE for a number of scenarios where the test
+        /// vector is both random and normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+
+                Vector2 b; Vector2.Normalise(ref a, out b);
+
+                Boolean bIsUnit;
+                Vector2.IsUnit(ref b, out bIsUnit);
+
+                Assert.That(bIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test ensures that the IsUnit member function correctly
+        /// returns TRUE for a collection of vectors, all known to be of unit
+        /// length.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iii ()
+        {
+            <#=T#> radius = 1;
+
+            <#=T#> pi; Maths.Pi(out pi);
+
+            for( Int32 i = 0; i <= 1000; ++ i)
+            {
+                <#=T#> theta = 2 * pi * i * radius / 100;
+
+                <#=T#> x = Maths.Sin(theta);
+                <#=T#> y = Maths.Cos(theta);
+
+                Vector2 a = new Vector2(x,  y);
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+
+                Assert.That(aIsUnit, Is.EqualTo(true));
+            }
+        }
+
+        /// <summary>
+        /// This test makes sure that the IsUnit member function returns the
+        /// correct result of FALSE for a number of scenarios where the test
+        /// vector is randomly generated and not normalised.  It's highly
+        /// unlikely that the random generator will create a unit vector!
+        /// </summary>
+        [Test]
+        public void TestStaticFn_IsUnit_iv ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector2 a = GetNextRandomVector2();
+                Boolean aIsUnit;
+                Vector2.IsUnit(ref a, out aIsUnit);
+                Assert.That(aIsUnit, Is.EqualTo(false));
+            }
+        }
+

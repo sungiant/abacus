@@ -1,0 +1,66 @@
+﻿        // Constants //-------------------------------------------------------//
+
+        /// <summary>
+        /// Defines a Vector2 with all of its components set to zero.
+        /// </summary>
+        readonly static Vector2 zero;
+
+        /// <summary>
+        /// Defines a Vector2 with all of its components set to one.
+        /// </summary>
+        readonly static Vector2 one;
+
+        /// <summary>
+        /// Defines the unit Vector2 for the X-axis.
+        /// </summary>
+        readonly static Vector2 unitX;
+
+        /// <summary>
+        /// Defines the unit Vector2 for the Y-axis.
+        /// </summary>
+        readonly static Vector2 unitY;
+
+        /// <summary>
+        /// Static constructor used to initilise static constants.
+        /// </summary>
+        static Vector2 ()
+        {
+            zero =      new Vector2 ();
+            one =       new Vector2 (1, 1);
+
+            unitX =     new Vector2 (1, 0);
+            unitY =     new Vector2 (0, 1);
+        }
+
+        /// <summary>
+        /// Returns a Vector2 with all of its components set to zero.
+        /// </summary>
+        public static Vector2 Zero
+        {
+            get { return zero; }
+        }
+        
+        /// <summary>
+        /// Returns a Vector2 with all of its components set to one.
+        /// </summary>
+        public static Vector2 One
+        {
+            get { return one; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector2 for the X-axis.
+        /// </summary>
+        public static Vector2 UnitX
+        {
+            get { return unitX; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector2 for the Y-axis.
+        /// </summary>
+        public static Vector2 UnitY
+        {
+            get { return unitY; }
+        }
+

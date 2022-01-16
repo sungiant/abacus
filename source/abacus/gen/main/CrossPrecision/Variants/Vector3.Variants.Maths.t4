@@ -1,0 +1,109 @@
+        // Variant Maths //---------------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Distance (
+            Vector3 vector1, Vector3 vector2)
+        {
+            <#=T#> result;
+            Distance (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> DistanceSquared (
+            Vector3 vector1, Vector3 vector2)
+        {
+            <#=T#> result;
+            DistanceSquared (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Dot (
+            Vector3 vector1, Vector3 vector2)
+        {
+            <#=T#> result;
+            Dot (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Normalise (Vector3 vector)
+        {
+            Vector3 result;
+            Normalise (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Reflect (
+            Vector3 vector, Vector3 normal)
+        {
+            Vector3 result;
+            Reflect (ref vector, ref normal, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Matrix44 matrix)
+        {
+            Vector3 result;
+            Transform (ref vector, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 Transform (
+            Vector3 vector, Quaternion rotation)
+        {
+            Vector3 result;
+            Transform (ref vector, ref rotation, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector3 TransformNormal (
+            Vector3 normal, Matrix44 matrix)
+        {
+            Vector3 result;
+            TransformNormal (ref normal, ref matrix, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Length (Vector3 vector)
+        {
+            <#=T#> result;
+            Length (ref vector, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> LengthSquared (Vector3 vector)
+        {
+            <#=T#> result;
+            LengthSquared (ref vector, out result);
+            return result;
+        }
+

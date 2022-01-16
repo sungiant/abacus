@@ -1,0 +1,62 @@
+        // Variant Utilities //-----------------------------------------------//
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Min (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Min (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Max (
+            Vector4 vector1,
+            Vector4 vector2)
+        {
+            Vector4 result;
+            Max (ref vector1, ref vector2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Clamp (
+            Vector4 vector,
+            Vector4 min,
+            Vector4 max)
+        {
+            Vector4 result;
+            Clamp (ref vector, ref min, ref max, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Vector4 Lerp (
+            Vector4 vector1,
+            Vector4 vector2,
+            <#=T#> amount)
+        {
+            Vector4 result;
+            Lerp (ref vector1, ref vector2, ref amount, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean IsUnit (Vector4 vector)
+        {
+            Boolean result;
+            IsUnit (ref vector, out result);
+            return result;
+        }
+

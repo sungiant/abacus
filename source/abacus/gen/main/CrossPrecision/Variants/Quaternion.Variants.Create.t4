@@ -1,0 +1,35 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromAxisAngle (
+            Vector3 axis,
+            <#=T#> angle)
+        {
+            Quaternion result;
+            CreateFromAxisAngle (ref axis, ref angle, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromYawPitchRoll (
+            <#=T#> yaw,
+            <#=T#> pitch,
+            <#=T#> roll)
+        {
+            Quaternion result;
+            CreateFromYawPitchRoll (ref yaw, ref pitch, ref roll, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion CreateFromRotationMatrix (
+            Matrix44 matrix)
+        {
+            Quaternion result;
+            CreateFromRotationMatrix (ref matrix, out result);
+            return result;
+        }

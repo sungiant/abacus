@@ -1,0 +1,154 @@
+        // Test Constant: Zero //---------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the Zero constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Zero_i ()
+        {
+            Vector3 result = Vector3.Zero;
+            Vector3 expected = new Vector3(0, 0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: One //----------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the One constant
+        /// has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_One_i ()
+        {
+            Vector3 result = Vector3.One;
+            Vector3 expected = new Vector3(1, 1, 1);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitX //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the UnitX 
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitX_i ()
+        {
+            Vector3 result = Vector3.UnitX;
+            Vector3 expected = new Vector3(1, 0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitY //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the UnitY
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitY_i ()
+        {
+            Vector3 result = Vector3.UnitY;
+            Vector3 expected = new Vector3(0, 1, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: UnitZ //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the UnitZ
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_UnitZ_i ()
+        {
+            Vector3 result = Vector3.UnitZ;
+            Vector3 expected = new Vector3(0, 0, 1);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: Up //-----------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the Up
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Up_i ()
+        {
+            Vector3 result = Vector3.Up;
+            Vector3 expected = new Vector3(0, 1, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: Down //---------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the Down
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Down_i ()
+        {
+            Vector3 result = Vector3.Down;
+            Vector3 expected = new Vector3(0, -1, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: Right //--------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the Right
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Right_i ()
+        {
+            Vector3 result = Vector3.Right;
+            Vector3 expected = new Vector3(1, 0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: Left //---------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the Left
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Left_i ()
+        {
+            Vector3 result = Vector3.Left;
+            Vector3 expected = new Vector3(-1, 0, 0);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: Forward //------------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the Forward
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Forward_i ()
+        {
+            Vector3 result = Vector3.Forward;
+            Vector3 expected = new Vector3(0, 0, -1);
+            AssertEqualWithinReason(result, expected);
+        }
+
+        // Test Constant: Backward //-----------------------------------------//
+
+        /// <summary>
+        /// Tests to make sure that a Vector3 initilised using the Backward
+        /// constant has it's member variables correctly set.
+        /// </summary>
+        [Test]
+        public void TestConstant_Backward_i ()
+        {
+            Vector3 result = Vector3.Backward;
+            Vector3 expected = new Vector3(0, 0, 1);
+            AssertEqualWithinReason(result, expected);
+        }
+

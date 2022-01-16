@@ -1,0 +1,127 @@
+    /// <summary>
+    ///
+    /// </summary>
+    [TestFixture]
+    public class QuaternionTests
+    {
+<#@ include file="Quaternion.TestHelpers.t4"#>
+
+        // Test: StructLayout //----------------------------------------------//
+
+        /// <summary>
+        /// This test makes sure that the struct layout has been defined
+        /// correctly.
+        /// </summary>
+        [Test]
+        public void Test_StructLayout_i ()
+        {
+            Type t = typeof(Quaternion);
+
+            Assert.That(
+                t.StructLayoutAttribute.Value,
+                Is.EqualTo(LayoutKind.Sequential));
+        }
+
+        /// <summary>
+        /// This test makes sure that when examining the memory addresses of the
+        /// X, Y, Z and W member variables of a number of randomly generated
+        /// Quaterion objects the results are as expected.
+        /// </summary>
+        [Test]
+        public unsafe void Test_StructLayout_ii ()
+        {
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Quaternion quat = GetNextRandomQuaternion();
+
+                GCHandle h_quat = GCHandle.Alloc(quat, GCHandleType.Pinned);
+
+                IntPtr quatAddress = h_quat.AddrOfPinnedObject();
+
+                <#=T#>[] data = new <#=T#>[4];
+
+                // nb: when Fixed32 and Half are moved back into the main
+                //     dev branch there will be need for an extension method for
+                //     Marshal that will perform the copy for those types.
+                MarshalHelper.Copy(quatAddress, data, 0, 4);
+                Assert.That(data[0], Is.EqualTo(quat.I));
+                Assert.That(data[1], Is.EqualTo(quat.J));
+                Assert.That(data[2], Is.EqualTo(quat.K));
+                Assert.That(data[3], Is.EqualTo(quat.U));
+
+                h_quat.Free();
+            }
+        }
+
+        /// <summary>
+        /// This test goes though each public constuctor and ensures that the
+        /// data members of the structure have been properly set.
+        /// </summary>
+        [Test]
+        public void Test_Constructors_i ()
+        {
+            {
+                // Test default values
+                Quaternion a = new Quaternion();
+                Assert.That(a, Is.EqualTo(Quaternion.Zero));
+            }
+            {
+                // Test Quaternion( <#=T#>, <#=T#>, <#=T#>, <#=T#> )
+                <#=T#> a = -189;
+                <#=T#> b = 429;
+                <#=T#> c = 4298;
+                <#=T#> d = 341;
+                Quaternion e = new Quaternion(a, b, c, d);
+                Assert.That(e.I, Is.EqualTo(a));
+                Assert.That(e.J, Is.EqualTo(b));
+                Assert.That(e.K, Is.EqualTo(c));
+                Assert.That(e.U, Is.EqualTo(d));
+            }
+            {
+                // Test Quaternion( Vector3, <#=T#> )
+                Vector3 a = new Vector3(-189, 429, 4298);
+                <#=T#> b = 341;
+                Quaternion c = new Quaternion(a, b);
+                Assert.That(c.I, Is.EqualTo(a.X));
+                Assert.That(c.J, Is.EqualTo(a.Y));
+                Assert.That(c.K, Is.EqualTo(a.Z));
+                Assert.That(c.U, Is.EqualTo(b));
+            }
+        }
+
+        [Test]
+        public void TestMemberFn_ToString ()
+        {
+            Quaternion a = new Quaternion(42, -17, 13, 44);
+
+            String result = a.ToString();
+
+            String expected = "{I:42 J:-17 K:13 U:44}";
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void TestMemberFn_GetHashCode ()
+        {
+            var hs1 = new System.Collections.Generic.HashSet<Quaternion>();
+            var hs2 = new System.Collections.Generic.HashSet<Int32>();
+
+            for(Int32 i = 0; i < 10000; ++i)
+            {
+                var a = GetNextRandomQuaternion();
+
+                hs1.Add(a);
+                hs2.Add(a.GetHashCode());
+            }
+
+            Assert.That(hs1.Count, Is.EqualTo(hs2.Count).Within(10));
+        }
+
+<#@ include file="Quaternion.Constants.Tests.t4"#>
+<#@ include file="Quaternion.Create.Tests.t4"#>
+<#@ include file="Quaternion.Maths.Tests.t4"#>
+<#@ include file="Quaternion.Operators.Tests.t4"#>
+<#@ include file="Quaternion.Utilities.Tests.t4"#>
+    }
+

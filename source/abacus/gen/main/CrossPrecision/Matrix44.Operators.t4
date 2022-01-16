@@ -1,0 +1,197 @@
+﻿        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Matrix44 objects are equal using the
+        /// (X==Y) operator.
+        /// </summary>
+        public static void Equals (
+            ref Matrix44 m1, ref Matrix44 m2, out Boolean result)
+        {
+            result =
+                (m1.R0C0 == m2.R0C0) && (m1.R1C1 == m2.R1C1) &&
+                (m1.R2C2 == m2.R2C2) && (m1.R3C3 == m2.R3C3) &&
+                (m1.R0C1 == m2.R0C1) && (m1.R0C2 == m2.R0C2) &&
+                (m1.R0C3 == m2.R0C3) && (m1.R1C0 == m2.R1C0) &&
+                (m1.R1C2 == m2.R1C2) && (m1.R1C3 == m2.R1C3) &&
+                (m1.R2C0 == m2.R2C0) && (m1.R2C1 == m2.R2C1) &&
+                (m1.R2C3 == m2.R2C3) && (m1.R3C0 == m2.R3C0) &&
+                (m1.R3C1 == m2.R3C1) && (m1.R3C2 == m2.R3C2);
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Matrix44 objects.
+        /// </summary>
+        public static void Add (
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
+        {
+            result.R0C0 = m1.R0C0 + m2.R0C0;
+            result.R0C1 = m1.R0C1 + m2.R0C1;
+            result.R0C2 = m1.R0C2 + m2.R0C2;
+            result.R0C3 = m1.R0C3 + m2.R0C3;
+            result.R1C0 = m1.R1C0 + m2.R1C0;
+            result.R1C1 = m1.R1C1 + m2.R1C1;
+            result.R1C2 = m1.R1C2 + m2.R1C2;
+            result.R1C3 = m1.R1C3 + m2.R1C3;
+            result.R2C0 = m1.R2C0 + m2.R2C0;
+            result.R2C1 = m1.R2C1 + m2.R2C1;
+            result.R2C2 = m1.R2C2 + m2.R2C2;
+            result.R2C3 = m1.R2C3 + m2.R2C3;
+            result.R3C0 = m1.R3C0 + m2.R3C0;
+            result.R3C1 = m1.R3C1 + m2.R3C1;
+            result.R3C2 = m1.R3C2 + m2.R3C2;
+            result.R3C3 = m1.R3C3 + m2.R3C3;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Matrix44 objects.
+        /// </summary>
+        public static void Subtract (
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
+        {
+            result.R0C0 = m1.R0C0 - m2.R0C0;
+            result.R0C1 = m1.R0C1 - m2.R0C1;
+            result.R0C2 = m1.R0C2 - m2.R0C2;
+            result.R0C3 = m1.R0C3 - m2.R0C3;
+            result.R1C0 = m1.R1C0 - m2.R1C0;
+            result.R1C1 = m1.R1C1 - m2.R1C1;
+            result.R1C2 = m1.R1C2 - m2.R1C2;
+            result.R1C3 = m1.R1C3 - m2.R1C3;
+            result.R2C0 = m1.R2C0 - m2.R2C0;
+            result.R2C1 = m1.R2C1 - m2.R2C1;
+            result.R2C2 = m1.R2C2 - m2.R2C2;
+            result.R2C3 = m1.R2C3 - m2.R2C3;
+            result.R3C0 = m1.R3C0 - m2.R3C0;
+            result.R3C1 = m1.R3C1 - m2.R3C1;
+            result.R3C2 = m1.R3C2 - m2.R3C2;
+            result.R3C3 = m1.R3C3 - m2.R3C3;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Matrix44 object.
+        /// </summary>
+        public static void Negate (ref Matrix44 matrix, out Matrix44 result)
+        {
+            result.R0C0 = -matrix.R0C0;
+            result.R0C1 = -matrix.R0C1;
+            result.R0C2 = -matrix.R0C2;
+            result.R0C3 = -matrix.R0C3;
+            result.R1C0 = -matrix.R1C0;
+            result.R1C1 = -matrix.R1C1;
+            result.R1C2 = -matrix.R1C2;
+            result.R1C3 = -matrix.R1C3;
+            result.R2C0 = -matrix.R2C0;
+            result.R2C1 = -matrix.R2C1;
+            result.R2C2 = -matrix.R2C2;
+            result.R2C3 = -matrix.R2C3;
+            result.R3C0 = -matrix.R3C0;
+            result.R3C1 = -matrix.R3C1;
+            result.R3C2 = -matrix.R3C2;
+            result.R3C3 = -matrix.R3C3;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Matrix44 objects.
+        /// </summary>
+        public static void Multiply (
+            ref Matrix44 m1, ref Matrix44 m2, out Matrix44 result)
+        {
+            result.R0C0 =
+                (m1.R0C0 * m2.R0C0) + (m1.R0C1 * m2.R1C0) +
+                (m1.R0C2 * m2.R2C0) + (m1.R0C3 * m2.R3C0);
+
+            result.R0C1 =
+                (m1.R0C0 * m2.R0C1) + (m1.R0C1 * m2.R1C1) +
+                (m1.R0C2 * m2.R2C1) + (m1.R0C3 * m2.R3C1);
+
+            result.R0C2 =
+                (m1.R0C0 * m2.R0C2) + (m1.R0C1 * m2.R1C2) +
+                (m1.R0C2 * m2.R2C2) + (m1.R0C3 * m2.R3C2);
+
+            result.R0C3 =
+                (m1.R0C0 * m2.R0C3) + (m1.R0C1 * m2.R1C3) +
+                (m1.R0C2 * m2.R2C3) + (m1.R0C3 * m2.R3C3);
+
+            result.R1C0 =
+                (m1.R1C0 * m2.R0C0) + (m1.R1C1 * m2.R1C0) +
+                (m1.R1C2 * m2.R2C0) + (m1.R1C3 * m2.R3C0);
+
+            result.R1C1 =
+                (m1.R1C0 * m2.R0C1) + (m1.R1C1 * m2.R1C1) +
+                (m1.R1C2 * m2.R2C1) + (m1.R1C3 * m2.R3C1);
+
+            result.R1C2 =
+                (m1.R1C0 * m2.R0C2) + (m1.R1C1 * m2.R1C2) +
+                (m1.R1C2 * m2.R2C2) + (m1.R1C3 * m2.R3C2);
+
+            result.R1C3 =
+                (m1.R1C0 * m2.R0C3) + (m1.R1C1 * m2.R1C3) +
+                (m1.R1C2 * m2.R2C3) + (m1.R1C3 * m2.R3C3);
+
+            result.R2C0 =
+                (m1.R2C0 * m2.R0C0) + (m1.R2C1 * m2.R1C0) +
+                (m1.R2C2 * m2.R2C0) + (m1.R2C3 * m2.R3C0);
+
+            result.R2C1 =
+                (m1.R2C0 * m2.R0C1) + (m1.R2C1 * m2.R1C1) +
+                (m1.R2C2 * m2.R2C1) + (m1.R2C3 * m2.R3C1);
+
+            result.R2C2 =
+                (m1.R2C0 * m2.R0C2) + (m1.R2C1 * m2.R1C2) +
+                (m1.R2C2 * m2.R2C2) + (m1.R2C3 * m2.R3C2);
+
+            result.R2C3 =
+                (m1.R2C0 * m2.R0C3) + (m1.R2C1 * m2.R1C3) +
+                (m1.R2C2 * m2.R2C3) + (m1.R2C3 * m2.R3C3);
+
+            result.R3C0 =
+                (m1.R3C0 * m2.R0C0) + (m1.R3C1 * m2.R1C0) +
+                (m1.R3C2 * m2.R2C0) + (m1.R3C3 * m2.R3C0);
+
+            result.R3C1 =
+                (m1.R3C0 * m2.R0C1) + (m1.R3C1 * m2.R1C1) +
+                (m1.R3C2 * m2.R2C1) + (m1.R3C3 * m2.R3C1);
+
+            result.R3C2 =
+                (m1.R3C0 * m2.R0C2) + (m1.R3C1 * m2.R1C2) +
+                (m1.R3C2 * m2.R2C2) + (m1.R3C3 * m2.R3C2);
+
+            result.R3C3 =
+                (m1.R3C0 * m2.R0C3) + (m1.R3C1 * m2.R1C3) +
+                (m1.R3C2 * m2.R2C3) + (m1.R3C3 * m2.R3C3);
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Matrix44 object and a <#=T#>
+        /// precision scaling factor.
+        /// </summary>
+        public static void Multiply (
+            ref Matrix44 matrix,
+            ref <#=T#> scaleFactor,
+            out Matrix44 result)
+        {
+            result.R0C0 = matrix.R0C0 * scaleFactor;
+            result.R0C1 = matrix.R0C1 * scaleFactor;
+            result.R0C2 = matrix.R0C2 * scaleFactor;
+            result.R0C3 = matrix.R0C3 * scaleFactor;
+            result.R1C0 = matrix.R1C0 * scaleFactor;
+            result.R1C1 = matrix.R1C1 * scaleFactor;
+            result.R1C2 = matrix.R1C2 * scaleFactor;
+            result.R1C3 = matrix.R1C3 * scaleFactor;
+            result.R2C0 = matrix.R2C0 * scaleFactor;
+            result.R2C1 = matrix.R2C1 * scaleFactor;
+            result.R2C2 = matrix.R2C2 * scaleFactor;
+            result.R2C3 = matrix.R2C3 * scaleFactor;
+            result.R3C0 = matrix.R3C0 * scaleFactor;
+            result.R3C1 = matrix.R3C1 * scaleFactor;
+            result.R3C2 = matrix.R3C2 * scaleFactor;
+            result.R3C3 = matrix.R3C3 * scaleFactor;
+        }
+

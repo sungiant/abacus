@@ -1,0 +1,173 @@
+﻿<#+
+    class FixedTypeDefinition
+    {
+        public String TypeName { get; private set; }
+        public String RawTypeName { get; private set; }
+        public UInt16 ByteCount { get; private set; }
+        public UInt16 FractionalByteCount { get; private set; }
+
+        public FixedTypeDefinition (String typeName, String rawTypeName, UInt16 byteCount, UInt16 fractionalByteCount)
+        {
+            this.TypeName = typeName;
+            this.RawTypeName = rawTypeName;
+            this.ByteCount = byteCount;
+            this.FractionalByteCount = fractionalByteCount;
+        }
+    }
+
+    Dictionary<String, FixedTypeDefinition> GetFixedTypeDefinitions()
+    {
+        return new Dictionary<String, FixedTypeDefinition> ()
+        {
+            { "Fixed32", new FixedTypeDefinition ("Fixed32", "Int32", 32, 12) }
+        };
+    }
+
+    String[] GetSupportedPrecisions()
+    {
+        var builtInTypes = new List<String>()
+        {
+            "Single", "Double"
+        };
+
+        var customTypes = GetFixedTypeDefinitions().Keys;
+
+        var allTypes = new List<String>();
+
+        allTypes.AddRange (builtInTypes);
+        allTypes.AddRange (customTypes);
+
+        return allTypes.ToArray();
+    }
+
+    String GetMathsStr (String rt, String ct)
+    {
+        // http://keisan.casio.com/calculator
+        var constants = new Dictionary<String, Dictionary<String, String>> ()
+        {
+            {
+                "Double",
+                new Dictionary<String, String> ()
+                {
+                    { "E",              "2.71828182845904523536028747135" },
+                    { "Epsilon",        "0.00000100000000000000000000000" },
+                    { "Half",           "0.50000000000000000000000000000" },
+                    { "Quarter",        "0.25000000000000000000000000000" },
+                    { "Log10E",         "0.43429448190325182765112891892" },
+                    { "Log2E",          "1.44269504088896340735992468100" },
+                    { "Pi",             "3.14159265358979323846264338328" },
+                    { "Root2",          "1.41421356237309504880168872421" },
+                    { "Root3",          "1.73205080756887729352744634151" },
+                    { "Tau",            "6.28318530717958647692528676656" },
+                    { "Zero",           "0.00000000000000000000000000000" },
+                    { "One",            "1.00000000000000000000000000000" },
+                    { "TestTolerance",  "0.00000010000000000000000000000" },
+                    { "ArcCos", "return Math.Acos(value)" },
+                    { "ArcSin", "return Math.Asin(value)" },
+                    { "ArcTan", "return Math.Atan(value)" },
+                    { "Cos", "return Math.Cos(value)" },
+                    { "Sin", "return Math.Sin(value)" },
+                    { "Tan", "return Math.Tan(value)" },
+                    { "Sqrt", "return Math.Sqrt(value)" },
+                    { "Square", "return value * value" },
+                    { "Abs", "return Math.Abs(value)" }
+                }
+            },
+            {
+                "Single",
+                new Dictionary<String, String> ()
+                {
+                    { "E",              "2.718282f" },
+                    { "Epsilon",        "0.000001f" },
+                    { "Half",           "0.500000f" },
+                    { "Quarter",        "0.250000f" },
+                    { "Log10E",         "0.434294f" },
+                    { "Log2E",          "1.442695f" },
+                    { "Pi",             "3.141593f" },
+                    { "Root2",          "1.414214f" },
+                    { "Root3",          "1.732051f" },
+                    { "Tau",            "6.283185f" },
+                    { "Zero",           "0.000000f" },
+                    { "One",            "1.000000f" },
+                    { "TestTolerance",  "0.001000f" },
+                    { "ArcCos", "return (Single) Math.Acos((Single) value)" },
+                    { "ArcSin", "return (Single) Math.Asin((Single) value)" },
+                    { "ArcTan", "return (Single) Math.Atan((Single) value)" },
+                    { "Cos", "return (Single) Math.Cos((Single) value)" },
+                    { "Sin", "return (Single) Math.Sin((Single) value)" },
+                    { "Tan", "return (Single) Math.Tan((Single) value)" },
+                    { "Sqrt", "return (Single) Math.Sqrt((Single) value)" },
+                    { "Square", "return value * value" },
+                    { "Abs", "return (Single)Math.Abs((Single)value)" }
+                }
+            },
+            {
+                "Fixed32",
+                new Dictionary<String, String> ()
+                {
+                    { "E",              "(Fixed32) 2.718282" },
+                    { "Epsilon",        "(Fixed32) 0.000001" },
+                    { "Half",           "(Fixed32) 0.500000" },
+                    { "Quarter",        "(Fixed32) 0.250000" },
+                    { "Log10E",         "(Fixed32) 0.434294" },
+                    { "Log2E",          "(Fixed32) 1.442695" },
+                    { "Pi",             "(Fixed32) 3.141593" },
+                    { "Root2",          "(Fixed32) 1.414214" },
+                    { "Root3",          "(Fixed32) 1.732051" },
+                    { "Tau",            "(Fixed32) 6.283185" },
+                    { "Zero",           "(Fixed32) 0.000000" },
+                    { "One",            "(Fixed32) 1.000000" },
+                    { "TestTolerance",  "(Fixed32) 0.001000" },
+                    { "ArcCos", "throw new NotImplementedException ()" },
+                    { "ArcSin", "throw new NotImplementedException ()" },
+                    { "ArcTan", "throw new NotImplementedException ()" },
+                    { "Cos", "return Fixed32.Cos(value)" },
+                    { "Sin", "return Fixed32.Sin(value)" },
+                    { "Tan", "return Fixed32.Tan(value)" },
+                    { "Sqrt", "return Fixed32.Sqrt(value)" },
+                    { "Square", "return Fixed32.Square(value)" },
+                    { "Abs", "return (value < new Fixed32(0)) ? value * new Fixed32(-1) : value" }
+                }
+            }
+        };
+
+        if (constants.ContainsKey (rt))
+        {
+            if (constants [rt].ContainsKey (ct))
+            return constants [rt][ct];
+        }
+
+        throw new NotImplementedException ();
+
+    }
+
+    void GenerateMathsConstant (string type, string name)
+    {
+#>
+        /// <summary>
+        /// Provides the constant <#= name #>.
+        /// </summary>
+        public static void <#= name #> (out <#= type #> value)
+        {
+<#+         string s = GetMathsStr (type, name); #>
+            value = <#= s #>;
+        }
+
+<#+
+    }
+
+    void GenerateMathsFunction (string type, string name)
+    {
+#>
+        /// <summary>
+        /// <#= name #>.
+        /// </summary>
+        public static <#= type #> <#= name #> (<#= type #> value)
+        {
+<#+         string s = GetMathsStr (type, name); #>
+            <#= s #>;
+        }
+
+<#+
+    }
+#>

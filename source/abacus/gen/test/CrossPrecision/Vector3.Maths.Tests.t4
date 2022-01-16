@@ -1,0 +1,625 @@
+        // Test Static Fn: Distance //----------------------------------------//
+
+        /// <summary>
+        /// Assert that, for a number of known examples, the Distance method
+        /// yeilds the correct results.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Distance_i ()
+        {
+            var tests = new Tuple<Vector3, Vector3, <#=T#>>[]
+            {
+                //a -> b -> expected
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    new Vector3(0, 4, 12), new Vector3(3, 0, 0), 13),
+
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    new Vector3(0, -4, 12), new Vector3(3, 0, 0), 13),
+
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    new Vector3(0, -4, -12), new Vector3(-3, 0, 0), 13),
+
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    Vector3.Zero, Vector3.Zero, 0),
+            };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                var test = tests [i];
+                Vector3 a = test.Item1;
+                Vector3 b = test.Item2;
+                <#=T#> expected = test.Item3;
+
+                <#=T#> result;
+                Vector3.Distance(ref a, ref b, out result);
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated examples, the
+        /// Distance method yeilds the same results as those obtained from
+        /// performing a manual calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Distance_ii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                <#=T#> expected =
+                    Maths.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
+
+                Assert.That(a.Length(), Is.EqualTo(expected));
+            }
+        }
+
+        // Test Static Fn: DistanceSquared //---------------------------------//
+
+        /// <summary>
+        /// Assert that, for a number of known examples, the DistanceSquared
+        /// method yeilds the correct results.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_DistanceSquared_i ()
+        {
+            var tests = new Tuple<Vector3, Vector3, <#=T#>>[]
+            {
+                //a -> b -> expected
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    new Vector3(0, 4, 12), new Vector3(3, 0, 0), 169),
+
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    new Vector3(0, -4, 12), new Vector3(3, 0, 0), 169),
+
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    new Vector3(0, -4, 12), new Vector3(-3, 0, 0), 169),
+
+                new Tuple<Vector3, Vector3, <#=T#>> (
+                    Vector3.Zero, Vector3.Zero, 0),
+            };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                var test = tests [i];
+                Vector3 a = test.Item1;
+                Vector3 b = test.Item2;
+                <#=T#> expected = test.Item3;
+
+                <#=T#> result;
+                Vector3.DistanceSquared(ref a, ref b, out result);
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated examples, the
+        /// DistanceSquared method yeilds the same results as those obtained
+        /// from performing a manual calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_DistanceSquared_ii ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector3 a = GetNextRandomVector3();
+                Vector3 b = GetNextRandomVector3();
+
+                Vector3 c = b - a;
+
+                <#=T#> expected = (c.X * c.X) + (c.Y * c.Y) + (c.Z * c.Z);
+                <#=T#> result;
+
+                Vector3.DistanceSquared(ref a, ref b, out result);
+
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        // Test Static Fn: Dot //---------------------------------------------//
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated examples, the
+        /// Dot method yeilds the same results as those obtained from
+        /// performing a manual calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Dot_i ()
+        {
+            for(Int32 i = 0; i < 100; ++i)
+            {
+                Vector3 a = GetNextRandomVector3();
+                Vector3 b = GetNextRandomVector3();
+
+                <#=T#> expected = (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+                <#=T#> result; Vector3.Dot(ref a, ref b, out result);
+
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        /// <summary>
+        /// Assert that two unit vectors pointing in opposing directions yeild a
+        /// dot product of negative one.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Dot_ii ()
+        {
+            Vector3 a = new Vector3(0, 0, 1);
+            Vector3 b = new Vector3(0, 0, -1);
+
+            <#=T#> expected = -1;
+            <#=T#> result; Vector3.Dot(ref a, ref b, out result);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that two unit vectors pointing in the same direction yeild a
+        /// dot product of one.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Dot_iii ()
+        {
+            Vector3 a = new Vector3(0, 0, 1);
+            Vector3 b = new Vector3(0, 0, 1);
+
+            <#=T#> expected = 1;
+            <#=T#> result; Vector3.Dot(ref a, ref b, out result);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Assert that two perpendicular unit vectors yeild a dot product of
+        /// zero.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Dot_iv ()
+        {
+            Vector3 a = new Vector3(0, 1, 0);
+            Vector3 b = new Vector3(0, 0, 1);
+
+            <#=T#> expected = 0;
+            <#=T#> result; Vector3.Dot(ref a, ref b, out result);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        // Test Static Fn: Normalise //---------------------------------------//
+
+        /// <summary>
+        /// Assert that, for a known examples where the weighting parameter is
+        /// is outside the allowed range, the correct exception is thrown.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Normalise_i()
+        {
+            {
+                Vector3 a = Vector3.Zero;
+
+                Vector3 b;
+
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                    Vector3.Normalise(ref a, out b)
+                );
+            }
+
+            {
+                Vector3 a = new Vector3(
+                    <#=T#>.MaxValue,
+                    <#=T#>.MaxValue,
+                    <#=T#>.MaxValue);
+
+                Vector3 b;
+
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                    Vector3.Normalise(ref a, out b)
+                );
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a unit vector (with length equal to one);
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Normalise_ii ()
+        {
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
+
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Vector3 b; Vector3.Normalise(ref a, out b);
+                <#=T#> expected = 1;
+                <#=T#> result1 = b.Length();
+                Assert.That(result1, Is.EqualTo(expected).Within(epsilon));
+
+                // The normalise function takes both a ref and out parameter,
+                // need to check that if we pass in the same value as both
+                // parameters we get the same results.
+                Vector3 c = a;
+                Vector3.Normalise(ref c, out c);
+                <#=T#> result2 = c.Length();
+                Assert.That(result2, Is.EqualTo(expected).Within(epsilon));
+            }
+        }
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated examples, the
+        /// Normalise method yeilds a vector, which when multipled by the
+        /// length of the original vector results in the same vector as the
+        /// original vector;
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Normalise_iii ()
+        {
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
+
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+                <#=T#> l = a.Length();
+                Vector3 expected = a;
+
+                Vector3 b; Vector3.Normalise(ref a, out b);
+                Vector3 result1 = b * l;
+                AssertEqualWithinReason(result1, expected);
+
+                Vector3 c = a;
+
+                // The normalise function takes both a ref and out parameter,
+                // need to check that if we pass in the same value as both
+                // parameters we get the same results.
+                Vector3.Normalise(ref c, out c);
+                Vector3 result2 = c * l;
+                AssertEqualWithinReason(result2, expected);
+            }
+        }
+
+        // Test Static Fn: Cross //-------------------------------------------//
+        [Test]
+        public void TestStaticFn_Cross_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        // Test Static Fn: Reflect //-----------------------------------------//
+
+        /// <summary>
+        /// Assert that, for a number of known examples, the Reflect method
+        /// yeilds the correct results.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Reflect_i ()
+        {
+            var a = new Vector3(20, -5, 10);
+            var b = new Vector3(0, -1, 1); Vector3.Normalise(ref b, out b);
+            var c = new Vector3(2, 0, -1); Vector3.Normalise(ref c, out c);
+            var d = Vector3.Zero;
+            var e = new Vector3(0, 1, 0);
+
+
+            var ex1 = new Vector3(20, 10, -5);
+            var ex2 = new Vector3(-4, -5, 22);
+            var ex3 = d;
+
+            var tests = new Tuple<Vector3, Vector3, Vector3>[]
+            {
+                //incident -> normal -> expected
+                new Tuple<Vector3, Vector3, Vector3> (a, b, ex1),
+                new Tuple<Vector3, Vector3, Vector3> (a, c, ex2),
+                new Tuple<Vector3, Vector3, Vector3> (d, e, ex3),
+            };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                var test = tests [i];
+                Vector3 incident = test.Item1;
+                Vector3 normal = test.Item2;
+                Vector3 expected = test.Item3;
+
+                Vector3 result;
+                Vector3.Reflect(ref incident, ref normal, out result);
+                AssertEqualWithinReason(result, expected);
+            }
+        }
+
+
+        /// <summary>
+        /// Assert that, for a number of randomly generated examples, the
+        /// Reflect method yeilds the same results as those obtained from
+        /// performing a manual calculation.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Reflect_ii ()
+        {
+            <#=T#> epsilon; Maths.Epsilon(out epsilon);
+
+            for( Int32 i = 0; i < 100; ++ i)
+            {
+                Vector3 a = GetNextRandomVector3();
+
+                Vector3 b = GetNextRandomVector3();
+
+                Vector3.Normalise(ref b, out b);
+
+                Vector3 result;
+                Vector3.Reflect(ref a, ref b, out result);
+
+                <#=T#> dot;
+                Vector3.Dot(ref a, ref b, out dot);
+
+                Vector3 expected = a - (2 * dot * b);
+
+                AssertEqualWithinReason(result, expected);
+            }
+        }
+
+        /// <summary>
+        /// Assert that an argument exception is thrown if the value passed in
+        /// to the normal parameter is not normalised.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Reflect_iii ()
+        {
+            Vector3 incident = GetNextRandomVector3();
+            Vector3 normal = new Vector3(12, -241, 123);
+
+            Vector3 result;
+
+            Assert.Throws(
+                typeof(ArgumentOutOfRangeException),
+                () =>
+                Vector3.Reflect(ref incident, ref normal, out result)
+            );
+        }
+
+        // Test Static Fn: TransformMatrix44 //-------------------------------//
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformMatix44_i ()
+        {
+            <#=T#> pi; Maths.Pi (out pi);
+            <#=T#> piOver2 = pi / (<#=T#>) 2;
+            <#=T#> minusPi = -pi;
+
+            Vector3 v1 = new Vector3 (10, 50, -20);
+
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
+            Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
+
+            var tests = new Tuple<Vector3, Matrix44, Vector3>[]
+            {
+                //vector -> transform -> expected
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmati, v1),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat1, new Vector3 (10, -50, 20)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat2, new Vector3 (-20, 50, -10)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat3, new Vector3 (-10, -50, -20)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat4, new Vector3 (-20, 50, -10))
+            };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                var test = tests [i];
+                Vector3 vec = test.Item1;
+                Matrix44 trans = test.Item2;
+                Vector3 expected = test.Item3;
+
+                Vector3 result;
+                Vector3.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
+        }
+
+        // Test Static Fn: TransformNormal //---------------------------------//
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformNormal_i ()
+        {
+            <#=T#> one = 1;
+            <#=T#> six = 6;
+            <#=T#> eight = 8;
+            <#=T#> ten = 10;
+            <#=T#> root3; Maths.Root3 (out root3);
+            <#=T#> pi; Maths.Pi (out pi);
+            <#=T#> minusPi = -pi;
+            <#=T#> piOver2 = pi / (<#=T#>) 2;
+            <#=T#> oneOverRoot3 = one / root3;
+            <#=T#> sixTenths = six / ten;
+            <#=T#> eightTenths = eight / ten;
+
+            // todo: find a set of 3 fraction that make up a 3D unit vector
+            //       for now just use the 2D one
+            Vector3 v1 = new Vector3 (sixTenths, 0, eightTenths);
+            Vector3 v2 = new Vector3 (oneOverRoot3, oneOverRoot3, oneOverRoot3);
+
+            Matrix44 rotmati = Matrix44.Identity;
+            Matrix44 rotmat1; Matrix44.CreateRotationX(ref pi, out rotmat1);
+            Matrix44 rotmat2; Matrix44.CreateRotationY(ref piOver2, out rotmat2);
+            Matrix44 rotmat3; Matrix44.CreateRotationZ(ref minusPi, out rotmat3);
+            Matrix44 rotmat4 = rotmat1 * rotmat2 * rotmat3;
+
+            var tests = new Tuple<Vector3, Matrix44, Vector3>[]
+            {
+                //normal -> transform -> expected
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmati, v1),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat1, new Vector3 (sixTenths, 0, -eightTenths)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat2, new Vector3 (eightTenths, 0, -sixTenths)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat3, new Vector3 (-sixTenths, 0, eightTenths)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v1, rotmat4, new Vector3 (eightTenths, 0, -sixTenths)),
+
+                //normal -> transform -> expected
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v2, rotmati, v2),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v2, rotmat1, new Vector3 (oneOverRoot3, -oneOverRoot3, -oneOverRoot3)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v2, rotmat2, new Vector3 (oneOverRoot3, oneOverRoot3, -oneOverRoot3)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v2, rotmat3, new Vector3 (-oneOverRoot3, -oneOverRoot3, oneOverRoot3)),
+
+                new Tuple<Vector3, Matrix44, Vector3>(
+                    v2, rotmat4, new Vector3 (oneOverRoot3, oneOverRoot3, -oneOverRoot3)),
+            };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                var test = tests [i];
+                Vector3 normalVec = test.Item1;
+                Matrix44 trans = test.Item2;
+                Vector3 expected = test.Item3;
+
+                Vector3 result;
+
+                Vector3.TransformNormal (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+
+                // should also work with the standard transform fn
+                Vector3.Transform (ref normalVec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformNormal_ii ()
+        {
+            Matrix44 rotmat = Matrix44.Identity;
+            var tests = new Vector3[]
+            {
+                new Vector3 (21, -532, 0),
+                new Vector3 (21, +532, 243),
+                new Vector3 (1, -1, 3),
+                new Vector3 (-2435, -2, 25342),
+            };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                var test = tests [i];
+                Vector3 normal = test;
+                Vector3 result;
+                Assert.Throws(
+                    typeof(ArgumentOutOfRangeException),
+                    () =>
+                    Vector3.TransformNormal(ref normal, ref rotmat, out result)
+                );
+            }
+        }
+
+        // Test Static Fn: TransformQuaternion //-----------------------------//
+
+        /// <summary>
+        ///
+        /// </summary>
+        [Test]
+        public void TestStaticFn_TransformQuaternion_i ()
+        {
+            Vector3 v1 = new Vector3 (10, 50, -20);
+
+            Quaternion quatmati = new Quaternion (0, 0, 0, 1); // identity
+            Quaternion quatmat1 = new Quaternion (1, 0, 0, 0);
+            Quaternion quatmat2 = new Quaternion (0, 1, 0, 0);
+            Quaternion quatmat3 = new Quaternion (0, 0, 1, 0);
+
+            var tests = new Tuple<Vector3, Quaternion, Vector3>[]
+            {
+                //vector -> transform -> expected
+                new Tuple<Vector3, Quaternion, Vector3>(
+                    v1, quatmati, v1),
+
+                new Tuple<Vector3, Quaternion, Vector3>(
+                    v1, quatmat1, new Vector3 ( 10, -50,  20)),
+
+                new Tuple<Vector3, Quaternion, Vector3>(
+                    v1, quatmat2, new Vector3 (-10,  50,  20)),
+
+                new Tuple<Vector3, Quaternion, Vector3>(
+                    v1, quatmat3, new Vector3 (-10, -50, -20)),
+            };
+
+            for (Int32 i = 0; i < tests.Length; ++i)
+            {
+                var test = tests [i];
+                Vector3 vec = test.Item1;
+                Quaternion trans = test.Item2;
+                Vector3 expected = test.Item3;
+
+                Vector3 result;
+                Vector3.Transform (ref vec, ref trans, out result);
+                AssertEqualWithinReason(result, expected);
+            }
+        }
+
+        /// <summary>
+        /// Tests that for a known example the Length member function yields
+        /// the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_Length_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            <#=T#> expected = 13;
+
+            <#=T#> result = a.Length();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        /// <summary>
+        /// Tests that for a known example the LengthSquared member function
+        /// yields the correct result.
+        /// </summary>
+        [Test]
+        public void TestStaticFn_LengthSquared_i ()
+        {
+            Vector3 a = new Vector3(3, -4, 12);
+
+            <#=T#> expected = 169;
+
+            <#=T#> result = a.LengthSquared();
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+

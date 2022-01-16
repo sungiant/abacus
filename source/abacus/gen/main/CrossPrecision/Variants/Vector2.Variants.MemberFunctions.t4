@@ -1,0 +1,38 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public <#=T#> Length ()
+        {
+            <#=T#> result;
+            Length (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public <#=T#> LengthSquared ()
+        {
+            <#=T#> result;
+            LengthSquared (ref this, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public void Normalise ()
+        {
+            Normalise (ref this, out this);
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public Boolean IsUnit()
+        {
+            Boolean result;
+            IsUnit (ref this, out result);
+            return result;
+        }
+

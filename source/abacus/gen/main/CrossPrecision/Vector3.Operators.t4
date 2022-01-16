@@ -1,0 +1,104 @@
+﻿        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector3 objects are equal.
+        /// </summary>
+        public static void Equals (
+            ref Vector3 value1, ref Vector3 vector2, out Boolean result)
+        {
+            result =
+                (value1.X == vector2.X) &&
+                (value1.Y == vector2.Y) &&
+                (value1.Z == vector2.Z);
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector3 objects.
+        /// </summary>
+        public static void Add (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
+        {
+            result.X = value1.X + vector2.X;
+            result.Y = value1.Y + vector2.Y;
+            result.Z = value1.Z + vector2.Z;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector3 objects.
+        /// </summary>
+        public static void Subtract (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
+        {
+            result.X = value1.X - vector2.X;
+            result.Y = value1.Y - vector2.Y;
+            result.Z = value1.Z - vector2.Z;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector3 object.
+        /// </summary>
+        public static void Negate (ref Vector3 value, out Vector3 result)
+        {
+            result.X = -value.X;
+            result.Y = -value.Y;
+            result.Z = -value.Z;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector3 objects.
+        /// </summary>
+        public static void Multiply (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
+        {
+            result.X = value1.X * vector2.X;
+            result.Y = value1.Y * vector2.Y;
+            result.Z = value1.Z * vector2.Z;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector3 object and a <#=T#>
+        /// precision scaling factor.
+        /// </summary>
+        public static void Multiply (
+            ref Vector3 value1, ref <#=T#> scaleFactor, out Vector3 result)
+        {
+            result.X = value1.X * scaleFactor;
+            result.Y = value1.Y * scaleFactor;
+            result.Z = value1.Z * scaleFactor;
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector3 objects.
+        /// </summary>
+        public static void Divide (
+            ref Vector3 value1, ref Vector3 vector2, out Vector3 result)
+        {
+            result.X = value1.X / vector2.X;
+            result.Y = value1.Y / vector2.Y;
+            result.Z = value1.Z / vector2.Z;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector3 object and a <#=T#> precision
+        /// scaling factor.
+        /// </summary>
+        public static void Divide (
+            ref Vector3 value1, ref <#=T#> vector2, out Vector3 result)
+        {
+            <#=T#> one = 1;
+            <#=T#> num = one / vector2;
+            result.X = value1.X * num;
+            result.Y = value1.Y * num;
+            result.Z = value1.Z * num;
+        }
+

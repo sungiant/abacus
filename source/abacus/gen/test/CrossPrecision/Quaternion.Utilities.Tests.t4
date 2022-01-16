@@ -1,0 +1,14 @@
+        // Test: StructLayout //----------------------------------------------//
+
+        [Test]
+        public static void TestStaticFn_Slerp_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+
+        [Test]
+        public static void TestStaticFn_Lerp_i ()
+        {
+            throw new InconclusiveException("Not Implemented");
+        }
+

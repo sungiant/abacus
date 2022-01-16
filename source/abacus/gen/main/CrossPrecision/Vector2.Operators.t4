@@ -1,0 +1,94 @@
+﻿        // Equality Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Determines whether or not two Vector2 objects are equal.
+        /// </summary>
+        public static void Equals (
+            ref Vector2 vector1, ref Vector2 vector2, out Boolean result)
+        {
+            result = (vector1.X == vector2.X) && (vector1.Y == vector2.Y);
+        }
+
+        // Addition Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs addition of two Vector2 objects.
+        /// </summary>
+        public static void Add (
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
+        {
+            result.X = vector1.X + vector2.X;
+            result.Y = vector1.Y + vector2.Y;
+        }
+
+        // Subtraction Operators //-------------------------------------------//
+
+        /// <summary>
+        /// Performs subtraction of two Vector2 objects.
+        /// </summary>
+        public static void Subtract (
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
+        {
+            result.X = vector1.X - vector2.X;
+            result.Y = vector1.Y - vector2.Y;
+        }
+
+        // Negation Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs negation of a Vector2 object.
+        /// </summary>
+        public static void Negate (ref Vector2 vector, out Vector2 result)
+        {
+            result.X = -vector.X;
+            result.Y = -vector.Y;
+        }
+
+        // Multiplication Operators //----------------------------------------//
+
+        /// <summary>
+        /// Performs muliplication of two Vector2 objects.
+        /// </summary>
+        public static void Multiply (
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
+        {
+            result.X = vector1.X * vector2.X;
+            result.Y = vector1.Y * vector2.Y;
+        }
+
+        /// <summary>
+        /// Performs multiplication of a Vector2 object and a <#=T#>
+        /// precision scaling factor.
+        /// </summary>
+        public static void Multiply (
+            ref Vector2 vector, ref <#=T#> scaleFactor, out Vector2 result)
+        {
+            result.X = vector.X * scaleFactor;
+            result.Y = vector.Y * scaleFactor;
+        }
+
+        // Division Operators //----------------------------------------------//
+
+        /// <summary>
+        /// Performs division of two Vector2 objects.
+        /// </summary>
+        public static void Divide (
+            ref Vector2 vector1, ref Vector2 vector2, out Vector2 result)
+        {
+            result.X = vector1.X / vector2.X;
+            result.Y = vector1.Y / vector2.Y;
+        }
+
+        /// <summary>
+        /// Performs division of a Vector2 object and a <#=T#> precision
+        /// scaling factor.
+        /// </summary>
+        public static void Divide (
+            ref Vector2 vector1, ref <#=T#> divider, out Vector2 result)
+        {
+            <#=T#> one = 1;
+            <#=T#> num = one / divider;
+            result.X = vector1.X * num;
+            result.Y = vector1.Y * num;
+        }
+

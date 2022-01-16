@@ -1,0 +1,94 @@
+﻿        // Constants //-------------------------------------------------------//
+
+        /// <summary>
+        /// Defines a Vector2 with all of its components set to zero.
+        /// </summary>
+        static Vector4 zero;
+
+        /// <summary>
+        /// Defines a Vector2 with all of its components set to one.
+        /// </summary>
+        static Vector4 one;
+
+        /// <summary>
+        /// Defines the unit Vector2 for the X-axis.
+        /// </summary>
+        static Vector4 unitX;
+
+        /// <summary>
+        /// Defines the unit Vector2 for the Y-axis.
+        /// </summary>
+        static Vector4 unitY;
+
+        /// <summary>
+        /// Defines the unit Vector2 for the Z-axis.
+        /// </summary>
+        static Vector4 unitZ;
+
+        /// <summary>
+        /// Defines the unit Vector2 for the W-axis.
+        /// </summary>
+        static Vector4 unitW;
+
+        /// <summary>
+        /// Static constructor used to initilise static constants.
+        /// </summary>
+        static Vector4 ()
+        {
+            zero =      new Vector4 ();
+            one =       new Vector4 (1, 1, 1, 1);
+
+            unitX =     new Vector4 (1, 0, 0, 0);
+            unitY =     new Vector4 (0, 1, 0, 0);
+            unitZ =     new Vector4 (0, 0, 1, 0);
+            unitW =     new Vector4 (0, 0, 0, 1);
+        }
+
+        /// <summary>
+        /// Returns a Vector4 with all of its components set to zero.
+        /// </summary>
+        public static Vector4 Zero
+        {
+            get { return zero; }
+        }
+
+        /// <summary>
+        /// Returns a Vector4 with all of its components set to one.
+        /// </summary>
+        public static Vector4 One
+        {
+            get { return one; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector2 for the X-axis.
+        /// </summary>
+        public static Vector4 UnitX
+        {
+            get { return unitX; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector2 for the Y-axis.
+        /// </summary>
+        public static Vector4 UnitY
+        {
+            get { return unitY; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector2 for the Z-axis.
+        /// </summary>
+        public static Vector4 UnitZ
+        {
+            get { return unitZ; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector2 for the W-axis.
+        /// </summary>
+        public static Vector4 UnitW
+        {
+            get { return unitW; }
+        }
+        

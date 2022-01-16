@@ -1,0 +1,85 @@
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> LengthSquared (Quaternion quaternion)
+        {
+            <#=T#> result;
+            LengthSquared (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Length (Quaternion quaternion)
+        {
+            <#=T#> result;
+            Length (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Boolean IsUnit (Quaternion quaternion)
+        {
+            Boolean result;
+            IsUnit (ref quaternion, out result);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Conjugate (Quaternion quaternion)
+        {
+            Quaternion result;
+            Conjugate (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Inverse (Quaternion quaternion)
+        {
+            Quaternion result;
+            Inverse (ref quaternion, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static <#=T#> Dot (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            <#=T#> result;
+            Dot (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Concatenate (
+            Quaternion quaternion1,
+            Quaternion quaternion2)
+        {
+            Quaternion result;
+            Concatenate (ref quaternion1, ref quaternion2, out result);
+            return result;
+        }
+
+        /// <summary>
+        /// Variant function.
+        /// </summary>
+        public static Quaternion Normalise (Quaternion quaternion)
+        {
+            Quaternion result;
+            Normalise (ref quaternion, out result);
+            return result;
+        }
+

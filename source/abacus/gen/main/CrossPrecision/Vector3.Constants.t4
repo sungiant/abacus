@@ -1,0 +1,168 @@
+﻿        // Constants //-------------------------------------------------------//
+
+        /// <summary>
+        /// Defines a Vector3 with all of its components set to zero.
+        /// </summary>
+        static Vector3 zero;
+
+        /// <summary>
+        /// Defines a Vector3 with all of its components set to one.
+        /// </summary>
+        static Vector3 one;
+
+        /// <summary>
+        /// Defines the unit Vector3 for the X-axis.
+        /// </summary>
+        static Vector3 unitX;
+
+        /// <summary>
+        /// Defines the unit Vector3 for the Y-axis.
+        /// </summary>
+        static Vector3 unitY;
+
+        /// <summary>
+        /// Defines the unit Vector3 for the Z-axis.
+        /// </summary>
+        static Vector3 unitZ;
+
+        /// <summary>
+        /// Defines a unit Vector3 designating up (0, 1, 0).
+        /// </summary>
+        static Vector3 up;
+
+        /// <summary>
+        /// Defines a unit Vector3 designating down (0, −1, 0).
+        /// </summary>
+        static Vector3 down;
+
+        /// <summary>
+        /// Defines a unit Vector3 pointing to the right (1, 0, 0).
+        /// </summary>
+        static Vector3 right;
+
+        /// <summary>
+        /// Defines a unit Vector3 designating left (−1, 0, 0).
+        /// </summary>
+        static Vector3 left;
+
+        /// <summary>
+        /// Defines a unit Vector3 designating forward in a right-handed 
+        /// coordinate system (0, 0, -1).
+        /// </summary>
+        static Vector3 forward;
+
+        /// <summary>
+        /// Defines a unit Vector3 designating backward in a right-handed 
+        /// coordinate system (0, 0, 1).
+        /// </summary>
+        static Vector3 backward;
+
+        /// <summary>
+        /// Static constructor used to initilise static constants.
+        /// </summary>
+        static Vector3 ()
+        {
+            zero =      new Vector3 ();
+            one =       new Vector3 ( 1,  1,  1);
+
+            unitX =     new Vector3 ( 1,  0,  0);
+            unitY =     new Vector3 ( 0,  1,  0);
+            unitZ =     new Vector3 ( 0,  0,  1);
+
+            up =        new Vector3 ( 0,  1,  0);
+            down =      new Vector3 ( 0, -1,  0);
+            right =     new Vector3 ( 1,  0,  0);
+            left =      new Vector3 (-1,  0,  0);
+            forward =   new Vector3 ( 0,  0, -1);
+            backward =  new Vector3 ( 0,  0,  1);
+        }
+        
+        /// <summary>
+        /// Returns a Vector3 with all of its components set to zero.
+        /// </summary>
+        public static Vector3 Zero
+        {
+            get { return zero; }
+        }
+        
+        /// <summary>
+        /// Returns a Vector3 with all of its components set to one.
+        /// </summary>
+        public static Vector3 One
+        {
+            get { return one; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector3 for the X-axis.
+        /// </summary>
+        public static Vector3 UnitX
+        {
+            get { return unitX; }
+        }
+
+        /// <summary>
+        /// Returns the unit Vector3 for the Y-axis.
+        /// </summary>
+        public static Vector3 UnitY
+        {
+            get { return unitY; }
+        }
+        
+        /// <summary>
+        /// Returns the unit Vector3 for the Z-axis.
+        /// </summary>
+        public static Vector3 UnitZ
+        {
+            get { return unitZ; }
+        }
+        
+        /// <summary>
+        /// Returns a unit Vector3 designating up (0, 1, 0).
+        /// </summary>
+        public static Vector3 Up
+        {
+            get { return up; }
+        }
+        
+        /// <summary>
+        /// Returns a unit Vector3 designating down (0, −1, 0).
+        /// </summary>
+        public static Vector3 Down
+        {
+            get { return down; }
+        }
+        
+        /// <summary>
+        /// Returns a unit Vector3 pointing to the right (1, 0, 0).
+        /// </summary>
+        public static Vector3 Right
+        {
+            get { return right; }
+        }
+        
+        /// <summary>
+        /// Returns a unit Vector3 designating left (−1, 0, 0).
+        /// </summary>
+        public static Vector3 Left
+        {
+            get { return left; }
+        }
+        
+        /// <summary>
+        /// Returns a unit Vector3 designating forward in a right-handed 
+        /// coordinate system (0, 0, -1).
+        /// </summary>
+        public static Vector3 Forward
+        {
+            get { return forward; }
+        }
+        
+        /// <summary>
+        /// Returns a unit Vector3 designating backward in a right-handed 
+        /// coordinate system (0, 0, 1).
+        /// </summary>
+        public static Vector3 Backward
+        {
+            get { return backward; }
+        }
